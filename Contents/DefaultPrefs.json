@@ -1,0 +1,20 @@
+[
+	{
+        "id": "excludegenre",
+        "label": "A semicolon delimited array of genres to exclude from metadata",
+        "type": "text",
+        "default": ""
+    },
+	{
+        "id": "excludeactor",
+        "label": "A semicolon delimited array of additional actors to exclude from metadata",
+        "type": "text",
+        "default": ""
+    },
+	{
+        "id": "tagmapping",
+        "label": "A semicolon delimited array of tag maps",
+        "type": "text",
+        "default": ""
+    }
+]
