@@ -42,7 +42,7 @@ def posterAlreadyExists(posterUrl,metadata):
         if p.lower() == posterUrl.lower():
             return True
     return False
-searchSites = [None] * 54
+searchSites = [None] * 82
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -97,6 +97,34 @@ searchSites[50] = ["Live Naughty Milf","Live Naughty Milf","https://tour.naughty
 searchSites[51] = ["Live Naughty Nurse","Live Naughty Nurse","https://tour.naughtyamerica.com","https://tour.naughtyamerica.com/search?term="]
 searchSites[52] = ["Vixen","Vixen","https://www.vixen.com","https://www.vixen.com/search?q="]
 searchSites[53] = ["Girlsway","Girlsway","https://www.girlsway.com","https://www.girlsway.com/en/search/"]
+searchSites[54] = ["Moms in Control","Moms in Control","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[55] = ["Pornstars Like It Big","Pornstars Like It Big","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[56] = ["Big Tits at Work","Big Tits at Work","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[57] = ["Big Tits at School","Big Tits at School","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[58] = ["Baby Got Boobs","Baby Got Boobs","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[59] = ["Real Wife Stories","Real Wife Stories","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[60] = ["Teens Like It Big","Teens Like It Big","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[61] = ["ZZ Series","ZZ Series","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[62] = ["Mommy Got Boobs","Mommy Got Boobs","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[63] = ["Milfs Like It Big","Milfs Like It Big","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[64] = ["Big Tits in Uniform","Big Tits in Uniform","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[65] = ["Doctor Adventures","Doctor Adventures","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[66] = ["BrazzersExxtra","Exxtra","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[67] = ["Big Tits in Sports","Big Tits in Sports","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[68] = ["Big Butts like it big","Big Butts like it big","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[69] = ["Big Wet Butts","Big Wet Butts","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[70] = ["Dirty Masseur","Dirty Masseur","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[71] = ["Hot and Mean","Hot and Mean","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[72] = ["Shes Gonna Squirt","Shes Gonna Squirt","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[73] = ["Asses In Public","Asses In Public","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[74] = ["Busty Z","Busty Z","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[75] = ["Busty and Real","Busty and Real","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[76] = ["Hot Chicks Big Asses","Hot Chicks Big Asses","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[77] = ["CFNM Clothed Female Male Nude","CFNM Clothed Female Male Nude","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[78] = ["Teens Like It Black","Teens Like It Black","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[79] = ["Racks and Blacks","Racks and Blacks","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[80] = ["Butts and Blacks","Butts and Blacks","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
+searchSites[81] = ["Brazzers","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
 def getSearchSearchURL(siteID):
@@ -233,7 +261,7 @@ class EXCAgent(Agent.Movies):
             ## Brazzers
             ###############
             if siteNum == 2:
-                if searchAll or searchSiteID == 2:
+                if searchAll or searchSiteID == 2 or (searchSiteID >= 54 and searchSiteID <= 81):
                     searchResults = HTML.ElementFromURL('http://www.brazzers.com/search/all/?q=' + encodedTitle)
                     for searchResult in searchResults.xpath('//h2[contains(@class,"scene-card-title")]//a'):
                         Log(str(searchResult.get('href')))
@@ -399,7 +427,7 @@ class EXCAgent(Agent.Movies):
             detailsPageElements = HTML.ElementFromURL(url)
 
             # Summary
-            metadata.studio = "Blacked Raw"
+            metadata.studio = "BlackedRaw"
             paragraph = detailsPageElements.xpath('//span[@class="moreless js-readmore"]')[0].text_content()
             paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
             metadata.summary = paragraph
@@ -450,7 +478,7 @@ class EXCAgent(Agent.Movies):
         ##   Brazzers                                               ##
         ##                                                          ##
         ##############################################################
-        if siteID == 2:
+        if siteID == 2 or (siteID >= 54 and siteID <= 81):
             Log('******UPDATE CALLED*******')
             zzseries = False
             metadata.studio = 'Brazzers'
