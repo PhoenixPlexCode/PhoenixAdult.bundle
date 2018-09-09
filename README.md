@@ -2,7 +2,7 @@
 
 This metadata agent will receive data from multiple sites for scene video releases.
 
-##Features
+## Features
 ============
 The agent searches in two ways, Scene title or scene date with atleast one star name
 
@@ -16,11 +16,11 @@ Currently the features of this metadata agent are:
 - Movie Poster
 - Video banner as video background
 
-##Supported Networks/Site
+## Supported Networks/Site
 ============
-- **Blacked** *Title Search *Date/Actor Search
-- **BlackedRaw** *Title Search *Date/Actor Search
-- **Brazzers Network** *Title Search
+#### Blacked *Title Search *Date/Actor Search
+#### BlackedRaw *Title Search *Date/Actor Search
+#### Brazzers Network *Title Search
 -	Moms in Control
 -	Pornstars Like It Big
 -	Big Tits at Work
@@ -48,8 +48,8 @@ Currently the features of this metadata agent are:
 -	Teens Like It Black
 -	Racks and Blacks
 -	Butts and Blacks
-- **Girlsway** *Title Search
-- **Naughty America Network** *Date/Actor Search
+#### Girlsway *Title Search
+#### Naughty America Network *Date/Actor Search
 -	My Friends Hot Mom
 -	My First Sex Teacher
 -	Seduced By A Cougar
@@ -97,17 +97,17 @@ Currently the features of this metadata agent are:
 -	Live Naughty Teacher
 -	Live Naughty Milf
 -	Live Naughty Nurse
-- **Vixen** *Title Search *Date/Actor Search
+#### Vixen *Title Search *Date/Actor Search
 
 
 
-##File Naming
+## File Naming
 ============
 **Plex Video Files Scanner needs to be set as the library scanner for best results.
 
 For best results, file names should follow the layout below
 
-Title Search
+###### Title Search
 ============
 - Site - Scene Title.[ext]
 
@@ -115,7 +115,7 @@ Examples:
 - Blacked - Hot Vacation Adventures.mp4
 - Blackedraw - Pass Me Around.mp4
 
-Date/Actor Search
+###### Date/Actor Search
 ============
 - Site - YYYY-MM-DD - Porn Star Names.[ext]
 - Site - YYYY-MM-DD - Porn Star Name Porn Star Name.[ext]
@@ -128,7 +128,7 @@ Examples:
 
 The site can be missing from the filename, but all sites will then be searched possibly causing a mismatch.
 
-##Installation
+## Installation
 ============
 Here is how to find the plug-in folder location:
 https://support.plex.tv/hc/en-us/articles/201106098-How-do-I-find-the-Plug-Ins-folder-
@@ -153,13 +153,13 @@ Get the latest source zip in github release at https://github.com/PhoenixPlexCod
 - Open PhoenixAdult.bundle-master.zip and copy the folder inside (PhoenixAdult.bundle-master) to the plug-ins folders
 - Rename folder to "PhoenixAdult.bundle" (remove -master)
 
-##Notice
+## Notice
 ============
 No real error checking is implemented. It was quickly tested on 10+ titles per site before the initial posting.
 
 ** Plex Video Files Scanner needs to be set as the library scanner for best results. **
 
-##Change Log/Updates
+## Change Log/Updates
 ============
 
 **2018-09-09 6:00PM CST** - Initial Upload
