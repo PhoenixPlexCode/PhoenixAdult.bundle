@@ -218,5 +218,5 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 
 ## Change Log/Updates
 
-**2018-09-10 2:30PM CST** - Added Bang Bros Network, and X-Art. Fixed some Brazzers bugs.
-2018-09-09 6:00PM CST - Initial Upload
+- **2018-09-10 2:30PM CST** - Added Bang Bros Network, and X-Art. Fixed some Brazzers bugs.
+- 2018-09-09 6:00PM CST - Initial Upload
