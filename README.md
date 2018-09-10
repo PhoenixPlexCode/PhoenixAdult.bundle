@@ -18,6 +18,59 @@ Currently the features of this metadata agent are:
 
 ## Supported Networks/Site
 
+#### - Bang Bros Network *Title Search *Date/Actor Search
+-	Ass Parade
+-	AvaSpice
+-	Back Room Facials
+-	Backroom MILF
+-	Ball Honeys
+-	Bang Bus
+-	Bang Casting
+-	Bang POV
+-	Bang Tryouts
+-	BangBros 18
+-	BangBros Angels
+-	Bangbros Clips
+-	BangBros Remastered
+-	Big Mouthfuls
+-	Big Tit Cream Pie
+-	Big Tits Round Asses
+-	BlowJob Fridays
+-	Blowjob Ninjas
+-	Boob Squad
+-	Brown Bunnies
+-	Can He Score
+-	Casting
+-	Chongas
+-	Colombia Fuck Fest
+-	Dirty World Tour
+-	Dorm Invasion
+-	Facial Fest
+-	Fuck Team Five
+-	Glory Hole Loads
+-	Latina Rampage
+-	Living With Anna
+-	Magical Feet
+-	MILF Lessons
+-	Milf Soup
+-	MomIsHorny
+-	Monsters of Cock
+-	Mr CamelToe
+-	Mr Anal
+-	My Dirty Maid
+-	My Life In Brazil
+-	Newbie Black
+-	Party of 3
+-	Pawg
+-	Penny Show
+-	Porn Star Spa
+-	Power Munch
+-	Public Bang
+-	Slutty White Girls
+-	Stepmom Videos
+-	Street Ranger
+-	Tugjobs
+-	Working Latinas
 #### - Blacked *Title Search *Date/Actor Search
 #### - BlackedRaw *Title Search *Date/Actor Search
 #### - Brazzers Network *Title Search
@@ -98,6 +151,7 @@ Currently the features of this metadata agent are:
 -	Live Naughty Milf
 -	Live Naughty Nurse
 #### - Vixen *Title Search *Date/Actor Search
+#### - X-Art *Title Search
 
 
 
@@ -164,4 +218,5 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 
 ## Change Log/Updates
 
-**2018-09-09 6:00PM CST** - Initial Upload
+**2018-09-10 2:30PM CST** - Added Bang Bros Network, and X-Art. Fixed some Brazzers bugs.
+2018-09-09 6:00PM CST - Initial Upload
