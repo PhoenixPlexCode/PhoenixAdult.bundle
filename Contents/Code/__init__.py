@@ -42,7 +42,7 @@ def posterAlreadyExists(posterUrl,metadata):
         if p.lower() == posterUrl.lower():
             return True
     return False
-searchSites = [None] * 136
+searchSites = [None] * 183
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -179,6 +179,54 @@ searchSites[132] = ["Stepmom Videos","Stepmom Videos","https://bangbros.com","ht
 searchSites[133] = ["Street Ranger","Street Ranger","https://bangbros.com","https://bangbros.com/search/"]
 searchSites[134] = ["Tugjobs","Tugjobs","https://bangbros.com","https://bangbros.com/search/"]
 searchSites[135] = ["Working Latinas","Working Latinas","https://bangbros.com","https://bangbros.com/search/"]
+searchSites[136] = ["Tushy","Tushy","https://www.tushy.com","https://www.tushy.com/search?q="]
+searchSites[137] = ["Reality Kings","Reality Kings", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[138] = ["40 Inch Plus","40 Inch Plus","https://bangbros.com","https://bangbros.com/search/"]
+searchSites[139] = ["8th Street Latinas","8th Street Latinas", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[140] = ["Bad Tow Truck","Bad Tow Truck", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[141] = ["Big Naturals","Big Naturals", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[142] = ["Big Tits Boss","Big Tits Boss", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[143] = ["Bikini Crashers","Bikini Crashers", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[144] = ["Captain Stabbin","Captain Stabbin", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[145] = ["CFNM Secret","CFNM Secret", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[146] = ["Cum Fiesta","Cum Fiesta", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[147] = ["Cum Girls","Cum Girls", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[148] = ["Dangerous Dongs","Dangerous Dongs", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[149] = ["Euro Sex Parties","Euro Sex Parties", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[150] = ["Extreme Asses","Extreme Asses", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[151] = ["Extreme Naturals","Extreme Naturals", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[152] = ["First Time Auditions","First Time Auditions", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[153] = ["Flower Tucci","Flower Tucci", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[154] = ["Girls of Naked","Girls of Naked", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[155] = ["Happy Tugs","Happy Tugs", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[156] = ["HD Love","HD Love", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[157] = ["Hot Bush","Hot Bush", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[158] = ["In the VIP","In the VIP", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[159] = ["Mike in Brazil","Mike in Brazil", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[160] = ["Mikes Apartment","Mike's Apartment", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[161] = ["Milf Hunter","Milf Hunter", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[162] = ["Milf Next Door","Milf Next Door", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[163] = ["Moms Bang Teens","Moms Bang Teens", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[164] = ["Moms Lick Teens","Moms Lick Teens", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[165] = ["Money Talks","Money Talks", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[166] = ["Monster Curves","Monster Curves", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[167] = ["No Faces","No Faces", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[168] = ["Pure 18","Pure 18", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[169] = ["Real Orgasms","Real Orgasms", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[170] = ["RK Prime","RK Prime", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[171] = ["Round and Brown","Round and Brown", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[172] = ["Saturday Night Latinas","Saturday Night Latinas", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[173] = ["See My Wife","See My Wife", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[174] = ["Sneaky Sex","Sneaky Sex", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[175] = ["Street BlowJobs","Street BlowJobs", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[176] = ["Team Squirt","Team Squirt", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[177] = ["Teens Love Huge Cocks","Teens Love Huge Cocks", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[178] = ["Top Shelf Pussy","Top Shelf Pussy", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[179] = ["Tranny Surprise","Tranny Surprise", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[180] = ["VIP Crew","VIP Crew", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[181] = ["We Live Together","We Live Together", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+searchSites[182] = ["Wives in Pantyhose","Wives in Pantyhose", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
+
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
@@ -250,7 +298,7 @@ class EXCAgent(Agent.Movies):
         title = media.name
         if media.primary_metadata is not None:
             title = media.primary_metadata.title
-        title = title.replace('"','').replace("'","").replace(":","").replace("!","").replace("(","").replace(")","")
+        title = title.replace('"','').replace("'","").replace(":","").replace("!","").replace("(","").replace(")","").replace("&","")
         Log('*******MEDIA TITLE****** ' + str(title))
 
         # Search for year
@@ -429,30 +477,74 @@ class EXCAgent(Agent.Movies):
             ###############
             if siteNum == 83:
                 if searchAll or (searchSiteID >= 83 and searchSiteID <= 135):
+                    searchPageNum = 1
+                    while searchPageNum <= 2:
+                        searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle + "/" + str(searchPageNum))
+
+                        for searchResult in searchResults.xpath('//div[@class="echThumb"]'):
+                            if len(searchResult.xpath('.//a[contains(@href,"/video")]')) > 0:
+                                titleNoFormatting = searchResult.xpath('.//a[contains(@href,"/video")]')[0].get("title")
+                                curID = searchResult.xpath('.//a[contains(@href,"/video")]')[0].get("href")
+                                curID = curID.replace('/','_')
+                                Log(str(curID))
+
+
+                                releasedDate = searchResult.xpath('.//span[@class="faTxt"]')[1].text_content()
+
+                                Log(str(curID))
+                                lowerResultTitle = str(titleNoFormatting).lower()
+                                if searchByDateActor != True:
+                                    score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                                else:
+                                    searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %d, %y')
+                                    score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                                titleNoFormatting = titleNoFormatting + " [Bang Bros, " + releasedDate + "]"
+                                results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+                        searchPageNum += 1
+
+            ###############
+            ## Tushy
+            ###############
+            if siteNum == 136:
+                if searchAll or searchSiteID == 136:
                     searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
+                    for searchResult in searchResults.xpath('//article[@class="videolist-item"]'):
+                        
+                        
+                        Log(searchResult.text_content())
+                        titleNoFormatting = searchResult.xpath('.//h4[@class="videolist-caption-title"]')[0].text_content()
+                        Log("Result Title: " + titleNoFormatting)
+                        curID = searchResult.xpath('.//a[@class="videolist-link ajaxable"]')[0].get('href')
+                        curID = curID.replace('/','_')
+                        Log("ID: " + curID)
+                        releasedDate = searchResult.xpath('.//div[@class="videolist-caption-date"]')[0].text_content()
 
-                    for searchResult in searchResults.xpath('//div[@class="echThumb"]'):
-                        if len(searchResult.xpath('.//a[contains(@href,"/video")]')) > 0:
-                            titleNoFormatting = searchResult.xpath('.//a[contains(@href,"/video")]')[0].get("title")
-                            curID = searchResult.xpath('.//a[contains(@href,"/video")]')[0].get("href")
-                            curID = curID.replace('/','_')
-                            Log(str(curID))
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%B %d, %y')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
 
-
-                            releasedDate = searchResult.xpath('.//span[@class="faTxt"]')[1].text_content()
-
-                            Log(str(curID))
-                            lowerResultTitle = str(titleNoFormatting).lower()
-                            if searchByDateActor != True:
-                                score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
-                            else:
-                                searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %d, %y')
-                                score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
-                            titleNoFormatting = titleNoFormatting + " [Bang Bros, " + releasedDate + "]"
-                            results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
-                
-
-            siteNum += 1   
+            ###############
+            ## Reality Kings
+            ###############
+            if siteNum == 137:
+                if searchAll or (searchSiteID >= 137 and searchSiteID <= 183):
+                    searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
+                    for searchResult in searchResults.xpath('//p[contains(@class,"card-info__title")]'):
+                        titleNoFormatting = searchResult.xpath('.//a')[0].get('title')
+                        curID = searchResult.xpath('.//a')[0].get('href').replace('/','_')
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        score = 100 - Util.LevenshteinDistance(title.lower(), titleNoFormatting.lower())
+                        
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Reality Kings]", score = score, lang = lang))
+                            
+            siteNum += 1 
+        
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -575,8 +667,7 @@ class EXCAgent(Agent.Movies):
             for posterCur in posters:
                 posterURL = posterCur.xpath('.//img[@class="swiper-content-img"]')[0].get("src")
                 metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL, headers={'Referer': 'http://www.google.com'}).content, sort_order = posterNum)
-                posterNum = posterNum + 1
-        
+                posterNum = posterNum + 1   
         
         ##############################################################
         ##                                                          ##
@@ -597,7 +688,7 @@ class EXCAgent(Agent.Movies):
             metadata.summary = paragraph[:-10]
             tagline = detailsPageElements.xpath('//span[@class="label-text"]')[0].text_content()
             metadata.collections.clear()
-            metadata.tagline = str(tagline)
+            metadata.tagline = tagline
             metadata.collections.add(tagline)
             metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
 
@@ -612,10 +703,13 @@ class EXCAgent(Agent.Movies):
 
 
             
-            date = detailsPageElements.xpath('//aside[contains(@class,"scene-date")]')[0].text_content()
-            date_object = datetime.strptime(date, '%B %d, %Y')
-            metadata.originally_available_at = date_object
-            metadata.year = metadata.originally_available_at.year
+            date = detailsPageElements.xpath('//aside[contains(@class,"scene-date")]')
+            if len(date) > 0:
+                date = date[0].text_content()
+                date_object = datetime.strptime(date, '%B %d, %Y')
+                metadata.originally_available_at = date_object
+                metadata.year = metadata.originally_available_at.year
+            
 
             # Starring/Collection 
             metadata.roles.clear()
@@ -860,9 +954,6 @@ class EXCAgent(Agent.Movies):
                     summary = summary + paragraph.text_content()
                 pNum += 1
             metadata.summary = summary
-            #metadata.summary = paragraphs.text_content()
-            #paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
-            #metadata.summary = paragraph
             metadata.title = detailsPageElements.xpath('//title')[0].text_content()[8:]
             date = detailsPageElements.xpath('//h2')[2].text_content()[:-1]
             date_object = datetime.strptime(date, '%b %d, %Y')
@@ -964,3 +1055,174 @@ class EXCAgent(Agent.Movies):
                 posterURL = posterURL[:-5] + "big" + posterURL[-5:]
                 metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL).content, sort_order = posterNum)
                 posterNum += 1
+
+        ##############################################################
+        ##                                                          ##
+        ##   Tushy                                                  ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 136:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = getSearchBaseURL(siteID) + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "Tushy"
+            paragraph = detailsPageElements.xpath('//span[@class="moreless js-readmore"]')[0].text_content()
+            paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
+            metadata.summary = paragraph
+            metadata.title = detailsPageElements.xpath('//h1[@id="castme-title"]')[0].text_content()
+            date = detailsPageElements.xpath('//span[@class="player-description-detail"]//span')[0].text_content()
+            date_object = datetime.strptime(date, '%B %d, %Y')
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year    
+                
+            
+            # Genres
+            metadata.genres.clear()
+            # No Source for Genres, add manual
+            metadata.genres.add("Anal")
+            metadata.genres.add("Hardcore")
+            metadata.genres.add("Heterosexual")
+
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//p[@id="castme-subtitle"]//a')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(getSearchBaseURL(siteID)+actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@class="thumb-img"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+            posters = detailsPageElements.xpath('//div[@class="swiper-slide"]')
+            background = detailsPageElements.xpath('//img[contains(@class,"player-img")]')[0].get("src")
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+            posterNum = 1
+            for posterCur in posters:
+                posterURL = posterCur.xpath('.//img[@class="swiper-content-img"]')[0].get("src")
+                metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL, headers={'Referer': 'http://www.google.com'}).content, sort_order = posterNum)
+                posterNum = posterNum + 1
+
+
+        ##############################################################
+        ##                                                          ##
+        ##   Reality Kings                                          ##
+        ##                                                          ##
+        ##############################################################
+        if siteID >= 137 and siteID <= 183:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = getSearchBaseURL(siteID) + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "Reality Kings"
+            paragraph = detailsPageElements.xpath('//div[@id="trailer-desc-txt"]//p')[0].text_content()
+            paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
+            metadata.summary = paragraph
+            metadata.title = detailsPageElements.xpath('//h1[@class="section_title"]')[0].text_content()
+            metadata.tagline = detailsPageElements.xpath('//div[@id="trailer-desc-txt"]//h3//a')[0].text_content()
+            metadata.collections.clear()
+            metadata.collections.add(metadata.tagline)
+            dateElements = HTML.ElementFromURL(getSearchSearchURL(siteID) + urllib.quote(metadata.title))
+            date = dateElements.xpath('//span[@class="card-info__meta-date"]')[0].text_content()
+            Log("Date:" + date)
+            date_object = datetime.strptime(date, '%B %d, %Y')
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year    
+                
+            
+            # Genres
+            metadata.genres.clear()
+            # No Source for Genres, add manual
+            t = metadata.tagline
+            if t == "40 Inch Plus" or t == "Extreme Asses" or t == "Round and Brown":
+                metadata.genres.add("Big Butt")
+            if t == "First Time Auditions":
+                metadata.genres.add("Audition")
+            if t == "Dangerous Dongs" or t == "Teens Love Huge Cocks":
+                metadata.genres.add("Big Dick")
+            if t == "Big Naturals" or t == "Big Tits Boss":
+                metadata.genres.add("Big Tits")
+            if t == "Bikini Crashers":
+                metadata.genres.add("Bikini")
+            if t == "Street Blowjobs":
+                metadata.genres.add("Blowjob")
+            if t == "Captain Stabbin":
+                metadata.genres.add("Boat")
+            if t == "In The VIP":
+                metadata.genres.add("Club")
+            if t == "Round and Brown":
+                metadata.genres.add("Ebony")
+            if t == "Euro Sex Parties" or t == "Mikes Apartment":
+                metadata.genres.add("Euro")
+            if t == "Euro Sex Parties":
+                metadata.genres.add("Group")
+            if t == "Hot Bush":
+                metadata.genres.add("Hairy Pussy")
+            if t == "We Live Together" or t == "Moms Lick Teens":
+                metadata.genres.add("Lesbian")
+            if t == "8th Street Latinas" or t == "Saturday Night Latinas":
+                metadata.genres.add("Latina")
+            if t == "Happy Tugs":
+                metadata.genres.add("Massage")
+                metadata.genres.add("Handjob")
+            if t == "Milf Hunter" or t == "Milf Next Door" or t == "Moms Lick Teens" or t == "Moms Bang Teens":
+                metadata.genres.add("MILF")
+            if t == "Real Orgasms":
+                metadata.genres.add("Masturbation")
+                metadata.genres.add("Solo")
+            if t == "Wives in Pantyhouse":
+                metadata.genres.add("Pantyhouse")
+            if t == "Team Squirt":
+                metadata.genres.add("Squirt")
+            if t == "Pure 18" or t == "Teens Love Huge Cocks" or t == "Moms Bang Teens":
+                metadata.genres.add("Teen")
+            if t == "Tranny Surprise":
+                metadata.genres.add("Tranny")
+                metadata.genres.add("Shemale")
+            metadata.genres.add("Hardcore")
+            metadata.genres.add("Heterosexual")
+
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//div[@id="trailer-desc-txt"]//h2')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.xpath('.//a')[0].text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.xpath('.//a')[0].get("href")
+
+                    actorPage = HTML.ElementFromURL(getSearchBaseURL(siteID)+actorPageURL)
+                    
+                    actorPhotoURL = actorPage.xpath('//div[contains(@class,"model-picture__thumb js-model-picture__thumb")]')[0]
+                    actorPhotoURL = actorPhotoURL.xpath('.//img')[0].get("data-bind").split("'")[1]
+                    Log("pic: " + actorPhotoURL)
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+            posters = detailsPageElements.xpath('//a[@class="card-thumb__img"]')
+            background = detailsPageElements.xpath('//video')[0].get("poster")
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+            posterNum = 1
+            for posterCur in posters:
+                posterURL = posterCur.get("href")
+                metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL, headers={'Referer': 'http://www.google.com'}).content, sort_order = posterNum)
+                posterNum = posterNum + 1
