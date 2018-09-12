@@ -79,12 +79,14 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 
 ## Change Log/Updates
 
-- **2018-03-11 1:00AM CST** - Added Reality Kings Network and Tushy.
+- **2018-09-12 12:00AM CST** - Added 21Naturals, PornFidelity, TeenFidelity, Kelly Madison.
+- 2018-09-11 1:00AM CST - Added Reality Kings Network and Tushy.
 - 2018-09-10 2:30PM CST - Added Bang Bros Network and X-Art. Fixed some Brazzers bugs.
 - 2018-09-09 6:00PM CST - Initial Upload
 
 ## Supported Networks/Site
 
+#### - 21Naturals *Title Search *Date/Actor Search
 #### - Bang Bros Network *Title Search *Date/Actor Search
 -	Ass Parade
 -	AvaSpice
@@ -169,6 +171,7 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 -	Racks and Blacks
 -	Butts and Blacks
 #### - Girlsway *Title Search
+#### - Kelly Madison *Title Search *Date/Actor Search
 #### - Naughty America Network *Date/Actor Search
 -	My Friends Hot Mom
 -	My First Sex Teacher
@@ -217,6 +220,7 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 -	Live Naughty Teacher
 -	Live Naughty Milf
 -	Live Naughty Nurse
+#### - PornFidelity *Title Search *Date/Actor Search
 #### - Reality Kings Network *Title Search
 -	40 Inch Plus
 -	8th Street Latinas
@@ -263,6 +267,7 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 -	VIP Crew
 -	We Live Together
 -	Wives in Pantyhose
+#### - TeenFidelity *Title Search *Date/Actor Search
 #### - Tushy *Title Search *Date/Actor Search
 #### - Vixen *Title Search *Date/Actor Search
 #### - X-Art *Title Search

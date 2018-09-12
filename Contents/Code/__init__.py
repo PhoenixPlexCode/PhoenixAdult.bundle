@@ -42,7 +42,7 @@ def posterAlreadyExists(posterUrl,metadata):
         if p.lower() == posterUrl.lower():
             return True
     return False
-searchSites = [None] * 183
+searchSites = [None] * 187
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -226,7 +226,10 @@ searchSites[179] = ["Tranny Surprise","Tranny Surprise", "https://www.realitykin
 searchSites[180] = ["VIP Crew","VIP Crew", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
 searchSites[181] = ["We Live Together","We Live Together", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
 searchSites[182] = ["Wives in Pantyhose","Wives in Pantyhose", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
-
+searchSites[183] = ["21Naturals","21Naturals","https://www.21naturals.com","https://www.21naturals.com/en/search/"]
+searchSites[184] = ["PornFidelity","PornFidelity","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=2&search="]
+searchSites[185] = ["TeenFidelity","TeemFidelity","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=3&search="]
+searchSites[186] = ["Kelly Madison","Kelly Madison","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=1&search="]
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
@@ -507,6 +510,7 @@ class EXCAgent(Agent.Movies):
             ###############
             if siteNum == 136:
                 if searchAll or searchSiteID == 136:
+                    
                     searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
                     for searchResult in searchResults.xpath('//article[@class="videolist-item"]'):
                         
@@ -528,12 +532,34 @@ class EXCAgent(Agent.Movies):
                             score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
                         titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
                         results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+                    if searchByDateActor == True:
+                        searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle + "&page=2")
+                        for searchResult in searchResults.xpath('//article[@class="videolist-item"]'):
+                            
+                            
+                            Log(searchResult.text_content())
+                            titleNoFormatting = searchResult.xpath('.//h4[@class="videolist-caption-title"]')[0].text_content()
+                            Log("Result Title: " + titleNoFormatting)
+                            curID = searchResult.xpath('.//a[@class="videolist-link ajaxable"]')[0].get('href')
+                            curID = curID.replace('/','_')
+                            Log("ID: " + curID)
+                            releasedDate = searchResult.xpath('.//div[@class="videolist-caption-date"]')[0].text_content()
+
+                            Log(str(curID))
+                            lowerResultTitle = str(titleNoFormatting).lower()
+                            if searchByDateActor != True:
+                                score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                            else:
+                                searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%B %d, %y')
+                                score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                            titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                            results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
 
             ###############
             ## Reality Kings
             ###############
             if siteNum == 137:
-                if searchAll or (searchSiteID >= 137 and searchSiteID <= 183):
+                if searchAll or (searchSiteID >= 137 and searchSiteID <= 182):
                     searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
                     for searchResult in searchResults.xpath('//p[contains(@class,"card-info__title")]'):
                         titleNoFormatting = searchResult.xpath('.//a')[0].get('title')
@@ -543,11 +569,132 @@ class EXCAgent(Agent.Movies):
                         
                         results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Reality Kings]", score = score, lang = lang))
                             
+            
+            ###############
+            ## 21Naturals
+            ###############
+            if siteNum == 183:
+                if searchAll or searchSiteID == 183:
+                    searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
+                    for searchResult in searchResults.xpath('//div[contains(@class,"tlcItem")]'):
+                        titleNoFormatting = searchResult.xpath('.//a')[0].get('title')
+                        curID = searchResult.xpath('.//a')[0].get('href')
+                        curID = curID.replace('/','_')
+                        Log("ID: " + curID)
+                        releasedDate = searchResult.xpath('.//span[@class="tlcSpecsDate"]//span[@class="tlcDetailsValue"]')[0].text_content()
+
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%Y-%m-%d')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+                            
+
+            ###############
+            ## PornFidelity
+            ###############
+            if siteNum == 184:
+                
+                if searchAll or searchSiteID == 184:
+                    searchPageContent = HTTP.Request("https://www.pornfidelity.com/episodes/search?site=2&search=" + encodedTitle)
+                    searchPageContent = str(searchPageContent).split('":"')
+                    searchPageResult = searchPageContent[len(searchPageContent)-1][:-2]
+                    searchPageResult = searchPageResult.replace('\\n',"").replace('\\',"")
+                    Log(searchPageResult)
+                    searchResults = HTML.ElementFromString(searchPageResult)
+                    for searchResult in searchResults.xpath('//div[contains(@class,"episode")]'):
+                        titleNoFormatting = searchResult.xpath('.//div[@class="card-title"]')[0].text_content()
+                        Log(titleNoFormatting)
+                        curID = searchResult.xpath('.//a[contains(@class,"card-link")]')[0].get('href')
+                        curID = curID.replace('/','_')
+                        curID = curID[8:-19]
+                        Log("ID: " + curID)
+                        releasedDate = searchResult.xpath('.//div[contains(@class,"card-meta")]//div[contains(@class,"text-left")]')[0].text_content()[19:-4]
+                        if ", 20" not in releasedDate:
+                            releasedDate = releasedDate + ", " + str(datetime.now().year)
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %m, $Y')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+            
+            ###############
+            ## TeenFidelity
+            ###############
+            if siteNum == 185:
+                
+                if searchAll or searchSiteID == 185:
+                    searchPageContent = HTTP.Request("https://www.pornfidelity.com/episodes/search?site=3&search=" + encodedTitle)
+                    searchPageContent = str(searchPageContent).split('":"')
+                    searchPageResult = searchPageContent[len(searchPageContent)-1][:-2]
+                    searchPageResult = searchPageResult.replace('\\n',"").replace('\\',"")
+                    Log(searchPageResult)
+                    searchResults = HTML.ElementFromString(searchPageResult)
+                    for searchResult in searchResults.xpath('//div[contains(@class,"episode")]'):
+                        titleNoFormatting = searchResult.xpath('.//div[@class="card-title"]')[0].text_content()
+                        Log(titleNoFormatting)
+                        curID = searchResult.xpath('.//a[contains(@class,"card-link")]')[0].get('href')
+                        curID = curID.replace('/','_')
+                        curID = curID[8:-19]
+                        Log("ID: " + curID)
+                        releasedDate = searchResult.xpath('.//div[contains(@class,"card-meta")]//div[contains(@class,"text-left")]')[0].text_content()[19:-4]
+                        if ", 20" not in releasedDate:
+                            releasedDate = releasedDate + ", " + str(datetime.now().year)
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %m, $Y')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+
+            ###############
+            ## Kelly Madison
+            ###############
+            if siteNum == 186:
+                if searchAll or searchSiteID == 186:
+                    searchPageContent = HTTP.Request("https://www.pornfidelity.com/episodes/search?site=1&search=" + searchTempTitle)
+                    searchPageContent = str(searchPageContent).split('":"')
+                    searchPageResult = searchPageContent[len(searchPageContent)-1][:-2]
+                    searchPageResult = searchPageResult.replace('\\n',"").replace('\\',"")
+                    Log(searchPageResult)
+                    searchResults = HTML.ElementFromString(searchPageResult)
+                    for searchResult in searchResults.xpath('//div[contains(@class,"episode")]'):
+                        titleNoFormatting = searchResult.xpath('.//div[@class="card-title"]')[0].text_content()
+                        Log(titleNoFormatting)
+                        curID = searchResult.xpath('.//a[contains(@class,"card-link")]')[0].get('href')
+                        curID = curID.replace('/','_')
+                        curID = curID[8:-19]
+                        Log("ID: " + curID)
+                        releasedDate = searchResult.xpath('.//div[contains(@class,"card-meta")]//div[contains(@class,"text-left")]')[0].text_content()[19:-4]
+                        if ", 20" not in releasedDate:
+                            releasedDate = releasedDate + ", " + str(datetime.now().year)
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %m, $Y')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+
             siteNum += 1 
         
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
+        HTTP.ClearCache()
 
         Log('******UPDATE CALLED*******')
         
@@ -1067,7 +1214,7 @@ class EXCAgent(Agent.Movies):
 
             url = getSearchBaseURL(siteID) + temp
             detailsPageElements = HTML.ElementFromURL(url)
-
+           
             # Summary
             metadata.studio = "Tushy"
             paragraph = detailsPageElements.xpath('//span[@class="moreless js-readmore"]')[0].text_content()
@@ -1120,7 +1267,7 @@ class EXCAgent(Agent.Movies):
         ##   Reality Kings                                          ##
         ##                                                          ##
         ##############################################################
-        if siteID >= 137 and siteID <= 183:
+        if siteID >= 137 and siteID <= 182:
             Log('******UPDATE CALLED*******')
             temp = str(metadata.id).split("|")[0].replace('_','/')
 
@@ -1226,3 +1373,231 @@ class EXCAgent(Agent.Movies):
                 posterURL = posterCur.get("href")
                 metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL, headers={'Referer': 'http://www.google.com'}).content, sort_order = posterNum)
                 posterNum = posterNum + 1
+
+
+        ##############################################################
+        ##                                                          ##
+        ##   21Naturals                                             ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 183:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = getSearchBaseURL(siteID) + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "21Naturals"
+            metadata.summary = detailsPageElements.xpath('//div[contains(@class,"sceneDesc")]')[0].text_content()[70:]
+            metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
+            releasedDate = detailsPageElements.xpath('//div[@class="updatedDate"]')[0].text_content()[14:24]
+            date_object = datetime.strptime(releasedDate, '%Y-%m-%d')
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year 
+           
+
+            # Genres
+            metadata.genres.clear()
+            genres = detailsPageElements.xpath('//div[contains(@class,"sceneColCategories")]//a')
+
+            if len(genres) > 0:
+                for genreLink in genres:
+                    genreName = genreLink.text_content().strip('\n').lower()
+                    metadata.genres.add(genreName)
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//div[contains(@class,"sceneColActors")]//a')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(getSearchBaseURL(siteID) + actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+
+            background = detailsPageElements.xpath('//meta[contains(@name,"twitter:image")]')[0].get("content")
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+
+        ##############################################################
+        ##                                                          ##
+        ##   PornFidelity                                           ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 184:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = "https://" + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "PornFidelity"
+            metadata.summary = detailsPageElements.xpath('//p[contains(@class,"card-text")]')[0].text_content()
+            metadata.title = detailsPageElements.xpath('//h4')[0].text_content()[36:]
+            Log(metadata.title)
+            metadataParts = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//h4')
+            for metadataPart in metadataParts:
+                if "Published" in metadataPart.text_content():
+                    releasedDate = metadataPart.text_content()[39:49]
+                    Log(releasedDate)
+                    date_object = datetime.strptime(releasedDate, '%Y-%m-%d')
+                    metadata.originally_available_at = date_object
+                    metadata.year = metadata.originally_available_at.year 
+            
+           
+
+            # Genres
+            metadata.genres.clear()
+            metadata.genres.add("Hardcore")
+            metadata.genres.add("Heterosexual")
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//a[contains(@href,"/models/")]')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@class="img-fluid"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            pageSource = str(HTTP.Request(url))
+            posterStartPos = pageSource.index('poster: "')
+            posterEndPos = pageSource.index('"',posterStartPos+10)
+            background = pageSource[posterStartPos+9:posterEndPos]
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+
+        ##############################################################
+        ##                                                          ##
+        ##   TeenFidelity                                           ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 185:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = "https://" + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "TeenFidelity"
+            metadata.summary = detailsPageElements.xpath('//p[contains(@class,"card-text")]')[0].text_content()
+            metadata.title = detailsPageElements.xpath('//h4')[0].text_content()[36:]
+            Log(metadata.title)
+            metadataParts = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//h4')
+            for metadataPart in metadataParts:
+                if "Published" in metadataPart.text_content():
+                    releasedDate = metadataPart.text_content()[39:49]
+                    Log(releasedDate)
+                    date_object = datetime.strptime(releasedDate, '%Y-%m-%d')
+                    metadata.originally_available_at = date_object
+                    metadata.year = metadata.originally_available_at.year 
+            
+           
+
+            # Genres
+            metadata.genres.clear()
+            metadata.genres.add("Hardcore")
+            metadata.genres.add("Heterosexual")
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//a[contains(@href,"/models/")]')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@class="img-fluid"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            pageSource = str(HTTP.Request(url))
+            posterStartPos = pageSource.index('poster: "')
+            posterEndPos = pageSource.index('"',posterStartPos+10)
+            background = pageSource[posterStartPos+9:posterEndPos]
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+
+        ##############################################################
+        ##                                                          ##
+        ##   Kelly Madison                                          ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 186:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('_','/')
+
+            url = "https://" + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "Kelly Madison"
+            metadata.summary = detailsPageElements.xpath('//p[contains(@class,"card-text")]')[0].text_content()
+            metadata.title = detailsPageElements.xpath('//h4')[0].text_content()[36:]
+            Log(metadata.title)
+            metadataParts = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//h4')
+            for metadataPart in metadataParts:
+                if "Published" in metadataPart.text_content():
+                    releasedDate = metadataPart.text_content()[39:49]
+                    Log(releasedDate)
+                    date_object = datetime.strptime(releasedDate, '%Y-%m-%d')
+                    metadata.originally_available_at = date_object
+                    metadata.year = metadata.originally_available_at.year 
+            
+           
+
+            # Genres
+            metadata.genres.clear()
+            metadata.genres.add("Hardcore")
+            metadata.genres.add("Heterosexual")
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//div[contains(@class,"episode-summary")]//a[contains(@href,"/models/")]')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@class="img-fluid"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            pageSource = str(HTTP.Request(url))
+            posterStartPos = pageSource.index('poster: "')
+            posterEndPos = pageSource.index('"',posterStartPos+10)
+            background = pageSource[posterStartPos+9:posterEndPos]
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+
+
+
