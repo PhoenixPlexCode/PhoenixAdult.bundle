@@ -42,7 +42,164 @@ def posterAlreadyExists(posterUrl,metadata):
         if p.lower() == posterUrl.lower():
             return True
     return False
-searchSites = [None] * 187
+
+class PhoenixGenres:
+    genresTable = None
+    genresNum = 0
+    def __init__(self):
+        self.genresTable = [None] * 60
+        self.genresNum = 0
+    def addGenre(self,newGenre):
+        Log("GenresNum: " + str(self.genresNum))
+        Log("SizeOf: " + str(len(self.genresTable)))
+        self.genresTable[self.genresNum] = newGenre
+        self.genresNum = self.genresNum + 1
+    def clearGenres(self):
+        self.genresNum = 0
+    def processGenres(self,metadata):
+        genresProcessed = 0
+        while genresProcessed < self.genresNum:
+            skip = False
+            Log(str(skip))
+            newGenre = self.genresTable[genresProcessed]
+            ##### Skips
+            if "4k" == newGenre.lower():
+                skip = True
+                Log("skip1")
+            if "18+teens" == newGenre.lower():
+                skip = True
+                Log("skip2")
+            if "18+ teens" == newGenre.lower():
+                skip = True
+                Log("skip3")
+            if "babes" == newGenre.lower():
+                skip = True
+                Log("skip4")
+            if "bonus" == newGenre.lower():
+                skip = True
+                Log("skip5")
+            if "gonzo" == newGenre.lower():
+                skip = True
+                Log("skip6")
+            if "18" == newGenre.lower():
+                skip = True
+            if "18 year" == newGenre.lower():
+                skip = True
+
+            ##### Replace
+            if "big ass" == newGenre.lower() or "big booty" == newGenre.lower() or "bib booty" == newGenre.lower() or "girl big ass" == newGenre.lower():
+                newGenre = "Big Butt"
+            if "3some" == newGenre.lower():
+                newGenre = "threesome"
+            if "ball licking" == newGenre.lower() or "ball sucking" == newGenre.lower():
+                newGenre = "ball play"
+            if "big cock" == newGenre.lower():
+                newGenre = "big dick"
+            if "bikin" == newGenre.lower():
+                newGenre = "bikini"
+            if "big boobs" == newGenre.lower() or "bit tits" == newGenre.lower() or "girl big tits" == newGenre.lower():
+                newGenre = "big tits"
+            if "black" == newGenre.lower() or "black girl" == newGenre.lower():
+                newGenre = "ebony"
+            if "shaved pussy" == newGenre.lower() or "bald pussy" == newGenre.lower():
+                newGenre = "shaven pussy"
+            if "blowjob" == newGenre.lower():
+                newGenre = "blow job"
+            if "blowjob (pov)" == newGenre.lower() or "blowjob (double)" == newGenre.lower() or "bj" == newGenre.lower():
+                newGenre = "blow job"
+            if "handjob" == newGenre.lower() or "handjob (pov)" == newGenre.lower():
+                newGenre = "hand job"
+            if "tittyfuck (pov)" == newGenre.lower() or "tittyfuck" == newGenre.lower() or "tit fuck" == newGenre.lower():
+                newGenre = "titty fuck"
+            if "deepthroat" == newGenre.lower() or "deepthroating" == newGenre.lower():
+                newGenre = "deep throat"
+            if "dp" == newGenre.lower() or "double penetration" == newGenre.lower() or "double penetraton (dp)" == newGenre.lower():
+                newGenre = "Double Penetration (DP)"
+            if "face fucking" == newGenre.lower():
+                newGenre = "face fuck"
+            if "facesitting" == newGenre.lower():
+                newGenre = "face sitting"
+            if "facial (multiple)" == newGenre.lower() or "facial (pov)" == newGenre.lower() or "cumshot facial" == newGenre.lower():
+                newGenre = "Facial"
+            if "fat ass" == newGenre.lower():
+                newGenre = "big butt"
+            if "fishnet stockings" == newGenre.lower():
+                newGenre = "Fishnet"
+            if "shaved" == newGenre.lower():
+                newGenre = "shaven pussy"
+            if "cum-in-mouth" == newGenre.lower():
+                newGenre = "Cum In Mouth"
+            if "cumshot" == newGenre.lower():
+                newGenre = "cum shot"
+            if "hairy" == newGenre.lower() or "hairy bush" == newGenre.lower():
+                newGenre = "hairy pussy"
+            if "hardcore sex" == newGenre.lower():
+                newGenre = "hardcore"
+            if "outdoor" == newGenre.lower():
+                newGenre = "outdoors"
+            if "stepdaughter" == newGenre.lower():
+                newGenre = "step daughter"
+            if "stepmom" == newGenre.lower():
+                newGenre = "step mom"
+            if "stepsister" == newGenre.lower() or "stepsis" == newGenre.lower() or "step sis" == newGenre.lower() or "ste sister" == newGenre.lower() or "step siter" == newGenre.lower() or "step-sister" == newGenre.lower():
+                newGenre = "step sister" 
+            if "tattoos" == newGenre.lower() or "tattoo girl" == newGenre.lower():
+                newGenre = "tattoo"
+            if "white" == newGenre.lower() or "white girl" == newGenre.lower() or "while" == newGenre.lower():
+                newGenre = "Caucasian"
+            if "amatuer" == newGenre.lower():
+                newGenre = "amateur"
+            if "cumswap" == newGenre.lower() or "cum swapping" == newGenre.lower():
+                newGenre = "cum swap"
+            if "euro" == newGenre.lower() or "europe" == newGenre.lower():
+                newGenre = "european"
+            if "enhanced" == newGenre.lower() or "enhanced tits" == newGenre.lower():
+                newGenre = "fake tits"
+            if "trimmed" == newGenre.lower():
+                newGenre = "trimmed pussy"
+
+            
+            
+            
+
+            ##### Position
+            if "doggystyle" == newGenre.lower() or "doggystyle (standing)" == newGenre.lower() or "doggystyle (pov)" == newGenre.lower() or "doggystye" == newGenre.lower() or "doggy style" == newGenre.lower():
+                newGenre = "doggystyle (Position)"
+            if "cow girl" == newGenre.lower() or "cowgirl" == newGenre.lower() or "cowgirl (pov)" == newGenre.lower():
+                newGenre = "cowgirl (Position)"
+            if "reverse cow girl" == newGenre.lower() or "reverse cowgirl" == newGenre.lower() or "reverse cowgirl (pov)" == newGenre.lower():
+                newGenre = "reverse cowgirl (Position)"
+            if "missionary" == newGenre.lower() or "missionary (pov)" == newGenre.lower():
+                newGenre = "missionary (Position)"
+
+
+
+            if len(newGenre) > 25:
+                skip = True
+                Log("skip7")
+            if ":" in metadata.title:
+                if newGenre.lower() in metadata.title.split(":")[0].lower():
+                    skip = True
+                    Log("skip8")
+            if "-" in metadata.title:
+                if newGenre.lower() in metadata.title.split("-")[0].lower():
+                    skip = True
+                    Log("skip9")
+            if " " in newGenre:
+                if 3 < len(newGenre.split(" ")):
+                    skip = True
+                    
+            if skip:
+                Log("Skip genre")
+            
+
+            Log("Genre: " + newGenre)
+            if not skip:
+                metadata.genres.add(newGenre.title())
+            genresProcessed = genresProcessed + 1
+
+
+searchSites = [None] * 216
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -181,7 +338,7 @@ searchSites[134] = ["Tugjobs","Tugjobs","https://bangbros.com","https://bangbros
 searchSites[135] = ["Working Latinas","Working Latinas","https://bangbros.com","https://bangbros.com/search/"]
 searchSites[136] = ["Tushy","Tushy","https://www.tushy.com","https://www.tushy.com/search?q="]
 searchSites[137] = ["Reality Kings","Reality Kings", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
-searchSites[138] = ["40 Inch Plus","40 Inch Plus","https://bangbros.com","https://bangbros.com/search/"]
+searchSites[138] = ["40 Inch Plus", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
 searchSites[139] = ["8th Street Latinas","8th Street Latinas", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
 searchSites[140] = ["Bad Tow Truck","Bad Tow Truck", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
 searchSites[141] = ["Big Naturals","Big Naturals", "https://www.realitykings.com/", "https://www.realitykings.com/tour/search/videos/"]
@@ -230,6 +387,35 @@ searchSites[183] = ["21Naturals","21Naturals","https://www.21naturals.com","http
 searchSites[184] = ["PornFidelity","PornFidelity","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=2&search="]
 searchSites[185] = ["TeenFidelity","TeemFidelity","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=3&search="]
 searchSites[186] = ["Kelly Madison","Kelly Madison","https://www.pornfidelity.com","https://www.pornfidelity.com/?site=1&search="]
+searchSites[187] = ["TeamSkeet", "TeamSkeet", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[188] = ["Exxxtra small","Exxxtra small", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[189] = ["Teen Pies","Teen Pies", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[190] = ["Innocent High","Innocent High", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[191] = ["Teen Curves","Teen Curves", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[192] = ["CFNM Teens","CFNM Teens", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[193] = ["Teens Love Anal","Teens Love Anal", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[194] = ["My Babysitters Club","My Babysitters Club", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[195] = ["She's New","She's New", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[196] = ["Teens Do Porn","Teens Do Porn", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[197] = ["POV Life","POV Life", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[198] = ["The Real Workout","The Real Workout", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[199] = ["This Girl Sucks","This Girl Sucks", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[200] = ["Teens Love Money","Teens Love Money", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[201] = ["Oye Loca","Oye Loca", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[202] = ["Titty Attack","Titty Attack", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[203] = ["Teeny Black","Teeny Black", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[204] = ["Lust HD","Lust HD", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[205] = ["Rub A Teen","Rub A Teen", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[206] = ["Her Freshman Year","Her Freshman Year", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[207] = ["Self Desire","Self Desire", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[208] = ["Solo Interviews","Solo Interviews", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[209] = ["Team Skeet Extras","Team Skeet Extras", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[210] = ["Dyked","Dyked", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[211] = ["Badmilfs","Badmilfs", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[212] = ["Gingerpatch","Gingerpatch", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[213] = ["BraceFaced","BraceFaced", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[214] = ["TeenJoi","TeenJoi", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
+searchSites[215] = ["StepSiblings","StepSiblings", "https://www.teamskeet.com","https://www.teamskeet.com/t1/search/results/?query="]
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
@@ -663,7 +849,7 @@ class EXCAgent(Agent.Movies):
             ###############
             if siteNum == 186:
                 if searchAll or searchSiteID == 186:
-                    searchPageContent = HTTP.Request("https://www.pornfidelity.com/episodes/search?site=1&search=" + searchTempTitle)
+                    searchPageContent = HTTP.Request("https://www.pornfidelity.com/episodes/search?site=1&search=" + encodedTitle)
                     searchPageContent = str(searchPageContent).split('":"')
                     searchPageResult = searchPageContent[len(searchPageContent)-1][:-2]
                     searchPageResult = searchPageResult.replace('\\n',"").replace('\\',"")
@@ -689,11 +875,42 @@ class EXCAgent(Agent.Movies):
                         titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
                         results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
 
+        
+            ###############
+            ## Team Skeet
+            ###############
+            if siteNum == 187:
+                if searchAll or (searchSiteID >= 187 and searchSiteID <= 215):
+                    searchResults = HTML.ElementFromURL(getSearchSearchURL(siteNum) + encodedTitle)
+                    for searchResult in searchResults.xpath('//div[@class="info"]'):
+                        titleURL = searchResult.xpath('.//a')[0].get("href")
+                        scenePage = HTML.ElementFromURL(titleURL)
+                        
+                        Log(searchResult.text_content())
+                        titleNoFormatting = scenePage.xpath('//title')[0].text_content().split(" | ")[1]
+                        Log("Result Title: " + titleNoFormatting)
+                        curID = searchResult.xpath('.//a')[0].get("href").split("?")[0][8:]
+                        curID = curID.replace('/','+')
+                        Log("ID: " + curID)
+                        releasedDate = scenePage.xpath('//div[@style="width:430px;text-align:left;margin:8px;border-right:3px dotted #bbbbbb;position:relative;"]//div[@class="gray"]')[0].text_content()[12:]
+                        Log(releasedDate)
+                        Log(str(curID))
+                        lowerResultTitle = str(titleNoFormatting).lower()
+                        if searchByDateActor != True:
+                            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                        else:
+                            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%B %d, %Y')
+                            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
+                        titleNoFormatting = titleNoFormatting + " [" + searchSites[siteNum][1] + ", " + releasedDate + "]"
+                        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+
             siteNum += 1 
         
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
+        movieGenres = PhoenixGenres()
+        
         HTTP.ClearCache()
 
         Log('******UPDATE CALLED*******')
@@ -724,11 +941,11 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
-            metadata.genres.add("Interracial")
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.addGenre("Interracial")
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
 
             # Actors
@@ -783,11 +1000,11 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
-            metadata.genres.add("Interracial")
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.addGenre("Interracial")
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
 
             # Actors
@@ -840,13 +1057,13 @@ class EXCAgent(Agent.Movies):
             metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
 
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             genres = detailsPageElements.xpath('//div[contains(@class,"tag-card-container")]//a')
 
             if len(genres) > 0:
                 for genreLink in genres:
                     genreName = genreLink.text_content().strip('\n').lower()
-                    metadata.genres.add(genreName)
+                    movieGenres.addGenre(genreName)
 
 
             
@@ -895,20 +1112,23 @@ class EXCAgent(Agent.Movies):
                 thumbUrl = "http:" + detailsPageElements.xpath('//img[contains(@data-src,"thm")]')[i-1].get('data-src')
                 if not posterAlreadyExists(posterUrl,metadata):            
                     #Download image file for analysis
-                    img_file = urllib.urlopen(posterUrl)
-                    im = StringIO(img_file.read())
-                    resized_image = Image.open(im)
-                    width, height = resized_image.size
-                    #posterUrl = posterUrl[:-6] + "01.jpg"
-                    #Add the image proxy items to the collection
-                    if(width > 1):
-                        # Item is a poster
-                        
-                        metadata.posters[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': 'http://www.google.com'}).content, sort_order = i)
-                    if(width > 100):
-                        # Item is an art item
-                        metadata.art[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': 'http://www.google.com'}).content, sort_order = i+1)
-                    i = i + 1
+                    try:
+                        img_file = urllib.urlopen(posterUrl)
+                        im = StringIO(img_file.read())
+                        resized_image = Image.open(im)
+                        width, height = resized_image.size
+                        #posterUrl = posterUrl[:-6] + "01.jpg"
+                        #Add the image proxy items to the collection
+                        if(width > 1):
+                            # Item is a poster
+                            
+                            metadata.posters[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': 'http://www.google.com'}).content, sort_order = i)
+                        if(width > 100):
+                            # Item is an art item
+                            metadata.art[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': 'http://www.google.com'}).content, sort_order = i+1)
+                        i = i + 1
+                    except:
+                        pass
                 
         ##############################################################
         ##                                                          ##
@@ -951,11 +1171,11 @@ class EXCAgent(Agent.Movies):
                 metadata.title = titleActors + metadata.title
 
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             genres = detailsPageElements.xpath('//a[@class="cat-tag"]')
             if len(genres) > 0:
                 for genre in genres:
-                    metadata.genres.add(genre.text_content())
+                    movieGenres.addGenre(genre.text_content())
 
 
             # Posters/Background
@@ -997,14 +1217,14 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
 
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
-            metadata.genres.add("Boy Girl")
-            metadata.genres.add("Caucasian Men")
-            metadata.genres.add("Glamcore")
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
+            movieGenres.addGenre("Boy Girl")
+            movieGenres.addGenre("Caucasian Men")
+            movieGenres.addGenre("Glamcore")
 
             # Actors
             metadata.roles.clear()
@@ -1052,12 +1272,12 @@ class EXCAgent(Agent.Movies):
             metadata.year = metadata.originally_available_at.year    
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             genres = detailsPageElements.xpath('//div[contains(@class,"sceneColCategories")]//a')
             if len(genres) > 0:
                 for genreLink in genres:
                     genreName = genreLink.text_content().lower()
-                    metadata.genres.add(capitalize(genreName))
+                    movieGenres.addGenre(capitalize(genreName))
 
             # Actors
             metadata.roles.clear()
@@ -1109,9 +1329,9 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
-            metadata.genres.add("Artistic")
+            movieGenres.addGenre("Artistic")
 
 
             # Actors
@@ -1166,13 +1386,14 @@ class EXCAgent(Agent.Movies):
             metadata.collections.add(metadata.tagline)
 
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
+            movieGenres.clearGenres()
             genres = detailsPageElements.xpath('//div[contains(@class,"vdoTags")]//a')
 
             if len(genres) > 0:
                 for genreLink in genres:
                     genreName = genreLink.text_content().strip('\n').lower()
-                    metadata.genres.add(genreName)
+                    movieGenres.addGenre(genreName)
 
             # Actors
             metadata.roles.clear()
@@ -1193,7 +1414,10 @@ class EXCAgent(Agent.Movies):
             metadata.art.validate_keys(valid_names)
 
             background = "http:" + detailsPageElements.xpath('//img[contains(@id,"player-overlay-image")]')[0].get("src")
-            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            try:
+                metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
             
             posters = detailsPageElements.xpath('//div[@class="WdgtPic modal-overlay"]')
             posterNum = 1
@@ -1228,11 +1452,11 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
-            metadata.genres.add("Anal")
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.addGenre("Anal")
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
 
             # Actors
@@ -1292,56 +1516,56 @@ class EXCAgent(Agent.Movies):
                 
             
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             # No Source for Genres, add manual
             t = metadata.tagline
             if t == "40 Inch Plus" or t == "Extreme Asses" or t == "Round and Brown":
-                metadata.genres.add("Big Butt")
+                movieGenres.addGenre("Big Butt")
             if t == "First Time Auditions":
-                metadata.genres.add("Audition")
+                movieGenres.addGenre("Audition")
             if t == "Dangerous Dongs" or t == "Teens Love Huge Cocks":
-                metadata.genres.add("Big Dick")
+                movieGenres.addGenre("Big Dick")
             if t == "Big Naturals" or t == "Big Tits Boss":
-                metadata.genres.add("Big Tits")
+                movieGenres.addGenre("Big Tits")
             if t == "Bikini Crashers":
-                metadata.genres.add("Bikini")
+                movieGenres.addGenre("Bikini")
             if t == "Street Blowjobs":
-                metadata.genres.add("Blowjob")
+                movieGenres.addGenre("Blowjob")
             if t == "Captain Stabbin":
-                metadata.genres.add("Boat")
+                movieGenres.addGenre("Boat")
             if t == "In The VIP":
-                metadata.genres.add("Club")
+                movieGenres.addGenre("Club")
             if t == "Round and Brown":
-                metadata.genres.add("Ebony")
+                movieGenres.addGenre("Ebony")
             if t == "Euro Sex Parties" or t == "Mikes Apartment":
-                metadata.genres.add("Euro")
+                movieGenres.addGenre("Euro")
             if t == "Euro Sex Parties":
-                metadata.genres.add("Group")
+                movieGenres.addGenre("Group")
             if t == "Hot Bush":
-                metadata.genres.add("Hairy Pussy")
+                movieGenres.addGenre("Hairy Pussy")
             if t == "We Live Together" or t == "Moms Lick Teens":
-                metadata.genres.add("Lesbian")
+                movieGenres.addGenre("Lesbian")
             if t == "8th Street Latinas" or t == "Saturday Night Latinas":
-                metadata.genres.add("Latina")
+                movieGenres.addGenre("Latina")
             if t == "Happy Tugs":
-                metadata.genres.add("Massage")
-                metadata.genres.add("Handjob")
+                movieGenres.addGenre("Massage")
+                movieGenres.addGenre("Handjob")
             if t == "Milf Hunter" or t == "Milf Next Door" or t == "Moms Lick Teens" or t == "Moms Bang Teens":
-                metadata.genres.add("MILF")
+                movieGenres.addGenre("MILF")
             if t == "Real Orgasms":
-                metadata.genres.add("Masturbation")
-                metadata.genres.add("Solo")
+                movieGenres.addGenre("Masturbation")
+                movieGenres.addGenre("Solo")
             if t == "Wives in Pantyhouse":
-                metadata.genres.add("Pantyhouse")
+                movieGenres.addGenre("Pantyhouse")
             if t == "Team Squirt":
-                metadata.genres.add("Squirt")
+                movieGenres.addGenre("Squirt")
             if t == "Pure 18" or t == "Teens Love Huge Cocks" or t == "Moms Bang Teens":
-                metadata.genres.add("Teen")
+                movieGenres.addGenre("Teen")
             if t == "Tranny Surprise":
-                metadata.genres.add("Tranny")
-                metadata.genres.add("Shemale")
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+                movieGenres.addGenre("Tranny")
+                movieGenres.addGenre("Shemale")
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
 
             # Actors
@@ -1398,13 +1622,13 @@ class EXCAgent(Agent.Movies):
            
 
             # Genres
-            metadata.genres.clear()
+            movieGenres.clearGenres()
             genres = detailsPageElements.xpath('//div[contains(@class,"sceneColCategories")]//a')
 
             if len(genres) > 0:
                 for genreLink in genres:
                     genreName = genreLink.text_content().strip('\n').lower()
-                    metadata.genres.add(genreName)
+                    movieGenres.addGenre(genreName)
 
             # Actors
             metadata.roles.clear()
@@ -1457,9 +1681,9 @@ class EXCAgent(Agent.Movies):
            
 
             # Genres
-            metadata.genres.clear()
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.clearGenres()
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
             # Actors
             metadata.roles.clear()
@@ -1514,9 +1738,9 @@ class EXCAgent(Agent.Movies):
            
 
             # Genres
-            metadata.genres.clear()
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.clearGenres()
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
             # Actors
             metadata.roles.clear()
@@ -1571,9 +1795,9 @@ class EXCAgent(Agent.Movies):
            
 
             # Genres
-            metadata.genres.clear()
-            metadata.genres.add("Hardcore")
-            metadata.genres.add("Heterosexual")
+            movieGenres.clearGenres()
+            movieGenres.addGenre("Hardcore")
+            movieGenres.addGenre("Heterosexual")
 
             # Actors
             metadata.roles.clear()
@@ -1599,5 +1823,95 @@ class EXCAgent(Agent.Movies):
             metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
             metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
 
+        ##############################################################
+        ##                                                          ##
+        ##   TeamSkeet                                              ##
+        ##                                                          ##
+        ##############################################################
+        if siteID >= 187 and siteID <= 215:
+            Log('******UPDATE CALLED*******')
+            temp = str(metadata.id).split("|")[0].replace('+','/')
+
+            url = "https://" + temp
+            detailsPageElements = HTML.ElementFromURL(url)
+
+            # Summary
+            metadata.studio = "TeamSkeet"
+            metadata.summary = detailsPageElements.xpath('//div[@class="gray"]')[1].text_content()
+            metadata.title = detailsPageElements.xpath('//title')[0].text_content().split(" | ")[1]
+            releasedDate = detailsPageElements.xpath('//div[@style="width:430px;text-align:left;margin:8px;border-right:3px dotted #bbbbbb;position:relative;"]//div[@class="gray"]')[0].text_content()[12:].replace("th","").replace("st","").replace("nd","").replace("rd","")
+            date_object = datetime.strptime(releasedDate, '%B %d, %Y')
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year 
+            metadata.tagline = detailsPageElements.xpath('//div[@style="white-space:nowrap;"]//a')[0].text_content()[0:-4]
+            Log(metadata.tagline)
+            metadata.collections.clear()
+            metadata.collections.add(metadata.tagline)
+
+            # Genres
+            movieGenres.clearGenres()
+            genres = detailsPageElements.xpath('//a[contains(@href,"?tags=")]')
+
+            if len(genres) > 0:
+                for genreLink in genres:
+                    genreName = genreLink.text_content().strip('\n').lower()
+                    movieGenres.addGenre(genreName)
+
+            # Actors
+            metadata.roles.clear()
+            actors = detailsPageElements.xpath('//a[contains(@href,"/profile/")]')
+            if len(actors) > 0:
+                for actorLink in actors:
+                    role = metadata.roles.new()
+                    actorName = actorLink.text_content()
+                    role.name = actorName
+                    actorPageURL = actorLink.get("href")
+                    actorPage = HTML.ElementFromURL(actorPageURL)
+                    actorPhotoURL = actorPage.xpath('//img[@id="profile_image"]')[0].get("src")
+                    role.photo = actorPhotoURL
+
+            # Posters/Background
+            valid_names = list()
+            metadata.posters.validate_keys(valid_names)
+            metadata.art.validate_keys(valid_names)
+
+            background = detailsPageElements.xpath('//video')[0].get("poster")
+            try:
+                metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
+            
+            posters = detailsPageElements.xpath('//a[contains(@href,"/trailers/")]')
+            posterNum = 1
+            for poster in posters:
+                posterURL = poster.get("href")
+                metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL).content, sort_order = posterNum)
+                posterNum += 1
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ##############################################################
+        ## Cleanup Genres and Add
+        metadata.genres.clear()
+        Log("Genres")
+        movieGenres.processGenres(metadata)

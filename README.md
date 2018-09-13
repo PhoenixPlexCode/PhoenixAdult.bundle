@@ -79,7 +79,8 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 
 ## Change Log/Updates
 
-- **2018-09-12 12:00AM CST** - Added 21Naturals, PornFidelity, TeenFidelity, Kelly Madison.
+- **2018-09-13 2:30PM CST** - Added TeamSkeet, added Genre/Tags cleanup v1
+- 2018-09-12 12:00AM CST - Added 21Naturals, PornFidelity, TeenFidelity, Kelly Madison.
 - 2018-09-11 1:00AM CST - Added Reality Kings Network and Tushy.
 - 2018-09-10 2:30PM CST - Added Bang Bros Network and X-Art. Fixed some Brazzers bugs.
 - 2018-09-09 6:00PM CST - Initial Upload
@@ -267,6 +268,35 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 -	VIP Crew
 -	We Live Together
 -	Wives in Pantyhose
+#### - TeamSkeet Network *Title Search *Date/Actor Search
+-	Exxxtra small
+-	Teen Pies
+-	Innocent High
+-	Teen Curves
+-	CFNM Teens
+-	Teens Love Anal
+-	My Babysitters Club
+-	She's New
+-	Teens Do Porn
+-	POV Life
+-	The Real Workout
+-	This Girl Sucks
+-	Teens Love Money
+-	Oye Loca
+-	Titty Attack
+-	Teeny Black
+-	Lust HD
+-	Rub A Teen
+-	Her Freshman Year
+-	Self Desire
+-	Solo Interviews
+-	Team Skeet Extras
+-	Dyked
+-	Badmilfs
+-	Gingerpatch
+-	BraceFaced
+-	TeenJoi
+-	StepSiblings
 #### - TeenFidelity *Title Search *Date/Actor Search
 #### - Tushy *Title Search *Date/Actor Search
 #### - Vixen *Title Search *Date/Actor Search
