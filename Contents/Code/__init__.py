@@ -1706,8 +1706,14 @@ class EXCAgent(Agent.Movies):
             background = pageSource[posterStartPos+9:posterEndPos]
             metadata.posters.validate_keys(valid_names)
             metadata.art.validate_keys(valid_names)
-            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
-            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            try:
+                metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
+            try:
+                metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
 
         ##############################################################
         ##                                                          ##
@@ -1763,8 +1769,14 @@ class EXCAgent(Agent.Movies):
             background = pageSource[posterStartPos+9:posterEndPos]
             metadata.posters.validate_keys(valid_names)
             metadata.art.validate_keys(valid_names)
-            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
-            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            try:
+                metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
+            try:
+                metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
 
         ##############################################################
         ##                                                          ##
@@ -1820,8 +1832,14 @@ class EXCAgent(Agent.Movies):
             background = pageSource[posterStartPos+9:posterEndPos]
             metadata.posters.validate_keys(valid_names)
             metadata.art.validate_keys(valid_names)
-            metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
-            metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            try:
+                metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
+            try:
+                metadata.posters[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
+            except:
+                pass
 
         ##############################################################
         ##                                                          ##
