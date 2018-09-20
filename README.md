@@ -36,10 +36,10 @@ Examples:
 - Site - YYYY-MM-DD - Porn Star Name Porn Star Name.[ext]
 
 Examples:
-- Blacked.com - 2018-09-07 - Alecia Fox.mp4
-- Blacked.com - 2018-09-07 - Alecia Fox Joss Lescaf.mp4
-- Blacked.com - 2018-09-04 - Haley Reed.mp4
-- Blacked.com - 2018-09-04 - Haley Reed Jason Luv.mp4
+- Blacked - 2018-09-07 - Alecia Fox.mp4
+- Blacked - 2018-09-07 - Alecia Fox Joss Lescaf.mp4
+- Blacked - 2018-09-04 - Haley Reed.mp4
+- Blacked - 2018-09-04 - Haley Reed Jason Luv.mp4
 
 The site can be missing from the filename, but all sites will then be searched possibly causing a mismatch.
 
