@@ -83,6 +83,7 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 ## Change Log/Updates
 
 - **2018-09-23 1:45PM CST** - Bug fixes, split code into multiple Python files by site for better organization and aid in allowing simpler code maintenance.
+    + Files can be matched to sites with or without the spaces in the site name and if .com is left in the site name as well.
     + Bang Bros - Fixed incomplete metadata due to crashing when the agent reached the video date
     + Reality Kings - Fixed missing actors and occassional crashing on poster downloads preventing genres from being added.
     + TeamSkeet - Fixed incomplete metadata on videos in the month of August
