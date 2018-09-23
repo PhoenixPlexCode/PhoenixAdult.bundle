@@ -5,8 +5,8 @@ class PhoenixGenres:
         self.genresTable = [None] * 60
         self.genresNum = 0
     def addGenre(self,newGenre):
-        Log("GenresNum: " + str(self.genresNum))
-        Log("SizeOf: " + str(len(self.genresTable)))
+        #Log("GenresNum: " + str(self.genresNum))
+        #Log("SizeOf: " + str(len(self.genresTable)))
         self.genresTable[self.genresNum] = newGenre
         self.genresNum = self.genresNum + 1
     def clearGenres(self):
@@ -15,27 +15,27 @@ class PhoenixGenres:
         genresProcessed = 0
         while genresProcessed < self.genresNum:
             skip = False
-            Log(str(skip))
+            #Log(str(skip))
             newGenre = self.genresTable[genresProcessed]
             ##### Skips
             if "4k" == newGenre.lower():
                 skip = True
-                Log("skip1")
+                #Log("skip1")
             if "18+teens" == newGenre.lower():
                 skip = True
-                Log("skip2")
+                #Log("skip2")
             if "18+ teens" == newGenre.lower():
                 skip = True
-                Log("skip3")
+                #Log("skip3")
             if "babes" == newGenre.lower():
                 skip = True
-                Log("skip4")
+                #Log("skip4")
             if "bonus" == newGenre.lower():
                 skip = True
-                Log("skip5")
+                #Log("skip5")
             if "gonzo" == newGenre.lower():
                 skip = True
-                Log("skip6")
+                #Log("skip6")
             if "18" == newGenre.lower():
                 skip = True
             if "18 year" == newGenre.lower():
@@ -131,24 +131,24 @@ class PhoenixGenres:
 
             if len(newGenre) > 25:
                 skip = True
-                Log("skip7")
+                #Log("skip7")
             if ":" in metadata.title:
                 if newGenre.lower() in metadata.title.split(":")[0].lower():
                     skip = True
-                    Log("skip8")
+                    #Log("skip8")
             if "-" in metadata.title:
                 if newGenre.lower() in metadata.title.split("-")[0].lower():
                     skip = True
-                    Log("skip9")
+                    #Log("skip9")
             if " " in newGenre:
                 if 3 < len(newGenre.split(" ")):
                     skip = True
                     
-            if skip:
-                Log("Skip genre")
+            #if skip:
+                #Log("Skip genre")
             
 
-            Log("Genre: " + newGenre)
+            #Log("Genre: " + newGenre)
             if not skip:
                 metadata.genres.add(newGenre.title())
             genresProcessed = genresProcessed + 1
