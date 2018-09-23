@@ -83,12 +83,12 @@ No real error checking is implemented. It was quickly tested on 10+ titles per s
 ## Change Log/Updates
 
 - **2018-09-23 1:45PM CST** - Bug fixes, split code into multiple Python files by site for better organization and aid in allowing simpler code maintenance.
-+ Bang Bros - Fixed incomplete metadata due to crashing when the agent reached the video date
-+ Reality Kings - Fixed missing actors and occassional crashing on poster downloads preventing genres from being added.
-+ TeamSkeet - Fixed incomplete metadata on videos in the month of August
-+ X-Art - Fixed incomplete metadata on videos with special characters in the title
-+ Girlsway - Fixed incomplete metadata on INTERVIEW and BTS videos
-+ TeenFidelity/PornFidelity/Kelly Madison - Fixed lack of metadata due to an SSL issue
+    + Bang Bros - Fixed incomplete metadata due to crashing when the agent reached the video date
+    + Reality Kings - Fixed missing actors and occassional crashing on poster downloads preventing genres from being added.
+    + TeamSkeet - Fixed incomplete metadata on videos in the month of August
+    + X-Art - Fixed incomplete metadata on videos with special characters in the title
+    + Girlsway - Fixed incomplete metadata on INTERVIEW and BTS videos
+    + TeenFidelity/PornFidelity/Kelly Madison - Fixed lack of metadata due to an SSL issue
 
 
 - 2018-09-13 2:30PM CST - Added TeamSkeet, added Genre/Tags cleanup v1
