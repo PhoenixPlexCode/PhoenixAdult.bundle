@@ -30,7 +30,7 @@ def update(metadata,siteID,movieGenres):
     paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
     metadata.summary = paragraph
     metadata.title = detailsPageElements.xpath('//h1[@class="section_title"]')[0].text_content()
-    metadata.tagline = detailsPageElements.xpath('//div[@id="trailer-desc-txt"]//h3//a')[0].text_content()
+    metadata.tagline = detailsPageElements.xpath('//div[@id="trailer-desc-txt"]//div[@class="category"]//a')[0].text_content()
     metadata.collections.clear()
     metadata.collections.add(metadata.tagline)
     dateElements = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteID) + urllib.quote(metadata.title))
