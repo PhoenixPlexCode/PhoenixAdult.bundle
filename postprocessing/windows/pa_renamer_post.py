@@ -26,7 +26,7 @@ def main():
             batch=True
         dir = args.directory
 
-    debug=False
+    debug=True
 
     if debug:
         logging.basicConfig(level=logging.DEBUG)
@@ -58,7 +58,9 @@ def main():
         logger.debug("New file name: %s" % filename_new)
 
         for item in os.listdir(dir):
-            if item.endswith(".mp4"):
+            if item.endswith(".avi"):
+                filename_new = filename_new.replace(".mp4", ".avi")
+            if item.endswith(".mp4") or item.endswith(".avi"):
                 item = os.path.join(dir, item)
                 newname = os.path.join(dir, filename_new)
                 if dryrun:
