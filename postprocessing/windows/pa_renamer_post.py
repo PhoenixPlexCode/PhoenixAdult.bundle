@@ -26,7 +26,7 @@ def main():
             batch=True
         dir = args.directory
 
-    debug=True
+    debug=False
 
     if debug:
         logging.basicConfig(level=logging.DEBUG)
