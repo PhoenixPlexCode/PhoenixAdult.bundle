@@ -1,64 +1,55 @@
 import PAsearchSites
 import PAgenres
-def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchAll,searchSiteID):
+def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchSiteID):
+    if searchSiteID != 9999:
+        siteNum = searchSiteID
     searchString = encodedTitle.replace(" ","+")
-    if not searchAll:
-        searchString = searchString + "+in+" + PAsearchSites.getSearchSiteName(searchSiteID).replace(" ","+")
     searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchString)
     for searchResult in searchResults.xpath('//div[@class="scene-item"]'):
         titleNoFormatting = searchResult.xpath('.//a')[0].get("title")
-        Log("Result Title: " + titleNoFormatting)
         curID = searchResult.xpath('.//a')[0].get('href')
-        curID = curID[31:-26]
-        curID = curID.replace('/','_')
-        Log("ID: " + curID)
-        releasedDate = searchResult.xpath('.//p[@class="entry-date"]')[0].text_content()
-
-        Log("CurID" + str(curID))
-        lowerResultTitle = str(titleNoFormatting).lower()
+        curID = curID[:-26]
+        curID = curID.replace('/','_').replace('?','!')
+        releaseDate = parse(searchResult.xpath('.//p[@class="entry-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         searchString = searchString.replace("+"," ")
-        if searchByDateActor != True:
-            score = 102 - Util.LevenshteinDistance(searchString.lower(), titleNoFormatting.lower())
+        if searchDate:
+            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
         else:
-            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %d, %y')
-            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
-        titleNoFormatting = titleNoFormatting + " [NA, " + releasedDate +"]"
-        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [NA] " + releaseDate, score = score, lang = lang))
     return results
-def update(metadata,siteID,movieGenres):
-    temp = str(metadata.id).split("|")[0].replace('_','/')
 
-    url = PAsearchSites.getSearchBaseURL(siteID) + temp
+def update(metadata,siteID,movieGenres,movieActors):
+    url = str(metadata.id).split("|")[0].replace('_','/').replace('!','?')
     detailsPageElements = HTML.ElementFromURL(url)
 
     # Summary
     metadata.studio = "Naughty America"
-    #paragraph = detailsPageElements.xpath('//span[@class="moreless js-readmore"]')[0].text_content()
-    #paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
-    metadata.summary = detailsPageElements.xpath('//p[@class="synopsis_txt"]')[0].text_content()
-    site = detailsPageElements.xpath('//a[@class="site-title grey-text"]')[0].text_content()
-    metadata.title = " in " + site
-    date = detailsPageElements.xpath('//p[@class="scenedate"]//span')[0].text_content()
+    metadata.summary = detailsPageElements.xpath('//div[@class="synopsis grey-text"]')[0].text_content().strip().replace('Synopsis','')
+    subSite = detailsPageElements.xpath(('//div[@class="scene-info"]/a[@class="site-title grey-text link"]'))[0].text_content().strip()
+    metadata.tagline = subSite
+    metadata.collections.clear()
+    metadata.collections.add(metadata.tagline)
+
+    metadata.title = detailsPageElements.xpath('//title')[0].text_content().strip()
+    date = detailsPageElements.xpath('//span[@class="entry-date light-grey-text"]')[0].text_content()
     date_object = datetime.strptime(date, '%b %d, %Y')
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year    
         
     # Actors
-    metadata.roles.clear()
-    titleActors = ""
-    actors = detailsPageElements.xpath('//a[@class="scene-title grey-text"]')
+    movieActors.clearActors()
+    actors = detailsPageElements.xpath('//a[contains(@class,"scene-title grey-text")]')
     if len(actors) > 0:
         for actorLink in actors:
-            role = metadata.roles.new()
             actorName = actorLink.text_content()
-            role.name = actorName
-            titleActors = titleActors + actorName + " & "
             actorPageURL = actorLink.get("href")
             actorPage = HTML.ElementFromURL(actorPageURL)
-            actorPhotoURL = "http:" + actorPage.xpath('//img[@class="performer-pic"]')[0].get("src")
-            role.photo = actorPhotoURL
-        titleActors = titleActors[:-3]
-        metadata.title = titleActors + metadata.title
+            try:
+                actorPhotoURL = "http:" + actorPage.xpath('//img[@class="performer-pic"]')[0].get("src")
+            except:
+                actorPhotoURL = ""
+            movieActors.addActor(actorName,actorPhotoURL)
 
     # Genres
     movieGenres.clearGenres()
@@ -72,10 +63,19 @@ def update(metadata,siteID,movieGenres):
     valid_names = list()
     metadata.posters.validate_keys(valid_names)
     metadata.art.validate_keys(valid_names)
-    posters = detailsPageElements.xpath('//a[contains(@class,"scene-image")]')
-    background = "http:" + detailsPageElements.xpath('//video')[0].get("poster")
-    metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+    try:
+        background = "http:" + detailsPageElements.xpath('//video')[0].get("poster")
+        metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+    except:
+        pass
 
+    try:
+        background = "http:" + detailsPageElements.xpath('//img[@class="start-card"]')[0].get("src")
+        metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+    except:
+        pass
+    
+    posters = detailsPageElements.xpath('//a[contains(@class,"scene-image")]')
     posterNum = 1
     for posterCur in posters:
         posterURL = "http:" + posterCur.get("href")
