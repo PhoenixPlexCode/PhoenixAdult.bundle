@@ -1,53 +1,37 @@
 import PAsearchSites
 import PAgenres
-def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchAll,searchSiteID):
+def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchSiteID):
+    if searchSiteID != 9999:
+        siteNum = searchSiteID
     searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
-    for searchResult in searchResults.xpath('//div[@class="video-item-big"]'):
-        
+    for searchResult in searchResults.xpath('//div[@class="col col-33 t-col-50 m-col-100"]'):
         #Log(searchResult.text_content())
-        titleNoFormatting = searchResult.xpath('.//a[@class="v-title"]')[0].text_content()
-        Log("Result Title: " + titleNoFormatting)
-        curID = searchResult.xpath('.//a')[0].get("href")
-        curID = curID.replace('/','+')
-        Log("ID: " + curID)
-        releasedDate = searchResult.xpath('.//span[@class="v-stat"]//span[@class="txt"]')[0].text_content()
-        releasedDate = datetime.strptime(releasedDate, '%d.%m.%y').strftime('%Y-%m-%d')
-        Log(releasedDate)
-        Log(str(curID))
-        lowerResultTitle = str(titleNoFormatting).lower()
-        if searchByDateActor != True:
-            score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
-        else:
-            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%Y-%m-%d')
-            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
-        titleNoFormatting = "[" + releasedDate + "] " + titleNoFormatting + " [" + PAsearchSites.searchSites[siteNum][1] + "]"
+        titleNoFormatting = searchResult.xpath('.//a[@class="main-url"]')[0].get('title')
+        subSite = searchResult.xpath('.//a[@class="uppercase"]')[0].get('title')
+        curID = searchResult.xpath('.//a[@class="main-url"]')[0].get('href').replace('/','_').replace('?','!')
+
+        score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        titleNoFormatting = titleNoFormatting + " [LetsDoeIt/"+subSite+"]"
         results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
-
-
-
 
     return results
 
-
-
-def update(metadata,siteID,movieGenres):
+def update(metadata,siteID,movieGenres,movieActors):
     Log('******UPDATE CALLED*******')
-    temp = str(metadata.id).split("|")[0].replace('+','/')
+    url = str(metadata.id).split("|")[0].replace('_','/').replace('?','!')
 
-    url = PAsearchSites.getSearchBaseURL(siteID) + temp
     detailsPageElements = HTML.ElementFromURL(url)
 
     # Summary
     metadata.studio = "Porndoe Premium"
-    metadata.summary = detailsPageElements.xpath('//p[@class="description"]')[0].text_content()
-    metadata.title = detailsPageElements.xpath('//h1[@class="big-container-title"]')[0].text_content()
-    releasedDate = detailsPageElements.xpath('//div[@class="col date"]')[0].text_content()[71:-37]
-    Log(releasedDate)
-    date_object = datetime.strptime(releasedDate, '%d.%m.%y')
+
+    metadata.summary = detailsPageElements.xpath('//meta[@itemprop="description"]')[0].get('content')
+    metadata.title = detailsPageElements.xpath('//div[@itemprop="video"]/meta[@itemprop="name"]')[0].get('content')
+    releaseDate = detailsPageElements.xpath('//meta[@itemprop="uploadDate"]')[0].get('content')
+    date_object = parse(releaseDate)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year 
-    metadata.tagline = detailsPageElements.xpath('//div[@class="col channel"]//a')[0].text_content()
-    Log(metadata.tagline)
+    metadata.tagline = detailsPageElements.xpath('//h4[@class="h5 no-space"]/a/strong')[0].text_content()
     metadata.collections.clear()
     metadata.collections.add(metadata.tagline)
 
@@ -68,34 +52,29 @@ def update(metadata,siteID,movieGenres):
             movieGenres.addGenre(genreName)
 
     # Actors
-    metadata.roles.clear()
-    actors = detailsPageElements.xpath('//a[contains(@class,"pornstar")]')
+    movieActors.clearActors()
+    actors = detailsPageElements.xpath('//a[@class="secondary-color links"]')
     if len(actors) > 0:
         for actorLink in actors:
-            role = metadata.roles.new()
             actorName = actorLink.text_content()
-            role.name = actorName
-            actorPageURL = "https://porndoepremium.com" + actorLink.get("href")
+            actorPageURL = actorLink.get("href")
             actorPage = HTML.ElementFromURL(actorPageURL)
-            actorPhotoURL = actorPage.xpath('//img[@alt="PS"]')[0].get("src")
-            role.photo = actorPhotoURL
+            actorPhotoURL = actorPage.xpath('//div[@class="avatar"]/picture/img[@class="lazy"]')[0].get("data-src")
+            movieActors.addActor(actorName,actorPhotoURL)
 
     # Posters/Background
-    valid_names = list()
-    metadata.posters.validate_keys(valid_names)
-    metadata.art.validate_keys(valid_names)
-
-    background = detailsPageElements.xpath('//img[@class="owl-lazy"]')[0].get("data-src").replace("thumb/0x250/","crop/1920x1080/")
     try:
+        background = detailsPageElements.xpath('//picture[@class="poster"]/img')[0].get("src").replace("/1472x828/", "/1920x1080/")
         metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
     except:
         pass
     
-    posters = detailsPageElements.xpath('//img[@class="owl-lazy"]')
+    posters = detailsPageElements.xpath('//img[@class="swiper-lazy"]')
     posterNum = 1
     for poster in posters:
-        posterURL = poster.get("data-src")
+        posterURL = poster.get("data-src").replace("/0x250/","/1920x1080/")
         metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL).content, sort_order = posterNum)
+        metadata.art[posterURL] = Proxy.Preview(HTTP.Request(posterURL).content, sort_order = posterNum + 1)
         posterNum += 1
     
 

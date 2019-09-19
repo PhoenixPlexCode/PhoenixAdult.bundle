@@ -1,379 +1,87 @@
-# PhoenixAdult metadata agent
 
-This metadata agent will receive data from multiple sites for scene video releases.
+PhoenixAdult metadata agent
+===========================
+This metadata agent helps fill Plex with information for your adult videos by pulling from the original site.
 
-## Features
-
-The agent searches in two ways, Scene title or scene date with at least one star name
-
+Features
+--------
 Currently the features of this metadata agent are:
-- Grabs Metadata
-- Title
-- Studio
-- Release Data
-- Genres
-- Porn Stars stored in Actors with photo
-- Movie Poster
-- Video banner as video background
+- Scrapes any available Metadata, including:
+  - Scene Title
+  - Scene Summary
+  - Studio
+  - Originating Site / Subsite / Site Collection (saved as the Tagline, and also a Collection for easy searching)
+  - Release Date
+  - Genres / Categories / Tags
+  - Porn Stars (stored as Actors, with photo)
+  - Scene Director(s)
+  - Movie Poster(s) / Background Art
 
-## File Naming
+- Function to strip common "scene" tags to assist with matching
+- Function to replace abbreviated site names with full site names to assist with matching
+- Function to clean up / merge genres
+- Function to clean up / merge actresses with aliases (e.g. Doris Ivy is Gina Gerson)
+- Function to locate an image for actors where the original site doesn't provide one
+- Function to manually add actors for sites the agent doesn't support
+- Function to automatically rename files (WIP)
 
-**Plex Video Files Scanner needs to be set as the library scanner for best results.
+File Naming
+-----------
+The agent will try to match your file automatically, usually based on the filename. You can assist it by renaming your video appropriately.
+If the video is not successfully matched, you can try to manually match it using the [Match...] function in Plex. See the [manual searching document](./docs/manualsearch.md) for more information.
+Best practice for each site is listed in the [sitelist document](./docs/sitelist.md).
+**Plex Video Files Scanner needs to be set as the library scanner for best results.**
 
-For best results, file names should follow the layout below
+#### Here are some naming structures we recommend:
+- `SiteName` - `YYYY-MM-DD` - `Scene Name` `.[ext]`
+- `SiteName` - `Scene Name` `.[ext]`
+- `SiteName` - `YYYY-MM-DD` - `Actor(s)` `.[ext]`
+- `SiteName` - `Actor(s)` `.[ext]`
 
-###### Title Search
+Real world examples:
+- `Blacked - 2018-12-11 - The Real Thing.mp4`
+- `Blacked - Hot Vacation Adventures.mp4`
+- `Blacked - 2018-09-07 - Alecia Fox.mp4`
+- `Blacked - Alecia Fox Joss Lescaf.mp4`
 
-- Site - Scene Title.[ext]
+Some sites do not have a search function available. This is where SceneID and Direct URL come in to play.
+These usually don't make the most intuitive filenames, so it is often better to use the [Match...] function in Plex. See the [manual searching document](./docs/manualsearch.md) for more information.
 
-Examples:
-- Blacked - Hot Vacation Adventures.mp4
-- Blackedraw - Pass Me Around.mp4
+#### If you would prefer to integrate SceneIDs into your filenames, instead of manually matching in Plex, here are some naming structures we recommend:
 
-###### Date/Actor Search
+- `SiteName` - `YYYY-MM-DD` - `SceneID` `.[ext]`
+- `SiteName` - `SceneID` `.[ext]`
+- `SiteName` - `SceneID` - `Scene Name` `.[ext]`
 
-- Site - YYYY-MM-DD - Porn Star Names.[ext]
-- Site - YYYY-MM-DD - Porn Star Name Porn Star Name.[ext]
+Real world examples:
+- `EvilAngel - 2016-10-02 - 119883` (taken from the URL [https://www.evilangel.com/en/video/Allie--Lilys-Slobbery-Anal-Threesome/**119883**](https://www.evilangel.com/en/video/Allie--Lilys-Slobbery-Anal-Threesome/119883))
+- `MomsTeachSex - 314082` (taken from the URL [https://momsteachsex.com/tube/watch/**314082**](https://momsteachsex.com/tube/watch/314082))
+- `Babes - 3075191 - Give In to Desire` (taken from the URL [https://www.babes.com/scene/**3075191**/1](https://www.babes.com/scene/3075191/1))
 
-Examples:
-- Blacked - 2018-09-07 - Alecia Fox.mp4
-- Blacked - 2018-09-07 - Alecia Fox Joss Lescaf.mp4
-- Blacked - 2018-09-04 - Haley Reed.mp4
-- Blacked - 2018-09-04 - Haley Reed Jason Luv.mp4
+Installation
+------------
+How to find the plug-in folder location:
+[https://support.plex.tv/hc/en-us/articles/201106098-How-do-I-find-the-Plug-Ins-folder-](https://linkthe.net/?https://support.plex.tv/hc/en-us/articles/201106098-How-do-I-find-the-Plug-Ins-folder-)
 
-The site can be missing from the filename, but all sites will then be searched possibly causing a mismatch.
-
-## Installation
-
-Here is how to find the plug-in folder location:
-https://support.plex.tv/hc/en-us/articles/201106098-How-do-I-find-the-Plug-Ins-folder-
-
-Plex main folder location:
-
-    * '%LOCALAPPDATA%\Plex Media Server\'                                        # Windows Vista/7/8
-    * '%USERPROFILE%\Local Settings\Application Data\Plex Media Server\'         # Windows XP, 2003, Home Server
-    * '$HOME/Library/Application Support/Plex Media Server/'                     # Mac OS
-    * '$PLEX_HOME/Library/Application Support/Plex Media Server/',               # Linux
-    * '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/', # Debian,Fedora,CentOS,Ubuntu
-    * '/usr/local/plexdata/Plex Media Server/',                                  # FreeBSD
-    * '/usr/pbi/plexmediaserver-amd64/plexdata/Plex Media Server/',              # FreeNAS
-    * '${JAIL_ROOT}/var/db/plexdata/Plex Media Server/',                         # FreeNAS
-    * '/c/.plex/Library/Application Support/Plex Media Server/',                 # ReadyNAS
-    * '/share/MD0_DATA/.qpkg/PlexMediaServer/Library/Plex Media Server/',        # QNAP
-    * '/volume1/Plex/Library/Application Support/Plex Media Server/',            # Synology, Asustor
-    * '/raid0/data/module/Plex/sys/Plex Media Server/',                          # Thecus
-    * '/raid0/data/PLEX_CONFIG/Plex Media Server/'                               # Thecus Plex community    
-
-Get the latest source zip in GitHub release at https://github.com/PhoenixPlexCode/PhoenixAdult.bundle > "Clone or download > Download Zip
+- Get the PAhelper source zip in GitHub release at https://github.com/PAhelper/PhoenixAdult.bundle > "Clone or download > Download Zip
 - Open PhoenixAdult.bundle-master.zip and copy the folder inside (PhoenixAdult.bundle-master) to the plug-ins folders
 - Rename folder to "PhoenixAdult.bundle" (remove -master)
 
-## Usage Notes
-If you are doing a manual search in Plex and you wish to only search a single site, prefix your title with "Sitename - " followed by the title of the scene you wish to search.
+Reporting a bug
+------
+We try to maintain bug-free code, but bugs do happen. If you are having difficulty matching a scene, please refer to [Known Issues](https://github.com/PAhelper/PhoenixAdult.bundle/issues/218) before submitting an Issue.
 
-## Notice
+Known Limitations
+-----------------
+Some sites do not have many high quality images that can be used as poster or background art. I have found the forums at [ViperGirls.to](https://linkthe.net/?https://www.vipergirls.to) to be a great resource for artwork in these situations.
+Some sites do not work on Linux installations of Plex. Workarounds have been found, but unfortunately this issue lies mostly with the differences in code between Plex Server for Windows and Plex Server for Linux.
 
-No real error checking is implemented. It was quickly tested on 10+ titles per site before the initial posting.
+Change Log/Updates
+------------------
+To view the most detailed changes to code, check the [commit log](https://github.com/PAhelper/PhoenixAdult.bundle/commits/master). Additional infomation can be obtained from the list of [merged pull requests](https://github.com/PAhelper/PhoenixAdult.bundle/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Amerged). 
 
-** Plex Video Files Scanner needs to be set as the library scanner for best results. **
+Supported Networks
+------------------
 
-## Known Limitations
-- Teen Fidelity, Porn Fidelity, Kelly Madison, and X-Art will sometimes not pull metadata when many files from that site are being added at once. This is a limitation on the number of requests to their website. Just go back to that video and hit Refresh Metadata (or Match if it didn't make it that far) and everything should then be added.
-
-- LegalPorno does not have high quality pictures to be used for metadata.
-
-## Donations
-If you would like to send a donation my way, which are greatly appreciated, you can do so a few different ways.
-- If you are in the US you can donate via https://squareup.com/store/phoenix-plex-code/
-- If you would like to send via Venmo, you can message me on the Plex Forums (https://forums.plex.tv/u/PhoenixUser) or send an email to: donations [at] phoenixplexcode.33mail.com
-- If you are outside of the US, contact me on the Plex Forums (https://forums.plex.tv/u/PhoenixUser) or send an email to: donations [at] phoenixplexcode.33mail.com and we will see what we can work out.
-- BTC: 12XEjShia1CMo4PvVa5M2XeNiGZv6nG5Dh
-- BCH: qqgtqyfacdrw0da5k9n4zg6p8fv58we44vuzqg8zct
-
-
-## Change Log/Updates
-- 2018-10-02 6:00PM CST - Date match on a 2 digit year added as failover. Fixed issue with ExposedCasting not matching. Fixed Brazzers error handling when background banner was missing
-- 2018-09-26 3:00PM CST - Added Porndoe Premium Network, added LegalPorno
-- 2018-09-25 3:15PM CST - Bug Fix for crashing on metadata load on some sites in the Reality Kings network
-- 2018-09-23 1:45PM CST - Bug fixes, split code into multiple Python files by site for better organization and aid in allowing simpler code maintenance.
-    + Files can be matched to sites with or without the spaces in the site name and if .com is left in the site name as well.
-    + Bang Bros - Fixed incomplete metadata due to crashing when the agent reached the video date
-    + Reality Kings - Fixed missing actors and occassional crashing on poster downloads preventing genres from being added.
-    + TeamSkeet - Fixed incomplete metadata on videos in the month of August
-    + X-Art - Fixed incomplete metadata on videos with special characters in the title
-    + Girlsway - Fixed incomplete metadata on INTERVIEW and BTS videos
-    + TeenFidelity/PornFidelity/Kelly Madison - Fixed lack of metadata due to an SSL issue
-
-
-- 2018-09-13 2:30PM CST - Added TeamSkeet, added Genre/Tags cleanup v1
-- 2018-09-12 12:00AM CST - Added 21Naturals, PornFidelity, TeenFidelity, Kelly Madison.
-- 2018-09-11 1:00AM CST - Added Reality Kings Network and Tushy.
-- 2018-09-10 2:30PM CST - Added Bang Bros Network and X-Art. Fixed some Brazzers bugs.
-- 2018-09-09 6:00PM CST - Initial Upload
-
-## Supported Networks/Site
-
-#### - 21Naturals *Title Search *Date/Actor Search
-#### - Bang Bros Network *Title Search *Date/Actor Search
--   Ass Parade
--   AvaSpice
--   Back Room Facials
--   Backroom MILF
--   Ball Honeys
--   Bang Bus
--   Bang Casting
--   Bang POV
--   Bang Tryouts
--   BangBros 18
--   BangBros Angels
--   Bangbros Clips
--   BangBros Remastered
--   Big Mouthfuls
--   Big Tit Cream Pie
--   Big Tits Round Asses
--   BlowJob Fridays
--   Blowjob Ninjas
--   Boob Squad
--   Brown Bunnies
--   Can He Score
--   Casting
--   Chongas
--   Colombia Fuck Fest
--   Dirty World Tour
--   Dorm Invasion
--   Facial Fest
--   Fuck Team Five
--   Glory Hole Loads
--   Latina Rampage
--   Living With Anna
--   Magical Feet
--   MILF Lessons
--   Milf Soup
--   MomIsHorny
--   Monsters of Cock
--   Mr CamelToe
--   Mr Anal
--   My Dirty Maid
--   My Life In Brazil
--   Newbie Black
--   Party of 3
--   Pawg
--   Penny Show
--   Porn Star Spa
--   Power Munch
--   Public Bang
--   Slutty White Girls
--   Stepmom Videos
--   Street Ranger
--   Tugjobs
--   Working Latinas
-#### - Blacked *Title Search *Date/Actor Search
-#### - BlackedRaw *Title Search *Date/Actor Search
-#### - Brazzers Network *Title Search
--   Moms in Control
--   Pornstars Like It Big
--   Big Tits at Work
--   Big Tits at School
--   Baby Got Boobs
--   Real Wife Stories
--   Teens Like It Big
--   ZZ Series
--   Mommy Got Boobs
--   Milfs Like It Big
--   Big Tits in Uniform
--   Doctor Adventures
--   Exxtra
--   Big Tits in Sports
--   Big Butts like it big
--   Big Wet Butts
--   Dirty Masseur
--   Hot and Mean
--   Shes Gonna Squirt
--   Asses In Public
--   Busty Z
--   Busty and Real
--   Hot Chicks Big Asses
--   CFNM Clothed Female Male Nude
--   Teens Like It Black
--   Racks and Blacks
--   Butts and Blacks
-#### - Girlsway *Title Search
-#### - Kelly Madison *Title Search *Date/Actor Search
-#### - LegalPorno *Title Search
-#### - Naughty America Network *Date/Actor Search
--   My Friends Hot Mom
--   My First Sex Teacher
--   Seduced By A Cougar
--   My Daughters Hot Friend
--   My Wife is My Pornstar
--   Tonights Girlfriend Class
--   Wives on Vacation
--   My Sisters Hot Friend
--   Naughty Weddings
--   Dirty Wives Club
--   My Dads Hot Girlfriend
--   My Girl Loves Anal
--   Lesbian Girl on Girl
--   Naughty Office
--   I have a Wife
--   Naughty Bookworms
--   Housewife 1 on 1
--   My Wifes Hot Friend
--   Latin Adultery
--   Ass Masterpiece
--   2 Chicks Same Time
--   My Friends Hot Girl
--   Neighbor Affair
--   My Girlfriends Busty Friend
--   Naughty Athletics
--   My Naughty Massage
--   Fast Times
--   The Passenger
--   Milf Sugar Babes Classic
--   Perfect Fucking Strangers Classic
--   Asian 1 on 1
--   American Daydreams
--   SoCal Coeds
--   Naughty Country Girls
--   Diary of a Milf
--   Naughty Rich Girls
--   My Naughty Latin Maid
--   Naughty America
--   Diary of a Nanny
--   Naughty Flipside
--   Live Party Girl
--   Live Naughty Student
--   Live Naughty Secretary
--   Live Gym Cam
--   Live Naughty Teacher
--   Live Naughty Milf
--   Live Naughty Nurse
-#### - Porndoe Premium Network *Title Search *Date/Actor Search
--   Porndoe Premium
--   The White Boxxx
--   Scam Angels
--   Chicas Loca
--   Her Limit
--   A Girl Knows
--   Porno Academie
--   Xchimera
--   Carne Del Mercado
--   XXXShades
--   BumsBus
--   Bitches Abroad
--   La Cochonne
--   Crowd Bondage
--   Relaxxxed
--   My Naughty Album
--   Tu Venganza
--   Bums Buero
--   Los Consoladores
--   Quest for Orgasm
--   Transbella
--   Her Big Ass
--   Narcos X
--   Fucked In Traffic
--   Las Folladoras
--   Badtime Stories
--   Exposed Casting
--   Kinky Inlaws
--   Doe Projects
--   Porndoepedia
--   Casting Francais
--   Bums Besuch
--   Special Feet Force
--   Trans Taboo
--   Operacion Limpieza
--   La Novice
--   Casting Alla Italiana
--   PinUp Sex
--   Hausfrau Ficken
--   Deutchland Report
--   Reife Swinger
--   Scambisti Maturi
--   STG
--   XXX Omas
-#### - PornFidelity *Title Search *Date/Actor Search
-#### - Reality Kings Network *Title Search
--   40 Inch Plus
--   8th Street Latinas
--   Bad Tow Truck
--   Big Naturals
--   Big Tits Boss
--   Bikini Crashers
--   Captain Stabbin
--   CFNM Secret
--   Cum Fiesta
--   Cum Girls
--   Dangerous Dongs
--   Euro Sex Parties
--   Extreme Asses
--   Extreme Naturals
--   First Time Auditions
--   Flower Tucci
--   Girls of Naked
--   Happy Tugs
--   HD Love
--   Hot Bush
--   In the VIP
--   Mike in Brazil
--   Mike's Apartment
--   Milf Hunter
--   Milf Next Door
--   Moms Bang Teens
--   Moms Lick Teens
--   Money Talks
--   Monster Curves
--   No Faces
--   Pure 18
--   Real Orgasms
--   RK Prime
--   Round and Brown
--   Saturday Night Latinas
--   See My Wife
--   Sneaky Sex
--   Street BlowJobs
--   Team Squirt
--   Teens Love Huge Cocks
--   Top Shelf Pussy
--   Tranny Surprise
--   VIP Crew
--   We Live Together
--   Wives in Pantyhose
-#### - TeamSkeet Network *Title Search *Date/Actor Search
--   Exxxtra small
--   Teen Pies
--   Innocent High
--   Teen Curves
--   CFNM Teens
--   Teens Love Anal
--   My Babysitters Club
--   She's New
--   Teens Do Porn
--   POV Life
--   The Real Workout
--   This Girl Sucks
--   Teens Love Money
--   Oye Loca
--   Titty Attack
--   Teeny Black
--   Lust HD
--   Rub A Teen
--   Her Freshman Year
--   Self Desire
--   Solo Interviews
--   Team Skeet Extras
--   Dyked
--   Badmilfs
--   Gingerpatch
--   BraceFaced
--   TeenJoi
--   StepSiblings
-#### - TeenFidelity *Title Search *Date/Actor Search
-#### - Tushy *Title Search *Date/Actor Search
-#### - Vixen *Title Search *Date/Actor Search
-#### - X-Art *Title Search
-
-
-
-
+To view the full list of supported sites, [check out the sitelist doc](./docs/sitelist.md).
+If your favorite site isn't supported, head over to [Issue #1](https://github.com/PAhelper/PhoenixAdult.bundle/issues/1) to add your request to the list, or vote on the current requests.
