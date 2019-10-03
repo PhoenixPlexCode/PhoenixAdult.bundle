@@ -2117,8 +2117,8 @@ class PhoenixActors:
                 if newActor == "Morgan":
                     newActor = "Morgan Layne"
             if metadata.studio == "WowGirls":
-				if newActor == "Clover":
-					newActor = "Katya Clover"
+                if newActor == "Clover":
+                    newActor = "Katya Clover"
 
             if not skip:
                 if newPhoto == '':
