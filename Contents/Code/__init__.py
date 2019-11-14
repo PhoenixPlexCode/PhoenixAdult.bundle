@@ -205,9 +205,9 @@ class PhoenixAdultAgent(Agent.Movies):
             ###############
             ## Mile High Media
             ###############
-            if siteNum == 330:
-                if searchSiteID == 9999 or searchSiteID == 330 or searchSiteID == 332 or (searchSiteID >= 361 and searchSiteID <= 364):
-                    results = PAsearchSites.networkGammaEnt.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+            if siteNum == 361:
+                if searchSiteID == 9999 or (searchSiteID >= 361 and searchSiteID <= 364):
+                    results = PAsearchSites.networkMileHighMedia.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
 
             ###############
             ## Fantasy Massage
@@ -529,6 +529,13 @@ class PhoenixAdultAgent(Agent.Movies):
             ###############
             if siteNum == 524:
                 if searchSiteID == 9999 or searchSiteID == 524:
+                    results = PAsearchSites.siteJulesJordan.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
+            ###############
+            ## GirlGirl
+            ###############
+            if siteNum == 782:
+                if searchSiteID == 9999 or searchSiteID == 782:
                     results = PAsearchSites.siteJulesJordan.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
 
             ###############
@@ -1020,6 +1027,34 @@ class PhoenixAdultAgent(Agent.Movies):
                 if searchSiteID == 9999 or searchSiteID == 770:
                     results = PAsearchSites.siteZTOD.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
 
+            ###############
+            ## ClubFilly
+            ###############
+            if siteNum == 771:
+                if searchSiteID == 9999 or searchSiteID == 771:
+                    results = PAsearchSites.siteClubFilly.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
+            ###############
+            ## Intersec
+            ###############
+            if siteNum == 772:
+                if searchSiteID == 9999 or (searchSiteID >= 772 and searchSiteID <= 781):
+                    results = PAsearchSites.networkIntersec.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
+            ###############
+            ## Cherry Pimps
+            ###############
+            if siteNum == 783:
+                if searchSiteID == 9999 or (searchSiteID >= 783 and searchSiteID <= 792):
+                    results = PAsearchSites.networkCherryPimps.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
+            ###############
+            ## Wicked
+            ###############
+            if siteNum == 793:
+                if searchSiteID == 9999 or searchSiteID == 793:
+                    results = PAsearchSites.siteWicked.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
             siteNum += 1
 
         results.Sort('score', descending=True)
@@ -1250,8 +1285,16 @@ class PhoenixAdultAgent(Agent.Movies):
         ##   Gamma Entertainment                                    ##
         ##                                                          ##
         ##############################################################
-        if siteID == 53 or siteID == 183 or (siteID >= 277 and siteID <= 278) or siteID == 281 or (siteID >= 285 and siteID <= 287) or (siteID >= 329 and siteID <= 332) or (siteID >= 351 and siteID <= 392) or (siteID >= 460 and siteID <= 466) or siteID == 750:
+        if siteID == 53 or siteID == 183 or (siteID >= 277 and siteID <= 278) or siteID == 281 or (siteID >= 285 and siteID <= 287) or (siteID >= 329 and siteID <= 332) or (siteID >= 351 and siteID <= 360) or (siteID >= 365 and siteID <= 392) or (siteID >= 460 and siteID <= 466) or siteID == 750:
             metadata = PAsearchSites.networkGammaEnt.update(metadata,siteID,movieGenres,movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  MileHighMedia                                           ##
+        ##                                                          ##
+        ##############################################################
+        if siteID >= 361 and siteID <= 364:
+            metadata = PAsearchSites.networkMileHighMedia.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
         ##                                                          ##
@@ -1266,7 +1309,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##   Jules Jordan                                           ##
         ##                                                          ##
         ##############################################################
-        if siteID == 432 or (siteID >= 522 and siteID <= 524):
+        if siteID == 432 or (siteID >= 522 and siteID <= 524) or siteID == 782:
             metadata = PAsearchSites.siteJulesJordan.update(metadata,siteID,movieGenres,movieActors)
 
         ##############################################################
@@ -1819,6 +1862,38 @@ class PhoenixAdultAgent(Agent.Movies):
         ##############################################################
         if siteID == 770:
             metadata = PAsearchSites.siteZTOD.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  ClubFilly                                               ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 771:
+            metadata = PAsearchSites.siteClubFilly.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Intersec                                                ##
+        ##                                                          ##
+        ##############################################################
+        if siteID >= 772 and siteID <= 781:
+            metadata = PAsearchSites.networkIntersec.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Cherry Pimps                                            ##
+        ##                                                          ##
+        ##############################################################
+        if (siteID >= 783 and siteID <= 792):
+            metadata = PAsearchSites.networkCherryPimps.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Wicked                                                  ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 793:
+            metadata = PAsearchSites.siteWicked.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
         ## Cleanup Genres and Add
