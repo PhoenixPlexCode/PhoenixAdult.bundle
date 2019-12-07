@@ -1062,6 +1062,13 @@ class PhoenixAdultAgent(Agent.Movies):
                 if searchSiteID == 9999 or searchSiteID == 794:
                     results = PAsearchSites.site18OnlyGirls.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
 
+            ###############
+            ## AmateurCFNM
+            ###############
+            if siteNum == 795:
+                if searchSiteID == 9999 or searchSiteID == 795:
+                    results = PAsearchSites.siteAmateurCFNM.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID)
+
             siteNum += 1
 
         results.Sort('score', descending=True)
