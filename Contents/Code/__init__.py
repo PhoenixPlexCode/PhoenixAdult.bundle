@@ -1918,6 +1918,14 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.site18OnlyGirls.update(metadata,siteID,movieGenres,movieActors)
 
         ##############################################################
+        ##                                                          ##
+        ##  AmateurCFNM                                                ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 795:
+            metadata = PAsearchSites.siteAmateurCFNM.update(metadata,siteID,movieGenres,movieActors)
+
+        ##############################################################
         ## Cleanup Genres and Add
         Log("Genres")
         movieGenres.processGenres(metadata)
