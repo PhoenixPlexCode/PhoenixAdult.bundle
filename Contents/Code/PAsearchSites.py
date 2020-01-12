@@ -105,8 +105,9 @@ import siteReidMyLips
 import sitePlayboyPlus
 import siteMeanaWolf
 import siteAmateurCFNM
+import sitePureCFNM
 
-searchSites = [None] * 807
+searchSites = [None] * 808
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -914,6 +915,8 @@ searchSites[803] = ["ReidMyLips","ReidMyLips","https://www.reidmylips.com","http
 searchSites[804] = ["Playboy Plus","Playboy Plus","https://www.playboyplus.com","https://www.playboyplus.com/search?query="]
 searchSites[805] = ["Meana Wolf","Meana Wolf","https://meanawolf.elxcomplete.com","https://meanawolf.elxcomplete.com/search.php?query="]
 searchSites[806] = ["AmateurCFNM","AmateurCFNM","https://www.amateurcfnm.com/","https://www.amateurcfnm.com/models/"]
+searchSites[807] = ["PureCFNM","PureCFNM","https://www.purecfnm.com/","https://www.purecfnm.com/models/"]
+
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
