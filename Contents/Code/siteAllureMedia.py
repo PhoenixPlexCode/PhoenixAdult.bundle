@@ -117,6 +117,7 @@ def update(metadata,siteID,movieGenres,movieActors):
         pass
 
     # Photos page
+    photoPageURL = None
     try:
         photoPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Photos"]')[0].get('href')
         photoPageElements = HTML.ElementFromURL(photoPageURL)
@@ -176,10 +177,7 @@ def update(metadata,siteID,movieGenres,movieActors):
 
     # Actors
     movieActors.clearActors()
-    try:
-        actors = detailsPageElements.xpath('//div[@class="backgroundcolor_info"]/span[@class="update_models"]/a')
-    except:
-        pass
+    actors = detailsPageElements.xpath('//div[@class="backgroundcolor_info"]/span[@class="update_models"]/a')
     if len(actors) > 0:
         for actorLink in actors:
             actorName = str(actorLink.text_content().strip())
@@ -188,7 +186,7 @@ def update(metadata,siteID,movieGenres,movieActors):
                 actorPage = HTML.ElementFromURL(actorPageURL)
                 actorPhotoURL = actorPage.xpath('//div[@class="cell_top cell_thumb"]/img').get('src')
                 if 'http' not in actorPhotoURL:
-            	    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPhotoURL
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPhotoURL
             except:
                 actorPhotoURL = ''
             movieActors.addActor(actorName,actorPhotoURL)
@@ -369,6 +367,38 @@ def update(metadata,siteID,movieGenres,movieActors):
         actorName = "Emma Wilson"
         actorPhotoURL = ''
         movieActors.addActor(actorName, actorPhotoURL)
+    if "Kenzie Reeves" in metadata.title or "Kenzie Reeves" in metadata.summary:
+        actorName = "Kenzie Reeves"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Devon Green" in metadata.title or "Devon Green" in metadata.summary:
+        actorName = "Devon Green"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Jane Wilde" in metadata.title or "Jane Wilde" in metadata.summary:
+        actorName = "Jane Wilde"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Lena Anderson" in metadata.title or "Lena Anderson" in metadata.summary:
+        actorName = "Lena Anderson"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Lilly Banks" in metadata.title or "Lilly Banks" in metadata.summary:
+        actorName = "Lilly Banks"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Linda Lay" in metadata.title or "Linda Lay" in metadata.summary:
+        actorName = "Linda Lay"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Belle Knox" in metadata.title or "Belle Knox" in metadata.summary:
+        actorName = "Belle Knox"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
+    if "Miley May" in metadata.title or "Miley May" in metadata.summary:
+        actorName = "Miley May"
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
 
     j = 1
     Log("Artwork found: " + str(len(art)))
@@ -376,17 +406,20 @@ def update(metadata,siteID,movieGenres,movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl,metadata):            
             #Download image file for analysis
             try:
-                img_file = urllib.urlopen(posterUrl)
+                referer = photoPageURL if photoPageURL else url
+                req = urllib.Request(posterUrl)
+                req.add_header('Referer', referer)
+                img_file = urllib.urlopen(req)
                 im = StringIO(img_file.read())
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 #Add the image proxy items to the collection
                 if width > 1 or height > width:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': url}).content, sort_order = j)
+                    metadata.posters[posterUrl] = Proxy.Media(HTTP.Request(posterUrl, headers={'Referer': referer}).content, sort_order = j)
                 if width > 100 and width > height:
                     # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Preview(HTTP.Request(posterUrl, headers={'Referer': url}).content, sort_order = j)
+                    metadata.art[posterUrl] = Proxy.Media(HTTP.Request(posterUrl, headers={'Referer': referer}).content, sort_order = j)
                 j = j + 1
             except Exception as e:
                 Log("posterUrl: "+ posterUrl)

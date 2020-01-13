@@ -49,6 +49,8 @@ class PhoenixActors:
                 newActor = "Anastasia Morna"
             if newActor == "April ONeil" or newActor == "April Oneil" or newActor == "April O'neil":
                 newActor = "April O'Neil"
+            if newActor == "Ashley Graham":
+                newActor = "Ashlee Graham"
             if newActor == "Bibi Jones" or newActor == "Bibi Jones™":
                 newActor = "Britney Beth"
             if newActor == "Bridgette B.":
@@ -57,10 +59,14 @@ class PhoenixActors:
                 newActor = "Capri Cavanni"
             if newActor == "Ce Ce Capella":
                 newActor = "CeCe Capella"
+            if newActor == "Charli Red":
+                newActor = "Charlie Red"
             if newActor == "Charlotte Lee":
                 newActor = "Jaye Summers"
             if newActor == "Criss Strokes":
                 newActor = "Chris Strokes"
+            if newActor == "CléA Gaultier":
+                newActor = "Clea Gaultier"
             if newActor == "Crissy Kay" or newActor == "Emma Hicks" or newActor == "Emma Hixx":
                 newActor = "Emma Hix"
             if newActor == "Crystal Rae":
@@ -141,10 +147,11 @@ class PhoenixActors:
                 newActor = "Steven St. Croix"
             if newActor == "Sybil Kailena" or newActor == "Sybil":
                 newActor = "Sybil A"
-            if newActor == "Tiny Teen" or newActor == "Tieny Mieny" or newActor == "Lady Jay":
+            if newActor == "Tiny Teen" or newActor == "Tieny Mieny" or newActor == "Lady Jay" or newActor == "Tiny Teen / Eva Elfie":
                 newActor = "Eva Elfie"
             if newActor == "Veronica Vega":
                 newActor = "Veronica Valentine"
+
             ##### Replace by site + actor; use when an actor just has an alias or abbreviated name on one site
             if metadata.studio == "21Sextury":
                 if newActor == "Abbie":
@@ -154,6 +161,12 @@ class PhoenixActors:
             if metadata.studio == "Babes":
                if newActor == "Angelica":
                     newActor = "Krystal Boyd"
+               if newActor == "Ariel":
+                   newActor = "Ariel Piper Fawn"
+               if newActor == "Aiko May":
+                   newActor = "Aika May"
+               if newActor == "Clover":
+                   newActor = "Katya Clover"
             if metadata.studio == "Bang Bros":
                if newActor == "Amy":
                     newActor = "Abella Anderson"
@@ -1518,6 +1531,9 @@ class PhoenixActors:
                     newActor = "Aruna Aghora"
                 if newActor == "Zoi":
                     newActor = "Liona Levi"
+            if metadata.studio == "Twistys":
+                if newActor == "Blaire Ivory":
+                    newActor = "Lena Anderson"
             if metadata.studio == "X-Art":
                 if newActor == "Abby":
                     newActor = "Abigaile Johnson"
@@ -2204,8 +2220,9 @@ def actorDBfinder(actorName):
                         # actorPhotoURL = actorPage.xpath('//div[@id="profimg"]//a')[0].get("href")
                         # actorPhotoURL = "http://www.babepedia.com" + actorPhotoURL
                         actorPhotoURL = "http://www.babepedia.com/pics/" + actorName.title().replace(" ", "%20") + ".jpg"
+                        urllib.urlopen(actorPhotoURL)
                         Log("PhotoURL: " + actorPhotoURL)
                     except:
-                        Log(actorName + "not found.")
+                        Log(actorName + " not found.")
                         actorPhotoURL = ""
     return actorPhotoURL
