@@ -7,16 +7,17 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
         siteNum = searchSiteID
     searchString = searchTitle .replace(" ","-").replace(",","").replace("'","").replace("?","").lower().strip() + ".html"
     Log("searchString " + searchString)
-    url = PAsearchSites.getSearchSearchURL(siteNum) + searchString
-    searchResults = HTML.ElementFromURL(url)
+    searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchString)
     for searchResult in searchResults.xpath('//div[@class="update_block"]'):
         # Info passed on to update fxn
         titleNoFormatting = searchResult.xpath('.//span[@class="update_title"]')[0].text_content().strip()
         Log(titleNoFormatting)
+        releaseDate = parse(searchResult.xpath('.//span[@class="update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        Log(releaseDate)
+        # Fake Unique CurID
+        curID = titleNoFormatting
         summary = searchResult.xpath('.//span[@class="latest_update_description"]')[0].text_content().strip()
         Log(summary)
-        releaseDate = parse(searchResults.xpath('.//span[@class="update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
-        Log(releaseDate)
         actorList = []
         actors = searchResult.xpath('.//span[@class="tour_update_models"]/a')
         for actorLink in actors:
@@ -27,9 +28,6 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
         videoBG = searchResult.xpath('.//div[@class="update_image"]/a/img')[0].get('src')
         videoBG = videoBG.replace('/','_').replace('?','!')
         Log(videoBG)
-
-        # Fake Unique CurID
-        curID = titleNoFormatting
 
         if searchDate:
             score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)

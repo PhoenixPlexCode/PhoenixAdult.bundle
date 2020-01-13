@@ -7,6 +7,7 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
         siteNum = searchSiteID
     searchString = searchTitle .replace(" ","-").replace(",","").replace("'","").replace("?","").lower().strip() + ".html"
     Log("searchString " + searchString)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchString
     searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchString)
     for searchResult in searchResults.xpath('//div[@class="update_block"]'):
         titleNoFormatting = searchResult.xpath('.//span[@class="update_title"]')[0].text_content().strip()
