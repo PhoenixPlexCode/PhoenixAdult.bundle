@@ -39,7 +39,7 @@ class PhoenixAdultAgent(Agent.Movies):
         title = media.name
         if media.primary_metadata is not None:
             title = media.primary_metadata.studio + " " + media.primary_metadata.title
-        title = title.replace('"','').replace(":","").replace("!","").replace("[","").replace("]","").replace("(","").replace(")","").replace("&","").replace('RARBG.COM','').replace('RARBG','').replace('180x180','').replace('Hevc','').replace('Avc','').replace('5k','').replace(' 4k','').replace('.4k','').replace('2300p60','').replace('2160p60','').replace('1920p60','').replace('1600p60','').replace('2160p','').replace('1080p','').replace('720p','').replace('480p','').replace('540p','').replace(' XXX',' ').replace('MP4-KTR','').replace('Sexors','').replace('3dh','').replace('Oculus','').replace('Lr','').replace('-180_','').replace('TOWN.AG_','').strip()
+        title = title.replace('"','').replace(":","").replace("!","").replace("[","").replace("]","").replace("(","").replace(")","").replace("&","").replace('RARBG.COM','').replace('RARBG','').replace('180 180x180','').replace('180x180','').replace('Hevc','').replace('H265','').replace('Avc','').replace('5k','').replace(' 4k','').replace('.4k','').replace('2300p60','').replace('2160p60','').replace('1920p60','').replace('1600p60','').replace('2300p','').replace('2160p','').replace('1900p','').replace('1600p','').replace('1080p','').replace('720p','').replace('480p','').replace('540p','').replace('3840x1920','').replace('5400x2700','').replace(' XXX',' ').replace('MP4-KTR','').replace('Sexors','').replace('3dh','').replace('Oculus','').replace('Oculus5k','').replace('Lr','').replace('-180_','').replace('TOWN.AG_','').strip()
 
         Log('*******MEDIA TITLE****** ' + str(title))
 
@@ -113,7 +113,7 @@ class PhoenixAdultAgent(Agent.Movies):
             ## GirlsWay
             ###############
             if siteNum == 53:
-                if searchSiteID == 9999 or searchSiteID == 53 or (375 <= searchSiteID <= 379) or (794 <= searchSiteID <= 797):
+                if searchSiteID == 9999 or searchSiteID == 53 or (375 <= searchSiteID <= 379) or (795 <= searchSiteID <= 797):
                     results = PAsearchSites.siteGirlsWay.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
@@ -1117,19 +1117,82 @@ class PhoenixAdultAgent(Agent.Movies):
                     results = PAsearchSites.siteMeanaWolf.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
-            ## AmateurCFNM
+            ## Transsensual
             ###############
             if siteNum == 806:
                 if searchSiteID == 9999 or searchSiteID == 806:
+                    results = PAsearchSites.siteTranssensual.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## DaughterSwap
+            ###############
+            if siteNum == 807:
+                if searchSiteID == 9999 or searchSiteID == 807:
+                    results = PAsearchSites.siteDaughterSwap.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+ 
+            ###############
+            ## Erito
+            ###############
+            if siteNum == 808:
+                if searchSiteID == 9999 or searchSiteID == 808:
+                    results = PAsearchSites.siteErito.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## TrueAmateurs
+            ###############
+            if siteNum == 809:
+                if searchSiteID == 9999 or searchSiteID == 809:
+                    results = PAsearchSites.siteTrueAmateurs.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Hustler
+            ###############
+            if siteNum == 810:
+                if searchSiteID == 9999 or searchSiteID == 810:
+                    results = PAsearchSites.siteHustler.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## AmourAngels
+            ###############
+            if siteNum == 811:
+                if searchSiteID == 9999 or searchSiteID == 811:
+                    results = PAsearchSites.siteAmourAngels.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## JAV
+            ###############
+            if siteNum == 812:
+                if searchSiteID == 9999 or searchSiteID == 812:
+                    results = PAsearchSites.networkR18.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Bang
+            ###############
+            if siteNum == 813:
+                if searchSiteID == 9999 or searchSiteID == 813:
+                    results = PAsearchSites.networkBang.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## JAY's POV
+            ###############
+            if siteNum == 814:
+                if searchSiteID == 9999 or searchSiteID == 814:
+                    results = PAsearchSites.siteJaysPOV.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+            
+            ###############
+            ## AmateurCFNM
+            ###############
+            if siteNum == 815:
+                if searchSiteID == 9999 or searchSiteID == 815:
                     results = PAsearchSites.siteAmateurCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
             ## PureCFNM
             ###############
-            if siteNum == 807:
-                if searchSiteID == 9999 or searchSiteID == 807:
+            if siteNum == 816:
+                if searchSiteID == 9999 or searchSiteID == 816:
                     results = PAsearchSites.sitePureCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
-
+      
             siteNum += 1
 
         results.Sort('score', descending=True)
@@ -1983,7 +2046,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##  GirlsWay                                                ##
         ##                                                          ##
         ##############################################################
-        if siteID == 53 or (siteID >=  375 and siteID <= 379) or (siteID >=  794 and siteID <= 797):
+        if siteID == 53 or (siteID >=  375 and siteID <= 379) or (siteID >=  795 and siteID <= 797):
             metadata = PAsearchSites.siteGirlsWay.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
@@ -2060,10 +2123,82 @@ class PhoenixAdultAgent(Agent.Movies):
 
         ##############################################################
         ##                                                          ##
-        ##  AmateurCFNM                                             ##
+        ##  Transsensual                                            ##
         ##                                                          ##
         ##############################################################
         if siteID == 806:
+            metadata = PAsearchSites.siteTranssensual.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  DaughterSwap                                            ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 807:
+            metadata = PAsearchSites.siteDaughterSwap.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Erito                                                   ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 808:
+            metadata = PAsearchSites.siteErito.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  TrueAmateurs                                            ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 809:
+            metadata = PAsearchSites.siteTrueAmateurs.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Hustler                                                 ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 810:
+            metadata = PAsearchSites.siteHustler.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  AmourAngels                                             ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 811:
+            metadata = PAsearchSites.siteAmourAngels.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  JAV                                                     ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 812:
+            metadata = PAsearchSites.networkR18.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Bang                                                    ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 813:
+            metadata = PAsearchSites.networkBang.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  JAY's POV                                               ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 814:
+            metadata = PAsearchSites.siteJaysPOV.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  AmateurCFNM                                             ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 815:
             metadata = PAsearchSites.siteAmateurCFNM.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
@@ -2071,7 +2206,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##  PureCFNM                                                ##
         ##                                                          ##
         ##############################################################
-        if siteID == 807:
+        if siteID == 816:
             metadata = PAsearchSites.sitePureCFNM.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################

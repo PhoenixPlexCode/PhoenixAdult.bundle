@@ -5,23 +5,23 @@ import PAactors
 def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchSiteID):
     if searchSiteID != 9999:
         siteNum = searchSiteID
-        sceneID = encodedTitle.split('%20', 1)[0]
-        Log("SceneID: " + sceneID)
-        try:
-            sceneTitle = encodedTitle.split('%20', 1)[1].replace('%20',' ')
-        except:
-            sceneTitle = ''
-        Log("Scene Title: " + sceneTitle)
-        url = PAsearchSites.getSearchSearchURL(siteNum) + sceneID + "/1"
-        searchResults = HTML.ElementFromURL(url)
-        for searchResult in searchResults.xpath('//div[@class="wxt7nk-0 bsAFqW"]'):
-            titleNoFormatting = searchResult.xpath('.//div[1]/h1')[0].text_content().strip()
-            curID = url.replace('/','_').replace('?','!')
-            if sceneTitle:
-                score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
-            else:
-                score = 90
-            results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Property Sex] ", score = score, lang = lang))
+    sceneID = encodedTitle.split('%20', 1)[0]
+    Log("SceneID: " + sceneID)
+    try:
+        sceneTitle = encodedTitle.split('%20', 1)[1].replace('%20',' ')
+    except:
+        sceneTitle = ''
+    Log("Scene Title: " + sceneTitle)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + sceneID + "/1"
+    searchResults = HTML.ElementFromURL(url)
+    for searchResult in searchResults.xpath('//div[@class="wxt7nk-0 JqBNK"]//div[1]/h1'):
+        titleNoFormatting = searchResult.xpath('//div[1]/h1')[0].text_content().strip()
+        curID = url.replace('/','_').replace('?','!')
+        if sceneTitle:
+            score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
+        else:
+            score = 90
+        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [PropertySex] ", score = score, lang = lang))
 
     return results
 
@@ -68,26 +68,21 @@ def update(metadata,siteID,movieGenres,movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Actors
-    try:
-        actors = detailsPageElements.xpath('//a[@class="wxt7nk-6 czvZQW"]')
-        if len(actors) > 0:
-            if len(actors) == 3:
-                movieGenres.addGenre("Threesome")
-            if len(actors) == 4:
-                movieGenres.addGenre("Foursome")
-            if len(actors) > 4:
-                movieGenres.addGenre("Orgy")
-            for actorLink in actors:
-                actorName = str(actorLink.text_content().strip())
-                try:
-                    actorPage = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get("href")
-                    actorPageElements = HTML.ElementFromURL(actorPage)
-                    actorPhotoURL = actorPageElements.xpath('//div[@class="sc-1p8qg4p-0 kYYnJ"]//img[@class="sc-1p8qg4p-2 ibyLSN"]')[0].get("src")
-                except:
-                    actorPhotoURL = ''
-                movieActors.addActor(actorName, actorPhotoURL)
-    except:
-        pass
+    actors = detailsPageElements.xpath('//a[@class="wxt7nk-6 czvZQW"]')
+    if len(actors) > 0:
+        for actorLink in actors:
+            actorName = str(actorLink.text_content().strip())
+            try:
+                actorPage = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get("href")
+                actorPageElements = HTML.ElementFromURL(actorPage)
+                actorPhotoURL = actorPageElements.xpath('//div[@class="sc-1p8qg4p-0 kYYnJ"]//img[@class="sc-1p8qg4p-2 ibyLSN"]')[0].get("src")
+            except:
+                actorPhotoURL = ''
+            movieActors.addActor(actorName, actorPhotoURL)
+    # Manually Add Missing Actors
+    if metadata.title == "Hollywood Homemade Hills":
+        movieActors.addActor("Adrian Maya", "")
+
 
     ### Posters and artwork ###
 
