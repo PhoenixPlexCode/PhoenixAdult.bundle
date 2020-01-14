@@ -28,7 +28,6 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PixandVideo
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Amateur Allure | Matching type: *[Limited](./manualsearch.md#limited-search)*
-+ #### AmateurCFNM | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Model Name**
 + #### AmourAngels | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
 + #### ArchAngel | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Babes Network | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
@@ -634,7 +633,13 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Sex on the beach
   - Tight and Teen
 + #### PropertySex | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
-+ #### PureCFNM | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Model Name**
++ #### PureCFNM Network | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Model Name**
+  - AmateurCFNM
+  - CFNMGames
+  - GirlsAbuseGuys
+  - HeyLittleDick
+  - LadyVoyeurs
+  - PureCFNM
 + #### PureTaboo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Reality Kings Network | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - 40 Inch Plus

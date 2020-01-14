@@ -13,13 +13,20 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
         titleNoFormatting = searchResult.xpath('.//span[@class="update_title"]')[0].text_content().strip()
         titleNoFormatting = titleNoFormatting.replace('/','_').replace('?','&')
         Log(titleNoFormatting)
+
+        #subSite = searchResult.xpath('//div[@class="tour_top_navbar_wrapper"]')[0].text_content().strip()
+        #Log(subSite)
+
         releaseDate = parse(searchResult.xpath('.//span[@class="update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         Log(releaseDate)
+
         # Fake Unique CurID
         curID = titleNoFormatting
+
         summary = searchResult.xpath('.//span[@class="latest_update_description"]')[0].text_content().strip()
         summary = summary.replace('/','_').replace('?','&')
         Log(summary)
+
         actorList = []
         actors = searchResult.xpath('.//span[@class="tour_update_models"]/a')
         for actorLink in actors:
@@ -27,15 +34,29 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
             actorList.append(actorName)
         actors = ','.join(actorList)
         Log(actors)
+
         videoBG = searchResult.xpath('.//div[@class="update_image"]/a/img')[0].get('src')
         videoBG = videoBG.replace('/','_').replace('?','!')
         Log(videoBG)
+
+        if 'AmateurCFNM' in searchString:
+            subSite = 'AmateurCFNM'
+        elif 'CFNM Games' in searchString:
+            subSite = 'CFNMGames'
+        elif 'Girls Abuse Guys' in searchString:
+            subSite = 'Girls Abuse Guys'
+        elif 'Hey Little Dick' in searchString:
+            subSite = 'Hey Little Dick'
+        elif 'Lady Voyeurs' in searchString:
+            subSite = 'Lady Voyeurs'
+        else:
+            subSite = PAsearchSites.getSearchSiteName(siteNum)
 
         if searchDate:
             score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
         else:
             score = 60
-        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum) + "|" + titleNoFormatting + "|" + summary + "|" + releaseDate + "|" + actors + "|" + videoBG, name = titleNoFormatting + " [AmateurCFNM] " + releaseDate, score = score, lang = lang))
+        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum) + "|" + titleNoFormatting + "|" + summary + "|" + releaseDate + "|" + actors + "|" + videoBG, name = titleNoFormatting + " [PureCFNM/"+subSite+"] " + releaseDate, score = score, lang = lang))
     return results
 
 def update(metadata,siteID,movieGenres,movieActors):
@@ -47,7 +68,7 @@ def update(metadata,siteID,movieGenres,movieActors):
     movieActors.clearActors()
 
     # Studio
-    metadata.studio = 'AmateurCFNM'
+    metadata.studio = 'PureCFNM'
 
     # Title
     try:
@@ -64,12 +85,30 @@ def update(metadata,siteID,movieGenres,movieActors):
         pass
 
     # Tagline and Collection(s)
-    tagline = PAsearchSites.getSearchSiteName(siteID).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    subSite = PAsearchSites.getSearchSiteName(siteID).strip()
+    metadata.tagline = subSite
+    metadata.collections.add(subSite)
+    Log("subSite: " + subSite)
 
     # Genres
-    movieGenres.addGenre("CFNM")
+    if subSite.lower() == "AmateurCFNM".lower():
+        for genreName in ['CFNM']:
+            movieGenres.addGenre(genreName)
+    elif subSite.lower() == "CFNMGames".lower():
+        for genreName in ['CFNM','Femdom']:
+            movieGenres.addGenre(genreName)
+    elif subSite.lower() == "GirlsAbuseGuys".lower():
+        for genreName in ['CFNM','Femdom','Male Humiliation']:
+            movieGenres.addGenre(genreName)
+    elif subSite.lower() == "HeyLittleDick".lower():
+        for genreName in ['CFNM','Femdom', "Small Penis Humiliation"]:
+            movieGenres.addGenre(genreName)
+    elif subSite.lower() == "LadyVoyeurs".lower():
+        for genreName in ['CFNM', 'Voyeur']:
+            movieGenres.addGenre(genreName)
+    elif subSite.lower() == "PureCFNM".lower():
+        for genreName in ['CFNM']:
+            movieGenres.addGenre(genreName)
 
     # Release Date
     try:
@@ -90,6 +129,13 @@ def update(metadata,siteID,movieGenres,movieActors):
             actorName = str(actorLink.strip())
             actorPhotoURL = ""
             movieActors.addActor(actorName,actorPhotoURL)
+        if len(actors) > 0:
+            if len(actors) == 2:
+                movieGenres.addGenre("Threesome")
+            if len(actors) == 3:
+                movieGenres.addGenre("Foursome")
+            if len(actors) > 3:
+                movieGenres.addGenre("Group")
     except:
         pass
 

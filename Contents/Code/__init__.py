@@ -1179,20 +1179,14 @@ class PhoenixAdultAgent(Agent.Movies):
                 if searchSiteID == 9999 or searchSiteID == 814:
                     results = PAsearchSites.siteJaysPOV.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
             
-            ###############
-            ## AmateurCFNM
-            ###############
-            if siteNum == 815:
-                if searchSiteID == 9999 or searchSiteID == 815:
-                    results = PAsearchSites.siteAmateurCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
             ## PureCFNM
             ###############
-            if siteNum == 816:
-                if searchSiteID == 9999 or searchSiteID == 816:
-                    results = PAsearchSites.sitePureCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
-                    
+            if siteNum == 815:
+                if searchSiteID == 9999 or (815 <= searchSiteID <= 820):
+                    results = PAsearchSites.networkPureCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+      
             siteNum += 1
 
         results.Sort('score', descending=True)
@@ -2193,21 +2187,14 @@ class PhoenixAdultAgent(Agent.Movies):
         if siteID == 814:
             metadata = PAsearchSites.siteJaysPOV.update(metadata, siteID, movieGenres, movieActors)
 
-        ##############################################################
-        ##                                                          ##
-        ##  AmateurCFNM                                             ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 815:
-            metadata = PAsearchSites.siteAmateurCFNM.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
         ##                                                          ##
-        ##  PureCFNM                                                ##
+        ##  PureCFNM Network                                        ##
         ##                                                          ##
         ##############################################################
-        if siteID == 816:
-            metadata = PAsearchSites.sitePureCFNM.update(metadata, siteID, movieGenres, movieActors)
+        if (siteID >= 815 and siteID <= 820):
+            metadata = PAsearchSites.networkPureCFNM.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
         ## Cleanup Genres and Add
