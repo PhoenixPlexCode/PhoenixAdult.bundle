@@ -1101,6 +1101,7 @@ class PhoenixAdultAgent(Agent.Movies):
             if siteNum == 803:
                 if searchSiteID == 9999 or searchSiteID == 803:
                     results = PAsearchSites.siteReidMyLips.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+<<<<<<< HEAD
 
             ###############
             ## Playboy Plus
@@ -1193,6 +1194,86 @@ class PhoenixAdultAgent(Agent.Movies):
                 if searchSiteID == 9999 or searchSiteID == 816:
                     results = PAsearchSites.sitePureCFNM.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
       
+=======
+
+            ###############
+            ## Playboy Plus
+            ###############
+            if siteNum == 804:
+                if searchSiteID == 9999 or searchSiteID == 804:
+                    results = PAsearchSites.sitePlayboyPlus.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Meana Wolf
+            ###############
+            if siteNum == 805:
+                if searchSiteID == 9999 or searchSiteID == 805:
+                    results = PAsearchSites.siteMeanaWolf.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Transsensual
+            ###############
+            if siteNum == 806:
+                if searchSiteID == 9999 or searchSiteID == 806:
+                    results = PAsearchSites.siteTranssensual.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## DaughterSwap
+            ###############
+            if siteNum == 807:
+                if searchSiteID == 9999 or searchSiteID == 807:
+                    results = PAsearchSites.siteDaughterSwap.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+ 
+            ###############
+            ## Erito
+            ###############
+            if siteNum == 808:
+                if searchSiteID == 9999 or searchSiteID == 808:
+                    results = PAsearchSites.siteErito.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## TrueAmateurs
+            ###############
+            if siteNum == 809:
+                if searchSiteID == 9999 or searchSiteID == 809:
+                    results = PAsearchSites.siteTrueAmateurs.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Hustler
+            ###############
+            if siteNum == 810:
+                if searchSiteID == 9999 or searchSiteID == 810:
+                    results = PAsearchSites.siteHustler.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## AmourAngels
+            ###############
+            if siteNum == 811:
+                if searchSiteID == 9999 or searchSiteID == 811:
+                    results = PAsearchSites.siteAmourAngels.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## JAV
+            ###############
+            if siteNum == 812:
+                if searchSiteID == 9999 or searchSiteID == 812:
+                    results = PAsearchSites.networkR18.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Bang
+            ###############
+            if siteNum == 813:
+                if searchSiteID == 9999 or searchSiteID == 813:
+                    results = PAsearchSites.networkBang.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## JAY's POV
+            ###############
+            if siteNum == 814:
+                if searchSiteID == 9999 or searchSiteID == 814:
+                    results = PAsearchSites.siteJaysPOV.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+                  
+>>>>>>> 2c25d6393f8ebad771112efc3a4125c9b1c000bb
             siteNum += 1
 
         results.Sort('score', descending=True)
@@ -2192,6 +2273,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##############################################################
         if siteID == 814:
             metadata = PAsearchSites.siteJaysPOV.update(metadata, siteID, movieGenres, movieActors)
+<<<<<<< HEAD
 
         ##############################################################
         ##                                                          ##
@@ -2208,6 +2290,8 @@ class PhoenixAdultAgent(Agent.Movies):
         ##############################################################
         if siteID == 816:
             metadata = PAsearchSites.sitePureCFNM.update(metadata, siteID, movieGenres, movieActors)
+=======
+>>>>>>> 2c25d6393f8ebad771112efc3a4125c9b1c000bb
 
         ##############################################################
         ## Cleanup Genres and Add

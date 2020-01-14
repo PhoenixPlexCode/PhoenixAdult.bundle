@@ -113,10 +113,15 @@ import siteAmourAngels
 import networkR18
 import networkBang
 import siteJaysPOV
+<<<<<<< HEAD
 import siteAmateurCFNM
 import sitePureCFNM
 
 searchSites = [None] * 817
+=======
+
+searchSites = [None] * 815
+>>>>>>> 2c25d6393f8ebad771112efc3a4125c9b1c000bb
 searchSites[0] = ["Blackedraw com","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
 searchSites[1] = ["Blacked com","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -932,8 +937,11 @@ searchSites[811] = ["AmourAngels","AmourAngels","http://www.amourangels.com","ht
 searchSites[812] = ["JAV","JAV","https://www.r18.com","https://www.r18.com/common/search/searchword="]
 searchSites[813] = ["Bang","Bang","https://www.bang.com","https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/videos/video/_search"]
 searchSites[814] = ["JAY's POV","JAY's POV","https://jayspov.net","https://jayspov.net/api/api"]
+<<<<<<< HEAD
 searchSites[815] = ["AmateurCFNM","AmateurCFNM","https://www.amateurcfnm.com/","https://www.amateurcfnm.com/models/"]
 searchSites[816] = ["PureCFNM","PureCFNM","https://www.purecfnm.com/","https://www.purecfnm.com/models/"]
+=======
+>>>>>>> 2c25d6393f8ebad771112efc3a4125c9b1c000bb
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
