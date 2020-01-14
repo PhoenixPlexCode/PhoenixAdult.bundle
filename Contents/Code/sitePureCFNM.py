@@ -11,12 +11,14 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
     for searchResult in searchResults.xpath('//div[@class="update_block"]'):
         # Info passed on to update fxn
         titleNoFormatting = searchResult.xpath('.//span[@class="update_title"]')[0].text_content().strip()
+        titleNoFormatting = titleNoFormatting.replace('/','_').replace('?','&')
         Log(titleNoFormatting)
         releaseDate = parse(searchResult.xpath('.//span[@class="update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         Log(releaseDate)
         # Fake Unique CurID
         curID = titleNoFormatting
         summary = searchResult.xpath('.//span[@class="latest_update_description"]')[0].text_content().strip()
+        summary = summary.replace('/','_').replace('?','&')
         Log(summary)
         actorList = []
         actors = searchResult.xpath('.//span[@class="tour_update_models"]/a')
@@ -50,12 +52,14 @@ def update(metadata,siteID,movieGenres,movieActors):
     # Title
     try:
         metadata.title = str(metadata.id).split("|")[2]
+        metadata.title = metadata.title.replace('_','/').replace('&','?')
     except:
         pass
 
     # Summary
     try:
         metadata.summary = str(metadata.id).split("|")[3]
+        metadata.summary = metadata.summary.replace('_','/').replace('&','?')
     except:
         pass
 
