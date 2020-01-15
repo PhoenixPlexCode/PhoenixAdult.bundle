@@ -43,12 +43,12 @@ def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor
             subSite = 'AmateurCFNM'
         elif 'CFNM Games' in searchString:
             subSite = 'CFNMGames'
-        elif 'Girls Abuse Guys' in searchString:
-            subSite = 'Girls Abuse Guys'
-        elif 'Hey Little Dick' in searchString:
-            subSite = 'Hey Little Dick'
-        elif 'Lady Voyeurs' in searchString:
-            subSite = 'Lady Voyeurs'
+        elif 'GirlsAbuseGuys' in searchString:
+            subSite = 'GirlsAbuseGuys'
+        elif 'HeyLittleDick' in searchString:
+            subSite = 'HeyLittleDick'
+        elif 'LadyVoyeurs' in searchString:
+            subSite = 'LadyVoyeurs'
         else:
             subSite = PAsearchSites.getSearchSiteName(siteNum)
 
