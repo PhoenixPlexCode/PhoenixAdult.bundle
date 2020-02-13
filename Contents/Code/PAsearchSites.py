@@ -101,11 +101,14 @@ import siteBAMVisions
 import sitePJGirls
 import networkPureCFNM
 import siteATKGirlfriends
+import networkTwoWebMedia
+import siteInterracialPass
 import network1service
 
-searchSites = [None] * 838
-searchSites[0] = ["BlackedRaw","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/search?q="]
-searchSites[1] = ["Blacked","Blacked","https://www.blacked.com","https://www.blacked.com/search?q="]
+searchSites = [None] * 844
+
+searchSites[0] = ["BlackedRaw","BlackedRaw","https://www.blackedraw.com","https://www.blackedraw.com/api"]
+searchSites[1] = ["Blacked","Blacked","https://www.blacked.com","https://www.blacked.com/api"]
 searchSites[2] = ["Brazzers.com","Brazzers","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
 
 searchSites[5] = ["My Friends Hot Mom","My Friends Hot Mom","https://tour.naughtyamerica.com","https://tour.naughtyamerica.com/search?term="]
@@ -155,7 +158,7 @@ searchSites[48] = ["Live Gym Cam","Live Gym Cam","https://tour.naughtyamerica.co
 searchSites[49] = ["Live Naughty Teacher","Live Naughty Teacher","https://tour.naughtyamerica.com","https://tour.naughtyamerica.com/search?term="]
 searchSites[50] = ["Live Naughty Milf","Live Naughty Milf","https://tour.naughtyamerica.com","https://tour.naughtyamerica.com/search?term="]
 searchSites[51] = ["Live Naughty Nurse","Live Naughty Nurse","https://tour.naughtyamerica.com","https://tour.naughtyamerica.com/search?term="]
-searchSites[52] = ["Vixen","Vixen","http://www.vixen.com","http://www.vixen.com/search?q="]
+searchSites[52] = ["Vixen","Vixen","http://www.vixen.com","http://www.vixen.com/api"]
 searchSites[53] = ["Girlsway","Girlsway","https://www.girlsway.com","https://www.girlsway.com/en/video/1/1/"]
 searchSites[54] = ["Moms in Control","Moms in Control","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
 searchSites[55] = ["Pornstars Like It Big","Pornstars Like It Big","http://www.brazzers.com","http://www.brazzers.com/search/all/?q="]
@@ -239,7 +242,7 @@ searchSites[132] = ["Stepmom Videos","Stepmom Videos","https://bangbros.com","ht
 searchSites[133] = ["Street Ranger","Street Ranger","https://bangbros.com","https://bangbros.com/search/"]
 searchSites[134] = ["Tugjobs","Tugjobs","https://bangbros.com","https://bangbros.com/search/"]
 searchSites[135] = ["Working Latinas","Working Latinas","https://bangbros.com","https://bangbros.com/search/"]
-searchSites[136] = ["Tushy","Tushy","https://www.tushy.com","https://www.tushy.com/search?q="]
+searchSites[136] = ["Tushy","Tushy","https://www.tushy.com","https://www.tushy.com/api"]
 searchSites[137] = ["Reality Kings","Reality Kings", "https://www.realitykings.com", "https://site-api.project1service.com"]
 searchSites[138] = ["40 Inch Plus", "https://www.realitykings.com", "https://site-api.project1service.com"]
 searchSites[139] = ["8th Street Latinas","8th Street Latinas", "https://www.realitykings.com", "https://site-api.project1service.com"]
@@ -483,7 +486,7 @@ searchSites[376] = ["Web Young","Web Young","http://www.girlsway.com","https://w
 searchSites[377] = ["Girls Try Anal","Girls Try Anal","http://www.girlsway.com","https://www.girlsway.com/en/video/1/1/"]
 searchSites[378] = ["Sextape Lesbians","Sextape Lesbians","http://www.girlsway.com","https://www.girlsway.com/en/video/1/1/"]
 searchSites[379] = ["Girlsway Originals","Girlsway Originals","http://www.girlsway.com","https://www.girlsway.com/en/video/1/1/"]
-searchSites[380] = ["Girlfriends Films","Girlfriends Films","http://www.girlfriendsfilms.com","https://www.girlfriendsfilms.com/en/"]
+searchSites[380] = ["Girlfriends Films","Girlfriends Films","http://www.girlfriendsfilms.com","https://tsmkfa364q-dsn.algolia.net/1/indexes/*/query"]
 searchSites[381] = ["Burning Angel","Burning Angel","http://www.burningangel.com","http://www.burningangel.com/en/search/"]
 searchSites[382] = ["Pretty Dirty","Pretty Dirty","http://www.prettydirty.com","http://www.prettydirty.com/en/search/"]
 searchSites[383] = ["Devils Film","Devil's Film","http://www.devilsfilm.com","http://www.devilsfilm.com/en/search/"]
@@ -773,8 +776,8 @@ searchSites[666] = ["Teen Sex Movs","Teen Sex Movs","http://teenmegaworld.net","
 searchSites[667] = ["PJGirls","PJGirls","http://www.pjgirls.com","http://www.pjgirls.com/en/videos/?fulltext="]
 searchSites[668] = ["Screwbox","Screwbox","https://screwbox.com","https://screwbox.com/search.php?query="]
 searchSites[669] = ["Dorcel Club","Dorcel Club","https://www.dorcelclub.com","https://www.dorcelclub.com/en/search?search="]
-searchSites[670] = ["TushyRaw","TushyRaw","https://www.tushyraw.com","https://www.tushyraw.com/search?q="]
-searchSites[671] = ["Deeper","Deeper","https://www.deeper.com","https://www.deeper.com/search?q="]
+searchSites[670] = ["TushyRaw","TushyRaw","https://www.tushyraw.com","https://www.tushyraw.com/api"]
+searchSites[671] = ["Deeper","Deeper","https://www.deeper.com","https://www.deeper.com/api"]
 searchSites[672] = ["MissaX","MissaX","https://missax.com","https://missax.com/tour/search.php?query="]
 searchSites[673] = ["AllHerLuv","AllHerLuv","https://allherluv.com","https://allherluv.com/tour/search.php?query="]
 searchSites[674] = ["Mylf","Mylf","https://mylf.com","https://www.mylf.com/movies/"]
@@ -798,7 +801,7 @@ searchSites[691] = ["Watch Your Mom","Watch Your Mom","https://tour.naughtyameri
 searchSites[692] = ["Butt Plays","Butt Plays","http://www.21sextury.com","http://www.21sextury.com/en/search/"]
 searchSites[693] = ["Dorcel Vision","Dorcel Vision","https://www.dorcelvision.com","https://www.dorcelvision.com/en/search?type=4&keyword="]
 searchSites[694] = ["Feminized","Feminized","http://feminized.com","http://feminized.com/tour/search.php?st=advanced&qany="]
-searchSites[695] = ["XConfessions","XConfessions","https://xconfessions.com","https://xconfessions.com/search?query="]
+searchSites[695] = ["XConfessions","XConfessions","https://xconfessions.com","https://2rzi1cnto2-dsn.algolia.net/1/indexes/*/queries"]
 searchSites[696] = ["Czech Amateurs","Czech Amateurs","https://czechamateurs.com","https://czechamateurs.com/tour/search/?q="]
 searchSites[697] = ["Czech Bangbus","Czech Bangbus","https://czechbangbus.com","https://czechbangbus.com/tour/search/?q="]
 searchSites[698] = ["Czech Bitch","Czech Bitch","https://czechbitch.com","https://czechbitch.com/tour/search/?q="]
@@ -940,7 +943,13 @@ searchSites[833] = ["HeyLittleDick","HeyLittleDick","https://www.heylittledick.c
 searchSites[834] = ["LadyVoyeurs","LadyVoyeurs","https://www.ladyvoyeurs.com/","https://www.ladyvoyeurs.com/models/"]
 searchSites[835] = ["BAMVisions","BAMVisions","https://tour.bamvisions.com","https://tour.bamvisions.com/search.php?st=advanced&qall="]
 searchSites[836] = ["ATKGirlfriends","ATKGirlfriends","https://www.atkgirlfriends.com","https://www.atkgirlfriends.com/tour/model/"]
-searchSites[837] = ["LookAtHerNow","LookAtHerNow","https://www.lookathernow.com","https://site-api.project1service.com"]
+searchSites[837] = ["Wank It Now","Wank It Now","https://www.wankitnow.com","https://www.wankitnow.com/?s="]
+searchSites[838] = ["Bopping Babes","Bopping Babes","https://www.boppingbabes.com","https://www.boppingbabes.com/v2/?s="]
+searchSites[839] = ["Upskirt Jerk","Upskirt Jerk","https://www.upskirtjerk.com","https://www.upskirtjerk.com/?s="]
+searchSites[840] = ["Interracial Pass","Interracial Pass","hhttps://www.interracialpass.com","https://www.interracialpass.com/newtour/search.php?query="]
+searchSites[841] = ["LookAtHerNow","LookAtHerNow","https://www.lookathernow.com","https://site-api.project1service.com"]
+searchSites[842] = ["Mylfwood","Mylfwood","https://www.mylf.com","https://www.mylf.com/movies/"]
+searchSites[843] = ["AllBlackX","AllBlackX","https://www.xempire.com","https://www.xempire.com/en/search/allblackx/"]
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
@@ -951,27 +960,60 @@ def getSearchFilter(siteID):
 def getSearchSiteName(siteID):
     return searchSites[siteID][1]
 def getSearchSiteIDByFilter(searchFilter):
-    searchID = 0
-    for sites in searchSites:
-        #First attempt to fix the commented issue below. Startswith was not working for me but this method does have good results for my tests.
+    searchSitesEnum = enumerate(searchSites)
+
+    # Method #3
+    searchResults = []
+    searchFilterF = searchFilter.lower().replace(" ", "").replace(".com", "").replace("'", "")
+    for searchID, sites in searchSitesEnum:
         try:
-            if searchFilter.lower().replace(".com","").replace("'","").split(' ', 1)[0] == sites[0].lower().replace(" ","").replace("'",""):
+            siteNameF = sites[0].lower().replace(" ", "").replace("'", "").replace("-", "")
+
+            if searchFilterF.startswith(siteNameF):
+                searchResults.append((searchID, siteNameF))
+        except:
+            pass
+
+    if searchResults:
+        from operator import itemgetter
+
+        Log('Site found with method #3')
+        return max(searchResults, key=itemgetter(1))[0]
+
+    # Method #2
+    # First attempt to fix the commented issue below. Startswith was not working for me but this method does have good results for my tests.
+    searchFilterF = searchFilter.lower().replace(".com","").replace("'","").split(' ', 1)[0]
+    for searchID, sites in searchSitesEnum:
+        try:
+            siteNameF = sites[0].lower().replace(" ","").replace("'","")
+
+            if searchFilterF == siteNameF:
+                Log('Site found with method #2')
                 return searchID
         except:
             pass
-        searchID += 1
 
-    searchID = 0
-    for sites in searchSites:
-        # Might try converting this code to use startswith() to avoid problems with overlapping site names:
-        # https://www.tutorialspoint.com/python/string_startswith.htm
-        # Examples:
-        #  Blacked -> BlackedRaw
-        #  Babes -> FootsieBabes
-        #  PassionHD Love Ties -> HD Love
-        if sites[0].lower().replace(" ","").replace("'","") in searchFilter.lower().replace(".com","").replace("'","") or sites[0].lower().replace(" ","").replace("'","") in searchFilter.lower().replace(".com","").replace(" ","").replace("'",""):
-            return searchID
-        searchID += 1
+    # Method #1
+    # Might try converting this code to use startswith() to avoid problems with overlapping site names:
+    # https://www.tutorialspoint.com/python/string_startswith.htm
+    # Examples:
+    #  Blacked -> BlackedRaw
+    #  Babes -> FootsieBabes
+    #  PassionHD Love Ties -> HD Love
+    searchFilterF = (
+        searchFilter.lower().replace(".com","").replace("'",""),
+        searchFilter.lower().replace(".com","").replace("'","").replace(" ","")
+    )
+    for searchID, sites in searchSitesEnum:
+        try:
+            siteNameF = sites[0].lower().replace(" ","").replace("'","")
+
+            if siteNameF in searchFilterF[0] or siteNameF in searchFilterF[1]:
+                Log('Site found with method #1')
+                return searchID
+        except:
+            pass
+
     return 9999
 def getSearchSettings(mediaTitle):
     mediaTitle = mediaTitle.replace(".", " ")
@@ -1217,12 +1259,21 @@ def getSearchSettings(mediaTitle):
             searchTitle = mediaTitle[len(searchSites[searchSiteID][0].replace(" ",""))+1:]
             Log("4")
         else:
-            searchTitle = mediaTitle
-            Log("5")
+            title = re.sub(r"(\d+) (\d+)", r"\1:\2", mediaTitle.title()).replace(" ", "").replace(".com", "").replace("'", "")
+            site = re.sub(r"(\d+) (\d+)", r"\1:\2", searchSites[searchSiteID][0]).lower().replace(" ", "").replace("'", "").replace("-", "")
+            if title.lower().startswith(site):
+                searchTitle = re.sub(site, '', title, 1, flags=re.IGNORECASE).strip()
+                searchTitle = re.sub(r"(\w)([A-Z])", r"\1 \2", searchTitle)
+                searchTitle = re.sub(r"(\d+)", r" \1", searchTitle)
+                searchTitle = searchTitle.replace(':', '')
+                Log("5")
+            else:
+                searchTitle = mediaTitle
+                Log("6")
         if searchTitle[:4].lower() == "com ":
             searchTitle = searchTitle[4:]
-            Log("6")
-        Log("7")
+            Log("7")
+        Log("8")
     else:
         searchTitle = mediaTitle
 

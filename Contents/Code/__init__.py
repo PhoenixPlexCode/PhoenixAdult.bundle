@@ -764,7 +764,7 @@ class PhoenixAdultAgent(Agent.Movies):
             ## Mylf
             ###############
             if siteNum == 674:
-                if searchSiteID == 9999 or (674 <= searchSiteID <= 683) or searchSiteID == 757:
+                if searchSiteID == 9999 or (674 <= searchSiteID <= 683) or searchSiteID == 757 or searchSiteID == 842:
                     results = PAsearchSites.siteMylf.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
@@ -1202,11 +1202,33 @@ class PhoenixAdultAgent(Agent.Movies):
                     results = PAsearchSites.siteATKGirlfriends.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
 
             ###############
-            ## LookAtHerNow
+            ## TwoWebMedia
             ###############
             if siteNum == 837:
-                if searchSiteID == 9999 or searchSiteID == 837:
+                if searchSiteID == 9999 or (837 <= searchSiteID <= 839):
+                    results = PAsearchSites.networkTwoWebMedia.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## Interracial Pass
+            ###############
+            if siteNum == 840:
+                if searchSiteID == 9999 or searchSiteID == 840:
+                    results = PAsearchSites.siteInterracialPass.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## LookAtHerNow
+            ###############
+            if siteNum == 841:
+                if searchSiteID == 9999 or searchSiteID == 841:
                     results = PAsearchSites.network1service.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
+            ###############
+            ## XEmpire/AllBlackX
+            ###############
+            if siteNum == 843:
+                if searchSiteID == 9999 or searchSiteID == 843:
+                    results = PAsearchSites.networkGammaEnt.search(results, encodedTitle, title, searchTitle, siteNum, lang, searchByDateActor, searchDate, searchSiteID)
+
 
             siteNum += 1
 
@@ -1438,7 +1460,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##   Gamma Entertainment                                    ##
         ##                                                          ##
         ##############################################################
-        if siteID == 183 or siteID == 278 or siteID == 281 or (siteID >= 285 and siteID <= 287) or (siteID >= 329 and siteID <= 330) or (siteID >= 351 and siteID <= 360) or (siteID >= 365 and siteID <= 374) or (siteID >= 381 and siteID <= 392) or (siteID >= 460 and siteID <= 466) or siteID == 750:
+        if siteID == 183 or siteID == 278 or siteID == 281 or (siteID >= 285 and siteID <= 287) or (siteID >= 329 and siteID <= 330) or (siteID >= 351 and siteID <= 360) or (siteID >= 365 and siteID <= 374) or (siteID >= 381 and siteID <= 392) or (siteID >= 460 and siteID <= 466) or siteID == 750 or siteID == 843:
             metadata = PAsearchSites.networkGammaEnt.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
@@ -1718,7 +1740,7 @@ class PhoenixAdultAgent(Agent.Movies):
         ##  Mylf                                                    ##
         ##                                                          ##
         ##############################################################
-        if (siteID >= 674 and siteID <= 683) or siteID == 757:
+        if (siteID >= 674 and siteID <= 683) or siteID == 757 or siteID == 842:
             metadata = PAsearchSites.siteMylf.update(metadata, siteID, movieGenres, movieActors)
 
         ##############################################################
@@ -2243,10 +2265,26 @@ class PhoenixAdultAgent(Agent.Movies):
 
         ##############################################################
         ##                                                          ##
+        ##  TwoWebMedia                                             ##
+        ##                                                          ##
+        ##############################################################
+        if 837 <= siteID <= 839:
+            metadata = PAsearchSites.networkTwoWebMedia.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
+        ##  Interracial Pass                                        ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 840:
+            metadata = PAsearchSites.siteInterracialPass.update(metadata, siteID, movieGenres, movieActors)
+
+        ##############################################################
+        ##                                                          ##
         ##  LookAtHerNow                                            ##
         ##                                                          ##
         ##############################################################
-        if siteID == 837:
+        if siteID == 841:
             metadata = PAsearchSites.network1service.update(metadata, siteID, movieGenres, movieActors)
             
         ##############################################################
