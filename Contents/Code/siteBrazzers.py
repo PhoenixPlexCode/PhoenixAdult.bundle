@@ -1,41 +1,45 @@
 import PAsearchSites
 import PAgenres
-def tagAleadyExists(tag,metadata):
-    for t in metadata.genres:
-        if t.lower() == tag.lower():
-            return True
-    return False
 
-def posterAlreadyExists(posterUrl,metadata):
-    for p in metadata.posters.keys():
-        Log(p.lower())
-        if p.lower() == posterUrl.lower():
-            Log("Found " + posterUrl + " in posters collection")
-            return True
+def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchSiteID):
+    if searchSiteID != 9999:
+        siteNum = searchSiteID
+    Log("siteNum: " + str(siteNum))
+    
+    if unicode(searchTitle.split(" ")[0], 'utf-8').isnumeric():
+        url = PAsearchSites.getSearchBaseURL(siteNum) + "/scenes/view/id/" + searchTitle.split(" ")[0]
+        Log(url)
+        searchResult = HTML.ElementFromURL(url)
+        titleNoFormatting = searchResult.xpath('//h1')[0].text_content().strip()
+        curID = (PAsearchSites.getSearchBaseURL(int(siteNum)) + searchResult.xpath('//meta[@name= "dti.url"]')[0].get('content')).replace('/','_').replace('?','!')
+        Log(curID)
+        subSite = searchResult.xpath('//span[@class="label-text"]')[0].text_content().strip()
+        Log(subSite)
+        releaseDate = parse(searchResult.xpath('//aside[@class= "scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        Log(releaseDate)
 
-    for p in metadata.art.keys():
-        if p.lower() == posterUrl.lower():
-            return True
-    return False
+        score = 100
+        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Brazzers/" + subSite + "] " + releaseDate, score = score, lang = lang))
+        return results
 
-def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchsiteID):
-    searchResults = HTML.ElementFromURL('http://www.brazzers.com/search/all/?q=' + encodedTitle)
-    for searchResult in searchResults.xpath('//h2[contains(@class,"scene-card-title")]//a'):
-        Log(str(searchResult.get('href')))
-        titleNoFormatting = searchResult.get('title')
-        curID = searchResult.get('href').replace('/','_')
-        lowerResultTitle = str(titleNoFormatting).lower()
-        score = 100 - Util.LevenshteinDistance(title.lower(), titleNoFormatting.lower())
+    searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    for searchResult in searchResults.xpath('//div[@class="scene-card-info"]'):
+        titleNoFormatting = searchResult.xpath('.//a[1]')[0].get('title')
+        curID = (PAsearchSites.getSearchBaseURL(int(siteNum)) + searchResult.xpath('.//a[1]')[0].get('href')).replace('/','_').replace('?','!')
+        subSite = searchResult.xpath('.//span[@class="label-text"]')[0].text_content().strip()
+        releaseDate = parse(searchResult.xpath('.//time')[0].text_content().strip()).strftime('%Y-%m-%d')
+        if searchDate:
+            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
         
-        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Brazzers]", score = score, lang = lang))
+        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting + " [Brazzers/" + subSite + "] " + releaseDate, score = score, lang = lang))
     return results
 
-def update(metadata,siteID,movieGenres):
+def update(metadata,siteID,movieGenres,movieActors):
     Log('******UPDATE CALLED*******')
-    zzseries = False
     metadata.studio = 'Brazzers'
-    temp = str(metadata.id).split("|")[0].replace('_','/')
-    url = PAsearchSites.getSearchBaseURL(siteID) + temp
+    url = str(metadata.id).split("|")[0].replace('_','/').replace('!','?')
     detailsPageElements = HTML.ElementFromURL(url)
 
     # Summary
@@ -54,11 +58,25 @@ def update(metadata,siteID,movieGenres):
 
     if len(genres) > 0:
         for genreLink in genres:
-            genreName = genreLink.text_content().strip('\n').lower()
-            movieGenres.addGenre(genreName)
+            genreName = genreLink.text_content().strip().lower()
+            # If it's part of a series, add an extra Collection tag with the series name... Trouble is there's no standard for locating the series name, so this might not work 100% of the time
+            if "series" in genreName or "800 Phone Sex: Line " in metadata.title or ": Part" in metadata.title or "Porn Logic" in metadata.title or "- Ep" in metadata.title or tagline == "ZZ Series":
+                seriesName = metadata.title
+                if (seriesName.rfind(':')):
+                    metadata.collections.add(seriesName[:seriesName.rfind(':')])
+                elif (seriesName.rfind('- Ep')):
+                    metadata.collections.add(seriesName[:seriesName.rfind('- Ep')])
+                else:
+                    metadata.collections.add(seriesName.rstrip('1234567890 '))
+            if "office 4-play" in metadata.title.lower() or "office 4-play" in genreName:
+                metadata.collections.add("Office 4-Play")
+
+            # But we don't need a genre tag named "3 part series", so exclude that genre itself
+            if "series" not in genreName and "office 4-play" not in genreName:
+                movieGenres.addGenre(genreName)
 
 
-    
+    # Release Date
     date = detailsPageElements.xpath('//aside[contains(@class,"scene-date")]')
     if len(date) > 0:
         date = date[0].text_content()
@@ -66,34 +84,18 @@ def update(metadata,siteID,movieGenres):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
     
-
-    # Starring/Collection 
-    metadata.roles.clear()
+    # Actors
+    movieActors.clearActors()
     #starring = detailsPageElements.xpath('//p[contains(@class,"related-model")]//a')
-    starring = detailsPageElements.xpath('//div[@class="model-card"]//a')
-    memberSceneActorPhotos = detailsPageElements.xpath('//img[contains(@class,"lazy card-main-img")]')
-    memberSceneActorPhotos_TotalNum = len(memberSceneActorPhotos)
-    memberTotalNum = len(starring)/2
-    Log('----- Number of Actors: ' +str(memberTotalNum) + ' ------')
-    Log('----- Number of Photos: ' +str(memberSceneActorPhotos_TotalNum) + ' ------')
-    
-    memberNum = 0
-    for memberCard in starring:
+    actors = detailsPageElements.xpath('//div[@class="model-card"]/div[@class="card-image"]/a/img[@class="lazy card-main-img"]')
+    if len(actors) > 0:
         # Check if member exists in the maleActors list as either a string or substring
         #if any(member.text_content().strip() in m for m in maleActors) == False:
-            role = metadata.roles.new()
-            # Add to actor and collection
-            #role.name = "Test"
-            memberName = memberCard.xpath('//h2[contains(@class,"model-card-title")]//a')[memberNum]
-            memberPhoto = memberCard.xpath('//img[@class="lazy card-main-img" and @alt="'+memberName.text_content().strip()+'"]')[0].get('data-src')
-            role.name = memberName.text_content().strip()
-            memberNum = memberNum + 1
-            memberNum = memberNum % memberTotalNum
-            Log('--------- Photo   ---------- : ' + memberPhoto)
-            role.photo = "http:" + memberPhoto.replace("model-medium.jpg","model-small.jpg")
-
-    detailsPageElements.xpath('//h1')[0].text_content()
-
+        for actorLink in actors:
+            actorName = actorLink.get('alt')
+            actorPhotoURL = "http:" + actorLink.get('data-src').replace("model-medium.jpg","model-small.jpg")
+            movieActors.addActor(actorName,actorPhotoURL)
+    
     #Posters
     i = 1
     try:
@@ -105,7 +107,7 @@ def update(metadata,siteID,movieGenres):
     for poster in detailsPageElements.xpath('//a[@rel="preview"]'):
         posterUrl = "http:" + poster.get('href').strip()
         thumbUrl = "http:" + detailsPageElements.xpath('//img[contains(@data-src,"thm")]')[i-1].get('data-src')
-        if not posterAlreadyExists(posterUrl,metadata):            
+        if not PAsearchSites.posterAlreadyExists(posterUrl,metadata):            
             #Download image file for analysis
             try:
                 img_file = urllib.urlopen(posterUrl)
