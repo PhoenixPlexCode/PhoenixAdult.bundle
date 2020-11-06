@@ -10,7 +10,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         for searchResult in searchResults.xpath('//div[@class="thumbsHolder elipsTxt"]/div[1]/div[@class="echThumb"]'):
             if searchResult.xpath('.//a[contains(@href, "/video")]'):
-                titleNoFormatting = searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0]
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0])
                 curID = PAutils.Encode(searchResult.xpath('.//a[contains(@href, "/video")]//@href')[0])
                 subSite = searchResult.xpath('.//span[@class="faTxt"]')[0].text_content().strip()
                 releaseDate = parse(searchResult.xpath('.//span[@class="faTxt"]')[1].text_content().strip()).strftime('%Y-%m-%d')
