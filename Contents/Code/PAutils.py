@@ -214,10 +214,10 @@ def parseTitle(s):
     for word in word_list[1:]:
         final.append(parseWord(word))
 
-    output = " ".join(final)
-    output = re.sub(r"\b(?:\.)$", "", output)
-    output = re.sub(r"\.(?=([a-z]))", ". ", output)
-    output = re.sub(r"\s+([.,!\":])", "", output)
+    output = ' '.join(final)
+    output = re.sub(r'\b(?:\.)$', '', output)
+    output = re.sub(r'\.(?=([a-z]))', '. ', output)
+    output = re.sub(r'\s+([.,!\":])', '', output)
 
     return output
 
