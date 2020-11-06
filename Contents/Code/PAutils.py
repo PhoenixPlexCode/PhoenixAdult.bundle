@@ -198,6 +198,7 @@ def saveRequest(url, req):
 
     return True
 
+
 def parseTitle(s):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
     s = re.sub(r'\,(?!\s)', ', ', s)
@@ -221,12 +222,13 @@ def parseTitle(s):
 
     return output
 
+
 def parseWord(word):
     word_exceptions = ['a', 'an', 'of', 'the', 'to', 'and', 'by', 'for', 'on', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
     adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff']
-    capital_exceptions = ['A','V']
+    capital_exceptions = ['A', 'V']
 
-    if '-' in word and not '--' in word:
+    if '-' in word and '--' not in word:
         word_list = re.split('-', word)
 
         firstword = parseWord(word_list[0])
@@ -243,7 +245,7 @@ def parseWord(word):
         final = nhword
     elif word.lower() in adult_exceptions:
         final = word.upper()
-    elif word.isupper() and not word in capital_exceptions:
+    elif word.isupper() and word not in capital_exceptions:
         final = word.upper()
     elif not word.islower() and not word.isupper() and not word.lower() in word_exceptions:
         final = word
