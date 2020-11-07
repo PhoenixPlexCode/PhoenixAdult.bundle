@@ -225,7 +225,7 @@ def parseTitle(s, siteID):
 
 def parseWord(word, siteID):
     word_exceptions = ['a', 'an', 'of', 'the', 'to', 'and', 'by', 'for', 'on', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
-    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff']
+    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf']
     capital_exceptions = ['A', 'V']
     sitename = PAsearchSites.getSearchSiteName(siteID).replace(' ','')
 
