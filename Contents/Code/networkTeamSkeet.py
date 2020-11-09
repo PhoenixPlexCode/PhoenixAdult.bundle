@@ -25,10 +25,8 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteID):
     if data.text != 'null':
         data = data.json()
         if is_new:
-            try:
+            if '_source' in data:
                 return data['_source']
-            except:
-                return None
         else:
             return data
 
