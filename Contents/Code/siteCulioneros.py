@@ -121,7 +121,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Collect Rollover Images
     siteName = tagline.lower().replace(' ', '')
     shoot = detailsPageElements.xpath('//div[@id="js-small-thumb"]//@src')[0]
-    shootMatch = re.search(r'(?!\/)((?:\w+)\d\d)(?=\/)', shoot)
+    shootMatch = re.search(r'(?<=\/)(\w+\d)(?=\/)', shoot)
     try:
         shootCode = shootMatch.group()
         for idx in range(1, 17):
