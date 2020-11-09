@@ -9,16 +9,16 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (searchTitle.replace(' ', '+'), searchPageNum)
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
-        for searchResult in searchResults.xpath('//div[contains(@class, "video-thumb") or contains(@class, "item-thumb")]'):
-            titleNoFormatting = searchResult.xpath('(.//p[@class="text-thumb"] || .//div[@class="item-title"])/a')[0].text_content().strip()
-            curID = PAutils.Encode(searchResult.xpath('(.//p[@class="text-thumb"] || .//div[@class="item-title"])/a/@href')[0])
-            subSite = searchResult.xpath('.//p[@class="text-thumb"]/a[@class="badge"] || .//div[@class="item-sitename"]/a')[0].text_content().strip()
+        for searchResult in searchResults.xpath('//div[contains(@class, "video-thumb") or contains(@class, "item-video")]'):
+            titleNoFormatting = searchResult.xpath('(.//p[@class="text-thumb"] | .//div[@class="item-title"])/a')[0].text_content().strip()
+            curID = PAutils.Encode(searchResult.xpath('(.//p[@class="text-thumb"] | .//div[@class="item-title"])/a/@href')[0])
+            subSite = searchResult.xpath('.//p[@class="text-thumb"]/a[@class="badge"] | .//div[@class="item-sitename"]/a')[0].text_content().strip()
 
-            date = searchResult.xpath('.//span[@class="date"] || .//div[@class="item-date"]')[0].text_content().split('|')[-1].strip()
+            date = searchResult.xpath('.//span[@class="date"] | .//div[@class="item-date"]')[0].text_content().split('|')[-1].strip()
             releaseDate = parse(date).strftime('%Y-%m-%d')
 
             actorNames = []
-            for actorLink in searchResult.xpath('(.//span[@class="category"] || .//div[@class="item-models"])//a'):
+            for actorLink in searchResult.xpath('(.//span[@class="category"] | .//div[@class="item-models"])//a'):
                 actorName = actorLink.text_content().strip()
 
                 actorNames.append(actorName)
@@ -43,10 +43,10 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//*[@class="trailer-block_title"] || //h1')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//*[@class="trailer-block_title"] | //h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="info-block"]//p[@class="text"] || //div[@class="update-info-block"]//p')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="info-block"]//p[@class="text"] | //div[@class="update-info-block"]//p')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Cherry Pimps'
@@ -58,22 +58,23 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="info-block_data"]//p[@class="text"] || //div[@class="update-info-row"]')[0].text_content().split('|')[0].replace('Added', '').strip()
+    date = detailsPageElements.xpath('//div[@class="info-block_data"]//p[@class="text"] | //div[@class="update-info-row"]')[0].text_content().split('|')[0].replace('Added', '').replace(':', '').strip()
     if date:
+        Log(date)
         date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[@class="info-block"]//a || //ul[@class="tags"]//a'):
+    for genreLink in detailsPageElements.xpath('//div[@class="info-block"]//a | //ul[@class="tags"]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[@class="info-block_data"]//a || //div[contains(@class, "model-list-item")]//a')
+    actors = detailsPageElements.xpath('//div[@class="info-block_data"]//a | //div[contains(@class, "model-list-item")]//a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -113,7 +114,8 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//img[contains(@class, "update_thumb")]/@src'
+        '//img[contains(@class, "update_thumb")]/@src',
+        '//img[contains(@class, "update_thumb")]/@src0_1x',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
