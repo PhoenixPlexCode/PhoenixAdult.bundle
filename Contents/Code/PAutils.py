@@ -197,3 +197,63 @@ def saveRequest(url, req):
     Log('GZip request saved as "%s"' % file_name)
 
     return True
+
+
+def parseTitle(s, siteID):
+    s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
+    s = re.sub(r'\,(?!\s)', ', ', s)
+    word_list = re.split(' ', s)
+
+    firstword = parseWord(word_list[0], siteID)
+    if len(firstword) > 1:
+        firstword = firstword[0].capitalize() + firstword[1:]
+    else:
+        firstword = firstword.capitalize()
+
+    final = [firstword]
+
+    for word in word_list[1:]:
+        final.append(parseWord(word, siteID))
+
+    output = ' '.join(final)
+    output = re.sub(r'\b(?:\.)$', '', output)
+    output = re.sub(r'\.(?=([a-z]))', '. ', output)
+    output = re.sub(r'\s+([.,!\":])', '', output)
+
+    return output
+
+
+def parseWord(word, siteID):
+    word_exceptions = ['a', 'an', 'of', 'the', 'to', 'and', 'by', 'for', 'on', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
+    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf']
+    capital_exceptions = ['A', 'V']
+    sitename = PAsearchSites.getSearchSiteName(siteID).replace(' ','')
+
+    if '-' in word and '--' not in word:
+        word_list = re.split('-', word)
+
+        firstword = parseWord(word_list[0], siteID)
+        if len(firstword) > 1:
+            firstword = firstword[0].capitalize() + firstword[1:]
+        else:
+            firstword = firstword.capitalize()
+        nhword = firstword + '-'
+
+        for hword in word_list[1:]:
+            nhword += parseWord(hword, siteID)
+            if hword != word_list[-1]:
+                nhword += '-'
+        final = nhword
+    elif word.lower() in adult_exceptions:
+        final = word.upper()
+    elif word.isupper() and word not in capital_exceptions:
+        final = word.upper()
+    elif sitename.lower() == word.lower():
+        final = sitename   
+    elif not word.islower() and not word.isupper() and not word.lower() in word_exceptions:
+        final = word
+    else:
+        word = word.lower()
+        final = word if word in word_exceptions else word.capitalize()
+
+    return final
