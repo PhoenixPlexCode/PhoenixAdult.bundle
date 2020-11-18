@@ -134,7 +134,7 @@ import siteSicflics
 import networkModelCentro
 import siteCulioneros
 
-searchSites = [None] * 1056
+searchSites = [None] * 1057
 
 searchSites[0] = ("BlackedRaw", "BlackedRaw", "https://www.blackedraw.com", "https://www.blackedraw.com/api")
 searchSites[1] = ("Blacked", "Blacked", "https://www.blacked.com", "https://www.blacked.com/api")
@@ -927,7 +927,7 @@ searchSites[788] = ("Cucked", "Cucked.XXX", "https://www.cherrypimps.com", "http
 searchSites[789] = ("Drilled", "Drilled.XXX", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[790] = ("BCM", "BCM.XXX", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[791] = ("Petite", "Petite.XXX", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
-searchSites[792] = ("Taboo", "Taboo", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
+searchSites[792] = ("Family", "Family.XXX", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[793] = ("Wicked", "Wicked Pictures", "https://www.wicked.com", "https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries")
 searchSites[794] = ("18OnlyGirls", "18 Only Girls", "https://www.18onlygirlsblog.com/", "https://www.18onlygirlsblog.com/?s=")
 searchSites[795] = ("GirlCore", "GirlCore", "https://www.girlsway.com", "https://www.girlsway.com/en/video/1/1/")
@@ -1191,6 +1191,7 @@ searchSites[1052] = ("Busted", "Busted", "https://www.cherrypimps.com", "https:/
 searchSites[1053] = ("Cheese", "Cheese.XXX", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1054] = ("Femme", "Femme", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1055] = ("Fresh", "Fresh", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
+searchSites[1056] = ("Taboo", "Taboo", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
