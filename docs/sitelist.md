@@ -172,11 +172,15 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Cherry Spot
   - Wild on Cam
   - BCM.XXX
+  - Busted
+  - Cheese.XXX
   - Confessions.XXX
   - Cucked.XXX
   - Drilled.XXX
-  - Family.XXX
+  - Femme
+  - Fresh
   - Petite.XXX
+  - Taboo (formerly Family.XXX)
 + #### Clips4Sale | Matching type: *[Exact](./manualsearch.md#exact-match)* - **StudioID with Title Search**
 + #### ClubFilly | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, DVDs not supported**
 + #### ClubSeventeen | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
