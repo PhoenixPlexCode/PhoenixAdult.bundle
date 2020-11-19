@@ -1328,7 +1328,7 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.networkIntersec.update(metadata, siteID, movieGenres, movieActors)
 
         # Cherry Pimps
-        elif (siteID >= 783 and siteID <= 792) or (siteID >= 1052 and siteID <=1056):
+        elif (siteID >= 783 and siteID <= 792) or (siteID >= 1052 and siteID <= 1056):
             metadata = PAsearchSites.networkCherryPimps.update(metadata, siteID, movieGenres, movieActors)
 
         # 18OnlyGirls
