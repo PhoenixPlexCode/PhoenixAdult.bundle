@@ -4,9 +4,24 @@ import PAactors
 import PAutils
 
 
+def generateEncodedTitle(searchTitle):
+    encodedTitle = ''
+
+    for word in searchTitle.split():
+        if word == 's':
+            encodedTitle += '%%27%s' % word
+        elif word:
+            encodedTitle += ' %s' % word
+
+    encodedTitle = encodedTitle.strip().replace(' ', '+')
+
+    return encodedTitle
+
+
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+    encodedTitle = generateEncodedTitle(searchTitle)
     for searchPageNum in range(1, 3):
-        url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (searchTitle.replace(' ', '+'), searchPageNum)
+        url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (encodedTitle, searchPageNum)
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "video-thumb") or contains(@class, "item-video")]'):
