@@ -44,13 +44,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 delta = abs(parse(searchDate) - parse(releaseDate))
                 if delta.days < 2:
                     artobj = PAutils.Encode(json.dumps(searchResult.get('_resources').get('base')))
-                    titleNoFormatting = searchResult['title']
+                    titleNoFormatting = str(searchResult['title'])
                     score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
                     results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (sceneID, siteNum, titleNoFormatting, artobj),
                                                         name='%s %s [%s]' % (titleNoFormatting, releaseDate, PAsearchSites.getSearchSiteName(siteNum)),
                                                         score=score, lang=lang))
             else:
-                titleNoFormatting = searchResult['title']
+                titleNoFormatting = str(searchResult['title'])
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
                 if score >= 90:
