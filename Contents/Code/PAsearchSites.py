@@ -1382,6 +1382,7 @@ def getSearchSettings(mediaTitle):
         ('^latn ', 'LookAtHerNow '),
         ('^lcd ', 'LittleCaprice '),
         ('^lhf ', 'LoveHerFeet '),
+        ('^lilhum ', 'LilHumpers '),
         ('^littlecapricedreams ', 'LittleCaprice '),
         ('^lsb ', 'Lesbea '),
         ('^lst ', 'LatinaSexTapes '),
