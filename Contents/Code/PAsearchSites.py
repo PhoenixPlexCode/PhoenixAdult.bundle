@@ -1473,6 +1473,7 @@ def getSearchSettings(mediaTitle):
         ('^tds ', 'TheDickSuckers '),
         ('^ted ', 'Throated '),
         ('^tf ', 'TeenFidelity '),
+        ('^tft ', 'TeacherFucksTeens '),
         ('^tgs ', 'ThisGirlSucks '),
         ('^these ', 'TheStripperExperience '),
         ('^tla ', 'TeensLoveAnal '),
