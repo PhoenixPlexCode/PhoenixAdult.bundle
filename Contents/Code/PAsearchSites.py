@@ -1428,6 +1428,8 @@ def getSearchSettings(mediaTitle):
         ('^no ', 'NaughtyOffice '),
         ('^np ', 'NubilesPorn '),
         ('^nrg ', 'NaughtyRichGirls '),
+        ('^nubc ', 'NubilesCasting '),
+        ('^nubet ', 'NubilesET '),
         ('^nubilef ', 'NubileFilms '),
         ('^num ', 'NuruMassage '),
         ('^nw ', 'NaughtyWeddings '),
