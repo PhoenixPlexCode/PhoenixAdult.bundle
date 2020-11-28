@@ -1335,6 +1335,7 @@ def getSearchSettings(mediaTitle):
         ('^dm ', 'DirtyMasseur '),
         ('^dnj ', 'DaneJones '),
         ('^dpg ', 'DigitalPlayground '),
+        ('^ds ', 'ScrewMeToo '),
         ('^dsw ', 'DaughterSwap '),
         ('^dwc ', 'DirtyWivesClub '),
         ('^dwp ', 'DayWithAPornstar '),
