@@ -1461,6 +1461,7 @@ def getSearchSettings(mediaTitle):
         ('^sas ', 'SexandSubmission '),
         ('^sbj ', 'StreetBlowjobs '),
         ('^seb ', 'SexuallyBroken '),
+        ('^sed ', 'SexualDisgrace '),
         ("^Shes New ", "She's New "),
         ('^sins ', 'SinsLife '),
         ('^sislove ', 'SisLovesMe '),
