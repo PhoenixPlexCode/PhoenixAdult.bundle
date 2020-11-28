@@ -1429,6 +1429,7 @@ def getSearchSettings(mediaTitle):
         ('^nrg ', 'NaughtyRichGirls '),
         ('^nubilef ', 'NubileFilms '),
         ('^num ', 'NuruMassage '),
+        ('^np ', 'NubilesPorn '),
         ('^nw ', 'NaughtyWeddings '),
         ('^obj ', 'OnlyBlowjob '),
         ('^otb ', 'OnlyTeenBlowjobs '),
