@@ -127,7 +127,6 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsearchSites.networkGammaEntOther.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Blowpass / Throated
-
             elif searchSiteID == 329:
                 results = PAsearchSites.networkGammaEnt.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
@@ -345,7 +344,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsearchSites.siteJulesJordan.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # DDF Network
-            elif (331 <= searchSiteID <= 332) or (433 <= searchSiteID <= 447):
+            elif (440 <= searchSiteID <= 447):
                 results = PAsearchSites.networkDDFNetwork.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # PerfectGonzo
@@ -932,6 +931,10 @@ class PhoenixAdultAgent(Agent.Movies):
             elif (1040 <= searchSiteID <= 1050):
                 results = PAsearchSites.siteCulioneros.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
+            # PornWorld
+            elif searchSiteID == 332 or (433 <= searchSiteID <= 439) or searchSiteID == 1057:
+                results = PAsearchSites.networkPornWorld.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -1072,7 +1075,7 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.siteJulesJordan.update(metadata, siteID, movieGenres, movieActors)
 
         # DDF Network
-        elif (siteID >= 331 and siteID <= 332) or (siteID >= 433 and siteID <= 447):
+        elif (siteID >= 440 and siteID <= 447):
             metadata = PAsearchSites.networkDDFNetwork.update(metadata, siteID, movieGenres, movieActors)
 
         # Perfect Gonzo
@@ -1642,6 +1645,10 @@ class PhoenixAdultAgent(Agent.Movies):
         # Culioneros
         elif (1040 <= siteID <= 1050):
             results = PAsearchSites.siteCulioneros.update(metadata, siteID, movieGenres, movieActors)
+
+        # PornWorld
+        elif siteID == 332 or (433 <= siteID <= 439) or siteID == 1057:
+            results = PAsearchSites.networkPornWorld.update(metadata, siteID, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log("Genres")

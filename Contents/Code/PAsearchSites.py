@@ -134,7 +134,7 @@ import siteSicflics
 import networkModelCentro
 import siteCulioneros
 
-searchSites = [None] * 1057
+searchSites = [None] * 1058
 
 searchSites[0] = ("BlackedRaw", "BlackedRaw", "https://www.blackedraw.com", "https://www.blackedraw.com/api")
 searchSites[1] = ("Blacked", "Blacked", "https://www.blacked.com", "https://www.blacked.com/api")
@@ -1192,6 +1192,7 @@ searchSites[1053] = ("Cheese", "Cheese.XXX", "https://www.cherrypimps.com", "htt
 searchSites[1054] = ("Femme", "Femme", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1055] = ("Fresh", "Fresh", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1056] = ("Taboo", "Taboo", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
+searchSites[1057] = ("PornWorld", "PornWorld", "https://pornworld.com", "https://pornworld.com/search?query=")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
@@ -1297,6 +1298,7 @@ def getSearchSettings(mediaTitle):
         ('^bblib ', 'BigButtsLikeItBig '),
         ('^bcasting ', 'BangCasting '),
         ('^bcb ', 'BigCockBully '),
+        ('^bcc ', 'BackroomCastingCouch '),
         ('^bch ', 'BigCockHero '),
         ('^bconfessions ', 'BangConfessions '),
         ('^bdpov ', 'BadDaddyPOV '),
@@ -1335,9 +1337,11 @@ def getSearchSettings(mediaTitle):
         ('^dm ', 'DirtyMasseur '),
         ('^dnj ', 'DaneJones '),
         ('^dpg ', 'DigitalPlayground '),
+        ('^ds ', 'ScrewMeToo '),
         ('^dsw ', 'DaughterSwap '),
         ('^dwc ', 'DirtyWivesClub '),
         ('^dwp ', 'DayWithAPornstar '),
+        ('^ecg ', 'ExploitedCollegeGirls '),
         ('^esp ', 'EuroSexParties '),
         ('^ete ', 'EuroTeenErotica '),
         ('^ext ', 'ExxxtraSmall '),
@@ -1375,6 +1379,7 @@ def getSearchSettings(mediaTitle):
         ('^itc ', 'InTheCrack '),
         ('^jb ', 'JavBus '),
         ('^jowm', 'JerkOffWithMe'),
+        ('^jp ', 'JaysPOV '),
         ('^kha ', 'KarupsHA '),
         ('^kow ', 'KarupsOW '),
         ('^kpc ', 'KarupsPC '),
@@ -1382,6 +1387,7 @@ def getSearchSettings(mediaTitle):
         ('^latn ', 'LookAtHerNow '),
         ('^lcd ', 'LittleCaprice '),
         ('^lhf ', 'LoveHerFeet '),
+        ('^lilhum ', 'LilHumpers '),
         ('^littlecapricedreams ', 'LittleCaprice '),
         ('^lsb ', 'Lesbea '),
         ('^lst ', 'LatinaSexTapes '),
@@ -1397,6 +1403,7 @@ def getSearchSettings(mediaTitle):
         ('^mfhg ', 'MyFriendsHotGirl '),
         ('^mfhm ', 'MyFriendsHotMom '),
         ('^mfl ', 'Mofos '),
+        ('^mfp ', 'MyFamilyPies '),
         ('^mfst ', 'MyFirstSexTeacher '),
         ('^mgbf ', 'MyGirlfriendsBustyFriend '),
         ('^mgb ', 'MommyGotBoobs '),
@@ -1424,7 +1431,10 @@ def getSearchSettings(mediaTitle):
         ('^news ', 'NewSensations '),
         ('^nf ', 'NubileFilms '),
         ('^no ', 'NaughtyOffice '),
+        ('^np ', 'NubilesPorn '),
         ('^nrg ', 'NaughtyRichGirls '),
+        ('^nubc ', 'NubilesCasting '),
+        ('^nubet ', 'NubilesET '),
         ('^nubilef ', 'NubileFilms '),
         ('^num ', 'NuruMassage '),
         ('^nw ', 'NaughtyWeddings '),
@@ -1434,6 +1444,7 @@ def getSearchSettings(mediaTitle):
         ('^pav ', 'PixAndVideo '),
         ('^pba ', 'PublicAgent '),
         ('^pc ', 'PrincessCum '),
+        ('^pcfnm ', 'PureCFNM '),
         ('^pornditos', 'Culioneros '),
         ('^pdmcl ', 'ChicasLoca '),
         ('^pf ', 'PornFidelity '),
@@ -1454,6 +1465,8 @@ def getSearchSettings(mediaTitle):
         ('^sart ', 'SexArt '),
         ('^sas ', 'SexandSubmission '),
         ('^sbj ', 'StreetBlowjobs '),
+        ('^seb ', 'SexuallyBroken '),
+        ('^sed ', 'SexualDisgrace '),
         ("^Shes New ", "She's New "),
         ('^sins ', 'SinsLife '),
         ('^sislove ', 'SisLovesMe '),
@@ -1466,6 +1479,7 @@ def getSearchSettings(mediaTitle):
         ('^tds ', 'TheDickSuckers '),
         ('^ted ', 'Throated '),
         ('^tf ', 'TeenFidelity '),
+        ('^tft ', 'TeacherFucksTeens '),
         ('^tgs ', 'ThisGirlSucks '),
         ('^these ', 'TheStripperExperience '),
         ('^tla ', 'TeensLoveAnal '),
