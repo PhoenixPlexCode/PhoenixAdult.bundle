@@ -260,7 +260,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsearchSites.siteLegalPorno.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Mofos
-            elif (261 <= searchSiteID <= 270) or searchSiteID == 583 or (738 <= searchSiteID <= 740):
+            elif (261 <= searchSiteID <= 270) or searchSiteID == 583 or (738 <= searchSiteID <= 740) or (1059 <= searchSiteID <= 1064):
                 results = PAsearchSites.network1service.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Babes
@@ -924,7 +924,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsearchSites.siteSicflics.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # ModelCentro network
-            elif (1024 <= searchSiteID <= 1039) or searchSiteID == 1051:
+            elif (1024 <= searchSiteID <= 1039) or searchSiteID == 1051 or searchSiteID == 1058:
                 results = PAsearchSites.networkModelCentro.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Culioneros
@@ -1011,7 +1011,7 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.siteLegalPorno.update(metadata, siteID, movieGenres, movieActors)
 
         # Mofos
-        elif siteID >= 261 and siteID <= 270 or siteID == 583 or siteID >= 738 and siteID <= 740:
+        elif (261 <= siteID <= 270) or siteID == 583 or (738 <= siteID <= 740) or (1059 <= siteID <= 1064):
             metadata = PAsearchSites.network1service.update(metadata, siteID, movieGenres, movieActors)
 
         # Babes
@@ -1639,7 +1639,7 @@ class PhoenixAdultAgent(Agent.Movies):
             results = PAsearchSites.siteSicflics.update(metadata, siteID, movieGenres, movieActors)
 
         # ModelCentro network
-        elif (1024 <= siteID <= 1039) or siteID == 1051:
+        elif (1024 <= siteID <= 1039) or siteID == 1051 or siteID == 1058:
             results = PAsearchSites.networkModelCentro.update(metadata, siteID, movieGenres, movieActors)
 
         # Culioneros
