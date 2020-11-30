@@ -206,6 +206,7 @@ def parseTitle(s, siteID):
 
     firstword = parseWord(word_list[0], siteID)
     if len(firstword) > 1:
+        firstword = punctuation(firstword)
         firstword = firstword[0].capitalize() + firstword[1:]
     else:
         firstword = firstword.capitalize()
@@ -224,9 +225,9 @@ def parseTitle(s, siteID):
 
 
 def parseWord(word, siteID):
-    word_exceptions = ['a', 'an', 'of', 'the', 'to', 'and', 'by', 'for', 'on', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
-    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf']
-    capital_exceptions = ['A', 'V']
+    word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs'] 
+    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj']
+    capital_exceptions = ['A', 'V', 'Y']
     sitename = PAsearchSites.getSearchSiteName(siteID).replace(' ','')
 
     if '-' in word and '--' not in word:
@@ -243,17 +244,30 @@ def parseWord(word, siteID):
             nhword += parseWord(hword, siteID)
             if hword != word_list[-1]:
                 nhword += '-'
-        final = nhword
+        word = nhword
     elif word.lower() in adult_exceptions:
-        final = word.upper()
+        word = word.upper()
     elif word.isupper() and word not in capital_exceptions:
-        final = word.upper()
+        word = word.upper()
     elif sitename.lower() == word.lower():
-        final = sitename   
+        word = sitename
     elif not word.islower() and not word.isupper() and not word.lower() in word_exceptions:
-        final = word
+        word = word
     else:
-        word = word.lower()
-        final = word if word in word_exceptions else word.capitalize()
+        word = word.lower() if word.lower() in word_exceptions else word.capitalize()
 
-    return final
+    word = punctuation(word)
+
+    return word
+
+
+def punctuation(word):
+    punctuation_exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'que', 'senor', 'senorita', 'thats']
+    punctuation_corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Qué', 'Señor', 'Señorita', 'That\'s']
+
+    if word.lower() in punctuation_exceptions:
+        for correction in punctuation_corrections:
+            if word.lower() == correction.lower().replace('\'','').replace('-','').replace('é','e').replace('ñ','n'):
+                return correction
+    
+    return word
