@@ -134,7 +134,7 @@ import siteSicflics
 import networkModelCentro
 import siteCulioneros
 
-searchSites = [None] * 1058
+searchSites = [None] * 1065
 
 searchSites[0] = ("BlackedRaw", "BlackedRaw", "https://www.blackedraw.com", "https://www.blackedraw.com/api")
 searchSites[1] = ("Blacked", "Blacked", "https://www.blacked.com", "https://www.blacked.com/api")
@@ -1193,6 +1193,13 @@ searchSites[1054] = ("Femme", "Femme", "https://www.cherrypimps.com", "https://c
 searchSites[1055] = ("Fresh", "Fresh", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1056] = ("Taboo", "Taboo", "https://www.cherrypimps.com", "https://cherrypimps.com/search.php?query=")
 searchSites[1057] = ("PornWorld", "PornWorld", "https://pornworld.com", "https://pornworld.com/search?query=")
+searchSites[1058] = ("Vicki Valkyrie", "Vicki Valkyrie", "https://www.vickivalkyrie.com/", "https://www.vickivalkyrie.com/sapi/")
+searchSites[1059] = ("Busted Babysitters", "Busted Babysitters", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1060] = ("Ebony Sex Tapes", "Ebony Sex Tapes", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1061] = ("Milfs Like It Black", "Milfs Like It Black", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1062] = ("Project RV", "Project RV", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1063] = ("The Sex Scout", "The Sex Scout", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1064] = ("Pornstar Vote", "Pornstar Vote", "https://www.mofos.com", "https://site-api.project1service.com")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]

@@ -487,6 +487,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - RomiRain
   - TheLiseySweet
   - ValeNappi
+  - VickiValkyrie
   - VinaSkyXXX
   - YummyCouple
 + #### Other MileHighNetwork Sites | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
@@ -496,20 +497,26 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Transsensual
 + #### MissaX | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Mofos Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Busted Babysitters
   - Don't Break Me
+  - Ebony Sex Tapes
   - Girls Gone Pink
   - I Know That Girl
   - Latina Sextapes
   - Let's Try Anal
+  - Milfs Like It Black
   - Mofos
   - Mofos B Sides
   - Mofos Lab
   - Pervs On Patrol
+  - Pornstar Vote
+  - Project RV
   - Public Pickups
   - Real Slut Party
   - Share My BF
   - She's A Freak
   - Stranded Teens
+  - The Sex Scout
 + #### MomPOV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Title only**
 + #### Mylf Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - Anal Mom
