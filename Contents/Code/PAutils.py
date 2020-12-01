@@ -251,8 +251,8 @@ def parseWord(word, siteID):
         word = word.upper()
     elif sitename.lower() == word.lower():
         word = sitename
-    elif not word.islower() and not word.isupper() and not word.lower() in word_exceptions:
-        word = word
+    elif not (word.islower() or word.isupper() or word.lower() in word_exceptions):
+        pass
     else:
         word = word.lower() if word.lower() in word_exceptions else word.capitalize()
 
