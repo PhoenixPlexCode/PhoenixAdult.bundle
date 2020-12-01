@@ -17,7 +17,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         detailsPageElements = HTML.ElementFromString(req.text)
         searchResult = detailsPageElements.xpath('//title')[0].text_content().split('|')
 
-        titleNoFormatting = searchResult[0].strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult[0].strip(), siteNum).replace('W/','w/')
         subSite = searchResult[1].strip()
         curID = PAutils.Encode(sceneURL)
         date = detailsPageElements.xpath('//div[@class="playerText-new fright"]//p')[0].text_content().split('on')
@@ -44,7 +44,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         sceneID = ''
     
     # Title
-    metadata.title = info[0].strip()
+    metadata.title = PAutils.parseTitle(info[0].strip(), siteID).replace('W/','w/')
 
     # Summary
     try:

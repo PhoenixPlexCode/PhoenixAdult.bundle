@@ -59,7 +59,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         if detailsPageElements:
             curID = detailsPageElements['id']
-            titleNoFormatting = detailsPageElements['title']
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
             siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
             if 'publishedDate' in detailsPageElements:
                 releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
@@ -88,7 +88,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteID)
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteID)
 
     # Summary
     metadata.summary = detailsPageElements['description']
