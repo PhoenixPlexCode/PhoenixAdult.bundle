@@ -10,7 +10,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        if ('/virtualreality/' in sceneURL and sceneURL not in searchResults):
+        if ('/virtualreality/' in sceneURL and sceneURL not in searchResults and '/virtualreality/list' not in sceneURL):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:

@@ -25,7 +25,8 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteID):
     if data.text != 'null':
         data = data.json()
         if is_new:
-            return data['_source']
+            if '_source' in data:
+                return data['_source']
         else:
             return data
 
@@ -58,7 +59,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         if detailsPageElements:
             curID = detailsPageElements['id']
-            titleNoFormatting = detailsPageElements['title']
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
             siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
             if 'publishedDate' in detailsPageElements:
                 releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
@@ -87,7 +88,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteID)
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteID)
 
     # Summary
     metadata.summary = detailsPageElements['description']
@@ -108,6 +109,12 @@ def update(metadata, siteID, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
+    if 'tags' in detailsPageElements and detailsPageElements['tags']:
+        for genreLink in detailsPageElements['tags']:
+            genreName = genreLink.strip()
+
+            movieGenres.addGenre(genreName)
+
     if siteName == 'Sis Loves Me':
         movieGenres.addGenre('Step Sister')
     elif siteName == 'DadCrush' or siteName == 'DaughterSwap':
@@ -148,6 +155,26 @@ def update(metadata, siteID, movieGenres, movieActors):
     elif siteName == 'Teens Love Black Cocks':
         movieGenres.addGenre('Teens')
         movieGenres.addGenre('BBC')
+    elif siteName == 'Teen Curves':
+        movieGenres.addGenre('Big Ass')
+    elif siteName == 'Titty Attack':
+        movieGenres.addGenre('Big Tits')
+    elif siteName == 'Teeny Black':
+        movieGenres.addGenre('Teen')
+        movieGenres.addGenre('Ebony')
+    elif siteName == 'Teens Do Porn':
+        movieGenres.addGenre('Teen')
+    elif siteName == 'Teen Pies':
+        movieGenres.addGenre('Teen')
+        movieGenres.addGenre('Creampie')
+    elif siteName == 'POV Life':
+        movieGenres.addGenre('POV')
+    elif siteName == 'Ginger Patch':
+        movieGenres.addGenre('Redhead')
+    elif siteName == 'Innocent High':
+        movieGenres.addGenre('School Girl')
+    elif siteName == 'Oye Loca':
+        movieGenres.addGenre('Latina')
 
     # Actors
     movieActors.clearActors()

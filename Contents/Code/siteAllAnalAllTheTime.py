@@ -10,9 +10,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     else:
         sceneID = None
 
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+    searchResults = []
+    if sceneID:
+        directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+        searchResults.append(directURL)
 
-    searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
         if ('/videos/' in sceneURL and sceneURL not in searchResults):
