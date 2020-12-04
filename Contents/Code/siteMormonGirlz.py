@@ -5,24 +5,22 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+    req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//*[contains(@class, " post ")]'):
         titleNoFormatting = searchResult.xpath('.//h1[@class="entry-title"]/a')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('.//h1[@class="entry-title"]/a/@href')[0])
 
-        releaseDateTime = searchResult.xpath('.//time[@class="entry-date"]/@datetime')[0].strip()
-        releaseDate = parse(releaseDateTime).strftime('%Y-%m-%d')
+        date = searchResult.xpath('.//time[@class="entry-date"]/@datetime')[0].strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
         if searchDate:
             score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
         else:
             score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum),
-                                            name='%s [MormonGirlz] %s' % (titleNoFormatting, releaseDate), score=score,
-                                            lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [MormonGirlz] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -36,11 +34,10 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().replace(' - Mormon Girlz', '')
+    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].replace(' - Mormon Girlz', '').strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//*[contains(@id, "post-")]/aside[2]/div/div[1]')[
-        0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//*[contains(@id, "post-")]/aside[2]/div/div[1]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'MormonGirlz'
@@ -64,8 +61,10 @@ def update(metadata, siteID, movieGenres, movieActors):
         '//h1[contains(text(), "more of") and not(contains(text(), "Mormon Girls"))]'
     ]
     for xpath in xpaths:
-        for genre in detailsPageElements.xpath(xpath):
-            movieGenres.addGenre(genre.text.replace('more of', ''))
+        for genreLink in detailsPageElements.xpath(xpath):
+            genreName = genreLink.text.replace('more of', '').strip()
+
+            movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
