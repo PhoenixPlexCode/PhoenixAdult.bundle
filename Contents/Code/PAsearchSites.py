@@ -134,6 +134,7 @@ import siteSicflics
 import networkModelCentro
 import siteCulioneros
 import networkPornWorld 
+import siteMormonGirlz
 
 searchSites = [None] * 1065
 
@@ -1201,6 +1202,7 @@ searchSites[1061] = ("Milfs Like It Black", "Milfs Like It Black", "https://www.
 searchSites[1062] = ("Project RV", "Project RV", "https://www.mofos.com", "https://site-api.project1service.com")
 searchSites[1063] = ("The Sex Scout", "The Sex Scout", "https://www.mofos.com", "https://site-api.project1service.com")
 searchSites[1064] = ("Pornstar Vote", "Pornstar Vote", "https://www.mofos.com", "https://site-api.project1service.com")
+searchSites[1065] = ("Mormon Girlz", "Mormon Girlz", "https://mormongirlz.com", "https://mormongirlz.com/?s=")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
