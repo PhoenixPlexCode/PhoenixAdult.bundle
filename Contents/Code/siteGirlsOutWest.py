@@ -6,20 +6,30 @@ import PAutils
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     encodedTitle = searchTitle.lower().replace(' ', '-')
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html'
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html'
 
-    req = PAutils.HTTPRequest(sceneURL)
-    detailsPageElements = HTML.ElementFromString(req.text)
-    titleNoFormatting = detailsPageElements.xpath('//meta[@name="twitter:title"]')[0].get('content').strip()
-    curID = PAutils.Encode(sceneURL)
-    releaseDate = parse(detailsPageElements.xpath('//div[@class="trailer topSpace"]/div[2]/p')[0].text_content().split('\\')[1].strip()).strftime('%Y-%m-%d')
+    searchResults = [directURL]
+    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    for sceneURL in googleResults:
+        if '/trailers/' in sceneURL and sceneURL not in searchResults:
+            searchResults.append(sceneURL)
 
-    if searchDate:
-        score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-    else:
-        score = 90
+    for sceneURL in googleResults:
+        req = PAutils.HTTPRequest(sceneURL)
+        if not req.text == 'Page not found':
+            detailsPageElements = HTML.ElementFromString(req.text)
+            titleNoFormatting = detailsPageElements.xpath('//meta[@name="twitter:title"]/@content')[0].strip()
+            curID = PAutils.Encode(sceneURL)
 
-    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [GirlsOutWest] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+            date = detailsPageElements.xpath('//div[@class="trailer topSpace"]/div[2]/p')[0].text_content().split('\\')[1].strip()
+            releaseDate = parse(date).strftime('%Y-%m-%d')
+
+            if searchDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle, titleNoFormatting)
+
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [GirlsOutWest] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
