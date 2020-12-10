@@ -14,7 +14,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if '/trailers/' in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
-    for sceneURL in googleResults:
+    for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         if not req.text == 'Page not found':
             detailsPageElements = HTML.ElementFromString(req.text)
