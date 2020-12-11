@@ -24,8 +24,19 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             detailsPageElements = HTML.ElementFromString(req.text)
             titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
             curID = PAutils.Encode(sceneURL)
+
+            actorUrl = "%s%s" % (PAsearchSites.getSearchBaseURL(siteNum), detailsPageElements.xpath('//div[contains(@class, "pt-md")]//@href')[0])
+            req = PAutils.HTTPRequest(actorUrl)
+            actorPageElements = HTML.ElementFromString(req.text)
+            scenes = actorPageElements.xpath('//div[@class="row"]//div[contains(@class,"box-shadow")]')
+            for scene in scenes:
+                sceneTitle = scene.xpath('.//h5[@class="card-title"]')[0].text_content().strip()
+                if titleNoFormatting == sceneTitle:
+                    sceneDate = scene.xpath('.//@data-date')
+                    break
+
             try:
-                releaseDate = parse(detailsPageElements.xpath('//div[@class="d-inline d-lg-block mb-1"]/span')[0].text_content().strip()).strftime('%Y-%m-%d')
+                releaseDate = parse(sceneDate[0].strip()).strftime('%Y-%m-%d')
             except:
                 releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
 
@@ -75,12 +86,6 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.tagline = siteName
     metadata.collections.add(siteName)
 
-    # Release Date
-    if sceneDate:
-        date_object = parse(sceneDate)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[contains(@class, "pt-md")]//a[contains(@href, "/girls/")]')
@@ -108,6 +113,23 @@ def update(metadata, siteID, movieGenres, movieActors):
 
         actorName = 'Dillion Harper'
         movieActors.addActor(actorName, actorPhotoURL)
+
+    # Release Date
+    actorUrl = "%s%s" % (PAsearchSites.getSearchBaseURL(siteID), detailsPageElements.xpath('//div[contains(@class, "pt-md")]//@href')[0])
+    req = PAutils.HTTPRequest(actorUrl)
+    actorPageElements = HTML.ElementFromString(req.text)
+    scenes = actorPageElements.xpath('//div[@class="row"]//div[contains(@class,"box-shadow")]')
+
+    for scene in scenes:
+        sceneTitle = scene.xpath('.//h5[@class="card-title"]')[0].text_content().strip()
+        if metadata.title == sceneTitle:
+            sceneDate = scene.xpath('.//@data-date')[0]
+            break
+
+    if sceneDate:
+        date_object = parse(sceneDate)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
