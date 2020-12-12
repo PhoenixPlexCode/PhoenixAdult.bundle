@@ -117,6 +117,8 @@ class PhoenixActors:
                     newActor = 'Eden Sinclair'
                 elif newActor == 'Elsa Dream':
                     newActor = 'Elsa Jean'
+                elif newActor == 'Emma Fantazy':
+                    newActor = 'Emma Fantasy'
                 elif newActor == 'Eve Lawrence':
                     newActor = 'Eve Laurence'
                 elif newActor == 'Francesca Di Caprio' or newActor == 'Francesca Dicaprio':
@@ -163,10 +165,14 @@ class PhoenixActors:
                     newActor = 'Lily Labeau'
                 elif newActor == 'Lilly Lit':
                     newActor = 'Lilly Ford'
+                elif newActor == 'Lolita Taylor':
+                    newActor = 'Lola Taylor'
                 elif newActor == 'Maddy OReilly' or newActor == 'Maddy Oreilly' or newActor == 'Maddy O\'reilly':
                     newActor = 'Maddy O\'Reilly'
                 elif newActor == 'Maria Rya' or newActor == 'Melena Maria':
                     newActor = 'Melena Maria Rya'
+                elif newActor == 'Mia Ferrari':
+                    newActor = 'Shelley Bliss'
                 elif newActor == 'Moe The Monster Johnson':
                     newActor = 'Moe Johnson'
                 elif newActor == 'Nadya Nabakova' or newActor == 'Nadya Nabokova':
@@ -193,6 +199,10 @@ class PhoenixActors:
                     newActor = 'Shalina Divine'
                 elif newActor == 'Dylann Vox' or newActor == 'Dylan Vox':
                     newActor = 'Skylar Vox'
+                elif newActor == 'Sofy Torn':
+                    newActor = 'Sofy Soul'
+                elif newActor == 'Sonia Smile' or newActor == 'Sony Smile' or newActor == 'Sofi Smail':
+                    newActor = 'Sofi Smile'
                 elif newActor == 'Stephanie Moon' or newActor == 'Steffy Moon':
                     newActor = 'Stefanie Moon'
                 elif newActor == 'Sedona' or newActor == 'Stefanie Renee':
@@ -203,6 +213,8 @@ class PhoenixActors:
                     newActor = 'Steven St. Croix'
                 elif newActor == 'Sybil Kailena' or newActor == 'Sybil':
                     newActor = 'Sybil A'
+                elif newActor == 'Taissia' or newActor == 'Taisia' or newActor == 'Taisia Shanti' or newActor == 'Taissia Shanty' or newActor == 'Taisha':
+                    newActor = 'Taissia Shanti'
                 elif newActor == 'Tiny Teen' or newActor == 'Tieny Mieny' or newActor == 'Lady Jay' or newActor == 'Tiny Teen / Eva Elfie':
                     newActor = 'Eva Elfie'
                 elif newActor == 'Veronica Vega':
@@ -225,7 +237,7 @@ class PhoenixActors:
                     newActor = 'Selvaggia Babe'
 
                 # Replace by site + actor; use when an actor just has an alias or abbreviated name on one site
-                if metadata.studio == '21Sextury' or metadata.studio == 'Footsie Babes':
+                if metadata.studio == '21Sextury' or metadata.studio == '21 Sextury' or metadata.studio == 'Footsie Babes':
                     if newActor == 'Abbie':
                         newActor = 'Krystal Boyd'
                     elif newActor == 'Ariel Temple':
@@ -782,8 +794,6 @@ class PhoenixActors:
                         newActor = 'Kristine Andrews'
                     elif newActor == 'Leah':
                         newActor = 'Leah Parker'
-                    elif newActor == 'Lolita Taylor':
-                        newActor = 'Lola Taylor'
                     elif newActor == 'Melanie':
                         newActor = 'Melanie Jagger'
                     elif newActor == 'Meriesa':
@@ -1831,7 +1841,7 @@ class PhoenixActors:
                     elif newActor == 'Angel':
                         newActor = 'Rosemary Radeva'
                     elif newActor == 'Angelica':
-                        newActor = 'Anjelica'
+                        newActor = 'Krystal Boyd'
                     elif newActor == 'Angie':
                         newActor = 'Angelica Kitten'
                     elif newActor == 'Anikka':
@@ -2461,6 +2471,12 @@ class PhoenixActors:
                 elif metadata.studio == 'HighTechVR':
                     if newActor == 'Lady D':
                         newActor = 'Lady Dee'
+                elif metadata.studio == 'Teen Mega World':
+                    if newActor == 'Arianna':
+                        newActor = 'Angie Moon'
+                elif metadata.studio == 'Hegre':
+                    if newActor == 'Natalia A':
+                        newActor = 'Natalia Andreeva'
 
                 if not newPhoto:
                     newPhoto = actorDBfinder(newActor)
