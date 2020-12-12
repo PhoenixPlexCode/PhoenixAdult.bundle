@@ -11,7 +11,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         sceneURL = searchResult.xpath('.//a[@class="text-km"] | .//a[@class="text-pf"] | .//a[@class="text-tf"]')[0].get('href')
         curID = PAutils.Encode(sceneURL)
-        
+
         releaseDate = searchResult.xpath('.//span[@class="card-footer-item"]')[0].text_content().strip()
         if ', 20' not in releaseDate:
             releaseDate = releaseDate + ', ' + str(datetime.now().year)
@@ -87,7 +87,8 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Posters/Background
     art = [
-        'https://tour-cdn.kellymadisonmedia.com/content/episode/poster_image/%s/poster.jpg' % sceneURL.rsplit('/')[-1]
+        'https://tour-cdn.kellymadisonmedia.com/content/episode/poster_image/%s/poster.jpg' % sceneURL.rsplit('/')[-1],
+        'https://tour-cdn.kellymadisonmedia.com/content/episode/episode_thumb_image_1/%s/1.jpg' % sceneURL.rsplit('/')[-1],
     ]
 
     Log('Artwork found: %d' % len(art))
