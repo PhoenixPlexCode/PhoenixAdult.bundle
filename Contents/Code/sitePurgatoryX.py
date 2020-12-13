@@ -8,18 +8,16 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        try:
-            sceneURL = re.sub(r'\?t.*', '', sceneURL)
-        except:
-            pass
-        if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL.replace('dev.', '') not in searchResults:
+        sceneURL = sceneURL.split('?')[0].replace('dev.', '', 1)
+
+        if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].strip()
+        titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
         curID = PAutils.Encode(sceneURL)
 
         date = detailsPageElements.xpath('//span[@class="date"]')[0].text_content().strip()
@@ -42,10 +40,13 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].strip()
+    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//meta[@name="description"]/@content')[0].strip()
+    description = ''
+    for desc in detailsPageElements.xpath('//div[@class="description"]//p'):
+        description += desc.text_content().strip() + '\n\n'
+    metadata.summary = description
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteID)
