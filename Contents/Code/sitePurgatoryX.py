@@ -12,7 +12,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             sceneURL = re.sub(r'\?t.*', '', sceneURL)
         except:
             pass
-        if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL.replace('dev.','') not in searchResults:
+        if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL.replace('dev.', '') not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
