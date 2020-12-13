@@ -4,6 +4,14 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+    try:
+        encodedTitle = re.search(r'(?<=^the\s).*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
+    except:
+        try:
+            encodedTitle = re.search(r'.*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
+        except:
+            encodedTitle = searchTitle
+
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class,"content-item")]'):
