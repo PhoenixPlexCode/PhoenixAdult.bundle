@@ -135,8 +135,9 @@ import networkModelCentro
 import siteCulioneros
 import networkPornWorld 
 import siteMormonGirlz
+import sitePurgatoryX
 
-searchSites = [None] * 1066
+searchSites = [None] * 1067
 
 searchSites[0] = ("BlackedRaw", "BlackedRaw", "https://www.blackedraw.com", "https://www.blackedraw.com/api")
 searchSites[1] = ("Blacked", "Blacked", "https://www.blacked.com", "https://www.blacked.com/api")
@@ -1203,6 +1204,7 @@ searchSites[1062] = ("Project RV", "Project RV", "https://www.mofos.com", "https
 searchSites[1063] = ("The Sex Scout", "The Sex Scout", "https://www.mofos.com", "https://site-api.project1service.com")
 searchSites[1064] = ("Pornstar Vote", "Pornstar Vote", "https://www.mofos.com", "https://site-api.project1service.com")
 searchSites[1065] = ("Mormon Girlz", "Mormon Girlz", "https://mormongirlz.com", "https://mormongirlz.com/?s=")
+searchSites[1066] = ("PurgatoryX", "PurgatoryX", "https://tour.purgatoryx.com", "https://tour.purgatoryx.com/search/")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]
