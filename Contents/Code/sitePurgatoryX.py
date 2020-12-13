@@ -6,13 +6,12 @@ import PAutils
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
-
     for searchResult in searchResults.xpath('//div[contains(@class,"content-item")]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
 
         sceneURL = searchResult.xpath('.//h3//@href')[0]
         curID = PAutils.Encode(sceneURL)
-        
+
         date = searchResult.xpath('.//span[@class="pub-date"]')[0].text_content().strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
@@ -25,6 +24,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     return results
 
+
 def update(metadata, siteID, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -33,8 +33,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = detailsPageElements.xpath('//title')[0].text_content().split('|')
-    metadata.title = title[0].strip()
+    metadata.title = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].strip()
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//meta[@name="description"]/@content')[0].strip()
@@ -56,8 +55,10 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genre in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
-        movieGenres.addGenre(genre.strip())
+    for genreLink in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
@@ -73,6 +74,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         for actorLink in actors:
             actorName = actorLink.xpath('.//h5')[0].text_content()
             actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
@@ -85,6 +87,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
                 img = PAsearchSites.getSearchBaseURL(siteID) + img
+
             art.append(img)
 
     Log('Artwork found: %d' % len(art))

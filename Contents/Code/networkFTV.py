@@ -1,44 +1,43 @@
 import PAsearchSites
 import PAgenres
 import PAactors
-import PAextras
 import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     sceneID = None
     splited = searchTitle.split(' ')
-
     searchResults = []
-    
+
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()
-        sceneURL = '%s%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), sceneID, '.html')
-        searchResults.append(sceneURL)
+        directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID + '.html'
+
+        searchResults.append(directURL)
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
-    for result in googleResults:
-        try:
-            sceneID = re.search(r'(?<=-).*(?=\.)', result).group(0)
-            sceneURL = '%s%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), sceneID, '.html')
-            if ('/update/' in result) and sceneURL not in searchResults:
-                searchResults.append(sceneURL)
-        except:
-            pass
+    for sceneURL in googleResults:
+        if ('/update/' in sceneURL) and sceneURL not in searchResults:
+            searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
+        curID = PAutils.Encode(sceneURL)
         titleDate = detailsPageElements.xpath('//title')[0].text_content().split('Released')
         titleNoFormatting = titleDate[0].strip()
-        releaseDate = parse(titleDate[-1].replace('!','').strip()).strftime('%Y-%m-%d')
-        curID = PAutils.Encode(sceneURL)
 
-        score = 100
+        date = titleDate[-1].replace('!', '').strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        if searchDate:
+            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -67,19 +66,22 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
+    date = titleDate[-1].replace('!', '').strip()
     if sceneDate:
-        date_object = parse(sceneDate)
+        date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres() 
-    if PAsearchSites.getSearchSiteName(siteID).lower() == "FTVGirls".lower():
-        for genreName in ['Teen', 'Solo', 'Public']:
-            movieGenres.addGenre(genreName)
-    elif PAsearchSites.getSearchSiteName(siteID).lower() == "FTVMilfs".lower():
-        for genreName in ['MILF', 'Solo', 'Public']:
-            movieGenres.addGenre(genreName)
+    movieGenres.clearGenres()
+    genres = []
+    if tagline == 'FTVGirls'.lower():
+        genres = ['Teen', 'Solo', 'Public']
+    elif tagline == 'FTVMilfs'.lower():
+        genres = ['MILF', 'Solo', 'Public']
+
+    for genreName in genres:
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
