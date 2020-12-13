@@ -1207,7 +1207,7 @@ searchSites[1062] = ('Project RV', 'https://www.mofos.com', 'https://site-api.pr
 searchSites[1063] = ('The Sex Scout', 'https://www.mofos.com', 'https://site-api.project1service.com')
 searchSites[1064] = ('Pornstar Vote', 'https://www.mofos.com', 'https://site-api.project1service.com')
 searchSites[1065] = ('Mormon Girlz', 'https://mormongirlz.com', 'https://mormongirlz.com/?s=')
-searchSites[1066] = ('PurgatoryX', 'https://tour.purgatoryx.com', 'https://tour.purgatoryx.com/search/')
+searchSites[1066] = ('PurgatoryX', 'https://purgatoryx.com', 'https://tour.purgatoryx.com/search/')
 searchSites[1067] = ('Plumper Pass', 'https://plumperpass.com', 'https://plumperpass.com/tour/search.php?q=')
 searchSites[1068] = ('FTVMilfs', 'https://ftvmilfs.com', 'https://ftvmilfs.com/update/s-')
 searchSites[1069] = ('FTVGirls', 'https://www.ftvgirls.com', 'https://ftvgirls.com/update/s-')

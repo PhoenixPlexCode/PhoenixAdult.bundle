@@ -4,23 +4,25 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    try:
-        encodedTitle = re.search(r'(?<=^the\s).*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
-    except:
+    searchResults = []
+
+    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    for sceneURL in googleResults:
         try:
-            encodedTitle = re.search(r'.*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
+            sceneURL = re.sub(r'\?t.*', '', sceneURL)
         except:
-            encodedTitle = searchTitle
+            pass
+        if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL.replace('dev.','') not in searchResults:
+            searchResults.append(sceneURL)
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle.lower())
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class,"content-item")]'):
-        titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
+    for sceneURL in searchResults:
+        req = PAutils.HTTPRequest(sceneURL)
+        detailsPageElements = HTML.ElementFromString(req.text)
 
-        sceneURL = searchResult.xpath('.//h3//@href')[0]
+        titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].strip()
         curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('.//span[@class="pub-date"]')[0].text_content().strip()
+        date = detailsPageElements.xpath('//span[@class="date"]')[0].text_content().strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
         if searchDate:
@@ -31,7 +33,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
-
 
 def update(metadata, siteID, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
