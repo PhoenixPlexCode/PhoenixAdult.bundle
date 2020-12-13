@@ -8,7 +8,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         encodedTitle = re.search(r'(?<=^the\s).*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
     except:
         try:
-            encodedTitle = re.search(r'.*(?=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
+            encodedTitle = re.search(r'.*(?<=\svol\s)', searchTitle, re.IGNORECASE).group(0).strip()
         except:
             encodedTitle = searchTitle
 
