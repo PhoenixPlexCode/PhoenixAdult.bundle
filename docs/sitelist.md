@@ -338,6 +338,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - TheDickSuckers
 + #### First Anal Quest | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Fitting-Room | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
++ #### First Time Videos (FTV) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - FTVGirls
+  - FTVMilfs
 + #### FuckingAwesome | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### FuelVirtual Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - FuckedHard18
@@ -751,6 +754,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PureMature
   - SpyFam
   - Tiny4k
++ #### Plumper Pass | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PornstarPlatinum | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PrettyDirty | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Private | Matching type: *[Limited](./manualsearch.md#limited-search)*
@@ -781,6 +785,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - LadyVoyeurs
   - PureCFNM
 + #### PureTaboo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### PurgatoryX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### QueenSnake | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### QueenSect | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### Reality Kings Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
