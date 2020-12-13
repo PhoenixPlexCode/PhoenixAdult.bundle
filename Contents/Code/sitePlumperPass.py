@@ -5,27 +5,46 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+    searchResults = []
+    
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '&sid=587')
-    searchResults = HTML.ElementFromString(req.text)
-
-    for searchResult in searchResults.xpath('//div[@class="itemm"]'):
-        titleNoFormatting = searchResult.xpath('.//p')[0].text_content().strip()
+    siteSearchResults = HTML.ElementFromString(req.text)
+    for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
         sceneURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('.//@href')[0])
-        curID = PAutils.Encode(sceneURL)
+        searchResults.append(sceneURL)
 
-        date = searchResult.xpath('//p[@class="date"]')[0].text_content().strip()
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    for result in googleResults:
+        try:
+            sceneID = re.search(r'(?<=\dpp\/).*(?=\/)', result).group(0)
+            sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + 'refstat.php?lid=' + sceneID + '&sid=584'
+            if ('content' in result) and sceneURL not in searchResults:
+                searchResults.append(sceneURL)
+        except:
+            pass
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+    for sceneURL in searchResults:
+        req = PAutils.HTTPRequest(sceneURL)
+        detailsPageElements = HTML.ElementFromString(req.text)
+        
+        try:
+            titleNoFormatting = re.search(r'(?<=(in)).*(?=(at))', detailsPageElements.xpath('//title')[0].text_content()).group(0)
+            curID = PAutils.Encode(sceneURL)
+            date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            if date:
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
 
+            if searchDate and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        except:
+            pass
     return results
 
 
