@@ -12,7 +12,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         except:
             encodedTitle = searchTitle
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle.lower())
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class,"content-item")]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
