@@ -1,3 +1,7 @@
+scanner:
+    diff_only: False
+    linter: pycodestyle
+
 pycodestyle:
     ignore:
         - E501  # line too long
