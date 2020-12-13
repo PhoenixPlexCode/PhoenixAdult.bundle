@@ -1208,8 +1208,8 @@ searchSites[1064] = ("Pornstar Vote", "Pornstar Vote", "https://www.mofos.com", 
 searchSites[1065] = ("Mormon Girlz", "Mormon Girlz", "https://mormongirlz.com", "https://mormongirlz.com/?s=")
 searchSites[1066] = ("PurgatoryX", "PurgatoryX", "https://tour.purgatoryx.com", "https://tour.purgatoryx.com/search/")
 searchSites[1067] = ("Plumper Pass", "Plumper Pass", "https://plumperpass.com/t1/", "https://plumperpass.com/tour/search.php?q=")
-searchSites[1068] = ("FTV Milfs", "FTV Milfs", "https://ftvmilfs.com/", "https://ftvmilfs.com/update/s-")
-searchSites[1069] = ("FTV Girls", "FTV Girls", "https://www.ftvgirls.com/", "https://ftvgirls.com/update/s-")
+searchSites[1068] = ("FTVMilfs", "FTVMilfs", "https://ftvmilfs.com/", "https://ftvmilfs.com/update/s-")
+searchSites[1069] = ("FTVGirls", "FTVGirls", "https://www.ftvgirls.com/", "https://ftvgirls.com/update/s-")
 
 def getSearchBaseURL(siteID):
     return searchSites[siteID][2]

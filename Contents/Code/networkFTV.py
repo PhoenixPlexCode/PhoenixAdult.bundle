@@ -58,7 +58,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.summary = detailsPageElements.xpath('//div[@id="Bio"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'FTV'
+    metadata.studio = 'First Time Videos'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -74,10 +74,10 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres() 
-    if PAsearchSites.getSearchSiteName(siteID).lower() == "FTV Girls".lower():
+    if PAsearchSites.getSearchSiteName(siteID).lower() == "FTVGirls".lower():
         for genreName in ['Teen', 'Solo', 'Public']:
             movieGenres.addGenre(genreName)
-    elif PAsearchSites.getSearchSiteName(siteID).lower() == "FTV Milfs".lower():
+    elif PAsearchSites.getSearchSiteName(siteID).lower() == "FTVMilfs".lower():
         for genreName in ['MILF', 'Solo', 'Public']:
             movieGenres.addGenre(genreName)
 
