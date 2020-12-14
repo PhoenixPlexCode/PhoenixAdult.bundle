@@ -121,7 +121,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if ',' in img:
-                img = img.split(',')[-1].split(' ')[0]
+                img = img.split(',')[-1].split()[0]
 
             trash = '_' + img.split('_', 3)[-1].rsplit('.', 1)[0]
             img = img.replace(trash, '', 1)
