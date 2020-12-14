@@ -138,8 +138,9 @@ import siteMormonGirlz
 import sitePurgatoryX
 import sitePlumperPass
 import networkFTV
+import siteJacquieEtMichel
 
-searchSites = [None] * 1070
+searchSites = [None] * 1071
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1211,6 +1212,7 @@ searchSites[1066] = ('PurgatoryX', 'https://purgatoryx.com', 'https://tour.purga
 searchSites[1067] = ('Plumper Pass', 'https://plumperpass.com', 'https://plumperpass.com/tour/search.php?q=')
 searchSites[1068] = ('FTVMilfs', 'https://ftvmilfs.com', 'https://ftvmilfs.com/update/s-')
 searchSites[1069] = ('FTVGirls', 'https://www.ftvgirls.com', 'https://ftvgirls.com/update/s-')
+searchSites[1070] = ('Jacquie & Michel TV', 'https://www.jacquieetmicheltv.net', 'https://www.jacquieetmicheltv.net/en/recherche/')
 
 
 def getSearchSiteName(siteID):
