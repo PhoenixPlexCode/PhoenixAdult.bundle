@@ -133,7 +133,7 @@ import siteTwoTGirls
 import siteSicflics
 import networkModelCentro
 import siteCulioneros
-import networkPornWorld 
+import networkPornWorld
 import siteMormonGirlz
 import sitePurgatoryX
 import sitePlumperPass
@@ -810,7 +810,7 @@ searchSites[665] = ('X Angels', 'http://x-angels.com', 'http://x-angels.com/sear
 searchSites[666] = ('Teen Sex Movs', 'http://teensexmovs.com', 'http://teensexmovs.com/search.php?query=')
 searchSites[667] = ('PJGirls', 'http://www.pjgirls.com', 'http://www.pjgirls.com/en/videos/?fulltext=')
 searchSites[668] = ('Screwbox', 'https://screwbox.com', 'https://screwbox.com/search.php?query=')
-searchSites[669] = ('Dorcel Club', 'https://www.dorcelclub.com', 'https://www.dorcelclub.com/en/search?search=')
+searchSites[669] = ('Dorcel Club', 'https://www.dorcelclub.com', 'https://www.dorcelclub.com/en/search?s=')
 searchSites[670] = ('TushyRaw', 'https://www.tushyraw.com', 'https://www.tushyraw.com/api')
 searchSites[671] = ('Deeper', 'https://www.deeper.com', 'https://www.deeper.com/api')
 searchSites[672] = ('MissaX', 'https://missax.com', 'https://missax.com/tour/search.php?query=')
