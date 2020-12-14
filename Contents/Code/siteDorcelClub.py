@@ -23,22 +23,18 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         curID = PAutils.Encode(movieLink)
         score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s Full Movie [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s - Full Movie [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
         # Also append all the scenes from matching movies
-        req = PAutils.HTTPRequest(movieLink)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + movieLink)
         moviePageElements = HTML.ElementFromString(req.text)
-        for movieScene in moviePageElements.xpath('//div[@class="scene"]'):
-            titleNoFormatting = movieScene.xpath('.//div[@class="title"]/a')[0].text_content().strip()
-            curID = curID = PAutils.Encode(movieScene.xpath('.//div[@class="title"]/a/@href')[0])
-            releaseDate = parse(movieScene.xpath('.//span[@class="date"]')[0].text_content().replace('Published', '').strip()).strftime('%Y-%m-%d')
+        for movieScene in moviePageElements.xpath('//div[@class="scenes"]/div[@class="list"]/div[@class="scene thumbnail "]'):
+            titleNoFormatting = movieScene.xpath('.//div[@class="textual"]/a')[0].text_content().strip()
+            curID = curID = PAutils.Encode(movieScene.xpath('.//a[@class="title"]/@href')[0])
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
