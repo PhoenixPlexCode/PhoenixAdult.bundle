@@ -52,7 +52,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="content_text"]')[0].text_content().strip()
+        metadata.summary = detailsPageElements.xpath('///span[@class="full"]')[0].text_content().strip()
     except:
         pass
 
@@ -69,7 +69,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     movieGenres.clearGenres()
     movieGenres.addGenre('French porn')
 
-    movieName = detailsPageElements.xpath('//div[@class="movie"]/a')
+    movieName = detailsPageElements.xpath('//span[@class="movie"]/a')
     if movieName:
         metadata.collections.add(movieName[0].text_content().strip())
     movieGenres.addGenre('Blockbuster Movie')
@@ -77,9 +77,9 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     if 'porn-movie' not in sceneURL:
-        actors = detailsPageElements.xpath('//div[@class="scene"][1]//div[@class="actors"]//a')
+        actors = detailsPageElements.xpath('//div[@class="actress"]/a')
     else:
-        actors = detailsPageElements.xpath('//div[@class="actors"]//a')
+        actors = detailsPageElements.xpath('//div[@class="actor thumbnail "]/a/div[@class="name"]')
 
     if actors:
         if 'porn-movie' not in sceneURL:
@@ -97,40 +97,26 @@ def update(metadata, siteID, movieGenres, movieActors):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[@class="date"]')[0].text_content().replace('Published', '').strip()
+    if 'porn-movie' not in sceneURL:
+        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
+    else:
+        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
     # Director
     director = metadata.directors.new()
-    try:  # This is for getting from scene page to movie page and grabbing director, if available
-        moviePage = detailsPageElements.xpath('//div[@class="movie"]/a')[0].get('href').strip()
-        req = PAutils.HTTPRequest(moviePage)
-        moviePageElements = HTML.ElementFromString(req.text)
-        movieDirector = moviePageElements.xpath('//div[@class="infos"]/p[2]')[0].text_content().replace('Movie Director:', '').strip()
-        director.name = movieDirector
-    except:
-        pass
+    movieDirector = detailsPageElements.xpath('//span[@class="director"]')[0].text_content().replace(
+        'Director :', '').strip()
+    director.name = movieDirector
 
-    try:  # This is for getting the director if you're matching a whole movie
-        director.name = detailsPageElements.xpath('//div[@class="infos"]/p[2]')[0].text_content().replace('Movie Director:', '').strip()
-    except:
-        pass
-
-    # Video backgrounds
+    # Poster (only available for movies, scenes are blurred out)
     art = []
-    xpaths = [
-        '//ul[@class="vid_rotator_img"]//img/@data-lazy',
-        '//div[contains(@class, "pictures_container")]//img[@class="item"]/@src'
-    ]
-
-    for xpath in xpaths:
-        for img in detailsPageElements.xpath(xpath):
-            trash = '_' + img.split('_', 3)[-1].rsplit('.', 1)[0]
-            img = img.replace(trash, '', 1)
-
-            art.append(img)
+    try:
+        art.append(detailsPageElements.xpath('//div[@class="header"]//source[@media="(min-width: 768px)"]/@data-srcset')[0].text_content().split(',')[-1].strip().split(' ')[0])
+    except:
+        pass
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
