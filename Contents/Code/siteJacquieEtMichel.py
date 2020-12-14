@@ -33,7 +33,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         sceneReleaseDate = parse(sceneSearchResults.xpath('//span[@class="publication"]')[0].text_content().strip())
 
         if sceneTitleNoFormatting and sceneCurID and sceneReleaseDate:
-            results.Append(MetadataSearchResult(id='%s|%d' % (sceneCurID, siteNum), name='%s [%s] %s' % (sceneTitleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), sceneReleaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (sceneCurID, siteNum), name='%s [%s] %s' % (sceneTitleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), sceneReleaseDate), score=100, lang=lang))
     except:
         pass
 
