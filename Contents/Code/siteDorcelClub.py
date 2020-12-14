@@ -8,17 +8,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     # Scenes by name
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="scene"]'):
-        titleNoFormatting = searchResult.xpath('.//div[@class="title"]/a')[0].text_content().strip()
-        curID = PAutils.Encode(searchResult.xpath('.//div[@class="title"]/a/@href')[0])
-        releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().replace('Published', '').strip()).strftime('%Y-%m-%d')
+    for searchResult in searchResults.xpath('//div[@class="scenes list"]/div[@class="items"]/div[@class="scene thumbnail "]'):
+        titleNoFormatting = searchResult.xpath('.//div[@class="textual"]/a')[0].text_content().strip()
+        curID = PAutils.Encode(searchResult.xpath('.//a[@class="title"]/@href')[0])
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     # Movies by name
     for searchResult in searchResults.xpath('//div[@class="movie"]'):
