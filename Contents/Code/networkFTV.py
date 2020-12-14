@@ -85,10 +85,21 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorName = detailsPageElements.xpath('//h3')[0].text_content().strip()
-    actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[0]
+    idx = 0
+    actors = []
+    try:
+        sceneID = int(re.search(r'(?<=-)\d.*(?=\.)', sceneURL).group(0))
+    except:
+        sceneID = 0
 
-    movieActors.addActor(actorName, actorPhotoURL)
+    for actorLink in detailsPageElements.xpath('//div[@id="ModelDescription"]//h1'):
+        actorName = actorLink.text_content().strip().replace('\'s Statistics', '')
+        actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
+        actors.append(actorName)
+
+        movieActors.addActor(modelLookup(sceneID, actorName), actorPhotoURL)
+        idx += 1
+
 
     # Posters
     art = []
@@ -96,16 +107,19 @@ def update(metadata, siteID, movieGenres, movieActors):
         '//img[@id="Magazine"]/@src',
         '//div[@class="gallery"]//div[@class="row"]//@href',
         '//div[@class="thumbs_horizontal"]//@href',
+        '//a[img[@class="t"]]/@href',
     ]
 
-    googleResults = PAutils.getFromGoogleSearch(actorName, siteID)
+    scenes = photoLookup(sceneID)
+    googleResults = PAutils.getFromGoogleSearch(' '.join(actors).strip(), siteID)
     for photoURL in googleResults:
-        if ('galleries' in photoURL and 'ccbill' not in photoURL and (actorName.lower() + '-') in photoURL):
-            req = PAutils.HTTPRequest(photoURL)
-            photoPageElements = HTML.ElementFromString(req.text)
-            for xpath in xpaths:
-                for img in photoPageElements.xpath(xpath):
-                    art.append(img)
+        for scene in scenes:
+            if (('galleries' in photoURL or 'preview' in photoURL) and (scene in photoURL or scene == 'none')):
+                req = PAutils.HTTPRequest(photoURL)
+                photoPageElements = HTML.ElementFromString(req.text)
+                for xpath in xpaths:
+                    for img in photoPageElements.xpath(xpath):
+                        art.append(img)
 
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
@@ -131,3 +145,41 @@ def update(metadata, siteID, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+def modelLookup(sceneID, actorName):
+    if sceneID == 226:
+        actorName = 'Ryan Ryans'
+    elif sceneID == 210 or sceneID == 130:
+        actorName = 'Ryan Keely'
+    elif sceneID == 222:
+        actorName = 'Jay Taylor'
+    elif sceneID == 1585 and actorName == 'Alexia':
+        actorName = 'Alex Grey'
+    elif (sceneID == 1585 and actorName == 'Nina') or sceneID == 1569 or sceneID == 1573:
+        actorName = 'Nina North'
+    elif sceneID == 274:
+        actorName = 'Maddy O\'Reilly'
+    elif sceneID == 283:
+        actorName = 'Alex Zara'            
+
+    return actorName
+
+
+def photoLookup(sceneID):
+    if sceneID == 226:
+        scenes = ['cool-colors', 'shes-on-fire', 'heating-up']
+    elif sceneID == 210:
+        scenes = ['supersexy-vixen', 'satin-sensuality', 'outdoor-finale']
+    elif sceneID == 130:
+        scenes = ['elegantly-sexual']
+    elif sceneID == 1569:
+        scenes = ['model-like-no-other', 'teen-penetration']
+    elif sceneID == 1524:
+        scenes = ['petite-gaping', 'penetration-limits']
+    elif sceneID == 1573 or sceneID == 283:
+        scenes = []
+    else:
+        scenes = ['none']
+    
+    return scenes
