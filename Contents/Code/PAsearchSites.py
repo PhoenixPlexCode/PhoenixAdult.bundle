@@ -1212,7 +1212,7 @@ searchSites[1066] = ('PurgatoryX', 'https://purgatoryx.com', 'https://tour.purga
 searchSites[1067] = ('Plumper Pass', 'https://plumperpass.com', 'https://plumperpass.com/tour/search.php?q=')
 searchSites[1068] = ('FTVMilfs', 'https://ftvmilfs.com', 'https://ftvmilfs.com/update/s-')
 searchSites[1069] = ('FTVGirls', 'https://www.ftvgirls.com', 'https://ftvgirls.com/update/s-')
-searchSites[1070] = ('Jacquie & Michel TV', 'https://www.jacquieetmicheltv.net', 'https://www.jacquieetmicheltv.net/en/recherche/')
+searchSites[1070] = ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', 'https://www.jacquieetmicheltv.net/en/recherche/')
 
 
 def getSearchSiteName(siteID):
@@ -1229,7 +1229,7 @@ def getSearchSearchURL(siteID):
 
 def getSearchSiteIDByFilter(searchFilter):
     searchResults = []
-    searchFilterF = searchFilter.lower().replace(' ', '').replace('.com', '').replace('\'', '').replace('-', '')
+    searchFilterF = searchFilter.lower().replace(' ', '').replace('.com', '').replace('.net', '').replace('\'', '').replace('-', '')
     for searchID, sites in enumerate(searchSites):
         if sites:
             siteNameF = sites[0].lower().replace(' ', '').replace('\'', '').replace('-', '')
