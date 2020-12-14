@@ -100,7 +100,6 @@ def update(metadata, siteID, movieGenres, movieActors):
         movieActors.addActor(modelLookup(sceneID, actorName), actorPhotoURL)
         idx += 1
 
-
     # Posters
     art = []
     xpaths = [
@@ -161,7 +160,7 @@ def modelLookup(sceneID, actorName):
     elif sceneID == 274:
         actorName = 'Maddy O\'Reilly'
     elif sceneID == 283:
-        actorName = 'Alex Zara'            
+        actorName = 'Alex Zara'
 
     return actorName
 
@@ -181,5 +180,5 @@ def photoLookup(sceneID):
         scenes = []
     else:
         scenes = ['none']
-    
+
     return scenes
