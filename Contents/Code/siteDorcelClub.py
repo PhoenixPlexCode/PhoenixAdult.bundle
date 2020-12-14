@@ -115,7 +115,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     art = []
     if 'porn-movie' in sceneURL:
         try:
-            art.append(detailsPageElements.xpath('//div[@class="header"]//source[@media="(min-width: 768px)"]/@data-srcset')[0].text_content().split(',')[-1].strip().split(' ')[0])
+            art.append(detailsPageElements.xpath('//div[@class="header"]//source[@media="(min-width: 768px)"]/@data-srcset')[0].split(',')[-1].strip().split(' ')[0])
         except:
             pass
 
