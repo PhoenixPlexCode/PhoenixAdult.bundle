@@ -22,6 +22,18 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
+    # SceneId search
+    sceneIdURL = PAsearchSites.getSearchBaseURL(siteNum) + '/en/videos/show/'+ encodedTitle
+    sceneReq = PAutils.HTTPRequest(sceneIdURL)
+    sceneSearchResults = HTML.ElementFromString(sceneReq.text)
+
+    sceneTitleNoFormatting = sceneSearchResults.xpath('//div[@class="video-player"]/h1')[0].text_content().strip()
+    sceneCurID = PAutils.Encode(sceneIdURL)
+    sceneReleaseDate = parse(sceneSearchResults.xpath('//span[@class="publication"]')[0].text_content().strip())
+
+    if sceneTitleNoFormatting and sceneCurID and sceneReleaseDate:
+        results.Append(MetadataSearchResult(id='%s|%d' % (sceneCurID, siteNum), name='%s [%s] %s' % (sceneTitleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), sceneReleaseDate), score=score, lang=lang))
+
     return results
 
 
