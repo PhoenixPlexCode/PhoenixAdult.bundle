@@ -9,10 +9,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html')
     searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[@class="col-lg-3 col-md-4 col-sm-6 col-xs-6 video-item"]'):
+    for searchResult in searchResults.xpath('//div[@class="col-lg-3 col-md-4 col-sm-6 col-xs-6 video-item" and @data-get-thumbs-url]'):
         titleNoFormatting = searchResult.xpath('.//p[@class="title-video"]')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('./a/@href')[0])
-        releaseDate = parse(searchResult.xpath('.//div[@class="infos-video"]/p')[1]
+        releaseDate = parse(searchResult.xpath('.//div[@class="infos-video"]/p')[0]
                             .text_content().replace('Added on', '').strip()).strftime('%Y-%m-%d')
 
         if searchDate:
