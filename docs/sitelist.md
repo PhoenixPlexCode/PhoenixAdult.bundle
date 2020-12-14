@@ -292,7 +292,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - WeFuckBlackGirls
   - WifeWriting
   - ZebraGirls
-+ #### Dorcel Club | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
++ #### Dorcel Club | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Dorcel Vision | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### Elegant Angel | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Only DVDs supported**
 + #### EvilAngel | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
