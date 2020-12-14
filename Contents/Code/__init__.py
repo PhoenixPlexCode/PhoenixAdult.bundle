@@ -951,6 +951,11 @@ class PhoenixAdultAgent(Agent.Movies):
             elif (1068 <= searchSiteID <= 1069):
                 results = PAsearchSites.networkFTV.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
+            # Jacquie & Michel
+            elif searchSiteID == 1070:
+                results = PAsearchSites.siteJacquieEtMichel.search(results, encodedTitle, searchTitle, siteNum, lang,
+                                                               searchDate)
+
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -1681,6 +1686,10 @@ class PhoenixAdultAgent(Agent.Movies):
         # FTV
         elif (1068 <= siteID <= 1069):
             metadata = PAsearchSites.networkFTV.update(metadata, siteID, movieGenres, movieActors)
+
+        # Jacquie & Michel
+        elif siteID == 1070:
+            metadata = PAsearchSites.siteJacquieEtMichel.update(metadata, siteID, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log("Genres")

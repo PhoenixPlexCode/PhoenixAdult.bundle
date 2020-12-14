@@ -389,6 +389,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Sexually Broken
   - Topgrl
 + #### InTheCrack | Matching type: *[Limited](./manualsearch.md#limited-search)* - **actress name**
++ #### Jacquie Et Michel TV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### JAV (via R18 - Censored JAV Only) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **SceneID (in form of JAVID)**
 + #### JAY's POV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
