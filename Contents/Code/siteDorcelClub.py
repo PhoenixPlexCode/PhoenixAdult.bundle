@@ -17,9 +17,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     # Movies by name
-    for searchResult in searchResults.xpath('//div[@class="movie"]'):
-        titleNoFormatting = searchResult.xpath('./a/p')[0].text_content().strip()
-        movieLink = searchResult.xpath('./a/@href')[0]
+    for searchResult in searchResults.xpath('//div[@class="movies list"]/div[@class="items"]/a[@class="movie thumbnail"]'):
+        titleNoFormatting = searchResult.xpath('./h2')[0].text_content().strip()
+        movieLink = searchResult.xpath('./@href')[0]
         curID = PAutils.Encode(movieLink)
         score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
