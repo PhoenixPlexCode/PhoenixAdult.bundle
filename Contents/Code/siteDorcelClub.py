@@ -111,13 +111,22 @@ def update(metadata, siteID, movieGenres, movieActors):
         'Director :', '').strip()
     director.name = movieDirector
 
-    # Poster (only available for movies, scenes are blurred out)
+    # Poster
     art = []
-    if 'porn-movie' in sceneURL:
-        try:
-            art.append(detailsPageElements.xpath('//div[@class="header"]//source[@media="(min-width: 768px)"]/@data-srcset')[0].split(',')[-1].strip().split(' ')[0])
-        except:
-            pass
+
+    xpaths = [
+        '//div[contains(@class, "photos")]//source/@data-srcset'
+    ]
+
+    for xpath in xpaths:
+        for img in detailsPageElements.xpath(xpath):
+            if ',' in img:
+                img = img.split(',')[-1].split(' ')[0]
+
+            trash = '_' + img.split('_', 3)[-1].rsplit('.', 1)[0]
+            img = img.replace(trash, '', 1)
+
+            art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
