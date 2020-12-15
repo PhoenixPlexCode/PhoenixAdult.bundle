@@ -45,7 +45,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 def update(metadata, siteID, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    sceneDate = metadata_id[2]
+    
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -67,7 +67,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Release Date
     date = titleDate[-1].replace('!', '').strip()
-    if sceneDate:
+    if date:
         date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
@@ -94,10 +94,15 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     for actorLink in detailsPageElements.xpath('//div[@id="ModelDescription"]//h1'):
         actorName = actorLink.text_content().strip().replace('\'s Statistics', '')
-        actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
         actors.append(actorName)
 
-        movieActors.addActor(modelLookup(sceneID, actorName), actorPhotoURL)
+        regex = re.search(r'\s(%s [A-Z]\w{1,})\s' % actorName, metadata.summary)
+        if regex:
+            actorName = regex.group(1)
+
+        actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
+        
+        movieActors.addActor(actorName, actorPhotoURL)
         idx += 1
 
     # Posters
@@ -144,25 +149,6 @@ def update(metadata, siteID, movieGenres, movieActors):
                 pass
 
     return metadata
-
-
-def modelLookup(sceneID, actorName):
-    if sceneID == 226:
-        actorName = 'Ryan Ryans'
-    elif sceneID == 210 or sceneID == 130:
-        actorName = 'Ryan Keely'
-    elif sceneID == 222:
-        actorName = 'Jay Taylor'
-    elif sceneID == 1585 and actorName == 'Alexia':
-        actorName = 'Alex Grey'
-    elif (sceneID == 1585 and actorName == 'Nina') or sceneID == 1569 or sceneID == 1573:
-        actorName = 'Nina North'
-    elif sceneID == 274:
-        actorName = 'Maddy O\'Reilly'
-    elif sceneID == 283:
-        actorName = 'Alex Zara'
-
-    return actorName
 
 
 def photoLookup(sceneID):
