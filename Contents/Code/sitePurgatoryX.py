@@ -12,7 +12,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
-        elif ('/model/' in sceneURL):
+
+    for sceneURL in googleResults:    
+        if ('/model/' in sceneURL):
             req = PAutils.HTTPRequest(sceneURL)
             actorPageElements = HTML.ElementFromString(req.text)
             
