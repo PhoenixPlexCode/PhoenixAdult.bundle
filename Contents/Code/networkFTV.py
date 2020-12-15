@@ -45,7 +45,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 def update(metadata, siteID, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    
+    sceneID = 0
+
+    regex = re.search(r'-([0-9]{1,})\.', sceneURL)
+    if regex:
+        sceneID = int(regex.group(1))
+
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -75,9 +80,9 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = []
-    if tagline == 'FTVGirls'.lower():
+    if tagline == 'FTVGirls':
         genres = ['Teen', 'Solo', 'Public']
-    elif tagline == 'FTVMilfs'.lower():
+    elif tagline == 'FTVMilfs':
         genres = ['MILF', 'Solo', 'Public']
 
     for genreName in genres:
@@ -85,15 +90,10 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    idx = 0
     actors = []
-    try:
-        sceneID = int(re.search(r'(?<=-)\d.*(?=\.)', sceneURL).group(0))
-    except:
-        sceneID = 0
 
-    for actorLink in detailsPageElements.xpath('//div[@id="ModelDescription"]//h1'):
-        actorName = actorLink.text_content().strip().replace('\'s Statistics', '')
+    for idx, actorLink in enumerate(detailsPageElements.xpath('//div[@id="ModelDescription"]//h1')):
+        actorName = actorLink.text_content().replace('\'s Statistics', '').strip()
         actors.append(actorName)
 
         regex = re.search(r'\s(%s [A-Z]\w{1,})\s' % actorName, metadata.summary)
@@ -103,7 +103,6 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
         
         movieActors.addActor(actorName, actorPhotoURL)
-        idx += 1
 
     # Posters
     art = []
@@ -118,7 +117,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     googleResults = PAutils.getFromGoogleSearch(' '.join(actors).strip(), siteID)
     for photoURL in googleResults:
         for scene in scenes:
-            if (('galleries' in photoURL or 'preview' in photoURL) and (scene in photoURL or scene == 'none')):
+            if ('galleries' in photoURL or 'preview' in photoURL) and (scene in photoURL or scene == 'none'):
                 req = PAutils.HTTPRequest(photoURL)
                 photoPageElements = HTML.ElementFromString(req.text)
                 for xpath in xpaths:
