@@ -18,7 +18,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             req = PAutils.HTTPRequest(sceneURL)
             actorPageElements = HTML.ElementFromString(req.text)
             
-            for searchResult in actorPageElements.xpath('//div[contains(@class,"content-item")]'):
+            for searchResult in actorPageElements.xpath('//div[contains(@class, "content-item")]'):
                 sceneURL = searchResult.xpath('.//h3//@href')[0].split('?')[0].replace('dev.', '', 1)
 
                 if sceneURL not in searchResults:
@@ -108,6 +108,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         for actorLink in actors:
             actorName = actorLink.xpath('.//h5')[0].text_content()
             actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
@@ -120,6 +121,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
                 img = PAsearchSites.getSearchBaseURL(siteID) + img
+
             art.append(img)
 
     Log('Artwork found: %d' % len(art))
