@@ -45,7 +45,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 def update(metadata, siteID, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    sceneDate = metadata_id[2]
+    sceneID = 0
+
+    regex = re.search(r'-([0-9]{1,})\.', sceneURL)
+    if regex:
+        sceneID = int(regex.group(1))
+
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -67,7 +72,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Release Date
     date = titleDate[-1].replace('!', '').strip()
-    if sceneDate:
+    if date:
         date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
@@ -75,9 +80,9 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = []
-    if tagline == 'FTVGirls'.lower():
+    if tagline == 'FTVGirls':
         genres = ['Teen', 'Solo', 'Public']
-    elif tagline == 'FTVMilfs'.lower():
+    elif tagline == 'FTVMilfs':
         genres = ['MILF', 'Solo', 'Public']
 
     for genreName in genres:
@@ -85,10 +90,19 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorName = detailsPageElements.xpath('//h3')[0].text_content().strip()
-    actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[0]
+    actors = []
 
-    movieActors.addActor(actorName, actorPhotoURL)
+    for idx, actorLink in enumerate(detailsPageElements.xpath('//div[@id="ModelDescription"]//h1')):
+        actorName = actorLink.text_content().replace('\'s Statistics', '').strip()
+        actors.append(actorName)
+
+        regex = re.search(r'\s(%s [A-Z]\w{1,})\s' % actorName, metadata.summary)
+        if regex:
+            actorName = regex.group(1)
+
+        actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
+        
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
@@ -96,16 +110,19 @@ def update(metadata, siteID, movieGenres, movieActors):
         '//img[@id="Magazine"]/@src',
         '//div[@class="gallery"]//div[@class="row"]//@href',
         '//div[@class="thumbs_horizontal"]//@href',
+        '//a[img[@class="t"]]/@href',
     ]
 
-    googleResults = PAutils.getFromGoogleSearch(actorName, siteID)
+    scenes = photoLookup(sceneID)
+    googleResults = PAutils.getFromGoogleSearch(' '.join(actors).strip(), siteID)
     for photoURL in googleResults:
-        if ('galleries' in photoURL and 'ccbill' not in photoURL and (actorName.lower() + '-') in photoURL):
-            req = PAutils.HTTPRequest(photoURL)
-            photoPageElements = HTML.ElementFromString(req.text)
-            for xpath in xpaths:
-                for img in photoPageElements.xpath(xpath):
-                    art.append(img)
+        for scene in scenes:
+            if ('galleries' in photoURL or 'preview' in photoURL) and (scene in photoURL or scene == 'none'):
+                req = PAutils.HTTPRequest(photoURL)
+                photoPageElements = HTML.ElementFromString(req.text)
+                for xpath in xpaths:
+                    for img in photoPageElements.xpath(xpath):
+                        art.append(img)
 
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
@@ -131,3 +148,22 @@ def update(metadata, siteID, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+def photoLookup(sceneID):
+    if sceneID == 226:
+        scenes = ['cool-colors', 'shes-on-fire', 'heating-up']
+    elif sceneID == 210:
+        scenes = ['supersexy-vixen', 'satin-sensuality', 'outdoor-finale']
+    elif sceneID == 130:
+        scenes = ['elegantly-sexual']
+    elif sceneID == 1569:
+        scenes = ['model-like-no-other', 'teen-penetration']
+    elif sceneID == 1524:
+        scenes = ['petite-gaping', 'penetration-limits']
+    elif sceneID == 1573 or sceneID == 283:
+        scenes = []
+    else:
+        scenes = ['none']
+
+    return scenes

@@ -6,31 +6,35 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '+').replace('--', '+').lower()
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
-    searchResults = HTML.ElementFromString(req.text)
+    searchResults = []
 
-    for searchResult in searchResults.xpath('//li[contains(@class, "box-shadow")][.//*[contains(@class, "video")]]//a[@href]'):
-        titleNoFormatting = searchResult.xpath('.//@title')[0].strip()
-        sceneURL = searchResult.xpath('.//@href')[0]
-        curID = PAutils.Encode(sceneURL)
 
+    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    for sceneURL in googleResults:
+        if ('/search/' not in sceneURL and '/page/' not in sceneURL and '/tag/' not in sceneURL and sceneURL not in searchResults):
+            searchResults.append(sceneURL)
+
+    for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
-        sceneResult = HTML.ElementFromString(req.text)
+        if req.ok:
+            detailsPageElements = HTML.ElementFromString(req.text)
+            if detailsPageElements.xpath('//meta[@property="og:type"]/@content')[0].strip() == 'video':
+                titleNoFormatting = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
+                curID = PAutils.Encode(sceneURL)
 
-        date = sceneResult.xpath('//div[@class="post_date"]')[0].text_content().strip()
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
-        displayDate = releaseDate if date else ''
+                date = detailsPageElements.xpath('//div[@class="post_date"]')[0].text_content().strip()
+                if date:
+                    releaseDate = parse(date).strftime('%Y-%m-%d')
+                else:
+                    releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                if searchDate and displayDate:
+                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -43,6 +47,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+    photosetPageElements = ''
 
     if sceneURL.endswith('-2/'):
         photosetURL = sceneURL.replace('-2/', '/')

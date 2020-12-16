@@ -13,6 +13,29 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if ('/view/' in sceneURL) and ('photoset' not in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
+    for sceneURL in googleResults:    
+        if ('/model/' in sceneURL):
+            req = PAutils.HTTPRequest(sceneURL)
+            actorPageElements = HTML.ElementFromString(req.text)
+            
+            for searchResult in actorPageElements.xpath('//div[contains(@class, "content-item")]'):
+                sceneURL = searchResult.xpath('.//h3//@href')[0].split('?')[0].replace('dev.', '', 1)
+
+                if sceneURL not in searchResults:
+                    titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
+                    curID = PAutils.Encode(sceneURL)
+
+                    date = searchResult.xpath('.//span[@class="pub-date"]')[0].text_content().strip()
+                    releaseDate = parse(date).strftime('%Y-%m-%d')
+
+                    if searchDate:
+                        score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                    else:
+                        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+
+                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+
+
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
