@@ -953,8 +953,11 @@ class PhoenixAdultAgent(Agent.Movies):
 
             # Jacquie & Michel
             elif searchSiteID == 1070:
-                results = PAsearchSites.siteJacquieEtMichel.search(results, encodedTitle, searchTitle, siteNum, lang,
-                                                               searchDate)
+                results = PAsearchSites.siteJacquieEtMichel.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
+            # Data18 Content
+            elif searchSiteID == 1071:
+                results = PAsearchSites.siteData18Content.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         results.Sort('score', descending=True)
 
@@ -1690,6 +1693,10 @@ class PhoenixAdultAgent(Agent.Movies):
         # Jacquie & Michel
         elif siteID == 1070:
             metadata = PAsearchSites.siteJacquieEtMichel.update(metadata, siteID, movieGenres, movieActors)
+
+        # Data18 Content
+        elif siteID == 1071:
+            metadata = PAsearchSites.siteData18Content.update(metadata, siteID, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log("Genres")
