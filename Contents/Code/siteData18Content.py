@@ -92,7 +92,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         try:
             date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content()
             date = re.sub(r'^#(.*?)\s', '', date)
-            Log(date)
         except:
             date = ''
 
