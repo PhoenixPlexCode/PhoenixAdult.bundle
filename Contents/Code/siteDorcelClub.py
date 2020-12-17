@@ -107,9 +107,12 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Director
     director = metadata.directors.new()
-    movieDirector = detailsPageElements.xpath('//span[@class="director"]')[0].text_content().replace(
-        'Director :', '').strip()
-    director.name = movieDirector
+    try:
+        movieDirector = detailsPageElements.xpath('//span[@class="director"]')[0].text_content().replace(
+            'Director :', '').strip()
+        director.name = movieDirector
+    except:
+        pass
 
     # Poster
     art = []

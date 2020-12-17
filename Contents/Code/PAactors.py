@@ -121,6 +121,8 @@ class PhoenixActors:
                     newActor = 'Emma Fantasy'
                 elif newActor == 'Eve Lawrence':
                     newActor = 'Eve Laurence'
+                elif newActor == 'Foxi Di':
+                    newActor = 'Foxy Di'
                 elif newActor == 'Francesca Di Caprio' or newActor == 'Francesca Dicaprio':
                     newActor = 'Francesca DiCaprio'
                 elif newActor == 'Goldie':
@@ -223,6 +225,8 @@ class PhoenixActors:
                     newActor = 'Zoe Bloom'
                 elif newActor == 'Shinoda Yuu':
                     newActor = 'Yu Shinoda'
+                elif newActor == 'Polina Maxima' or newActor == 'Polina Max' or newActor == 'Venera Maxima':
+                    newActor ='Polina Maxim'
                 elif newActor == 'Viola Bailey’S':
                     newActor = 'Viola Bailey'
                 elif newActor == 'Ornella Morgen':
