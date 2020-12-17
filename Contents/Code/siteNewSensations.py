@@ -61,8 +61,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         metadata.title = detailsPageElements.xpath('//div[@class="indScene"]/h2')[0].text_content().strip()
 
         # Summary
-        metadata.summary = detailsPageElements.xpath('//div[@class="description"]/p')[0].text_content().strip()
-        Log('Scene Date: %s', metadata.summary)
+        metadata.summary = detailsPageElements.xpath('//div[@class="description"]/p')[0].text_content().replace('Description:', '').strip()
 
         # Tagline and Collection(s)
         metadata.collections.add(PAsearchSites.getSearchSiteName(siteID))
@@ -70,8 +69,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         # No genres for scenes
 
         # Release Date
-        date = detailsPageElements.xpath('//div[@class="sceneDateP"]')[0].text_content().strip()
-        Log('Scene Date: %s', date)
+        date = detailsPageElements.xpath('//div[@class="sceneDateP"]')[0].text_content().split(',')[0].strip()
         date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
