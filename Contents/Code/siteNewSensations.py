@@ -20,14 +20,17 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     for sceneURL in searchResultsURLs:
         req = PAutils.HTTPRequest(sceneURL)
         if req.ok:
-            searchResult = HTML.ElementFromString(req.text)
+            try:
+                searchResult = HTML.ElementFromString(req.text)
 
-            titleNoFormatting = searchResult.xpath('(//div[@class="indScene"] | //div[@class="indSceneDVD"])/h2')[0].text_content().strip()
-            curID = PAutils.Encode(sceneURL)
+                titleNoFormatting = searchResult.xpath('(//div[@class="indScene"] | //div[@class="indSceneDVD"])/h2')[0].text_content().strip()
+                curID = PAutils.Encode(sceneURL)
 
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [New Sensations]' % titleNoFormatting, score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [New Sensations]' % titleNoFormatting, score=score, lang=lang))
+            except:
+                pass
 
     return results
 
