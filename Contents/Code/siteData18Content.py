@@ -160,9 +160,10 @@ def update(metadata, siteID, movieGenres, movieActors):
     if actors:
         for actorLink in actors:
             actorName = actorLink.xpath('.//a[@class="bold"]')[0].text_content().strip()
-            actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+            #actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+            actorPhotoURL = ''
 
-            movieActors.addActor(actorName, '')
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
