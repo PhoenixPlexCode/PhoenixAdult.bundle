@@ -939,6 +939,23 @@ class PhoenixAdultAgent(Agent.Movies):
             elif searchSiteID == 1065:
                 results = PAsearchSites.siteMormonGirlz.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
+            # PurgatoryX
+            elif searchSiteID == 1066:
+                results = PAsearchSites.sitePurgatoryX.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
+            # Plumper Pass
+            elif searchSiteID == 1067:
+                results = PAsearchSites.sitePlumperPass.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
+            # FTV
+            elif (1068 <= searchSiteID <= 1069):
+                results = PAsearchSites.networkFTV.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
+            # Jacquie & Michel
+            elif searchSiteID == 1070:
+                results = PAsearchSites.siteJacquieEtMichel.search(results, encodedTitle, searchTitle, siteNum, lang,
+                                                               searchDate)
+
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -1657,6 +1674,22 @@ class PhoenixAdultAgent(Agent.Movies):
         # MormonGirlz
         elif siteID == 1065:
             metadata = PAsearchSites.siteMormonGirlz.update(metadata, siteID, movieGenres, movieActors)
+
+        # PurgatoryX
+        elif siteID == 1066:
+            metadata = PAsearchSites.sitePurgatoryX.update(metadata, siteID, movieGenres, movieActors)
+
+        # Plumper Pass
+        elif siteID == 1067:
+            metadata = PAsearchSites.sitePlumperPass.update(metadata, siteID, movieGenres, movieActors)
+
+        # FTV
+        elif (1068 <= siteID <= 1069):
+            metadata = PAsearchSites.networkFTV.update(metadata, siteID, movieGenres, movieActors)
+
+        # Jacquie & Michel
+        elif siteID == 1070:
+            metadata = PAsearchSites.siteJacquieEtMichel.update(metadata, siteID, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log("Genres")

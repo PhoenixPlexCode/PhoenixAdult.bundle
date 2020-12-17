@@ -292,7 +292,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - WeFuckBlackGirls
   - WifeWriting
   - ZebraGirls
-+ #### Dorcel Club | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
++ #### Dorcel Club | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Dorcel Vision | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### Elegant Angel | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Only DVDs supported**
 + #### EvilAngel | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
@@ -338,6 +338,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - TheDickSuckers
 + #### First Anal Quest | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Fitting-Room | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
++ #### First Time Videos (FTV) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - FTVGirls
+  - FTVMilfs
 + #### FuckingAwesome | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### FuelVirtual Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - FuckedHard18
@@ -386,6 +389,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Sexually Broken
   - Topgrl
 + #### InTheCrack | Matching type: *[Limited](./manualsearch.md#limited-search)* - **actress name**
++ #### Jacquie Et Michel TV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### JAV (via R18 - Censored JAV Only) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **SceneID (in form of JAVID)**
 + #### JAY's POV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
@@ -751,6 +755,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PureMature
   - SpyFam
   - Tiny4k
++ #### Plumper Pass | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PornstarPlatinum | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PrettyDirty | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Private | Matching type: *[Limited](./manualsearch.md#limited-search)*
@@ -781,6 +786,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - LadyVoyeurs
   - PureCFNM
 + #### PureTaboo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### PurgatoryX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### QueenSnake | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### QueenSect | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### Reality Kings Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
