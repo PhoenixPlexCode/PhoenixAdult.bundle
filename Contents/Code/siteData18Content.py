@@ -40,13 +40,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         except:
             pass
 
-        siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName           
+        siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
 
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
         curID = PAutils.Encode(sceneURL)
 
         try:
-            date = detailsPageElements.xpath('//span[@class][./*[contains(..,"date")]]')[0].text_content().split(':',2)[-1].strip()
+            date = detailsPageElements.xpath('//span[@class][./*[contains(.., "date")]]')[0].text_content().split(':',2)[-1].strip()
         except:
             date = ''
 
@@ -77,7 +77,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 siteName = searchResult.xpath('.//*[contains(., "Studio")]')[0].text_content().replace('Studio:', '').strip()
             except:
                 pass
-        
+
         subSite = ''
         try:
             subSite = searchResult.xpath('.//p[@class][contains(., "Site:")]')[0].text_content().replace('Site:', '').strip()
@@ -123,7 +123,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteID)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n',2)[-1]
+    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
 
     # Studio
     try:
@@ -133,7 +133,6 @@ def update(metadata, siteID, movieGenres, movieActors):
             metadata.studio = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "studio")]')[0].text_content().replace('[studio]', '').strip()
         except:
             pass
-    
 
     # Tagline and Collection(s)
     metadata.collections.clear()
