@@ -223,7 +223,7 @@ class PhoenixActors:
                     newActor = 'Zoe Bloom'
                 elif newActor == 'Shinoda Yuu':
                     newActor = 'Yu Shinoda'
-                elif newActor == 'Polina Maxima' or newActor == 'Venera Maxima':
+                elif newActor == 'Polina Maxima' or newActor == 'Polina Max' or newActor == 'Venera Maxima':
                     newActor ='Polina Maxim'
                 elif newActor == 'Viola Bailey’S':
                     newActor = 'Viola Bailey'
