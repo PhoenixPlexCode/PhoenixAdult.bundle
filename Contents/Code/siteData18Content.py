@@ -50,7 +50,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         except:
             date = ''
 
-        if date:
+        if date and not date == 'unknown':
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
             releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
@@ -90,12 +90,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         curID = PAutils.Encode(searchResult.xpath('.//*[contains(@href, "content")]/@href')[0])
 
         try:
-            date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content()
+            date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content().strip()
             date = re.sub(r'^#(.*?)\s', '', date)
         except:
             date = ''
 
-        if date:
+        if date and not date == 'unknown':
+            date = date.replace('Sept', 'Sep')
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
             releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
