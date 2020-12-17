@@ -24,21 +24,20 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
-
-        siteName = ''
+  
         try:
-            siteName = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "network")]')[0].text_content().replace('[network]', '').strip()
+            siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
             try:
-                siteName = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "studio")]')[0].text_content().replace('[studio]', '').strip()
+                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
             except:
-                pass
+                siteName = ''
 
-        subSite = ''
+        
         try:
-            subSite = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "site")]')[0].text_content().replace('[site]', '').strip()
+            subSite = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
-            pass
+            subSite = ''
 
         siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
 
@@ -123,21 +122,24 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteID)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+    except:
+        pass
 
     # Studio
     try:
-        metadata.studio = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "network")]')[0].text_content().replace('[network]', '').strip()
+        metadata.studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
     except:
         try:
-            metadata.studio = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "studio")]')[0].text_content().replace('[studio]', '').strip()
+            metadata.studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
             pass
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     try:
-        metadata.tagline = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "site")]')[0].text_content().replace('[site]', '').strip()
+        metadata.tagline = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
         metadata.collections.add(metadata.tagline)
     except:
         metadata.collections.add(metadata.studio)
@@ -150,7 +152,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[./b[contains(.,"Categories")]]//a'):
+    for genreLink in detailsPageElements.xpath('//div[./b[contains(., "Categories")]]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -187,7 +189,7 @@ def update(metadata, siteID, movieGenres, movieActors):
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if height > width:
+                if width > 1:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > height:
