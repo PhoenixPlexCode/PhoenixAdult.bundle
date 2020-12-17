@@ -100,7 +100,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
         # Posters
         try:
-            art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img/@src')[0])
+            art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img/@src')[0].strip())
         except:
             pass
 
