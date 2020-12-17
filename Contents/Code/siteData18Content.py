@@ -24,7 +24,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
-  
+
         try:
             siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
@@ -33,7 +33,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             except:
                 siteName = ''
 
-        
         try:
             subSite = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
