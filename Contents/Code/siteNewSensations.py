@@ -75,7 +75,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
         # Actors
-        actors = detailsPageElements.xpath('//span[@class="tour_update_models"]/a')
+        actors = detailsPageElements.xpath('//div[@class="sceneTextLink"]/span[@class="tour_update_models"]/a')
         if actors:
             if len(actors) == 3:
                 movieGenres.addGenre('Threesome')
