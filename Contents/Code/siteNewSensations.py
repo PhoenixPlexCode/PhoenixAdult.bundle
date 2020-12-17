@@ -94,7 +94,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     else:
         # Title
-        title = detailsPageElements.xpath('//div[@class="indSceneDVD"])/h2')[0].text_content().strip()
+        title = detailsPageElements.xpath('//div[@class="indSceneDVD"]/h2')[0].text_content().strip()
         metadata.title = title
 
         # Summary
