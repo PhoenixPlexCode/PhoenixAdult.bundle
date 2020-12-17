@@ -87,6 +87,8 @@ class PhoenixActors:
                     newActor = 'Ashlee Graham'
                 elif newActor == 'Bella Danger':
                     newActor = 'Abella Danger'
+                elif newActor == 'Ashley Anderson':
+                    newActor = 'Ashly Anderson'
                 elif newActor == 'Bibi Jones' or newActor == 'Bibi Jones™':
                     newActor = 'Britney Beth'
                 elif newActor == 'Bridgette B.':
@@ -233,6 +235,8 @@ class PhoenixActors:
                     newActor = 'Ornella Morgan'
                 elif newActor == 'Polly Pon':
                     newActor = 'Polly Pons'
+                elif newActor == 'Pussykat':
+                    newActor = 'Pussy Kat'
                 elif newActor == 'Riley Starr':
                     newActor = 'Riley Star'
                 elif newActor == 'Rosaline Rose':
@@ -2469,12 +2473,25 @@ class PhoenixActors:
                 elif metadata.studio == 'VirtualTaboo':
                     if newActor == 'Penelope':
                         newActor = 'Penelope Cum'
+                elif metadata.studio == 'VirtualRealPorn':
+                    if newActor == 'Ariadna':
+                        newActor = 'Ariadna Moon'
                 elif metadata.studio == 'VR Bangers':
                     if newActor == 'Victoria P':
                         newActor = 'Victoria Puppy'
                 elif metadata.studio == 'HighTechVR':
                     if newActor == 'Lady D':
                         newActor = 'Lady Dee'
+                    elif newActor == 'Casey':
+                        newActor = 'Casey Norhman'
+                    elif newActor == 'Cayla':
+                        newActor = 'Cayla Lyons'
+                elif metadata.studio == 'BadoinkVR':
+                    if newActor == 'Athina':
+                        newActor = 'Athina Love'
+                elif metadata.studio == 'CzechVR':
+                    if newActor == 'Nikki Sweet':
+                        newActor = 'Niki Sweet'
                 elif metadata.studio == 'Teen Mega World':
                     if newActor == 'Arianna':
                         newActor = 'Angie Moon'
