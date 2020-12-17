@@ -56,6 +56,8 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Studio
     metadata.studio = 'New Sensations'
 
+    actors = []
+
     if sceneType == 'Scene':
         # Title
         metadata.title = detailsPageElements.xpath('//div[@class="indScene"]/h2')[0].text_content().strip()
@@ -84,20 +86,6 @@ def update(metadata, siteID, movieGenres, movieActors):
             if len(actors) > 4:
                 movieGenres.addGenre('Orgy')
 
-            for actorLink in actors:
-                actorName = actorLink.text_content().strip()
-                actorPhotoURL = ''
-
-                try:
-                    actorPageURL = actorLink.get('href')
-                    req = PAutils.HTTPRequest(actorPageURL)
-                    actorPage = HTML.ElementFromString(req.text)
-                    actorPhotoURL = actorPage.xpath('//div[@class="modelBioPic"]/img/@src0_3x')[0]
-                except:
-                    pass
-
-                movieActors.addActor(actorName, actorPhotoURL)
-
         # Posters
         try:
             art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img/@src')[0].strip())
@@ -106,26 +94,26 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     else:
         # Title
-        metadata.title = detailsPageElements.xpath('//div[@class="dvdSections clear"]/div[1]')[0].text_content().replace('DVDS /', '').strip()
+        title = detailsPageElements.xpath('//div[@class="indSceneDVD"])/h2')[0].text_content().strip()
+        metadata.title = title
 
         # Summary
-        metadata.summary = detailsPageElements.xpath('//div[@class="dDetails"]/p')[0].text_content().strip()
+        metadata.summary = detailsPageElements.xpath('//div[@class="description"]/p')[0].text_content().replace('Description:', '').strip()
 
         # Tagline and Collection(s)
         dvdName = title
         metadata.tagline = dvdName
         metadata.collections.add(dvdName)
-        metadata.collections.add(PAsearchSites.getSearchSiteName(siteID))
 
         # Genres
-        genres = detailsPageElements.xpath('//div[@class="dvdDetails clear"]/ul/li[2]/a')
+        genres = detailsPageElements.xpath('//div[@class="textLink"]//a')
         for genreLink in genres:
             genreName = genreLink.text_content().strip()
 
             movieGenres.addGenre(genreName)
 
         # Release Date
-        date = detailsPageElements.xpath('//div[@class="dvdDetails clear"]/ul/li[1]')[0].text_content().replace('Released:', '').strip()
+        date = detailsPageElements.xpath('//div[@class="datePhotos"]')[0].text_content().replace('RELEASED:', '').strip()
         if date:
             try:
                 date_object = datetime.strptime(date, '%Y-%m-%d')
@@ -135,36 +123,29 @@ def update(metadata, siteID, movieGenres, movieActors):
             metadata.year = metadata.originally_available_at.year
 
         # Actors
-        try:
-            actors = detailsPageElements.xpath('//span[@class="tour_update_models"]/a')
-            for actorLink in detailsPageElements.xpath('//span[@class="tour_update_models"]/a'):
-                actorName = str(actorLink.text_content().strip())
-                actorPhotoURL = ''
-
-                try:
-                    actorPageURL = actorLink.get('href')
-                    req = PAutils.HTTPRequest(actorPageURL)
-                    actorPage = HTML.ElementFromString(req.text)
-                    actorPhotoURL = actorPage.xpath('//div[@class="modelPicture"]/div/img/@src0_3x')[0]
-                except:
-                    pass
-
-                movieActors.addActor(actorName, actorPhotoURL)
-        except:
-            actorsList = detailsPageElements.xpath('//div[@class="dvdDetails clear"]/div[2]/p')[0].text_content().replace('Featuring:', ' ')[1]
-            for actorLink in actorsList.split('', ''):
-                actorName = actorLink.strip()
-                actorPhotoURL = ''
-
-                movieActors.addActor(actorName, actorPhotoURL)
+        actors = detailsPageElements.xpath('//span[@class="tour_update_models"]/a')
 
         # Posters
-        dvdPosterURL = dvdPageElements.xpath('//div[@class="dvdcover"]//img/@src')
-        if not dvdPosterURL:
-            dvdPosterURL = dvdPageElements.xpath('//div[@class="dvdcover"]//img/@data-src')
+        try:
+            art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img/@src')[0].strip())
+            for imgLink in detailsPageElements.xpath('//div[@class="videoBlock"]//img/@src'):
+                art.append(imgLink.strip())
+        except:
+            pass
 
-        if dvdPosterURL:
-            art.append(dvdPosterURL[0])
+    for actorLink in actors:
+        actorName = actorLink.text_content().strip()
+        actorPhotoURL = ''
+
+        try:
+            actorPageURL = actorLink.get('href')
+            req = PAutils.HTTPRequest(actorPageURL)
+            actorPage = HTML.ElementFromString(req.text)
+            actorPhotoURL = actorPage.xpath('//div[@class="modelBioPic"]/img/@src0_3x')[0]
+        except:
+            pass
+
+        movieActors.addActor(actorName, actorPhotoURL)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
