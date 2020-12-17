@@ -75,7 +75,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
         # Actors
-        actors = detailsPageElements.xpath('//div[@class="sceneTextLink"]/span[@class="tour_update_models"]/a')
+        actors = detailsPageElements.xpath('//div[@class="sceneTextLink"]//span[@class="tour_update_models"]/a')
         if actors:
             if len(actors) == 3:
                 movieGenres.addGenre('Threesome')
@@ -100,7 +100,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
         # Posters
         try:
-            art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img[@class="loading"]/@src')[0])
+            art.append(detailsPageElements.xpath('//span[@id="trailer_thumb"]//img/@src')[0])
         except:
             pass
 
