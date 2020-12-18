@@ -135,7 +135,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     for result in temp:
         if count > 1 and result.score == 80:
-            result.score = 79
             results.Append(MetadataSearchResult(id=result.id, name=result.name, score=79, lang=lang))
         else:
             results.Append(MetadataSearchResult(id=result.id, name=result.name, score=result.score, lang=lang))
