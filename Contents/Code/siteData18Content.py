@@ -66,7 +66,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             displayDate = releaseDate if date else ''
 
             if sceneID == urlID:
-                score = 100            
+                score = 100
             elif searchDate and displayDate:
                 score = 80 - Util.LevenshteinDistance(searchDate, releaseDate)
             else:
@@ -251,7 +251,7 @@ def update(metadata, siteID, movieGenres, movieActors):
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[art[idx-1]] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
