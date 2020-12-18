@@ -24,7 +24,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
-    for searchResult in searchPageElements.xpath('//div[@class="bscene genmed"]'):
+    for searchResult in searchPageElements.xpath('//p[@class="genmed"]//parent::div'):
         sceneURL = searchResult.xpath('.//*[contains(@href, "content")]/@href')[0]
 
         if sceneURL not in searchResults:
