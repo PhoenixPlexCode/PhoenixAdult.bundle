@@ -92,9 +92,12 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorPageURL = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[@class="person__avatar"]//source/@srcset')[1].replace('.webp', '.jpg')
+        actorPhoto = actorPage.xpath('//div[@class="person__avatar"]//source/@srcset')
+        actorPhotoURL = ' '
+        if actorPhoto and len(actorPage) == 2:
+            actorPhotoURL = actorPhoto[1].replace('.webp', '.jpg')
+            art.append(actorPhotoURL)
 
-        art.append(actorPhotoURL)
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters and artwork
