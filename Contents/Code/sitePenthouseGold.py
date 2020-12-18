@@ -33,7 +33,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="content-desc content-new-scene"]//h1')[0].text_content()
+    metadata.title = detailsPageElements.xpath('//div[@class="content-desc content-new-scene"]//h1')[0].text_content().replace('Video -', '').replace('Movie -', '').strip()
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteID)
@@ -41,7 +41,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genre in detailsPageElements.xpath('//ul[contains(@class,"scene-tags")]'):
+    for genre in detailsPageElements.xpath('//ul[contains(@class,"scene-tags")]/li'):
         genreName = genre.xpath('.//a')[0].text_content().lower()
 
         movieGenres.addGenre(genreName)
