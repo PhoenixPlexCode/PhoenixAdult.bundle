@@ -7,8 +7,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="scene"]'):
-        curID = PAutils.Encode(searchResult.xpath('.//a[@data-track="TITLE_LINK"]/@href')[0])
-        if '/scenes/' in curID:
+        url = searchResult.xpath('.//a[@data-track="TITLE_LINK"]/@href')[0]
+        if '/scenes/' in url:
+            curID = PAutils.Encode(url)
             titleNoFormatting = searchResult.xpath('.//a[@data-track="TITLE_LINK"]')[0].text_content()
             releaseDate = parse(searchResult.xpath('./span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
