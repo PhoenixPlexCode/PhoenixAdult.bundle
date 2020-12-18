@@ -66,7 +66,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [detailsPageElements.xpath('//div[@id="trailer_player_finished"]//img/@src')]
+    art = [detailsPageElements.xpath('//div[@id="trailer_player_finished"]//img/@src')[0]]
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
