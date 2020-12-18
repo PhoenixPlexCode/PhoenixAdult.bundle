@@ -67,10 +67,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-    
+
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        if ('/content/' in sceneURL and not '.html' in sceneURL and sceneURL not in searchResults):
+        if ('/content/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
