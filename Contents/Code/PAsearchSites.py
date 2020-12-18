@@ -140,8 +140,9 @@ import sitePlumperPass
 import networkFTV
 import siteJacquieEtMichel
 import siteData18Content
+import sitePenthouseGold
 
-searchSites = [None] * 1072
+searchSites = [None] * 1073
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1215,7 +1216,7 @@ searchSites[1068] = ('FTVMilfs', 'https://ftvmilfs.com', 'https://ftvmilfs.com/u
 searchSites[1069] = ('FTVGirls', 'https://www.ftvgirls.com', 'https://ftvgirls.com/update/s-')
 searchSites[1070] = ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', 'https://www.jacquieetmicheltv.net/en/recherche/')
 searchSites[1071] = ('Data18 Content', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
-
+searchSites[1072] = ('Penthouse Gold', 'https://penthousegold.com', 'https://penthousegold.com/search.php?query=')
 
 def getSearchSiteName(siteID):
     return searchSites[siteID][0]
@@ -1420,6 +1421,7 @@ def getSearchSettings(mediaTitle):
         ('^pba ', 'PublicAgent '),
         ('^pc ', 'PrincessCum '),
         ('^pcfnm ', 'PureCFNM '),
+        ('^penthouse ', 'PenthouseGold '),
         ('^pornditos', 'Culioneros '),
         ('^pdmcl ', 'ChicasLoca '),
         ('^pf ', 'PornFidelity '),
