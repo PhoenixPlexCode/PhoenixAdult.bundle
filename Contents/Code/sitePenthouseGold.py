@@ -38,6 +38,11 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteID)
 
+    # Summary
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="content-desc content-new-scene"]//p')[0].text_content().strip()
+    except:
+        pass
 
     # Genres
     movieGenres.clearGenres()
