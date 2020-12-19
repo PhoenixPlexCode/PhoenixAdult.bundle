@@ -96,7 +96,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = title
 
     # Summary
-    metadata.summary = detailsPageElements['description'].replace('</br>', '\n')
+    metadata.summary = detailsPageElements['description'].replace('</br>', '\n').replace('<br>', '')
 
     # Studio
     metadata.studio = detailsPageElements['network_name']
