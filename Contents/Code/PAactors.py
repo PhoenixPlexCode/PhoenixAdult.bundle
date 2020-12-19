@@ -2416,6 +2416,8 @@ class PhoenixActors:
                         newActor = 'Lola Taylor'
                     elif newActor == 'Scarlet':
                         newActor = 'Scarlet Domingo'
+                    elif newActor == 'Td Bambi':
+                        newActor = 'Bambi Dee'
                 elif metadata.studio == 'VIPissy':
                     if newActor == 'Susan Ayne':
                         newActor = 'Susan Ayn'
