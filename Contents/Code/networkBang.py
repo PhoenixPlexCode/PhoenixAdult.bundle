@@ -35,11 +35,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
-    detailsPageElements = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteID), 'identifier', sceneID)['hits']['hits'][0]['_source']
+    detailsPageElements = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'identifier', sceneID)['hits']['hits'][0]['_source']
 
     # Title
     metadata.title = detailsPageElements['name']

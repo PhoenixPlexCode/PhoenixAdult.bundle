@@ -12,9 +12,9 @@ def getDBURL(url):
     return None
 
 
-def getDataFromAPI(dbURL, sceneType, sceneName, siteID):
+def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     is_new = True
-    if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteID):
+    if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteNum):
         url = '%s-%s/_doc/%s' % (dbURL, sceneType, sceneName)
     else:
         is_new = False
@@ -78,17 +78,17 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     sceneDate = metadata_id[2]
     sceneType = metadata_id[3]
 
-    dbURL = getDBURL(PAsearchSites.getSearchBaseURL(siteID))
-    detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteID)
+    dbURL = getDBURL(PAsearchSites.getSearchBaseURL(siteNum))
+    detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteID)
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
     metadata.summary = detailsPageElements['description']
@@ -97,7 +97,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.studio = 'TeamSkeet'
 
     # Collections / Tagline
-    siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteID)
+    siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.clear()
     metadata.tagline = siteName
     metadata.collections.add(siteName)
@@ -180,7 +180,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     movieActors.clearActors()
     actors = detailsPageElements['models']
     for actorLink in actors:
-        actorData = getDataFromAPI(dbURL, 'modelscontent', actorLink['modelId'], siteID)
+        actorData = getDataFromAPI(dbURL, 'modelscontent', actorLink['modelId'], siteNum)
 
         if actorData:
             actorName = actorData['name']

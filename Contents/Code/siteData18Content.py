@@ -7,6 +7,9 @@ import PAutils
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     searchResults = []
+    siteResults = []
+    temp = []
+    count = 0
 
     sceneID = None
     splited = searchTitle.split(' ')
@@ -16,31 +19,92 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         sceneURL = '%s/content/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
         searchResults.append(sceneURL)
 
+    encodedTitle = searchTitle.replace(' ', '+')
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
+    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
+    searchPageElements = HTML.ElementFromString(req.text)
+
+    for searchResult in searchPageElements.xpath('//p[@class="genmed"]//parent::div'):
+        sceneURL = searchResult.xpath('.//*[contains(@href, "content")]/@href')[0]
+
+        if sceneURL not in searchResults:
+            urlID = re.sub(r'.*/', '', sceneURL)
+
+            try:
+                siteName = searchResult.xpath('.//*[contains(., "Network")]')[0].text_content().replace('Network:', '').strip()
+            except:
+                try:
+                    siteName = searchResult.xpath('.//*[contains(., "Studio")]')[0].text_content().replace('Studio:', '').strip()
+                except:
+                    siteName = ''
+
+            try:
+                subSite = searchResult.xpath('.//p[@class][contains(., "Site:")]')[0].text_content().replace('Site:', '').strip()
+            except:
+                subSite = ''
+
+            if siteName:
+                siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
+            else:
+                siteDisplay = subSite
+
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "content")]')[1].text_content(), siteNum)
+            curID = PAutils.Encode(sceneURL)
+            siteResults.append(sceneURL)
+
+            try:
+                date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content().strip()
+                date = re.sub(r'^#(.*?)\s', '', date)
+            except:
+                date = ''
+
+            if date and not date == 'unknown':
+                date = date.replace('Sept', 'Sep')
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            displayDate = releaseDate if date else ''
+
+            if sceneID == urlID:
+                score = 100
+            elif searchDate and displayDate:
+                score = 80 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 80 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+
+            if score == 80:
+                count += 1
+                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+            else:
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        if ('/content/' in sceneURL and sceneURL not in searchResults):
+        if ('/content/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
+        urlID = re.sub(r'.*/', '', sceneURL)
 
-        siteName = ''
         try:
-            siteName = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "network")]')[0].text_content().replace('[network]', '').strip()
+            siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
             try:
-                siteName = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "studio")]')[0].text_content().replace('[studio]', '').strip()
+                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
             except:
-                pass
+                siteName = ''
 
-        subSite = ''
         try:
-            subSite = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "site")]')[0].text_content().replace('[site]', '').strip()
+            subSite = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
-            pass
+            subSite = ''
 
-        siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
+        if siteName:
+            siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
+        else:
+            siteDisplay = subSite
 
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
         curID = PAutils.Encode(sceneURL)
@@ -56,63 +120,29 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if sceneID == urlID:
+            score = 100
+        elif searchDate and displayDate:
+            score = 80 - Util.LevenshteinDistance(searchDate, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 80 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-
-    encodedTitle = searchTitle.replace(' ', '+')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
-    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
-    searchPageElements = HTML.ElementFromString(req.text)
-
-    for searchResult in searchPageElements.xpath('//div[@class="bscene genmed"]'):
-        siteName = ''
-        try:
-            siteName = searchResult.xpath('.//*[contains(., "Network")]')[0].text_content().replace('Network:', '').strip()
-        except:
-            try:
-                siteName = searchResult.xpath('.//*[contains(., "Studio")]')[0].text_content().replace('Studio:', '').strip()
-            except:
-                pass
-
-        subSite = ''
-        try:
-            subSite = searchResult.xpath('.//p[@class][contains(., "Site:")]')[0].text_content().replace('Site:', '').strip()
-        except:
-            pass
-
-        siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
-
-        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "content")]')[1].text_content(), siteNum)
-        curID = PAutils.Encode(searchResult.xpath('.//*[contains(@href, "content")]/@href')[0])
-
-        try:
-            date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content().strip()
-            date = re.sub(r'^#(.*?)\s', '', date)
-        except:
-            date = ''
-
-        if date and not date == 'unknown':
-            date = date.replace('Sept', 'Sep')
-            releaseDate = parse(date).strftime('%Y-%m-%d')
+        if score == 80:
+            count += 1
+            temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
-        displayDate = releaseDate if date else ''
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+    for result in temp:
+        if count > 1 and result.score == 80:
+            results.Append(MetadataSearchResult(id=result.id, name=result.name, score=79, lang=lang))
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
-
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id=result.id, name=result.name, score=result.score, lang=lang))
 
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -120,25 +150,32 @@ def update(metadata, siteID, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteID)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+    except:
+        pass
 
     # Studio
     try:
-        metadata.studio = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "network")]')[0].text_content().replace('[network]', '').strip()
+        metadata.studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
     except:
         try:
-            metadata.studio = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "studio")]')[0].text_content().replace('[studio]', '').strip()
+            metadata.studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
             pass
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     try:
-        metadata.tagline = detailsPageElements.xpath('//select[@id="nav_content"]//*[contains(., "site")]')[0].text_content().replace('[site]', '').strip()
-        metadata.collections.add(metadata.tagline)
+        tagline = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+        if not metadata.studio:
+            metadata.studio = tagline
+        else:
+            metadata.tagline = tagline
+        metadata.collections.add(tagline)
     except:
         metadata.collections.add(metadata.studio)
 
@@ -150,17 +187,17 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[./b[contains(.,"Categories")]]//a'):
+    for genreLink in detailsPageElements.xpath('//div[./b[contains(., "Categories")]]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//li')
+    actors = detailsPageElements.xpath('//p[contains(., "Starring")]//following-sibling::a[1]')
     if actors:
         for actorLink in actors:
-            actorName = actorLink.xpath('.//a[@class="bold"]')[0].text_content().strip()
+            actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
             movieActors.addActor(actorName, actorPhotoURL)
@@ -168,31 +205,52 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//img/@src',
+        '//img[contains(@src, "th8")]/@src',
     ]
 
-    req = PAutils.HTTPRequest(detailsPageElements.xpath('//@href[contains(.,"viewer")]')[0])
-    photoPageElements = HTML.ElementFromString(req.text)
-    for xpath in xpaths:
-        for img in photoPageElements.xpath(xpath):
-            art.append(img.replace('/th8', ''))
+    try:
+        req = PAutils.HTTPRequest(detailsPageElements.xpath('//@href[contains(., "viewer")]')[0])
+        photoPageElements = HTML.ElementFromString(req.text)
+        for xpath in xpaths:
+            for img in photoPageElements.xpath(xpath):
+                art.append(img.replace('/th8', ''))
+    except:
+        img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')
+        art.append(img)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
                 image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.data18.com'})
+                images.append(image)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if height > width:
                     # Item is a poster
+                    posterExists = True
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 

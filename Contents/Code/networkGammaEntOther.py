@@ -66,20 +66,20 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = int(metadata_id[0])
     sceneType = metadata_id[2]
     sceneIDName = 'clip_id' if sceneType == 'scenes' else 'movie_id'
     sceneDate = metadata_id[3]
 
-    apiKEY = getAPIKey(PAsearchSites.getSearchBaseURL(siteID))
+    apiKEY = getAPIKey(PAsearchSites.getSearchBaseURL(siteNum))
 
-    url = PAsearchSites.getSearchSearchURL(siteID) + '?x-algolia-application-id=TSMKFA364Q&x-algolia-api-key=' + apiKEY
-    data = getAlgolia(url, 'all_' + sceneType, 'filters=%s=%d' % (sceneIDName, sceneID), PAsearchSites.getSearchBaseURL(siteID))
+    url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=TSMKFA364Q&x-algolia-api-key=' + apiKEY
+    data = getAlgolia(url, 'all_' + sceneType, 'filters=%s=%d' % (sceneIDName, sceneID), PAsearchSites.getSearchBaseURL(siteNum))
     detailsPageElements = data[0]
 
-    data = getAlgolia(url, 'all_scenes', 'query=%s' % detailsPageElements['url_title'], PAsearchSites.getSearchBaseURL(siteID))
+    data = getAlgolia(url, 'all_scenes', 'query=%s' % detailsPageElements['url_title'], PAsearchSites.getSearchBaseURL(siteNum))
     data = sorted(data, key=lambda i: i['clip_id'])
     scenesPagesElements = list(enumerate(data, 1))
 
@@ -136,7 +136,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     for actorLink in detailsPageElements['actors']:
         actorName = actorLink['name']
 
-        actorData = getAlgolia(url, 'all_actors', 'filters=actor_id=' + actorLink['actor_id'], PAsearchSites.getSearchBaseURL(siteID))[0]
+        actorData = getAlgolia(url, 'all_actors', 'filters=actor_id=' + actorLink['actor_id'], PAsearchSites.getSearchBaseURL(siteNum))[0]
         if 'pictures' in actorData and actorData['pictures']:
             max_quality = sorted(actorData['pictures'].keys())[-1]
             actorPhotoURL = 'https://images-fame.gammacdn.com/actors' + actorData['pictures'][max_quality]
@@ -155,7 +155,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Posters
     art = []
 
-    if not PAsearchSites.getSearchBaseURL(siteID).endswith(('girlsway.com', 'puretaboo.com')):
+    if not PAsearchSites.getSearchBaseURL(siteNum).endswith(('girlsway.com', 'puretaboo.com')):
         art.append('https://images-fame.gammacdn.com/movies/{0}/{0}_{1}_front_400x625.jpg'.format(detailsPageElements['movie_id'], detailsPageElements['url_title'].lower().replace('-', '_')))
         if 'url_movie_title' in detailsPageElements:
             art.append('https://images-fame.gammacdn.com/movies/{0}/{0}_{1}_front_400x625.jpg'.format(detailsPageElements['movie_id'], detailsPageElements['url_movie_title'].lower().replace('-', '_')))

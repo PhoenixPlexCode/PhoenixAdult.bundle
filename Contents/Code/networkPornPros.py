@@ -34,11 +34,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
 
     sceneDate = None
     if len(metadata_id) > 2:
@@ -60,7 +60,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.studio = 'Porn Pros'
 
     # Collections / Tagline
-    siteName = PAsearchSites.getSearchSiteName(siteID)
+    siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.clear()
     metadata.tagline = siteName
     metadata.collections.add(siteName)
@@ -85,7 +85,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             if not sceneDate:
                 actorURL = actorLink.get('href')
                 if not actorURL.startswith('http'):
-                    actorURL = PAsearchSites.getSearchBaseURL(siteID) + actorURL
+                    actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL
 
                 req = PAutils.HTTPRequest(actorURL)
                 actorPageElements = HTML.ElementFromString(req.text)

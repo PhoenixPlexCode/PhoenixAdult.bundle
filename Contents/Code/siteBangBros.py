@@ -25,17 +25,17 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteID)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="vdoDesc"]')[0].text_content().strip()
@@ -68,7 +68,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorName = actorLink.text_content().strip()
 
         actorPageURL = actorLink.get('href')
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteID) + actorPageURL)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = 'http:' + actorPage.xpath('//div[@class="profilePic_in"]//img/@src')[0]
 

@@ -30,7 +30,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -44,7 +44,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         sceneID = ''
     
     # Title
-    metadata.title = PAutils.parseTitle(info[0].strip(), siteID).replace('W/','w/')
+    metadata.title = PAutils.parseTitle(info[0].strip(), siteNum).replace('W/','w/')
 
     # Summary
     try:
@@ -76,7 +76,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorName = actorLink.text_content().strip()
 
         actorPhotoURL = ''
-        modelBaseURL = PAsearchSites.getSearchBaseURL(siteID) + '/t1/most-liked-girls/'
+        modelBaseURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/most-liked-girls/'
         genres = genres.replace(actorName, '')
 
         for idx in range(1, 6):
@@ -109,7 +109,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     ]
 
     try:
-        modelURL = PAsearchSites.getSearchBaseURL(siteID) + detailsPageElements.xpath('//p[contains(string(), "Cast")]/a/@href')[0]
+        modelURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//p[contains(string(), "Cast")]/a/@href')[0]
         req = PAutils.HTTPRequest(modelURL)
         modelPageElements = HTML.ElementFromString(req.text)
         for xpath in xpaths:

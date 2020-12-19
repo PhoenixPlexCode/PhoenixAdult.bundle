@@ -55,7 +55,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneTitle = PAutils.Decode(metadata_id[0])
     sceneDescription = PAutils.Decode(metadata_id[2])
@@ -78,7 +78,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.studio = 'PureCFNM'
 
     # Tagline and Collection(s)
-    subSite = PAsearchSites.getSearchSiteName(siteID)
+    subSite = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = subSite
     metadata.collections.add(subSite)
 

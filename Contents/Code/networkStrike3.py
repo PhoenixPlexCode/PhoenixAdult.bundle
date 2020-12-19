@@ -31,10 +31,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
-    sceneURL = PAsearchSites.getSearchSearchURL(siteID) + sceneName
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneName
 
     detailsPageElements = getDatafromAPI(sceneURL)
     video = detailsPageElements['video']
@@ -72,7 +72,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     movieActors.clearActors()
     actors = video['modelsSlugged']
     for actorLink in actors:
-        actorPageURL = PAsearchSites.getSearchSearchURL(siteID) + '/' + actorLink['slugged']
+        actorPageURL = PAsearchSites.getSearchSearchURL(siteNum) + '/' + actorLink['slugged']
         actorData = getDatafromAPI(actorPageURL)['model']
 
         actorName = actorData['name']

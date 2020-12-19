@@ -1218,19 +1218,19 @@ searchSites[1070] = ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net'
 searchSites[1071] = ('Data18 Content', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
 searchSites[1072] = ('Penthouse Gold', 'https://penthousegold.com', 'https://penthousegold.com/search.php?query=')
 
-def getSearchSiteName(siteID):
-    return searchSites[siteID][0]
+def getSearchSiteName(siteNum):
+    return searchSites[siteNum][0]
 
 
-def getSearchBaseURL(siteID):
-    return searchSites[siteID][1]
+def getSearchBaseURL(siteNum):
+    return searchSites[siteNum][1]
 
 
-def getSearchSearchURL(siteID):
-    return searchSites[siteID][2]
+def getSearchSearchURL(siteNum):
+    return searchSites[siteNum][2]
 
 
-def getSearchSiteIDByFilter(searchFilter):
+def getSearchsiteNumByFilter(searchFilter):
     searchResults = []
     searchFilterF = searchFilter.lower().replace(' ', '').replace('.com', '').replace('.net', '').replace('\'', '').replace('-', '')
     for searchID, sites in enumerate(searchSites):
@@ -1491,20 +1491,20 @@ def getSearchSettings(mediaTitle):
     Log('mediaTitle w/ possible abbrieviation fixed: %s' % mediaTitle)
 
     # Search Site ID
-    searchSiteID = None
+    siteNum = None
     # What to search for
     searchTitle = None
     # Date search
     searchDate = None
 
     # Remove Site from Title
-    searchSiteID = getSearchSiteIDByFilter(mediaTitle)
-    if searchSiteID is not None:
-        Log('^^^^^^^ siteID: %d' % searchSiteID)
+    siteNum = getSearchsiteNumByFilter(mediaTitle)
+    if siteNum is not None:
+        Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
         title = mediaTitle.replace('.com', '').title()
-        site = searchSites[searchSiteID][0].lower()
+        site = searchSites[siteNum][0].lower()
 
         title = re.sub(r'[^a-zA-Z0-9 ]', '', title)
         site = re.sub(r'\W', '', site)
@@ -1522,30 +1522,30 @@ def getSearchSettings(mediaTitle):
         else:
             searchTitle = mediaTitle
 
-    Log('searchTitle (before date processing): %s' % searchTitle)
+        Log('searchTitle (before date processing): %s' % searchTitle)
 
-    # Search Type
-    searchTitle = searchTitle.replace('#', '')
-    searchDate = None
-    regex = [
-        (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
-        (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
-    ]
-    date_obj = None
-    for r, dateFormat in regex:
-        date = re.search(r, searchTitle)
-        if date:
-            try:
-                date_obj = datetime.strptime(date.group(), dateFormat)
-            except:
-                pass
+        # Search Type
+        searchTitle = searchTitle.replace('#', '')
+        searchDate = None
+        regex = [
+            (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
+            (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
+        ]
+        date_obj = None
+        for r, dateFormat in regex:
+            date = re.search(r, searchTitle)
+            if date:
+                try:
+                    date_obj = datetime.strptime(date.group(), dateFormat)
+                except:
+                    pass
 
-            if date_obj:
-                searchDate = date_obj.strftime('%Y-%m-%d')
-                searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
-                break
+                if date_obj:
+                    searchDate = date_obj.strftime('%Y-%m-%d')
+                    searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
+                    break
 
-    return (searchSiteID, searchTitle, searchDate)
+    return (siteNum, searchTitle, searchDate)
 
 
 def posterAlreadyExists(posterUrl, metadata):
