@@ -202,6 +202,7 @@ def saveRequest(url, req):
 def parseTitle(s, siteNum):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
     s = re.sub(r'\,(?!\s)', ', ', s)
+    s = s.replace('_', ' ')
     word_list = re.split(' ', s)
 
     firstword = parseWord(word_list[0], siteNum)
@@ -220,13 +221,14 @@ def parseTitle(s, siteNum):
     output = re.sub(r'\b(?:\.)$', '', output)
     output = re.sub(r'\.(?=([a-z]))', '. ', output)
     output = re.sub(r'\s+([.,!\":])', '', output)
+    output = re.sub(r'(?<=:)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
 
     return output
 
 
 def parseWord(word, siteNum):
     word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs'] 
-    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj']
+    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm']
     capital_exceptions = ['A', 'V', 'Y']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ','')
 
@@ -263,7 +265,7 @@ def parseWord(word, siteNum):
 
 def punctuation(word):
     punctuation_exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'que', 'senor', 'senorita', 'thats']
-    punctuation_corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Qué', 'Señor', 'Señorita', 'That\'s']
+    punctuation_corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Qué', 'Señor', 'Señorita', 'That\'s', 'G-String']
 
     if word.lower() in punctuation_exceptions:
         for correction in punctuation_corrections:
