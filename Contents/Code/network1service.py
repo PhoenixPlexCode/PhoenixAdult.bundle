@@ -4,10 +4,9 @@ import PAactors
 import PAutils
 
 
-def get_Token(siteID):
-    token_key = None
-    if siteID == 2 or (siteID >= 54 and siteID <= 81) or siteID == 582 or siteID == 690:
-        token_key = 'brazzers_token'
+def get_Token(siteNum):
+    url = PAsearchSites.getSearchBaseURL(siteNum)
+    token_key = urlparse.urlparse(url).hostname
 
     token = None
     if token_key and token_key in Dict:
@@ -17,6 +16,7 @@ def get_Token(siteID):
             token = Dict[token_key]
 
     if not token:
+        req = PAutils.HTTPRequest(url, 'HEAD')
         if 'instance_token' in req.cookies:
             token = req.cookies['instance_token']
 
