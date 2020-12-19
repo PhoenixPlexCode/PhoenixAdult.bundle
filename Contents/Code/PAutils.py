@@ -221,7 +221,7 @@ def parseTitle(s, siteNum):
     output = re.sub(r'\b(?:\.)$', '', output)
     output = re.sub(r'\.(?=([a-z]))', '. ', output)
     output = re.sub(r'\s+([.,!\":])', '', output)
-    output = re.sub(r'(?<=:)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    output = re.sub(r'(?<=!|:|\?|\.|,)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
 
     return output
 
