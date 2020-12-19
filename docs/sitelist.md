@@ -646,6 +646,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - HannaHilton
   - LaneSisters
   - SunnyLeone
++ #### Penthouse Gold | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PerfectGonzo Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - AllInternal
   - AssTraffic

@@ -207,6 +207,8 @@ class PhoenixActors:
                     newActor = 'Sofy Soul'
                 elif newActor == 'Sonia Smile' or newActor == 'Sony Smile' or newActor == 'Sofi Smail':
                     newActor = 'Sofi Smile'
+                elif newActor == 'Soniy Sweet' or newActor == 'Sonya Sweet':
+                    newActor = 'Sonia Sweet'
                 elif newActor == 'Stephanie Moon' or newActor == 'Steffy Moon':
                     newActor = 'Stefanie Moon'
                 elif newActor == 'Sedona' or newActor == 'Stefanie Renee':
@@ -2408,7 +2410,9 @@ class PhoenixActors:
                     if newActor == 'Clover':
                         newActor = 'Katya Clover'
                 elif metadata.studio == 'Private':
-                    if newActor == 'Lolita Taylor':
+                    if newActor == 'Apolonia':
+                        newActor = 'Apolonia Lapiedra'
+                    elif newActor == 'Lolita Taylor':
                         newActor = 'Lola Taylor'
                     elif newActor == 'Scarlet':
                         newActor = 'Scarlet Domingo'
