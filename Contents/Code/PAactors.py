@@ -2408,7 +2408,9 @@ class PhoenixActors:
                     if newActor == 'Clover':
                         newActor = 'Katya Clover'
                 elif metadata.studio == 'Private':
-                    if newActor == 'Lolita Taylor':
+                    if newActor == 'Apolonia':
+                        newActor = 'Apolonia Lapiedra'
+                    elif newActor == 'Lolita Taylor':
                         newActor = 'Lola Taylor'
                     elif newActor == 'Scarlet':
                         newActor = 'Scarlet Domingo'
