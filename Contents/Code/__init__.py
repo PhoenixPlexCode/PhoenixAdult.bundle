@@ -958,7 +958,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsearchSites.siteData18Content.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Penthouse Gold
-            elif searchSiteID == 1072:
+            elif siteNum == 1072:
                 results = PAsearchSites.sitePenthouseGold.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         results.Sort('score', descending=True)
@@ -1701,8 +1701,8 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.siteData18Content.update(metadata, siteNum, movieGenres, movieActors)
 
         # Penthouse Gold
-        elif siteID == 1072:
-            metadata = PAsearchSites.sitePenthouseGold.update(metadata, siteID, movieGenres, movieActors)
+        elif siteNum == 1072:
+            metadata = PAsearchSites.sitePenthouseGold.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log('Genres')
