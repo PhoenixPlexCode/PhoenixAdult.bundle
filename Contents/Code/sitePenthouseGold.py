@@ -22,8 +22,8 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     # search for exact scene name
     try:
-        urlTitle = encodedTitle.replace(' ', '-')
-        url = PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/' + urlTitle + '_vids.html'
+        urlTitle = encodedTitle.replace('%20', '-')
+        url = PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/video---' + urlTitle + '_vids.html'
         sceneReq = PAutils.HTTPRequest(url)
         scenePage = HTML.ElementFromString(sceneReq.text)
 
