@@ -199,12 +199,12 @@ def saveRequest(url, req):
     return True
 
 
-def parseTitle(s, siteID):
+def parseTitle(s, siteNum):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
     s = re.sub(r'\,(?!\s)', ', ', s)
     word_list = re.split(' ', s)
 
-    firstword = parseWord(word_list[0], siteID)
+    firstword = parseWord(word_list[0], siteNum)
     if len(firstword) > 1:
         firstword = punctuation(firstword)
         firstword = firstword[0].capitalize() + firstword[1:]
@@ -214,7 +214,7 @@ def parseTitle(s, siteID):
     final = [firstword]
 
     for word in word_list[1:]:
-        final.append(parseWord(word, siteID))
+        final.append(parseWord(word, siteNum))
 
     output = ' '.join(final)
     output = re.sub(r'\b(?:\.)$', '', output)
@@ -224,16 +224,16 @@ def parseTitle(s, siteID):
     return output
 
 
-def parseWord(word, siteID):
+def parseWord(word, siteNum):
     word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs'] 
     adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj']
     capital_exceptions = ['A', 'V', 'Y']
-    sitename = PAsearchSites.getSearchSiteName(siteID).replace(' ','')
+    sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ','')
 
     if '-' in word and '--' not in word:
         word_list = re.split('-', word)
 
-        firstword = parseWord(word_list[0], siteID)
+        firstword = parseWord(word_list[0], siteNum)
         if len(firstword) > 1:
             firstword = firstword[0].capitalize() + firstword[1:]
         else:
@@ -241,7 +241,7 @@ def parseWord(word, siteID):
         nhword = firstword + '-'
 
         for hword in word_list[1:]:
-            nhword += parseWord(hword, siteID)
+            nhword += parseWord(hword, siteNum)
             if hword != word_list[-1]:
                 nhword += '-'
         word = nhword

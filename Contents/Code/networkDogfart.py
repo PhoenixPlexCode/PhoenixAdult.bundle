@@ -29,11 +29,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -51,7 +51,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.collections.clear()
     tagline = detailsPageElements.xpath('//h3[@class="site-name"]')[0].text_content().strip()
     metadata.tagline = tagline
-    metadata.collections.add(PAsearchSites.getSearchSiteName(siteID))
+    metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
 
     # Release Date
     if sceneDate:
@@ -84,7 +84,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             art.append(img)
 
     for pageURL in detailsPageElements.xpath('//div[contains(@class, "preview-image-container")]//a/@href'):
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteID) + pageURL)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + pageURL)
         posterPage = HTML.ElementFromString(req.text)
 
         posterUrl = posterPage.xpath('//div[contains(@class, "remove-bs-padding")]/img/@src')[0]

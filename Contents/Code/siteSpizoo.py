@@ -28,11 +28,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -77,7 +77,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
             movieGenres.addGenre(genreName)
     else:  # Manual genres for Rawattack
-        if siteID == 577:
+        if siteNum == 577:
             movieGenres.addGenre('Unscripted')
             movieGenres.addGenre('Raw')
             movieGenres.addGenre('Hardcore')
@@ -88,7 +88,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorName = actorLink.text_content().replace('.', '').strip()
         actorPhotoURL = ''
 
-        actorPageURL = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get('href')
+        actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         try:
@@ -98,7 +98,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
         if actorPhotoURL:
             if 'http' not in actorPhotoURL:
-                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPhotoURL
+                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -107,7 +107,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     try:
         twitterBG = detailsPageElements.xpath('//img[contains(@class,"update_thumb thumbs")]/@src')[0]
         if 'http' not in twitterBG:
-            twitterBG = PAsearchSites.getSearchBaseURL(siteID) + '/' + twitterBG
+            twitterBG = PAsearchSites.getSearchBaseURL(siteNum) + '/' + twitterBG
 
         art.append(twitterBG)
     except:

@@ -27,11 +27,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + '/fintour/' + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/fintour/' + sceneURL
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -47,7 +47,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -61,10 +61,10 @@ def update(metadata, siteID, movieGenres, movieActors):
     for actorLink in detailsPageElements.xpath('//a[starts-with(@href, "sets")]'):
         actorName = actorLink.text_content().strip()
 
-        actorPageURL = PAsearchSites.getSearchBaseURL(siteID) + '/fintour/' + actorLink.xpath('./@href')[0].strip()
+        actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + '/fintour/' + actorLink.xpath('./@href')[0].strip()
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPage.xpath('//img[@class="thumbs"]/@src')[0]
+        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPage.xpath('//img[@class="thumbs"]/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 

@@ -26,7 +26,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     return results
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]

@@ -49,7 +49,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -63,11 +63,11 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.summary = detailsPageElements.xpath('//div[@class="movie-desc"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
@@ -97,7 +97,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
         for actorLink in actors:
             actorName = actorLink.xpath('.//@alt')[0].strip()
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorLink.xpath('.//@src')[0].strip()
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.xpath('.//@src')[0].strip()
 
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -110,7 +110,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteID) + img
+                img = PAsearchSites.getSearchBaseURL(siteNum) + img
 
             art.append(img)
 

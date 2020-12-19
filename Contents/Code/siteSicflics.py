@@ -42,14 +42,14 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     imgURL = PAutils.Decode(metadata_id[3])
     if not imgURL.startswith('http'):
-        imgURL = PAsearchSites.getSearchBaseURL(siteID) + imgURL
+        imgURL = PAsearchSites.getSearchBaseURL(siteNum) + imgURL
 
-    pageURL = PAsearchSites.getSearchBaseURL(siteID) + 'v6/v6.pop.php?id=' + sceneID
+    pageURL = PAsearchSites.getSearchBaseURL(siteNum) + 'v6/v6.pop.php?id=' + sceneID
     req = PAutils.HTTPRequest(pageURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -66,7 +66,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
