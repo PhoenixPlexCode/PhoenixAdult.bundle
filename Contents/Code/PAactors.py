@@ -207,6 +207,8 @@ class PhoenixActors:
                     newActor = 'Sofy Soul'
                 elif newActor == 'Sonia Smile' or newActor == 'Sony Smile' or newActor == 'Sofi Smail':
                     newActor = 'Sofi Smile'
+                elif newActor == 'Soniy Sweet' or newActor == 'Sonya Sweet':
+                    newActor = 'Sonia Sweet'
                 elif newActor == 'Stephanie Moon' or newActor == 'Steffy Moon':
                     newActor = 'Stefanie Moon'
                 elif newActor == 'Sedona' or newActor == 'Stefanie Renee':
