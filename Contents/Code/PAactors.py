@@ -254,6 +254,8 @@ class PhoenixActors:
                         newActor = 'Katarina Muti'
                     elif newActor == 'Henna Ssy':
                         newActor = 'Henessy'
+                    elif newActor == 'Molly A':
+                        newActor = 'Mishelle Klein'
                     elif newActor == 'Stefanie':
                         newActor = 'Stefanie Moon'
                 elif metadata.studio == 'Babes':
