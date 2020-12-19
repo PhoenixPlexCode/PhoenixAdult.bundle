@@ -230,7 +230,7 @@ def parseWord(word, siteNum):
     word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
     adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm']
     capital_exceptions = ['A', 'V', 'Y']
-    sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ','')
+    sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     if '-' in word and '--' not in word:
         word_list = re.split('-', word)
@@ -271,5 +271,5 @@ def punctuation(word):
         for correction in punctuation_corrections:
             if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('é', 'e').replace('ñ', 'n'):
                 return correction
-    
+
     return word
