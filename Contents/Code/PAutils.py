@@ -227,7 +227,7 @@ def parseTitle(s, siteNum):
 
 
 def parseWord(word, siteNum):
-    word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs'] 
+    word_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
     adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm']
     capital_exceptions = ['A', 'V', 'Y']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ','')
@@ -269,7 +269,7 @@ def punctuation(word):
 
     if word.lower() in punctuation_exceptions:
         for correction in punctuation_corrections:
-            if word.lower() == correction.lower().replace('\'','').replace('-','').replace('é','e').replace('ñ','n'):
+            if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('é', 'e').replace('ñ', 'n'):
                 return correction
     
     return word
