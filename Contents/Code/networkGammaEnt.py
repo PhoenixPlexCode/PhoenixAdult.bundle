@@ -126,7 +126,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
         if networkscenepages:
             # Other pages
@@ -186,7 +186,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                         else:
                             score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-                        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
                     resultfirst = resultsecond
                     resultsecond = []
@@ -218,7 +218,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
     if networkdvd:
         try:
@@ -239,7 +239,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " ("+releaseDate.strftime('%Y')+") - Full Movie ["+PAsearchSites.getSearchSiteName(siteNum)+"]", score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " (" + releaseDate.strftime('%Y') + ") - Full Movie [" + PAsearchSites.getSearchSiteName(siteNum) + "]", score=score, lang=lang))
         except:
             pass
 
@@ -416,7 +416,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 omega = sceneActors.find('"', alpha)
                 actorName = sceneActors[alpha:omega]
                 # Search for the actor to get their page (then photo) or hardcode the URL pattern if feeling frisky
-                actorPageURL = '/en/pornstar/'+actorName.replace(' ', '-') + '/' + actorId
+                actorPageURL = '/en/pornstar/' + actorName.replace(' ', '-') + '/' + actorId
                 req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL))
                 actorPage = HTML.ElementFromString(req.text)
                 actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"] | //span[@class="removeAvatarParent"]/img')[0].get("src")
@@ -489,7 +489,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Scene photos page
     try:
-        photoPageUrl = PAsearchSites.getSearchBaseURL(siteNum)+detailsPageElements.xpath('//a[@class="controlButton GA_Track GA_Track_Action_Pictures GA_Track_Category_Player GA GA_Click GA_Id_ScenePlayer_Pictures"]')[0].get('href')
+        photoPageUrl = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//a[@class="controlButton GA_Track GA_Track_Action_Pictures GA_Track_Category_Player GA GA_Click GA_Id_ScenePlayer_Pictures"]')[0].get('href')
         req = PAutils.HTTPRequest(photoPageUrl)
         photoPage = HTML.ElementFromString(req.text)
         unlockedPhotoImg = photoPage.xpath('//div[@class="previewImage"]/img')[0].get('src')

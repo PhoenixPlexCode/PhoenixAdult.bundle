@@ -107,7 +107,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         # Background
         alpha = script_text.find('picPreview":"')
         omega = script_text.find('"', alpha + 13)
-        previewBG = script_text[alpha + 13:omega].replace('\/', '/')
+        previewBG = script_text[alpha + 13:omega].replace(r'\/', '/')
         art.append(previewBG)
 
         # Get dvd page for some info

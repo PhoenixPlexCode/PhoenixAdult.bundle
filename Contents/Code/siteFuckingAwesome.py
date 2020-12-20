@@ -94,7 +94,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             art.append(img)
 
     try:
-        photoPageUrl = PAsearchSites.getSearchBaseURL(siteNum)+detailsPageElements.xpath('//li[@class="photos"]/a/@href')[0]
+        photoPageUrl = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//li[@class="photos"]/a/@href')[0]
         req = PAutils.HTTPRequest(photoPageUrl)
         photoPage = HTML.ElementFromString(req.text)
         unlockedPhotos = photoPage.xpath('//div[@class="my-gallery"]/a/@href')

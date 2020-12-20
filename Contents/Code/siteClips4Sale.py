@@ -2481,7 +2481,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         # Metadata match (would not work in the "elif 71196" block)
         if 'P-Jenn' in metadata.title:
             movieActors.addActor('Empress Jennifer', '')
-        if 'Princess PERFECTION' in metadata.summary: 
+        if 'Princess PERFECTION' in metadata.summary:
             movieActors.addActor('Princess Perfection', '')
         if 'Goddess Farrah' in metadata.summary:
             movieActors.addActor('Goddess Farrah', '')

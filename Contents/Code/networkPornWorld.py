@@ -91,7 +91,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     artStyle = detailsPageElements.xpath('//div[@id="player"]/@style')[0]
-    artUrl = re.search('\((.*?)\)', artStyle).group(1)
+    artUrl = re.search(r'\((.*?)\)', artStyle).group(1)
     art.append(artUrl)
 
     Log('Artwork found: %d' % len(art))

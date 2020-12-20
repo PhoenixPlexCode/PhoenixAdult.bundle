@@ -10,7 +10,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()
-    
+
     if sceneID:
         sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
         req = PAutils.HTTPRequest(sceneURL)
