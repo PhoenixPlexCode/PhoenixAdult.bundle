@@ -170,7 +170,7 @@ class PhoenixActors:
                 elif newActor == 'Lilly Lit':
                     newActor = 'Lilly Ford'
                 elif newActor == 'Milana Witch':
-                    newActor == 'Linda Brugal'
+                    newActor = 'Linda Brugal'
                 elif newActor == 'Lolita Taylor':
                     newActor = 'Lola Taylor'
                 elif newActor == 'Maddy OReilly' or newActor == 'Maddy Oreilly' or newActor == 'Maddy O\'reilly':
