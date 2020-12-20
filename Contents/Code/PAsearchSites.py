@@ -79,7 +79,6 @@ import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
 import siteMeanaWolf
-import siteHustler
 import siteAmourAngels
 import networkR18
 import networkBang
@@ -954,7 +953,7 @@ searchSites[806] = ('Transsensual', 'https://www.transsensual.com', 'https://sit
 searchSites[807] = ('DaughterSwap', 'https://www.daughterswap.com', 'https://www.daughterswap.com/movies')
 searchSites[808] = ('Erito', 'https://www.erito.com', 'https://site-api.project1service.com')
 searchSites[809] = ('True Amateurs', 'https://www.trueamateurs.com', 'https://site-api.project1service.com')
-searchSites[810] = ('Hustler', 'https://hustler.com', 'https://hustler.com/search.php?query=')
+searchSites[810] = ('Hustler', 'https://hustler.com', 'https://hustler.com/api')
 searchSites[811] = ('AmourAngels', 'http://www.amourangels.com', 'http://www.amourangels.com/z_cover_')
 searchSites[812] = ('JAV', 'https://www.r18.com', 'https://www.r18.com/common/search/searchword=')
 searchSites[813] = ('Bang', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/videos/video/_search')
@@ -1527,7 +1526,6 @@ def getSearchSettings(mediaTitle):
         Log('searchTitle (before date processing): %s' % searchTitle)
 
         # Search Type
-        searchTitle = searchTitle.replace('#', '')
         searchDate = None
         regex = [
             (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),

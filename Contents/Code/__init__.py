@@ -659,7 +659,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
             # Hustler
             elif siteNum == 810:
-                results = PAsearchSites.siteHustler.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+                results = PAsearchSites.networkMetArt.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # AmourAngels
             elif siteNum == 811:
@@ -1410,7 +1410,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # Hustler
         elif siteNum == 810:
-            metadata = PAsearchSites.siteHustler.update(metadata, siteNum, movieGenres, movieActors)
+            metadata = PAsearchSites.networkMetArt.update(metadata, siteNum, movieGenres, movieActors)
 
         # AmourAngels
         elif siteNum == 811:
