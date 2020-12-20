@@ -101,7 +101,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorName = regex.group(1)
 
         actorPhotoURL = detailsPageElements.xpath('//div[@id="Thumbs"]/img/@src')[idx]
-        
+
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters

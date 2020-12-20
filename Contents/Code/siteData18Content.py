@@ -215,8 +215,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
             for img in photoPageElements.xpath(xpath):
                 art.append(img.replace('/th8', ''))
     except:
-        img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')
+        pass
+
+    try:
+        img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')[0]
         art.append(img)
+    except:
+        pass
 
     images = []
     posterExists = False

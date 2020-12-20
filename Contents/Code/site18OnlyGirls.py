@@ -8,7 +8,6 @@ import PAutils
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     searchResults = []
 
-
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
         if ('/search/' not in sceneURL and '/page/' not in sceneURL and '/tag/' not in sceneURL and sceneURL not in searchResults):

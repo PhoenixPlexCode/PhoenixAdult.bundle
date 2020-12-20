@@ -75,7 +75,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     except:
         background = detailsPageElements.xpath('//div[@class="fakeplayer"]//img/@src0_1x')[0]
     art = [
-       background
+        background
     ]
 
     Log('Artwork found: %d' % len(art))

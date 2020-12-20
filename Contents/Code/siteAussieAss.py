@@ -6,7 +6,7 @@ import PAutils
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
-    sceneID = re.sub('\D.*', '', searchTitle)
+    sceneID = re.sub(r'\D.*', '', searchTitle)
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/webmasters/" + sceneID
@@ -57,7 +57,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
                 titleNoFormatting = re.sub(r'^\d+', '', resultTitleID)
 
-                resultID = re.sub('\D.*', '', resultTitleID)
+                resultID = re.sub(r'\D.*', '', resultTitleID)
 
                 sceneURL = searchResult.xpath('.//a/@href')[0]
                 curID = PAutils.Encode(sceneURL)
@@ -104,7 +104,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         resultTitleID = detailsPageElements.xpath('//h4/span')[0].text_content().title()
         metadata.title = re.sub(r'^\d+', '', resultTitleID)
 
-    sceneID = re.sub('\D.*', '', resultTitleID)
+    sceneID = re.sub(r'\D.*', '', resultTitleID)
 
     # Summary
     try:

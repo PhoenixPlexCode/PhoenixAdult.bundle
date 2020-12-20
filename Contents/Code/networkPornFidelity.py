@@ -26,6 +26,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     return results
 
+
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -37,7 +38,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//div[@class="level-left"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="column is-three-fifths"]')[0].text_content().replace('Episode Summary','').strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="column is-three-fifths"]')[0].text_content().replace('Episode Summary', '').strip()
 
     # Studio
     metadata.studio = 'PornFidelity'

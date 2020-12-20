@@ -234,7 +234,7 @@ class PhoenixActors:
                 elif newActor == 'Shinoda Yuu':
                     newActor = 'Yu Shinoda'
                 elif newActor == 'Polina Maxima' or newActor == 'Polina Max' or newActor == 'Venera Maxima':
-                    newActor ='Polina Maxim'
+                    newActor = 'Polina Maxim'
                 elif newActor == 'Viola Bailey’S':
                     newActor = 'Viola Bailey'
                 elif newActor == 'Ornella Morgen':
@@ -258,6 +258,8 @@ class PhoenixActors:
                         newActor = 'Katarina Muti'
                     elif newActor == 'Henna Ssy':
                         newActor = 'Henessy'
+                    elif newActor == 'Molly A':
+                        newActor = 'Mishelle Klein'
                     elif newActor == 'Stefanie':
                         newActor = 'Stefanie Moon'
                 elif metadata.studio == 'Babes':
@@ -2407,6 +2409,8 @@ class PhoenixActors:
                         newActor = 'Goldie Baby'
                     elif newActor == 'Helen':
                         newActor = 'Alena H'
+                    elif newActor == 'Molly':
+                        newActor = 'Mishelle Klein'
                 elif metadata.studio == 'Reality Kings':
                     if newActor == 'Morgan':
                         newActor = 'Morgan Layne'

@@ -36,7 +36,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    m = re.search("'playlistfile': '(.+playlist\.xml)'", req.text)
+    m = re.search(r"'playlistfile': '(.+playlist\.xml)'", req.text)
     if m:
         playListUrl = m.group(1)
 
@@ -46,7 +46,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             posterURL = poster[0]
     else:
         Log('Playlist file NOT found.')
-        m = re.search("'image': '(.+bookend\.jpg)'", req.text)
+        m = re.search(r"'image': '(.+bookend\.jpg)'", req.text)
         if m:
             posterURL = m.group(1)
 
