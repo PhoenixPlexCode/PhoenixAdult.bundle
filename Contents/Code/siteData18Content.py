@@ -218,7 +218,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         pass
 
     try:
-        img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')
+        img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')[0]
         art.append(img)
     except:
         pass
