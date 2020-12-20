@@ -217,6 +217,8 @@ class PhoenixActors:
                     newActor = 'Stephanie Renee'
                 elif newActor == 'Stella Bankxxx' or newActor == 'Stella Ferrari':
                     newActor = 'Stella Banxxx'
+                elif newActor == 'Marselina Fiore' or newActor == 'Marseling Fiote' or newActor == 'Stella Shine':
+                    newActor = 'Stella Flex'
                 elif newActor == 'Steven St.Croix':
                     newActor = 'Steven St. Croix'
                 elif newActor == 'Sybil Kailena' or newActor == 'Sybil':
