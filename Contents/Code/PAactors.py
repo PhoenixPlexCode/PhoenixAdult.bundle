@@ -2405,6 +2405,8 @@ class PhoenixActors:
                         newActor = 'Goldie Baby'
                     elif newActor == 'Helen':
                         newActor = 'Alena H'
+                    elif newActor == 'Molly':
+                        newActor = 'Mishelle Klein'
                 elif metadata.studio == 'Reality Kings':
                     if newActor == 'Morgan':
                         newActor = 'Morgan Layne'
