@@ -217,7 +217,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     except:
         pass
 
-     try:
+    try:
         img = detailsPageElements.xpath('//div[@id="moviewrap"]//@src')
         art.append(img)
     except:
