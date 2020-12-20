@@ -1522,6 +1522,8 @@ def getSearchSettings(mediaTitle):
         else:
             searchTitle = mediaTitle
 
+        searchTitle = searchTitle.replace(' S ', '\'s ').replace(' In ', ' in ').replace(' A ', ' a ')
+
         Log('searchTitle (before date processing): %s' % searchTitle)
 
         # Search Type
