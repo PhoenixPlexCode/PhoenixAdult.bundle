@@ -29,17 +29,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         urlID = re.sub(r'.*/', '', movieURL)
 
         if movieURL not in searchResults:
-            req = PAutils.HTTPRequest(movieURL, headers={'Referer': 'http://www.data18.com'})
-            detailsPageElements = HTML.ElementFromString(req.text)
-
-            try:
-                siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
-            except:
-                try:
-                    siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
-                except:
-                    siteName = ''
-
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "movies")]')[1].text_content(), siteNum)
             curID = PAutils.Encode(movieURL)
             siteResults.append(movieURL)
@@ -47,7 +36,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             date = searchResult.text
 
             if date and not date == 'unknown':
-                releaseDate = datetime.strptime(date, '%Y%m%d').strftime('%Y-%m-%d')
+                try:
+                    releaseDate = datetime.strptime(date, '%Y%m%d').strftime('%Y-%m-%d')
+                except:
+                    releaseDate = ''
             else:
                 releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
             displayDate = releaseDate if date else ''
@@ -61,9 +53,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
             if score == 80:
                 count += 1
-                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
+                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
             else:
-                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for movieURL in googleResults:
