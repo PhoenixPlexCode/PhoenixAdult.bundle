@@ -140,8 +140,9 @@ import siteJacquieEtMichel
 import siteData18Content
 import sitePenthouseGold
 import siteData18Movies
+import siteWUNF
 
-searchSites = [None] * 1074
+searchSites = [None] * 1075
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1217,6 +1218,7 @@ searchSites[1070] = ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net'
 searchSites[1071] = ('Data18 Content', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
 searchSites[1072] = ('Penthouse Gold', 'https://penthousegold.com', 'https://penthousegold.com/search.php?query=')
 searchSites[1073] = ('Data18 Movies', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
+searchSites[1074] = ('WakeUpNFuck', 'https://www.wakeupnfuck.com', 'https://www.wakeupnfuck.com/search?query=')
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
@@ -1444,6 +1446,7 @@ abbreviations = (
     ('^wowg ', 'WowGirls '),
     ('^wy ', 'WebYoung '),
     ('^wcx', 'WoodmanCastingX'),
+    ('^wunf', 'WakeUpNFuck'),
     ('^ztod ', 'ZeroTolerance '),
     ('^zzs ', 'ZZseries '),
 )
