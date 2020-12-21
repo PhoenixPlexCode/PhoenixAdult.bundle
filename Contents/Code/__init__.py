@@ -963,8 +963,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
             # WakeUpNFuck
             elif siteNum == 1074:
-                results = PAsiteList.siteWUNF.search(results, encodedTitle, searchTitle, siteNum, lang,
-                                                             searchDate)
+                results = PAsiteList.siteWUNF.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         results.Sort('score', descending=True)
 
