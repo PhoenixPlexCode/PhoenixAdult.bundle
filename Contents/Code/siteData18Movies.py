@@ -124,7 +124,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1].strip()
+    summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1].strip()
+    if len(summary) > 1:
+        metadata.summary = summary
 
     # Studio
     try:
@@ -137,6 +139,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Tagline and Collection(s)
     metadata.collections.clear()
     metadata.collections.add(metadata.studio)
+    try:
+        tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a/@title')[0].text_content().strip()
+        metadata.collections.add(tagline)
+    except:
+        pass
 
     # Release Date
     if sceneDate:
@@ -163,10 +170,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
+    metadata.directors.clear()
     director = metadata.directors.new()
     try:
-        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[2]
-        if not directorName == 'unknown':
+        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[2].strip()
+        if not directorName == 'Unknown':
             director.name = directorName
     except:
         pass
