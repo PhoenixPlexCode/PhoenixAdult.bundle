@@ -124,7 +124,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1].strip()
-    if summary:
+    if len(summary) > 1:
         metadata.summary = summary
 
     # Studio
