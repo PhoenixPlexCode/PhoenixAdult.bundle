@@ -47,7 +47,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="description"]')[0].text_content().split('Publish Date :')[-1].strip()
-    date_object = datetime.strptime(date, '%-d %B %Y')
+    date_object = datetime.strptime(date, '%d %B %Y')
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
@@ -66,6 +66,15 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     for posterLink in detailsPageElements.xpath('//video[@class="player_video"]/@poster'):
         art.append(posterLink)
+
+    if not art:
+        for script in detailsPageElements.xpath('//script'):
+            try:
+                match = re.search('(?<=image: ")(.*)(?=")', script.text_content())
+                if match:
+                    art.append(match.group(0).strip())
+            except:
+                pass
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
