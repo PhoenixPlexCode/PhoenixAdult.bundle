@@ -33,9 +33,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             detailsPageElements = HTML.ElementFromString(req.text)
 
             try:
-                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+                siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
             except:
-                siteName = ''
+                try:
+                    siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+                except:
+                    siteName = ''
 
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "movies")]')[1].text_content(), siteNum)
             curID = PAutils.Encode(movieURL)
@@ -73,9 +76,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         urlID = re.sub(r'.*/', '', movieURL)
 
         try:
-            siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
-            siteName = ''
+            try:
+                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            except:
+                siteName = ''
 
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
         curID = PAutils.Encode(movieURL)
@@ -130,9 +136,12 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Studio
     try:
-        studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+        studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
     except:
-        studio = ''
+        try:
+            studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+        except:
+            studio = ''
 
     metadata.studio = studio
 
@@ -140,7 +149,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.clear()
     metadata.collections.add(metadata.studio)
     try:
-        tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a/@title')[0].text_content().strip()
+        tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a[@title]')[0].text_content().strip()
         metadata.collections.add(tagline)
     except:
         pass
