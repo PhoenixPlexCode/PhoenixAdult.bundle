@@ -139,8 +139,9 @@ import networkFTV
 import siteJacquieEtMichel
 import siteData18Content
 import sitePenthouseGold
+import siteData18Movies
 
-searchSites = [None] * 1073
+searchSites = [None] * 1074
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1215,6 +1216,7 @@ searchSites[1069] = ('FTVGirls', 'https://www.ftvgirls.com', 'https://ftvgirls.c
 searchSites[1070] = ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', 'https://www.jacquieetmicheltv.net/en/recherche/')
 searchSites[1071] = ('Data18 Content', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
 searchSites[1072] = ('Penthouse Gold', 'https://penthousegold.com', 'https://penthousegold.com/search.php?query=')
+searchSites[1073] = ('Data18 Movies', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
