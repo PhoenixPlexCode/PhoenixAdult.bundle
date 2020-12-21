@@ -73,7 +73,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         urlID = re.sub(r'.*/', '', movieURL)
 
         try:
-            siteName =detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
             siteName = ''
 
