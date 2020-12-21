@@ -8,8 +8,8 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//a[@class="scene item light_background"]'):
-        titleNoFormatting = searchResult.xpath('.//h3')[0]
-        sceneActors = searchResult.xpath('//p[@class="sub"]')[0]
+        titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
+        sceneActors = searchResult.xpath('//p[@class="sub"]')[0].text_content().strip()
         sceneURL = searchResult.xpath('./@href')[0]
         curID = PAutils.Encode(sceneURL)
 
