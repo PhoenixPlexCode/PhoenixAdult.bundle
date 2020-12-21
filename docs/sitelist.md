@@ -236,6 +236,8 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - CzechVR Casting
   - CzechVR Fetish
 + #### Data18 Porn Database | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Content
+  - Movies
 + #### DDFNetwork | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Cherry Jul
   - DDF Babes
