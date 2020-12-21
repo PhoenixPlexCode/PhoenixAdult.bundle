@@ -17,6 +17,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()
         movieURL = '%s/movies/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+
         searchResults.append(movieURL)
 
     encodedTitle = searchTitle.replace(' ', '+')
@@ -123,7 +124,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1].strip()
-    if len(summary) > 1:
+    if summary:
         metadata.summary = summary
 
     # Studio
@@ -135,7 +136,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
         except:
             studio = ''
 
-    metadata.studio = studio
+    if studio:
+        metadata.studio = studio
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -162,13 +164,12 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[./p[span[@class="gen11"]]]//a')
-    if actors:
-        for actorLink in actors:
-            actorName = actorLink.text_content().strip()
-            if actorName:
-                actorPhotoURL = ''
+    for actorLink in actors:
+        actorName = actorLink.text_content().strip()
+        actorPhotoURL = ''
 
-                movieActors.addActor(actorName, actorPhotoURL)
+        if actorName:
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
     metadata.directors.clear()
