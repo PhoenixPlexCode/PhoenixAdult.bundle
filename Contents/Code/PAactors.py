@@ -169,6 +169,8 @@ class PhoenixActors:
                     newActor = 'Lily Labeau'
                 elif newActor == 'Lilly Lit':
                     newActor = 'Lilly Ford'
+                elif newActor == 'Milana Witch':
+                    newActor = 'Linda Brugal'
                 elif newActor == 'Lolita Taylor':
                     newActor = 'Lola Taylor'
                 elif newActor == 'Maddy OReilly' or newActor == 'Maddy Oreilly' or newActor == 'Maddy O\'reilly':
@@ -215,6 +217,8 @@ class PhoenixActors:
                     newActor = 'Stephanie Renee'
                 elif newActor == 'Stella Bankxxx' or newActor == 'Stella Ferrari':
                     newActor = 'Stella Banxxx'
+                elif newActor == 'Marselina Fiore' or newActor == 'Marseling Fiote' or newActor == 'Stella Shine':
+                    newActor = 'Stella Flex'
                 elif newActor == 'Steven St.Croix':
                     newActor = 'Steven St. Croix'
                 elif newActor == 'Sybil Kailena' or newActor == 'Sybil':
@@ -2420,6 +2424,8 @@ class PhoenixActors:
                         newActor = 'Lola Taylor'
                     elif newActor == 'Scarlet':
                         newActor = 'Scarlet Domingo'
+                    elif newActor == 'Td Bambi':
+                        newActor = 'Bambi Dee'
                 elif metadata.studio == 'VIPissy':
                     if newActor == 'Susan Ayne':
                         newActor = 'Susan Ayn'

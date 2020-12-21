@@ -49,7 +49,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Title
     try:
-        metadata.title = detailsPageElements.xpath('//span[@property="name"]')[3].text_content().strip()
+        metadata.title = detailsPageElements.xpath('//span[@property="name"]')[-1].text_content().strip()
+    except:
+        pass
+
+    # Summary
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="video-embed"]/p')[0].text_content().strip()
     except:
         pass
 
@@ -97,7 +103,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[@class="ngg-gallery-thumbnail"]//a/@href',
+        '//img[@class="fp-splash"]/@src',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
