@@ -24,17 +24,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
-    for movieURL in googleResults:
-        if ('/movies/' in movieURL and '.html' not in movieURL and movieURL not in searchResults and movieURL not in siteResults):
-            searchResults.append(movieURL)
-
     for searchResult in searchPageElements.xpath('//a[contains(@href, "movies")]//parent::div[contains(@style, "float: left; padding")]'):
         movieURL = searchResult.xpath('.//*[img]/@href')[0]
+        urlID = re.sub(r'.*/', '', movieURL)
 
         if movieURL not in searchResults:
-            urlID = re.sub(r'.*/', '', movieURL)
-
             req = PAutils.HTTPRequest(movieURL, headers={'Referer': 'http://www.data18.com'})
             detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -68,6 +62,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
 
+    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    for movieURL in googleResults:
+        if ('/movies/' in movieURL and '.html' not in movieURL and movieURL not in searchResults and movieURL not in siteResults):
+            searchResults.append(movieURL)
+
     for movieURL in searchResults:
         req = PAutils.HTTPRequest(movieURL)
         detailsPageElements = HTML.ElementFromString(req.text)
@@ -82,7 +81,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         curID = PAutils.Encode(movieURL)
 
         try:
-            date = detailsPageElements.xpath('//span[@class][./*[contains(.., "date")]]')[0].text_content().split(':', 2)[-1].strip()
+            date = detailsPageElements.xpath('//p[contains(., "Release")]')[0].text_content().text_content().split(':')[2].strip()
         except:
             date = ''
 
@@ -125,7 +124,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1]
+    metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Description")]')[0].text_content().split(':', 1)[1].strip()
 
     # Studio
     try:
@@ -166,7 +165,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Director
     director = metadata.directors.new()
     try:
-        director.name = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[2]
+        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[2]
+        if not directorName == 'unknown':
+            director.name = directorName
     except:
         pass
 
