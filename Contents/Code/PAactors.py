@@ -435,6 +435,8 @@ class PhoenixActors:
                 elif metadata.studio == 'LegalPorno':
                     if newActor == 'Abby':
                         newActor = 'Krystal Boyd'
+                    elif newActor =='Foxy D':
+                        newActor = 'Foxy Di'
                     elif newActor == 'Olivia':
                         newActor = 'Sophia Traxler'
                 elif metadata.studio == 'Joymii':
