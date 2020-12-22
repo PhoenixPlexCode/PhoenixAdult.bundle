@@ -2419,6 +2419,10 @@ class PhoenixActors:
                         newActor = 'Katya Clover'
                     elif newActor == 'Natasha Von':
                         newActor = 'Nataly Von'
+                    elif newActor == 'Nikia':
+                        newActor = 'Goldie Baby'
+                    elif newActor == 'Olivka':
+                        newActor = 'Olivia Jameson'
                 elif metadata.studio == 'Private':
                     if newActor == 'Apolonia':
                         newActor = 'Apolonia Lapiedra'
@@ -2511,6 +2515,8 @@ class PhoenixActors:
                 elif metadata.studio == 'Teen Mega World':
                     if newActor == 'Arianna':
                         newActor = 'Angie Moon'
+                    elif newActor == 'Gabi':
+                        newActor = 'Silvia Jons'
                 elif metadata.studio == 'Hegre':
                     if newActor == 'Natalia A':
                         newActor = 'Natalia Andreeva'
