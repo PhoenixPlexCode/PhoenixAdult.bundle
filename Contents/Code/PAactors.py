@@ -2417,6 +2417,8 @@ class PhoenixActors:
                 elif metadata.studio == 'WowGirls':
                     if newActor == 'Clover':
                         newActor = 'Katya Clover'
+                    elif newActor == 'Natasha Von':
+                        newActor = 'Nataly Von'
                 elif metadata.studio == 'Private':
                     if newActor == 'Apolonia':
                         newActor = 'Apolonia Lapiedra'
