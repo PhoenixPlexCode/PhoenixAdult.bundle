@@ -18,7 +18,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for result in googleResults:
         pattern = re.compile(r'(?<=\dpp\/).*(?=\/)')
-        if pattern.match(result):
+        if pattern.search(result):
             sceneID = pattern.search(result).group(0)
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
 
