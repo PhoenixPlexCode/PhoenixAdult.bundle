@@ -113,7 +113,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img
+                img = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % img
 
             art.append(img)
 
