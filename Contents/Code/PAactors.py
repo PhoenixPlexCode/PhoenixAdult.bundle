@@ -89,6 +89,8 @@ class PhoenixActors:
                     newActor = 'Abella Danger'
                 elif newActor == 'Ashley Anderson':
                     newActor = 'Ashly Anderson'
+                elif newActor == 'Angelika Black':
+                    newActor = 'Black Angelika'
                 elif newActor == 'Bibi Jones' or newActor == 'Bibi Jones™':
                     newActor = 'Britney Beth'
                 elif newActor == 'Bridgette B.':
