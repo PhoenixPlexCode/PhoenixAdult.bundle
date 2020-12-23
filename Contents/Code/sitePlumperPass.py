@@ -11,14 +11,14 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(url)
     siteSearchResults = HTML.ElementFromString(req.text)
     for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//@href')[0]
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/%s' % searchResult.xpath('.//@href')[0]
 
         searchResults.append(sceneURL)
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for result in googleResults:
         pattern = re.compile(r'(?<=\dpp\/).*(?=\/)')
-        if pattern.match(pattern):
+        if pattern.match(result):
             sceneID = pattern.search(result).group(0)
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
 
@@ -29,22 +29,25 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
-        curID = PAutils.Encode(sceneURL)
-        date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
+        try:
+            titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
+            curID = PAutils.Encode(sceneURL)
+            date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
 
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
-        displayDate = releaseDate if date else ''
+            if date:
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            if searchDate and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+        except:
+            pass
 
     return results
 
