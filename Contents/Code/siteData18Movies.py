@@ -15,10 +15,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     splited = searchTitle.split(' ')
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
-        movieURL = '%s/movies/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
 
-        searchResults.append(movieURL)
+        if int(sceneID) > 100:
+            searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+            movieURL = '%s/movies/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+            searchResults.append(movieURL)
 
     encodedTitle = searchTitle.replace(' ', '+')
     searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
@@ -74,7 +75,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             try:
                 siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
             except:
-                siteName = ''
+                try:
+                    siteName = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+                except:
+                    siteName = ''
 
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
         curID = PAutils.Encode(movieURL)
@@ -134,7 +138,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
         try:
             studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
         except:
-            studio = ''
+            try:
+                studio = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+            except:
+                studio = ''
 
     if studio:
         metadata.studio = studio
