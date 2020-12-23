@@ -30,7 +30,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         detailsPageElements = HTML.ElementFromString(req.text)
 
         try:
-            titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
+            titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
             curID = PAutils.Encode(sceneURL)
             date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
 
@@ -60,7 +60,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="movie-desc"]')[0].text_content().strip()
