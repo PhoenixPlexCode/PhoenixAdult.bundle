@@ -17,9 +17,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for result in googleResults:
-        pattern = re.compile(r'(?<=\dpp\/).*(?=\/)')
-        if pattern.search(result):
-            sceneID = pattern.search(result).group(0)
+        pattern = re.search(r'(?<=\dpp\/).*(?=\/)', result)
+        if pattern:
+            sceneID = pattern.group(0)
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
 
             if ('content' in result) and sceneURL not in searchResults:
@@ -29,7 +29,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        try:
+        if ('content' in req.url):
             titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
             curID = PAutils.Encode(sceneURL)
             date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
@@ -46,8 +46,6 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
-        except:
-            pass
 
     return results
 
