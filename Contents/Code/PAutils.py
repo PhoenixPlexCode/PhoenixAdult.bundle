@@ -264,7 +264,7 @@ def parseWord(word, siteNum):
 
 
 def punctuation(word):
-    punctuation_exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'que', 'senor', 'senorita', 'thats']
+    punctuation_exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'que', 'senor', 'senorita', 'thats', 'gstring']
     punctuation_corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Qué', 'Señor', 'Señorita', 'That\'s', 'G-String']
 
     if word.lower() in punctuation_exceptions:

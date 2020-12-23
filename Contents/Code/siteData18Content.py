@@ -17,7 +17,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()
         sceneURL = '%s/content/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
-        searchResults.append(sceneURL)
+
+        if int(sceneID) > 100:
+            searchResults.append(sceneURL)
 
     encodedTitle = searchTitle.replace(' ', '+')
     searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
