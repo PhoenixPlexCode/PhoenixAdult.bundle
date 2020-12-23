@@ -110,6 +110,14 @@ def update(metadata, siteNum, movieGenres, movieActors):
         '//div[@class="movie-trailer"]//@src',
     ]
 
+    videoImage = detailsPageElements.xpath('//div[@class="movie-big"]//script')[0].text_content()
+    pattern = re.compile(r'(?<=image: ").*(?=")')
+    if pattern.search(videoImage):
+        imageID = pattern.search(videoImage).group(0)
+        img = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % imageID
+
+        art.append(img)
+
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
