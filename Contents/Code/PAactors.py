@@ -163,7 +163,7 @@ class PhoenixActors:
                     newActor = 'Kendra Lust'
                 elif newActor == 'Khloe Capri' or newActor == 'Chloe Capri':
                     newActor = 'Khloe Kapri'
-                elif newActor == 'Aurelly Rebel':
+                elif newActor == 'Aurelly Rebel' or newActor == 'Crystal Rush':
                     newActor = 'Kristall Rush'
                 elif newActor == 'Lara Craft':
                     newActor = 'Lora Craft'
