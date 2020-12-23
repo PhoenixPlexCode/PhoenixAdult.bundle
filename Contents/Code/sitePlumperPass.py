@@ -11,15 +11,15 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(url)
     siteSearchResults = HTML.ElementFromString(req.text)
     for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//@href')[0]
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/%s' % searchResult.xpath('.//@href')[0]
 
         searchResults.append(sceneURL)
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for result in googleResults:
-        pattern = re.compile(r'(?<=\dpp\/).*(?=\/)')
-        if pattern.match(pattern):
-            sceneID = pattern.search(result).group(0)
+        pattern = re.search(r'(?<=\dpp\/).*(?=\/)', result)
+        if pattern:
+            sceneID = pattern.group(0)
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
 
             if ('content' in result) and sceneURL not in searchResults:
@@ -29,22 +29,23 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
-        curID = PAutils.Encode(sceneURL)
-        date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
+        if ('content' in req.url):
+            titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
+            curID = PAutils.Encode(sceneURL)
+            date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
 
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
-        displayDate = releaseDate if date else ''
+            if date:
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            if searchDate and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -57,7 +58,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="movie-desc"]')[0].text_content().strip()
@@ -97,7 +98,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         for actorLink in actors:
             actorName = actorLink.xpath('.//@alt')[0].strip()
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.xpath('.//@src')[0].strip()
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % actorLink.xpath('.//@src')[0].strip()
 
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -107,10 +108,18 @@ def update(metadata, siteNum, movieGenres, movieActors):
         '//div[@class="movie-trailer"]//@src',
     ]
 
+    videoImage = detailsPageElements.xpath('//div[@class="movie-big"]//script')[0].text_content()
+    pattern = re.compile(r'(?<=image: ").*(?=")')
+    if pattern.search(videoImage):
+        imageID = pattern.search(videoImage).group(0)
+        img = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % imageID
+
+        art.append(img)
+
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img
+                img = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % img
 
             art.append(img)
 
