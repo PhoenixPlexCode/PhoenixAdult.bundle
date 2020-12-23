@@ -163,6 +163,8 @@ class PhoenixActors:
                     newActor = 'Kendra Lust'
                 elif newActor == 'Khloe Capri' or newActor == 'Chloe Capri':
                     newActor = 'Khloe Kapri'
+                elif newActor == 'Aurelly Rebel':
+                    newActor = 'Kristall Rush'
                 elif newActor == 'Lara Craft':
                     newActor = 'Lora Craft'
                 elif newActor == 'Lilly LaBeau' or newActor == 'Lilly Labuea' or newActor == 'Lily La Beau' or newActor == 'Lily Lebeau' or newActor == 'Lily Luvs':
@@ -2515,7 +2517,9 @@ class PhoenixActors:
                     if newActor == 'Nikki Sweet':
                         newActor = 'Niki Sweet'
                 elif metadata.studio == 'Teen Mega World':
-                    if newActor == 'Arianna':
+                    if newActor == 'Anna G':
+                        newActor = 'Kristall Rush'
+                    elif newActor == 'Arianna':
                         newActor = 'Angie Moon'
                     elif newActor == 'Gabi':
                         newActor = 'Silvia Jons'
