@@ -286,7 +286,9 @@ class PhoenixActors:
                     elif newActor == 'Katy E':
                         newActor = 'Katy Rose'
                 elif metadata.studio == 'CumLouder':
-                    if newActor == 'Scarlett':
+                    if newActor == 'Apolonia':
+                        newActor = 'Apolonia Lapiedra'
+                    elif newActor == 'Scarlett':
                         newActor = 'Scarlet Domingo'
                 elif metadata.studio == 'Deeper' or metadata.studio == 'Tushyraw' or metadata.studio == 'Tushy' or metadata.studio == 'Blacked' or metadata.studio == 'Blackedraw' or metadata.studio == 'Vixen':
                     if newActor == 'Vikalita':
