@@ -2521,6 +2521,8 @@ class PhoenixActors:
                         newActor = 'Kristall Rush'
                     elif newActor == 'Arianna':
                         newActor = 'Angie Moon'
+                    elif newActor == 'Lisa C':
+                        newActor = 'Lisa Luv'
                     elif newActor == 'Gabi':
                         newActor = 'Silvia Jons'
                 elif metadata.studio == 'Hegre':
