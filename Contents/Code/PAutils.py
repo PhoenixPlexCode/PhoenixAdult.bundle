@@ -219,9 +219,9 @@ def parseTitle(s, siteNum):
 
     output = ' '.join(final)
     output = re.sub(r'\b(?:\.)$', '', output)
-    output = re.sub(r'\.(?=([a-z]))', '. ', output)
-    output = re.sub(r'\s+([.,!\":])', '', output)
-    output = re.sub(r'(?<=!|:|\?|\.)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w)', lambda m: m.group(0) + ' ', output)
+    output = re.sub(r'\s+(?=[.,!\":])', '', output)
+    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
 
     return output
 
@@ -245,7 +245,11 @@ def parseWord(word, siteNum):
         nhword = firstword + '-'
 
         for hword in word_list[1:]:
-            nhword += parseWord(hword, siteNum)
+            if len(hword) > 1:
+                nhword += parseWord(hword, siteNum)
+            else:
+                nhword += hword.upper()
+
             if hword != word_list[-1]:
                 nhword += '-'
         word = nhword
@@ -260,10 +264,11 @@ def parseWord(word, siteNum):
         nhword = firstword + '\''
 
         for hword in word_list[1:]:
-            if len(hword) > 1:
+            if len(hword) > 2:
                 nhword += parseWord(hword, siteNum)
             else:
                 nhword += hword
+
             if hword != word_list[-1]:
                 nhword += '\''
         word = nhword
