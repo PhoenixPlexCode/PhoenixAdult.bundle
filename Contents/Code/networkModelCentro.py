@@ -32,7 +32,7 @@ def getJSONfromAPI(url):
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + 'videos/')
+    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/videos/')
     searchResults = getJSONfromAPI(PAsearchSites.getSearchSearchURL(siteNum) + apiurl + query)
 
     if searchResults:
@@ -139,6 +139,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
         baseactor = 'Vina Sky'
     elif siteNum == 1058:
         baseactor = 'Vicki Valkyrie'
+    elif siteNum == 1075:
+        baseactor = 'Dillion Harper'
     else:
         baseactor = ''
 
