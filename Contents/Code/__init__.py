@@ -918,7 +918,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 results = PAsiteList.siteSicflics.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # ModelCentro network
-            elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058:
+            elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075:
                 results = PAsiteList.networkModelCentro.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
             # Culioneros
@@ -1669,7 +1669,7 @@ class PhoenixAdultAgent(Agent.Movies):
             results = PAsiteList.siteSicflics.update(metadata, siteNum, movieGenres, movieActors)
 
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058:
+        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075:
             results = PAsiteList.networkModelCentro.update(metadata, siteNum, movieGenres, movieActors)
 
         # Culioneros
@@ -1708,7 +1708,7 @@ class PhoenixAdultAgent(Agent.Movies):
         elif siteNum == 1072:
             metadata = PAsiteList.sitePenthouseGold.update(metadata, siteNum, movieGenres, movieActors)
 
-        # Data18 Content
+        # Data18 Movies
         elif siteNum == 1073:
             metadata = PAsiteList.siteData18Movies.update(metadata, siteNum, movieGenres, movieActors)
 
