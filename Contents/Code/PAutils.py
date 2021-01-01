@@ -105,7 +105,12 @@ def HTTPRequest(url, method='GET', **kwargs):
         method = 'POST'
 
     Log('Requesting %s "%s"' % (method, url))
-    req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+
+    req = None
+    try:
+        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+    except:
+        req = FakeResponse(None, url, 418, None)
 
     req_bypass = None
     if not req.ok and bypass:
