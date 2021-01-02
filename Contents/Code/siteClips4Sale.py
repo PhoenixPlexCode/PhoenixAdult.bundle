@@ -257,6 +257,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     elif 'Bratty Ashley Sinclair and Friends' in tagline:
         movieActors.addActor('Ashley Sinclair', '')
 
+    # Bratty Bunny
+    elif 'Bratty Bunny' in tagline:
+        movieActors.addActor('Bratty Bunny', '')
     #  Bratty Foot Girls
     elif 'Bratty Foot Girls' in tagline:
         #  metadata match
@@ -679,7 +682,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     #  EMPRESS JENNIFER
     elif 'EMPRESS JENNIFER' in tagline:
-        movieActors.addActor('Empress Jennifer')
+        movieActors.addActor('Empress Jennifer', '')
 
     #  Eva de Vil
     elif 'Eva de Vil' in tagline:
@@ -1133,7 +1136,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             genreList.remove('rene')
 
     #  HUMILIATRIX CLIPSTORE
-    if 'HUMILIATRIX CLIPSTORE' in tagline:
+    elif 'HUMILIATRIX CLIPSTORE' in tagline:
         #  Genre list match
         if 'princess selena' in genreList:
             movieActors.addActor('Princess Selana', '')
@@ -1177,74 +1180,74 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if 'Pimpstress Sari' in metadata.title or 'Pimpstress Sari' in metadata.summary:
             movieActors.addActor('Pimpstress Sari', '')
 
-        #  Italian Empress Daria
-        elif 'Italian Empress Daria' in tagline:
-            movieActors.addActor('Empress Daria', '')
-            if 'daria' in genreList:
-                genreList.remove('daria')
+    #  Italian Empress Daria
+    elif 'Italian Empress Daria' in tagline:
+        movieActors.addActor('Empress Daria', '')
+        if 'daria' in genreList:
+            genreList.remove('daria')
 
-        #  Jasmine Mendez  LatinAss Locas
-        elif 'Jasmine Mendez  LatinAss Locas' in tagline:
-            movieActors.addActor('Jasmine Mendez', '')
+    #  Jasmine Mendez  LatinAss Locas
+    elif 'Jasmine Mendez  LatinAss Locas' in tagline:
+        movieActors.addActor('Jasmine Mendez', '')
 
-        #  Jerk Off Instructions
-        elif 'Jerk Off Instructions' in tagline:
-            #  Genre list match
-            if 'amai liu' in genreList:
-                movieActors.addActor('Amai Liu', '')
-                genreList.remove('amai liu')
-            if 'lacy lennon' in genreList:
-                movieActors.addActor('Lacy Lennon', '')
-                genreList.remove('lacy lennon')
-            if 'katie kush' in genreList:
-                movieActors.addActor('Katie Kush', '')
-                genreList.remove('katie kush')
-            if 'veronica valentine' in genreList:
-                movieActors.addActor('Veronica Valentine', '')
-                genreList.remove('veronica valentine')
-            if 'victoria voxxx' in genreList:
-                movieActors.addActor('Victoria Voxxx', '')
-                genreList.remove('victoria voxxx')
-            if 'licey sweet' in genreList:
-                movieActors.addActor('Licey Sweet', '')
-                genreList.remove('licey sweet')
-            if 'lily adams' in genreList:
-                movieActors.addActor('Lily Adams', '')
-                genreList.remove('lily adams')
-            if 'ryder skye' in genreList:
-                movieActors.addActor('Ryder Sky', '')
-                genreList.remove('ryder skye')
-            if 'violet starr' in genreList:
-                movieActors.addActor('Violet Starr', '')
-                genreList.remove('violet starr')
-            if 'kasey warner' in genreList:
-                movieActors.addActor('Kasey Warner', '')
-                genreList.remove('kasey warner')
-            if 'aiden ashley' in genreList:
-                movieActors.addActor('Aiden Ashley', '')
-                genreList.remove('aiden ashley')
-            if 'olivia glass' in genreList:
-                movieActors.addActor('Olivia Glass', '')
-                genreList.remove('olivia glass')
-            if 'carolina sweets' in genreList:
-                movieActors.addActor('Carolina Sweets', '')
-                genreList.remove('carolina sweets')
-            if 'jillian janson' in genreList:
-                movieActors.addActor('Jillian Janson', '')
-                genreList.remove('jillian janson')
-            if 'raven hart' in genreList:
-                movieActors.addActor('Raven Hart', '')
-                genreList.remove('raven hart')
-            if 'jayden cole' in genreList:
-                movieActors.addActor('Jayden Cole', '')
-                genreList.remove('jayden cole')
-            if 'anna graham' in genreList:
-                movieActors.addActor('Anna Graham', '')
-                genreList.remove('anna graham')
+    #  Jerk Off Instructions
+    elif 'Jerk Off Instructions' in tagline:
+        #  Genre list match
+        if 'amai liu' in genreList:
+            movieActors.addActor('Amai Liu', '')
+            genreList.remove('amai liu')
+        if 'lacy lennon' in genreList:
+            movieActors.addActor('Lacy Lennon', '')
+            genreList.remove('lacy lennon')
+        if 'katie kush' in genreList:
+            movieActors.addActor('Katie Kush', '')
+            genreList.remove('katie kush')
+        if 'veronica valentine' in genreList:
+            movieActors.addActor('Veronica Valentine', '')
+            genreList.remove('veronica valentine')
+        if 'victoria voxxx' in genreList:
+            movieActors.addActor('Victoria Voxxx', '')
+            genreList.remove('victoria voxxx')
+        if 'licey sweet' in genreList:
+            movieActors.addActor('Licey Sweet', '')
+            genreList.remove('licey sweet')
+        if 'lily adams' in genreList:
+            movieActors.addActor('Lily Adams', '')
+            genreList.remove('lily adams')
+        if 'ryder skye' in genreList:
+            movieActors.addActor('Ryder Sky', '')
+            genreList.remove('ryder skye')
+        if 'violet starr' in genreList:
+            movieActors.addActor('Violet Starr', '')
+            genreList.remove('violet starr')
+        if 'kasey warner' in genreList:
+            movieActors.addActor('Kasey Warner', '')
+            genreList.remove('kasey warner')
+        if 'aiden ashley' in genreList:
+            movieActors.addActor('Aiden Ashley', '')
+            genreList.remove('aiden ashley')
+        if 'olivia glass' in genreList:
+            movieActors.addActor('Olivia Glass', '')
+            genreList.remove('olivia glass')
+        if 'carolina sweets' in genreList:
+            movieActors.addActor('Carolina Sweets', '')
+            genreList.remove('carolina sweets')
+        if 'jillian janson' in genreList:
+            movieActors.addActor('Jillian Janson', '')
+            genreList.remove('jillian janson')
+        if 'raven hart' in genreList:
+            movieActors.addActor('Raven Hart', '')
+            genreList.remove('raven hart')
+        if 'jayden cole' in genreList:
+            movieActors.addActor('Jayden Cole', '')
+            genreList.remove('jayden cole')
+        if 'anna graham' in genreList:
+            movieActors.addActor('Anna Graham', '')
+            genreList.remove('anna graham')
 
-                #  Metadata match
-            if 'Anna' in metadata.summary:
-                movieActors.addActor('Anna Graham', '')
+        #  Metadata match
+        if 'Anna' in metadata.summary:
+            movieActors.addActor('Anna Graham', '')
 
     #  Jerk4PrincessUK
     elif 'Jerk4PrincessUK' in tagline:
@@ -1417,7 +1420,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             movieActors.addActor('Violet Starr', '')
             genreList.remove('violet starr')
         if 'laz fyre' in genreList:
-            movieActors.addActor('Laz Fyre')
+            movieActors.addActor('Laz Fyre', '')
             genreList.remove('laz fyre')
         if 'mandy muse' in genreList:
             movieActors.addActor('Mandy Muse', '')
@@ -1474,16 +1477,16 @@ def update(metadata, siteNum, movieGenres, movieActors):
     #  Luna Sapphire
     elif 'Luna Sapphire' in tagline:
         movieActors.addActor('Luna Sapphire', '')
-    if 'luna sapphire' in genreList:
-        genreList.remove('luna sapphire')
-    if 'goddess luna' in genreList:
-        genreList.remove('goddess luna')
-    if 'goddess ellie' in genreList:
-        movieActors.addActor('Ellie Boulder', '')
-        genreList.remove('goddess ellie')
-    if 'ellie boulder' in genreList:
-        movieActors.addActor('Ellie Boulder', '')
-        genreList.remove('ellie boulder')
+        if 'luna sapphire' in genreList:
+            genreList.remove('luna sapphire')
+        if 'goddess luna' in genreList:
+            genreList.remove('goddess luna')
+        if 'goddess ellie' in genreList:
+            movieActors.addActor('Ellie Boulder', '')
+            genreList.remove('goddess ellie')
+        if 'ellie boulder' in genreList:
+            movieActors.addActor('Ellie Boulder', '')
+            genreList.remove('ellie boulder')
 
     #  Majesty Natalie
     elif 'Majesty Natalie' in tagline:
@@ -1855,7 +1858,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     #  Mistress Chantel
     elif 'Mistress Chantel' in tagline:
         movieActors.addActor('Mistress Chantel', '')
-
+    
+    # Mistress Ezada Sinn
     elif 'Mistress Ezada Sinn' in tagline:
         movieActors.addActor('Ezada Sinn', '')
         if 'ezada' in genreList:
@@ -2033,7 +2037,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     #  Obey Miss Tiffany
     elif 'Obey Miss Tiffany' in tagline:
-        movieActors.addActor('Miss Tiffany')
+        movieActors.addActor('Miss Tiffany', '')
 
     #  Play With Amai
     elif 'Play With Amai' in tagline:
