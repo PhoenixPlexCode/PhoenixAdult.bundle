@@ -37,7 +37,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     if token:
         searchResults = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), searchTitle, token)
         for searchResult in searchResults:
-            if searchResult['resourceType'] == 'confessions':
+            if searchResult['resourceType'] == 'movies':
                 curID = searchResult['slug']
                 titleNoFormatting = searchResult['title']
 
