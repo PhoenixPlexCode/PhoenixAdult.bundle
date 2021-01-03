@@ -125,6 +125,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - KatieBanks
   - MonroeLee
   - TaliaShepard
++ #### Black PayBack | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Black Valley Girls | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
 + #### Blowpass | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - 1000 Facials
@@ -303,6 +304,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Evolved Fights Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Evolved Fights
   - Evolved Fights Lesbian Edition
++ #### Explicite Art | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Actor only**
 + #### ExploitedX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Backroom Casting Couch
   - Black Ambush
