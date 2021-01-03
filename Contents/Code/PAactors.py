@@ -69,6 +69,8 @@ class PhoenixActors:
                     newActor = 'Andreina Deluxe'
                 elif newActor == 'Angela Piaf' or newActor == 'Angel Piaf':
                     newActor = 'Angel Piaff'
+                elif newActor == 'Angelina Mori':
+                    newActor = 'Angie Moon'
                 elif newActor == 'Ani Black Fox' or newActor == 'Ani Black':
                     newActor = 'Ani Blackfox'
                 elif newActor == 'Anikka Albrite':
@@ -475,7 +477,7 @@ class PhoenixActors:
                     elif newActor == 'Angel B.':
                         newActor = 'Angel Blade'
                     elif newActor == 'Anita B.':
-                        newActor = 'Anita Bellini'
+                        newActor = 'Anita Bellini Berlusconi'
                     elif newActor == 'Anna P.':
                         newActor = 'Cayenne Klein'
                     elif newActor == 'Anneli':
