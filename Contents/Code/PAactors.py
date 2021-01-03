@@ -231,6 +231,8 @@ class PhoenixActors:
                     newActor = 'Sybil A'
                 elif newActor == 'Taissia' or newActor == 'Taisia' or newActor == 'Taisia Shanti' or newActor == 'Taissia Shanty' or newActor == 'Taisha':
                     newActor = 'Taissia Shanti'
+                elif newActor == 'Lucianna Karel':
+                    newActor = 'Timea Bella'
                 elif newActor == 'Tiny Teen' or newActor == 'Tieny Mieny' or newActor == 'Lady Jay' or newActor == 'Tiny Teen / Eva Elfie':
                     newActor = 'Eva Elfie'
                 elif newActor == 'Veronica Vega':
