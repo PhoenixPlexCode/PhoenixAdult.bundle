@@ -965,6 +965,10 @@ class PhoenixAdultAgent(Agent.Movies):
             elif siteNum == 1074:
                 results = PAsiteList.siteWUNF.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
+            # SexMex
+            elif siteNum == 1076:
+                metadata = PAsiteList.siteSexMex.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -1715,6 +1719,10 @@ class PhoenixAdultAgent(Agent.Movies):
         # WakeUpNFuck
         elif siteNum == 1074:
             metadata = PAsiteList.siteWUNF.update(metadata, siteNum, movieGenres, movieActors)
+
+        # SexMex
+        elif siteNum == 1076:
+            metadata = PAsiteList.siteSexMex.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         # Cleanup Genres and Add
         Log('Genres')

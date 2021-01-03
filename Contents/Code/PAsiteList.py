@@ -141,8 +141,9 @@ import siteData18Content
 import sitePenthouseGold
 import siteData18Movies
 import siteWUNF
+import siteSexMex
 
-searchSites = [None] * 1076
+searchSites = [None] * 1077
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1220,6 +1221,7 @@ searchSites[1072] = ('Penthouse Gold', 'https://penthousegold.com', 'https://pen
 searchSites[1073] = ('Data18 Movies', 'http://www.data18.com', 'http://www.data18.com/search/?k=')
 searchSites[1074] = ('WakeUpNFuck', 'https://www.wakeupnfuck.com', 'https://www.wakeupnfuck.com/search?query=')
 searchSites[1075] = ('Dillion Nation', 'https://dillionation.com', 'https://dillionation.com/sapi/')
+searchSites[1076] = ('SexMex', 'https://sexmex.xxx', 'https://sexmex.xxx/tour/search.php?query=')
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
