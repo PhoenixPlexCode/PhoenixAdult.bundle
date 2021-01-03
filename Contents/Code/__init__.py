@@ -1730,7 +1730,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # SexMex
         elif siteNum == 1076:
-            metadata = PAsiteList.siteSexMex.search(metadata, siteNum, movieGenres, movieActors)
+            metadata = PAsiteList.siteSexMex.update(metadata, siteNum, movieGenres, movieActors)
 
         # Explicite Art
         elif siteNum == 1077:
