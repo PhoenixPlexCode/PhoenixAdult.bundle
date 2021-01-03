@@ -303,6 +303,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Evolved Fights Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Evolved Fights
   - Evolved Fights Lesbian Edition
++ #### Explicite Art | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Actor only**
 + #### ExploitedX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Backroom Casting Couch
   - Black Ambush

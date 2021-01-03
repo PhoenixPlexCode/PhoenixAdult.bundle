@@ -969,6 +969,10 @@ class PhoenixAdultAgent(Agent.Movies):
             elif siteNum == 1076:
                 metadata = PAsiteList.siteSexMex.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
+            # Explicite Art
+            elif siteNum == 1077:
+                metadata = PAsiteList.siteExpliciteArt.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
@@ -1722,7 +1726,11 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # SexMex
         elif siteNum == 1076:
-            metadata = PAsiteList.siteSexMex.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+            metadata = PAsiteList.siteSexMex.search(metadata, siteNum, movieGenres, movieActors)
+
+        # Explicite Art
+        elif siteNum == 1077:
+            metadata = PAsiteList.siteExpliciteArt.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log('Genres')
