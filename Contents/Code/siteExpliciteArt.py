@@ -41,13 +41,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.studio = tagline
     metadata.collections.add(tagline)
 
-    # Release Date
-    date = ''
-    if date:
-        date_object = parse(sceneDate)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-
     # Genres
     movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//span[@class="tags"]/a'):
