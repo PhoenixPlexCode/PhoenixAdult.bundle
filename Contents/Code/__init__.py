@@ -60,16 +60,18 @@ class PhoenixAdultAgent(Agent.Movies):
         siteNum = searchSettings[0]
         searchTitle = searchSettings[1]
         searchDate = searchSettings[2]
-        Log('Search Title: %s' % searchTitle)
-        if searchDate:
-            Log('Search Date: %s' % searchDate)
 
-        encodedTitle = urllib.quote(searchTitle)
-        Log(encodedTitle)
+        if siteNum is not None:
+            Log('Search Title: %s' % searchTitle)
+            if searchDate:
+                Log('Search Date: %s' % searchDate)
 
-        provider = PAsiteList.getProviderFromSiteNum(siteNum)
-        if provider is not None:
-            provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+            encodedTitle = urllib.quote(searchTitle)
+            Log(encodedTitle)
+
+            provider = PAsiteList.getProviderFromSiteNum(siteNum)
+            if provider is not None:
+                provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         results.Sort('score', descending=True)
 
