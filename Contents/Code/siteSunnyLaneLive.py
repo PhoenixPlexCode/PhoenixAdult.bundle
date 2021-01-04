@@ -11,9 +11,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()
 
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+    searchResults = []
+    if sceneID:
+        directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+        searchResults.append(directURL)
 
-    searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
         sceneURL = re.sub(r'www\.', '', sceneURL)
@@ -73,7 +75,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//h4')[0].text_content().split(',')
-    Log(genres)
     for genreLink in genres:
         genreName = genreLink.strip()
 
