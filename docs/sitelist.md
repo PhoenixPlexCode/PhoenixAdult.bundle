@@ -932,7 +932,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Tushy
   - TushyRaw
   - Vixen
-+ #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#exact-match)*
++ #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
