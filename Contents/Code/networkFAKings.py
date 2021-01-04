@@ -110,7 +110,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         req = PAutils.HTTPRequest(modelURL)
         actorPageElements = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPageElements.xpath('//div[@class="zona-imagen"]//img[@class]/@src')[0].strip()
-      
+
         if not img:
             for scene in actorPageElements.xpath('//div[@class="zona-listado2"]'):
                 if sceneURL == scene.xpath('.//@href')[0]:
