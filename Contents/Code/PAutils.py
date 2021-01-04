@@ -237,7 +237,8 @@ def parseWord(word, siteNum):
     letter_exceptions = ['A', 'V', 'Y']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
-    cleanWord = re.sub(r'\W', '', word)
+    pattern = re.compile(r'\W')
+    cleanWord = re.sub(pattern, '', word)
 
     if '-' in word and '--' not in word:
         word_list = re.split('-', word)
@@ -269,7 +270,7 @@ def parseWord(word, siteNum):
         nhword = firstword + '\''
 
         for hword in word_list[1:]:
-            if len(hword) > 2:
+            if len(re.sub(pattern, '', hword)) > 2:
                 nhword += parseWord(hword, siteNum)
             else:
                 nhword += hword
@@ -294,12 +295,12 @@ def parseWord(word, siteNum):
 
 
 def manualWordFix(word):
-    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'que', 'senor', 'senorita', 'thats', 'gstring', 'milfs']
-    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Qué', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs']
+    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly']
+    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly']
 
     if word.lower() in exceptions:
         for correction in corrections:
-            if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('é', 'e').replace('ñ', 'n'):
+            if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('ñ', 'n'):
                 return correction
 
     return word

@@ -144,8 +144,10 @@ import siteWUNF
 import siteSexMex
 import siteExpliciteArt
 import siteBlackPayBack
+import siteSunnyLaneLive
+import networkFAKings
 
-searchSites = [None] * 1079
+searchSites = [None] * 1153
 
 searchSites[0] = ('BlackedRaw', 'https://www.blackedraw.com', 'https://www.blackedraw.com/api')
 searchSites[1] = ('Blacked', 'https://www.blacked.com', 'https://www.blacked.com/api')
@@ -1226,6 +1228,80 @@ searchSites[1075] = ('Dillion Nation', 'https://dillionation.com', 'https://dill
 searchSites[1076] = ('SexMex', 'https://sexmex.xxx', 'https://sexmex.xxx/tour/search.php?query=')
 searchSites[1077] = ('Explicite Art', 'https://www.explicite-art.com', 'https://www.explicite-art.com/visitor/search/videos/')
 searchSites[1078] = ('Black PayBack', 'https://blackpayback.com', 'https://blackpayback.com/tour/trailers/')
+searchSites[1079] = ('Sunny Lane Live', 'https://sunnylanelive.com', 'https://sunnylanelive.com/videos/')
+searchSites[1080] = ('FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1081] = ('Newbies... Or So They Say ;)', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1082] = ('Quarantine Stories', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1083] = ('Horsedicks', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1084] = ('FREE Pussy Day', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1085] = ('Parejas.NET', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1086] = ('Curvy Girls', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1087] = ('Next Door Girl', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1088] = ('FAKings PornStars', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1089] = ('Busted!', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1090] = ('Fuck Them!', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1091] = ('My First Anal', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1092] = ('MILF Club', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1093] = ('Arnaldo Series', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1094] = ('Free Couples', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1095] = ('FAKings Castings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1096] = ('First FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1097] = ('Talk To Them', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1098] = ('I Sell My Girlfriend', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1099] = ('NERD BUSTER!', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1100] = ('Swingers Life', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1101] = ('Trans FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1102] = ('Very Voyeur', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1103] = ('FAKings Academy', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1104] = ('The Naughty Bet', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1105] = ('Ainara\'s Diary', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1106] = ('FAKins Wild Party', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1107] = ('My First DP', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1108] = ('Innocent 18', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1109] = ('Fuck Me, Fool!', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1110] = ('Perverting Couples', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1111] = ('Big Rubber Cocks', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1112] = ('Virtual Reality', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1113] = ('The Anatomical Sulphate', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1114] = ('Exchange Student Girls', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1115] = ('I\'m a Webcam Girl.', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1116] = ('Sick Videos', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1117] = ('FAKings Slutwalk', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1118] = ('Blowjob Lessons', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1119] = ('Behind FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1120] = ('Novatas... O Eso Dicen ;)', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1121] = ('Historias de Cuarentena', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1122] = ('Rabos de Caballo', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1123] = ('El Día del Coño GRATIS', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1124] = ('Chicas Curvis', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1125] = ('Es Tu Vecina', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1126] = ('Cazadas', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1127] = ('Follatelos', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1128] = ('Mi Primer Anal', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1129] = ('Club Maduras', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1130] = ('Parejitas Libres', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1131] = ('Castings de FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1132] = ('Hable Con Ellas', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1133] = ('Vendo a mi Novia', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1134] = ('Los Cazatolas', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1135] = ('Vidas Liberales', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1136] = ('Muy Voyeur', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1137] = ('La Escuela de FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1138] = ('Porno Dolares', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1139] = ('Diario de Ainara', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1140] = ('Fiestas FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1141] = ('Mi Primera DP', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1142] = ('Inocentes 18', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1143] = ('Follame Tonto', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1144] = ('Pervirtiendo Parejas', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1145] = ('Pollazas de Goma', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1146] = ('FAKingsVR', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1147] = ('El Sulfato Anatómico', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1148] = ('Alumnas De Intercambio', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1149] = ('Soy Webcamer', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1150] = ('Videos Enfermos', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1151] = ('De Paseo con FAKings', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
+searchSites[1152] = ('Clases de Mamadas', 'https://fakings.com/', 'https://www.fakings.com/en/buscar/')
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
@@ -2371,5 +2447,13 @@ def getProviderFromSiteNum(siteNum):
         # Black PayBack
         elif siteNum == 1078:
             provider = siteBlackPayBack
+
+        # Sunny Lane Live
+        elif siteNum == 1079:
+            provider = siteSunnyLaneLive
+
+        # FAKings
+        elif (1080 <= siteNum <= 1152):
+            provider = networkFAKings
 
     return provider
