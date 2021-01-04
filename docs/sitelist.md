@@ -321,6 +321,46 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Female Agent
   - Female Fake Taxi
   - Public Agent
++ #### FAKings | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Ainara's Diary | Diario de Ainara
+  - Arnaldo Series
+  - Behind FAKings
+  - Big Rubber Cocks | Pollazas de Goma
+  - Blowjob Lessons | Clases de Mamadas
+  - Busted | Cazadas
+  - Curvy Girls | Chicas Curvis
+  - Exchange Student Girls | Alumnas De Intercambio
+  - FAKings Academy | La Escuela de FAKings
+  - FAKings Castings | Castings de FAKings
+  - FAKings PornStars
+  - FAKings Slutwalk | De Paseo con FAKings
+  - FAKins Wild Party | Fiestas FAKings
+  - First FAKings
+  - Free Couples | Parejitas Libres
+  - FREE Pussy Day | El Día del Coño GRATIS
+  - Fuck Me Fool | Follame Tonto
+  - Fuck Them | Follatelos
+  - Horsedicks | Rabos de Caballo
+  - I'm a Webcam Girl | Soy Webcamer
+  - I Sell My Girlfriend | Vendo a mi Novia
+  - Innocent 18 | Inocentes 18
+  - MILF Club | Club Maduras
+  - My First Anal | Mi Primer Anal
+  - My First DP | Mi Primera DP
+  - NERD BUSTER | Los Cazatolas
+  - Newbies Or So They Say | Novatas O Eso Dicen
+  - Next Door Girl | Es Tu Vecina
+  - Parejas&#46;NET
+  - Perverting Couples | Pervirtiendo Parejas
+  - Quarantine Stories | Historias de Cuarentena
+  - Sick Videos | Videos Enfermos
+  - Swingers Life | Vidas Liberales
+  - Talk To Them | Hable Con Ellas
+  - The Anatomical Sulphate | El Sulfato Anatómico
+  - The Naughty Bet | Porno Dolares
+  - Trans FAKings
+  - Very Voyeur | Muy Voyeur
+  - Virtual Reality | FAKingsVR
 + #### FameDigital | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - DevilsFilm
   - PeterNorth
@@ -892,6 +932,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Tushy
   - TushyRaw
   - Vixen
++ #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
