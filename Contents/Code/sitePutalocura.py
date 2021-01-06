@@ -98,7 +98,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         elif metadata.title == 'AFRICAT' or 'africa' in actorName.lower():
             actorName = 'Africat'
         elif metadata.title == 'AFRODITA':
-            actorName = 'Afrodita'    
+            actorName = 'Afrodita'
         elif metadata.title == 'MAMADA ARGENTINA':
             actorName = 'Alejandra Argentina'
         elif actorName == 'Alika':
