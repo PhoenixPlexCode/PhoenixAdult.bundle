@@ -56,7 +56,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="description clearfix"]')[0].text_content().split(':')[-1].strip().replace('\n', ' ')
-    Log(detailsPageElements.xpath('//div[@class="description clearfix"]')[0].text_content().split(':')[-1].strip().replace('\n', ''))
 
     # Tagline and Collection(s)
     metadata.collections.clear()
