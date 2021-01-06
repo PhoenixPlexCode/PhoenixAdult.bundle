@@ -147,6 +147,7 @@ import siteBlackPayBack
 import siteSunnyLaneLive
 import networkFAKings
 import networkBangBrosOther
+import sitePutalocura
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),

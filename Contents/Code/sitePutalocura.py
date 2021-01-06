@@ -10,16 +10,21 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum, lang='enes')
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('index.php/', '')
+        sceneURL = sceneURL.replace('es/', '')
         if '/tags/' not in sceneURL and '/actr' not in sceneURL and '?pag' not in sceneURL and '/xvideos' not in sceneURL and '/tag/' not in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
+            if '/en/' in sceneURL:
+                searchResults.append(sceneURL.replace('en/', ''))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
         if '/en/' in sceneURL:
+            language = 'English'
             titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip(), siteNum)
         else:
+            language = 'Español'
             titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip()
 
         curID = PAutils.Encode(sceneURL)
@@ -36,7 +41,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         else:
             score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s {%s} [%s] %s' % (titleNoFormatting, language, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -73,12 +78,35 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     if '/en/' in sceneURL:
-        actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' and ')
+        if '&' in metadata.title:
+            actors = metadata.title.split('&')
+        else:
+            actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' and ')
     else:
-        actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' y ')
+        if '&' in metadata.title:
+            actors = metadata.title.split('&')
+        else:
+            actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' y ')
 
     for actorLink in actors:
         actorName = actorLink.strip()
+
+        if metadata.title == 'Agatha':
+            actorName = 'Agatha'
+        elif metadata.title == 'TINA FIRE':
+            actorName = 'Tina Fire'
+        elif metadata.title == 'AFRICAT' or 'africa' in actorName.lower():
+            actorName = 'Africat'
+        elif metadata.title == 'AFRODITA':
+            actorName = 'Afrodita'
+        elif metadata.title == 'MAMADA ARGENTINA':
+            actorName = 'Alejandra Argentina'
+        elif actorName == 'Alika':
+            actorName = 'Alyka'
+        elif metadata.title == 'AMAYA':
+            actorName = 'Amaya'
+        elif metadata.title == 'AMBER':
+            actorName = 'Amber'
 
         modelURL = '%s/actrices/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorName[0].lower())
         req = PAutils.HTTPRequest(modelURL)
