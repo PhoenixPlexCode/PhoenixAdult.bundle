@@ -138,7 +138,7 @@ def HTTPRequest(url, method='GET', **kwargs):
 
 def getFromGoogleSearch(searchText, site='', **kwargs):
     stop = kwargs.pop('stop', 10)
-    lang = kwargs.pop('lang', {})
+    lang = kwargs.pop('lang', 'en')
 
     if isinstance(site, int):
         site = PAsearchSites.getSearchBaseURL(site).split('://')[1].lower()
@@ -151,7 +151,7 @@ def getFromGoogleSearch(searchText, site='', **kwargs):
 
     googleResults = []
     try:
-        googleResults = list(googlesearch.search(searchTerm, stop=stop, user_agent=getUserAgent()))
+        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent()))
     except:
         Log('Google Search Error')
         pass
