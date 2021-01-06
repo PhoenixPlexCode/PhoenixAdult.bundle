@@ -76,10 +76,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' and ')
     else:
         actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' y ')
-    
+
     for actorLink in actors:
         actorName = actorLink.strip()
-        
+
         modelURL = '%s/actrices/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorName[0].lower())
         req = PAutils.HTTPRequest(modelURL)
         modelPageElements = HTML.ElementFromString(req.text)
@@ -99,7 +99,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     posterImage = re.search(r'(?<=posterImage:\s").*(?=")', img)
     if posterImage:
         img = posterImage.group(0)
-    
+
         art.append(img)
 
     Log('Artwork found: %d' % len(art))
