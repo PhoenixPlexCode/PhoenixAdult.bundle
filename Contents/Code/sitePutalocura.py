@@ -78,12 +78,35 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     if '/en/' in sceneURL:
-        actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' and ')
+        if '&' in metadata.title:
+            actors = metadata.title.split('&')
+        else:
+            actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' and ')
     else:
-        actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' y ')
+        if '&' in metadata.title:
+            actors = metadata.title.split('&')
+        else:
+            actors = detailsPageElements.xpath('//span[@class="site-name"]')[0].text_content().split(' y ')
 
     for actorLink in actors:
         actorName = actorLink.strip()
+
+        if metadata.title == 'Agatha':
+            actorName = 'Agatha'
+        elif metadata.title == 'TINA FIRE':
+            actorName = 'Tina Fire'
+        elif metadata.title == 'AFRICAT' or 'africa' in actorName.lower():
+            actorName = 'Africat'
+        elif metadata.title == 'AFRODITA':
+            actorName = 'Afrodita'    
+        elif metadata.title == 'MAMADA ARGENTINA':
+            actorName = 'Alejandra Argentina'
+        elif actorName == 'Alika':
+            actorName = 'Alyka'
+        elif metadata.title == 'AMAYA':
+            actorName = 'Amaya'
+        elif metadata.title == 'AMBER':
+            actorName = 'Amber'
 
         modelURL = '%s/actrices/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorName[0].lower())
         req = PAutils.HTTPRequest(modelURL)
