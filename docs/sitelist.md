@@ -107,6 +107,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Street Ranger
   - Tugjobs
   - Working Latinas
++ #### Other BangBros Sites | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
+  - Black Patrol
+  - XXXPawn
 + #### Bang! | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### BBC Paradise | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### BellaPass | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
@@ -834,6 +837,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PureCFNM
 + #### PureTaboo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PurgatoryX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Putalocura | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### QueenSnake | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### QueenSect | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### Reality Kings Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
