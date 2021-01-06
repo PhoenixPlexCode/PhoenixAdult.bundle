@@ -10,16 +10,21 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum, lang='enes')
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('index.php/', '')
+        sceneURL = sceneURL.replace('es/', '')
         if '/tags/' not in sceneURL and '/actr' not in sceneURL and '?pag' not in sceneURL and '/xvideos' not in sceneURL and '/tag/' not in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
+            if '/en/' in sceneURL:
+                searchResults.append(sceneURL.replace('en/', ''))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
         if '/en/' in sceneURL:
+            language = 'English'
             titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip(), siteNum)
         else:
+            language = 'Español'
             titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip()
 
         curID = PAutils.Encode(sceneURL)
@@ -36,7 +41,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         else:
             score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s {%s} [%s] %s' % (titleNoFormatting, language, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
