@@ -1,6 +1,6 @@
 import siteNaughtyAmerica
 import siteXart
-import siteBangBros
+import networkBangBros
 import sitePorndoePremium
 import siteLegalPorno
 import siteGloryHoleSecrets
@@ -146,6 +146,7 @@ import siteExpliciteArt
 import siteBlackPayBack
 import siteSunnyLaneLive
 import networkFAKings
+import networkBangBrosOther
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1301,6 +1302,9 @@ searchSites = {
     1150: ('Videos Enfermos', 'https://www.fakings.com', '/en/buscar/'),
     1151: ('De Paseo con FAKings', 'https://www.fakings.com', '/en/buscar/'),
     1152: ('Clases de Mamadas', 'https://www.fakings.com', '/en/buscar/'),
+    1153: ('XXXPawn', 'http://xxxpawn.com', '/'),
+    1154: ('Black Patrol', 'http://blackpatrol.com', '/'),
+    1155: ('Putalocura', 'https://www.putalocura.com', '/buscar?q='),
 }
 
 abbreviations = (
@@ -1690,7 +1694,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Bang Bros
         elif (83 <= siteNum <= 135):
-            provider = siteBangBros
+            provider = networkBangBros
 
         # Tushy
         elif siteNum == 136:
@@ -2455,5 +2459,13 @@ def getProviderFromSiteNum(siteNum):
         # FAKings
         elif (1080 <= siteNum <= 1152):
             provider = networkFAKings
+
+        # Other BangBros Sites
+        elif (1153 <= siteNum <= 1154):
+            provider = networkBangBrosOther
+
+        # Putalocura
+        elif siteNum == 1155:
+            provider = sitePutalocura
 
     return provider
