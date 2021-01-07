@@ -9,24 +9,39 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        if 'com/video' in sceneURL and sceneURL not in searchResults:
+        sceneURL = sceneURL.split('?')[0]
+        if ('com/video' in sceneURL or 'com/player' in sceneURL) and 'mobile' not in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
-        curID = PAutils.Encode(sceneURL)
+        try:
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//span[@class="vdetitle"] | //h1')[0].text_content().strip(), siteNum)
+            curID = PAutils.Encode(sceneURL)
 
-        subSite = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+            try:
+                date = detailsPageElements.xpath('//span[@class="vdedate"]')[0].strip()
+            except:
+                date = ''
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            if date:
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            displayDate = releaseDate if date else ''
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [BangBros/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+            subSite = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
+
+            if searchDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, displayDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
+        except:
+            pass
 
     return results
 
@@ -34,24 +49,30 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-
+    sceneDate  = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//span[@class="vdetitle"] | //h1')[0].text_content().strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[@class="videoDetail"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//span[@class="vdtx"] | //p[@class="videoDetail"]')[0].text_content().strip().replace('\n', '')
 
     # Studio
     metadata.studio = 'BangBros'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+    tagline = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
+
+    # Release Date
+    if sceneDate:
+        date_object = parse(sceneDate)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
@@ -68,9 +89,17 @@ def update(metadata, siteNum, movieGenres, movieActors):
         '//div[@class="hideWhilePlaying"]/img/@src',
     ]
 
+    if tagline == 'Mia Khalifa':
+        movieActors.addActor('Mia Khalifa', '')
+        shootId = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('com/')[-1].split('/')[0].strip()
+        
+        art.append('http://images.miakhalifa.com/shoots/%s/members/626x420.jpg' % shootId)
+
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             img = re.sub(r'////', 'http://', img)
+            if 'http' not in img:
+                img = 'http:' + img
 
             art.append(img)
 
