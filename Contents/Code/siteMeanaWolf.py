@@ -14,15 +14,17 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, img), name='%s [Meana Wolf]' % titleNoFormatting, score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, img), name='%s [Meana Wolf]' % titleNoFormatting, score=score, lang=lang))
 
     return results
 
 
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = metadata.id.split('|')
-    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/' + metadata_id[0]
-    scenePoster = metadata_id[2]
+    sceneURL = PAutils.Decode(metadata_id[0])
+    scenePoster = PAutils.Decode(metadata_id[2])
+    if 'http' not in scenePoster:
+        scenePoster = PAsearchSites.getSearchSiteName(siteNum) + scenePoster
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
