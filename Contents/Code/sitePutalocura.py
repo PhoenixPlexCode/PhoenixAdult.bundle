@@ -20,28 +20,31 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        if '/en/' in sceneURL:
-            language = 'English'
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip(), siteNum)
-        else:
-            language = 'Español'
-            titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip()
+        try:
+            if '/en/' in sceneURL:
+                language = 'English'
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip(), siteNum)
+            else:
+                language = 'Español'
+                titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[0].split('-')[0].strip()
 
-        curID = PAutils.Encode(sceneURL)
+            curID = PAutils.Encode(sceneURL)
 
-        date = detailsPageElements.xpath('//div[@class="released-views"]/span')[0].text_content().strip()
-        if date:
-            releaseDate = datetime.strptime(date, '%d/%m/%Y').strftime('%Y-%m-%d')
-        else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
-        displayDate = releaseDate if date else ''
+            date = detailsPageElements.xpath('//div[@class="released-views"]/span')[0].text_content().strip()
+            if date:
+                releaseDate = datetime.strptime(date, '%d/%m/%Y').strftime('%Y-%m-%d')
+            else:
+                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            if searchDate and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s {%s} [%s] %s' % (titleNoFormatting, language, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s {%s} [%s] %s' % (titleNoFormatting, language, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+        except:
+            pass
 
     return results
 
@@ -91,22 +94,20 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for actorLink in actors:
         actorName = actorLink.strip()
 
-        if metadata.title == 'Agatha':
-            actorName = 'Agatha'
-        elif metadata.title == 'TINA FIRE':
-            actorName = 'Tina Fire'
-        elif metadata.title == 'AFRICAT' or 'africa' in actorName.lower():
+        modelURL = '%s/actrices/%s' % (PAsearchSites.getSearchBaseURL(siteNum), metadata.title[0].lower())
+        req = PAutils.HTTPRequest(modelURL)
+        modelPageElements = HTML.ElementFromString(req.text)
+        for model in modelPageElements.xpath('//div[@class="c-boxlist__box--image"]//parent::a'):
+            if model.text_content().strip().lower() == metadata.title.lower():
+                actorName = metadata.title
+                break
+
+        if 'africa' in actorName.lower():
             actorName = 'Africat'
-        elif metadata.title == 'AFRODITA':
-            actorName = 'Afrodita'
         elif metadata.title == 'MAMADA ARGENTINA':
             actorName = 'Alejandra Argentina'
         elif actorName == 'Alika':
             actorName = 'Alyka'
-        elif metadata.title == 'AMAYA':
-            actorName = 'Amaya'
-        elif metadata.title == 'AMBER':
-            actorName = 'Amber'
 
         modelURL = '%s/actrices/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorName[0].lower())
         req = PAutils.HTTPRequest(modelURL)
@@ -127,7 +128,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
     posterImage = re.search(r'(?<=posterImage:\s").*(?=")', img)
     if posterImage:
         img = posterImage.group(0)
-
         art.append(img)
 
     Log('Artwork found: %d' % len(art))
