@@ -49,7 +49,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    sceneDate  = metadata_id[2]
+    sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -92,7 +92,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     if tagline == 'Mia Khalifa':
         movieActors.addActor('Mia Khalifa', '')
         shootId = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('com/')[-1].split('/')[0].strip()
-        
+
         art.append('http://images.miakhalifa.com/shoots/%s/members/626x420.jpg' % shootId)
 
     for xpath in xpaths:
