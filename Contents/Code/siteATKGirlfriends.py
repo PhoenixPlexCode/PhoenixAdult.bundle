@@ -22,7 +22,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         titleNoFormatting = searchResult.xpath('.//h1[@class="video-title-model"]')[0].text_content().strip()
         titleNoFormattingID = PAutils.Encode(titleNoFormatting)
 
-        description = searchResult.xpath('.//div[@class="col-lg-7"]')[0].text_content().split('Description:')[1].strip()
+        try:
+            description = searchResult.xpath('.//div[@class="col-lg-7"]')[0].text_content().split('Description:')[1].strip()
+        except:
+            description = ''
+
         descriptionID = PAutils.Encode(description)
 
         poster = searchResult.xpath('.//img[@class="img-responsive"]/@src')[0]
