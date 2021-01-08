@@ -42,6 +42,9 @@ class PhoenixGenres:
                         newGenre = genreName
                         break
 
+            if not found:
+                newGenre = newGenre.title()
+
             if not found and not skip:
                 if len(newGenre) > 25:
                     skip = True
@@ -52,9 +55,9 @@ class PhoenixGenres:
                     if newGenre.lower() in metadata.title.split('-')[0].lower():
                         skip = True
                 if ' ' in newGenre:
-                    if 3 < len(newGenre.split(' ')):
+                    if 3 < len(newGenre.split()):
                         skip = True
 
             if not skip:
-                metadata.genres.add(newGenre.title())
+                metadata.genres.add(newGenre)
             genresProcessed = genresProcessed + 1
