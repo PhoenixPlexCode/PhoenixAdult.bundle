@@ -63,8 +63,6 @@ class PhoenixActors:
                         role = metadata.roles.new()
                         role.name = newActor
                         role.photo = newPhoto
-
-                        actorsProcessed = actorsProcessed + 1
                 else:
                     req = None
                     if newPhoto:
@@ -79,7 +77,7 @@ class PhoenixActors:
                     role.name = newActor
                     role.photo = newPhoto
 
-                    actorsProcessed = actorsProcessed + 1
+                actorsProcessed = actorsProcessed + 1
 
 
 def actorDBfinder(actorName):
