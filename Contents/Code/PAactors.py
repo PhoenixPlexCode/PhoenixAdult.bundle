@@ -37,17 +37,21 @@ class PhoenixActors:
                 skip = True
 
             if not skip:
+                searchStudioIndex = None
                 for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
                     if metadata.studio in studioList:
-                        for actorName, aliases in PAdatabaseActors.ActorsReplaceStudios[studioIndex].items():
-                            if newActor.lower() == actorName.lower() or newActor in aliases:
-                                newActor = actorName
-
-                                if studioIndex == 32 and newActor != 'QueenSnake':
-                                    newActor = '%s QueenSnake' % newActor
-
-                                break
+                        searchStudioIndex = studioIndex
                         break
+
+                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
+                    for actorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
+                        if newActor.lower() == actorName.lower() or newActor in aliases:
+                            newActor = actorName
+
+                            if searchStudioIndex == 32 and newActor != 'QueenSnake':
+                                newActor = '%s QueenSnake' % newActor
+
+                            break
 
                 for actorName, aliases in PAdatabaseActors.ActorsReplace.items():
                     if newActor.lower() == actorName.lower() or newActor in aliases:
