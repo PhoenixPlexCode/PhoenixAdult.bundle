@@ -109,6 +109,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Working Latinas
 + #### Other BangBros Sites | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
   - Black Patrol
+  - Blacks On Moms
+  - Filthy Family
+  - Mia Khalifa
   - XXXPawn
 + #### Bang! | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### BBC Paradise | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*

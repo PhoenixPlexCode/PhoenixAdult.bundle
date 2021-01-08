@@ -1306,6 +1306,9 @@ searchSites = {
     1153: ('XXXPawn', 'http://xxxpawn.com', '/'),
     1154: ('Black Patrol', 'http://blackpatrol.com', '/'),
     1155: ('Putalocura', 'https://www.putalocura.com', '/buscar?q='),
+    1156: ('Mia Khalifa', 'http://miakhalifa.com/', '/'),
+    1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
+    1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
 }
 
 abbreviations = (
@@ -2462,7 +2465,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkFAKings
 
         # Other BangBros Sites
-        elif (1153 <= siteNum <= 1154):
+        elif (1153 <= siteNum <= 1154) or (1156 <= siteNum <= 1158):
             provider = networkBangBrosOther
 
         # Putalocura
