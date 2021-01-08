@@ -47,6 +47,7 @@ class PhoenixActors:
                                     newActor = '%s QueenSnake' % newActor
 
                                 break
+                        break
 
                 for actorName, aliases in PAdatabaseActors.ActorsReplace.items():
                     if newActor.lower() == actorName.lower() or newActor in aliases:
