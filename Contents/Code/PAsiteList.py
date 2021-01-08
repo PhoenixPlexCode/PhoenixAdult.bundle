@@ -1612,7 +1612,6 @@ def getProviderFromSiteNum(siteNum):
             provider = networkGammaEnt
 
         # Blowpass / 1000 Facials
-
         elif siteNum == 353:
             provider = networkGammaEnt
 
