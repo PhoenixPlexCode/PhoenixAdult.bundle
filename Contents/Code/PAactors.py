@@ -1,4 +1,5 @@
 import PAutils
+import PAdatabaseActors
 
 
 class PhoenixActors:
@@ -36,15 +37,44 @@ class PhoenixActors:
                 skip = True
 
             if not skip:
-                req = None
-                if newPhoto:
-                    try:
-                        req = PAutils.HTTPRequest(newPhoto, 'HEAD')
-                    except:
-                        pass
+                searchStudioIndex = None
+                for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
+                    if metadata.studio in studioList:
+                        searchStudioIndex = studioIndex
+                        break
 
-                if not req or not req.ok:
-                    newPhoto = ''
+                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
+                    for actorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
+                        if newActor.lower() == actorName.lower() or newActor in aliases:
+                            newActor = actorName
+
+                            if searchStudioIndex == 32 and newActor != 'QueenSnake':
+                                newActor = '%s QueenSnake' % newActor
+
+                            break
+
+                for actorName, aliases in PAdatabaseActors.ActorsReplace.items():
+                    if newActor.lower() == actorName.lower() or newActor in aliases:
+                        newActor = actorName
+                        break
+
+                if ',' in newActor:
+                    for actorName in newActor.split(','):
+                        newActorName = actorName.strip()
+                        newPhoto = actorDBfinder(newActorName)
+
+                        Log('Actor: %s %s' % (newActor, newPhoto))
+
+                        role = metadata.roles.new()
+                        role.name = newActor
+                        role.photo = newPhoto
+                else:
+                    req = None
+                    if newPhoto:
+                        req = PAutils.HTTPRequest(newPhoto, 'HEAD')
+
+                    if not req or not req.ok:
+                        newPhoto = actorDBfinder(newActor)
 
                 # Replace by actor name; for actors that have different aliases in the industry
                 if newActor == 'Abby Lee':
@@ -2538,15 +2568,15 @@ class PhoenixActors:
                 elif metadata.studio == 'Hegre':
                     if newActor == 'Natalia A':
                         newActor = 'Natalia Andreeva'
+=======
+                    Log('Actor: %s %s' % (newActor, newPhoto))
 
-                if not newPhoto:
-                    newPhoto = actorDBfinder(newActor)
-                Log('Actor: %s %s' % (newActor, newPhoto))
+                    role = metadata.roles.new()
+                    role.name = newActor
+                    role.photo = newPhoto
+>>>>>>> upstream/master
 
-                role = metadata.roles.new()
-                role.name = newActor
-                role.photo = newPhoto
-            actorsProcessed = actorsProcessed + 1
+                actorsProcessed = actorsProcessed + 1
 
 
 def actorDBfinder(actorName):

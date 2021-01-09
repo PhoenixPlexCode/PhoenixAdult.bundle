@@ -21,9 +21,9 @@ def getSearchSearchURL(siteNum):
 def getSearchsiteNumByFilter(searchFilter):
     searchResults = []
     searchFilterF = searchFilter.lower().replace(' ', '').replace('.com', '').replace('.net', '').replace('\'', '').replace('-', '')
-    for searchID, sites in enumerate(PAsiteList.searchSites):
-        if sites:
-            siteNameF = sites[0].lower().replace(' ', '').replace('\'', '').replace('-', '')
+    for searchID, site in PAsiteList.searchSites.items():
+        if site:
+            siteNameF = site[0].lower().replace(' ', '').replace('\'', '').replace('-', '')
 
             if searchFilterF.startswith(siteNameF):
                 searchResults.append((searchID, siteNameF))

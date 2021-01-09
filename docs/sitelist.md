@@ -107,6 +107,12 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Street Ranger
   - Tugjobs
   - Working Latinas
++ #### Other BangBros Sites | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
+  - Black Patrol
+  - Blacks On Moms
+  - Filthy Family
+  - Mia Khalifa
+  - XXXPawn
 + #### Bang! | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### BBC Paradise | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### BellaPass | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
@@ -125,6 +131,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - KatieBanks
   - MonroeLee
   - TaliaShepard
++ #### Black PayBack | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Black Valley Girls | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
 + #### Blowpass | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - 1000 Facials
@@ -303,6 +310,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Evolved Fights Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Evolved Fights
   - Evolved Fights Lesbian Edition
++ #### Explicite Art | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Actor only**
 + #### ExploitedX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Backroom Casting Couch
   - Black Ambush
@@ -319,6 +327,46 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Female Agent
   - Female Fake Taxi
   - Public Agent
++ #### FAKings | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Ainara's Diary | Diario de Ainara
+  - Arnaldo Series
+  - Behind FAKings
+  - Big Rubber Cocks | Pollazas de Goma
+  - Blowjob Lessons | Clases de Mamadas
+  - Busted | Cazadas
+  - Curvy Girls | Chicas Curvis
+  - Exchange Student Girls | Alumnas De Intercambio
+  - FAKings Academy | La Escuela de FAKings
+  - FAKings Castings | Castings de FAKings
+  - FAKings PornStars
+  - FAKings Slutwalk | De Paseo con FAKings
+  - FAKins Wild Party | Fiestas FAKings
+  - First FAKings
+  - Free Couples | Parejitas Libres
+  - FREE Pussy Day | El Día del Coño GRATIS
+  - Fuck Me Fool | Follame Tonto
+  - Fuck Them | Follatelos
+  - Horsedicks | Rabos de Caballo
+  - I'm a Webcam Girl | Soy Webcamer
+  - I Sell My Girlfriend | Vendo a mi Novia
+  - Innocent 18 | Inocentes 18
+  - MILF Club | Club Maduras
+  - My First Anal | Mi Primer Anal
+  - My First DP | Mi Primera DP
+  - NERD BUSTER | Los Cazatolas
+  - Newbies Or So They Say | Novatas O Eso Dicen
+  - Next Door Girl | Es Tu Vecina
+  - Parejas&#46;NET
+  - Perverting Couples | Pervirtiendo Parejas
+  - Quarantine Stories | Historias de Cuarentena
+  - Sick Videos | Videos Enfermos
+  - Swingers Life | Vidas Liberales
+  - Talk To Them | Hable Con Ellas
+  - The Anatomical Sulphate | El Sulfato Anatómico
+  - The Naughty Bet | Porno Dolares
+  - Trans FAKings
+  - Very Voyeur | Muy Voyeur
+  - Virtual Reality | FAKingsVR
 + #### FameDigital | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - DevilsFilm
   - PeterNorth
@@ -459,6 +507,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### LustReality | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### ManyVids | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Meana Wolf | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Melone Challenge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### MetArt Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - ALS Scan
@@ -681,6 +730,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Hausfrau Ficken
   - Her Big Ass
   - Her Limit
+  - Horny Hostel
   - Kinky Inlaws
   - La Cochonne
   - La Novice
@@ -792,6 +842,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PureCFNM
 + #### PureTaboo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### PurgatoryX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Putalocura | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### QueenSnake | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### QueenSect | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Exact Title Only**
 + #### Reality Kings Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
@@ -865,6 +916,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - MomXXX
 + #### Screwbox | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### ScrewMeToo | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### SexMex | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### She Will Cheat | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Sicflics | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### SinsLife | Matching type: *[Limited](./manualsearch.md#limited-search)*
@@ -889,6 +941,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Tushy
   - TushyRaw
   - Vixen
++ #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
