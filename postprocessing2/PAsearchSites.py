@@ -987,6 +987,7 @@ searchSites[976] = ("Backroom Casting Couch", "Backroom Casting Couch", "https:/
 searchSites[977] = ("Black Ambush", "Black Ambush", "https://blackambush.com/", "https://blackambush.com/free/girls.php")
 searchSites[978] = ("Exploited College Girls", "Exploited College Girls", "https://exploitedcollegegirls.com/", "https://exploitedcollegegirls.com/free/girls.php?alpha=")
 searchSites[979] = ("Desperate Amateurs", "Desperate Amateurs", "https://desperateamateurs.com/", "https://desperateamateurs.com/fintour/search.php?st=advanced&qall=")
+searchSites[980] = ("Melena Maria Rya", "Melena Maria Rya", "https://www.melenamariarya.com", "https://www.melenamariarya.com/scene/")
 
 
 def getSearchBaseURL(siteID):
@@ -1195,6 +1196,7 @@ def getSearchSettings(filename_title):
         ('^mlib ', 'MilfsLikeItBig '),
         ('^mlt ', 'MomsLickTeens '),
         ('^mmgs ', 'MommysGirl '),
+        ('^mmr ', 'MelenaMariaRya '),
         ('^mmts ', 'MomsTeachSex '),
         ('^mnm ', 'MyNaughtyMassage '),
         ('^mom ', 'MomXXX '),
