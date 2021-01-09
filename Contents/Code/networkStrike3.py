@@ -64,6 +64,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
+    
+    genres = video['categories']
+    for genre in genres:
+        movieGenres.addGenre(genre['name'])
+    
     genres = video['tags']
     for genreName in genres:
         movieGenres.addGenre(genreName)
