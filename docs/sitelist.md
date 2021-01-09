@@ -507,6 +507,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### LustReality | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### ManyVids | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Meana Wolf | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
 + #### Melone Challenge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### MetArt Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - ALS Scan

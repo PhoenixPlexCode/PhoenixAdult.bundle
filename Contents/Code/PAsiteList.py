@@ -148,6 +148,7 @@ import siteSunnyLaneLive
 import networkFAKings
 import networkBangBrosOther
 import sitePutalocura
+import siteMelenaMariaRya
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1309,6 +1310,7 @@ searchSites = {
     1156: ('Mia Khalifa', 'http://miakhalifa.com/', '/'),
     1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
     1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
+    1159: ('Melena Maria Rya', 'https://www.melenamariarya.com', '/scene/'),
 }
 
 abbreviations = (
@@ -2470,5 +2472,9 @@ def getProviderFromSiteNum(siteNum):
         # Putalocura
         elif siteNum == 1155:
             provider = sitePutalocura
+
+        # Melena Maria Rya
+        elif siteNum == 1159:
+            provider = siteMelenaMariaRya
 
     return provider
