@@ -944,7 +944,7 @@ searchSites = {
     790: ('BCM.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     791: ('Petite.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     792: ('Family.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
-    793: ('Wicked Pictures', 'https://www.wicked.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    793: ('Wicked', 'https://www.wicked.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     794: ('18 Only Girls', 'https://www.18onlygirlsblog.com', '/?s='),
     795: ('GirlCore', 'https://www.girlsway.com', '/en/video/1/1/'),
     796: ('Moms On Moms', 'https://www.girlsway.com', '/en/video/1/1/'),
