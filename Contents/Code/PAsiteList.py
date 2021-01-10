@@ -952,7 +952,7 @@ searchSites = {
     798: ('Lil Humpers', 'https://www.lilhumpers.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     800: ('ClubSeventeen', 'https://www.clubseventeen.com', '/video.php?slug='),
-    801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?fq='),
+    801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/'),
     804: ('Playboy Plus', 'https://www.playboyplus.com', '/search'),
