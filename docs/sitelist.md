@@ -708,6 +708,12 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PurePOV
   - SpermSwap
   - TamedTeens
++ #### PervCity | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title or Actor**
+  - Anal Overdose
+  - Banging Beauties
+  - Chocolate BJs
+  - Oral Overdose
+  - Up Her Asshole
 + #### PJGirls | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Playboy Plus | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Porndoe Premium Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
