@@ -195,11 +195,11 @@ def saveRequest(url, req):
         os.makedirs(debug_dir)
 
     raw_http = '< Target URL: "%s"\r\n\r\n' % url
-    raw_http += dump.dump_all(req).decode('UTF-8')
+    raw_http += unicode(dump.dump_all(req))
 
     file_name = '%s.gz' % uuid.uuid4().hex
     with gzip.open(debug_dir + file_name, 'wb') as f:
-        f.write(raw_http.encode('UTF-8'))
+        f.write(raw_http)
 
     Log('GZip request saved as "%s"' % file_name)
 
