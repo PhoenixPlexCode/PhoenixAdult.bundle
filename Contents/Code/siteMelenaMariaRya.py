@@ -78,6 +78,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         movieActors.addActor(m.group(1), '')
 
     # Posters/Background
+    art = []
     xpaths = []
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
