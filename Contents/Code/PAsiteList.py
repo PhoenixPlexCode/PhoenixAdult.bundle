@@ -149,6 +149,7 @@ import networkFAKings
 import networkBangBrosOther
 import sitePutalocura
 import siteMelenaMariaRya
+import networkPervCity
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1311,6 +1312,12 @@ searchSites = {
     1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
     1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
     1159: ('Melena Maria Rya', 'https://www.melenamariarya.com', '/scene/'),
+    1160: ('Anal Overdose', 'https://filthyfamily.com', '/'),
+    1161: ('Banging Beauties', 'https://www.bangingbeauties.com', '/'),
+    1162: ('Chocolate BJs', 'https://www.chocolatebjs.com', '/'),
+    1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
+    1164: ('Up Her Asshole', 'https://www.upherasshole.com', '/'),
+    1165: ('Perv City', 'https://www.pervcity.com', '/'),
 }
 
 abbreviations = (
@@ -2476,5 +2483,9 @@ def getProviderFromSiteNum(siteNum):
         # Melena Maria Rya
         elif siteNum == 1159:
             provider = siteMelenaMariaRya
+
+        # PervCity
+        elif (1160 <= siteNum <= 1165):
+            provider = networkPervCity
 
     return provider
