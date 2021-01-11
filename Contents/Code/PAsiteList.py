@@ -1318,6 +1318,20 @@ searchSites = {
     1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
     1164: ('Up Her Asshole', 'https://www.upherasshole.com', '/'),
     1165: ('Perv City', 'https://www.pervcity.com', '/'),
+    1166: ('Abby Winters', 'https://www.abbywinters.com', '/'),
+    1167: ('Nude Girls', 'https://www.abbywinters.com', '/'),
+    1168: ('Mystery Shoot', 'https://www.abbywinters.com', '/'),
+    1169: ('Girl Girl', 'https://www.abbywinters.com', '/'),
+    1170: ('Video Masturbation', 'https://www.abbywinters.com', '/'),
+    1171: ('Abby Winters Behind the Scenes', 'https://www.abbywinters.com', '/'),
+    1172: ('Abby Winters Best Of', 'https://www.abbywinters.com', '/'),
+    1173: ('Guest Direction', 'https://www.abbywinters.com', '/'),
+    1174: ('Girls and Their Boys', 'https://www.abbywinters.com', '/'),
+    1175: ('Nude In Public', 'https://www.abbywinters.com', '/'),
+    1176: ('Video Of Myself at Home', 'https://www.abbywinters.com', '/'),
+    1177: ('Girls In Lingerie At Night', 'https://www.abbywinters.com', '/'),
+    1178: ('Abby Winters Podcast', 'https://www.abbywinters.com', '/'),
+    1179: ('Learn How to Get Women', 'https://www.abbywinters.com', '/'),
 }
 
 abbreviations = (
@@ -2487,5 +2501,9 @@ def getProviderFromSiteNum(siteNum):
         # PervCity
         elif (1160 <= siteNum <= 1165):
             provider = networkPervCity
+
+        # Abby Winters
+        elif (1166 <= siteNum <= 1179):
+            provider = networkAbbyWinters
 
     return provider
