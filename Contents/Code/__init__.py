@@ -48,7 +48,6 @@ class PhoenixAdultAgent(Agent.Movies):
             'ForeverAloneDude'
         )
 
-        title = re.sub(r'\W', ' ', title)
         for trash in trashTitle:
             title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
         title = ' '.join(title.split())
