@@ -964,6 +964,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Tales From the Edge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - BFFs
   - Badmilfs

@@ -150,6 +150,8 @@ import networkBangBrosOther
 import sitePutalocura
 import siteMelenaMariaRya
 import networkPervCity
+import networkAbbyWinters
+import siteTalesFromTheEdge
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1332,6 +1334,7 @@ searchSites = {
     1177: ('Girls In Lingerie At Night', 'https://www.abbywinters.com', '/'),
     1178: ('Abby Winters Podcast', 'https://www.abbywinters.com', '/'),
     1179: ('Learn How to Get Women', 'https://www.abbywinters.com', '/'),
+    1180: ('Tales From the Edge', 'https://thetalesfromtheedge.com', '/tour_ttfte/search.php?query='),
 }
 
 abbreviations = (
@@ -2505,5 +2508,9 @@ def getProviderFromSiteNum(siteNum):
         # Abby Winters
         elif (1166 <= siteNum <= 1179):
             provider = networkAbbyWinters
+
+        # Tales From the Edge
+        elif siteNum == 1180:
+            provider = siteTalesFromTheEdge
 
     return provider
