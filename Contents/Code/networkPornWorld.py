@@ -98,7 +98,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
 
                 # Add to posters
                 metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
