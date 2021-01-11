@@ -30,6 +30,20 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Gapeland
   - LezCuties
   - PixandVideo
++ #### Abby Winters | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Behind the Scenes
+  - Best Of
+  - Girl Girl
+  - Girls and Their Boys
+  - Girls In Lingerie At Night
+  - Guest Direction
+  - Learn How to Get Women
+  - Mystery Shoot
+  - Nude Girls
+  - Nude In Public
+  - Podcast
+  - Video Masturbation
+  - Video Of Myself at Home
 + #### Adult Time | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllAnalAllTheTime | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
