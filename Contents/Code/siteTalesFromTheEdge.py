@@ -86,7 +86,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             art.append(img)
-    
+
     for scene in actorPageElements.xpath('//div[@class="table dvd_info"]'):
         resultTitle = scene.xpath('.//div[@class="update_title"]')[0].text_content()
         if resultTitle.lower() == metadata.title.lower():
