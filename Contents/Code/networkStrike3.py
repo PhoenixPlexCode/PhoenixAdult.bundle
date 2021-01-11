@@ -67,7 +67,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     for tag in ['categories', 'tags']:
         for genre in video[tag]:
-            genreName = genre['name']
+            if isinstance(genre, dict):
+                genreName = genre['name']
+            else:
+                genreName = genre
 
             movieGenres.addGenre(genreName)
 
