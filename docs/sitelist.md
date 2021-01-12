@@ -281,6 +281,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### DefeatedXXX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### DefeatedSexFight | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Deviant Hardcore | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Deranged Dollars | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Assylum
+  - SlaveMouth
 + #### Desperate Amateurs | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Dirty Hard Drive Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Bang My Hand
