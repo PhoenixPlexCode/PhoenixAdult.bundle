@@ -1125,7 +1125,7 @@ ActorsReplaceStudios = {
         'Masha D.': ['Jackie'],
         'Megan Promesita': ['Ivana'],
         'Melanie Rios': ['Melanie'],
-        'Melena Maria Rya': ['Malena A'],
+        'Melena Maria Rya': ['Malena A', 'Melena A'],
         'Mia Hilton': ['Lana'],
         'Mia Lina': ['Mia'],
         'Mia Malkova': ['Mia M'],
