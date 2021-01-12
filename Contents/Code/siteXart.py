@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAextras
 import PAutils
 
