@@ -1,4 +1,5 @@
 import PAsearchSites
+import PAgenres
 import PAutils
 
 
@@ -19,7 +20,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0].split('?')[0])
 
-            releaseDate = parse(searchResult.xpath('.//span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+            releaseDate = parse(searchResult.xpath('.//span[@class="available-date"]')[0].text_content().strip()).strftime('%m-%d-%y')
 
             if searchDate:
                 score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
@@ -57,8 +58,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0].split('?')[0]
-
+        actorPhotoURL = actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
+        actorPhotoURL = 'https:' + actorPhotoURL
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Title
@@ -109,7 +110,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Posters/Background
     art = [
-        detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
+         'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
     ]
 
     Log('Artwork found: %d' % len(art))
@@ -117,7 +118,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl)
+                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
