@@ -149,6 +149,11 @@ import networkFAKings
 import networkBangBrosOther
 import sitePutalocura
 import siteMelenaMariaRya
+import networkPervCity
+import networkAbbyWinters
+import siteTalesFromTheEdge
+import networkDerangedDollars
+import siteDickDrainers
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -944,7 +949,7 @@ searchSites = {
     790: ('BCM.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     791: ('Petite.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     792: ('Family.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
-    793: ('Wicked Pictures', 'https://www.wicked.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    793: ('Wicked', 'https://www.wicked.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     794: ('18 Only Girls', 'https://www.18onlygirlsblog.com', '/?s='),
     795: ('GirlCore', 'https://www.girlsway.com', '/en/video/1/1/'),
     796: ('Moms On Moms', 'https://www.girlsway.com', '/en/video/1/1/'),
@@ -952,7 +957,7 @@ searchSites = {
     798: ('Lil Humpers', 'https://www.lilhumpers.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     800: ('ClubSeventeen', 'https://www.clubseventeen.com', '/video.php?slug='),
-    801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?fq='),
+    801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/'),
     804: ('Playboy Plus', 'https://www.playboyplus.com', '/search'),
@@ -1311,6 +1316,30 @@ searchSites = {
     1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
     1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
     1159: ('Melena Maria Rya', 'https://www.melenamariarya.com', '/scene/'),
+    1160: ('Anal Overdose', 'https://filthyfamily.com', '/'),
+    1161: ('Banging Beauties', 'https://www.bangingbeauties.com', '/'),
+    1162: ('Chocolate BJs', 'https://www.chocolatebjs.com', '/'),
+    1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
+    1164: ('Up Her Asshole', 'https://www.upherasshole.com', '/'),
+    1165: ('Perv City', 'https://www.pervcity.com', '/'),
+    1166: ('Abby Winters', 'https://www.abbywinters.com', '/'),
+    1167: ('Nude Girls', 'https://www.abbywinters.com', '/'),
+    1168: ('Mystery Shoot', 'https://www.abbywinters.com', '/'),
+    1169: ('Girl Girl', 'https://www.abbywinters.com', '/'),
+    1170: ('Video Masturbation', 'https://www.abbywinters.com', '/'),
+    1171: ('Abby Winters Behind the Scenes', 'https://www.abbywinters.com', '/'),
+    1172: ('Abby Winters Best Of', 'https://www.abbywinters.com', '/'),
+    1173: ('Guest Direction', 'https://www.abbywinters.com', '/'),
+    1174: ('Girls and Their Boys', 'https://www.abbywinters.com', '/'),
+    1175: ('Nude In Public', 'https://www.abbywinters.com', '/'),
+    1176: ('Video Of Myself at Home', 'https://www.abbywinters.com', '/'),
+    1177: ('Girls In Lingerie At Night', 'https://www.abbywinters.com', '/'),
+    1178: ('Abby Winters Podcast', 'https://www.abbywinters.com', '/'),
+    1179: ('Learn How to Get Women', 'https://www.abbywinters.com', '/'),
+    1180: ('Tales From the Edge', 'https://thetalesfromtheedge.com', '/tour_ttfte/search.php?query='),
+    1181: ('Assylum', 'https://www.assylum.com', '/'),
+    1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
+    1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
 }
 
 abbreviations = (
@@ -2476,5 +2505,25 @@ def getProviderFromSiteNum(siteNum):
         # Melena Maria Rya
         elif siteNum == 1159:
             provider = siteMelenaMariaRya
+
+        # PervCity
+        elif (1160 <= siteNum <= 1165):
+            provider = networkPervCity
+
+        # Abby Winters
+        elif (1166 <= siteNum <= 1179):
+            provider = networkAbbyWinters
+
+        # Tales From the Edge
+        elif siteNum == 1180:
+            provider = siteTalesFromTheEdge
+
+        # Deranged Dollars
+        elif (1181 <= siteNum <= 1182):
+            provider = networkDerangedDollars
+
+        # DickDrainers
+        elif siteNum == 1183:
+            provider = siteDickDrainers
 
     return provider

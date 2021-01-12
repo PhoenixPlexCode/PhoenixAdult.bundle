@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -64,9 +63,15 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    genres = video['tags']
-    for genreName in genres:
-        movieGenres.addGenre(genreName)
+
+    for tag in ['categories', 'tags']:
+        for genre in video[tag]:
+            if isinstance(genre, dict):
+                genreName = genre['name']
+            else:
+                genreName = genre
+
+            movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
@@ -102,7 +107,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

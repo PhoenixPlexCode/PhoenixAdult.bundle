@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
@@ -60,7 +58,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="scene-cast-list"]/a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="scene-cast-list"]/a | //div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
@@ -115,7 +113,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

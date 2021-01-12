@@ -30,6 +30,20 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Gapeland
   - LezCuties
   - PixandVideo
++ #### Abby Winters | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Behind the Scenes
+  - Best Of
+  - Girl Girl
+  - Girls and Their Boys
+  - Girls In Lingerie At Night
+  - Guest Direction
+  - Learn How to Get Women
+  - Mystery Shoot
+  - Nude Girls
+  - Nude In Public
+  - Podcast
+  - Video Masturbation
+  - Video Of Myself at Home
 + #### Adult Time | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllAnalAllTheTime | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
@@ -267,7 +281,11 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### DefeatedXXX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### DefeatedSexFight | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Deviant Hardcore | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Deranged Dollars | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Assylum
+  - SlaveMouth
 + #### Desperate Amateurs | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### DickDrainers | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Dirty Hard Drive Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Bang My Hand
   - Dirty Sluts and Studs
@@ -507,7 +525,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### LustReality | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### ManyVids | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Meana Wolf | Matching type: *[Limited](./manualsearch.md#limited-search)*
-+ #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
++ #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Melone Challenge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### MetArt Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - ALS Scan
@@ -708,6 +726,12 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - PurePOV
   - SpermSwap
   - TamedTeens
++ #### PervCity | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title or Actor**
+  - Anal Overdose
+  - Banging Beauties
+  - Chocolate BJs
+  - Oral Overdose
+  - Up Her Asshole
 + #### PJGirls | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Playboy Plus | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Porndoe Premium Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
@@ -944,6 +968,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### Tales From the Edge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - BFFs
   - Badmilfs

@@ -1,18 +1,15 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    data = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + '?gallery=1&terms=' + encodedTitle).json()
-    searchResults = HTML.ElementFromString(data['results'][0]['html'])
-    for searchResult in searchResults.xpath('//li[@class="item"]'):
+    data = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + '/' + encodedTitle)
+    searchResults = HTML.ElementFromString(data.text)
+    for searchResult in searchResults.xpath('//div[@id="search-results-gallery"]//li[@class="item"]'):
         titleNoFormatting = searchResult.xpath('.//h3[@class="title"]')[0].text_content().strip()
         releaseDate = parse(searchResult.xpath('.//p[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         img = PAutils.Encode(searchResults.xpath('.//img[contains(@class, "image")]/@data-src')[0].split('?', 1)[0])
-        curID = PAutils.Encode(PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a/@href')[0])
-
+        curID = PAutils.Encode(PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a[@class="cardLink"]/@href')[0])
         if searchDate:
             score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
         else:
@@ -78,7 +75,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

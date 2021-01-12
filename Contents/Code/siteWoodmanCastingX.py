@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
@@ -78,12 +76,21 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for posterLink in detailsPageElements.xpath('//video[@class="player_video"]/@poster'):
         art.append(posterLink)
 
+    if not art:
+        for script in detailsPageElements.xpath('//script'):
+            try:
+                match = re.search('(?<=image: ")(.*)(?=")', script.text_content())
+                if match:
+                    art.append(match.group(0).strip())
+            except:
+                pass
+
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

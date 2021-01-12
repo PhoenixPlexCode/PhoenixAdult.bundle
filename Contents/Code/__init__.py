@@ -48,7 +48,6 @@ class PhoenixAdultAgent(Agent.Movies):
             'ForeverAloneDude'
         )
 
-        title = re.sub(r'\W', ' ', title)
         for trash in trashTitle:
             title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
         title = ' '.join(title.split())
@@ -85,7 +84,8 @@ class PhoenixAdultAgent(Agent.Movies):
 
         Log('******UPDATE CALLED*******')
 
-        siteNum = int(str(metadata.id).split('|')[1])
+        metadata_id = str(metadata.id).split('|')
+        siteNum = int(metadata_id[1])
         Log(str(siteNum))
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
