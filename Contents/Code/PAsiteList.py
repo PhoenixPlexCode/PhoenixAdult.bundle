@@ -153,6 +153,7 @@ import networkPervCity
 import networkAbbyWinters
 import siteTalesFromTheEdge
 import networkDerangedDollars
+import siteDickDrainers
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1338,6 +1339,7 @@ searchSites = {
     1180: ('Tales From the Edge', 'https://thetalesfromtheedge.com', '/tour_ttfte/search.php?query='),
     1181: ('Assylum', 'https://www.assylum.com', '/'),
     1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
+    1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
 }
 
 abbreviations = (
@@ -2519,5 +2521,9 @@ def getProviderFromSiteNum(siteNum):
         # Deranged Dollars
         elif (1181 <= siteNum <= 1182):
             provider = networkDerangedDollars
+
+        # Dickdrainers
+        elif siteNum == 1183:
+            provider = siteDickdrainers
 
     return provider
