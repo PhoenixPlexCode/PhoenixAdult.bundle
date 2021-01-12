@@ -89,7 +89,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             if search:
                 img = search.group(0)
             if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img            
+                img = PAsearchSites.getSearchBaseURL(siteNum) + img
             art.append(img)
 
     Log('Artwork found: %d' % len(art))
