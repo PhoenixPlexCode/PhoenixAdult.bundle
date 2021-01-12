@@ -47,6 +47,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Adult Time | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllAnalAllTheTime | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### ALS Angels | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Actress name with subject, Date Add**
 + #### Amateur Allure | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### AmourAngels | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
 + #### AngelaWhite | Matching type: *[Exact](./manualsearch.md#limited-search)* - **Actor**
