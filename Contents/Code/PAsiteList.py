@@ -2522,8 +2522,8 @@ def getProviderFromSiteNum(siteNum):
         elif (1181 <= siteNum <= 1182):
             provider = networkDerangedDollars
 
-        # Dickdrainers
+        # DickDrainers
         elif siteNum == 1183:
-            provider = siteDickdrainers
+            provider = siteDickDrainers
 
     return provider
