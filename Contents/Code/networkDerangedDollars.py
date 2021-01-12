@@ -9,7 +9,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
     for sceneURL in googleResults:
-        if '/session/'  in sceneURL  not in searchResults:
+        if '/session/' in sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
@@ -68,7 +68,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//p[@class="tags"]/a'):
-        genreName = PAutils.parseTitle(genreLink.text_content().strip(), siteNum) 
+        genreName = PAutils.parseTitle(genreLink.text_content().strip(), siteNum)
 
         movieGenres.addGenre(genreName)
 
@@ -87,7 +87,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     modelURL = PAsearchSites.getSearchSearchURL(siteNum) + '?models/2'
     req = PAutils.HTTPRequest(modelURL)
     modelPageElements = HTML.ElementFromString(req.text)
-    models+= modelPageElements.xpath('//div[@class="item"]')
+    models += modelPageElements.xpath('//div[@class="item"]')
 
     for actorLink in actors:
         actorName = actorLink.strip()
