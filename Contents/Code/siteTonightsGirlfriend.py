@@ -19,7 +19,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0].split('?')[0])
 
-            releaseDate = parse(searchResult.xpath('.//span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+            releaseDate = parse(searchResult.xpath('.//span[@class="available-date"]')[0].text_content().strip()).strftime('%m-%d-%y')
 
             if searchDate:
                 score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
@@ -57,7 +57,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0].split('?')[0]
+        actorPhotoURL = 'https:' +  actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -104,12 +104,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
             genres.append('BGG')
         else:
             genres.append('BBG')
+
     for genre in genres:
         movieGenres.addGenre(genre)
 
     # Posters/Background
     art = [
-        detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
+         'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
     ]
 
     Log('Artwork found: %d' % len(art))
