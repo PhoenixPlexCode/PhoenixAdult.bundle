@@ -8,6 +8,6 @@ def FakeResponse(req, url, status_code, content):
 
     response.url = url
     response.status_code = status_code
-    response._content = content.encode('UTF-8')
+    response._content = content.encode('UTF-8') if content else ''
 
     return response
