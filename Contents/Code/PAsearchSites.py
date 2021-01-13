@@ -79,6 +79,8 @@ def getSearchSettings(mediaTitle):
         else:
             searchTitle = mediaTitle
 
+        searchTitle = searchTitle[0].upper() + searchTitle[1:]
+
         Log('searchTitle (before date processing): %s' % searchTitle)
 
         # Search Type
