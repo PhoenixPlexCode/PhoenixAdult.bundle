@@ -61,10 +61,9 @@ def getSearchSettings(mediaTitle):
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
-        title = mediaTitle.replace('.com', '').title()
         site = PAsiteList.searchSites[siteNum][0].lower()
 
-        title = re.sub(r'[^a-zA-Z0-9#& ]', '', title)
+        title = re.sub(r'[^a-zA-Z0-9#& ]', '', mediaTitle)
         site = re.sub(r'\W', '', site)
 
         matched = False
@@ -79,8 +78,6 @@ def getSearchSettings(mediaTitle):
             searchTitle = ' '.join(searchTitle.split())
         else:
             searchTitle = mediaTitle
-
-        searchTitle = searchTitle.replace(' S ', '\'s ').replace(' In ', ' in ').replace(' A ', ' a ')
 
         Log('searchTitle (before date processing): %s' % searchTitle)
 
