@@ -57,8 +57,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
-        actorPhotoURL = 'https:' + actorPhotoURL
+        actorPhotoURL = 'https:' +  actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
+
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Title
@@ -104,6 +104,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             genres.append('BGG')
         else:
             genres.append('BBG')
+
     for genre in genres:
         movieGenres.addGenre(genre)
 
