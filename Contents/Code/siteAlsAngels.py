@@ -1,7 +1,6 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
+
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum))
@@ -18,12 +17,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             parent = detailsPageElements.xpath('//tr[.//h2[@class="videomodel" and contains(text(), "%s")] and .//span[@class="videotype" and contains(text(), "%s")]]' % (m.group(1), m.group(2)))
 
     if parent:
-	    for elem in parent:
-	        model = re.sub(r'Models?: (.+)', r'\1', elem.xpath('.//h2[@class="videomodel"]')[0].text_content().strip())
-	        genre = re.sub(r'Video Type: (.+)', r'\1', elem.xpath('.//span[@class="videotype"]')[0].text_content().strip())
-	        releaseDate = parse(re.sub(r'Date: (.+)', r'\1', elem.xpath('.//span[@class="videodate"]')[0].text_content().strip())).strftime('%Y-%m-%d')
-	        sceneID = re.sub(r'graphics/videos/(.+)\.jpg', r'\1', elem.xpath('.//td[@class="videothumbnail"]/a/img/@src')[0].strip())
-	        results.Append(MetadataSearchResult(id='%s|%s|%s' % (sceneID, siteNum, releaseDate), name='%s %s %s [ALSAngels/%s]' % (model, genre, releaseDate, sceneID), score=100, lang=lang))
+        for elem in parent:
+            model = re.sub(r'Models?: (.+)', r'\1', elem.xpath('.//h2[@class="videomodel"]')[0].text_content().strip())
+            genre = re.sub(r'Video Type: (.+)', r'\1', elem.xpath('.//span[@class="videotype"]')[0].text_content().strip())
+            releaseDate = parse(re.sub(r'Date: (.+)', r'\1', elem.xpath('.//span[@class="videodate"]')[0].text_content().strip())).strftime('%Y-%m-%d')
+            sceneID = re.sub(r'graphics/videos/(.+)\.jpg', r'\1', elem.xpath('.//td[@class="videothumbnail"]/a/img/@src')[0].strip())
+            results.Append(MetadataSearchResult(id='%s|%s|%s' % (sceneID, siteNum, releaseDate), name='%s %s %s [ALSAngels/%s]' % (model, genre, releaseDate, sceneID), score=100, lang=lang))
 
     return results
 
