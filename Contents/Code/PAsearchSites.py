@@ -30,11 +30,11 @@ def getSearchSearchURL(siteNum):
 
 def getSiteNumByFilter(searchFilter):
     searchResults = []
-    searchFilter = re.sub(r'\W', '', searchFilter.lower())
+    searchFilter = re.sub(r'[^a-z0-9 ]', '', searchFilter.lower())
     for siteNum in PAsiteList.searchSites:
         siteName = getSearchSiteName(siteNum)
         if siteName:
-            siteName = re.sub(r'\W', '', siteName.lower())
+            siteName = re.sub(r'[^a-z0-9 ]', '', siteName.lower())
 
             if searchFilter.startswith(siteName):
                 searchResults.append((siteNum, siteName))
