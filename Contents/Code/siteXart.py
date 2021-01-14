@@ -142,7 +142,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
 
 manualMatch = {
-    'Out Of This World': {
+    'Out of This World': {
         'curID': '/videos/Out_of_This_World',
         'name': 'Out Of This World [X-Art]',
     },
@@ -206,10 +206,6 @@ manualMatch = {
         'curID': '/videos/her_first_time',
         'name': 'Her First Time [X-Art]',
     },
-    'Out of This World': {
-        'curID': '/videos/out_of_this_world',
-        'name': 'Out of This World [X-Art]',
-    },
     'Want You': {
         'curID': '/videos/want_you',
         'name': 'Want You [X-Art]',
@@ -262,7 +258,7 @@ manualMatch = {
         'curID': '/videos/kacey_jordan_does_x-art',
         'name': 'Kacey Jordan Does X-Art [X-Art]',
     },
-    'X Art on Tv': {
+    'X Art on TV': {
         'curID': '/videos/x-art_on_tv',
         'name': 'X-Art on TV [X-Art]',
     },

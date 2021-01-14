@@ -3,30 +3,41 @@ import PAutils
 
 
 def getSearchSiteName(siteNum):
-    return PAsiteList.searchSites[siteNum][0]
+    siteName = None
+    if PAsiteList.searchSites[siteNum]:
+        siteName = PAsiteList.searchSites[siteNum][0]
+
+    return siteName
 
 
 def getSearchBaseURL(siteNum):
-    return PAsiteList.searchSites[siteNum][1]
-
-
-def getSearchSearchURL(siteNum):
-    url = PAsiteList.searchSites[siteNum][2]
-    if not url.startswith('http'):
-        url = getSearchBaseURL(siteNum) + url
+    url = None
+    if PAsiteList.searchSites[siteNum]:
+        url = PAsiteList.searchSites[siteNum][1]
 
     return url
 
 
-def getSearchsiteNumByFilter(searchFilter):
-    searchResults = []
-    searchFilterF = searchFilter.lower().replace(' ', '').replace('.com', '').replace('.net', '').replace('\'', '').replace('-', '')
-    for searchID, site in PAsiteList.searchSites.items():
-        if site:
-            siteNameF = site[0].lower().replace(' ', '').replace('\'', '').replace('-', '')
+def getSearchSearchURL(siteNum):
+    url = None
+    if PAsiteList.searchSites[siteNum]:
+        url = PAsiteList.searchSites[siteNum][2]
+        if not url.startswith('http'):
+            url = getSearchBaseURL(siteNum) + url
 
-            if searchFilterF.startswith(siteNameF):
-                searchResults.append((searchID, siteNameF))
+    return url
+
+
+def getSiteNumByFilter(searchFilter):
+    searchResults = []
+    searchFilter = re.sub(r'\W', '', searchFilter.lower())
+    for siteNum in PAsiteList.searchSites:
+        siteName = getSearchSiteName(siteNum)
+        if siteName:
+            siteName = re.sub(r'\W', '', siteName.lower())
+
+            if searchFilter.startswith(siteName):
+                searchResults.append((siteNum, siteName))
 
     if searchResults:
         from operator import itemgetter
@@ -56,12 +67,12 @@ def getSearchSettings(mediaTitle):
     searchDate = None
 
     # Remove Site from Title
-    siteNum = getSearchsiteNumByFilter(mediaTitle)
+    siteNum = getSiteNumByFilter(mediaTitle)
     if siteNum is not None:
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
-        site = PAsiteList.searchSites[siteNum][0].lower()
+        site = getSearchSiteName(siteNum).lower()
 
         title = re.sub(r'[^a-zA-Z0-9#& ]', '', mediaTitle)
         site = re.sub(r'\W', '', site)
@@ -79,6 +90,7 @@ def getSearchSettings(mediaTitle):
         else:
             searchTitle = mediaTitle
 
+        searchTitle = PAutils.parseTitle(searchTitle, siteNum)
         searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
         Log('searchTitle (before date processing): %s' % searchTitle)
@@ -108,15 +120,15 @@ def getSearchSettings(mediaTitle):
 
 def posterAlreadyExists(posterUrl, metadata):
     posterUrl = PAutils.getClearURL(posterUrl)
-    for p in metadata.posters.keys():
-        if p.lower() == posterUrl.lower():
+    for url in metadata.posters.keys():
+        if url.lower() == posterUrl.lower():
             Log('Found %s in posters collection' % posterUrl)
             return True
         else:
             pass
 
-    for p in metadata.art.keys():
-        if p.lower() == posterUrl.lower():
+    for url in metadata.art.keys():
+        if url.lower() == posterUrl.lower():
             return True
 
     return False
