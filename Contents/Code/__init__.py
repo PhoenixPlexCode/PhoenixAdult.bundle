@@ -5,6 +5,7 @@ import requests
 import urllib
 import urlparse
 import json
+import shutil
 from datetime import datetime
 from PIL import Image
 from cStringIO import StringIO
@@ -25,6 +26,16 @@ def Start():
     HTTP.Headers['Accept-Encoding'] = 'gzip'
 
     requests.packages.urllib3.disable_warnings()
+
+    dateNowObj = datetime.now()
+    debug_dir = 'debug_data/'
+    if os.path.exists(debug_dir):
+        for directoryName in os.listdir(debug_dir):
+            debugDateObj = parse(directoryName)
+            if abs((dateNowObj - debugDateObj).days) > 3:
+                debugLogs = debug_dir + directoryName
+                shutil.rmtree(debugLogs)
+                Log('Deleted debug data: %s' % directoryName)
 
 
 class PhoenixAdultAgent(Agent.Movies):
