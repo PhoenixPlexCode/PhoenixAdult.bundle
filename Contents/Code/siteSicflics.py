@@ -1,6 +1,5 @@
 import PAsearchSites
 import PAutils
-import re
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
