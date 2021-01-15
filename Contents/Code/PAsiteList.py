@@ -155,7 +155,7 @@ import siteTalesFromTheEdge
 import networkDerangedDollars
 import siteDickDrainers
 import siteAlsAngels
-import watch4Beauty
+import siteWatch4Beauty
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -2530,7 +2530,7 @@ def getProviderFromSiteNum(siteNum):
         # DickDrainers
         elif siteNum == 1183:
             provider = siteDickDrainers
-            
+
         # ALS Angels
         elif siteNum == 1184:
             provider = siteAlsAngels
