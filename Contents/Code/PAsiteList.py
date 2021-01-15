@@ -155,7 +155,7 @@ import siteTalesFromTheEdge
 import networkDerangedDollars
 import siteDickDrainers
 import siteAlsAngels
-import watch4Beauty
+import siteWatch4Beauty
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
