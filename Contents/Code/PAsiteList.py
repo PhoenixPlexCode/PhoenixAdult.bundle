@@ -1340,6 +1340,7 @@ searchSites = {
     1181: ('Assylum', 'https://www.assylum.com', '/'),
     1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
     1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
+    1185: ('Watch4Beauty', 'https://www.watch4beauty.com', '/models/'),
 }
 
 abbreviations = (
@@ -1559,6 +1560,7 @@ abbreviations = (
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
     ('^wfbg ', 'WeFuckBlackGirls '),
     ('^wkp ', 'Wicked '),
@@ -2525,5 +2527,9 @@ def getProviderFromSiteNum(siteNum):
         # DickDrainers
         elif siteNum == 1183:
             provider = siteDickDrainers
+
+        # Watch4Beauty
+        elif siteNum == 1185:
+            provider = siteWatch4Beauty
 
     return provider
