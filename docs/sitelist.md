@@ -685,7 +685,10 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### NewSensations | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
 + #### NewSensations Other Sites | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Fresh Out of High School
+  - Shane Diesel's Banging Babes
   - Tales From the Edge
+  - The Romance Series
+  - The Tabu Tales
 + #### Nubiles Porn Network | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - Bad Teens Punished
   - Bountyhunter Porn
