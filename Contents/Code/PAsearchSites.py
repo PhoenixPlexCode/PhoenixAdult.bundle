@@ -31,7 +31,6 @@ def getSearchSearchURL(siteNum):
 def getSiteNumByFilter(searchFilter):
     searchResults = []
     searchFilter = re.sub(r'[^a-z0-9]', '', searchFilter.lower())
-    Log(searchFilter)
     for siteNum in PAsiteList.searchSites:
         siteName = getSearchSiteName(siteNum)
         if siteName:
