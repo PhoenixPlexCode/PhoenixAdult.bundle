@@ -154,6 +154,7 @@ import networkAbbyWinters
 import siteTalesFromTheEdge
 import networkDerangedDollars
 import siteDickDrainers
+import siteAlsAngels
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1340,6 +1341,7 @@ searchSites = {
     1181: ('Assylum', 'https://www.assylum.com', '/'),
     1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
     1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
+    1184: ('ALS Angels', 'http://www.alsangels.com', '/dailyvideos.html'),
     1185: ('Watch4Beauty', 'https://www.watch4beauty.com', '/models/'),
 }
 
@@ -2527,6 +2529,10 @@ def getProviderFromSiteNum(siteNum):
         # DickDrainers
         elif siteNum == 1183:
             provider = siteDickDrainers
+            
+        # ALS Angels
+        elif siteNum == 1184:
+            provider = siteAlsAngels
 
         # Watch4Beauty
         elif siteNum == 1185:
