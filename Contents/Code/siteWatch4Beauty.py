@@ -1,6 +1,7 @@
 import PAsearchSites
 import PAutils
 
+
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     modelStrings = []
 
@@ -34,7 +35,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         modelsJson = modelsReq.json()
         if modelsJson:
             modelsJson = json.loads(modelsReq.text)
-            modelString = modelsJson[0]['Models'][0].get('model_simple_nickname') # only need one at this point
+            modelString = modelsJson[0]['Models'][0].get('model_simple_nickname')  # only need one at this point
 
             scenesReq = PAutils.HTTPRequest('%s/%s/updates' % (w4bApiUrl('model'), modelString))
             scenesJson = scenesReq.json()
@@ -59,6 +60,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (modelString, siteNum, sceneString), name='%s, %s [Watch4Beauty]' % (sceneName, sceneDateString), score=score, lang=lang))
 
     return results
+
 
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
@@ -149,9 +151,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     return metadata
 
+
 def w4bApiUrl(type):
     key = '3yAjOB66l2A566U' if type == 'model' else '7Wywy44w9G9Bbtf'
     return 'https://www.watch4beauty.com/api/%s' % key
+
 
 def w4bArtUrl():
     return 'https://s5q3w2t8.ssl.hwcdn.net/production/'
