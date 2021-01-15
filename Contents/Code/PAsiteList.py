@@ -151,7 +151,7 @@ import sitePutalocura
 import siteMelenaMariaRya
 import networkPervCity
 import networkAbbyWinters
-import siteTalesFromTheEdge
+import siteNewSensationsOther
 import networkDerangedDollars
 import siteDickDrainers
 import siteAlsAngels
@@ -1344,6 +1344,7 @@ searchSites = {
     1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
     1184: ('ALS Angels', 'http://www.alsangels.com', '/dailyvideos.html'),
     1185: ('Watch4Beauty', 'https://www.watch4beauty.com', '/models/'),
+    1186: ('Fresh Out Of High School', 'https://freshoutofhighschool.com', '/tour_fohs/search.php?query='),
 }
 
 abbreviations = (
@@ -2520,8 +2521,8 @@ def getProviderFromSiteNum(siteNum):
             provider = networkAbbyWinters
 
         # Tales From the Edge
-        elif siteNum == 1180:
-            provider = siteTalesFromTheEdge
+        elif siteNum == 1180 or siteNum == 1186:
+            provider = siteNewSensationsOther
 
         # Deranged Dollars
         elif (1181 <= siteNum <= 1182):
