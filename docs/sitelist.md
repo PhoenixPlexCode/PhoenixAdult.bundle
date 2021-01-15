@@ -1171,7 +1171,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### WankzVR Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - MilfVR
   - WankzVR
-+ #### Watch4Beauty | Matching type: *[Limited](./manualsearch.md#enhanced-search)* - ** Title or Actor Name, Date Add
++ #### Watch4Beauty | Matching type: *[Limited](./manualsearch.md#enhanced-search)* - **Title or Actor Name, Date Add**
 + #### We Are Hairy | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Why Not Bi | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Wicked | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
