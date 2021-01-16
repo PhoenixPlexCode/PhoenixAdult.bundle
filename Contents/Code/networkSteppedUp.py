@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-').replace('--', '-').lower()
+    encodedTitle = searchTitle.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
     if '/' not in encodedTitle:
         encodedTitle = encodedTitle.replace('-', '/', 1)
 
