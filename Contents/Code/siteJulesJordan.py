@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -30,11 +29,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -50,7 +49,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -75,7 +74,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    if PAsearchSites.getSearchSiteName(siteID) == "GirlGirl":
+    if PAsearchSites.getSearchSiteName(siteNum) == "GirlGirl":
         actors = detailsPageElements.xpath('//div[@class="item"]/span/div/a')
     else:
         actors = detailsPageElements.xpath('//div[@class="backgroundcolor_info"]/span[@class="update_models"]/a')
@@ -91,7 +90,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             try:
                 actorPhotoURL = actorPage.xpath('//img[@class="model_bio_thumb stdimage thumbs target"]/@src0_3x')[0]
                 if 'http' not in actorPhotoURL:
-                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPhotoURL
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
             except:
                 pass
 
@@ -105,7 +104,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         omega = bigScript.find('";', alpha)
         background = bigScript[alpha:omega]
         if 'http' not in background:
-            background = PAsearchSites.getSearchBaseURL(siteID) + background
+            background = PAsearchSites.getSearchBaseURL(siteNum) + background
         art.append(background)
     except:
         pass
@@ -117,18 +116,18 @@ def update(metadata, siteID, movieGenres, movieActors):
         omega = bigScript.find('",', alpha)
         setID = bigScript[alpha:omega]
 
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteID) + urllib.quote(metadata.title))
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + urllib.quote(metadata.title))
         searchPageElements = HTML.ElementFromString(req.text)
         posterUrl = searchPageElements.xpath('//img[@id="set-target-%s"]/@src' % setID)[0]
         if 'http' not in posterUrl:
-            posterUrl = PAsearchSites.getSearchBaseURL(siteID) + posterUrl
+            posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
 
         art.append(posterUrl)
         for i in range(0, 7):
             try:
                 posterUrl = searchPageElements.xpath('//img[@id="set-target-%s"]/@src%d_1x' % (setID, i))[0]
                 if 'http' not in posterUrl:
-                    posterUrl = PAsearchSites.getSearchBaseURL(siteID) + posterUrl
+                    posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
 
                 art.append(posterUrl)
             except:
@@ -152,7 +151,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             omega = ptx1600.find('"', alpha)
             posterUrl = ptx1600[alpha:omega]
             if 'http' not in posterUrl:
-                posterUrl = PAsearchSites.getSearchBaseURL(siteID) + posterUrl
+                posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
             photos.append(posterUrl)
         for x in range(10):
             art.append(photos[random.randint(1, imageCount)])
@@ -175,7 +174,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             omega = ptxjpg.find('"', alpha)
             posterUrl = ptxjpg[alpha:omega]
             if 'http' not in posterUrl:
-                posterUrl = PAsearchSites.getSearchBaseURL(siteID) + posterUrl
+                posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
             vidcaps.append(posterUrl)
         for x in range(10):
             art.append(vidcaps[random.randint(1, imageCount)])
@@ -187,7 +186,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

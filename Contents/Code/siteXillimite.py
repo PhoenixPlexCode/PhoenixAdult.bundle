@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -23,11 +22,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -48,11 +47,11 @@ def update(metadata, siteID, movieGenres, movieActors):
         metadata.summary = description.replace('</br>', '\n').replace('<br>', '\n').strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -66,7 +65,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="casting"]//div[contains(@class, "slider-xl")]//a[@class="movies"]/img'):
         actorName = actorLink.get('alt')
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get('data-src')
+        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('data-src')
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -78,7 +77,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
-            poster = PAsearchSites.getSearchBaseURL(siteID) + poster.replace('blur9/', '/')
+            poster = PAsearchSites.getSearchBaseURL(siteNum) + poster.replace('blur9/', '/')
 
             art.append(poster)
 
@@ -87,7 +86,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

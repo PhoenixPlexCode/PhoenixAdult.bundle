@@ -1,8 +1,5 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
-import re
 
 query = 'content.load?_method=content.load&tz=1&limit=512&transitParameters[v1]=OhUOlmasXD&transitParameters[v2]=OhUOlmasXD&transitParameters[preset]=videos'
 updatequery = 'content.load?_method=content.load&tz=1&filter[id][fields][0]=id&filter[id][values][0]={}&limit=1&transitParameters[v1]=ykYa8ALmUD&transitParameters[preset]=scene'
@@ -32,7 +29,7 @@ def getJSONfromAPI(url):
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + 'videos/')
+    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/videos/')
     searchResults = getJSONfromAPI(PAsearchSites.getSearchSearchURL(siteNum) + apiurl + query)
 
     if searchResults:
@@ -60,12 +57,12 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     title = metadata_id[2].strip()
-    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteID) + '/scene/' + sceneID + '/' + title)
-    apiurl = PAsearchSites.getSearchSearchURL(siteID) + apiurl
+    apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/scene/' + sceneID + '/' + title)
+    apiurl = PAsearchSites.getSearchSearchURL(siteNum) + apiurl
     searchResult = getJSONfromAPI(apiurl + updatequery.format(sceneID))[0]
 
     # Title
@@ -75,7 +72,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.summary = searchResult['description']
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -98,7 +95,7 @@ def update(metadata, siteID, movieGenres, movieActors):
                 genre = value.get('alias')
 
                 if genre:
-                    if siteID == 1027:
+                    if siteNum == 1027:
                         genre = genre.replace('-', ' ')
                         movieActors.addActor(genre, '')
                     else:
@@ -117,26 +114,30 @@ def update(metadata, siteID, movieGenres, movieActors):
                 if actorName:
                     movieActors.addActor(actorName, '')
 
-    if siteID == 1024:
+    if siteNum == 1024:
         baseactor = 'Aletta Ocean'
-    elif siteID == 1025:
+    elif siteNum == 1025:
         baseactor = 'Eva Lovia'
-    elif siteID == 1026:
+    elif siteNum == 1026:
         baseactor = 'Romi Rain'
-    elif siteID == 1030:
+    elif siteNum == 1030:
         baseactor = 'Dani Daniels'
-    elif siteID == 1031:
+    elif siteNum == 1031:
         baseactor = 'Chloe Toy'
-    elif siteID == 1033:
+    elif siteNum == 1033:
         baseactor = 'Katya Clover'
-    elif siteID == 1035:
+    elif siteNum == 1035:
         baseactor = 'Lisey Sweet'
-    elif siteID == 1037:
+    elif siteNum == 1037:
         baseactor = 'Gina Gerson'
-    elif siteID == 1038:
+    elif siteNum == 1038:
         baseactor = 'Valentina Nappi'
-    elif siteID == 1039:
+    elif siteNum == 1039:
         baseactor = 'Vina Sky'
+    elif siteNum == 1058:
+        baseactor = 'Vicki Valkyrie'
+    elif siteNum == 1075:
+        baseactor = 'Dillion Harper'
     else:
         baseactor = ''
 
@@ -155,7 +156,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

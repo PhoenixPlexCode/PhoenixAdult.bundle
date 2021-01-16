@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
@@ -17,7 +15,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         detailsPageElements = HTML.ElementFromString(req.text)
         searchResult = detailsPageElements.xpath('//title')[0].text_content().split('|')
 
-        titleNoFormatting = searchResult[0].strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult[0].strip(), siteNum).replace('W/', 'w/')
         subSite = searchResult[1].strip()
         curID = PAutils.Encode(sceneURL)
         date = detailsPageElements.xpath('//div[@class="playerText-new fright"]//p')[0].text_content().split('on')
@@ -30,7 +28,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -42,9 +40,9 @@ def update(metadata, siteID, movieGenres, movieActors):
         sceneID = id.group()
     except:
         sceneID = ''
-    
+
     # Title
-    metadata.title = info[0].strip()
+    metadata.title = PAutils.parseTitle(info[0].strip(), siteNum).replace('W/', 'w/')
 
     # Summary
     try:
@@ -76,7 +74,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorName = actorLink.text_content().strip()
 
         actorPhotoURL = ''
-        modelBaseURL = PAsearchSites.getSearchBaseURL(siteID) + '/t1/most-liked-girls/'
+        modelBaseURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/most-liked-girls/'
         genres = genres.replace(actorName, '')
 
         for idx in range(1, 6):
@@ -109,7 +107,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     ]
 
     try:
-        modelURL = PAsearchSites.getSearchBaseURL(siteID) + detailsPageElements.xpath('//p[contains(string(), "Cast")]/a/@href')[0]
+        modelURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//p[contains(string(), "Cast")]/a/@href')[0]
         req = PAutils.HTTPRequest(modelURL)
         modelPageElements = HTML.ElementFromString(req.text)
         for xpath in xpaths:
@@ -135,7 +133,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

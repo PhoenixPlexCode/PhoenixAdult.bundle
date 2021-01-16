@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -17,11 +16,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -74,7 +73,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorBoxA = actorPage.xpath('//div[@class="slider-part screenshots"]')[0]
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorBoxA.xpath('//div[contains(@class, "slider-xl")]/div[@class="slides"]/a/@href')[0].replace('https:', 'http:')
+        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorBoxA.xpath('//div[contains(@class, "slider-xl")]/div[@class="slides"]/a/@href')[0].replace('https:', 'http:')
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -82,7 +81,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     art = []
     try:
         poster = detailsPageElements.xpath('//div[contains(@class,"covers")]/a[contains(@class,"cover")]/@href')[0].strip()
-        coverURL = (PAsearchSites.getSearchBaseURL(siteID) + poster).replace('https:', 'http:')
+        coverURL = (PAsearchSites.getSearchBaseURL(siteNum) + poster).replace('https:', 'http:')
         art.append(coverURL)
     except:
         pass
@@ -92,7 +91,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         photoBoxB = photoBoxA.xpath('//div[contains(@class,"slider-xl")]/div[@class="slides"]/div[@class="col-xs-2"]/a/@href')
 
         for photo in photoBoxB:
-            photoURL = (PAsearchSites.getSearchBaseURL(siteID) + photo.strip()).replace('https:', 'http:').replace('blur9/', '/')
+            photoURL = (PAsearchSites.getSearchBaseURL(siteNum) + photo.strip()).replace('https:', 'http:').replace('blur9/', '/')
             art.append(photoURL)
     except:
         pass
@@ -102,7 +101,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

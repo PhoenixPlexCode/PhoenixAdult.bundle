@@ -1,5 +1,5 @@
-.gitattributes
 .pylintrc
 .venv/
 .vscode/
+.idea
 __pycache__/

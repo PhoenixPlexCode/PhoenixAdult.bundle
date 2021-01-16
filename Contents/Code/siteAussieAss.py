@@ -1,12 +1,10 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
 def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
-    sceneID = re.sub('\D.*', '', searchTitle)
+    sceneID = re.sub(r'\D.*', '', searchTitle)
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/webmasters/" + sceneID
@@ -57,7 +55,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
                 titleNoFormatting = re.sub(r'^\d+', '', resultTitleID)
 
-                resultID = re.sub('\D.*', '', resultTitleID)
+                resultID = re.sub(r'\D.*', '', resultTitleID)
 
                 sceneURL = searchResult.xpath('.//a/@href')[0]
                 curID = PAutils.Encode(sceneURL)
@@ -83,7 +81,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     try:
@@ -104,7 +102,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         resultTitleID = detailsPageElements.xpath('//h4/span')[0].text_content().title()
         metadata.title = re.sub(r'^\d+', '', resultTitleID)
 
-    sceneID = re.sub('\D.*', '', resultTitleID)
+    sceneID = re.sub(r'\D.*', '', resultTitleID)
 
     # Summary
     try:
@@ -117,7 +115,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
@@ -146,7 +144,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             if img:
                 actorPhotoURL = img
                 if 'http' not in actorPhotoURL:
-                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPhotoURL
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -164,7 +162,7 @@ def update(metadata, siteID, movieGenres, movieActors):
             for x in range(pageResults):
                 if x == 1:
                     actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1]
-                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteID) + actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
+                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
                     actorsPageElements = HTML.ElementFromString(req.text)
 
                 for sceneElements in actorsPageElements.xpath('//div[@class="box"]'):
@@ -203,10 +201,10 @@ def update(metadata, siteID, movieGenres, movieActors):
                 elif 'webmasters' in sceneURL:
                     img = sceneURL + "/" + img
                 else:
-                    img = PAsearchSites.getSearchBaseURL(siteID) + img
+                    img = PAsearchSites.getSearchBaseURL(siteNum) + img
             art.append(img)
         if 'webmasters' not in sceneURL:
-            altURL = PAsearchSites.getSearchBaseURL(siteID) + "/webmasters/" + sceneID
+            altURL = PAsearchSites.getSearchBaseURL(siteNum) + "/webmasters/" + sceneID
             req = PAutils.HTTPRequest(altURL)
             detailsPageElements = HTML.ElementFromString(req.text)
             sceneURL = altURL
@@ -216,7 +214,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

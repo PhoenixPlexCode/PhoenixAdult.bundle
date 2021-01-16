@@ -105,7 +105,12 @@ def HTTPRequest(url, method='GET', **kwargs):
         method = 'POST'
 
     Log('Requesting %s "%s"' % (method, url))
-    req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+
+    req = None
+    try:
+        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+    except:
+        req = FakeResponse(None, url, 418, None)
 
     req_bypass = None
     if not req.ok and bypass:
@@ -133,18 +138,23 @@ def HTTPRequest(url, method='GET', **kwargs):
 
 def getFromGoogleSearch(searchText, site='', **kwargs):
     stop = kwargs.pop('stop', 10)
+    lang = kwargs.pop('lang', 'en')
+
     if isinstance(site, int):
         site = PAsearchSites.getSearchBaseURL(site).split('://')[1].lower()
         if site.startswith('www.'):
             site = site.replace('www.', '', 1)
 
+    googleResults = []
     searchTerm = 'site:%s %s' % (site, searchText) if site else searchText
+
+    if not searchText:
+        return googleResults
 
     Log('Using Google Search "%s"' % searchTerm)
 
-    googleResults = []
     try:
-        googleResults = list(googlesearch.search(searchTerm, stop=stop, user_agent=getUserAgent()))
+        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent()))
     except:
         Log('Google Search Error')
         pass
@@ -188,7 +198,7 @@ def saveRequest(url, req):
         os.makedirs(debug_dir)
 
     raw_http = '< Target URL: "%s"\r\n\r\n' % url
-    raw_http += dump.dump_all(req).decode('UTF-8')
+    raw_http += dump.dump_all(req).decode('UTF-8', errors='replace')
 
     file_name = '%s.gz' % uuid.uuid4().hex
     with gzip.open(debug_dir + file_name, 'wb') as f:
@@ -199,13 +209,15 @@ def saveRequest(url, req):
     return True
 
 
-def parseTitle(s, siteID):
+def parseTitle(s, siteNum):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
     s = re.sub(r'\,(?!\s)', ', ', s)
+    s = s.replace('_', ' ')
     word_list = re.split(' ', s)
 
-    firstword = parseWord(word_list[0], siteID)
+    firstword = parseWord(word_list[0], siteNum)
     if len(firstword) > 1:
+        firstword = manualWordFix(firstword)
         firstword = firstword[0].capitalize() + firstword[1:]
     else:
         firstword = firstword.capitalize()
@@ -213,26 +225,30 @@ def parseTitle(s, siteID):
     final = [firstword]
 
     for word in word_list[1:]:
-        final.append(parseWord(word, siteID))
+        final.append(parseWord(word, siteNum))
 
     output = ' '.join(final)
     output = re.sub(r'\b(?:\.)$', '', output)
-    output = re.sub(r'\.(?=([a-z]))', '. ', output)
-    output = re.sub(r'\s+([.,!\":])', '', output)
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w)', lambda m: m.group(0) + ' ', output)
+    output = re.sub(r'\s+(?=[.,!\":])', '', output)
+    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
 
     return output
 
 
-def parseWord(word, siteID):
-    word_exceptions = ['a', 'an', 'of', 'the', 'to', 'and', 'by', 'for', 'on', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs.', 'vs']
-    adult_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf']
-    capital_exceptions = ['A', 'V']
-    sitename = PAsearchSites.getSearchSiteName(siteID).replace(' ','')
+def parseWord(word, siteNum):
+    lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
+    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf']
+    letter_exceptions = ['A', 'V', 'Y']
+    sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
+
+    pattern = re.compile(r'\W')
+    cleanWord = re.sub(pattern, '', word)
 
     if '-' in word and '--' not in word:
         word_list = re.split('-', word)
 
-        firstword = parseWord(word_list[0], siteID)
+        firstword = parseWord(word_list[0], siteNum)
         if len(firstword) > 1:
             firstword = firstword[0].capitalize() + firstword[1:]
         else:
@@ -240,20 +256,56 @@ def parseWord(word, siteID):
         nhword = firstword + '-'
 
         for hword in word_list[1:]:
-            nhword += parseWord(hword, siteID)
+            if len(hword) > 1:
+                nhword += parseWord(hword, siteNum)
+            else:
+                nhword += hword.upper()
+
             if hword != word_list[-1]:
                 nhword += '-'
-        final = nhword
-    elif word.lower() in adult_exceptions:
-        final = word.upper()
-    elif word.isupper() and word not in capital_exceptions:
-        final = word.upper()
-    elif sitename.lower() == word.lower():
-        final = sitename   
-    elif not word.islower() and not word.isupper() and not word.lower() in word_exceptions:
-        final = word
-    else:
-        word = word.lower()
-        final = word if word in word_exceptions else word.capitalize()
+        word = nhword
+    elif '\'' in word:
+        word_list = re.split('\'', word)
 
-    return final
+        firstword = parseWord(word_list[0], siteNum)
+        if len(firstword) > 1:
+            firstword = firstword[0].capitalize() + firstword[1:]
+        else:
+            firstword = firstword.upper()
+        nhword = firstword + '\''
+
+        for hword in word_list[1:]:
+            if len(re.sub(pattern, '', hword)) > 2:
+                nhword += parseWord(hword, siteNum)
+            else:
+                nhword += hword
+
+            if hword != word_list[-1]:
+                nhword += '\''
+        word = nhword
+    elif cleanWord.lower() in upper_exceptions:
+        word = word.upper()
+    elif cleanWord.isupper() and cleanWord not in letter_exceptions:
+        word = word.upper()
+    elif sitename.lower() == word.lower():
+        word = sitename
+    elif not (cleanWord.islower() or cleanWord.isupper() or cleanWord.lower() in lower_exceptions):
+        pass
+    else:
+        word = word.lower() if cleanWord.lower() in lower_exceptions else word.capitalize()
+
+    word = manualWordFix(word)
+
+    return word
+
+
+def manualWordFix(word):
+    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly']
+    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly']
+
+    if word.lower() in exceptions:
+        for correction in corrections:
+            if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('ñ', 'n'):
+                return correction
+
+    return word

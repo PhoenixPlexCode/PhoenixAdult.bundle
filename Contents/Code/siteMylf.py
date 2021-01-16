@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
@@ -73,13 +71,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     releaseDate = metadata_id[2]
     contentName = metadata_id[3]
 
-    detailsPageElements = getJSONfromPage(PAsearchSites.getSearchSearchURL(siteID) + sceneName)[contentName][sceneName]
+    detailsPageElements = getJSONfromPage(PAsearchSites.getSearchSearchURL(siteNum) + sceneName)[contentName][sceneName]
 
     # Title
     metadata.title = detailsPageElements['title']
@@ -95,7 +93,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     if 'site' in detailsPageElements:
         subSite = detailsPageElements['site']['name']
     else:
-        subSite = PAsearchSites.getSearchSiteName(siteID)
+        subSite = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = subSite
     metadata.collections.add(subSite)
 
@@ -113,7 +111,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         actorName = actorLink['modelName']
         actorPhotoURL = ''
 
-        actorData = getJSONfromPage('%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteID), actorID))
+        actorData = getJSONfromPage('%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorID))
         if actorData:
             actorPhotoURL = actorData['modelsContent'][actorID]['img']
 
@@ -166,7 +164,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

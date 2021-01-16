@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 
@@ -18,11 +16,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -37,7 +35,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -66,10 +64,10 @@ def update(metadata, siteID, movieGenres, movieActors):
             if actorPageURL.startswith('//'):
                 actorPageURL = 'https:' + actorPageURL
             elif not actorPageURL.startswith('http'):
-                actorPageURL = PAsearchSites.getSearchBaseURL(siteID) + actorPageURL
+                actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL
             req = PAutils.HTTPRequest(actorPageURL)
             actorPage = HTML.ElementFromString(req.text)
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteID) + actorPage.xpath('//div[@class="profile-pic"]/img/@src0_3x')[0]
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPage.xpath('//div[@class="profile-pic"]/img/@src0_3x')[0]
 
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -85,30 +83,30 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     img = detailsPageElements.xpath('//img[contains(@class, "thumbs")]/@src0_3x')
     if img:
-        art.append(PAsearchSites.getSearchBaseURL(siteID) + img[0])
+        art.append(PAsearchSites.getSearchBaseURL(siteNum) + img[0])
 
     # Search Page
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteID) + metadata.title.replace(' ', '+'))
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + metadata.title.replace(' ', '+'))
     searchPageElements = HTML.ElementFromString(req.text)
     cnt = searchPageElements.xpath('//img[@id="%s"]/@cnt' % setID)
     if cnt:
         for i in range(int(cnt[0])):
             img = searchPageElements.xpath('//img[@id="%s"]/@src%d_3x' % (setID, i))
             if img:
-                art.append(PAsearchSites.getSearchBaseURL(siteID) + img[0])
+                art.append(PAsearchSites.getSearchBaseURL(siteNum) + img[0])
 
     # Photo page
     req = PAutils.HTTPRequest(sceneURL.replace('/trailers/', '/preview/'))
     photoPageElements = HTML.ElementFromString(req.text)
     for image in photoPageElements.xpath('//img[@id="%s"]/@src0_3x' % setID):
-        art.append(PAsearchSites.getSearchBaseURL(siteID) + image)
+        art.append(PAsearchSites.getSearchBaseURL(siteNum) + image)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

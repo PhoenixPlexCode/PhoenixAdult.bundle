@@ -1,6 +1,4 @@
 import PAsearchSites
-import PAgenres
-import PAactors
 import PAutils
 
 # Known Issues
@@ -34,11 +32,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchSearchURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL, headers={'Cookie': 'cLegalAge=true'})
 
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -48,11 +46,11 @@ def update(metadata, siteID, movieGenres, movieActors):
     metadata.title = Title.title()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteID)
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -104,7 +102,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Posters
     art = []
     for poster in detailsPageElements.xpath('//div[@class="contentBlock"]//img[contains(@src,"preview")]/@src'):
-        posterUrl = PAsearchSites.getSearchBaseURL(siteID) + poster.split('?')[0]
+        posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + poster.split('?')[0]
         art.append(posterUrl)
 
     Log('Artwork found: %d' % len(art))

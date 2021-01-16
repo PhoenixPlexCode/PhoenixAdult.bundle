@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -42,11 +41,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if 'http' not in sceneURL:
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -61,7 +60,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline / Collection
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteID)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -91,14 +90,14 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Posters
     art = []
     artStyle = detailsPageElements.xpath('//div[@id="player"]/@style')[0]
-    artUrl = re.search('\((.*?)\)', artStyle).group(1)
+    artUrl = re.search(r'\((.*?)\)', artStyle).group(1)
     art.append(artUrl)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
 
                 # Add to posters
                 metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)

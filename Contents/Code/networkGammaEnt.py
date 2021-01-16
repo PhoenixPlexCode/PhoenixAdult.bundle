@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -126,7 +125,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
         if networkscenepages:
             # Other pages
@@ -186,7 +185,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                         else:
                             score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-                        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
                     resultfirst = resultsecond
                     resultsecond = []
@@ -218,7 +217,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " ["+network+PAsearchSites.getSearchSiteName(siteNum)+"] " + releaseDate, score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
     if networkdvd:
         try:
@@ -239,46 +238,46 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " ("+releaseDate.strftime('%Y')+") - Full Movie ["+PAsearchSites.getSearchSiteName(siteNum)+"]", score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " (" + releaseDate.strftime('%Y') + ") - Full Movie [" + PAsearchSites.getSearchSiteName(siteNum) + "]", score=score, lang=lang))
         except:
             pass
 
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     metadata.directors.clear()
     director = metadata.directors.new()
 
-    if siteID == 278 or (siteID >= 285 and siteID <= 287) or siteID == 843:
+    if siteNum == 278 or (siteNum >= 285 and siteNum <= 287) or siteNum == 843:
         metadata.studio = 'XEmpire'
         director.name = 'Mason'
-    elif siteID == 329 or (siteID >= 351 and siteID <= 354) or siteID == 861:
+    elif siteNum == 329 or (siteNum >= 351 and siteNum <= 354) or siteNum == 861:
         metadata.studio = 'Blowpass'
-    elif siteID == 331 or (siteID >= 355 and siteID <= 360) or siteID == 750:
+    elif siteNum == 331 or (siteNum >= 355 and siteNum <= 360) or siteNum == 750:
         metadata.studio = 'Fantasy Massage'
-    elif (siteID >= 365 and siteID <= 372) or siteID == 466 or siteID == 690:
+    elif (siteNum >= 365 and siteNum <= 372) or siteNum == 466 or siteNum == 690:
         metadata.studio = '21Sextury'
-    elif siteID == 183 or (siteID >= 373 and siteID <= 374):
+    elif siteNum == 183 or (siteNum >= 373 and siteNum <= 374):
         metadata.studio = '21Naturals'
-    elif siteID >= 383 and siteID <= 386:
+    elif siteNum >= 383 and siteNum <= 386:
         metadata.studio = 'Fame Digital'
-    elif siteID >= 387 and siteID <= 392:
+    elif siteNum >= 387 and siteNum <= 392:
         metadata.studio = 'Open Life Network'
-    elif siteID == 281:
+    elif siteNum == 281:
         metadata.studio = 'Pure Taboo'
-    elif siteID == 381:
+    elif siteNum == 381:
         metadata.studio = 'Burning Angel'
-    elif siteID == 382:
+    elif siteNum == 382:
         metadata.studio = 'Pretty Dirty'
-    elif siteID >= 460 and siteID <= 466:
+    elif siteNum >= 460 and siteNum <= 466:
         metadata.studio = '21Sextreme'
 
     art = []
@@ -308,7 +307,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     try:
         tagline = detailsPageElements.xpath('//div[@class="studioLink"]')[0].text_content().strip()
     except:
-        tagline = PAsearchSites.getSearchSiteName(siteID)
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -397,7 +396,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         for actorLink in actors:
             actorName = str(actorLink.text_content().strip())
             actorPageURL = actorLink.get("href")
-            req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteID) + actorPageURL))
+            req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL))
             actorPage = HTML.ElementFromString(req.text)
             actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"] | //span[@class="removeAvatarParent"]/img')[0].get("src")
             movieActors.addActor(actorName, actorPhotoURL)
@@ -416,8 +415,8 @@ def update(metadata, siteID, movieGenres, movieActors):
                 omega = sceneActors.find('"', alpha)
                 actorName = sceneActors[alpha:omega]
                 # Search for the actor to get their page (then photo) or hardcode the URL pattern if feeling frisky
-                actorPageURL = '/en/pornstar/'+actorName.replace(' ', '-') + '/' + actorId
-                req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteID) + actorPageURL))
+                actorPageURL = '/en/pornstar/' + actorName.replace(' ', '-') + '/' + actorId
+                req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL))
                 actorPage = HTML.ElementFromString(req.text)
                 actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"] | //span[@class="removeAvatarParent"]/img')[0].get("src")
                 movieActors.addActor(actorName, actorPhotoURL)
@@ -489,7 +488,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Scene photos page
     try:
-        photoPageUrl = PAsearchSites.getSearchBaseURL(siteID)+detailsPageElements.xpath('//a[@class="controlButton GA_Track GA_Track_Action_Pictures GA_Track_Category_Player GA GA_Click GA_Id_ScenePlayer_Pictures"]')[0].get('href')
+        photoPageUrl = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//a[@class="controlButton GA_Track GA_Track_Action_Pictures GA_Track_Category_Player GA GA_Click GA_Id_ScenePlayer_Pictures"]')[0].get('href')
         req = PAutils.HTTPRequest(photoPageUrl)
         photoPage = HTML.ElementFromString(req.text)
         unlockedPhotoImg = photoPage.xpath('//div[@class="previewImage"]/img')[0].get('src')
@@ -531,7 +530,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

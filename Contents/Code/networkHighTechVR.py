@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -21,9 +20,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
-    sceneURL = PAsearchSites.getSearchSearchURL(siteID) + metadata_id[0]
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -60,7 +59,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     for actorLink in detailsPageElements.xpath('//div[@class="video-actress-name"]//a | //div[@class="u-mt--three u-mb--three"]//a | //div[@class="model-one-inner js-trigger-lazy-item"]//a | //div[@class="featuring commed"]//a'):
         actorName = actorLink.text_content().strip()
 
-        actorPageURL = PAsearchSites.getSearchBaseURL(siteID) + actorLink.get('href')
+        actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class, "model-img-wrapper")]/figure/a/img | //div[contains(@class, "u-ratio--model-poster")]//img | //div[contains(@class, "model-one-inner")]//img | //div[contains(@class, "row actor-info")]//img')[0].get('src').split('?')[0]
@@ -84,7 +83,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

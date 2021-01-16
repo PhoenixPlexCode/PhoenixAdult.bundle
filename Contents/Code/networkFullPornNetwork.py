@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAgenres
 import PAutils
 
 
@@ -48,11 +47,11 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     return results
 
 
-def update(metadata, siteID, movieGenres, movieActors):
+def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteID) + sceneURL
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     scenePoster = metadata_id[3] if len(metadata_id) > 3 else None
     req = PAutils.HTTPRequest(sceneURL)
@@ -69,7 +68,7 @@ def update(metadata, siteID, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    for seriesName in [metadata.studio, PAsearchSites.getSearchSiteName(siteID)]:
+    for seriesName in [metadata.studio, PAsearchSites.getSearchSiteName(siteNum)]:
         metadata.collections.add(seriesName)
 
     # Release Date
@@ -88,7 +87,7 @@ def update(metadata, siteID, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="small-12"]//a[contains(@href, "/model/")]/@href'):
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteID) + actorLink)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorLink)
         actorPage = HTML.ElementFromString(req.text)
         actorName = actorPage.xpath('//h1')[0].text_content().strip()
         actorPhotoURL = actorPage.xpath('//img[@alt="%s"]/@src' % actorName)[0]
@@ -105,7 +104,7 @@ def update(metadata, siteID, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.google.com'})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
