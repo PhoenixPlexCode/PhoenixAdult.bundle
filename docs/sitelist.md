@@ -683,6 +683,12 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Watch Your Wife
   - Wives on Vacation
 + #### NewSensations | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
++ #### NewSensations Other Sites | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Fresh Out of High School
+  - Shane Diesel's Banging Babes
+  - Tales From the Edge
+  - The Romance Series
+  - The Tabu Tales
 + #### Nubiles Porn Network | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - Bad Teens Punished
   - Bountyhunter Porn
@@ -969,7 +975,6 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Swallowed / TrueAnal / Nymphos / AllAnal | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
-+ #### Tales From the Edge | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - BFFs
   - Badmilfs
