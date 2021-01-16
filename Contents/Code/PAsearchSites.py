@@ -75,8 +75,7 @@ def getSearchSettings(mediaTitle):
         title = mediaTitle
         site = getSearchSiteName(siteNum).lower()
 
-        title = re.sub(r'[^\w&# ]', ' ', title)
-        title = re.sub(r'[^a-zA-Z0-9#& ]', '', title)
+        title = re.sub(r'[^a-zA-Z0-9#& ]', ' ', title)
         site = re.sub(r'\W', '', site)
 
         matched = False

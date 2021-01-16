@@ -270,11 +270,11 @@ manualMatch = {
         'curID': '/videos/i_love_x-art',
         'name': 'I Love X-Art [X-Art]',
     },
-    'Dont Keep Me Waiting Part 1': {
+    'Don\'t Keep Me Waiting Part 1': {
         'curID': '/videos/dont_keep_me_waiting__part_1',
         'name': 'Don\'t Keep Me Waiting - Part 1 [X-Art]',
     },
-    'Dont Keep Me Waiting Part 2': {
+    'Don\'t Keep Me Waiting Part 2': {
         'curID': '/videos/dont_keep_me_waiting__part_2',
         'name': 'Don\'t Keep Me Waiting - Part 2 [X-Art]',
     },
