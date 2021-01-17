@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     encodedTitle = searchTitle.replace(' ', '-')
     if '/' not in encodedTitle:
         encodedTitle.replace('-', '/', 1)

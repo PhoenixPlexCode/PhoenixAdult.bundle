@@ -1,4 +1,4 @@
-import PAsearchSites 
+import PAsearchSites
 import PAutils
 
 
@@ -31,7 +31,7 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     return None
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     directURL = searchTitle.replace(' ', '-').lower()
 
     searchResults = [directURL]

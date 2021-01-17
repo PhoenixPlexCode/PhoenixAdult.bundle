@@ -12,7 +12,7 @@ def getAlgolia(url, indexName, params):
     return data['results'][0]['hits']
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     sceneID = searchTitle.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()

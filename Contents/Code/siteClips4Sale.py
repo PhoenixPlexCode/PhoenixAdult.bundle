@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     userID = searchTitle.split(' ', 1)[0]
     sceneTitle = searchTitle.split(' ', 1)[1]
     encodedTitle = urllib.quote(sceneTitle)
@@ -1856,7 +1856,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     #  Mistress Chantel
     elif 'Mistress Chantel' in tagline:
         movieActors.addActor('Mistress Chantel', '')
-    
+
     # Mistress Ezada Sinn
     elif 'Mistress Ezada Sinn' in tagline:
         movieActors.addActor('Ezada Sinn', '')
