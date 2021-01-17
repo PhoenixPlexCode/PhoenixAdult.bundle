@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     cookies = {'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'}
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle, cookies=cookies)
     searchResults = HTML.ElementFromString(req.json()['html'])

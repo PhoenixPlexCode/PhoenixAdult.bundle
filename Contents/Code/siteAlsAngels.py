@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum))
     detailsPageElements = HTML.ElementFromString(req.text)
     parent = ''

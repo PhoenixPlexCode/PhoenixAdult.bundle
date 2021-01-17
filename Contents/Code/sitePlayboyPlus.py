@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     data = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + '/' + encodedTitle)
     searchResults = HTML.ElementFromString(data.text)
     for searchResult in searchResults.xpath('//div[@id="search-results-gallery"]//li[@class="item"]'):

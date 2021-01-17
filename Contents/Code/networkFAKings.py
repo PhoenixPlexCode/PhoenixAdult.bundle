@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     encodedTitle = searchTitle.replace(' ', '-')
 
     searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)

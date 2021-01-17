@@ -93,11 +93,11 @@ class PhoenixAdultAgent(Agent.Movies):
                 Log('Search Date: %s' % searchDate)
 
             encodedTitle = urllib.quote(searchTitle)
-            Log(encodedTitle)
+            Log('Encoded title: %s' % encodedTitle)
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+                provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media)
 
         results.Sort('score', descending=True)
 

@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     searchResults = []
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '&sid=587'

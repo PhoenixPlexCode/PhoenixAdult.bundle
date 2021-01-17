@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     shootID = None
     for splited in searchTitle.split(' '):
         if unicode(splited, 'UTF-8').isdigit():
