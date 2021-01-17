@@ -63,6 +63,26 @@ class PhoenixAdultAgent(Agent.Movies):
         Log('*******MEDIA TITLE****** %s' % title)
 
         searchSettings = PAsearchSites.getSearchSettings(title)
+
+        if searchSettings[0] is None and media.filename:
+            filename = urllib.unquote(media.filename)
+            # unable to identify a studio from the given string,
+            # try to get a site match from the parent directory name
+            path = filename[1:] if filename[0] == '/' else filename
+            pathComponents = path.strip().split('/')
+            if len(pathComponents) >= 2:
+                # we have a path
+                parent = pathComponents[-2]
+                parentWords = ' '.join(re.split(r'[^A-Za-z0-9]+', parent))
+                parentTitle = self.getSearchTitle(parentWords)
+                searchSettings = PAsearchSites.getSearchSettings(parentTitle)
+
+                if searchSettings[0] is not None and searchSettings[1].lower() == PAsearchSites.getSearchSiteName(searchSettings[0]).lower():
+                    # maybe the parent directory name contained just the studio name?
+                    # try to search for the parent directory name and the file name
+                    parentTitlePlusTitle = '%s %s' % (parentTitle, title)
+                    searchSettings = PAsearchSites.getSearchSettings(parentTitlePlusTitle)
+
         siteNum = searchSettings[0]
         searchTitle = searchSettings[1]
         searchDate = searchSettings[2]
