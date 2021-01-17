@@ -402,6 +402,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - SoapyMassage
   - TrickySpa
 + #### FemdomEmpire / Feminized | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Femjoy | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Model or Title (but not both), Date Add**
 + #### FinishesTheJob | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - ManoJob
   - MrPOV
