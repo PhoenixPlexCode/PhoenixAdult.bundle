@@ -11,7 +11,7 @@ import PAutils
 # - Add actor photos manually.
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     encodedTitle = searchTitle.replace(' ', '-').lower()
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle.lower() + '/', headers={'Cookie': 'cLegalAge=true'})

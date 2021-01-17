@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     try:
         modelID = '-'.join(searchTitle.split(' ', 2)[:2])
         try:

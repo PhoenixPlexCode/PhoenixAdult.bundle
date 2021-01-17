@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
     searchResults = HTML.ElementFromString(req.text)
     if 'Search for' in searchResults.xpath('//title/text()')[0]:

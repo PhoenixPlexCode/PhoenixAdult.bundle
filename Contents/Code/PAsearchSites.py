@@ -59,12 +59,11 @@ def getSearchSettings(mediaTitle):
 
     Log('mediaTitle w/ possible abbrieviation fixed: %s' % mediaTitle)
 
-    # Search Site ID
-    siteNum = None
-    # What to search for
-    searchTitle = None
-    # Date search
-    searchDate = None
+    result = {
+        'siteNum': None,
+        'searchTitle': None,
+        'searchDate': None,
+    }
 
     # Remove Site from Title
     siteNum = getSiteNumByFilter(mediaTitle)
@@ -117,7 +116,11 @@ def getSearchSettings(mediaTitle):
 
         searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
-    return (siteNum, searchTitle, searchDate)
+        result['siteNum'] = siteNum
+        result['searchTitle'] = searchTitle
+        result['searchDate'] = searchDate
+
+    return result
 
 
 def posterAlreadyExists(posterUrl, metadata):

@@ -28,7 +28,7 @@ def getJSONfromAPI(url):
     return None
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/videos/')
     searchResults = getJSONfromAPI(PAsearchSites.getSearchSearchURL(siteNum) + apiurl + query)
 

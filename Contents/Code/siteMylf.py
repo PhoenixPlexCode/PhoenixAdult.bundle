@@ -12,7 +12,7 @@ def getJSONfromPage(url):
     return None
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     directURL = searchTitle.replace(' ', '-').lower()
     if '/' not in directURL:
         directURL = directURL.replace('-', '/', 1)

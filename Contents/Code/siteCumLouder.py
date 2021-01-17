@@ -3,7 +3,7 @@ import PAutils
 from dateutil.relativedelta import relativedelta
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     url = PAsearchSites.getSearchSearchURL(siteNum) + "%22" + encodedTitle + "%22"
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
