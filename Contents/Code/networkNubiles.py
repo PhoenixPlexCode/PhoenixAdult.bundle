@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     if searchDate:
         url = PAsearchSites.getSearchSearchURL(siteNum) + 'date/' + searchDate + '/' + searchDate
         req = PAutils.HTTPRequest(url)

@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
     userID = searchTitle.split(' ', 1)[0]
     sceneTitle = searchTitle.split(' ', 1)[1]
     encodedTitle = urllib.quote(sceneTitle)
