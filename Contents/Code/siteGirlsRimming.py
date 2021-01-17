@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     directURL = '%s%s.html' % (PAsearchSites.getSearchSearchURL(siteNum), searchTitle.lower().replace(' ', '-'))
     searchResults = [directURL]
 

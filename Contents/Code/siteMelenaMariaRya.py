@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     sceneID = searchTitle.split(' ', 1)[0]
     try:
         sceneTitle = searchTitle.split(' ', 1)[1]
@@ -42,7 +42,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Title
     metadata.title = detailsPageElements.xpath('//title')[0].text_content().split(' - Sex Movies Featuring Melena Maria Rya')[0]
-    metadata.title = re.sub('[^A-Za-z0-9\s\-]', ' ', metadata.title).strip()
+    metadata.title = re.sub(r'[^A-Za-z0-9\s\-]', ' ', metadata.title).strip()
     metadata.title = re.sub(r' with ([A-Z][a-z]+) ([A-Z][a-z]+)', '', metadata.title)
 
     # Summary

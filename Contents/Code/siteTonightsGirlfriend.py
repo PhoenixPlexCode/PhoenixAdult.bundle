@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     encodedTitle = searchTitle.lower().split('and ')[0].strip().replace(' ', '-')
     for page in range(1, 5):
         req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle, page))
@@ -57,7 +57,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = 'https:' +  actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
+        actorPhotoURL = 'https:' + actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -110,7 +110,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Posters/Background
     art = [
-         'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
+        'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
     ]
 
     Log('Artwork found: %d' % len(art))

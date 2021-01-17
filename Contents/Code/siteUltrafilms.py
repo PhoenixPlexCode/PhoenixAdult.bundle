@@ -3,7 +3,7 @@ import PAextras
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate, media):
+def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '%22' + encodedTitle + '%22'
     maxscore = 0
 
