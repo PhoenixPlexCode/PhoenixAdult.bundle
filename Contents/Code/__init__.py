@@ -58,13 +58,10 @@ class PhoenixAdultAgent(Agent.Movies):
             'ForeverAloneDude'
         )
 
-        for trash in trashTitle:
-            title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
-        title = ' '.join(title.split())
+        title = self.getSearchTitle(title)
 
         Log('*******MEDIA TITLE****** %s' % title)
 
-        Log('Getting Search Settings for: %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
         siteNum = searchSettings[0]
         searchTitle = searchSettings[1]
@@ -83,6 +80,18 @@ class PhoenixAdultAgent(Agent.Movies):
                 provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
 
         results.Sort('score', descending=True)
+
+    def getSearchTitle(self, title):
+        trashTitle = (
+            'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', 'H265', 'AVC', r'\dK',
+            r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD',
+            'KTR', 'IEVA', 'WRB', 'NBQ', 'ForeverAloneDude',
+        )
+
+        for trash in trashTitle:
+            title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
+
+        return ' '.join(title.split())
 
     def update(self, metadata, media, lang):
         movieGenres = PAgenres.PhoenixGenres()
