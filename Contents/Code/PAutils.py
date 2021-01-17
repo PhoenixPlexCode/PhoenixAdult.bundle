@@ -145,11 +145,14 @@ def getFromGoogleSearch(searchText, site='', **kwargs):
         if site.startswith('www.'):
             site = site.replace('www.', '', 1)
 
+    googleResults = []
     searchTerm = 'site:%s %s' % (site, searchText) if site else searchText
+
+    if not searchText:
+        return googleResults
 
     Log('Using Google Search "%s"' % searchTerm)
 
-    googleResults = []
     try:
         googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent()))
     except:

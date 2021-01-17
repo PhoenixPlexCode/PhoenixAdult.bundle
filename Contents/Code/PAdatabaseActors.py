@@ -1307,6 +1307,11 @@ ActorsReplaceStudios = {
     40: {
         'Natalia Andreeva': ['Natalia A'],
     },
+    41: {
+        'Krystal Boyd': ['Abby'],
+        'Melena Maria Rya': ['Maria'],
+        # TODO: others?
+    }
 }
 
 ActorsStudioIndexes = {
@@ -1351,4 +1356,5 @@ ActorsStudioIndexes = {
     38: ['CzechVR'],
     39: ['Teen Mega World'],
     40: ['Hegre'],
+    41: ['Watch4Beauty'],
 }

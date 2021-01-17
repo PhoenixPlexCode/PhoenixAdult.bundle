@@ -30,11 +30,11 @@ def getSearchSearchURL(siteNum):
 
 def getSiteNumByFilter(searchFilter):
     searchResults = []
-    searchFilter = re.sub(r'[^a-z0-9 ]', '', searchFilter.lower())
+    searchFilter = re.sub(r'[^a-z0-9]', '', searchFilter.lower())
     for siteNum in PAsiteList.searchSites:
         siteName = getSearchSiteName(siteNum)
         if siteName:
-            siteName = re.sub(r'[^a-z0-9 ]', '', siteName.lower())
+            siteName = re.sub(r'[^a-z0-9]', '', siteName.lower())
 
             if searchFilter.startswith(siteName):
                 searchResults.append((siteNum, siteName))
@@ -72,9 +72,10 @@ def getSearchSettings(mediaTitle):
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
+        title = mediaTitle
         site = getSearchSiteName(siteNum).lower()
 
-        title = re.sub(r'[^a-zA-Z0-9#& ]', '', mediaTitle)
+        title = re.sub(r'[^a-zA-Z0-9#& ]', ' ', title)
         site = re.sub(r'\W', '', site)
 
         matched = False
@@ -91,7 +92,6 @@ def getSearchSettings(mediaTitle):
             searchTitle = mediaTitle
 
         searchTitle = PAutils.parseTitle(searchTitle, siteNum)
-        searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
         Log('searchTitle (before date processing): %s' % searchTitle)
 
@@ -114,6 +114,8 @@ def getSearchSettings(mediaTitle):
                     searchDate = date_obj.strftime('%Y-%m-%d')
                     searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
                     break
+
+        searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
     return (siteNum, searchTitle, searchDate)
 

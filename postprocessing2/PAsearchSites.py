@@ -988,6 +988,8 @@ searchSites[977] = ("Black Ambush", "Black Ambush", "https://blackambush.com/", 
 searchSites[978] = ("Exploited College Girls", "Exploited College Girls", "https://exploitedcollegegirls.com/", "https://exploitedcollegegirls.com/free/girls.php?alpha=")
 searchSites[979] = ("Desperate Amateurs", "Desperate Amateurs", "https://desperateamateurs.com/", "https://desperateamateurs.com/fintour/search.php?st=advanced&qall=")
 searchSites[980] = ("Melena Maria Rya", "Melena Maria Rya", "https://www.melenamariarya.com", "https://www.melenamariarya.com/scene/")
+searchSites[981] = ("ALS Angels", "ALS Angels", "http://www.alsangels.com", "http://www.alsangels.com/dailyvideos.html")
+searchSites[982] = ("Watch4Beauty", "Watch4Beauty", "https://www.watch4beauty.com", "https://www.watch4beauty.com/updates/")
 
 
 def getSearchBaseURL(siteID):
@@ -1268,6 +1270,7 @@ def getSearchSettings(filename_title):
         ('^tspa ', 'TrickySpa '),
         ('^tss ', 'ThatSitcomShow '),
         ('^tuf ', 'TheUpperFloor '),
+        ('^w4b ', 'Watch4Beauty '),
         ('^wa ', 'WhippedAss '),
         ('^wfbg ', 'WeFuckBlackGirls '),
         ('^wkp ', 'Wicked '),

@@ -151,9 +151,11 @@ import sitePutalocura
 import siteMelenaMariaRya
 import networkPervCity
 import networkAbbyWinters
-import siteTalesFromTheEdge
+import siteNewSensationsOther
 import networkDerangedDollars
 import siteDickDrainers
+import siteAlsAngels
+import siteWatch4Beauty
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1340,6 +1342,12 @@ searchSites = {
     1181: ('Assylum', 'https://www.assylum.com', '/'),
     1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
     1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
+    1184: ('ALS Angels', 'http://www.alsangels.com', '/dailyvideos.html'),
+    1185: ('Watch4Beauty', 'https://www.watch4beauty.com', '/models/'),
+    1186: ('Fresh Out Of High School', 'https://freshoutofhighschool.com', '/tour_fohs/search.php?query='),
+    1187: ('The Tabu Tales', 'https://thetabutales.com', '/tour_tt/search.php?query='),
+    1188: ('Shane Diesel\'s Banging Babes', 'https://www.shanedieselsbanginbabes.com', '/tour_sdbb/search.php?query='),
+    1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
 }
 
 abbreviations = (
@@ -1559,6 +1567,7 @@ abbreviations = (
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
     ('^wfbg ', 'WeFuckBlackGirls '),
     ('^wkp ', 'Wicked '),
@@ -2514,9 +2523,9 @@ def getProviderFromSiteNum(siteNum):
         elif (1166 <= siteNum <= 1179):
             provider = networkAbbyWinters
 
-        # Tales From the Edge
-        elif siteNum == 1180:
-            provider = siteTalesFromTheEdge
+        # New Sensations Other
+        elif siteNum == 1180 or (1186 <= siteNum <= 1189):
+            provider = siteNewSensationsOther
 
         # Deranged Dollars
         elif (1181 <= siteNum <= 1182):
@@ -2525,5 +2534,13 @@ def getProviderFromSiteNum(siteNum):
         # DickDrainers
         elif siteNum == 1183:
             provider = siteDickDrainers
+
+        # ALS Angels
+        elif siteNum == 1184:
+            provider = siteAlsAngels
+
+        # Watch4Beauty
+        elif siteNum == 1185:
+            provider = siteWatch4Beauty
 
     return provider
