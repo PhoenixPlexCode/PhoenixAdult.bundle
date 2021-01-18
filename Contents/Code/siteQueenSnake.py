@@ -11,10 +11,10 @@ import PAutils
 # - Add actor photos manually.
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-').lower()
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].replace(' ', '-').lower()
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle.lower() + '/', headers={'Cookie': 'cLegalAge=true'})
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'].lower() + '/', headers={'Cookie': 'cLegalAge=true'})
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="contentBlock"]'):
         titleNoFormatting = searchResult.xpath('.//span[@class="contentFilmName"]')[0].text_content().strip().title()
@@ -22,9 +22,9 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         date = searchResult.xpath('.//span[@class="contentFileDate"]')[0].text_content().strip().split(' • ')[0]
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        curID = PAutils.Encode(encodedTitle.lower())
+        curID = PAutils.Encode(search['encoded'].lower())
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         if '/previewmovies/0' not in str(searchResult.xpath('//div[@class="pagerWrapper"]/a/@href')[0]):
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))

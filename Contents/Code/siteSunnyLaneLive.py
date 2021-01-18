@@ -2,19 +2,19 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = search['title'].split()
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+        search['title'] = search['title'].replace(sceneID, '', 1).strip()
 
     searchResults = []
     if sceneID:
         directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
         searchResults.append(directURL)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for sceneURL in googleResults:
         sceneURL = re.sub(r'www\.', '', sceneURL)
         sceneURL = re.sub(r'/(?<=\d/).*', '', sceneURL)
@@ -34,10 +34,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         except:
             releaseDate = ''
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date']:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 

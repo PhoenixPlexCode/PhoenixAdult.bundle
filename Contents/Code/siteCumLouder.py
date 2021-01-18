@@ -3,8 +3,8 @@ import PAutils
 from dateutil.relativedelta import relativedelta
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    url = PAsearchSites.getSearchSearchURL(siteNum) + "%22" + encodedTitle + "%22"
+def search(results, lang, siteNum, search):
+    url = PAsearchSites.getSearchSearchURL(siteNum) + "%22" + search['encoded'] + "%22"
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
 
@@ -12,7 +12,7 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         titleNoFormatting = searchResult.xpath('.//h2')[0].text_content().strip()
         curID = PAutils.Encode(PAsearchSites.getSearchBaseURL(siteNum) + searchResult.get('href'))
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [CumLouder]' % titleNoFormatting, score=score, lang=lang))
 
@@ -51,8 +51,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Release Date - no actual date aviable, guessing (better than nothing)
     date = detailsPageElements.xpath('//div[@class="added"]')[0].text_content().strip()
-    timeframe = date.split(' ')[2]
-    timenumber = int(date.split(' ')[1])
+    timeframe = date.split()[2]
+    timenumber = int(date.split()[1])
     today = datetime.now()
 
     if timeframe:

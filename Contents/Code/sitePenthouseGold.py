@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="scene"]'):
         url = searchResult.xpath('.//a[@data-track="TITLE_LINK"]/@href')[0]
@@ -12,15 +12,15 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
             titleNoFormatting = searchResult.xpath('.//a[@data-track="TITLE_LINK"]')[0].text_content()
             releaseDate = parse(searchResult.xpath('./span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     # search for exact scene name
-    urlTitle = encodedTitle.replace('%20', '-')
+    urlTitle = search['encoded'].replace('%20', '-')
     urls = [PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/video---' + urlTitle + '_vids.html',
             PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/movie---' + urlTitle + '_vids.html']
 

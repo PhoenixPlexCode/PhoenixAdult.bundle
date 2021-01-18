@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    encodedTitle = searchTitle.replace(' ', '_')
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].replace(' ', '_')
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded']
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -13,8 +13,8 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
     date = detailsPageElements.xpath('//p[@class="mt-10 letter-space-1"]')[0].text_content().split('DATE ADDED:')[1].split('|', 1)[0].strip()
     releaseDate = parse(date).strftime('%Y-%m-%d')
 
-    if searchDate:
-        score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+    if search['date']:
+        score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
     else:
         score = 90
 

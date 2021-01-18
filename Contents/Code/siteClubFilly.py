@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, search):
+    sceneID = search['title'].split(' ', 1)[0]
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
     searchResults = HTML.ElementFromString(req.text)

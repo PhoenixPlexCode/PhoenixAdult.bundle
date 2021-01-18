@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     for searchPageNum in range(1, 3):
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + "/" + str(searchPageNum))
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'] + "/" + str(searchPageNum))
         searchResults = HTML.ElementFromString(req.text)
 
         for searchResult in searchResults.xpath('//div[@class="thumbsHolder elipsTxt"]/div[1]/div[@class="echThumb"]'):
@@ -14,10 +14,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
                 subSite = searchResult.xpath('.//span[@class="faTxt"]')[0].text_content().strip()
                 releaseDate = parse(searchResult.xpath('.//span[@class="faTxt"]')[1].text_content().strip()).strftime('%Y-%m-%d')
 
-                if searchDate:
-                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                if search['date']:
+                    score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                    score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 

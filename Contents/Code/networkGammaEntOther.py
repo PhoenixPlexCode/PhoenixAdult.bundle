@@ -21,23 +21,23 @@ def getAlgolia(url, indexName, params, referer):
     return data['results'][0]['hits']
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, search):
+    sceneID = search['title'].split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+        search['title'] = search['title'].replace(sceneID, '', 1).strip()
     else:
         sceneID = None
 
     apiKEY = getAPIKey(PAsearchSites.getSearchBaseURL(siteNum))
     for sceneType in ['scenes', 'movies']:
         url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=TSMKFA364Q&x-algolia-api-key=' + apiKEY
-        if sceneID and not searchTitle:
+        if sceneID and not search['title']:
             if sceneType == 'scenes':
                 params = 'filters=clip_id=' + sceneID
             else:
                 params = 'filters=movie_id=' + sceneID
         else:
-            params = 'query=' + searchTitle
+            params = 'query=' + search['title']
 
         searchResults = getAlgolia(url, 'all_' + sceneType, params, PAsearchSites.getSearchBaseURL(siteNum))
         for searchResult in searchResults:
@@ -54,10 +54,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
 
             if sceneID:
                 score = 100 - Util.LevenshteinDistance(sceneID, curID)
-            elif searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            elif search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%d|%d|%s|%s' % (curID, siteNum, sceneType, releaseDate), name='[%s] %s %s' % (sceneType.capitalize(), titleNoFormatting, releaseDate), score=score, lang=lang))
 

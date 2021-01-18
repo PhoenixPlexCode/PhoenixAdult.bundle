@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
 
     # Amateur Allure
@@ -13,10 +13,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
             releaseDate = parse(searchResult.xpath('.//div[@class="update_date"]')[0].text_content().replace('Added:', '').strip()).strftime('%Y-%m-%d')
             curID = PAutils.Encode(searchResult.xpath('.//a[1]/@href')[0])
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             if len(titleNoFormatting) > 29:
                 titleNoFormatting = titleNoFormatting[:32] + '...'
@@ -30,10 +30,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
             releaseDate = parse(searchResult.xpath('.//div[@class="cell update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
             curID = PAutils.Encode(searchResult.xpath('./a[2]/@href')[0])
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             if len(titleNoFormatting) > 29:
                 titleNoFormatting = titleNoFormatting[:32] + '...'

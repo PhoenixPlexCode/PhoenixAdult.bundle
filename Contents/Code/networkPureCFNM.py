@@ -2,17 +2,17 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     try:
-        modelID = '-'.join(searchTitle.split(' ', 2)[:2])
+        modelID = '-'.join(search['title'].split(' ', 2)[:2])
         try:
-            sceneTitle = searchTitle.split(' ', 2)[2]
+            sceneTitle = search['title'].split(' ', 2)[2]
         except:
             sceneTitle = ''
     except:
-        modelID = searchTitle.split(' ', 1)[0]
+        modelID = search['title'].split(' ', 1)[0]
         try:
-            sceneTitle = searchTitle.split(' ', 1)[1]
+            sceneTitle = search['title'].split(' ', 1)[1]
         except:
             sceneTitle = ''
 
@@ -41,8 +41,8 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         descriptionID = PAutils.Encode(description)
         posterID = PAutils.Encode(poster)
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date']:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         elif sceneTitle:
             score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
         else:

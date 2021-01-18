@@ -2,11 +2,11 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchTitle.replace(' ', '-').lower()
+def search(results, lang, siteNum, search):
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + search['title'].replace(' ', '-').lower()
 
     searchResults = [directURL]
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for sceneURL in googleResults:
         if ('/virtualreality/' in sceneURL and sceneURL not in searchResults and '/virtualreality/list' not in sceneURL):
             searchResults.append(sceneURL)
@@ -22,10 +22,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
                 date = detailsPageElements.xpath('//div[@class="stats-container"]//li[3]//span[2]')[0].text_content().strip()
                 releaseDate = parse(date).strftime('%Y-%m-%d')
 
-                if searchDate and releaseDate:
-                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                if search['date'] and releaseDate:
+                    score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                    score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 

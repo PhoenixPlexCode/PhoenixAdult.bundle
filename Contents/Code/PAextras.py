@@ -326,8 +326,8 @@ def getFanArt(site, art, actors, actorName, title, match, siteName):
 
                                         Log(title.strip() + ' vs ' + str(fanTitle))
                                         # try percentage calculation of how many words match
-                                        a = [x for x in title.replace('’', '').replace('\'', '').replace(':', '').replace(',', '').strip().lower().split(' ')]
-                                        b = [x for x in fanTitle.replace('’', '').replace('\'', '').replace(':', '').replace(',', '').strip().lower().split(' ')]
+                                        a = [x for x in title.replace('’', '').replace('\'', '').replace(':', '').replace(',', '').strip().lower().split()]
+                                        b = [x for x in fanTitle.replace('’', '').replace('\'', '').replace(':', '').replace(',', '').strip().lower().split()]
                                         c = len(a)
                                         count = 0
                                         for word in a:

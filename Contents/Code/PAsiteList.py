@@ -156,6 +156,7 @@ import networkDerangedDollars
 import siteDickDrainers
 import siteAlsAngels
 import siteWatch4Beauty
+import siteFemjoy
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1348,6 +1349,7 @@ searchSites = {
     1187: ('The Tabu Tales', 'https://thetabutales.com', '/tour_tt/search.php?query='),
     1188: ('Shane Diesel\'s Banging Babes', 'https://www.shanedieselsbanginbabes.com', '/tour_sdbb/search.php?query='),
     1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
+    1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors%2Cdirectors&thumb_size=850x463&query='),
 }
 
 abbreviations = (
@@ -1426,6 +1428,7 @@ abbreviations = (
     ('^fhl ', 'FakeHostel '),
     ('^fho ', 'FakehubOriginals '),
     ('^fittingroom ', 'Fitting-Room '),
+    ('^fj ', 'Femjoy '),
     ('^fka ', 'FakeAgent '),
     ('^fm ', 'FuckingMachines '),
     ('^fms ', 'FantasyMassage '),
@@ -2542,5 +2545,9 @@ def getProviderFromSiteNum(siteNum):
         # Watch4Beauty
         elif siteNum == 1185:
             provider = siteWatch4Beauty
+
+        # Femjoy
+        elif siteNum == 1190:
+            provider = siteFemjoy
 
     return provider

@@ -1,9 +1,8 @@
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    searchTitle = searchTitle.replace(' AND ', ' and ').replace(' And ', ' and ').replace(' In ', ' in ').replace(' At ', ' at ')
-    parse_siteName = searchTitle.rsplit(' at ', 1)
+def search(results, lang, siteNum, search):
+    parse_siteName = search['title'].rsplit(' at ', 1)
     if len(parse_siteName) > 1:
         siteName = parse_siteName[1].strip()
     else:
@@ -22,8 +21,8 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
     displayName = ', '.join(actorsFormatted)
     curID = PAutils.Encode(displayName)
 
-    if searchDate:
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d')
+    if search['date']:
+        releaseDate = parse(search['date']).strftime('%Y-%m-%d')
     else:
         releaseDate = ''
 

@@ -2,13 +2,13 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    encodedTitle = searchTitle.lower().replace(' ', '-', 1).replace(' ', '_')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].lower().replace(' ', '-', 1).replace(' ', '_')
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
 
     titleNoFormatting = searchResults.xpath('//h1')[0].text_content().strip()
-    curID = encodedTitle
+    curID = search['encoded']
 
     date = searchResults.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"]')[0].text_content().strip()
     releaseDate = parse(date).strftime('%Y-%m-%d')

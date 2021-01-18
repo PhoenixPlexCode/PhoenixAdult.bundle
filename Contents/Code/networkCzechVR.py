@@ -2,14 +2,14 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = search['title'].split()
     if unicode(splited[0], 'utf8').isdigit():
         sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
-    encodedTitle = searchTitle.replace(' ', '-')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+        search['title'] = search['title'].replace(sceneID, '', 1).strip()
+    search['encoded'] = search['title'].replace(' ', '-')
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class,"postTag")]'):
         titleNoFormatting = searchResult.xpath('.//div[@class="nazev"]//h2//a')[0].text_content()
@@ -26,10 +26,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         actorsPrint = ', '.join(actorList)
         if sceneID:
             score = 100 - Util.LevenshteinDistance(sceneID, curSceneID)
-        elif searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        elif search['date']:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s in %s [%s] %s' % (actorsPrint, titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 

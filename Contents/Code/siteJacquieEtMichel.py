@@ -2,13 +2,13 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     sceneID = None
-    splited = searchTitle.split()
+    splited = search['title'].split()
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html'
+    url = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'] + '.html'
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "video-item") and @data-get-thumbs-url]'):
@@ -17,10 +17,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         date = searchResult.xpath('.//div[@class="infos-video"]/p')[0].text_content().replace('Added on', '').strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date']:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 

@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, search):
+    sceneID = search['title'].split(' ', 1)[0]
     try:
-        sceneTitle = searchTitle.split(' ', 1)[1]
+        sceneTitle = search['title'].split(' ', 1)[1]
     except:
         sceneTitle = ''
 
@@ -14,10 +14,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
     detailsPageElements = HTML.ElementFromString(req.text)
     titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[1].strip()
     curID = PAutils.Encode(sceneURL)
-    releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+    releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
 
     if sceneTitle:
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
     else:
         score = 90
 

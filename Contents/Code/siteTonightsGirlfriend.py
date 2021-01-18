@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    encodedTitle = searchTitle.lower().split('and ')[0].strip().replace(' ', '-')
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].lower().split('and ')[0].strip().replace(' ', '-')
     for page in range(1, 5):
-        req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle, page))
+        req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), search['encoded'], page))
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[@class="panel-body"]'):
             actorList = []
@@ -21,10 +21,10 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
 
             releaseDate = parse(searchResult.xpath('.//span[@class="available-date"]')[0].text_content().strip()).strftime('%m-%d-%y')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), firstActor.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), firstActor.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Tonight\'s Girlfriend] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

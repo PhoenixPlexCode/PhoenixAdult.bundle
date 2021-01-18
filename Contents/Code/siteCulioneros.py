@@ -2,12 +2,12 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, search):
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = search['title'].split()
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+        search['title'] = search['title'].replace(sceneID, '', 1).strip()
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID + '.htm'

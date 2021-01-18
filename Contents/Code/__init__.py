@@ -57,8 +57,13 @@ class PhoenixAdultAgent(Agent.Movies):
         Log('Getting Search Settings for: %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
 
-        if searchSettings['siteNum'] is None and media.filename:
+        filepath = None
+        filename = None
+        if media.filename:
             filepath = urllib.unquote(media.filename)
+            filename = str(os.path.splitext(os.path.basename(filepath))[0])
+
+        if searchSettings['siteNum'] is None and filepath:
             siteName = str(os.path.split(os.path.dirname(filepath))[1])
 
             newTitle = getSearchTitle(siteName)
@@ -71,20 +76,28 @@ class PhoenixAdultAgent(Agent.Movies):
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
         siteNum = searchSettings['siteNum']
-        searchTitle = searchSettings['searchTitle']
-        searchDate = searchSettings['searchDate']
 
         if siteNum is not None:
-            Log('Search Title: %s' % searchTitle)
-            if searchDate:
-                Log('Search Date: %s' % searchDate)
+            search = {
+                'title': searchSettings['searchTitle'],
+                'encoded': urllib.quote(searchSettings['searchTitle']),
+                'date': searchSettings['searchDate'],
+                'filename': filename,
+                'duration': media.duration,
+            }
 
-            encodedTitle = urllib.quote(searchTitle)
-            Log('Encoded Title: %s' % encodedTitle)
+            Log('Search Title: %s' % search['title'])
+            Log('Encoded Title: %s' % search['encoded'])
+
+            if search['date']:
+                Log('Search Date: %s' % search['date'])
+
+            if filename:
+                Log('File Name: %s' % filename)
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                provider.search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
+                provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
 

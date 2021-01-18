@@ -2,15 +2,15 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-')
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].replace(' ', '-')
     searchResultsURLs = [
-        PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + encodedTitle + '.html',
-        PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + encodedTitle + '-.html',
-        PAsearchSites.getSearchSearchURL(siteNum) + 'dvds/' + encodedTitle + '.html'
+        PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + search['encoded'] + '.html',
+        PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + search['encoded'] + '-.html',
+        PAsearchSites.getSearchSearchURL(siteNum) + 'dvds/' + search['encoded'] + '.html'
     ]
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for sceneURL in googleResults:
         if sceneURL not in searchResultsURLs:
             if (('/updates/' in sceneURL or '/dvds/' in sceneURL or '/scenes/' in sceneURL) and '/tour_ns/' in sceneURL) and sceneURL not in searchResultsURLs:
@@ -25,7 +25,7 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
                 titleNoFormatting = searchResult.xpath('(//div[@class="indScene"] | //div[@class="indSceneDVD"])/h2')[0].text_content().strip()
                 curID = PAutils.Encode(sceneURL)
 
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [New Sensations]' % titleNoFormatting, score=score, lang=lang))
             except:

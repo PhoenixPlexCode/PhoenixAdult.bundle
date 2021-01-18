@@ -1305,12 +1305,34 @@ ActorsReplaceStudios = {
         'Silvia Jons': ['Gabi'],
     },
     40: {
+        'Candice Brielle': ['Darina L'],
+        'Little Caprice': ['Caprice'],
+        'Marketa Belonoha': ['Marketa'],
+        'Melena Maria Rya': ['Melena Maria'],
+        'Milena Angel': ['Milena'],
+        'Monika Benz': ['Stasha'],
         'Natalia Andreeva': ['Natalia A'],
+        'Susana Spears': ['Suzana'],
     },
     41: {
         'Krystal Boyd': ['Abby'],
         'Melena Maria Rya': ['Maria'],
-        # TODO: others?
+    },
+    42: {
+        'Ariel Piper Fawn': ['Ariel'],
+        'Candice Brielle': ['Candy D'],
+        'Dominka C': ['Dominika'],
+        'Eufrat Mai': ['Eufrat'],
+        'Lily Chey': ['Natalia E'],
+        'Little Caprice': ['Caprice'],
+        'Lorena Garcia': ['Lorena G'],
+        'Marketa Belonoha': ['Marketa'],
+        'Monika Benz': ['Stacey'],
+        'Nicolle A': ['Nicolle'],
+        'Piper Fawn': ['Ariel'],
+        'Rose Delight': ['Belinda'],
+        'Sandy A': ['Anju'],
+        'Susana Spears': ['Susanna'],
     }
 }
 
@@ -1357,4 +1379,5 @@ ActorsStudioIndexes = {
     39: ['Teen Mega World'],
     40: ['Hegre'],
     41: ['Watch4Beauty'],
+    42: ['Femjoy'],
 }

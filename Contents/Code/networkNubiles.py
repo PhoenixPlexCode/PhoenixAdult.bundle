@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    if searchDate:
-        url = PAsearchSites.getSearchSearchURL(siteNum) + 'date/' + searchDate + '/' + searchDate
+def search(results, lang, siteNum, search):
+    if search['date']:
+        url = PAsearchSites.getSearchSearchURL(siteNum) + 'date/' + search['date'] + '/' + search['date']
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "content-grid-item")]'):
@@ -12,14 +12,14 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
             curID = searchResult.xpath('//span[@class="title"]/a/@href')[0].split('/')[3]
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
-    sceneID = searchTitle.split(' ')[0]
+    sceneID = search['title'].split()[0]
     if unicode(sceneID, 'utf-8').isdigit():
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/watch/' + sceneID
         req = PAutils.HTTPRequest(sceneURL)

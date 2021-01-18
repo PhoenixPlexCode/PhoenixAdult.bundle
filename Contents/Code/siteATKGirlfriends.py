@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
-    modelID = searchTitle.split(' ', 1)[0].lower()
+def search(results, lang, siteNum, search):
+    modelID = search['title'].split(' ', 1)[0].lower()
     try:
-        sceneTitle = searchTitle.split(' ', 1)[1]
+        sceneTitle = search['title'].split(' ', 1)[1]
     except:
         sceneTitle = ''
 
@@ -31,7 +31,7 @@ def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
         posterID = PAutils.Encode(poster)
 
         actor = searchResult.xpath('//h1[@class="page-title col-lg-12"]')[0].text_content().strip()
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+        releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
 
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="thumbnail left"]/@href')[0])
 
