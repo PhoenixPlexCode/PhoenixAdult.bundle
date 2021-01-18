@@ -106,7 +106,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorPhotoURL = actorLink['thumb']['image']
 
             if actorPhotoURL.endswith('noimageavailable.gif'):
-                actorSearchURL = PAsearchSites.getSearchBaseURL(siteNum) + '/api/v2/search/actors?thumb_size=355x475&query=' + actorName.split(' ')[0]
+                actorSearchURL = PAsearchSites.getSearchBaseURL(siteNum) + '/api/v2/search/actors?thumb_size=355x475&query=' + actorName.split()[0]
                 req = PAutils.HTTPRequest(actorSearchURL)
                 searchResults = req.json()
                 if 'results' in searchResults:
