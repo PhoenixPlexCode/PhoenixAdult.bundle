@@ -105,6 +105,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorName = actorLink['name']
             actorPhotoURL = actorLink['thumb']['image']
 
+            if actorPhotoURL.endswith('noimageavailable.gif'):
+                actorPhotoURL = ''
+
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
