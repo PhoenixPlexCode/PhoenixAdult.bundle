@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         modelStrings.append(modelString)
     else:
         # try the first word or two of the searchTitle as the model name
-        splitWords = searchTitle.lower().split(' ')
+        splitWords = searchTitle.lower().split()
         searchWords = []
         for i, searchWord in enumerate(splitWords):
             if i >= 2:

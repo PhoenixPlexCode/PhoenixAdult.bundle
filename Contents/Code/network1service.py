@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     }
 
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = searchTitle.split()
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
         searchTitle = searchTitle.replace(sceneID, '', 1).strip()

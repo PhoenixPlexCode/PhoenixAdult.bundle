@@ -71,7 +71,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         sceneImg = detailsPageElements.xpath('//meta[@property="og:image"]/@content')[0]
         actorFullName = sceneImg.split('/')[4]
-        actorFirstName = actorName.split(' ')[0]
+        actorFirstName = actorName.split()[0]
         if actorFirstName.lower() == actorFullName[:len(actorFirstName)].lower() and len(actorFullName) > len(actorName):
             actorLastName = actorFullName[len(actorFirstName):].capitalize()
             actorName = actorFirstName + " " + actorLastName

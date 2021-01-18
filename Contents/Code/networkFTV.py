@@ -4,7 +4,7 @@ import PAutils
 
 def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = searchTitle.split()
     searchResults = []
 
     if unicode(splited[0], 'UTF-8').isdigit():
