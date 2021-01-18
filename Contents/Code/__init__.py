@@ -57,10 +57,13 @@ class PhoenixAdultAgent(Agent.Movies):
         Log('Getting Search Settings for: %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
 
+        filepath = None
         filename = None
-        if searchSettings['siteNum'] is None and media.filename:
+        if media.filename:
             filepath = urllib.unquote(media.filename)
             filename = str(os.path.splitext(os.path.basename(filepath))[0])
+
+        if searchSettings['siteNum'] is None and filepath:
             siteName = str(os.path.split(os.path.dirname(filepath))[1])
 
             newTitle = getSearchTitle(siteName)
@@ -83,6 +86,9 @@ class PhoenixAdultAgent(Agent.Movies):
 
             encodedTitle = urllib.quote(searchTitle)
             Log('Encoded Title: %s' % encodedTitle)
+
+            if filename:
+                Log('Filename: %s' % filename)
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:

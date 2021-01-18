@@ -7,10 +7,10 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     req = PAutils.HTTPRequest(searchURL)
     searchResults = req.json()
 
-    if 'results' not in searchResults and filename:
+    if 'results' not in searchResults or not searchResults['results'] and filename:
         # femjoy.17.03.12.maria.rya.girl.in.the.mirror.mp4
         # try to extract as much of the title as possible without including the model
-        m = re.search(r'femjoy\.(\d{2}\.\d{2}\.\d{2})\.(.+)\.(mp4|wmv|mov|m4a)', filename, re.IGNORECASE)
+        m = re.search(r'femjoy\.(\d{2}\.\d{2}\.\d{2})\.(.+)', filename, re.IGNORECASE)
         if m:
             searchDate = parse('20' + m.group(1)).strftime('%Y-%m-%d')
             searchWords = m.group(2).split('.')
@@ -23,7 +23,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         else:
             # Belinda & Fiva - Give me your hand 29-Mar-2010.mp4
             # take everything from after the dash and before the date
-            m = re.search(r'.+ - (.+) (\d{2}-[a-z]{3}-\d{4})\.(mp4|wmv|mov|m4a)', filename, re.IGNORECASE)
+            m = re.search(r'.+ - (.+) (\d{2}-[a-z]{3}-\d{4})', filename, re.IGNORECASE)
             if m:
                 searchDate = parse(m.group(2)).strftime('%Y-%m-%d')
                 searchTitle = m.group(1)
@@ -67,7 +67,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = None
     searchResults = req.json()
     if 'results' not in searchResults:
-        # couldn't load the specified JSON
         return metadata
 
     for scene in searchResults['results']:
