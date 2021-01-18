@@ -16,6 +16,7 @@ def search(results, lang, siteNum, search):
 
     googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for sceneURL in googleResults:
+        sceneURL = sceneURL.replace('://www.', '://')
         if ('/update/' in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
@@ -116,7 +117,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     googleResults = PAutils.getFromGoogleSearch(' '.join(actors).strip(), siteNum)
     for photoURL in googleResults:
         for scene in scenes:
-            if ('galleries' in photoURL or 'preview' in photoURL) and (scene in photoURL or scene == 'none'):
+            if ('galleries' in photoURL or 'preview' in photoURL) and scene in photoURL:
                 req = PAutils.HTTPRequest(photoURL)
                 photoPageElements = HTML.ElementFromString(req.text)
                 for xpath in xpaths:
@@ -163,6 +164,6 @@ def photoLookup(sceneID):
     elif sceneID == 1573 or sceneID == 283:
         scenes = []
     else:
-        scenes = ['none']
+        scenes = []
 
     return scenes
