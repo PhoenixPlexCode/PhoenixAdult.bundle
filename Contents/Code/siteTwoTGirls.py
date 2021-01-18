@@ -3,7 +3,7 @@ import PAextras
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/' + searchTitle.replace(' ', '-')
     req = PAutils.HTTPRequest(sceneURL)
     if req.ok:

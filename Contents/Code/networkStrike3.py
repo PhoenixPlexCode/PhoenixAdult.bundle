@@ -10,7 +10,7 @@ def getDatafromAPI(url):
     return req
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/search?q=' + encodedTitle
 
     searchResults = getDatafromAPI(url)

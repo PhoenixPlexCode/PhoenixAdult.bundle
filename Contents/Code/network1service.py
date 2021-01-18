@@ -26,7 +26,7 @@ def get_Token(siteNum):
     return token
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     token = get_Token(siteNum)
     headers = {
         'Instance': token,

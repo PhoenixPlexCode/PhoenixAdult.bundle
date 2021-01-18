@@ -30,7 +30,7 @@ def getDatafromAPI(baseURL, searchData, token, search=True):
     return data
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     token = getToken(PAsearchSites.getSearchBaseURL(siteNum))
     if token:
         searchResults = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), searchTitle, token)

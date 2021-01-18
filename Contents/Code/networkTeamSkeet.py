@@ -31,7 +31,7 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     return None
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     directURL = searchTitle.replace(' ', '-').lower()
 
     searchResults = [directURL]

@@ -16,7 +16,7 @@ def generateEncodedTitle(searchTitle):
     return encodedTitle
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     encodedTitle = generateEncodedTitle(searchTitle)
     for searchPageNum in range(1, 3):
         url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (encodedTitle, searchPageNum)

@@ -57,8 +57,10 @@ class PhoenixAdultAgent(Agent.Movies):
         Log('Getting Search Settings for: %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
 
+        filename = None
         if searchSettings['siteNum'] is None and media.filename:
             filepath = urllib.unquote(media.filename)
+            filename = str(os.path.splitext(os.path.basename(filepath))[0])
             siteName = str(os.path.split(os.path.dirname(filepath))[1])
 
             newTitle = getSearchTitle(siteName)
@@ -84,7 +86,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                provider.search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate)
+                provider.search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename)
 
         results.Sort('score', descending=True)
 
