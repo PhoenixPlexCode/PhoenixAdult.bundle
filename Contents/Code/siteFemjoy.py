@@ -106,7 +106,14 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorPhotoURL = actorLink['thumb']['image']
 
             if actorPhotoURL.endswith('noimageavailable.gif'):
-                actorPhotoURL = ''
+                actorSearchURL = PAsearchSites.getSearchBaseURL(siteNum) + '/api/v2/search/actors?thumb_size=355x475&query=' + actorName.split(' ')[0]
+                req = PAutils.HTTPRequest(actorSearchURL)
+                searchResults = req.json()
+                if 'results' in searchResults:
+                    for searchResult in searchResults['results']:
+                        if searchResult['id'] == actorLink['id']:
+                            actorPhotoURL = searchResult['thumb']['image']
+                            break
 
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -127,7 +134,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': PAsearchSites.getSearchBaseURL(siteNum) + slug})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

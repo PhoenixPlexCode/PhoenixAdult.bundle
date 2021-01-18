@@ -88,7 +88,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL}, cookies=cookies)
+                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL})
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
