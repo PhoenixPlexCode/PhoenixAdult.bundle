@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     searchResults = []
 
     googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum, lang='enes')

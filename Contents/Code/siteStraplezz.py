@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     url = PAsearchSites.getSearchSearchURL(siteNum) + searchTitle.replace(' ', '-') + '.html'
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)

@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     encodedTitle = searchTitle.lower().split('and ')[0].strip().replace(' ', '-')
     for page in range(1, 5):
         req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle, page))

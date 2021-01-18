@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
     searchResults = HTML.ElementFromString(req.json()['html'])
     for searchResult in searchResults.xpath('//div[@class="card episode"]'):

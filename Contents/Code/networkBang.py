@@ -13,7 +13,7 @@ def getDataFromAPI(url, req_type, query):
     return data
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchTitle)['hits']['hits']
     for searchResult in searchResults:
         searchResult = searchResult['_source']

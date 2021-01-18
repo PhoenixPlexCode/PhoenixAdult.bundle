@@ -3,7 +3,7 @@ import PAutils
 import string
 
 
-def search(results, media, lang, siteNum, searchTitle, encodedTitle, searchDate):
+def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
     sceneID = ''
     all = string.maketrans('', '')
     nodigs = all.translate(all, string.digits)
