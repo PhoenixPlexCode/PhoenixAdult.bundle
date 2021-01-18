@@ -38,7 +38,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 
         for searchResult in searchResults['results']:
             titleNoFormatting = searchResult['title']
-            slug = searchResult['slug']
+            sceneID = searchResult['id']
 
             date = searchResult['release_date']
             if date:
@@ -47,14 +47,15 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
                 releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
             displayDate = releaseDate if date else ''
 
-            actorsString = getActorsString(searchResult['actors'])
+            actorsName = [actorLink['name'] for actorLink in searchResult['actors']]
+            actorsString = getActorsString(actorsName)
 
             if searchDate and displayDate:
                 score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, slug), name='%s - %s [%s] %s' % (titleNoFormatting, actorsString, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%d' % (curID, siteNum, sceneID), name='%s - %s [%s] %s' % (titleNoFormatting, actorsString, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -62,23 +63,22 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 def update(metadata, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     searchURL = PAutils.Decode(metadata_id[0])
-    slug = metadata_id[2]
+    sceneID = int(metadata_id[2])
     req = PAutils.HTTPRequest(searchURL)
     detailsPageElements = None
     searchResults = req.json()
     if 'results' not in searchResults:
         return metadata
 
-    for scene in searchResults['results']:
-        if scene['slug'] == slug:
-            detailsPageElements = scene
+    for searchResult in searchResults['results']:
+        if searchResult['id'] == sceneID:
+            detailsPageElements = searchResult
             break
 
     if not detailsPageElements:
         return metadata
 
     # Title
-    # metadata.title = '%s - %s' % (scene.get('title'), getActorsString(scene.get('actors')))  # do we want the actor names in the title?
     metadata.title = detailsPageElements['title']
 
     # Summary
@@ -97,11 +97,25 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
+    genres = []
+
+    for genreLink in genres:
+        genreName = genreLink
+
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
     if 'actors' in detailsPageElements:
-        for actorLink in detailsPageElements['actors']:
+        actors = detailsPageElements['actors']
+        if len(actors) == 3:
+            movieGenres.addGenre('Threesome')
+        if len(actors) == 4:
+            movieGenres.addGenre('Foursome')
+        if len(actors) > 4:
+            movieGenres.addGenre('Orgy')
+
+        for actorLink in actors:
             actorName = actorLink['name']
             actorPhotoURL = actorLink['thumb']['image']
 
@@ -152,16 +166,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
 
 def getActorsString(actors):
-    # produce 'a, b, c and d' from a list of actor objects
-    names = []
-    for actor in actors:
-        names.append(actor['name'])
+    count = len(actors)
+    if count > 1:
+        actors[count - 2] = ' and '.join(actors[-2:])
+        actors = actors[:-1]
 
-    count = len(names)
-    if count == 1:
-        return names[0]
-    else:
-        names[count - 2] = ' and '.join(names[-2:])
-        names.pop(count - 1)
-
-        return ', '.join(names)
+    return ', '.join(actors)
