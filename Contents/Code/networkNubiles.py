@@ -19,7 +19,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
-    sceneID = searchTitle.split(' ')[0]
+    sceneID = searchTitle.split()[0]
     if unicode(sceneID, 'utf-8').isdigit():
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/watch/' + sceneID
         req = PAutils.HTTPRequest(sceneURL)

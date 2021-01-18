@@ -10,7 +10,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     count = 0
 
     sceneID = None
-    splited = searchTitle.split(' ')
+    splited = searchTitle.split()
     if unicode(splited[0], 'UTF-8').isdigit():
         sceneID = splited[0]
 

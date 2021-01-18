@@ -51,8 +51,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Release Date - no actual date aviable, guessing (better than nothing)
     date = detailsPageElements.xpath('//div[@class="added"]')[0].text_content().strip()
-    timeframe = date.split(' ')[2]
-    timenumber = int(date.split(' ')[1])
+    timeframe = date.split()[2]
+    timenumber = int(date.split()[1])
     today = datetime.now()
 
     if timeframe:
