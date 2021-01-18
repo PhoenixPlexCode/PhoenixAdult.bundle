@@ -3,27 +3,27 @@ import PAutils
 import string
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     sceneID = ''
     all = string.maketrans('', '')
     nodigs = all.translate(all, string.digits)
 
     try:
-        sceneTitle = searchTitle.split(' ', 2)[0]
+        sceneTitle = search['title'].split(' ', 2)[0]
         sceneID = sceneTitle.translate(all, nodigs)
         if sceneID != '':
-            searchTitle = searchTitle.split(' ', 2)[1]
+            search['title'] = search['title'].split(' ', 2)[1]
 
-        searchTitle = searchTitle.lower()
+        search['title'] = search['title'].lower()
     except:
         pass
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchTitle[0])
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['title'][0])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//ul[@class="collectionGridLayout"]/li'):
         discoveredname = searchResult.xpath('.//span')[0].text_content().strip().lower()
 
-        if searchTitle in discoveredname:
+        if search['title'] in discoveredname:
             modellink = searchResult.xpath('.//a/@href')[0]
             req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + modellink)
             searchResults = HTML.ElementFromString(req.text)

@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, search):
+    sceneID = search['title'].split(' ', 1)[0]
     try:
-        sceneTitle = encodedTitle.split(' ', 1)[1]
+        sceneTitle = search['encoded'].split(' ', 1)[1]
     except:
         sceneTitle = ''
 
@@ -13,9 +13,9 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="video-details"]'):
         titleNoFormatting = searchResult.xpath('//h2[@class="h2 m-0"]')[0].text_content()
-        curID = searchTitle.lower().replace(' ', '-')
+        curID = search['title'].lower().replace(' ', '-')
         subSite = searchResult.xpath('//a[@class="username "]')[0].text_content().strip()
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+        releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
 
         if sceneTitle:
             score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())

@@ -2,14 +2,14 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-video")]'):
         titleNoFormatting = searchResult.xpath('./div[@class="item-thumb"]/a/@title')[0]
         curID = PAutils.Encode(searchResult.xpath('./div[@class="item-thumb"]/a/@href')[0])
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [ArchAngel]' % titleNoFormatting, score=score, lang=lang))
 

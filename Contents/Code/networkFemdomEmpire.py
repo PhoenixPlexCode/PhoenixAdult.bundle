@@ -2,25 +2,25 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     # Advanced Search
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-info")]'):
         titleNoFormatting = searchResult.xpath('.//a')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date']:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Femdom Empire] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     # Difficult Scenes
-    if searchTitle in manualMatch:
-        item = manualMatch[searchTitle]
+    if search['title'] in manualMatch:
+        item = manualMatch[search['title']]
         curID = PAutils.Encode(item['curID'])
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=item['name'], score=101, lang=lang))
@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 
     # Standard Search
     else:
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/tour/search.php?query=' + encodedTitle)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/tour/search.php?query=' + search['encoded'])
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "item-info")]'):
             titleNoFormatting = searchResult.xpath('.//a')[0].text_content().strip()
@@ -38,10 +38,10 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
             curID = PAutils.Encode(scenePage)
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date']:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Femdom Empire] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

@@ -30,16 +30,16 @@ def getDatafromAPI(baseURL, searchData, token, search=True):
     return data
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     token = getToken(PAsearchSites.getSearchBaseURL(siteNum))
     if token:
-        searchResults = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), searchTitle, token)
+        searchResults = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), search['title'], token)
         for searchResult in searchResults:
             if searchResult['resourceType'] == 'movies':
                 curID = searchResult['slug']
                 titleNoFormatting = searchResult['title']
 
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s' % (titleNoFormatting), score=score, lang=lang))
 

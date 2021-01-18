@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="category_listing_wrapper_updates"]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
@@ -16,10 +16,10 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         except:
             releaseDate = ''
 
-        if searchDate and releaseDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date'] and releaseDate:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Spizoo] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

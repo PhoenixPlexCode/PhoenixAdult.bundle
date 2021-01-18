@@ -2,17 +2,17 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum))
     detailsPageElements = HTML.ElementFromString(req.text)
     parent = ''
 
-    if searchDate:
+    if search['date']:
         Log('*** date search')
-        parent = detailsPageElements.xpath('//tr[.//span[@class="videodate" and text()=\'Date: %s\']]' % parse(searchDate).strftime('%B %d, %Y'))
-    elif searchTitle:
+        parent = detailsPageElements.xpath('//tr[.//span[@class="videodate" and text()=\'Date: %s\']]' % parse(search['date']).strftime('%B %d, %Y'))
+    elif search['title']:
         Log('*** title search')
-        m = re.search(r'([a-z0-9\&\; ]+) (masturbation|photoshoot|interview|girl-girl action|pov lapdance)', searchTitle, re.IGNORECASE)
+        m = re.search(r'([a-z0-9\&\; ]+) (masturbation|photoshoot|interview|girl-girl action|pov lapdance)', search['title'], re.IGNORECASE)
         if m:
             parent = detailsPageElements.xpath('//tr[.//h2[@class="videomodel" and contains(text(), "%s")] and .//span[@class="videotype" and contains(text(), "%s")]]' % (m.group(1), m.group(2)))
 

@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "episode-list")]/div[contains(@class, "episode")]'):
         titleNoFormatting = searchResult.xpath('.//h2')[0].text_content().strip()
@@ -13,9 +13,9 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
 
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+        releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 

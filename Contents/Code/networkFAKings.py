@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    encodedTitle = searchTitle.replace(' ', '-')
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].replace(' ', '-')
 
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), search['encoded'])
     req = PAutils.HTTPRequest(searchURL)
     searchPageElements = HTML.ElementFromString(req.text)
 
@@ -21,17 +21,17 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date'] and displayDate:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FAKings/%s] %s' % (titleNoFormatting[:20] + '...', subSite, displayDate), score=score, lang=lang))
 
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum).replace('/en', ''), encodedTitle)
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum).replace('/en', ''), search['encoded'])
     req = PAutils.HTTPRequest(searchURL)
     searchPageElements = HTML.ElementFromString(req.text)
 
@@ -47,13 +47,13 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date'] and displayDate:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FAKings/%s] %s' % (titleNoFormatting[:20] + '...', subSite, displayDate), score=score, lang=lang))
 

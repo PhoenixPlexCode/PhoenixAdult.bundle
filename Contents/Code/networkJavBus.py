@@ -2,15 +2,15 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     searchJAVID = None
-    splitSearchTitle = searchTitle.split()
-    if len(splitSearchTitle) > 1:
-        if unicode(splitSearchTitle[1], 'UTF-8').isdigit():
-            searchJAVID = '%s%%2B%s' % (splitSearchTitle[0], splitSearchTitle[1])
+    splitsearch['title'] = search['title'].split()
+    if len(splitsearch['title']) > 1:
+        if unicode(splitsearch['title'][1], 'UTF-8').isdigit():
+            searchJAVID = '%s%%2B%s' % (splitsearch['title'][0], splitsearch['title'][1])
 
     if searchJAVID:
-        encodedTitle = searchJAVID
+        search['encoded'] = searchJAVID
 
     searchTypes = [
         'Censored',
@@ -19,9 +19,9 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 
     for searchType in searchTypes:
         if searchType == 'Uncensored':
-            sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + 'uncensored/search/' + encodedTitle
+            sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + 'uncensored/search/' + search['encoded']
         elif searchType == 'Censored':
-            sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + 'search/' + encodedTitle
+            sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + 'search/' + search['encoded']
 
         req = PAutils.HTTPRequest(sceneURL)
         searchResults = HTML.ElementFromString(req.text)
@@ -35,7 +35,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
             if searchJAVID:
                 score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s][%s] %s' % (searchType, JAVID, titleNoFormatting), score=score, lang=lang))
 

@@ -2,12 +2,12 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    userID = searchTitle.split(' ', 1)[0]
-    sceneTitle = searchTitle.split(' ', 1)[1]
-    encodedTitle = urllib.quote(sceneTitle)
+def search(results, lang, siteNum, search):
+    userID = search['title'].split(' ', 1)[0]
+    sceneTitle = search['title'].split(' ', 1)[1]
+    search['encoded'] = urllib.quote(sceneTitle)
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + encodedTitle
+    url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + search['encoded']
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="clipWrapper"]'):

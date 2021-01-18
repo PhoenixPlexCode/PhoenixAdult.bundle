@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    sceneID = re.sub(r'\D', '', searchTitle)
-    actorName = re.sub(r'\s\d.*', '', searchTitle).replace(' ', '-')
+def search(results, lang, siteNum, search):
+    sceneID = re.sub(r'\D', '', search['title'])
+    actorName = re.sub(r'\s\d.*', '', search['title']).replace(' ', '-')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + actorName + '/' + sceneID
 
     req = PAutils.HTTPRequest(sceneURL)

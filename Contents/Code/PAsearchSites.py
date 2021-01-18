@@ -92,7 +92,7 @@ def getSearchSettings(mediaTitle):
 
         searchTitle = PAutils.parseTitle(searchTitle, siteNum)
 
-        Log('searchTitle (before date processing): %s' % searchTitle)
+        Log('Search Title (before date processing): %s' % searchTitle)
 
         # Search Type
         searchDate = None

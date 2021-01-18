@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     searchResults = []
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('/cn/', '/').replace('/de/', '/').replace('/jp/', '/').replace('/ja/', '/').replace('/en/', '/')
         if '/nude_girl/' not in sceneURL and '/shoots/' not in sceneURL and '/fetish/' not in sceneURL and '/updates/' not in sceneURL and sceneURL not in searchResults:
@@ -35,13 +35,13 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if search['date'] and displayDate:
+            score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Abby Winters/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 

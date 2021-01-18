@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    searchURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+def search(results, lang, siteNum, search):
+    searchURL = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded']
     req = PAutils.HTTPRequest(searchURL)
     searchResults = req.json()
 
@@ -12,24 +12,24 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         # try to extract as much of the title as possible without including the model
         m = re.search(r'femjoy\.(\d{2}\.\d{2}\.\d{2})\.(.+)', filename, re.IGNORECASE)
         if m:
-            searchDate = parse('20' + m.group(1)).strftime('%Y-%m-%d')
+            search['date'] = parse('20' + m.group(1)).strftime('%Y-%m-%d')
             searchWords = m.group(2).split('.')
             wordCount = len(searchWords)
             if wordCount > 2:
-                searchTitle = ' '.join(searchWords[2:])
+                search['title'] = ' '.join(searchWords[2:])
             else:
-                searchTitle = searchWords[-1]
+                search['title'] = searchWords[-1]
 
         else:
             # Belinda & Fiva - Give me your hand 29-Mar-2010.mp4
             # take everything from after the dash and before the date
             m = re.search(r'.+ - (.+) (\d{2}-[a-z]{3}-\d{4})', filename, re.IGNORECASE)
             if m:
-                searchDate = parse(m.group(2)).strftime('%Y-%m-%d')
-                searchTitle = m.group(1)
+                search['date'] = parse(m.group(2)).strftime('%Y-%m-%d')
+                search['title'] = m.group(1)
 
-        encodedTitle = urllib.quote(searchTitle)
-        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+        search['encoded'] = urllib.quote(search['title'])
+        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded']
         req = PAutils.HTTPRequest(searchURL)
         searchResults = req.json()
 
@@ -44,16 +44,16 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
             displayDate = releaseDate if date else ''
 
             actorsName = [actorLink['name'] for actorLink in searchResult['actors']]
             actorsString = getActorsString(actorsName)
 
-            if searchDate and displayDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date'] and displayDate:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%d' % (curID, siteNum, sceneID), name='%s - %s [%s] %s' % (titleNoFormatting, actorsString, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 

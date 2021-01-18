@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
+def search(results, lang, siteNum, search):
     searchResults = []
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '&sid=587'
+    url = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'] + '&sid=587'
     req = PAutils.HTTPRequest(url)
     siteSearchResults = HTML.ElementFromString(req.text)
     for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
@@ -13,7 +13,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
 
         searchResults.append(sceneURL)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
     for result in googleResults:
         pattern = re.search(r'(?<=\dpp\/).*(?=\/)', result)
         if pattern:
@@ -35,13 +35,13 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
             displayDate = releaseDate if date else ''
 
-            if searchDate and displayDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if search['date'] and displayDate:
+                score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 

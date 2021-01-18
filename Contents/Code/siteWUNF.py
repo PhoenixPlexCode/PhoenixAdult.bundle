@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//a[@class="scene item light_background"]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
@@ -11,7 +11,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
         sceneURL = searchResult.xpath('./@href')[0]
         curID = PAutils.Encode(sceneURL)
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] [%s]' % (titleNoFormatting, sceneActors, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results

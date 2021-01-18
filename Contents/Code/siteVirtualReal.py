@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    encodedTitle = searchTitle.lower().replace(' ', '-')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].lower().replace(' ', '-')
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + search['encoded'])
     searchPage = HTML.ElementFromString(req.text)
 
     titleNoFormatting = searchPage.xpath('//h1')[0].text_content().replace('VR Porn video', '').strip()
@@ -18,10 +18,10 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     script_date = script_text[alpha + 16:omega]
     releaseDate = parse(script_date).strftime('%Y-%m-%d')
 
-    if searchDate:
-        score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+    if search['date']:
+        score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
     else:
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
     results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s - %s [%s] %s' % (firstActor, titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
     return results

@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, search):
+    sceneID = search['title'].split(' ', 1)[0]
     try:
-        sceneTitle = searchTitle.split(' ', 1)[1]
+        sceneTitle = search['title'].split(' ', 1)[1]
     except:
         sceneTitle = ''
 
@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     titleNoFormatting = re.sub(r'[^A-Za-z0-9\s\-]+', ' ', titleNoFormatting).strip()
 
     curID = PAutils.Encode(sceneURL)
-    releaseDate = searchDate if searchDate else ''
+    releaseDate = search['date'] if search['date'] else ''
 
     score = 100
 

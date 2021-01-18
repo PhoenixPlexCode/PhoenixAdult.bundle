@@ -12,8 +12,8 @@ def getJSONfromPage(url):
     return None
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    directURL = searchTitle.replace(' ', '-').lower()
+def search(results, lang, siteNum, search):
+    directURL = search['title'].replace(' ', '-').lower()
     if '/' not in directURL:
         directURL = directURL.replace('-', '/', 1)
 
@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + directURL
     searchResultsURLs = [directURL]
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(search['title'], siteNum)
 
     for sceneURL in googleResults:
         sceneURL = sceneURL.rsplit('?', 1)[0]
@@ -58,13 +58,13 @@ def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filena
                 if 'publishedDate' in detailsPageElements:
                     releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
                 else:
-                    releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                    releaseDate = parse(search['date']).strftime('%Y-%m-%d') if search['date'] else ''
                 displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
 
-                if searchDate and displayDate:
-                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                if search['date'] and displayDate:
+                    score = 100 - Util.LevenshteinDistance(search['date'], releaseDate)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                    score = 100 - Util.LevenshteinDistance(search['title'].lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, contentName), name='%s [Mylf/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 

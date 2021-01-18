@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, lang, siteNum, searchTitle, encodedTitle, searchDate, filename):
-    encodedTitle = searchTitle.replace(' ', '-')
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+def search(results, lang, siteNum, search):
+    search['encoded'] = search['title'].replace(' ', '-')
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + search['encoded']
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
