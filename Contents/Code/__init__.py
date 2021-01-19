@@ -81,6 +81,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
+                Log('Provider: %s' % provider)
                 provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
