@@ -1333,6 +1333,10 @@ ActorsReplaceStudios = {
         'Rose Delight': ['Belinda'],
         'Sandy A': ['Anju'],
         'Susana Spears': ['Susanna'],
+    },
+    43: {
+        'Candice Brielle': ['Candice B'],
+        'Melena Maria Rya': ['Melena A'],
     }
 }
 
@@ -1380,4 +1384,5 @@ ActorsStudioIndexes = {
     40: ['Hegre'],
     41: ['Watch4Beauty'],
     42: ['Femjoy'],
+    43: ['MetArt'],
 }
