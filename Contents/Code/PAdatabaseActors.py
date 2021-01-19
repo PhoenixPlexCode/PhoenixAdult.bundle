@@ -1221,6 +1221,7 @@ ActorsReplaceStudios = {
         'Alena H': ['Helen'],
         'Goldie Baby': ['Ms White-Kitten'],
         'Mishelle Klein': ['Molly'],
+        'Jennifer Stone': ['Jeniffer Stone']
     },
     22: {
         'Morgan Layne': ['Morgan'],
