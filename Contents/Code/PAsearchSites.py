@@ -61,6 +61,7 @@ def getSearchSettings(mediaTitle):
 
     result = {
         'siteNum': None,
+        'siteName': None,
         'searchTitle': None,
         'searchDate': None,
     }
@@ -117,6 +118,7 @@ def getSearchSettings(mediaTitle):
         searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
         result['siteNum'] = siteNum
+        result['siteName'] = site
         result['searchTitle'] = searchTitle
         result['searchDate'] = searchDate
 
