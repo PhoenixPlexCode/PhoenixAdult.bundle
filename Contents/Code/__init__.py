@@ -52,8 +52,9 @@ class PhoenixAdultAgent(Agent.Movies):
 
         title = getSearchTitle(title)
 
-        Log('*** MEDIA TITLE [from media.name] *** %s' % title)
+        Log('***MEDIA TITLE [from media.name]*** %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
+        Log(searchSettings)
 
         filepath = None
         filename = None
@@ -65,12 +66,12 @@ class PhoenixAdultAgent(Agent.Movies):
             directory = str(os.path.split(os.path.dirname(filepath))[1])
 
             newTitle = getSearchTitle(directory)
-            Log('*** MEDIA TITLE [from directory] *** %s' % newTitle)
+            Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
             searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
             if searchSettings['siteNum'] is not None and searchSettings['searchTitle'].lower() == PAsearchSites.getSearchSiteName(searchSettings['siteNum']).lower():
                 newTitle = '%s %s' % (siteName, title)
-                Log('*** MEDIA TITLE [from directory + media.name] *** %s' % newTitle)
+                Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
         siteNum = searchSettings['siteNum']
