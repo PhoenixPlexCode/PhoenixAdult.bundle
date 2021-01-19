@@ -10,7 +10,6 @@ def search(results, lang, siteNum, searchData):
         for searchResult in searchResults.xpath('//div[contains(@class, "content-grid-item")]'):
             titleNoFormatting = searchResult.xpath('.//span[@class= "title"]/a')[0].text_content().strip()
             curID = searchResult.xpath('.//span[@class="title"]/a/@href')[0].split('/')[3]
-            Log('curID: %s, titleNoFormatting: %s' % (curID, titleNoFormatting))
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
             if searchData.date:
