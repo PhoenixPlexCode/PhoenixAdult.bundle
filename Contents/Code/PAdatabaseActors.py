@@ -4102,12 +4102,12 @@ ActorsReplaceStudios = {
 }
 
 ActorsStudioIndexes = {
-    0: ['21Sextury', '21 Sextury', 'Footsie Babes'],
+    0: ['21 Sextury', '21Sextury', 'Footsie Babes'],
     1: ['Babes'],
     2: ['Bang Bros'],
     3: ['ClubSeventeen'],
     4: ['CumLouder'],
-    5: ['Deeper', 'Tushyraw', 'Tushy', 'Blacked', 'Blackedraw', 'Vixen'],
+    5: ['Blacked', 'Blackedraw', 'Deeper', 'Tushy', 'Tushyraw', 'Vixen'],
     6: ['Evilangel'],
     7: ['FuelVirtual'],
     8: ['Holed'],
@@ -4130,11 +4130,11 @@ ActorsStudioIndexes = {
     25: ['VIPissy'],
     26: ['Erika Lust Films'],
     27: ['Bang Com'],
-    28: ['Milehigh', 'Doghouse Digital'],
+    28: ['Doghouse Digital', 'Milehigh'],
     29: ['Rocco Siffredi'],
     30: ['Puffy Network'],
     31: ['HuCows.com'],
-    32: ['QueenSnake', 'QueenSect'],
+    32: ['QueenSect', 'QueenSnake'],
     33: ['VirtualTaboo'],
     34: ['VirtualRealPorn'],
     35: ['VR Bangers'],
