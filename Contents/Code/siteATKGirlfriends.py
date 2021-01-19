@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchData):
         posterID = PAutils.Encode(poster)
 
         actor = searchResult.xpath('//h1[@class="page-title col-lg-12"]')[0].text_content().strip()
-        releaseDate = searchData.dateString()
+        releaseDate = searchData.dateFormat()
 
 
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="thumbnail left"]/@href')[0])
@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
             compareResultStrings.append(titleNoFormatting.lower())
 
         if searchData.duration:
-            compareSearchStrings.append(searchData.durationString())
+            compareSearchStrings.append(searchData.durationFormat())
             compareResultStrings.append(searchResult.xpath('.//div[@class="movie-duration"]')[0].text_content().strip())
 
         compareSearch = ' - '.join(compareSearchStrings)
