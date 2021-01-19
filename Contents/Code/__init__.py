@@ -70,7 +70,7 @@ class PhoenixAdultAgent(Agent.Movies):
             searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
             if searchSettings['siteNum'] is not None and searchSettings['searchTitle'].lower() == PAsearchSites.getSearchSiteName(searchSettings['siteNum']).lower():
-                newTitle = '%s %s' % (siteName, title)
+                newTitle = '%s %s' % (newTitle, title)
                 Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
