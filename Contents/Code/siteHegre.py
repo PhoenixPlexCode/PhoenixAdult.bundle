@@ -32,16 +32,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    try:
-        metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
-    except:
-        try:
-            metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]')[0].text_content().strip()
-        except:
-            try:
-                metadata.title = detailsPageElements.xpath('//meta[@name="twitter:title"]')[0].text_content().strip()
-            except:
-                pass
+    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="record-description-content record-box-content"]')[0].text_content().strip()
