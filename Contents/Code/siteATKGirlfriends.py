@@ -14,7 +14,6 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneInfo['modelID'], cookies=cookies)
     searchResults = HTML.ElementFromString(req.text)
-    Log(req)
     for searchResult in searchResults.xpath('//div[@class="movie-wrap-index img-polaroid left"]'):
         titleNoFormatting = searchResult.xpath('.//h1[@class="video-title-model"]')[0].text_content().strip()
         titleNoFormattingID = PAutils.Encode(titleNoFormatting)
@@ -31,7 +30,6 @@ def search(results, lang, siteNum, searchData):
 
         actor = searchResult.xpath('//h1[@class="page-title col-lg-12"]')[0].text_content().strip()
         releaseDate = searchData.dateFormat()
-
 
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="thumbnail left"]/@href')[0])
 
@@ -138,6 +136,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
 
 def getSceneInfo(searchTitle):
     models = {
@@ -521,6 +520,7 @@ def getSceneInfo(searchTitle):
             return splitModelAndTitle(modelID, modelName, searchTitleLower, modelID)
 
     return ''
+
 
 def splitModelAndTitle(modelID, modelName, searchTitle, splitter):
     split = searchTitle.lower().split(splitter)
