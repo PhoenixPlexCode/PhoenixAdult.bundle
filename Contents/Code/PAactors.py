@@ -167,7 +167,7 @@ def actorDBfinder(actorName):
 def actorSave(url, actorName, **kwargs):
     req = PAutils.HTTPRequest(url, **kwargs)
 
-    actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources', 'actors')
+    actorsResourcesPath = os.path.realpath('actors')
     if not os.path.exists(actorsResourcesPath):
         os.makedirs(actorsResourcesPath)
 
