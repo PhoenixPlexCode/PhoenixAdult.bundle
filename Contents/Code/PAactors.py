@@ -88,7 +88,9 @@ class PhoenixActors:
                     if not req or not req.ok or not img:
                         newPhoto = actorDBfinder(newActor)
 
-                    newPhoto = PAutils.getClearURL(newPhoto)
+                    if newPhoto:
+                        newPhoto = PAutils.getClearURL(newPhoto)
+
                     Log('Actor: %s %s' % (newActor, newPhoto))
 
                     role = metadata.roles.new()
