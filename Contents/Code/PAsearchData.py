@@ -23,10 +23,11 @@ class SearchData:
             Log('SearchData.filename: %s' % self.filename)
 
     def dateFormat(self, format='%Y-%m-%d'):
+        date = ''
         if self.date:
-            return parse(self.date).strftime(format)
-        else:
-            return ''
+            date = parse(self.date).strftime(format)
+
+        return date
 
     def durationFormat(self, hoursFormat='%02d:%02d:%02d', minutesFormat='%d:%02d'):
         durationString = ''
