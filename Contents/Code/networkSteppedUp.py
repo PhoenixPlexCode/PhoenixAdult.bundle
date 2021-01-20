@@ -3,81 +3,51 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = (
-        searchData.title.replace(" ", "-").replace("--", "-").replace("'", "").lower()
-    )
-    if "/" not in searchData.encoded:
-        searchData.encoded = searchData.encoded.replace("-", "/", 1)
+    searchData.encoded = searchData.title.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
+    if '/' not in searchData.encoded:
+        searchData.encoded = searchData.encoded.replace('-', '/', 1)
 
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     curID = PAutils.Encode(sceneURL)
-    titleNoFormatting = (
-        detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0]
-        .text_content()
-        .strip()
-    )
+    titleNoFormatting = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
-    date = detailsPageElements.xpath(
-        '//span[contains(@class,"date")] | //span[contains(@class,"hide")]'
-    )
+    date = detailsPageElements.xpath('//span[contains(@class,"date")] | //span[contains(@class,"hide")]')
     if date:
-        releaseDate = parse(date[0].text_content().strip()).strftime("%Y-%m-%d")
+        releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
     else:
-        releaseDate = searchData.dateFormat() if searchData.date else ""
-    displayDate = releaseDate if date else ""
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+    displayDate = releaseDate if date else ''
 
     if searchData.date and displayDate:
         score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
     else:
-        score = 100 - Util.LevenshteinDistance(
-            searchData.title.lower(), titleNoFormatting.lower()
-        )
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-    results.Append(
-        MetadataSearchResult(
-            id="%s|%d|%s" % (curID, siteNum, releaseDate),
-            name="%s [%s] %s"
-            % (
-                titleNoFormatting,
-                PAsearchSites.getSearchSiteName(siteNum),
-                releaseDate,
-            ),
-            score=score,
-            lang=lang,
-        )
-    )
+    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
 
 def update(metadata, siteNum, movieGenres, movieActors):
-    metadata_id = str(metadata.id).split("|")
+    metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    if not sceneURL.startswith("http"):
+    if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = (
-        detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0]
-        .text_content()
-        .strip()
-    )
+    metadata.title = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = (
-        detailsPageElements.xpath('//div[contains(@class,"desc")]')[0]
-        .text_content()
-        .strip()
-    )
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class,"desc")]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = "Stepped Up Media"
+    metadata.studio = 'Stepped Up Media'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -93,16 +63,16 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    if tagline == "Swallowed":
-        movieGenres.addGenre("Blowjob")
-        movieGenres.addGenre("Cum Swallow")
+    if tagline == 'Swallowed':
+        movieGenres.addGenre('Blowjob')
+        movieGenres.addGenre('Cum Swallow')
     elif tagline == "TrueAnal" or "AllAnal":
-        movieGenres.addGenre("Anal")
-        movieGenres.addGenre("Gaping")
-    elif tagline == "Nympho":
-        movieGenres.addGenre("Nympho")
-    movieGenres.addGenre("Hardcore")
-    movieGenres.addGenre("Heterosexual")
+        movieGenres.addGenre('Anal')
+        movieGenres.addGenre('Gaping')
+    elif tagline == 'Nympho':
+        movieGenres.addGenre('Nympho')
+    movieGenres.addGenre('Hardcore')
+    movieGenres.addGenre('Heterosexual')
 
     # Actors
     movieActors.clearActors()
@@ -110,15 +80,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
 
-        actorPageURL = actorLink.get("href")
+        actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class,"model")]/img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
-    movieActors.addActor(
-        "Mike Adriano", "https://imgs1cdn.adultempire.com/actors/470003.jpg"
-    )
+    movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')
 
     # Posters
     art = []
@@ -132,7 +100,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         for poster in detailsPageElements.xpath(xpath):
             art.append(poster)
 
-    Log("Artwork found: %d" % len(art))
+    Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
@@ -144,9 +112,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(
-                        image.content, sort_order=idx
-                    )
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > 100:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
