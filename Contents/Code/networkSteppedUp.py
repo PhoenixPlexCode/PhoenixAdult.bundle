@@ -1,10 +1,11 @@
 import PAsearchSites
 import PAutils
+import re
 
 
 def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
-    if '/' not in searchData.encoded:
+    if "/" not in encodedTitle and re.match("\d+.*",encodedTitle):
         searchData.encoded = searchData.encoded.replace('-', '/', 1)
 
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
@@ -92,8 +93,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//div[@id="trailer-player"]/@data-screencap',
-        '//video[@id="ypp-player"]/@poster',
+        '//video[contains(@id,"ypp-player")]/@poster',
         '//a[@href="%s"]//img/@src' % sceneURL,
+        '//div[@class="view-thumbs"]//img/@src',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
