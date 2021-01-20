@@ -99,7 +99,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
         metadata_id = str(metadata.id).split('|')
         siteNum = int(metadata_id[1])
-        Log('SiteNum: %s' % str(siteNum))
+        Log('SiteNum: %d' % siteNum)
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
