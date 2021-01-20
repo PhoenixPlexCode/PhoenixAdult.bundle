@@ -81,7 +81,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//a[contains(@class,"video-actor-link")]'):
+    for actorLink in detailsPageElements.xpath('//a[contains(@class, "video-actor-link")]'):
         actorName = actorLink.text_content().strip()
 
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
@@ -94,7 +94,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[contains(@class,"gallery-item")]/@data-big-image',
+        '//div[contains(@class, "gallery-item")]/@data-big-image',
         '//img[@class="video-image"]/@src'
     ]
 

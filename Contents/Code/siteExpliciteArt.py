@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(searchURL)
     searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[@class="content"][.//*[contains(@src,"video")]]'):
+    for searchResult in searchResults.xpath('//div[@class="content"][.//*[contains(@src, "video")]]'):
         titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//div[@class="vtitle"]')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//a/@href')[0]
         curID = PAutils.Encode(sceneURL)

@@ -69,7 +69,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
 
-    for poster in detailsPageElements.xpath('//div[contains(@class,"video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[@class="scene-previews-container"]//a'):
+    for poster in detailsPageElements.xpath('//div[contains(@class, "video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[@class="scene-previews-container"]//a'):
         img = poster.get('href').split('?')[0]
         if img.startswith('http'):
             art.append(img)

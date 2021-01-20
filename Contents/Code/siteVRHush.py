@@ -55,7 +55,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//a[contains(@class,"label")]')
+    genres = detailsPageElements.xpath('//a[contains(@class, "label")]')
     for genreLink in genres:
         genreName = genreLink.text_content().strip()
 
@@ -77,7 +77,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     xpaths = [
         '//dl8-video/@poster',
-        '//div[contains(@class,"owl-carousel")]//img/@src'
+        '//div[contains(@class, "owl-carousel")]//img/@src'
     ]
 
     for xpath in xpaths:

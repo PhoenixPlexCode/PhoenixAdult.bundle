@@ -67,7 +67,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[contains(@class,"update_date")]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//div[contains(@class, "update_date")]')[0].text_content().strip()
     if not date:
         try:
             date = str(detailsPageElements.xpath('.//div[@class="cell update_date"]/comment()')[0]).strip()

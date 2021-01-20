@@ -14,7 +14,7 @@ def search(results, lang, siteNum, searchData):
     curID = PAutils.Encode(sceneURL)
     titleNoFormatting = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
-    date = detailsPageElements.xpath('//span[contains(@class,"date")] | //span[contains(@class,"hide")]')
+    date = detailsPageElements.xpath('//span[contains(@class, "date")] | //span[contains(@class, "hide")]')
     if date:
         releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
     else:
@@ -44,7 +44,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[contains(@class,"desc")]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "desc")]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Stepped Up Media'
@@ -83,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[contains(@class,"model")]/img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]/img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
     movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')
@@ -92,7 +92,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//div[@id="trailer-player"]/@data-screencap',
-        '//video[contains(@id,"ypp-player")]/@poster',
+        '//video[contains(@id, "ypp-player")]/@poster',
         '//a[@href="%s"]//img/@src' % sceneURL,
         '//div[@class="view-thumbs"]//img/@src',
     ]

@@ -11,7 +11,7 @@ def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '-')
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class,"postTag")]'):
+    for searchResult in searchResults.xpath('//div[contains(@class, "postTag")]'):
         titleNoFormatting = searchResult.xpath('.//div[@class="nazev"]//h2//a')[0].text_content()
         curSceneID = searchResult.xpath('.//div[@class="nazev"]//h2//a')[0].text_content().split(" -")[0]
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])

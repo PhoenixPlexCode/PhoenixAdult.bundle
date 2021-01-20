@@ -78,7 +78,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[contains(@class,"video-detail")]//img/@src',
+        '//div[contains(@class, "video-detail")]//img/@src',
     ]
 
     for xpath in xpaths:

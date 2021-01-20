@@ -223,7 +223,7 @@ def search(results, lang, siteNum, searchData):
         try:
             req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_dvd_prev + searchData.encoded + network_sep_dvd)
             dvdResults = HTML.ElementFromString(req.text)
-            for dvdResult in dvdResults.xpath('//div[contains(@class,"tlcItem playlistable_dvds")] | //div[@class="tlcDetails"]'):
+            for dvdResult in dvdResults.xpath('//div[contains(@class, "tlcItem playlistable_dvds")] | //div[@class="tlcDetails"]'):
                 titleNoFormatting = dvdResult.xpath('.//div[@class="tlcTitle"]/a')[0].get('title').strip()
                 curID = PAutils.Encode(dvdResult.xpath('.//a')[0].get('href'))
                 try:
@@ -313,7 +313,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Title DVD
     try:
-        dvdTitle = detailsPageElements.xpath('//a[contains(@class,"dvdLink")][1]')[0].get('title').strip()
+        dvdTitle = detailsPageElements.xpath('//a[contains(@class, "dvdLink")][1]')[0].get('title').strip()
         metadata.collections.add(dvdTitle.replace('#0', '').replace('#', ''))
     except:
         try:

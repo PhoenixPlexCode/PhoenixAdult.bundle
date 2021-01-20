@@ -64,7 +64,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorsBox = detailsPageElements.xpath('//div[@class="col-xs-12 casting"]')[0].xpath('//div[contains(@class,"slider-xl")]')[0]
+    actorsBox = detailsPageElements.xpath('//div[@class="col-xs-12 casting"]')[0].xpath('//div[contains(@class, "slider-xl")]')[0]
     actors = actorsBox.xpath('//div[@class="col-xs-2"]/a[@class="link oneline"]')
     for actorLink in actors:
         actorName = str(actorLink.text_content().strip())
@@ -80,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     try:
-        poster = detailsPageElements.xpath('//div[contains(@class,"covers")]/a[contains(@class,"cover")]/@href')[0].strip()
+        poster = detailsPageElements.xpath('//div[contains(@class, "covers")]/a[contains(@class, "cover")]/@href')[0].strip()
         coverURL = (PAsearchSites.getSearchBaseURL(siteNum) + poster).replace('https:', 'http:')
         art.append(coverURL)
     except:
@@ -88,7 +88,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     try:
         photoBoxA = detailsPageElements.xpath('//div[@class="slider-part screenshots"]')[0]
-        photoBoxB = photoBoxA.xpath('//div[contains(@class,"slider-xl")]/div[@class="slides"]/div[@class="col-xs-2"]/a/@href')
+        photoBoxB = photoBoxA.xpath('//div[contains(@class, "slider-xl")]/div[@class="slides"]/div[@class="col-xs-2"]/a/@href')
 
         for photo in photoBoxB:
             photoURL = (PAsearchSites.getSearchBaseURL(siteNum) + photo.strip()).replace('https:', 'http:').replace('blur9/', '/')

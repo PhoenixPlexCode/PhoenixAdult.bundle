@@ -109,7 +109,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         art.append(previewBG)
 
         # Get dvd page for some info
-        dvdPageURL = urlBase + detailsPageElements.xpath('//div[@class="content"]//a[contains(@class,"dvdLink")]/@href')[0]
+        dvdPageURL = urlBase + detailsPageElements.xpath('//div[@class="content"]//a[contains(@class, "dvdLink")]/@href')[0]
         req = PAutils.HTTPRequest(dvdPageURL)
         dvdPageElements = HTML.ElementFromString(req.text)
 
@@ -192,7 +192,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             pass
 
         # Backgrounds
-        scenePreviews = detailsPageElements.xpath('//div[@class="sceneContainer"]//img[contains(@id,"clip")]/@data-original')
+        scenePreviews = detailsPageElements.xpath('//div[@class="sceneContainer"]//img[contains(@id, "clip")]/@data-original')
         for scenePreview in scenePreviews:
             previewIMG = scenePreview.split('?')[0]
 
