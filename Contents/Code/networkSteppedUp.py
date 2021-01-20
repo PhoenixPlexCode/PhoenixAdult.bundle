@@ -92,8 +92,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//div[@id="trailer-player"]/@data-screencap',
-        '//video[@id="ypp-player"]/@poster',
+        '//video[contains(@id,"ypp-player")]/@poster',
         '//a[@href="%s"]//img/@src' % sceneURL,
+        '//div[@class="view-thumbs"]//img/@src',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
