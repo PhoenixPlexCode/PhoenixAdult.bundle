@@ -168,6 +168,9 @@ def actorSave(url, actorName, **kwargs):
     req = PAutils.HTTPRequest(url, **kwargs)
 
     actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources', 'actors')
+    if not os.path.exists(actorsResourcesPath):
+        os.makedirs(actorsResourcesPath)
+
     extension = mimetypes.guess_extension(req.headers['Content-Type'])
     filename = actorName.replace(' ', '_').lower() + extension
     filepath = os.path.join(actorsResourcesPath, filename)
