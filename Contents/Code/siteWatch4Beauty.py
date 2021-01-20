@@ -50,7 +50,6 @@ def search(results, lang, siteNum, searchData):
         sceneDateTime = scene.get('issue_datetime')
         sceneDateString = parse(sceneDateTime).strftime('%Y-%m-%d')
         modelName = modelString.replace('-', ' ').title()
-        # Log('%s in %s, %s' % (modelString, sceneString, sceneDateString))
 
         if searchData.date:
             if sceneDateString == searchData.date:

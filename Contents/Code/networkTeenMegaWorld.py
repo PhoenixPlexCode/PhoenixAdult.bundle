@@ -4,7 +4,7 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     for searchPageNum in range(1, 3):
-        url = PAsearchSites.getSearchSearchURL(siteNum) + '%%22%s%%22&page=%d' % (searchData.title.replace(' ', '+'), searchPageNum)
+        url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (searchData.encoded, searchPageNum)
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//article'):
