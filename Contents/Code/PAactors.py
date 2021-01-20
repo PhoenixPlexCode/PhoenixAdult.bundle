@@ -162,3 +162,22 @@ def actorDBfinder(actorName):
             Log('%s not found' % actorName)
 
     return actorPhotoURL
+
+
+def actorSave(url, actorName, **kwargs):
+    req = PAutils.HTTPRequest(url, **kwargs)
+
+    actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources', 'actors')
+    extension = mimetypes.guess_extension(req.headers['Content-Type'])
+    filename = actorName.replace(' ', '_').lower() + extension
+    filepath = os.path.join(actorsResourcesPath, filename)
+
+    Log('Saving actor image as: "%s"' % filename)
+    with codecs.open(filepath, 'wb+') as file:
+        file.write(req.content)
+
+    newPhoto = Resource.ExternalPath(filepath)
+    if not newPhoto:
+        newPhoto = ''
+
+    return newPhoto
