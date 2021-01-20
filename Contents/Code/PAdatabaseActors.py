@@ -108,39 +108,39 @@ ActorsReplace = {
 }
 
 ActorsReplaceStudios = {
-    0: { # 21 Sextury, 21Sextury, Footsie Babes
+    0: {  # 21 Sextury, 21Sextury, Footsie Babes
         'Henessy': ['Henna Ssy'],
         'Katarina Muti': ['Ariel Temple'],
         'Krystal Boyd': ['Abbie'],
         'Mishelle Klein': ['Molly A'],
         'Stefanie Moon': ['Stefanie'],
     },
-    1: { # Babes
+    1: {  # Babes
         'Aika May': ['Aiko May'],
         'Ariel Piper Fawn': ['Ariel'],
         'Katya Clover': ['Clover'],
         'Krystal Boyd': ['Angelica'],
     },
-    2: { # Bang Bros
+    2: {  # Bang Bros
         'Abella Anderson': ['Amy'],
         'Noemie Bilas': ['Noemi Bilas'],
     },
-    3: { # ClubSeventeen
+    3: {  # ClubSeventeen
         'Katy Rose': ['Katy E'],
         'Scarlet Domingo': ['Scarlet'],
     },
-    4: { # CumLoder
+    4: {  # CumLouder
         'Apolonia Lapiedra': ['Apolonia'],
         'Scarlet Domingo': ['Scarlett'],
     },
-    5: { # Blacked, Blackedraw, Deeper, Tushy, Tushyraw, Vixen'
+    5: {  # Blacked, Blackedraw, Deeper, Tushy, Tushyraw, Vixen
         'Vika Lita': ['Vikalita'],
         'Vina Sky': ['Vina Skyy'],
     },
-    6: { # Evilangel
+    6: {  # Evilangel
         'Scarlet Domingo': ['Scarlett'],
     },
-    7: { # FuelVirtual
+    7: {  # FuelVirtual
         'Abigaile Johnson': ['Abigaile'],
         'Aletta Ocean': ['Aletta'],
         'Alexis Adams': ['Alexis'],
@@ -206,15 +206,15 @@ ActorsReplaceStudios = {
         'Whitney Westgate': ['Whitney'],
         'Zoey Kush': ['Zoey'],
     },
-    8: { # Holed
+    8: {  # Holed
         'Scarlet Domingo': ['Scarlett'],
     },
-    9: { # LegalPorno
+    9: {  # LegalPorno
         'Foxy Di': ['Foxy D'],
         'Krystal Boyd': ['Abby'],
         'Sophia Traxler': ['Olivia'],
     },
-    10: { # Joymii
+    10: {  # Joymii
         'Abigaile Johnson': ['Abigail'],
         'Adele Sunshine': ['Sunny G.'],
         'Aleska Diamond': ['Aleska D.'],
@@ -382,10 +382,10 @@ ActorsReplaceStudios = {
         'Zena Little': ['Lilly K.'],
         'Zoe Voss': ['Zoe V.'],
     },
-    11: { # Jules Jordan
+    11: {  # Jules Jordan
         'Jesse Jane': ['Jesse'],
     },
-    12: { # Kink
+    12: {  # Kink
         'Alana Evans': ['Alana'],
         'Anna Ashton': ['Sandy'],
         'Avy Scott': ['Avi Scott'],
@@ -419,15 +419,15 @@ ActorsReplaceStudios = {
         'Teagan Summers': ['Tegan Summer'],
         'Wanda Curtis': ['Wanda'],
     },
-    13: { # ManyVids
+    13: {  # ManyVids
         'Heather Harmon': ['Imheatherharmon'],
         'Shaiden Rogue': ['Shaiden'],
         'Spencer Bradley': ['Spencer_Bradley'],
     },
-    14: { # Porn Pros
+    14: {  # Mylf
         'Scarlet Domingo': ['Scarlett'],
     },
-    15: { # Nubiles
+    15: {  # Nubiles
         'Abby Cross': ['Penny'],
         'Addie Moore': ['Addie'],
         'Addison Rose': ['Addison'],
@@ -809,13 +809,13 @@ ActorsReplaceStudios = {
         'Zena Little': ['Xenia'],
         'Zuzana Z': ['Jujana'],
     },
-    16: {
+    16: {  # Porn Pros
         'Bailey Brooke': ['Bailey Brookes'],
     },
-    17: {
+    17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
     },
-    18: { # TeamSkeet
+    18: {  # TeamSkeet
         'Ada Sanchez': ['Ada S'],
         'Adelle Booty': ['Parvin'],
         'Alektra Sky': ['Darla'],
@@ -903,10 +903,10 @@ ActorsReplaceStudios = {
         'Taissia Shanti': ['Magda'],
         'Valentina Cross': ['Artemida'],
     },
-    19: { # Twistys
+    19: {  # Twistys
         'Lena Anderson': ['Blaire Ivory'],
     },
-    20: { # X-Art
+    20: {  # X-Art
         'Aaliyah Love': ['Aliyah'],
         'Abigaile Johnson': ['Abby'],
         'Adel Morel': ['Adel M'],
@@ -1203,46 +1203,46 @@ ActorsReplaceStudios = {
         'Zoe': ['Klara'],
         'Zoey Kush': ['Star'],
     },
-    21: { # DDFProd
+    21: {  # DDFProd
         'Alena H': ['Helen'],
         'Goldie Baby': ['Ms White-Kitten'],
         'Jennifer Stone': ['Jeniffer Stone'],
         'Mishelle Klein': ['Molly'],
     },
-    22: { # Reality Kings
+    22: {  # Reality Kings
         'Morgan Layne': ['Morgan'],
     },
-    23: { # WowGirls
+    23: {  # WowGirls
         'Goldie Baby': ['Nikia'],
         'Katya Clover': ['Clover'],
         'Nataly Von': ['Natasha Von'],
         'Olivia Jameson': ['Olivka'],
     },
-    24: { # Private
+    24: {  # Private
         'Apolonia Lapiedra': ['Apolonia'],
         'Bambi Dee': ['Td Bambi'],
         'Lola Taylor': ['Lolita Taylor'],
         'Scarlet Domingo': ['Scarlet'],
     },
-    25: { # VIPissy
+    25: {  # VIPissy
         'Susan Ayn': ['Susan Ayne'],
     },
-    26: { # Erika Lust Films
+    26: {  # Erika Lust Films
         'Luna Corazon': ['Luna Corazón'],
     },
-    27: { # Bang Com
+    27: {  # Bang Com
         'London Keyes': ['London Keys'],
     },
-    28: { # Doghouse Digital, Milehigh
+    28: {  # Doghouse Digital, Milehigh
         'Gabriella Lati': ['Gabrielle Lati'],
     },
-    29: { # Rocco Siffredi
+    29: {  # Rocco Siffredi
         'Krystal Boyd': ['Abbie'],
     },
-    30: { # Puffy Networ
+    30: {  # Puffy Network
         'Stefanie Moon': ['Stefany'],
     },
-    31: { # HuCows.com
+    31: {  # HuCows.com
         'Alais Peach': ['Alais'],
         'Arabella Langford': ['Arabella'],
         'Bad Dolly': ['Dolly'],
@@ -1261,30 +1261,30 @@ ActorsReplaceStudios = {
         'Roxy Mendez': ['Roxy'],
         'Samantha Bentley': ['Samantha'],
     },
-    32: { # QueenSect, QueenSnak
+    32: {  # QueenSect, QueenSnake
         'QueenSnake': ['Qs'],
     },
-    33: { # VirtualTaboo
+    33: {  # VirtualTaboo
         'Penelope Cum': ['Penelope'],
     },
-    34: { # VirtualRealPorn
+    34: {  # VirtualRealPorn
         'Ariadna Moon': ['Ariadna'],
     },
-    35: { # VR Bangers
+    35: {  # VR Bangers
         'Victoria Puppy': ['Victoria P'],
     },
-    36: { # HighTechVR
+    36: {  # HighTechVR
         'Casey Norhman': ['Casey'],
         'Cayla Lyons': ['Cayla'],
         'Lady Dee': ['Lady D'],
     },
-    37: { # BadoinkVR
+    37: {  # BadoinkVR
         'Athina Love': ['Athina'],
     },
-    38: { # CzechVR
+    38: {  # CzechVR
         'Niki Sweet': ['Nikki Sweet'],
     },
-    39: { # Teen Mega World
+    39: {  # Teen Mega World
         'Abby Byens': ['Demi'],
         'Adela': ['Crystal', 'Nina'],
         'Adelina': ['Bella Donna'],
@@ -2163,7 +2163,7 @@ ActorsReplaceStudios = {
         'Zuleika': ['Susanna'],
         'Zuza': ['Alis'],
     },
-    40: { # Hegre
+    40: {  # Hegre
         'Adel Morel': ['Olivia'],
         'Alena Vezza': ['Alya'],
         'Alice Wonder': ['Alice'],
@@ -2300,7 +2300,7 @@ ActorsReplaceStudios = {
         'Yasmin A': ['Yanka'],
         'Zara': ['Sally'],
     },
-    41: { # Watch4Beauty
+    41: {  # Watch4Beauty
         'Adel Morel': ['Olyvia'],
         'Adele Sunshine': ['Adel Sunshine'],
         'Aika May': ['Kaira'],
@@ -2560,7 +2560,7 @@ ActorsReplaceStudios = {
         'Zuzana B.': ['Zuzana Gold'],
         'Zuzana Z': ['Suzane'],
     },
-    42: { # Femjoy
+    42: {  # Femjoy
         'Ada A': ['Ulla'],
         'Adel B': ['Alessa D'],
         'Adel Morel': ['Adel Morel', 'Amber B'],
@@ -3908,7 +3908,7 @@ ActorsReplaceStudios = {
         'Zuzana Drabinova': ['Sabina'],
         'Zuzana S.': ['Dora'],
     },
-    43: { # MetArt
+    43: {  # MetArt
         'Abby Byens': ['Antonia A'],
         'Abiela': ['Marina E'],
         'Abigail A.': ['Abigail A'],
