@@ -179,15 +179,17 @@ def Decode(text):
 
 
 def getClearURL(url):
-    url = urlparse.urlparse(url)
-    path = url.path
+    newURL = url
+    if url.startswith('http'):
+        url = urlparse.urlparse(url)
+        path = url.path
 
-    while '//' in path:
-        path = path.replace('//', '/')
+        while '//' in path:
+            path = path.replace('//', '/')
 
-    newURL = '%s://%s%s' % (url.scheme, url.netloc, path)
-    if url.query:
-        newURL += '?%s' % url.query
+        newURL = '%s://%s%s' % (url.scheme, url.netloc, path)
+        if url.query:
+            newURL += '?%s' % url.query
 
     return newURL
 
