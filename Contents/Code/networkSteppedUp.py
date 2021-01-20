@@ -1,10 +1,11 @@
 import PAsearchSites
 import PAutils
+import re
 
 
 def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
-    if '/' not in searchData.encoded:
+    if "/" not in encodedTitle and re.match("\d+.*",encodedTitle):
         searchData.encoded = searchData.encoded.replace('-', '/', 1)
 
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
