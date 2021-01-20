@@ -72,10 +72,10 @@ class PhoenixActors:
                     req = None
                     img = False
                     if newPhoto:
-                        req = PAutils.HTTPRequest(newPhoto, 'HEAD')
+                        req = PAutils.HTTPRequest(newPhoto, 'HEAD', bypass=False)
                         if req.ok:
                             try:
-                                image = PAutils.HTTPRequest(newPhoto)
+                                image = PAutils.HTTPRequest(newPhoto, bypass=False)
                                 im = StringIO(image.content)
                                 resized_image = Image.open(im)
                                 width, height = resized_image.size
