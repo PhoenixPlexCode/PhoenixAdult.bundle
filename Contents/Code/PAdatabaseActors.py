@@ -1093,7 +1093,7 @@ ActorsReplaceStudios = {
         'Lilit Sweet': ['Lilit'],
         'Lilith Lee': ['Sweetie'],
         'Lilu Moon': ['Lilu'],
-        'Lily Ivy ': ['Lilly Ivy'],
+        'Lily Ivy': ['Lilly Ivy'],
         'Lily Labeau': ['Lilly'],
         'Lindsey Olsen': ['Nastia'],
         'Lisa Dawn': ['Liza Dawn'],
