@@ -99,10 +99,11 @@ class PhoenixAdultAgent(Agent.Movies):
 
         metadata_id = str(metadata.id).split('|')
         siteNum = int(metadata_id[1])
-        Log(str(siteNum))
+        Log('SiteNum: %s' % str(siteNum))
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
+            Log('Provider: %s' % provider)
             provider.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
