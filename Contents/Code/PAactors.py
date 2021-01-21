@@ -167,19 +167,19 @@ def actorDBfinder(actorName):
 def actorSave(url, actorName, **kwargs):
     req = PAutils.HTTPRequest(url, **kwargs)
 
-    actorsResourcesPath = os.path.realpath('actors')
+    actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
     if not os.path.exists(actorsResourcesPath):
         os.makedirs(actorsResourcesPath)
 
     extension = mimetypes.guess_extension(req.headers['Content-Type'])
-    filename = actorName.replace(' ', '_').lower() + extension
+    filename = 'actor_' + actorName.replace(' ', '-').lower() + extension
     filepath = os.path.join(actorsResourcesPath, filename)
 
     Log('Saving actor image as: "%s"' % filename)
     with codecs.open(filepath, 'wb+') as file:
         file.write(req.content)
 
-    newPhoto = Resource.ExternalPath(filepath)
+    newPhoto = Resource.ExternalPath(filename)
     if not newPhoto:
         newPhoto = ''
 
