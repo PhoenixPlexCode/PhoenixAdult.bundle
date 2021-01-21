@@ -105,6 +105,20 @@ def actorDBfinder(actorName):
     actorPhotoURL = ''
 
     if actorName:
+        databaseName = 'indexxx.com'
+        req = PAutils.HTTPRequest('https://www.indexxx.com/search/?query=' + actorEncoded)
+        actorSearch = HTML.ElementFromString(req.text)
+        actorPageURL = actorSearch.xpath('//div[contains(@class, "modelPanel")]//a[@class="modelLink3"]/@href')
+        if actorPageURL:
+            actorPageURL = actorPageURL[0]
+            req = PAutils.HTTPRequest(actorPageURL)
+            actorPage = HTML.ElementFromString(req.text)
+            img = actorPage.xpath('//img[@class="model-img"]/@src')
+            if img:
+                actorPhotoURL = cacheActorPhoto(img[0], actorName, headers={'Referer': actorPageURL})
+                Log("Local image: %s" % actorPhotoURL)
+
+    if not actorPhotoURL:
         databaseName = 'AdultDVDEmpire'
         req = PAutils.HTTPRequest('https://www.adultdvdempire.com/performer/search?q=' + actorEncoded)
         actorSearch = HTML.ElementFromString(req.text)
@@ -163,8 +177,8 @@ def actorDBfinder(actorName):
 
     return actorPhotoURL
 
-
-def actorSave(url, actorName, **kwargs):
+# fetches a copy of an actor image and stores it locally, then returns a URL from which Plex can fetch it later
+def cacheActorPhoto(url, actorName, **kwargs):
     req = PAutils.HTTPRequest(url, **kwargs)
 
     actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
@@ -172,7 +186,7 @@ def actorSave(url, actorName, **kwargs):
         os.makedirs(actorsResourcesPath)
 
     extension = mimetypes.guess_extension(req.headers['Content-Type'])
-    filename = 'actor_' + actorName.replace(' ', '-').lower() + extension
+    filename = 'actor.' + actorName.replace(' ', '-').lower() + extension
     filepath = os.path.join(actorsResourcesPath, filename)
 
     Log('Saving actor image as: "%s"' % filename)
