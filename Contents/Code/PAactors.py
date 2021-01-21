@@ -115,8 +115,8 @@ def actorDBfinder(actorName):
             actorPage = HTML.ElementFromString(req.text)
             img = actorPage.xpath('//img[@class="model-img"]/@src')
             if img:
-                actorPhotoURL = cacheActorPhoto(img[0], actorName, headers={'Referer': actorPageURL})
-                Log("Local image: %s" % actorPhotoURL)
+                actorPhotoURL = img[0]
+                actorPhotoURL = cacheActorPhoto(actorPhotoURL, actorName, headers={'Referer': actorPageURL})
 
     if not actorPhotoURL:
         databaseName = 'AdultDVDEmpire'
@@ -176,6 +176,7 @@ def actorDBfinder(actorName):
             Log('%s not found' % actorName)
 
     return actorPhotoURL
+
 
 # fetches a copy of an actor image and stores it locally, then returns a URL from which Plex can fetch it later
 def cacheActorPhoto(url, actorName, **kwargs):
