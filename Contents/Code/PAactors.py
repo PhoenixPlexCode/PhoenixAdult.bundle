@@ -126,6 +126,21 @@ def actorDBfinder(actorName):
             actorPhotoURL = url
             break
 
+    if not actorPhotoURL:
+        actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
+        filename = filename = 'actor.' + actorName.replace(' ', '-').lower()
+        for root, dirs, files in os.walk(actorsResourcesPath):
+            for file in files:
+                if file.startswith(filename):
+                    filename = file
+                    databaseName = 'Local Storage'
+                    break
+            break
+
+        localPhoto = Resource.ExternalPath(filename)
+        if localPhoto:
+            actorPhotoURL = localPhoto
+
     if actorPhotoURL:
         Log('%s found in %s ' % (actorName, databaseName))
         Log('PhotoURL: %s' % actorPhotoURL)
