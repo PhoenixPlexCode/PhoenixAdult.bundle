@@ -119,7 +119,7 @@ def actorDBfinder(actorName):
 
     searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
     if Prefs['order_enable']:
-        searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName in searchResults]
+        searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName.strip() in searchResults]
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
@@ -216,7 +216,7 @@ def getFromIAFD(actorName, actorEncoded):
 
     req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
-    actorPageURL = actorSearch.xpath('//table[@id="tblFem"]//tbody//a/@href')
+    actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
     if actorPageURL:
         actorPageURL = 'http://www.iafd.com' + actorPageURL[0]
         req = PAutils.HTTPRequest(actorPageURL)
