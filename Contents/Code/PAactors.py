@@ -117,7 +117,7 @@ def actorDBfinder(actorName):
         'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'Local Storage']
+    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
