@@ -107,6 +107,7 @@ def actorDBfinder(actorName):
     databaseName = ''
 
     searchResults = {
+        'Freeones': getFromFreeones,
         'IAFD': getFromIAFD,
         'Indexxx': getFromIndexxx,
         'AdultDVDEmpire': getFromAdultDVDEmpire,
@@ -115,7 +116,7 @@ def actorDBfinder(actorName):
         'Babepedia': getFromBabepedia,
     }
 
-    searchOrder = ['IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
+    searchOrder = ['Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
@@ -130,6 +131,18 @@ def actorDBfinder(actorName):
         Log('PhotoURL: %s' % actorPhotoURL)
     else:
         Log('%s not found' % actorName)
+
+    return actorPhotoURL
+
+
+def getFromFreeones(actorName, actorEncoded):
+    actorPhotoURL = ''
+
+    req = PAutils.HTTPRequest('https://www.freeones.com/babes?q=' + actorEncoded)
+    actorSearch = HTML.ElementFromString(req.text)
+    img = actorSearch.xpath('//div[contains(@class, "grid-item")]//img/@src')
+    if img:
+        actorPhotoURL = img[0]
 
     return actorPhotoURL
 
