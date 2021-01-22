@@ -41,6 +41,10 @@ def Start():
                 Log('Deleted debug data: %s' % directoryName)
 
 
+def ValidatePrefs():
+    Log('ValidatePrefs function call')
+
+
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
     languages = [Locale.Language.English]
