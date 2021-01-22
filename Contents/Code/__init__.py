@@ -134,3 +134,7 @@ def getSearchTitle(title):
     title = ' '.join(title.split())
 
     return title
+
+def ValidatePrefs():
+    # validation of Prefs would go here - prefsValid does nothing
+    prefsValid = True
