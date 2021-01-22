@@ -118,6 +118,8 @@ def actorDBfinder(actorName):
     }
 
     searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
+    if Pref['order_enable']:
+        searchOrder = [sourceName.strip() for sourceName in Pref['order_list'].split(',') if sourceName in searchResults]
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
@@ -246,7 +248,6 @@ def getFromLocalStorage(actorName, actorEncoded):
         for file in files:
             if file.startswith(filename):
                 filename = file
-                databaseName = 'Local Storage'
                 break
         break
 
