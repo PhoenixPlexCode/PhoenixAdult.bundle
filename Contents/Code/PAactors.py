@@ -118,8 +118,8 @@ def actorDBfinder(actorName):
     }
 
     searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
-    if Pref['order_enable']:
-        searchOrder = [sourceName.strip() for sourceName in Pref['order_list'].split(',') if sourceName in searchResults]
+    if Prefs['order_enable']:
+        searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName in searchResults]
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
