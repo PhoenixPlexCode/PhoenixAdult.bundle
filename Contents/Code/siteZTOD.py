@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = searchResult.xpath('.//a[@class="video-title"]')[0].text_content().strip()
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a[@class="video-title"]/@href')[0]
         curID = PAutils.Encode(sceneURL)
-        releaseDate = parse(searchResult.xpath('.//ul[contains(@class,"desclist")]/li[1]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        releaseDate = parse(searchResult.xpath('.//ul[contains(@class, "desclist")]/li[1]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
         if searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)

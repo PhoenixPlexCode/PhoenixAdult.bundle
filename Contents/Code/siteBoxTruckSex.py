@@ -55,7 +55,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.add(metadata.studio)
 
     # Actors
-    actors = detailsPageElements.xpath('//h5/a[contains(@href,"models")]')
+    actors = detailsPageElements.xpath('//h5/a[contains(@href, "models")]')
     actorPhotoURL = ''
 
     if actors:
@@ -73,7 +73,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             req = PAutils.HTTPRequest(modelURL)
             modelsPageElements = HTML.ElementFromString(req.text)
 
-            img = modelsPageElements.xpath('//a[contains(@title,"' + actorName + '")]//@src')[0]
+            img = modelsPageElements.xpath('//a[contains(@title, "' + actorName + '")]//@src')[0]
 
             if img:
                 actorPhotoURL = img
@@ -96,13 +96,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genre in detailsPageElements.xpath('//h5[contains(@class,"video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
+    for genre in detailsPageElements.xpath('//h5[contains(@class, "video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
         movieGenres.addGenre(genre.strip())
 
     # Posters
     art = []
     xpaths = [
-        '//div[@class="mb clearfix"]//a[contains(@class,"stills")]//@src',
+        '//div[@class="mb clearfix"]//a[contains(@class, "stills")]//@src',
     ]
 
     for xpath in xpaths:

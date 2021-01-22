@@ -101,7 +101,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Posters
     art = []
-    for poster in detailsPageElements.xpath('//div[@class="contentBlock"]//img[contains(@src,"preview")]/@src'):
+    for poster in detailsPageElements.xpath('//div[@class="contentBlock"]//img[contains(@src, "preview")]/@src'):
         posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + poster.split('?')[0]
         art.append(posterUrl)
 

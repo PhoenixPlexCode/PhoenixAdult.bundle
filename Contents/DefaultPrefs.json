@@ -6,6 +6,30 @@
         "default": "false"
     },
     {
+        "id": "strip_enable",
+        "label": "Enable FileName Strip",
+        "type": "bool",
+        "default": "false"
+    },
+    {
+        "id": "strip_symbol",
+        "label": "Strip Symbol",
+        "type": "text",
+        "default": "~"
+    },
+    {
+        "id": "order_enable",
+        "label": "Enable Custom Order",
+        "type": "bool",
+        "default": "false"
+    },
+    {
+        "id": "order_list",
+        "label": "Order List",
+        "type": "text",
+        "default": "Local Storage, Freeones, IAFD, Indexxx, AdultDVDEmpire, Boobpedia, Babes and Stars, Babepedia"
+    },
+    {
         "id": "proxy_enable",
         "label": "Enable Proxy",
         "type": "bool",
@@ -57,17 +81,5 @@
         "label": "API Key",
         "type": "text",
         "default": ""
-    },
-    {
-        "id": "strip_enable",
-        "label": "Enable FileName Strip",
-        "type": "bool",
-        "default": "false"
-    },
-    {
-        "id": "strip_symbol",
-        "label": "Strip Symbol",
-        "type": "text",
-        "default": "~"
     }
 ]

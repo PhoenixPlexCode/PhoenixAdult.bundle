@@ -103,7 +103,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     try:
-        twitterBG = detailsPageElements.xpath('//img[contains(@class,"update_thumb thumbs")]/@src')[0]
+        twitterBG = detailsPageElements.xpath('//img[contains(@class, "update_thumb thumbs")]/@src')[0]
         if 'http' not in twitterBG:
             twitterBG = PAsearchSites.getSearchBaseURL(siteNum) + '/' + twitterBG
 
