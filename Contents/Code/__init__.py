@@ -41,6 +41,10 @@ def Start():
                 Log('Deleted debug data: %s' % directoryName)
 
 
+def ValidatePrefs():
+    Log('ValidatePrefs function call')
+
+
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
     languages = [Locale.Language.English]
@@ -134,7 +138,3 @@ def getSearchTitle(title):
     title = ' '.join(title.split())
 
     return title
-
-def ValidatePrefs():
-    # validation of Prefs would go here - prefsValid does nothing
-    prefsValid = True
