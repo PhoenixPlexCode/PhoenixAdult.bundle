@@ -216,7 +216,7 @@ def getFromIAFD(actorName, actorEncoded):
 
     req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
-    actorPageURL = actorSearch.xpath('//table[@id="tblFem"]//tbody//a/@href')
+    actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
     if actorPageURL:
         actorPageURL = 'http://www.iafd.com' + actorPageURL[0]
         req = PAutils.HTTPRequest(actorPageURL)
