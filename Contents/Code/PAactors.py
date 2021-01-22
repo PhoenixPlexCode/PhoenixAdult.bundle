@@ -114,9 +114,10 @@ def actorDBfinder(actorName):
         'Boobpedia': getFromBoobpedia,
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
+        'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
+    searchOrder = ['Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'Local Storage']
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
@@ -125,21 +126,6 @@ def actorDBfinder(actorName):
             databaseName = sourceName
             actorPhotoURL = url
             break
-
-    if not actorPhotoURL:
-        actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
-        filename = filename = 'actor.' + actorName.replace(' ', '-').lower()
-        for root, dirs, files in os.walk(actorsResourcesPath):
-            for file in files:
-                if file.startswith(filename):
-                    filename = file
-                    databaseName = 'Local Storage'
-                    break
-            break
-
-        localPhoto = Resource.ExternalPath(filename)
-        if localPhoto:
-            actorPhotoURL = localPhoto
 
     if actorPhotoURL:
         Log('%s found in %s ' % (actorName, databaseName))
@@ -251,6 +237,26 @@ def getFromBabepedia(actorName, actorEncoded):
     return actorPhotoURL
 
 
+def getFromLocalStorage(actorName, actorEncoded):
+    actorPhotoURL = ''
+
+    actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
+    filename = filename = 'actor.' + actorName.replace(' ', '-').lower()
+    for root, dirs, files in os.walk(actorsResourcesPath):
+        for file in files:
+            if file.startswith(filename):
+                filename = file
+                databaseName = 'Local Storage'
+                break
+        break
+
+    localPhoto = Resource.ExternalPath(filename)
+    if localPhoto:
+        actorPhotoURL = localPhoto
+
+    return actorPhotoURL
+
+
 # fetches a copy of an actor image and stores it locally, then returns a URL from which Plex can fetch it later
 def cacheActorPhoto(url, actorName, **kwargs):
     req = PAutils.HTTPRequest(url, **kwargs)
@@ -267,8 +273,8 @@ def cacheActorPhoto(url, actorName, **kwargs):
     with codecs.open(filepath, 'wb+') as file:
         file.write(req.content)
 
-    newPhoto = Resource.ExternalPath(filename)
-    if not newPhoto:
-        newPhoto = ''
+    localPhoto = Resource.ExternalPath(filename)
+    if not localPhoto:
+        localPhoto = ''
 
-    return newPhoto
+    return localPhoto
