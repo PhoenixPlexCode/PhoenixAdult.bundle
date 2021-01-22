@@ -143,9 +143,21 @@ def getFromFreeones(actorName, actorEncoded):
 
     req = PAutils.HTTPRequest('https://www.freeones.com/babes?q=' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
-    img = actorSearch.xpath('//div[contains(@class, "grid-item")]//img/@src')
-    if img:
-        actorPhotoURL = img[0]
+    actorPageURL = actorSearch.xpath('//div[contains(@class, "grid-item")]//a/@href')
+    if actorPageURL:
+        actorPageURL = 'https://www.freeones.com%s/profile' % actorPageURL[0]
+        req = PAutils.HTTPRequest(actorPageURL)
+        actorPage = HTML.ElementFromString(req.text)
+
+        DBactorName = actorPage.xpath('//h1')[0].text_content().lower().replace(' bio', '').strip()
+        aliases = actorPage.xpath('//p[text()="Aliases"]/following-sibling::div/p')[0].text_content().strip()
+        if aliases:
+            aliases = [alias.strip().lower() for alias in aliases.split(',')]
+        aliases.append(DBactorName)
+
+        img = actorPage.xpath('//div[contains(@class, "image-container")]//a/img/@src')
+        if img and actorName.lower() in aliases:
+            actorPhotoURL = img[0]
 
     return actorPhotoURL
 
