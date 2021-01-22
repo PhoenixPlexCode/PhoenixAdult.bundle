@@ -22,6 +22,7 @@ def getAlgolia(url, indexName, params, referer):
 
 
 def search(results, lang, siteNum, searchData):
+    searchData.title = searchData.encoded.replace('%20', ' ')
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
         searchData.title = searchData.title.replace(sceneID, '', 1).strip()
