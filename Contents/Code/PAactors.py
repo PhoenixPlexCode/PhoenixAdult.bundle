@@ -70,22 +70,10 @@ class PhoenixActors:
                         role.photo = newPhoto
                 else:
                     req = None
-                    img = False
                     if newPhoto:
                         req = PAutils.HTTPRequest(newPhoto, 'HEAD', bypass=False)
-                        if req.ok:
-                            try:
-                                image = PAutils.HTTPRequest(newPhoto, bypass=False)
-                                im = StringIO(image.content)
-                                resized_image = Image.open(im)
-                                width, height = resized_image.size
 
-                                if width > 1:
-                                    img = True
-                            except:
-                                pass
-
-                    if not req or not req.ok or not img:
+                    if not req or not req.ok:
                         newPhoto = actorDBfinder(newActor)
 
                     if newPhoto:
