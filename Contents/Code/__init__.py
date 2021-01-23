@@ -88,7 +88,8 @@ class PhoenixAdultAgent(Agent.Movies):
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                Log('Provider: %s' % provider)
+                providerName = getattr(provider, '__name__')
+                Log('Provider: %s' % providerName)
                 provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
@@ -109,7 +110,8 @@ class PhoenixAdultAgent(Agent.Movies):
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
-            Log('Provider: %s' % provider)
+            providerName = getattr(provider, '__name__')
+            Log('Provider: %s' % providerName)
             provider.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
