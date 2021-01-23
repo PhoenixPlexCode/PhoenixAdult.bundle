@@ -35,7 +35,8 @@ def getAlgolia(url, indexName, params, referer):
         'Referer': referer
     }
     params = json.dumps({'requests': [{'indexName': indexName, 'params': params}]})
-    data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
+    data = PAutils.HTTPRequest(url, headers=headers, params=params)
+    data = data.json()
 
     return data['results'][0]['hits']
 
