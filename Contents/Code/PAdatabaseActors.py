@@ -5000,6 +5000,9 @@ ActorsReplaceStudios = {
         'Isabella Obregon': ['Luchy'],
         'Johanna Gonzalez': ['Celeste'],
     },
+    45: {  # FAKings
+        'Melany Kiss': ['Melani'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5048,4 +5051,5 @@ ActorsStudioIndexes = {
     42: ['Femjoy'],
     43: ['MetArt'],
     44: ['Culioneros'],
+    45: ['FAKings'],
 }
