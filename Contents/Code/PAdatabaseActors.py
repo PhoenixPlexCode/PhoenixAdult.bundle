@@ -92,6 +92,7 @@ ActorsReplace = {
     'Rosaline Rosa': ['Rosaline Rose'],
     'Sara Luvv': ['Sara Luv'],
     'Scarlet Domingo': ['Scarlet Rebel', 'Scarlett Domingo', 'Scarlett Rebel'],
+    'Selena Gomez (Pornstar)': ['Selena Gomez']
     'Selvaggia Babe': ['Selvaggia'],
     'Shalina Divine': ['Shalina Devine'],
     'Shelley Bliss': ['Mia Ferrari'],
@@ -834,6 +835,7 @@ ActorsReplaceStudios = {
     },
     17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
+        'Selena Gomez (Pornstar)': ['Selena Gomez']
     },
     18: {  # TeamSkeet
         'Ada Sanchez': ['Ada S'],
@@ -5000,6 +5002,8 @@ ActorsReplaceStudios = {
         'Isabella Obregon': ['Luchy'],
         'Johanna Gonzalez': ['Celeste'],
     },
+    45: {  # FAKings
+        'Melany Kiss': ['Melani']
 }
 
 ActorsStudioIndexes = {
@@ -5048,4 +5052,5 @@ ActorsStudioIndexes = {
     42: ['Femjoy'],
     43: ['MetArt'],
     44: ['Culioneros'],
+    45: ['FAKings']
 }
