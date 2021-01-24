@@ -674,7 +674,7 @@ ActorsReplaceStudios = {
         'Liona Levi': ['Krissie'],
         'Lisa Musa': ['Roberta'],
         'Lita Phoenix': ['Sveta'],
-        'Little Caprice': ['Lolashut'], ['Caprice'],
+        'Little Caprice': ['Caprice', 'Lolashut'],
         'Little Rita': ['Natalya'],
         'Liz Honey': ['Britney'],
         'Lola Chic': ['Lilit'],
@@ -4997,8 +4997,9 @@ ActorsReplaceStudios = {
         'Zuzana Z': ['Zusie A'],
     },
     44: {  # Culioneros
-        'Isabella Obregon': ['Luchy']
-        'Johanna Gonzalez': ['Celeste']
+        'Isabella Obregon': ['Luchy'],
+        'Johanna Gonzalez': ['Celeste'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5046,5 +5047,5 @@ ActorsStudioIndexes = {
     41: ['Watch4Beauty'],
     42: ['Femjoy'],
     43: ['MetArt'],
-    44: ['Culioneros']
+    44: ['Culioneros'],
 }
