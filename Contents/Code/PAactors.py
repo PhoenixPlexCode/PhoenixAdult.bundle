@@ -3,37 +3,34 @@ import PAdatabaseActors
 
 
 class PhoenixActors:
-    actorsTable = None
-    photosTable = None
-    actorsNum = 0
-
-    def __init__(self):
-        self.actorsTable = [None] * 100
-        self.photosTable = [None] * 100
-        self.actorsNum = 0
+    actorsTable = []
 
     def addActor(self, newActor, newPhoto):
-        self.actorsTable[self.actorsNum] = newActor
-        self.photosTable[self.actorsNum] = newPhoto
-        self.actorsNum = self.actorsNum + 1
+        newActor = newActor.encode('UTF-8') if isinstance(newActor, unicode) else newActor
+        newPhoto = newPhoto.encode('UTF-8') if isinstance(newPhoto, unicode) else newPhoto
+
+        if newActor not in [actorLink['name'] for actorLink in self.actorsTable]:
+            self.actorsTable.append({
+                'name': newActor,
+                'photo': newPhoto,
+            })
 
     def clearActors(self):
-        self.actorsNum = 0
+        self.actorsTable = []
 
     def processActors(self, metadata):
-        actorsProcessed = 0
-        while actorsProcessed < self.actorsNum:
+        for actorLink in self.actorsTable:
             skip = False
             # Save the potentional new Actor or Actress to a new variable, replace &nbsp; with a true space, and strip off any surrounding whitespace
-            newActor = self.actorsTable[actorsProcessed].replace('\xc2\xa0', ' ').replace(',', '').strip().title()
-            newPhoto = str(self.photosTable[actorsProcessed]).strip()
+            actorName = actorLink['name'].replace('\xc2\xa0', ' ').replace(',', '').strip().title()
+            actorPhoto = actorLink['photo'].strip()
 
-            newActor = ' '.join(newActor.split())
+            actorName = ' '.join(actorName.split())
 
             # Skip an actor completely; this could be used to filter out male actors if desired
-            if newActor == 'Bad Name':
+            if actorName == 'Bad Name':
                 skip = True
-            elif newActor == 'Test Model Name':
+            elif actorName == 'Test Model Name':
                 skip = True
 
             if not skip:
@@ -43,49 +40,48 @@ class PhoenixActors:
                         searchStudioIndex = studioIndex
                         break
 
+                searchActorName = actorName.lower()
                 if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
-                    for actorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
-                        if newActor.lower() == actorName.lower() or newActor in aliases:
-                            newActor = actorName
+                    for newActorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
+                        if searchActorName == newActorName.lower() or searchActorName in map(str.lower, aliases):
+                            actorName = newActorName
 
-                            if searchStudioIndex == 32 and newActor != 'QueenSnake':
-                                newActor = '%s QueenSnake' % newActor
+                            if searchStudioIndex == 32 and actorName != 'QueenSnake':
+                                actorName = '%s QueenSnake' % actorName
 
                             break
 
-                for actorName, aliases in PAdatabaseActors.ActorsReplace.items():
-                    if newActor.lower() == actorName.lower() or newActor in aliases:
-                        newActor = actorName
+                for newActorName, aliases in PAdatabaseActors.ActorsReplace.items():
+                    if searchActorName == newActorName.lower() or searchActorName in map(str.lower, aliases):
+                        actorName = newActorName
                         break
 
-                if ',' in newActor:
-                    for actorName in newActor.split(','):
-                        newActorName = actorName.strip()
-                        newPhoto = actorDBfinder(newActorName)
+                if ',' in actorName:
+                    for newActor in actorName.split(','):
+                        actorName = newActor.strip()
+                        actorPhoto = actorDBfinder(actorName)
 
-                        Log('Actor: %s %s' % (newActor, newPhoto))
+                        Log('Actor: %s %s' % (actorName, actorPhoto))
 
                         role = metadata.roles.new()
-                        role.name = newActor
-                        role.photo = newPhoto
+                        role.name = actorName
+                        role.photo = actorPhoto
                 else:
                     req = None
-                    if newPhoto:
-                        req = PAutils.HTTPRequest(newPhoto, 'HEAD', bypass=False)
+                    if actorPhoto:
+                        req = PAutils.HTTPRequest(actorPhoto, 'HEAD', bypass=False)
 
                     if not req or not req.ok:
-                        newPhoto = actorDBfinder(newActor)
+                        actorPhoto = actorDBfinder(actorName)
 
-                    if newPhoto:
-                        newPhoto = PAutils.getClearURL(newPhoto)
+                    if actorPhoto:
+                        actorPhoto = PAutils.getClearURL(actorPhoto)
 
-                    Log('Actor: %s %s' % (newActor, newPhoto))
+                    Log('Actor: %s %s' % (actorName, actorPhoto))
 
                     role = metadata.roles.new()
-                    role.name = newActor
-                    role.photo = newPhoto
-
-                actorsProcessed = actorsProcessed + 1
+                    role.name = actorName
+                    role.photo = actorPhoto
 
 
 def actorDBfinder(actorName):
