@@ -137,6 +137,8 @@ def getFromFreeones(actorName, actorEncoded):
         aliases = actorPage.xpath('//p[text()="Aliases"]/following-sibling::div/p')[0].text_content().strip()
         if aliases:
             aliases = [alias.strip().lower() for alias in aliases.split(',')]
+        else:
+            aliases = []
         aliases.append(DBactorName)
 
         img = actorPage.xpath('//div[contains(@class, "image-container")]//a/img/@src')
