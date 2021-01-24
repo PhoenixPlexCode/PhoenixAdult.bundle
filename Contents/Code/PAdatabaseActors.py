@@ -7,6 +7,7 @@ ActorsReplace = {
     'Alex D.': ['Alex D'],
     'Alura Jenson': ['Alura \'Tnt\' Jenson', 'Alura Tnt Jenson'],
     'Amia Miley': ['Amia Moretti'],
+    'Amirah Adara': ['Amirah'],
     'Amy Ried': ['Amy Reid'],
     'Ana Foxxx': ['Ana Fox', 'Ana Foxx'],
     'Anastasia Morna': ['Anna Morna'],
@@ -32,6 +33,7 @@ ActorsReplace = {
     'Clea Gaultier': ['CléA Gaultier'],
     'Connie Carter': ['Connie', 'Conny', 'Conny Carter', 'Josephine'],
     'Cyrstal Rae': ['Crystal Rae'],
+    'Dillion Harper': ['Dillon Harper'],
     'Eden Sinclair': ['Eden Sin'],
     'Elsa Jean': ['Elsa Dream'],
     'Emma Fantasy': ['Emma Fantazy'],
@@ -59,12 +61,14 @@ ActorsReplace = {
     'Khloe Kapri': ['Chloe Capri', 'Khloe Capri'],
     'Kristall Rush': ['Aurelly Rebel', 'Crystal Rush'],
     'Krystal Boyd': ['Abby H', 'Anjelica', 'Ebbi', 'Katherine A'],
+    'Lexi Anne Garza': ['Lexi Aaane', 'Lexi Anne'],
     'Lilly Ford': ['Lilly Lit'],
     'Lily Labeau': ['Lilly LaBeau', 'Lilly Labuea', 'Lily La Beau', 'Lily Lebeau', 'Lily Luvs'],
     'Linda Brugal': ['Milana Witch'],
     'Lola Taylor': ['Lolita Taylor'],
     'Lora Craft': ['Lara Craft'],
     'Maddy O\'Reilly': ['Maddy O\'reilly', 'Maddy OReilly', 'Maddy Oreilly'],
+    'Mariana Martinez': ['Mariana Martix'],
     'Melena Maria Rya': ['Maria Rya', 'Melena Maria'],
     'Miss Jade Indica': ['Jade Indica'],
     'Moe Johnson': ['Moe The Monster Johnson'],
@@ -79,6 +83,8 @@ ActorsReplace = {
     'Polly Pons': ['Polly Pon'],
     'Pristine Edge': ['Jane Doux'],
     'Pussy Kat': ['Pussykat'],
+    'Rachel Roxxx': ['Rachel Roxx'],
+    'Rebeca Linares': ['Rebecca Linares'],
     'Rebel Lynn': ['Rebel Lynn (Contract Star)'],
     'Remy Lacroix': ['Remy La Croix'],
     'Riley Jensen': ['Rilee Jensen', 'Riley Anne', 'Riley Jenson'],
@@ -120,10 +126,13 @@ ActorsReplaceStudios = {
         'Ariel Piper Fawn': ['Ariel'],
         'Katya Clover': ['Clover'],
         'Krystal Boyd': ['Angelica'],
+        'Nekane': ['Nekane Sweet'],
     },
     2: {  # Bang Bros
         'Abella Anderson': ['Amy'],
         'Noemie Bilas': ['Noemi Bilas'],
+        'Rahyndee James': ['Rahyndee'],
+        'Sofia Nix': ['Sofia'],
     },
     3: {  # ClubSeventeen
         'Katy Rose': ['Katy E'],
@@ -131,7 +140,9 @@ ActorsReplaceStudios = {
     },
     4: {  # CumLouder
         'Apolonia Lapiedra': ['Apolonia'],
+        'Julia De Lucia': ['Julia De LucíA'],
         'Scarlet Domingo': ['Scarlett'],
+        'Susana Alcala': ['Susana Alcalá'],
     },
     5: {  # Blacked, Blackedraw, Deeper, Tushy, Tushyraw, Vixen
         'Vika Lita': ['Vikalita'],
@@ -420,9 +431,18 @@ ActorsReplaceStudios = {
         'Wanda Curtis': ['Wanda'],
     },
     13: {  # ManyVids
+        'Abigail Mac': ['AbigailMac'],
+        'Alice Kelly': ['Alicekellyxxx'],
+        'Florane Russell': ['Florane_Russell'],
         'Heather Harmon': ['Imheatherharmon'],
+        'Lexi Anne Garza': ['Lexi_Aaane'],
+        'Mariana Martinez': ['Marianamartix'],
+        'Nekane': ['Nekane Sweet'],
+        'Noemie Bilas': ['Noemiexbilas'],
         'Shaiden Rogue': ['Shaiden'],
         'Spencer Bradley': ['Spencer_Bradley'],
+        'Valentina Nappi': ['valentinanappi'],
+        'Vanessa Veracruz': ['VanessaVeracruz'],
     },
     14: {  # Mylf
         'Scarlet Domingo': ['Scarlett'],
@@ -654,7 +674,7 @@ ActorsReplaceStudios = {
         'Liona Levi': ['Krissie'],
         'Lisa Musa': ['Roberta'],
         'Lita Phoenix': ['Sveta'],
-        'Little Caprice': ['Lolashut'],
+        'Little Caprice': ['Caprice', 'Lolashut'],
         'Little Rita': ['Natalya'],
         'Liz Honey': ['Britney'],
         'Lola Chic': ['Lilit'],
@@ -885,6 +905,7 @@ ActorsReplaceStudios = {
         'Nicoline': ['Anfisa'],
         'Pola Sunshine': ['Kimberly'],
         'Rahyndee James': ['Rahyndee'],
+        'Rebeca Linares': ['Rebecca Linares'],
         'Rebeca Taylor': ['Jordan'],
         'Riley Jensen': ['Riley J'],
         'Rima': ['Aliya'],
@@ -1205,6 +1226,7 @@ ActorsReplaceStudios = {
     },
     21: {  # DDFProd
         'Alena H': ['Helen'],
+        'Amirah Adara': ['Amirah'],
         'Goldie Baby': ['Ms White-Kitten'],
         'Jennifer Stone': ['Jeniffer Stone'],
         'Mishelle Klein': ['Molly'],
@@ -1235,6 +1257,7 @@ ActorsReplaceStudios = {
     },
     28: {  # Doghouse Digital, Milehigh
         'Gabriella Lati': ['Gabrielle Lati'],
+        'Rachel Roxxx': ['Rachel Roxx'],
     },
     29: {  # Rocco Siffredi
         'Krystal Boyd': ['Abbie'],
@@ -4631,6 +4654,7 @@ ActorsReplaceStudios = {
         'Mira K.': ['Mira C'],
         'Missy': ['Malika'],
         'Missy Luv': ['Missy Lu'],
+        'Miyuki Son': ['Myiuki Son'],
         'Moka': ['Greta'],
         'Monica': ['Monika Jelolt'],
         'Monica Sweat': ['Marsha B'],
@@ -4972,6 +4996,10 @@ ActorsReplaceStudios = {
         'Zuzana Drabinova': ['Raylene A'],
         'Zuzana Z': ['Zusie A'],
     },
+    44: {  # Culioneros
+        'Isabella Obregon': ['Luchy'],
+        'Johanna Gonzalez': ['Celeste'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5019,4 +5047,5 @@ ActorsStudioIndexes = {
     41: ['Watch4Beauty'],
     42: ['Femjoy'],
     43: ['MetArt'],
+    44: ['Culioneros'],
 }
