@@ -835,7 +835,7 @@ ActorsReplaceStudios = {
     },
     17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
-        'Karen': ['Selena Gomez']
+        'Karen': ['Selena Gomez'],
     },
     18: {  # TeamSkeet
         'Ada Sanchez': ['Ada S'],
@@ -5008,7 +5008,8 @@ ActorsReplaceStudios = {
         'Melany Kiss': ['Melani'],
     },
     46: {  # GinaGerson
-        'Lilu': ['Doli Dior']
+        'Lilu': ['Doli Dior'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5058,5 +5059,5 @@ ActorsStudioIndexes = {
     43: ['MetArt'],
     44: ['Culioneros'],
     45: ['FAKings'],
-    46: ['GinaGerson']
+    46: ['GinaGerson'],
 }
