@@ -1350,6 +1350,7 @@ searchSites = {
     1188: ('Shane Diesel\'s Banging Babes', 'https://www.shanedieselsbanginbabes.com', '/tour_sdbb/search.php?query='),
     1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
     1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors%2Cdirectors&thumb_size=850x463&query='),
+    1191: ('Lilu Moon', 'https://www.lilumoonx.com', '/sapi/'),
 }
 
 abbreviations = (
@@ -2439,7 +2440,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteSicflics
 
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075:
+        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191:
             provider = networkModelCentro
 
         # Culioneros

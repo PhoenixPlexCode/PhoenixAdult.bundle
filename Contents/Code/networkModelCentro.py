@@ -138,6 +138,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
         baseactor = 'Vicki Valkyrie'
     elif siteNum == 1075:
         baseactor = 'Dillion Harper'
+    elif siteNum == 1191:
+        baseactor = 'Lilu Moon'
     else:
         baseactor = ''
 
