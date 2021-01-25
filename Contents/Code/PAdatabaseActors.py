@@ -5008,7 +5008,10 @@ ActorsReplaceStudios = {
         'Melany Kiss': ['Melani'],
     },
     46: {  # GinaGerson
-        'Lilu': ['Doli Dior'],
+        'Lilu Moon': ['Doli Dior'],
+    },
+    47: {  #SapphiX
+        'Lilu Moon': ['Lilu'],
     },
 }
 
@@ -5060,4 +5063,5 @@ ActorsStudioIndexes = {
     44: ['Culioneros'],
     45: ['FAKings'],
     46: ['GinaGerson'],
+    47: ['SapphiX'],
 }
