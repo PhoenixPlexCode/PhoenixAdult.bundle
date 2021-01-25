@@ -835,7 +835,6 @@ ActorsReplaceStudios = {
     },
     17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
-        'Karen': ['Selena Gomez'],
     },
     18: {  # TeamSkeet
         'Ada Sanchez': ['Ada S'],
@@ -5010,7 +5009,7 @@ ActorsReplaceStudios = {
     46: {  # GinaGerson
         'Lilu Moon': ['Doli Dior'],
     },
-    47: {  #SapphiX
+    47: {  # SapphiX
         'Lilu Moon': ['Lilu'],
     },
 }
