@@ -92,6 +92,7 @@ ActorsReplace = {
     'Rosaline Rosa': ['Rosaline Rose'],
     'Sara Luvv': ['Sara Luv'],
     'Scarlet Domingo': ['Scarlet Rebel', 'Scarlett Domingo', 'Scarlett Rebel'],
+    'Selena Gomez ': ['Selena Gomez'],
     'Selvaggia Babe': ['Selvaggia'],
     'Shalina Divine': ['Shalina Devine'],
     'Shelley Bliss': ['Mia Ferrari'],

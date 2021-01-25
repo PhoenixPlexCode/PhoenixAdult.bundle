@@ -59,25 +59,27 @@ class PhoenixActors:
                 if ',' in actorName:
                     for newActor in actorName.split(','):
                         actorName = newActor.strip()
-                        actorPhoto = actorDBfinder(actorName)
+                        displayActorName = actorName.replace('\xc2\xa0', '').strip()
+                        actorPhoto = actorDBfinder(displayActorName)
 
-                        Log('Actor: %s %s' % (actorName, actorPhoto))
+                        Log('Actor: %s %s' % (displayActorName, actorPhoto))
 
                         role = metadata.roles.new()
                         role.name = actorName
                         role.photo = actorPhoto
                 else:
+                    displayActorName = actorName.replace('\xc2\xa0', '').strip()
                     req = None
                     if actorPhoto:
                         req = PAutils.HTTPRequest(actorPhoto, 'HEAD', bypass=False)
 
                     if not req or not req.ok:
-                        actorPhoto = actorDBfinder(actorName)
+                        actorPhoto = actorDBfinder(displayActorName)
 
                     if actorPhoto:
                         actorPhoto = PAutils.getClearURL(actorPhoto)
 
-                    Log('Actor: %s %s' % (actorName, actorPhoto))
+                    Log('Actor: %s %s' % (displayActorName, actorPhoto))
 
                     role = metadata.roles.new()
                     role.name = actorName
