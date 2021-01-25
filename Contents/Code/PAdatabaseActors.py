@@ -434,6 +434,7 @@ ActorsReplaceStudios = {
         'Abigail Mac': ['AbigailMac'],
         'Alice Kelly': ['Alicekellyxxx'],
         'Florane Russell': ['Florane_Russell'],
+        'Gina Gerson': ['Gina Gerson Real'],
         'Heather Harmon': ['Imheatherharmon'],
         'Lexi Anne Garza': ['Lexi_Aaane'],
         'Mariana Martinez': ['Marianamartix'],
@@ -834,6 +835,7 @@ ActorsReplaceStudios = {
     },
     17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
+        'Karen': ['Selena Gomez']
     },
     18: {  # TeamSkeet
         'Ada Sanchez': ['Ada S'],
@@ -5001,8 +5003,12 @@ ActorsReplaceStudios = {
         'Johanna Gonzalez': ['Celeste'],
     },
     45: {  # FAKings
+        'Ana Dufermont': ['Ana'],
+        'Mar Punch': ['Mar'],
         'Melany Kiss': ['Melani'],
     },
+    46: {  # GinaGerson
+        'Lilu': ['Doli Dior']
 }
 
 ActorsStudioIndexes = {
@@ -5052,4 +5058,5 @@ ActorsStudioIndexes = {
     43: ['MetArt'],
     44: ['Culioneros'],
     45: ['FAKings'],
+    46: ['GinaGerson']
 }
