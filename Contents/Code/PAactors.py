@@ -143,8 +143,10 @@ def getFromFreeones(actorName, actorEncoded):
             aliases = []
         aliases.append(DBactorName)
 
+        profession = actorPage.xpath('//p[text()="Profession"]/following-sibling::div/p')[0].text_content().strip()
+
         img = actorPage.xpath('//div[contains(@class, "image-container")]//a/img/@src')
-        if img and actorName.lower() in aliases:
+        if img and actorName.lower() in aliases and profession == 'Porn Stars':
             actorPhotoURL = img[0]
 
     return actorPhotoURL
