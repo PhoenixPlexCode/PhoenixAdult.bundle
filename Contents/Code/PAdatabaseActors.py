@@ -5009,7 +5009,7 @@ ActorsReplaceStudios = {
     46: {  # GinaGerson
         'Lilu Moon': ['Doli Dior'],
     },
-    47: {  # SapphiX
+    47: {  # PerfectGonzo
         'Lilu Moon': ['Lilu'],
     },
 }
@@ -5062,5 +5062,5 @@ ActorsStudioIndexes = {
     44: ['Culioneros'],
     45: ['FAKings'],
     46: ['GinaGerson'],
-    47: ['SapphiX'],
+    47: ['PerfectGonzo'],
 }
