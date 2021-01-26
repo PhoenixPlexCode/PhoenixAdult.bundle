@@ -89,40 +89,38 @@ def getSearchSettings(mediaTitle):
         if matched:
             searchTitle = re.sub(site, '', title, 1, flags=re.IGNORECASE)
             searchTitle = ' '.join(searchTitle.split())
-        else:
-            searchTitle = mediaTitle
 
-        searchTitle = re.sub(r'\sS\b', '\'s', searchTitle, flags=re.IGNORECASE)
-        searchTitle = PAutils.parseTitle(searchTitle, siteNum)
+            searchTitle = re.sub(r'\sS\b', '\'s', searchTitle, flags=re.IGNORECASE)
+            searchTitle = PAutils.parseTitle(searchTitle, siteNum)
 
-        Log('Search Title (before date processing): %s' % searchTitle)
+            Log('Search Title (before date processing): %s' % searchTitle)
 
-        # Search Type
-        searchDate = None
-        regex = [
-            (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
-            (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
-        ]
-        date_obj = None
-        for r, dateFormat in regex:
-            date = re.search(r, searchTitle)
-            if date:
-                try:
-                    date_obj = datetime.strptime(date.group(), dateFormat)
-                except:
-                    pass
+            # Search Type
+            searchDate = None
+            regex = [
+                (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
+                (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
+            ]
+            date_obj = None
+            for r, dateFormat in regex:
+                date = re.search(r, searchTitle)
+                if date:
+                    try:
+                        date_obj = datetime.strptime(date.group(), dateFormat)
+                    except:
+                        pass
 
-                if date_obj:
-                    searchDate = date_obj.strftime('%Y-%m-%d')
-                    searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
-                    break
+                    if date_obj:
+                        searchDate = date_obj.strftime('%Y-%m-%d')
+                        searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
+                        break
 
-        searchTitle = searchTitle[0].upper() + searchTitle[1:]
+            searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
-        result['siteNum'] = siteNum
-        result['siteName'] = site
-        result['searchTitle'] = searchTitle
-        result['searchDate'] = searchDate
+            result['siteNum'] = siteNum
+            result['siteName'] = site
+            result['searchTitle'] = searchTitle
+            result['searchDate'] = searchDate
 
     return result
 

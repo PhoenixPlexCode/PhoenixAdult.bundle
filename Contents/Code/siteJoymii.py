@@ -4,7 +4,7 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     # joymii search can't do actor + scene, so just search for the first word, which gets good results
-    query = urllib.quote(searchData.title.split(' ')[0])
+    query = urllib.quote(searchData.title.split()[0])
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + query)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "set set-photo")]'):
