@@ -63,6 +63,7 @@ ActorsReplace = {
     'Krystal Boyd': ['Abby H', 'Anjelica', 'Ebbi', 'Katherine A'],
     'Lexi Anne Garza': ['Lexi Aaane', 'Lexi Anne'],
     'Lilly Ford': ['Lilly Lit'],
+    'Lilu Moon': ['Lilu'],
     'Lily Labeau': ['Lilly LaBeau', 'Lilly Labuea', 'Lily La Beau', 'Lily Lebeau', 'Lily Luvs'],
     'Linda Brugal': ['Milana Witch'],
     'Lola Taylor': ['Lolita Taylor'],
@@ -127,7 +128,6 @@ ActorsReplaceStudios = {
         'Ariel Piper Fawn': ['Ariel'],
         'Katya Clover': ['Clover'],
         'Krystal Boyd': ['Angelica'],
-        'Nekane': ['Nekane Sweet'],
     },
     2: {  # Bang Bros
         'Abella Anderson': ['Amy'],
@@ -433,15 +433,22 @@ ActorsReplaceStudios = {
     },
     13: {  # ManyVids
         'Abigail Mac': ['AbigailMac'],
+        'Aleah Jasmine': ['AleahJasmine'],
         'Alice Kelly': ['Alicekellyxxx'],
+        'Brandi Sparks': ['BrandiSparks'],
+        'Eva Elfie': ['EvaElfie'],
         'Florane Russell': ['Florane_Russell'],
         'Gina Gerson': ['Gina Gerson Real'],
         'Heather Harmon': ['Imheatherharmon'],
+        'Janessa Brazil': ['JanessaBrazil'],
+        'Kayla Kayden': ['KaylaKayden'],
         'Lexi Anne Garza': ['Lexi_Aaane'],
+        'London Keyes': ['LondonKeyes'],
         'Mariana Martinez': ['Marianamartix'],
-        'Nekane': ['Nekane Sweet'],
         'Noemie Bilas': ['Noemiexbilas'],
+        'Paige Owens': ['PaigeOwensXXX'],
         'Shaiden Rogue': ['Shaiden'],
+        'Skylar Snow': ['SkylarSnowXXX'],
         'Spencer Bradley': ['Spencer_Bradley'],
         'Valentina Nappi': ['valentinanappi'],
         'Vanessa Veracruz': ['VanessaVeracruz'],
@@ -1259,7 +1266,6 @@ ActorsReplaceStudios = {
     },
     28: {  # Doghouse Digital, Milehigh
         'Gabriella Lati': ['Gabrielle Lati'],
-        'Rachel Roxxx': ['Rachel Roxx'],
     },
     29: {  # Rocco Siffredi
         'Krystal Boyd': ['Abbie'],
@@ -5010,7 +5016,7 @@ ActorsReplaceStudios = {
     46: {  # GinaGerson
         'Lilu Moon': ['Doli Dior'],
     },
-    47: {  # PerfectGonzo
+    47: {  # Perfect Gonzo, Sapphic Erotica
         'Lilu Moon': ['Lilu'],
     },
 }
@@ -5063,5 +5069,5 @@ ActorsStudioIndexes = {
     44: ['Culioneros'],
     45: ['FAKings'],
     46: ['GinaGerson'],
-    47: ['PerfectGonzo'],
+    47: ['Perfect Gonzo', 'Sapphic Erotica'],
 }
