@@ -75,6 +75,7 @@ ActorsReplace = {
     'Moe Johnson': ['Moe The Monster Johnson'],
     'Nancy Ace': ['Nancy A', 'Nancy A.'],
     'Nathaly Cherie': ['Natalie Cherie', 'Nathalie Cherie', 'Nathaly'],
+    'Nekane Sweet': ['Nekane'],
     'Nika Noire': ['Nika Noir'],
     'Noemilk': ['Noe Milk', 'Noemiek'],
     'Ornella Morgan': ['Ornella Morgen'],
