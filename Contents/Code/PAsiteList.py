@@ -159,6 +159,7 @@ import siteWatch4Beauty
 import siteFemjoy
 import networkThickCash
 import networkPornCZ
+import networkTopWebModels
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1390,6 +1391,14 @@ searchSites = {
     1226: ('Czech Bi Porn', 'https://www.czechbiporn.com', '/en/search-results?value='),
     1227: ('Czech Shemale', 'https://www.czechshemale.com', '/en/search-results?value='),
     1228: ('Czech Gay City', 'https://www.czechgaycity.com', '/en/search-results?value='),
+    1229: ('Top Web Models', 'https://tour.topwebmodels.com', '/search/'),
+    1230: ('Big Gulp Girls', 'https://tour.biggulpgirls.com', '/search/'),
+    1231: ('2 Girls 1 Camera', 'https://tour.2girls1camera.com', '/search/'),
+    1232: ('Cougar Season', 'https://tour.cougarseason.com', '/search/'),
+    1233: ('Deepthroat Sirens', 'https://tour.deepthroatsirens.com', '/search/'),
+    1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
+    1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
+    1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
 }
 
 abbreviations = (
@@ -2597,5 +2606,9 @@ def getProviderFromSiteNum(siteNum):
         # PornCZ
         elif (1196 <= siteNum <= 1228):
             provider = networkPornCZ
+
+        # Top Web Models
+        elif (1229 <= siteNum <= 1236):
+            provider = networkTopWebModels
 
     return provider
