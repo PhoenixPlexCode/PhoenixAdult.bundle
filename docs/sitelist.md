@@ -1154,7 +1154,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
  - Over 40 Handjobs
  - Teen Tugs
 + #### Tonights Girlfriend | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Actor only**
-+ #### Top Porn Models | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Title only**
++ #### Top Web Models | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
  - 2 Girls 1 Camera
  - Big Gulp Girls
  - Cougar Season
