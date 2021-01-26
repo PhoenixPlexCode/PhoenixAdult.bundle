@@ -157,6 +157,7 @@ import siteDickDrainers
 import siteAlsAngels
 import siteWatch4Beauty
 import siteFemjoy
+import networkThickCash
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1351,6 +1352,10 @@ searchSites = {
     1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
     1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors%2Cdirectors&thumb_size=850x463&query='),
     1191: ('Lilu Moon', 'https://www.lilumoonx.com', '/sapi/'),
+    1192: ('Family Lust', 'https://www.familylust.com', '/models/'),
+    1193: ('Over 40 Handjobs', 'https://www.over40handjobs.com', '/models/'),
+    1194: ('Ebony Tugs', 'https://ebonytugs.com', '/models/'),
+    1195: ('Teen Tugs', 'https://teentugs.com', '/models/'),
 }
 
 abbreviations = (
@@ -2550,5 +2555,9 @@ def getProviderFromSiteNum(siteNum):
         # Femjoy
         elif siteNum == 1190:
             provider = siteFemjoy
+
+        # Thick Cash
+        elif (1192 <= siteNum <= 1195):
+            provider = networkThickCash
 
     return provider
