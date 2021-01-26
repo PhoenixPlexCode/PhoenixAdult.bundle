@@ -73,7 +73,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    if 'sites' in detailsPageElements:
+        tagline = re.sub(r"(\w)([A-Z])", r"\1 \2", json.loads(json.dumps(detailsPageElements['sites'][0]))['name'])
+    else:
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
