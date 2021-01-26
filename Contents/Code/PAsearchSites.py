@@ -80,10 +80,11 @@ def getSearchSettings(mediaTitle):
 
         matched = False
         while(' ' in title):
-            title = title.replace(' ', '', 1)
             if title.lower().startswith(site):
                 matched = True
                 break
+            else:
+                title = title.replace(' ', '', 1)
 
         if matched:
             searchTitle = re.sub(site, '', title, 1, flags=re.IGNORECASE)
