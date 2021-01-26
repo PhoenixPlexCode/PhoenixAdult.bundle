@@ -21,7 +21,7 @@ class PhoenixActors:
     def processActors(self, metadata):
         for actorLink in self.actorsTable:
             skip = False
-            # Save the potentional new Actor or Actress to a new variable, replace &nbsp; with a true space, and strip off any surrounding whitespace
+            # Save the potential new Actor or Actress to a new variable, replace &nbsp; with a true space, and strip off any surrounding whitespace
             actorName = actorLink['name'].replace('\xc2\xa0', ' ').replace(',', '').strip().title()
             actorPhoto = actorLink['photo'].strip()
 
