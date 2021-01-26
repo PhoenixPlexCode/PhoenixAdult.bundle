@@ -1114,6 +1114,11 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Porn Mega Load
   - Scoreland
   - XL Girls
++ #### Thick Cash Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-match)* - **Actor only, Date Add**
+ - Ebony Tugs
+ - Family Lust
+ - Over 40 Handjobs
+ - Teen Tugs
 + #### Tonights Girlfriend | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Actor only**
 + #### ToughLoveX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Actor only, Date Add**
 + #### TransAngels | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
