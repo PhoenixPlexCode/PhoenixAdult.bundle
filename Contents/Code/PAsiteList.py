@@ -158,6 +158,7 @@ import siteAlsAngels
 import siteWatch4Beauty
 import siteFemjoy
 import networkThickCash
+import networkPornCZ
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1356,6 +1357,39 @@ searchSites = {
     1193: ('Over 40 Handjobs', 'https://www.over40handjobs.com', '/models/'),
     1194: ('Ebony Tugs', 'https://ebonytugs.com', '/models/'),
     1195: ('Teen Tugs', 'https://teentugs.com', '/models/'),
+    1196: ('Czech Sex Casting', 'https://www.czechsexcasting.com', '/en/search-results?value='),
+    1197: ('Sex With Muslims', 'https://www.sexwithmuslims.com', '/en/search-results?value='),
+    1198: ('Sex In Taxi', 'https://www.sexintaxi.com', '/en/search-results?value='),
+    1199: ('VR Porn CZ', 'https://www.vrporncz.com', '/en/search-results?value='),
+    1200: ('Fucking Street', 'https://www.fuckingstreet.com', '/en/search-results?value='),
+    1201: ('Hunter POV', 'https://www.hunterpov.com', '/en/search-results?value='),
+    1202: ('Czech Gypsies', 'https://www.czechgypsies.com', '/en/search-results?value='),
+    1203: ('Dick On Trip', 'https://www.dickontrip.com', '/en/search-results?value='),
+    1204: ('Czech Boobs', 'https://www.czechboobs.com', '/en/search-results?value='),
+    1205: ('Czech Deviant', 'https://www.czechdeviant.com', '/en/search-results?value='),
+    1206: ('Amateri Premium', 'https://www.amateripremium.com', '/en/search-results?value='),
+    1207: ('Fucking Office', 'https://www.fuckingoffice.com', '/en/search-results?value='),
+    1208: ('Czech Executor', 'https://www.czechexecutor.com', '/en/search-results?value='),
+    1209: ('Czech Hitchhikers', 'https://www.czechhitchhikers.com', '/en/search-results?value='),
+    1210: ('Girls Take Away', 'https://www.girlstakeaway.com', '/en/search-results?value='),
+    1211: ('Czech Escort Girls', 'https://www.czechescortgirls.com', '/en/search-results?value='),
+    1212: ('Horny Doctor', 'https://www.hornydoctor.com', '/en/search-results?value='),
+    1213: ('Lady Dee', 'https://www.ladydee.com', '/en/search-results?value='),
+    1214: ('Teen From Bohemia', 'https://www.teenfrombohemia.com', '/en/search-results?value='),
+    1215: ('Czech Real Dolls', 'https://www.czechrealdolls.com', '/en/search-results?value='),
+    1216: ('Amateur From Bohemia', 'https://www.amateursfrombohemia.com', '/en/search-results?value='),
+    1217: ('Czech Anal Sex', 'https://www.czechanalsex.com', '/en/search-results?value='),
+    1218: ('Dellia Twins', 'https://www.dellaitwins.com', '/en/search-results?value='),
+    1219: ('Chloe Lamour', 'https://www.chloelamour.com', '/en/search-results?value='),
+    1220: ('Public From Bohemia', 'https://www.publicfrombohemia.com', '/en/search-results?value='),
+    1221: ('Susan Ayn', 'https://www.susanayn.com', '/en/search-results?value='),
+    1222: ('Horny Girls CZ', 'https://www.hornygirlscz.com', '/en/search-results?value='),
+    1223: ('Czech Sex Party', 'https://www.czechsexparty.com', '/en/search-results?value='),
+    1224: ('Retro Porn CZ', 'https://www.retroporncz.com', '/en/search-results?value='),
+    1225: ('Boys Fuck MILFs', 'https://www.boysfuckmilfs.com', '/en/search-results?value='),
+    1226: ('Czech Bi Porn', 'https://www.czechbiporn.com', '/en/search-results?value='),
+    1227: ('Czech Shemale', 'https://www.czechshemale.com', '/en/search-results?value='),
+    1228: ('Czech Gay City', 'https://www.czechgaycity.com', '/en/search-results?value='),
 }
 
 abbreviations = (
@@ -2559,5 +2593,9 @@ def getProviderFromSiteNum(siteNum):
         # Thick Cash
         elif (1192 <= siteNum <= 1195):
             provider = networkThickCash
+
+        # PornCZ
+        elif (1196 <= siteNum <= 1228):
+            provider = networkPornCZ
 
     return provider
