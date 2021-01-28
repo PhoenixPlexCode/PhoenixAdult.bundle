@@ -3,7 +3,7 @@ import PAutils
 
 
 def getAPIKey(siteNum):
-    url = PAsearchSites.getSearchBaseURL(siteNum)
+    url = PAsearchSites.getSearchBaseURL(siteNum) + '/en/login'
     token_key = urlparse.urlparse(url).hostname
 
     token = None
