@@ -86,7 +86,7 @@ ActorsReplace = {
     'Polly Pons': ['Polly Pon'],
     'Pristine Edge': ['Jane Doux'],
     'Pussy Kat': ['Pussykat'],
-    'Rachel Roxxx': ['Rachel Roxx'. 'Rachel Rox'],
+    'Rachel Roxxx': ['Rachel Roxx', 'Rachel Rox'],
     'Rebeca Linares': ['Rebecca Linares'],
     'Rebel Lynn': ['Rebel Lynn (Contract Star)'],
     'Remy LaCroix': ['Remy La Croix'],
