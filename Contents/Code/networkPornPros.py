@@ -17,6 +17,10 @@ def search(results, lang, siteNum, searchData):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
+        if sceneURL.replace('www.', '', 1) in searchResults:
+            searchResults.remove(sceneURL)
+
+    for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
