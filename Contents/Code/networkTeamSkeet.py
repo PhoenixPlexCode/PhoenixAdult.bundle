@@ -32,7 +32,7 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = searchData.title.replace(' ', '-').lower()
+    directURL = searchData.title.replace(' ', '-').replace('\'', '').lower()
 
     searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
