@@ -33,9 +33,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    description = detailsPageElements.xpath('//div[@id="synopsis-full"]//p')
+    description = detailsPageElements.xpath('//meta[@name="og:description"]/@content')
     if description:
-        metadata.summary = description[0].text_content().strip()
+        metadata.summary = description[0]
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
@@ -59,17 +59,19 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@id="bodyShotModal"]'):
-        actorName = actorLink.xpath('.//img/@title')[0]
-        actorPhotoURL = ''
+        maybeActorName = actorLink.xpath('.//img/@title')
+        if maybeActorName:
+            actorName = maybeActorName[0]
+            actorPhotoURL = ''
 
-        try:
-            actorPhotoURL = actorLink.xpath('.//img/@src')[0]
-            if 'http' not in actorPhotoURL:
-                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
-        except:
-            pass
+            try:
+                actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+                if 'http' not in actorPhotoURL:
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+            except:
+                pass
 
-        movieActors.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Photos
     art = []

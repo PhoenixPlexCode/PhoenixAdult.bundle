@@ -86,7 +86,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Photos
     art = []
 
-    for photo in detailsPageElements.xpath('//img[contains(@class, "videoClip__Details--galleryItem")]/data-big'):
+    for photo in detailsPageElements.xpath('//img[contains(@class, "videoClip__Details--galleryItem")]/@data-big'):
         photoURLs = photo.split(',')
         photoURL = photoURLs[len(photoURLs) - 1][:-6].replace('https', 'http')
 

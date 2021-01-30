@@ -41,7 +41,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "u-mb--four u-lh--opt")]')[0].text_content().strip()
+    maybeSummary = detailsPageElements.xpath('//div[contains(@class, "u-mb--four u-lh--opt")]')
+    if maybeSummary and len(maybeSummary) == 1:
+        metadata.summary = maybeSummary[0].text_content().strip()
 
     # Studio/Tagline/Collection
     metadata.collections.clear()
