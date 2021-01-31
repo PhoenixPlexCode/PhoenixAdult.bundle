@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
         if ('/video/' in sceneURL and sceneURL not in searchResults):
             searchResults.append(sceneURL)
 
-    searchResults = list(dict.fromkeys([name.replace('www.', '', 1) for name in searchResults]))
+    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
