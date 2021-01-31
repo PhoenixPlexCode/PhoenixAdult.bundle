@@ -4,9 +4,9 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = []
-
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-')
+    searchResults = [directURL]
+
     if unicode(directURL[-1], 'UTF-8').isdigit() and directURL[-2] == '-':
         directURL = '%s-%s' % (directURL[:-1], directURL[-1])
     searchResults.append(directURL)
