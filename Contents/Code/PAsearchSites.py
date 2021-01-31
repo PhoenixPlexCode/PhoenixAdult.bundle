@@ -59,12 +59,12 @@ def getSearchSettings(mediaTitle):
 
     Log('mediaTitle w/ possible abbrieviation fixed: %s' % mediaTitle)
 
-    # Search Site ID
-    siteNum = None
-    # What to search for
-    searchTitle = None
-    # Date search
-    searchDate = None
+    result = {
+        'siteNum': None,
+        'siteName': None,
+        'searchTitle': None,
+        'searchDate': None,
+    }
 
     # Remove Site from Title
     siteNum = getSiteNumByFilter(mediaTitle)
@@ -75,49 +75,54 @@ def getSearchSettings(mediaTitle):
         title = mediaTitle
         site = getSearchSiteName(siteNum).lower()
 
-        title = re.sub(r'[^a-zA-Z0-9#& ]', ' ', title)
+        title = re.sub(r'[^a-zA-Z0-9#&, ]', ' ', title)
         site = re.sub(r'\W', '', site)
 
         matched = False
         while(' ' in title):
-            title = title.replace(' ', '', 1)
             if title.lower().startswith(site):
                 matched = True
                 break
+            else:
+                title = title.replace(' ', '', 1)
 
         if matched:
             searchTitle = re.sub(site, '', title, 1, flags=re.IGNORECASE)
             searchTitle = ' '.join(searchTitle.split())
-        else:
-            searchTitle = mediaTitle
 
-        searchTitle = PAutils.parseTitle(searchTitle, siteNum)
+            searchTitle = re.sub(r'\sS\b', '\'s', searchTitle, flags=re.IGNORECASE)
+            searchTitle = PAutils.parseTitle(searchTitle, siteNum)
 
-        Log('searchTitle (before date processing): %s' % searchTitle)
+            Log('Search Title (before date processing): %s' % searchTitle)
 
-        # Search Type
-        searchDate = None
-        regex = [
-            (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
-            (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
-        ]
-        date_obj = None
-        for r, dateFormat in regex:
-            date = re.search(r, searchTitle)
-            if date:
-                try:
-                    date_obj = datetime.strptime(date.group(), dateFormat)
-                except:
-                    pass
+            # Search Type
+            searchDate = None
+            regex = [
+                (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
+                (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
+            ]
+            date_obj = None
+            for r, dateFormat in regex:
+                date = re.search(r, searchTitle)
+                if date:
+                    try:
+                        date_obj = datetime.strptime(date.group(), dateFormat)
+                    except:
+                        pass
 
-                if date_obj:
-                    searchDate = date_obj.strftime('%Y-%m-%d')
-                    searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
-                    break
+                    if date_obj:
+                        searchDate = date_obj.strftime('%Y-%m-%d')
+                        searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
+                        break
 
-        searchTitle = searchTitle[0].upper() + searchTitle[1:]
+            searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
-    return (siteNum, searchTitle, searchDate)
+            result['siteNum'] = siteNum
+            result['siteName'] = site
+            result['searchTitle'] = searchTitle
+            result['searchDate'] = searchDate
+
+    return result
 
 
 def posterAlreadyExists(posterUrl, metadata):

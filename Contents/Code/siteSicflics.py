@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '/page1.html'
+def search(results, lang, siteNum, searchData):
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '/page1.html'
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
 
@@ -26,13 +26,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%d|%d|%s|%s' % (curID, siteNum, description, imgURL), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 

@@ -3,24 +3,24 @@ import PAextras
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     searchResults = []
     siteResults = []
     temp = []
     count = 0
 
     sceneID = None
-    splited = searchTitle.split(' ')
-    if unicode(splited[0], 'UTF-8').isdigit():
-        sceneID = splited[0]
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
 
         if int(sceneID) > 100:
-            searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+            searchData.title = searchData.title.replace(sceneID, '', 1).strip()
             sceneURL = '%s/content/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
-    encodedTitle = searchTitle.replace(' ', '+')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
+    searchData.encoded = searchData.title.replace(' ', '+')
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
@@ -62,15 +62,15 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 date = date.replace('Sept', 'Sep')
                 releaseDate = parse(date).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = searchData.dateFormat() if searchData.date else ''
             displayDate = releaseDate if date else ''
 
             if sceneID == urlID:
                 score = 100
-            elif searchDate and displayDate:
-                score = 80 - Util.LevenshteinDistance(searchDate, releaseDate)
+            elif searchData.date and displayDate:
+                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 80 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             if score == 80:
                 count += 1
@@ -78,7 +78,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             else:
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/content/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
             searchResults.append(sceneURL)
@@ -117,15 +117,15 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if date and not date == 'unknown':
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
         displayDate = releaseDate if date else ''
 
         if sceneID == urlID:
             score = 100
-        elif searchDate and displayDate:
-            score = 80 - Util.LevenshteinDistance(searchDate, releaseDate)
+        elif searchData.date and displayDate:
+            score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 80 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         if score == 80:
             count += 1

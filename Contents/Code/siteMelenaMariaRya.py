@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    sceneID = searchTitle.split(' ', 1)[0]
+def search(results, lang, siteNum, searchData):
+    sceneID = searchData.title.split(' ', 1)[0]
     try:
-        sceneTitle = searchTitle.split(' ', 1)[1]
+        sceneTitle = searchData.title.split(' ', 1)[1]
     except:
         sceneTitle = ''
 
@@ -17,7 +17,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     titleNoFormatting = re.sub(r'[^A-Za-z0-9\s\-]+', ' ', titleNoFormatting).strip()
 
     curID = PAutils.Encode(sceneURL)
-    releaseDate = searchDate if searchDate else ''
+    releaseDate = searchData.date if searchData.date else ''
 
     score = 100
 
@@ -42,14 +42,14 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Title
     metadata.title = detailsPageElements.xpath('//title')[0].text_content().split(' - Sex Movies Featuring Melena Maria Rya')[0]
-    metadata.title = re.sub('[^A-Za-z0-9\s\-]', ' ', metadata.title).strip()
-    metadata.title = re.sub(r' with ([A-Z][a-z]+) ([A-Z][a-z]+)', '', metadata.title)
+    metadata.title = re.sub(r'[^A-Za-z0-9\s\-]', ' ', metadata.title).strip()
+    metadata.title = re.sub(r'\s+4\s*K(?:\s+Video)?$', '', metadata.title, flags=re.IGNORECASE)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//meta[@name="description"]/@content')[0].strip()
 
     # Studio
-    metadata.studio = 'MelenaMariaRya'
+    metadata.studio = 'Melena Maria Rya'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -71,7 +71,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
     movieActors.addActor('Melena Maria Rya', '')
 
-    m = re.search(r' with ([A-Z][a-z]+ [A-Z][a-z]+)', metadata.title)
+    # with..?
+    m = re.search(r' with ([A-Z][a-z]+ [A-Z][a-z]+)$', metadata.title, re.IGNORECASE)
     if m:
         movieActors.addActor(m.group(1), '')
 

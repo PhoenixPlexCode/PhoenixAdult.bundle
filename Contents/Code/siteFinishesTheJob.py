@@ -2,13 +2,13 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="scene"]'):
         titleNoFormatting = searchResult.xpath('.//h4[@itemprop="name"]//a')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+        releaseDate = searchData.dateFormat() if searchData.date else ''
 
         subSite = searchResult.xpath('.//small[@class="shadow"]//a')[0].text_content().strip()
         if subSite.lower().replace('.com', '').replace(' ', '') == PAsearchSites.getSearchSiteName(siteNum).lower().replace(' ', ''):
@@ -16,7 +16,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         else:
             siteScore = 0
 
-        score = siteScore + 90 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = siteScore + 90 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 

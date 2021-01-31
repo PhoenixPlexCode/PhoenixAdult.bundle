@@ -2,13 +2,13 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     sceneID = None
-    splited = searchTitle.split()
-    if unicode(splited[0], 'UTF-8').isdigit():
-        sceneID = splited[0]
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html'
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "video-item") and @data-get-thumbs-url]'):
@@ -17,10 +17,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         date = searchResult.xpath('.//div[@class="infos-video"]/p')[0].text_content().replace('Added on', '').strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -80,11 +80,18 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
+    # Actors
+    movieActors.clearActors()
+    for actorLink in getJMTVActors(sceneURL):
+        actorName = actorLink
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
     # Poster
     art = []
-
     xpaths = [
-        '//img[@id="video-player-poster"]/@data-src'
+        '//img[@id="video-player-poster"]/@data-src',
     ]
 
     for xpath in xpaths:
@@ -114,3 +121,46 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+def getJMTVActors(url):
+    # actors for scenes must be manually specified using a URL fragment:
+    scenes = {
+        '4554/ibiza-1-crumb-in-the-mouth': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Dorian Del Isla',
+        ],
+        '4558/orgies-in-ibiza-2-lucys-surprise': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+        '4564/orgies-in-ibiza-3-overheated-orgy-by-the-pool': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+        '4570/orgies-in-ibiza-4-orgy-with-a-bang-for-the-last-night': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+    }
+
+    actorList = []
+    for urlFragment, actors in scenes.items():
+        if urlFragment in url:
+            actorList = actors
+            break
+
+    return actorList

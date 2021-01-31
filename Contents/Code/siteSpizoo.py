@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="category_listing_wrapper_updates"]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
@@ -16,10 +16,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         except:
             releaseDate = ''
 
-        if searchDate and releaseDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date and releaseDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Spizoo] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -35,13 +35,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+    title = detailsPageElements.xpath('//h1/text() | //video/@data-video')[0].strip()
     if title[-3:] == ' 4k':
         title = title[:-3].strip()
     metadata.title = title
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"] | //h2/following-sibling::p')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Spizoo'
@@ -82,7 +82,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="row line"]/div[@class="col-3"][1]/a | //p[@class="featuring"]/a'):
+    for actorLink in detailsPageElements.xpath('//div[@id="trailer-data"]//div[@class="col-12 col-md-6"]//div[@class="row line"]//div[@class="col-12"]//a | //p[@class="featuring"]/a'):
         actorName = actorLink.text_content().replace('.', '').strip()
         actorPhotoURL = ''
 
@@ -103,7 +103,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     try:
-        twitterBG = detailsPageElements.xpath('//img[contains(@class,"update_thumb thumbs")]/@src')[0]
+        twitterBG = detailsPageElements.xpath('//img[contains(@class, "update_thumb thumbs")]/@src')[0]
         if 'http' not in twitterBG:
             twitterBG = PAsearchSites.getSearchBaseURL(siteNum) + '/' + twitterBG
 

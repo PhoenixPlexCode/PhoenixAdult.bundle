@@ -179,21 +179,24 @@ def Decode(text):
 
 
 def getClearURL(url):
-    url = urlparse.urlparse(url)
-    path = url.path
+    newURL = url
+    if url.startswith('http'):
+        url = urlparse.urlparse(url)
+        path = url.path
 
-    while '//' in path:
-        path = path.replace('//', '/')
+        while '//' in path:
+            path = path.replace('//', '/')
 
-    newURL = '%s://%s%s' % (url.scheme, url.netloc, path)
-    if url.query:
-        newURL += '?%s' % url.query
+        newURL = '%s://%s%s' % (url.scheme, url.netloc, path)
+        if url.query:
+            newURL += '?%s' % url.query
 
     return newURL
 
 
 def saveRequest(url, req):
-    debug_dir = 'debug_data/%s/' % datetime.now().strftime('%d-%m-%Y')
+    debug_dir = os.path.join('debug_data', datetime.now().strftime('%d-%m-%Y'))
+    debug_dir = os.path.realpath(debug_dir)
     if not os.path.exists(debug_dir):
         os.makedirs(debug_dir)
 
@@ -201,7 +204,7 @@ def saveRequest(url, req):
     raw_http += dump.dump_all(req).decode('UTF-8', errors='replace')
 
     file_name = '%s.gz' % uuid.uuid4().hex
-    with gzip.open(debug_dir + file_name, 'wb') as f:
+    with gzip.open(os.path.join(debug_dir, file_name), 'wb') as f:
         f.write(raw_http.encode('UTF-8'))
 
     Log('GZip request saved as "%s"' % file_name)

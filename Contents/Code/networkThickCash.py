@@ -20,20 +20,12 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[@class="update_block"]'):
-        titleNoFormatting = searchResult.xpath('.//span[@class="update_title"]')[0].text_content().strip()
-        description = searchResult.xpath('.//span[@class="latest_update_description"]')[0].text_content().strip()
-        releaseDate = parse(searchResult.xpath('.//span[@class="update_date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+    for searchResult in searchResults.xpath('//div[@class="updateBlock clear"]'):
+        titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
+        description = searchResult.xpath('.//p')[0].text_content().strip()
+        releaseDate = parse(searchResult.xpath('.//h4/text()')[0].split(':')[-1].strip()).strftime('%Y-%m-%d')
 
-        actorList = []
-        actors = searchResult.xpath('.//span[@class="tour_update_models"]/a')
-        for actorLink in actors:
-            actorName = actorLink.text_content().strip()
-
-            actorList.append(actorName)
-        actors = ', '.join(actorList)
-
-        poster = searchResult.xpath('.//div[@class="update_image"]/a/img/@src')[0]
+        poster = searchResult.xpath('.//@src')[0]
         subSite = PAsearchSites.getSearchSiteName(siteNum)
 
         # Fake Unique CurID
@@ -48,7 +40,7 @@ def search(results, lang, siteNum, searchData):
         else:
             score = 60
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%s|%s' % (curID, siteNum, descriptionID, releaseDate, actors, posterID), name='%s [PureCFNM/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%s' % (curID, siteNum, descriptionID, releaseDate, posterID), name='%s [Thick Cash/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -58,8 +50,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     sceneTitle = PAutils.Decode(metadata_id[0])
     sceneDescription = PAutils.Decode(metadata_id[2])
     sceneDate = metadata_id[3]
-    sceneActors = metadata_id[4]
-    scenePoster = PAutils.Decode(metadata_id[5])
+    scenePoster = PAutils.Decode(metadata_id[4])
 
     art = []
     metadata.collections.clear()
@@ -73,7 +64,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.summary = sceneDescription
 
     # Studio
-    metadata.studio = 'PureCFNM'
+    metadata.studio = 'Thick Cash'
 
     # Tagline and Collection(s)
     subSite = PAsearchSites.getSearchSiteName(siteNum)
@@ -81,45 +72,23 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.add(subSite)
 
     # Genres
-    if subSite.lower() == 'AmateurCFNM'.lower():
-        for genreName in ['CFNM']:
+    if subSite.lower() == 'Family Lust'.lower():
+        for genreName in ['Family Roleplay']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'CFNMGames'.lower():
-        for genreName in ['CFNM', 'Femdom']:
+    elif subSite.lower() == 'Over 40 Handjobs'.lower():
+        for genreName in ['MILF', 'Handjob']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'GirlsAbuseGuys'.lower():
-        for genreName in ['CFNM', 'Femdom', 'Male Humiliation']:
+    elif subSite.lower() == 'Ebony Tugs'.lower():
+        for genreName in ['Ebony', 'Handjob']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'HeyLittleDick'.lower():
-        for genreName in ['CFNM', 'Femdom', 'Small Penis Humiliation']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'LadyVoyeurs'.lower():
-        for genreName in ['CFNM', 'Voyeur']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'PureCFNM'.lower():
-        for genreName in ['CFNM']:
+    elif subSite.lower() == 'Teen Tugs'.lower():
+        for genreName in ['Teen', 'Handjob']:
             movieGenres.addGenre(genreName)
 
     # Release Date
     date_object = parse(sceneDate)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
-
-    # Actors
-    actors = sceneActors.split(',')
-    if actors:
-        if len(actors) == 2:
-            movieGenres.addGenre('Threesome')
-        elif len(actors) == 3:
-            movieGenres.addGenre('Foursome')
-        elif len(actors) > 3:
-            movieGenres.addGenre('Group')
-
-        for actorLink in actors:
-            actorName = actorLink.strip()
-            actorPhotoURL = ' '
-
-            movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = [

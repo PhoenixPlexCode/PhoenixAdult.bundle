@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchTitle.replace(' ', '+'))
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.replace(' ', '+'))
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-video")]'):
         titleNoFormatting = searchResult.xpath('.//a/@title')[0]
@@ -11,10 +11,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         date = searchResult.xpath('.//div[@class="more-info-div"]')[0].text_content().split('|')
         releaseDate = parse(date[-1].strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [InterracialPass] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

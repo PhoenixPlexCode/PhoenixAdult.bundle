@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+def search(results, lang, siteNum, searchData):
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//*[contains(@class, " post ")]'):
@@ -13,10 +13,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         date = searchResult.xpath('.//time[@class="entry-date"]/@datetime')[0].strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [MormonGirlz] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

@@ -2,23 +2,23 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-')
-    if '/' not in encodedTitle:
-        encodedTitle.replace('-', '/', 1)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.replace(' ', '-')
+    if '/' not in searchData.encoded:
+        searchData.encoded.replace('-', '/', 1)
 
-    if 'scene' not in encodedTitle.lower():
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    if 'scene' not in searchData.encoded.lower():
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[@class="sceneContainer"]'):
             titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip().title().replace('Xxx', 'XXX')
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
             releaseDate = parse(searchResult.xpath('.//p[@class="sceneDate"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Wicked/Scene] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -26,24 +26,24 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         curID = PAutils.Encode(searchResults.xpath('//link[@rel="canonical"]/@href')[0])
         releaseDate = parse(searchResults.xpath('//li[@class="updatedOn"]')[0].text_content().replace('Updated', '').strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), dvdTitle.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), dvdTitle.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Wicked/Full Movie] %s' % (dvdTitle, releaseDate), score=score, lang=lang))
 
     else:
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/en/video/' + encodedTitle)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/en/video/' + searchData.encoded)
         searchResults = HTML.ElementFromString(req.text)
         titleNoFormatting = searchResults.xpath('//h1//span')[0].text_content().strip().title().replace('Xxx', 'XXX')
         curID = PAutils.Encode(searchResults.xpath('//link[@rel="canonical"]/@href')[0])
         releaseDate = parse(searchResults.xpath('//li[@class="updatedDate"]')[0].text_content().replace('Updated', '').replace('|', '').strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Wicked/Scene] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -109,7 +109,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         art.append(previewBG)
 
         # Get dvd page for some info
-        dvdPageURL = urlBase + detailsPageElements.xpath('//div[@class="content"]//a[contains(@class,"dvdLink")]/@href')[0]
+        dvdPageURL = urlBase + detailsPageElements.xpath('//div[@class="content"]//a[contains(@class, "dvdLink")]/@href')[0]
         req = PAutils.HTTPRequest(dvdPageURL)
         dvdPageElements = HTML.ElementFromString(req.text)
 
@@ -192,7 +192,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             pass
 
         # Backgrounds
-        scenePreviews = detailsPageElements.xpath('//div[@class="sceneContainer"]//img[contains(@id,"clip")]/@data-original')
+        scenePreviews = detailsPageElements.xpath('//div[@class="sceneContainer"]//img[contains(@id, "clip")]/@data-original')
         for scenePreview in scenePreviews:
             previewIMG = scenePreview.split('?')[0]
 

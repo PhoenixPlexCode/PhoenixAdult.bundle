@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
 
-    sceneID = re.sub(r'\D.*', '', searchTitle)
+    sceneID = re.sub(r'\D.*', '', searchData.title)
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/webmasters/" + sceneID
@@ -19,26 +19,26 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     else:
         # Handle 3 Types of Links: First, Last; First Only; First-Last
         try:
-            encodedTitle = re.search(r'^\S*.\S*', searchTitle).group(0).replace(' ', '').lower()
+            searchData.encoded = re.search(r'^\S*.\S*', searchData.title).group(0).replace(' ', '').lower()
 
-            req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + ".html")
+            req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + ".html")
             searchResults = HTML.ElementFromString(req.text)
 
             if searchResults.xpath('//html')[0].text_content() == 'Page not found':
                 raise Exception
         except:
             try:
-                encodedTitle = re.search(r'^\S*.\S*', searchTitle).group(0).replace(' ', '-').lower()
+                searchData.encoded = re.search(r'^\S*.\S*', searchData.title).group(0).replace(' ', '-').lower()
 
-                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + ".html")
+                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + ".html")
                 searchResults = HTML.ElementFromString(req.text)
 
                 if searchResults.xpath('//html')[0].text_content() == 'Page not found':
                     raise Exception
             except:
-                encodedTitle = re.search(r'^\S*', searchTitle).group(0).lower()
+                searchData.encoded = re.search(r'^\S*', searchData.title).group(0).lower()
 
-                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + ".html")
+                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + ".html")
                 searchResults = HTML.ElementFromString(req.text)
         try:
             pageResults = (int)(searchResults.xpath('//span[@class="number_item "]')[0].text_content().strip())
@@ -47,8 +47,8 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         for x in range(pageResults):
             if x == 1:
-                searchResults.xpath('//a[contains(@class,"in_stditem")]/@href')[1]
-                req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + searchResults.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
+                searchResults.xpath('//a[contains(@class, "in_stditem")]/@href')[1]
+                req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + searchResults.xpath('//a[contains(@class, "in_stditem")]/@href')[1])
                 searchResults = HTML.ElementFromString(req.text)
             for searchResult in searchResults.xpath('//div[@class="infos"]'):
                 resultTitleID = searchResult.xpath('.//span[@class="video-title"]')[0].text_content().strip().title()
@@ -65,16 +65,16 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 if date:
                     releaseDate = parse(date).strftime('%Y-%m-%d')
                 else:
-                    releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
                 releaseDate = parse(date).strftime('%Y-%m-%d')
                 displayDate = releaseDate if date else ''
 
                 if sceneID == resultID:
                     score = 100
-                elif searchDate and displayDate:
-                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                elif searchData.date and displayDate:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -140,7 +140,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             req = PAutils.HTTPRequest(modelURL)
             actorsPageElements = HTML.ElementFromString(req.text)
 
-            img = actorsPageElements.xpath('//img[contains(@id,"set-target")]/@src')[0]
+            img = actorsPageElements.xpath('//img[contains(@id, "set-target")]/@src')[0]
             if img:
                 actorPhotoURL = img
                 if 'http' not in actorPhotoURL:
@@ -161,8 +161,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
             for x in range(pageResults):
                 if x == 1:
-                    actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1]
-                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
+                    actorsPageElements.xpath('//a[contains(@class, "in_stditem")]/@href')[1]
+                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorsPageElements.xpath('//a[contains(@class, "in_stditem")]/@href')[1])
                     actorsPageElements = HTML.ElementFromString(req.text)
 
                 for sceneElements in actorsPageElements.xpath('//div[@class="box"]'):
@@ -187,7 +187,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//img[contains(@alt,"content")]/@src',
+        '//img[contains(@alt, "content")]/@src',
         '//div[@class="box"]//img/@src',
     ]
 

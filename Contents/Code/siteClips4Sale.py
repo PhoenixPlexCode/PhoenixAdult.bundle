@@ -2,12 +2,12 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    userID = searchTitle.split(' ', 1)[0]
-    sceneTitle = searchTitle.split(' ', 1)[1]
-    encodedTitle = urllib.quote(sceneTitle)
+def search(results, lang, siteNum, searchData):
+    userID = searchData.title.split(' ', 1)[0]
+    sceneTitle = searchData.title.split(' ', 1)[1]
+    searchData.encoded = urllib.quote(sceneTitle)
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + encodedTitle
+    url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="clipWrapper"]'):
@@ -1856,7 +1856,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     #  Mistress Chantel
     elif 'Mistress Chantel' in tagline:
         movieActors.addActor('Mistress Chantel', '')
-    
+
     # Mistress Ezada Sinn
     elif 'Mistress Ezada Sinn' in tagline:
         movieActors.addActor('Ezada Sinn', '')

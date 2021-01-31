@@ -2,17 +2,17 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     searchJAVID = None
-    splitSearchTitle = searchTitle.split()
+    splitSearchTitle = searchData.title.split()
     if len(splitSearchTitle) > 1:
         if unicode(splitSearchTitle[1], 'UTF-8').isdigit():
             searchJAVID = '%s%%2B%s' % (splitSearchTitle[0], splitSearchTitle[1])
 
     if searchJAVID:
-        encodedTitle = searchJAVID
+        searchData.encoded = searchJAVID
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//li[contains(@class, "item-list")]'):
         titleNoFormatting = searchResult.xpath('.//dt')[0].text_content().strip()
@@ -24,7 +24,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if searchJAVID:
             score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
 

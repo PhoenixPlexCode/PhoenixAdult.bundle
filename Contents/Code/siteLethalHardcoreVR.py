@@ -2,18 +2,18 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="grid-item scene-list-item"]'):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         titleNoFormatting = searchResult.xpath('.//p[contains(@class, "grid-item-title")]//span')[0].text_content().strip()
         releaseDate = parse(searchResult.xpath('.//p[@class="scene-update-stats"]//span')[1].text_content().strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
@@ -33,9 +33,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    description = detailsPageElements.xpath('//div[@id="synopsis-full"]//p')
+    description = detailsPageElements.xpath('//meta[@name="og:description"]/@content')
     if description:
-        metadata.summary = description[0].text_content().strip()
+        metadata.summary = description[0]
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
@@ -59,17 +59,19 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@id="bodyShotModal"]'):
-        actorName = actorLink.xpath('.//img/@title')[0]
-        actorPhotoURL = ''
+        maybeActorName = actorLink.xpath('.//img/@title')
+        if maybeActorName:
+            actorName = maybeActorName[0]
+            actorPhotoURL = ''
 
-        try:
-            actorPhotoURL = actorLink.xpath('.//img/@src')[0]
-            if 'http' not in actorPhotoURL:
-                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
-        except:
-            pass
+            try:
+                actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+                if 'http' not in actorPhotoURL:
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+            except:
+                pass
 
-        movieActors.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Photos
     art = []

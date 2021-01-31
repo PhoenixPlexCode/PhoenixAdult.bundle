@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "main-content-videos")]//div[contains(@class, "card-video")]'):
         titleNoFormatting = searchResult.xpath('.//a/@aria-label')[0]
@@ -12,10 +12,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         date = searchResult.xpath('.//p[contains(@class, "extra-info") and not(contains(@class, "actors"))]')[0].text_content().strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [LetsDoeIt/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 

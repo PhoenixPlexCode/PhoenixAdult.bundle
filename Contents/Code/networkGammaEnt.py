@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     networkscene = True
     networkscenepages = True
     networkdvd = True
@@ -83,9 +83,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         # Result next page
         resultsecond = []
 
-        # searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + "?query=" + encodedTitle)
-        encodedTitle = encodedTitle.replace("%27", "").replace("%3F", "").replace("%2C", "")  # Remove troublesome punctuation (, . ?)
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_scene_prev + encodedTitle + network_sep_scene)
+        # searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + "?query=" + searchData.encoded)
+        searchData.encoded = searchData.encoded.replace("%27", "").replace("%3F", "").replace("%2C", "")  # Remove troublesome punctuation (, . ?)
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_scene_prev + searchData.encoded + network_sep_scene)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[@class="tlcDetails"]'):
             titleNoFormatting = searchResult.xpath('.//a[1]')[0].text_content().strip()
@@ -120,10 +120,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                     releaseDate = parse(detailsPageElements.xpath('//*[@class="updatedDate"]')[0].text_content().strip()).strftime('%Y-%m-%d')
                 except:
                     releaseDate = ''
-            if searchDate and releaseDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date and releaseDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
@@ -132,7 +132,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             i = 2
             while i < 3:
                 pagenum = i
-                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_scene_pages_prev + encodedTitle + network_sep_scene_pages + str(pagenum) + network_sep_scene_pages_next)
+                req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_scene_pages_prev + searchData.encoded + network_sep_scene_pages + str(pagenum) + network_sep_scene_pages_next)
                 searchResultsSec = HTML.ElementFromString(req.text)
                 i += 1
                 searchResultSec = searchResultsSec.xpath('//div[@class="tlcDetails"]')
@@ -180,10 +180,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                             except:
                                 releaseDate = ''
 
-                        if searchDate and releaseDate:
-                            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                        if searchData.date and releaseDate:
+                            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
                         else:
-                            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + actor + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
@@ -195,8 +195,8 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
     if directmatch:
         # Result to check
         resultfirst = []
-        searchString = encodedTitle.replace("%20", '-').lower()
-        # searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + "?query=" + encodedTitle)
+        searchString = searchData.encoded.replace("%20", '-').lower()
+        # searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + "?query=" + searchData.encoded)
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchString)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[@id="infoWrapper"]'):
@@ -212,18 +212,18 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             except:
                 releaseDate = ''
 
-            if searchDate and releaseDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date and releaseDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " [" + network + PAsearchSites.getSearchSiteName(siteNum) + "] " + releaseDate, score=score, lang=lang))
 
     if networkdvd:
         try:
-            req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_dvd_prev + encodedTitle + network_sep_dvd)
+            req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + network_sep_dvd_prev + searchData.encoded + network_sep_dvd)
             dvdResults = HTML.ElementFromString(req.text)
-            for dvdResult in dvdResults.xpath('//div[contains(@class,"tlcItem playlistable_dvds")] | //div[@class="tlcDetails"]'):
+            for dvdResult in dvdResults.xpath('//div[contains(@class, "tlcItem playlistable_dvds")] | //div[@class="tlcDetails"]'):
                 titleNoFormatting = dvdResult.xpath('.//div[@class="tlcTitle"]/a')[0].get('title').strip()
                 curID = PAutils.Encode(dvdResult.xpath('.//a')[0].get('href'))
                 try:
@@ -236,7 +236,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                     except:
                         releaseDate = ''
 
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting + " (" + releaseDate.strftime('%Y') + ") - Full Movie [" + PAsearchSites.getSearchSiteName(siteNum) + "]", score=score, lang=lang))
         except:
@@ -313,7 +313,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Title DVD
     try:
-        dvdTitle = detailsPageElements.xpath('//a[contains(@class,"dvdLink")][1]')[0].get('title').strip()
+        dvdTitle = detailsPageElements.xpath('//a[contains(@class, "dvdLink")][1]')[0].get('title').strip()
         metadata.collections.add(dvdTitle.replace('#0', '').replace('#', ''))
     except:
         try:

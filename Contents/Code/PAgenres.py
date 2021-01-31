@@ -3,61 +3,55 @@ import PAdatabaseGenres
 
 
 class PhoenixGenres:
-    genresTable = None
-    genresNum = 0
-
-    def __init__(self):
-        self.genresTable = [None] * 150
-        self.genresNum = 0
+    genresTable = []
 
     def addGenre(self, newGenre):
-        self.genresTable[self.genresNum] = newGenre
-        self.genresNum = self.genresNum + 1
+        newGenre = newGenre.encode('UTF-8') if isinstance(newGenre, unicode) else newGenre
+        if newGenre.lower() not in map(str.lower, self.genresTable):
+            self.genresTable.append(newGenre)
 
     def clearGenres(self):
-        self.genresNum = 0
+        self.genresTable = []
 
     def processGenres(self, metadata):
-        genresProcessed = 0
-        while genresProcessed < self.genresNum:
+        for genreLink in self.genresTable:
             skip = False
-            newGenre = self.genresTable[genresProcessed].replace('"', '').strip()
+            genreName = genreLink.replace('"', '').strip()
 
-            searchGenreName = newGenre.lower()
-            for genreName in PAdatabaseGenres.GenresSkip:
-                if searchGenreName == genreName.lower():
+            searchGenreName = genreName.lower()
+            for genre in PAdatabaseGenres.GenresSkip:
+                if searchGenreName == genre.lower():
                     skip = True
                     break
 
-            for genreName in PAdatabaseGenres.GenresPartialSkip:
-                if searchGenreName in genreName.lower():
+            for genre in PAdatabaseGenres.GenresPartialSkip:
+                if searchGenreName in genre.lower():
                     skip = True
                     break
 
             found = False
             if not skip:
-                for genreName, aliases in PAdatabaseGenres.GenresReplace.items():
-                    if searchGenreName == genreName.lower() or searchGenreName in aliases:
+                for genre, aliases in PAdatabaseGenres.GenresReplace.items():
+                    if searchGenreName == genre.lower() or searchGenreName in map(str.lower, aliases):
                         found = True
-                        newGenre = genreName
+                        genreName = genre
                         break
 
             if not found:
-                newGenre = newGenre.title()
+                genreName = genreName.title()
 
             if not found and not skip:
-                if len(newGenre) > 25:
+                if len(genreName) > 25:
                     skip = True
                 if ':' in metadata.title:
-                    if newGenre.lower() in metadata.title.split(':')[0].lower():
+                    if genreName.lower() in metadata.title.split(':')[0].lower():
                         skip = True
                 if '-' in metadata.title:
-                    if newGenre.lower() in metadata.title.split('-')[0].lower():
+                    if genreName.lower() in metadata.title.split('-')[0].lower():
                         skip = True
-                if ' ' in newGenre:
-                    if 3 < len(newGenre.split()):
+                if ' ' in genreName:
+                    if 3 < len(genreName.split()):
                         skip = True
 
             if not skip:
-                metadata.genres.add(newGenre)
-            genresProcessed = genresProcessed + 1
+                metadata.genres.add(genreName)

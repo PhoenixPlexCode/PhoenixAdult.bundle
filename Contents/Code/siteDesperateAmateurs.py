@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
 
     for searchResult in searchResults.xpath('//div[@align="left"]'):
@@ -15,10 +15,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         curID = PAutils.Encode(link.xpath('./@href')[0])
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Desperate Amateurs] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -88,7 +88,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL}, cookies=cookies)
+                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL})
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size

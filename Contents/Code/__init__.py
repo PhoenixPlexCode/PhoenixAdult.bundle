@@ -1,22 +1,25 @@
+import base64
+import codecs
+import json
+import mimetypes
 import os
-import re
 import random
+import re
 import requests
+import shutil
+import time
 import urllib
 import urlparse
-import json
-import shutil
-from datetime import datetime
-from PIL import Image
 from cStringIO import StringIO
+from datetime import datetime
 from dateutil.parser import parse
-import time
-import base64
+from PIL import Image
 import PAactors
 import PAgenres
 import PAsearchSites
 import PAsiteList
 import PAutils
+import PAsearchData
 
 
 def Start():
@@ -28,14 +31,18 @@ def Start():
     requests.packages.urllib3.disable_warnings()
 
     dateNowObj = datetime.now()
-    debug_dir = 'debug_data/'
+    debug_dir = os.path.realpath('debug_data')
     if os.path.exists(debug_dir):
         for directoryName in os.listdir(debug_dir):
             debugDateObj = parse(directoryName)
             if abs((dateNowObj - debugDateObj).days) > 3:
-                debugLogs = debug_dir + directoryName
+                debugLogs = os.path.join(debug_dir, directoryName)
                 shutil.rmtree(debugLogs)
                 Log('Deleted debug data: %s' % directoryName)
+
+
+def ValidatePrefs():
+    Log('ValidatePrefs function call')
 
 
 class PhoenixAdultAgent(Agent.Movies):
@@ -50,38 +57,40 @@ class PhoenixAdultAgent(Agent.Movies):
         else:
             title = media.name
 
-        if media.primary_metadata is not None:
-            title = media.primary_metadata.studio + ' ' + media.primary_metadata.title
+        title = getSearchTitle(title)
 
-        trashTitle = (
-            'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', 'H265', 'AVC', r'\dK',
-            r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD',
-            'ForeverAloneDude'
-        )
-
-        for trash in trashTitle:
-            title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
-        title = ' '.join(title.split())
-
-        Log('*******MEDIA TITLE****** %s' % title)
-
-        Log('Getting Search Settings for: %s' % title)
+        Log('***MEDIA TITLE [from media.name]*** %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
-        siteNum = searchSettings[0]
-        searchTitle = searchSettings[1]
-        searchDate = searchSettings[2]
+        Log(searchSettings)
+
+        filepath = None
+        filename = None
+        if media.filename:
+            filepath = urllib.unquote(media.filename)
+            filename = str(os.path.splitext(os.path.basename(filepath))[0])
+
+        if searchSettings['siteNum'] is None and filepath:
+            directory = str(os.path.split(os.path.dirname(filepath))[1])
+
+            newTitle = getSearchTitle(directory)
+            Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
+            searchSettings = PAsearchSites.getSearchSettings(newTitle)
+
+            if searchSettings['siteNum'] is not None and searchSettings['searchTitle'].lower() == PAsearchSites.getSearchSiteName(searchSettings['siteNum']).lower():
+                newTitle = '%s %s' % (newTitle, title)
+                Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
+                searchSettings = PAsearchSites.getSearchSettings(newTitle)
+
+        siteNum = searchSettings['siteNum']
 
         if siteNum is not None:
-            Log('Search Title: %s' % searchTitle)
-            if searchDate:
-                Log('Search Date: %s' % searchDate)
-
-            encodedTitle = urllib.quote(searchTitle)
-            Log(encodedTitle)
+            search = PAsearchData.SearchData(media, searchSettings['searchTitle'], searchSettings['searchDate'], filepath, filename)
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                provider.search(results, encodedTitle, searchTitle, siteNum, lang, searchDate)
+                providerName = getattr(provider, '__name__')
+                Log('Provider: %s' % providerName)
+                provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
 
@@ -97,10 +106,12 @@ class PhoenixAdultAgent(Agent.Movies):
 
         metadata_id = str(metadata.id).split('|')
         siteNum = int(metadata_id[1])
-        Log(str(siteNum))
+        Log('SiteNum: %d' % siteNum)
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
+            providerName = getattr(provider, '__name__')
+            Log('Provider: %s' % providerName)
             provider.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
@@ -114,3 +125,18 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # Add Content Rating
         metadata.content_rating = 'XXX'
+
+
+def getSearchTitle(title):
+    trashTitle = (
+        'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', 'H265', 'AVC', r'\dK',
+        r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD',
+        'KTR', 'IEVA', 'WRB', 'NBQ', 'ForeverAloneDude',
+    )
+
+    for trash in trashTitle:
+        title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
+
+    title = ' '.join(title.split())
+
+    return title

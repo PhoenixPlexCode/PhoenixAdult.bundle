@@ -2,12 +2,12 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.lower().replace(' ', '-')
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '.html'
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.lower().replace(' ', '-')
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
 
     searchResults = [directURL]
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if '/trailers/' in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
@@ -19,7 +19,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
         curID = PAutils.Encode(sceneURL)
 
-        score = 100 - Util.LevenshteinDistance(searchTitle, titleNoFormatting)
+        score = 100 - Util.LevenshteinDistance(searchData.title, titleNoFormatting)
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 

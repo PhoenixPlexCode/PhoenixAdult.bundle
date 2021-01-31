@@ -2,29 +2,29 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
-    if '/' not in encodedTitle:
-        encodedTitle = encodedTitle.replace('-', '/', 1)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
+    if '/' not in searchData.encoded and re.match(r'\d+.*', searchData.encoded):
+        searchData.encoded = searchData.encoded.replace('-', '/', 1)
 
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     curID = PAutils.Encode(sceneURL)
     titleNoFormatting = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
-    date = detailsPageElements.xpath('//span[contains(@class,"date")] | //span[contains(@class,"hide")]')
+    date = detailsPageElements.xpath('//span[contains(@class, "date")] | //span[contains(@class, "hide")]')
     if date:
         releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
     else:
-        releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+        releaseDate = searchData.dateFormat() if searchData.date else ''
     displayDate = releaseDate if date else ''
 
-    if searchDate and displayDate:
-        score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+    if searchData.date and displayDate:
+        score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
     else:
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
     results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -44,7 +44,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1[@class="title"] | //h2[@class="title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[contains(@class,"desc")]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "desc")]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Stepped Up Media'
@@ -83,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[contains(@class,"model")]/img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]/img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
     movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')
@@ -92,8 +92,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//div[@id="trailer-player"]/@data-screencap',
-        '//video[@id="ypp-player"]/@poster',
+        '//video[contains(@id, "ypp-player")]/@poster',
         '//a[@href="%s"]//img/@src' % sceneURL,
+        '//div[@class="view-thumbs"]//img/@src',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):

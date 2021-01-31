@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     searchResults = []
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle + '&sid=587'
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '&sid=587'
     req = PAutils.HTTPRequest(url)
     siteSearchResults = HTML.ElementFromString(req.text)
     for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
@@ -13,7 +13,7 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
         searchResults.append(sceneURL)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for result in googleResults:
         pattern = re.search(r'(?<=\dpp\/).*(?=\/)', result)
         if pattern:
@@ -35,13 +35,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = searchData.dateFormat() if searchData.date else ''
             displayDate = releaseDate if date else ''
 
-            if searchDate and displayDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 

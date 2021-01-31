@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
     searchResults = HTML.ElementFromString(req.json()['html'])
     for searchResult in searchResults.xpath('//div[@class="card episode"]'):
         titleNoFormatting = searchResult.xpath('.//a[@class="text-km"] | .//a[@class="text-pf"] | .//a[@class="text-tf"]')[0].text_content().strip()
@@ -16,10 +16,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             releaseDate = releaseDate + ', ' + str(datetime.now().year)
         releaseDate = parse(releaseDate).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -81,7 +81,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorPageURL = actorLink.get('href')
             req = PAutils.HTTPRequest(actorPageURL, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
             actorPage = HTML.ElementFromString(req.text)
-            actorPhotoURL = actorPage.xpath('//div[contains(@class,"one")]//@src')[0]
+            actorPhotoURL = actorPage.xpath('//div[contains(@class, "one")]//@src')[0]
 
             movieActors.addActor(actorName, actorPhotoURL)
 

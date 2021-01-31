@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     searchResults = []
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.split('?')[0]
         if ('com/video' in sceneURL or 'com/player' in sceneURL) and 'mobile' not in sceneURL and sceneURL not in searchResults:
@@ -27,15 +27,15 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = searchData.dateFormat() if searchData.date else ''
             displayDate = releaseDate if date else ''
 
             subSite = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, displayDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
         except:

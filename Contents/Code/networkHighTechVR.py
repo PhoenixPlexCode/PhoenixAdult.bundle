@@ -2,13 +2,13 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.lower().replace(' ', '-', 1).replace(' ', '_')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.lower().replace(' ', '-', 1).replace(' ', '_')
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
 
     titleNoFormatting = searchResults.xpath('//h1')[0].text_content().strip()
-    curID = encodedTitle
+    curID = searchData.encoded
 
     date = searchResults.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"]')[0].text_content().strip()
     releaseDate = parse(date).strftime('%Y-%m-%d')
@@ -69,7 +69,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
 
-    for poster in detailsPageElements.xpath('//div[contains(@class,"video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[@class="scene-previews-container"]//a'):
+    for poster in detailsPageElements.xpath('//div[contains(@class, "video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[@class="scene-previews-container"]//a'):
         img = poster.get('href').split('?')[0]
         if img.startswith('http'):
             art.append(img)

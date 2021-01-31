@@ -2,19 +2,20 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = encodedTitle.replace(' ', '+')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    # joymii search can't do actor + scene, so just search for the first word, which gets good results
+    query = urllib.quote(searchData.title.split()[0])
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + query)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "set set-photo")]'):
         titleNoFormatting = searchResult.xpath('.//div[contains(@class, "title")]//a')[0].text_content().title().strip()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         releaseDate = parse(searchResult.xpath('.//div[contains(@class, "release_date")]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
