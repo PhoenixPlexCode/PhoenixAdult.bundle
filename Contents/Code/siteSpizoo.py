@@ -35,13 +35,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+    title = detailsPageElements.xpath('//h1/text() | //video/@data-video')[0].strip()
     if title[-3:] == ' 4k':
         title = title[:-3].strip()
     metadata.title = title
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"] | //h2/following-sibling::p')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Spizoo'
@@ -82,7 +82,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="row line"]/div[@class="col-3"][1]/a | //p[@class="featuring"]/a'):
+    for actorLink in detailsPageElements.xpath('//div[@id="trailer-data"]//div[@class="col-12 col-md-6"]//div[@class="row line"]//div[@class="col-12"]//a | //p[@class="featuring"]/a'):
         actorName = actorLink.text_content().replace('.', '').strip()
         actorPhotoURL = ''
 
@@ -103,7 +103,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     try:
-        twitterBG = detailsPageElements.xpath('//img[contains(@class,"update_thumb thumbs")]/@src')[0]
+        twitterBG = detailsPageElements.xpath('//img[contains(@class, "update_thumb thumbs")]/@src')[0]
         if 'http' not in twitterBG:
             twitterBG = PAsearchSites.getSearchBaseURL(siteNum) + '/' + twitterBG
 

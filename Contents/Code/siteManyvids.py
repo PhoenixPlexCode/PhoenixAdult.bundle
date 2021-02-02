@@ -60,7 +60,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Collections / Tagline
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//a[contains(@class,"username ")]')[0].text_content().strip()
+    tagline = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -80,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorName = detailsPageElements.xpath('//a[contains(@class,"username ")]')[0].text_content()
+    actorName = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content()
     actorPhotoURL = ''
 
     try:

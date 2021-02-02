@@ -80,11 +80,18 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
+    # Actors
+    movieActors.clearActors()
+    for actorLink in getJMTVActors(sceneURL):
+        actorName = actorLink
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
     # Poster
     art = []
-
     xpaths = [
-        '//img[@id="video-player-poster"]/@data-src'
+        '//img[@id="video-player-poster"]/@data-src',
     ]
 
     for xpath in xpaths:
@@ -114,3 +121,46 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+def getJMTVActors(url):
+    # actors for scenes must be manually specified using a URL fragment:
+    scenes = {
+        '4554/ibiza-1-crumb-in-the-mouth': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Dorian Del Isla',
+        ],
+        '4558/orgies-in-ibiza-2-lucys-surprise': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+        '4564/orgies-in-ibiza-3-overheated-orgy-by-the-pool': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+        '4570/orgies-in-ibiza-4-orgy-with-a-bang-for-the-last-night': [
+            'Alexis Crystal',
+            'Cassie Del Isla',
+            'Lucy Heart',
+            'Dorian Del Isla',
+            'James Burnett Klein',
+            'Vlad Castle',
+        ],
+    }
+
+    actorList = []
+    for urlFragment, actors in scenes.items():
+        if urlFragment in url:
+            actorList = actors
+            break
+
+    return actorList

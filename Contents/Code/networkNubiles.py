@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "content-grid-item")]'):
-            titleNoFormatting = searchResult.xpath('.//span[@class= "title"]/a')[0].text_content().strip()
+            titleNoFormatting = searchResult.xpath('.//span[@class="title"]/a')[0].text_content().strip()
             curID = searchResult.xpath('.//span[@class="title"]/a/@href')[0].split('/')[3]
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]')[0]
         titleNoFormatting = detailsPageElements.xpath('//h2')[0].text_content()
         curID = sceneID
-        releaseDate = parse(detailsPageElements.xpath('//span[@class= "date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        releaseDate = parse(detailsPageElements.xpath('//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
         score = 100
 

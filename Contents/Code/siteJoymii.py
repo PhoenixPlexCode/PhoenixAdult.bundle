@@ -3,8 +3,9 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.encoded.replace(' ', '+')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    # joymii search can't do actor + scene, so just search for the first word, which gets good results
+    query = urllib.quote(searchData.title.split()[0])
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + query)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "set set-photo")]'):
         titleNoFormatting = searchResult.xpath('.//div[contains(@class, "title")]//a')[0].text_content().title().strip()

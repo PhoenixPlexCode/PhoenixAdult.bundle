@@ -60,7 +60,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//aside/div[contains(@class,"description")]')[0].text_content().replace('\n', '').strip()
+        metadata.summary = detailsPageElements.xpath('//aside/div[contains(@class, "description")]')[0].text_content().replace('\n', '').strip()
     except:
         pass
 
@@ -80,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//aside/div[contains(@class,"description")]//a'):
+    for genreLink in detailsPageElements.xpath('//aside/div[contains(@class, "description")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -101,8 +101,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[@class="tile tile-image"]/img/@src',
-        '//div[contains(@class,"video")]/@data-poster',
+        '//div[contains(@class, "tile-image")]/img/@src',
+        '//div[contains(@class, "video")]/@data-poster',
     ]
 
     for xpath in xpaths:

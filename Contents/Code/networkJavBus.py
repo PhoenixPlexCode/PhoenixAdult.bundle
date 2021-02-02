@@ -4,10 +4,10 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     searchJAVID = None
-    splitsearchData.title = searchData.title.split()
-    if len(splitsearchData.title) > 1:
-        if unicode(splitsearchData.title[1], 'UTF-8').isdigit():
-            searchJAVID = '%s%%2B%s' % (splitsearchData.title[0], splitsearchData.title[1])
+    splitSearchTitle = searchData.title.split()
+    if len(splitSearchTitle) > 1:
+        if unicode(splitSearchTitle[1], 'UTF-8').isdigit():
+            searchJAVID = '%s%%2B%s' % (splitSearchTitle[0], splitSearchTitle[1])
 
     if searchJAVID:
         searchData.encoded = searchJAVID

@@ -4,9 +4,9 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = []
-
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-')
+    searchResults = [directURL]
+
     if unicode(directURL[-1], 'UTF-8').isdigit() and directURL[-2] == '-':
         directURL = '%s-%s' % (directURL[:-1], directURL[-1])
     searchResults.append(directURL)
@@ -15,6 +15,8 @@ def search(results, lang, siteNum, searchData):
     for sceneURL in googleResults:
         if ('/video/' in sceneURL and sceneURL not in searchResults):
             searchResults.append(sceneURL)
+
+    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)

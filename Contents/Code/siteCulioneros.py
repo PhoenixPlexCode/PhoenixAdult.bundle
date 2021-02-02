@@ -103,7 +103,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     art = []
     xpaths = [
-        '//a[contains(@href,"%s")]//@src' % sceneID,
+        '//a[contains(@href, "%s")]//@src' % sceneID,
     ]
 
     try:

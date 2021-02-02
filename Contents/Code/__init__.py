@@ -1,17 +1,19 @@
+import base64
+import codecs
+import json
+import mimetypes
 import os
-import re
 import random
+import re
 import requests
+import shutil
+import time
 import urllib
 import urlparse
-import json
-import shutil
-from datetime import datetime
-from PIL import Image
 from cStringIO import StringIO
+from datetime import datetime
 from dateutil.parser import parse
-import time
-import base64
+from PIL import Image
 import PAactors
 import PAgenres
 import PAsearchSites
@@ -37,6 +39,10 @@ def Start():
                 debugLogs = os.path.join(debug_dir, directoryName)
                 shutil.rmtree(debugLogs)
                 Log('Deleted debug data: %s' % directoryName)
+
+
+def ValidatePrefs():
+    Log('ValidatePrefs function call')
 
 
 class PhoenixAdultAgent(Agent.Movies):
@@ -82,7 +88,8 @@ class PhoenixAdultAgent(Agent.Movies):
 
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
-                Log('Provider: %s' % provider)
+                providerName = getattr(provider, '__name__')
+                Log('Provider: %s' % providerName)
                 provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
@@ -103,7 +110,8 @@ class PhoenixAdultAgent(Agent.Movies):
 
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
-            Log('Provider: %s' % provider)
+            providerName = getattr(provider, '__name__')
+            Log('Provider: %s' % providerName)
             provider.update(metadata, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add

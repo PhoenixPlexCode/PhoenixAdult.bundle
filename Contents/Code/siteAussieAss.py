@@ -47,8 +47,8 @@ def search(results, lang, siteNum, searchData):
 
         for x in range(pageResults):
             if x == 1:
-                searchResults.xpath('//a[contains(@class,"in_stditem")]/@href')[1]
-                req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + searchResults.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
+                searchResults.xpath('//a[contains(@class, "in_stditem")]/@href')[1]
+                req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + searchResults.xpath('//a[contains(@class, "in_stditem")]/@href')[1])
                 searchResults = HTML.ElementFromString(req.text)
             for searchResult in searchResults.xpath('//div[@class="infos"]'):
                 resultTitleID = searchResult.xpath('.//span[@class="video-title"]')[0].text_content().strip().title()
@@ -140,7 +140,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             req = PAutils.HTTPRequest(modelURL)
             actorsPageElements = HTML.ElementFromString(req.text)
 
-            img = actorsPageElements.xpath('//img[contains(@id,"set-target")]/@src')[0]
+            img = actorsPageElements.xpath('//img[contains(@id, "set-target")]/@src')[0]
             if img:
                 actorPhotoURL = img
                 if 'http' not in actorPhotoURL:
@@ -161,8 +161,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
             for x in range(pageResults):
                 if x == 1:
-                    actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1]
-                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorsPageElements.xpath('//a[contains(@class,"in_stditem")]/@href')[1])
+                    actorsPageElements.xpath('//a[contains(@class, "in_stditem")]/@href')[1]
+                    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorsPageElements.xpath('//a[contains(@class, "in_stditem")]/@href')[1])
                     actorsPageElements = HTML.ElementFromString(req.text)
 
                 for sceneElements in actorsPageElements.xpath('//div[@class="box"]'):
@@ -187,7 +187,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//img[contains(@alt,"content")]/@src',
+        '//img[contains(@alt, "content")]/@src',
         '//div[@class="box"]//img/@src',
     ]
 

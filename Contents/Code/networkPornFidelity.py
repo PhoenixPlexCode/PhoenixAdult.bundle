@@ -81,7 +81,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
             actorPageURL = actorLink.get('href')
             req = PAutils.HTTPRequest(actorPageURL, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
             actorPage = HTML.ElementFromString(req.text)
-            actorPhotoURL = actorPage.xpath('//div[contains(@class,"one")]//@src')[0]
+            actorPhotoURL = actorPage.xpath('//div[contains(@class, "one")]//@src')[0]
 
             movieActors.addActor(actorName, actorPhotoURL)
 

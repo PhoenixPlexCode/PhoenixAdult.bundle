@@ -42,7 +42,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     description = ''
-    for item in detailsPageElements.xpath('//div[contains(@class,"movie-content")]/p'):
+    for item in detailsPageElements.xpath('//div[contains(@class, "movie-content")]/p'):
         description += item.text_content().strip() + '\n'
     metadata.summary = description
 

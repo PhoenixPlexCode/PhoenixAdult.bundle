@@ -83,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     fullTitle = re.search(r"(?<=content\/).*(?=\/)", sceneURL).group(0)
 
     # Release Date
-    date = actorsPageElements.xpath('//a[contains(@href,"' + fullTitle + '")]//div[@class="fsdate absolute"]')[0].text_content().strip()
+    date = actorsPageElements.xpath('//a[contains(@href, "' + fullTitle + '")]//div[@class="fsdate absolute"]')[0].text_content().strip()
 
     if not date and sceneDate:
         date = sceneDate
