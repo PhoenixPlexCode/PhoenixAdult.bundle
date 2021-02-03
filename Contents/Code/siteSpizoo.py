@@ -3,6 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    searchData.encoded = urllib.quote('"%s"' % searchData.title)
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="category_listing_wrapper_updates"]'):

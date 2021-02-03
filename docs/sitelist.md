@@ -823,7 +823,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Xchimera
   - XXX Omas
   - XXXShades
-+ #### PornFidelity Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### PornFidelity Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - PornFidelity
   - TeenFidelity
 + #### PornPortal | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
