@@ -11,10 +11,7 @@ def search(results, lang, siteNum, searchData):
         sceneURL = searchResult.xpath('.//a[@class="text-km"] | .//a[@class="text-pf"] | .//a[@class="text-tf"]')[0].get('href')
         curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchResult.xpath('.//span[@class="card-footer-item"]')[0].text_content().strip()
-        if ', 20' not in releaseDate:
-            releaseDate = releaseDate + ', ' + str(datetime.now().year)
-        releaseDate = parse(releaseDate).strftime('%Y-%m-%d')
+        releaseDate = searchData.dateFormat() if searchData.date else ''
 
         if searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
