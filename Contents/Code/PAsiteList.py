@@ -388,7 +388,6 @@ searchSites = {
     222: ('Porno Academie', 'https://letsdoeit.com', '/search.en.html?q='),
     223: ('Xchimera', 'https://letsdoeit.com', '/search.en.html?q='),
     224: ('Carne Del Mercado', 'https://mamacitaz.com', '/search.en.html?q='),
-    224: ('Carne Del Mercado', 'https://mamacitaz.com', '/search.en.html?q='),
     225: ('XXX Shades', 'https://letsdoeit.com', '/search.en.html?q='),
     226: ('Bums Bus', 'https://letsdoeit.com', '/search.en.html?q='),
     227: ('Bitches Abroad', 'https://letsdoeit.com', '/search.en.html?q='),
@@ -1401,7 +1400,7 @@ searchSites = {
     1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
     1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
     1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
-    1237: ('MyDirtyHobby', 'https://mydirtyhobby.de', '/profil/'),
+    1237: ('MyDirtyHobby', 'https://www.mydirtyhobby.com/', '/search?searchKeyword='),
 }
 
 abbreviations = (
