@@ -10,9 +10,9 @@ def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="clipWrapper"]'):
-        titleNoFormatting = searchResult.xpath('.//a[@class="clipTitleLink"]')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
-        curID = PAutils.Encode(searchResult.xpath('.//a[@class="clipTitleLink"]/@href')[0])
+    for searchResult in searchResults.xpath('//div[contains(@class, "clipWrapper")]'):
+        titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
+        curID = PAutils.Encode(searchResult.xpath('.//h3//a/@href')[0])
         subSite = searchResult.xpath('//title')[0].text_content().strip()
 
         score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
@@ -37,12 +37,12 @@ def update(metadata, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="clipTitle"]')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
+    metadata.title = detailsPageElements.xpath('//h3')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
 
     # Summary
-    summary = detailsPageElements.xpath('//div[contains(@class, "dtext dheight")]')[0].text_content().strip()
-    summary = summary.split('--SCREEN SIZE')[0].strip()  # K Klixen
-    summary = summary.split('Description:')[1].split('window.NREUM')[0].replace('**TOP 50 CLIP**', '').replace('1920x1080 (HD1080)', '').strip()  # MHBHJ
+    summary = detailsPageElements.xpath('//div[@class="individualClipDescription"]')[0].text_content().strip()
+    summary = summary.split('--SCREEN SIZE')[0].split('--SREEN SIZE')[0].strip()  # K Klixen
+    summary = summary.split('window.NREUM')[0].replace('**TOP 50 CLIP**', '').replace('1920x1080 (HD1080)', '').strip()  # MHBHJ
     metadata.summary = summary
 
     # Studio
@@ -55,7 +55,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="clearfix infoRow2 clip_details"]/div/div[2]/div[3]/span/span')[0].text_content().strip()[:-8]
+    date = detailsPageElements.xpath('//span[contains(., "Added:")]//span')[0].text_content().split()[0].strip()
     if date:
         date_object = datetime.strptime(date, '%m/%d/%y')
         metadata.originally_available_at = date_object
@@ -63,12 +63,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors / Genres
     # Main Category
-    cat = detailsPageElements.xpath('//div[@class="clipInfo clip_details"]/div[1]/a')[0].text_content().strip().lower()
+    cat = detailsPageElements.xpath('//div[contains(@class, "clip_details")]//div[contains(., "Category:")]//a')[0].text_content().strip().lower()
     movieGenres.addGenre(cat)
     # Related Categories / Keywords
     genreList = []
-    genres = detailsPageElements.xpath('//span[@class="relatedCatLinks"]/span/a')
-    for genre in detailsPageElements.xpath('//span[@class="relatedCatLinks"]/span/a'):
+    for genre in detailsPageElements.xpath('//span[@class="relatedCatLinks"]//a'):
         genreName = genre.text_content().strip().lower()
 
         genreList.append(genreName)
@@ -81,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     #  Klixen
     elif 'KLIXEN' in tagline:
-        actors = detailsPageElements.xpath('//div[@class="clipInfo clip_details"]/div[3]/span[2]/span/a')
+        actors = detailsPageElements.xpath('//span[contains(., "Keywords:")]/following-sibling::span//a')
         for actor in actors:
             actorName = str(actor.text_content().strip())
             actorPhotoURL = ''
