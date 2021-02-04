@@ -2,18 +2,18 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@id="left-area"]/article'):
         titleNoFormatting = searchResult.xpath('.//h2[@class="entry-title"]/a')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('.//h2[@class="entry-title"]/a/@href')[0])
         releaseDate = parse(searchResult.xpath('.//span[@class="published"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [LittleCaprice] %s ' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -52,7 +52,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[contains(@class,"et_pb_text_align_left")]/ul/li[contains(.,"Models")]/a')
+    actors = detailsPageElements.xpath('//div[contains(@class, "et_pb_text_align_left")]/ul/li[contains(.,"Models")]/a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')

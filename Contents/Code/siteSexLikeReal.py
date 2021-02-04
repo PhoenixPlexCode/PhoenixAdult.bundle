@@ -2,11 +2,11 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchTitle.replace(' ', '-').lower()
+def search(results, lang, siteNum, searchData):
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.replace(' ', '-').lower()
 
     searchResults = [directURL]
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/scenes/' in sceneURL and sceneURL not in searchResults):
             searchResults.append(sceneURL)
@@ -19,10 +19,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
             releaseDate = parse(detailsPageElements.xpath('//time/@datetime')[0]).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -41,7 +41,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "u-mb--four u-lh--opt")]')[0].text_content().strip()
+    maybeSummary = detailsPageElements.xpath('//div[contains(@class, "u-mb--four u-lh--opt")]')
+    if maybeSummary and len(maybeSummary) == 1:
+        metadata.summary = maybeSummary[0].text_content().strip()
 
     # Studio/Tagline/Collection
     metadata.collections.clear()

@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "is-multiline")]/div[contains(@class, "column")]'):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
@@ -11,10 +11,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         releaseDate = parse(searchResult.xpath('.//span[contains(@class, "tag")]/text()')[0]).strftime('%Y-%m-%d')
         scenePoster = PAutils.Encode(searchResult.xpath('.//img/@src')[0])
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, scenePoster), name='%s [Intersec/%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 

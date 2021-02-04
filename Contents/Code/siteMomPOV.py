@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@id="inner_content"]/div[@class="entry"]'):
         titleNoFormatting = searchResult.xpath('.//div[@class="title_holder"]/h1/a')[0].text_content().strip()
@@ -15,10 +15,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         date = '-'.join((month, day, year))
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [MomPOV] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 

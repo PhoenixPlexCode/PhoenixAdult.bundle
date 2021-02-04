@@ -2,40 +2,41 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     sceneID = None
-    splited = searchTitle.split(' ')
+    parts = searchData.title.split()
     searchResults = []
 
-    if unicode(splited[0], 'UTF-8').isdigit():
-        sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
         directURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID + '.html'
 
         searchResults.append(directURL)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/update/' in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
-        detailsPageElements = HTML.ElementFromString(req.text)
+        if req.text:
+            detailsPageElements = HTML.ElementFromString(req.text)
 
-        curID = PAutils.Encode(sceneURL)
-        titleDate = detailsPageElements.xpath('//title')[0].text_content().split('Released')
-        titleNoFormatting = titleDate[0].strip()
+            curID = PAutils.Encode(sceneURL)
+            titleDate = detailsPageElements.xpath('//title')[0].text_content().split('Released')
+            titleNoFormatting = titleDate[0].strip()
 
-        date = titleDate[-1].replace('!', '').strip()
-        releaseDate = parse(date).strftime('%Y-%m-%d')
+            date = titleDate[-1].replace('!', '').strip()
+            releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 

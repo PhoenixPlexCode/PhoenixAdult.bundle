@@ -3,18 +3,20 @@ import PAextras
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    searchResults = []
+def search(results, lang, siteNum, searchData):
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-')
+    searchResults = [directURL]
 
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchTitle.lower().replace(' ', '-')
     if unicode(directURL[-1], 'UTF-8').isdigit() and directURL[-2] == '-':
         directURL = '%s-%s' % (directURL[:-1], directURL[-1])
     searchResults.append(directURL)
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/video/' in sceneURL and sceneURL not in searchResults):
             searchResults.append(sceneURL)
+
+    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
@@ -23,9 +25,9 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
             curID = PAutils.Encode(sceneURL)
 
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 

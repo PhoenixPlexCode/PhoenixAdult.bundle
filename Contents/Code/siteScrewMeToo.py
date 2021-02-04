@@ -2,9 +2,9 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '+').replace('--', '+').lower()
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.replace(' ', '+').replace('--', '+').lower()
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="fsp  bor-r relative"]/article'):
         titleNoFormatting = searchResult.xpath('.//h4')[0].text_content().strip()
@@ -15,14 +15,14 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
         releaseDate = parse(date).strftime('%Y-%m-%d')
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -83,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     fullTitle = re.search(r"(?<=content\/).*(?=\/)", sceneURL).group(0)
 
     # Release Date
-    date = actorsPageElements.xpath('//a[contains(@href,"' + fullTitle + '")]//div[@class="fsdate absolute"]')[0].text_content().strip()
+    date = actorsPageElements.xpath('//a[contains(@href, "' + fullTitle + '")]//div[@class="fsdate absolute"]')[0].text_content().strip()
 
     if not date and sceneDate:
         date = sceneDate

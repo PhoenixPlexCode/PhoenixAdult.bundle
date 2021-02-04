@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//li[@class="featured-video morestdimage grid_4 mb"]'):
         detailsPage = searchResult.xpath('./a/@href')[0]
@@ -11,10 +11,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         releaseDate = parse(searchResult.xpath('./div[@class="details"]/p/strong')[0].text_content().strip()).strftime('%Y-%m-%d')
         curID = PAutils.Encode(detailsPage)
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [GloryHoleSecrets] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -71,7 +71,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         sceneImg = detailsPageElements.xpath('//meta[@property="og:image"]/@content')[0]
         actorFullName = sceneImg.split('/')[4]
-        actorFirstName = actorName.split(' ')[0]
+        actorFirstName = actorName.split()[0]
         if actorFirstName.lower() == actorFullName[:len(actorFirstName)].lower() and len(actorFullName) > len(actorName):
             actorLastName = actorFullName[len(actorFirstName):].capitalize()
             actorName = actorFirstName + " " + actorLastName

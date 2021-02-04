@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     searchResults = []
 
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('/cn/', '/').replace('/de/', '/').replace('/jp/', '/').replace('/ja/', '/').replace('/en/', '/')
         if '/nude_girl/' not in sceneURL and '/shoots/' not in sceneURL and '/fetish/' not in sceneURL and '/updates/' not in sceneURL and sceneURL not in searchResults:
@@ -35,13 +35,13 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:
-            releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
         displayDate = releaseDate if date else ''
 
-        if searchDate and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Abby Winters/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 
@@ -60,7 +60,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//aside/div[contains(@class,"description")]')[0].text_content().replace('\n', '').strip()
+        metadata.summary = detailsPageElements.xpath('//aside/div[contains(@class, "description")]')[0].text_content().replace('\n', '').strip()
     except:
         pass
 
@@ -80,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//aside/div[contains(@class,"description")]//a'):
+    for genreLink in detailsPageElements.xpath('//aside/div[contains(@class, "description")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -101,8 +101,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[@class="tile tile-image"]/img/@src',
-        '//div[contains(@class,"video")]/@data-poster',
+        '//div[contains(@class, "tile-image")]/img/@src',
+        '//div[contains(@class, "video")]/@data-poster',
     ]
 
     for xpath in xpaths:

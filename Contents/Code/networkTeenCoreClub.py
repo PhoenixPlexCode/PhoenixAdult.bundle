@@ -2,12 +2,12 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     sceneID = None
-    splited = searchTitle.split(' ')
-    if unicode(splited[0], 'UTF-8').isdigit():
-        sceneID = splited[0]
-        searchTitle = searchTitle.replace(sceneID, '', 1).strip()
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
@@ -78,7 +78,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[contains(@class,"video-detail")]//img/@src',
+        '//div[contains(@class, "video-detail")]//img/@src',
     ]
 
     for xpath in xpaths:

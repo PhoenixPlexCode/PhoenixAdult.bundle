@@ -13,8 +13,8 @@ def getDataFromAPI(url, req_type, query):
     return data
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchTitle)['hits']['hits']
+def search(results, lang, siteNum, searchData):
+    searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchData.title)['hits']['hits']
     for searchResult in searchResults:
         searchResult = searchResult['_source']
         titleNoFormatting = searchResult['name']
@@ -23,10 +23,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
         curID = searchResult['identifier']
         releaseDate = parse(searchResult['releaseDate']).strftime('%Y-%m-%d')
 
-        if searchDate:
-            score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (seriesScene.title() if seriesScene else studioScene, titleNoFormatting), score=score, lang=lang))
 

@@ -2,8 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="scene"]'):
         url = searchResult.xpath('.//a[@data-track="TITLE_LINK"]/@href')[0]
@@ -12,15 +12,15 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             titleNoFormatting = searchResult.xpath('.//a[@data-track="TITLE_LINK"]')[0].text_content()
             releaseDate = parse(searchResult.xpath('./span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     # search for exact scene name
-    urlTitle = encodedTitle.replace('%20', '-')
+    urlTitle = searchData.encoded.replace('%20', '-')
     urls = [PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/video---' + urlTitle + '_vids.html',
             PAsearchSites.getSearchBaseURL(siteNum) + '/scenes/movie---' + urlTitle + '_vids.html']
 
@@ -64,7 +64,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genre in detailsPageElements.xpath('//ul[contains(@class,"scene-tags")]/li'):
+    for genre in detailsPageElements.xpath('//ul[contains(@class, "scene-tags")]/li'):
         genreName = genre.xpath('.//a')[0].text_content().lower()
 
         movieGenres.addGenre(genreName)

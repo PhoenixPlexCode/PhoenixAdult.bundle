@@ -2,24 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def generateEncodedTitle(searchTitle):
-    encodedTitle = ''
-
-    for word in searchTitle.split():
-        if word == 's':
-            encodedTitle += '%%27%s' % word
-        elif word:
-            encodedTitle += ' %s' % word
-
-    encodedTitle = encodedTitle.strip().replace(' ', '+')
-
-    return encodedTitle
-
-
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = generateEncodedTitle(searchTitle)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.replace(' ', '+')
     for searchPageNum in range(1, 3):
-        url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (encodedTitle, searchPageNum)
+        url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (searchData.encoded, searchPageNum)
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "video-thumb") or contains(@class, "item-video")]'):
@@ -37,10 +23,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
                 actorNames.append(actorName)
             actorNames = ', '.join(actorNames)
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s in %s [CherryPimps/%s] %s' % (actorNames, titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
@@ -73,7 +59,6 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Release Date
     date = detailsPageElements.xpath('//div[@class="info-block_data"]//p[@class="text"] | //div[@class="update-info-row"]')[0].text_content().split('|')[0].replace('Added', '').replace(':', '').strip()
     if date:
-        Log(date)
         date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year

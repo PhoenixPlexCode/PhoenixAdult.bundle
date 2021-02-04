@@ -2,10 +2,10 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.lower().split('and ')[0].strip().replace(' ', '-')
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.lower().split('and ')[0].strip().replace(' ', '-')
     for page in range(1, 5):
-        req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle, page))
+        req = PAutils.HTTPRequest('%s%s/?p=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, page))
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[@class="panel-body"]'):
             actorList = []
@@ -21,10 +21,10 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
 
             releaseDate = parse(searchResult.xpath('.//span[@class="available-date"]')[0].text_content().strip()).strftime('%m-%d-%y')
 
-            if searchDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), firstActor.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), firstActor.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Tonight\'s Girlfriend] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
@@ -57,7 +57,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = 'https:' +  actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
+        actorPhotoURL = 'https:' + actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -110,7 +110,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Posters/Background
     art = [
-         'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
+        'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
     ]
 
     Log('Artwork found: %d' % len(art))

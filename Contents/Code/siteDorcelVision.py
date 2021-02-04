@@ -2,14 +2,14 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//a[contains(@class, "movies")]'):
         titleNoFormatting = searchResult.xpath('.//img/@alt')[0].strip()
         curID = PAutils.Encode(searchResult.get('href'))
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
@@ -64,7 +64,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorsBox = detailsPageElements.xpath('//div[@class="col-xs-12 casting"]')[0].xpath('//div[contains(@class,"slider-xl")]')[0]
+    actorsBox = detailsPageElements.xpath('//div[@class="col-xs-12 casting"]')[0].xpath('//div[contains(@class, "slider-xl")]')[0]
     actors = actorsBox.xpath('//div[@class="col-xs-2"]/a[@class="link oneline"]')
     for actorLink in actors:
         actorName = str(actorLink.text_content().strip())
@@ -80,7 +80,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     try:
-        poster = detailsPageElements.xpath('//div[contains(@class,"covers")]/a[contains(@class,"cover")]/@href')[0].strip()
+        poster = detailsPageElements.xpath('//div[contains(@class, "covers")]/a[contains(@class, "cover")]/@href')[0].strip()
         coverURL = (PAsearchSites.getSearchBaseURL(siteNum) + poster).replace('https:', 'http:')
         art.append(coverURL)
     except:
@@ -88,7 +88,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     try:
         photoBoxA = detailsPageElements.xpath('//div[@class="slider-part screenshots"]')[0]
-        photoBoxB = photoBoxA.xpath('//div[contains(@class,"slider-xl")]/div[@class="slides"]/div[@class="col-xs-2"]/a/@href')
+        photoBoxB = photoBoxA.xpath('//div[contains(@class, "slider-xl")]/div[@class="slides"]/div[@class="col-xs-2"]/a/@href')
 
         for photo in photoBoxB:
             photoURL = (PAsearchSites.getSearchBaseURL(siteNum) + photo.strip()).replace('https:', 'http:').replace('blur9/', '/')

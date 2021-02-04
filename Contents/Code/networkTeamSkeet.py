@@ -1,4 +1,4 @@
-import PAsearchSites 
+import PAsearchSites
 import PAutils
 
 
@@ -31,11 +31,11 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     return None
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    directURL = searchTitle.replace(' ', '-').lower()
+def search(results, lang, siteNum, searchData):
+    directURL = searchData.title.replace(' ', '-').replace('\'', '').lower()
 
     searchResults = [directURL]
-    googleResults = PAutils.getFromGoogleSearch(searchTitle, siteNum)
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.split('?', 1)[0]
         sceneName = None
@@ -62,14 +62,14 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             if 'publishedDate' in detailsPageElements:
                 releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
             else:
-                releaseDate = parse(searchDate).strftime('%Y-%m-%d') if searchDate else ''
+                releaseDate = searchData.dateFormat() if searchData.date else ''
 
             displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
 
-            if searchDate and displayDate:
-                score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+            if searchData.date and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, sceneType), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
 

@@ -2,18 +2,18 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    encodedTitle = searchTitle.replace(' ', '-').lower()
-    searchURL = '%s%s/page1.html' % (PAsearchSites.getSearchSearchURL(siteNum), encodedTitle)
+def search(results, lang, siteNum, searchData):
+    searchData.encoded = searchData.title.replace(' ', '-').lower()
+    searchURL = '%s%s/page1.html' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
     req = PAutils.HTTPRequest(searchURL)
     searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[@class="content"][.//*[contains(@src,"video")]]'):
+    for searchResult in searchResults.xpath('//div[@class="content"][.//*[contains(@src, "video")]]'):
         titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//div[@class="vtitle"]')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//a/@href')[0]
         curID = PAutils.Encode(sceneURL)
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 

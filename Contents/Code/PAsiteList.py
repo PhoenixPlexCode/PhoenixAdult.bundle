@@ -151,9 +151,15 @@ import sitePutalocura
 import siteMelenaMariaRya
 import networkPervCity
 import networkAbbyWinters
-import siteTalesFromTheEdge
+import siteNewSensationsOther
 import networkDerangedDollars
 import siteDickDrainers
+import siteAlsAngels
+import siteWatch4Beauty
+import siteFemjoy
+import networkThickCash
+import networkPornCZ
+import networkTopWebModels
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -487,7 +493,7 @@ searchSites = {
     328: ('DigitalPlayground', 'https://www.digitalplayground.com', 'https://site-api.project1service.com'),
     329: ('Throated', 'https://www.blowpass.com', '/en/search/throated/scene/'),
     330: ('Nuru Massage', 'https://www.fantasymassage.com', '/en/search/'),
-    331: ('Nuru Massage', 'https://www.fantasymassage.com', '/en/search/'),
+    331: (),
     332: ('DDF Babes', 'https://ddfnetwork.com', '/videos/freeword/'),
     333: ('SexyHub', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     334: ('Dane Jones', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
@@ -1340,6 +1346,59 @@ searchSites = {
     1181: ('Assylum', 'https://www.assylum.com', '/'),
     1182: ('SlaveMouth', 'https://www.slavemouth.com', '/'),
     1183: ('DickDrainers', 'http://dickdrainers.com', '/tour/search.php?query='),
+    1184: ('ALS Angels', 'http://www.alsangels.com', '/dailyvideos.html'),
+    1185: ('Watch4Beauty', 'https://www.watch4beauty.com', '/models/'),
+    1186: ('Fresh Out Of High School', 'https://freshoutofhighschool.com', '/tour_fohs/search.php?query='),
+    1187: ('The Tabu Tales', 'https://thetabutales.com', '/tour_tt/search.php?query='),
+    1188: ('Shane Diesel\'s Banging Babes', 'https://www.shanedieselsbanginbabes.com', '/tour_sdbb/search.php?query='),
+    1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
+    1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors%2Cdirectors&thumb_size=850x463&query='),
+    1191: ('Lilu Moon', 'https://www.lilumoonx.com', '/sapi/'),
+    1192: ('Family Lust', 'https://www.familylust.com', '/models/'),
+    1193: ('Over 40 Handjobs', 'https://www.over40handjobs.com', '/models/'),
+    1194: ('Ebony Tugs', 'https://ebonytugs.com', '/models/'),
+    1195: ('Teen Tugs', 'https://teentugs.com', '/models/'),
+    1196: ('Czech Sex Casting', 'https://www.czechsexcasting.com', '/en/search-results?value='),
+    1197: ('Sex With Muslims', 'https://www.sexwithmuslims.com', '/en/search-results?value='),
+    1198: ('Sex In Taxi', 'https://www.sexintaxi.com', '/en/search-results?value='),
+    1199: ('VR Porn CZ', 'https://www.vrporncz.com', '/en/search-results?value='),
+    1200: ('Fucking Street', 'https://www.fuckingstreet.com', '/en/search-results?value='),
+    1201: ('Hunter POV', 'https://www.hunterpov.com', '/en/search-results?value='),
+    1202: ('Czech Gypsies', 'https://www.czechgypsies.com', '/en/search-results?value='),
+    1203: ('Dick On Trip', 'https://www.dickontrip.com', '/en/search-results?value='),
+    1204: ('Czech Boobs', 'https://www.czechboobs.com', '/en/search-results?value='),
+    1205: ('Czech Deviant', 'https://www.czechdeviant.com', '/en/search-results?value='),
+    1206: ('Amateri Premium', 'https://www.amateripremium.com', '/en/search-results?value='),
+    1207: ('Fucking Office', 'https://www.fuckingoffice.com', '/en/search-results?value='),
+    1208: ('Czech Executor', 'https://www.czechexecutor.com', '/en/search-results?value='),
+    1209: ('Czech Hitchhikers', 'https://www.czechhitchhikers.com', '/en/search-results?value='),
+    1210: ('Girls Take Away', 'https://www.girlstakeaway.com', '/en/search-results?value='),
+    1211: ('Czech Escort Girls', 'https://www.czechescortgirls.com', '/en/search-results?value='),
+    1212: ('Horny Doctor', 'https://www.hornydoctor.com', '/en/search-results?value='),
+    1213: ('Lady Dee', 'https://www.ladydee.com', '/en/search-results?value='),
+    1214: ('Teen From Bohemia', 'https://www.teenfrombohemia.com', '/en/search-results?value='),
+    1215: ('Czech Real Dolls', 'https://www.czechrealdolls.com', '/en/search-results?value='),
+    1216: ('Amateur From Bohemia', 'https://www.amateursfrombohemia.com', '/en/search-results?value='),
+    1217: ('Czech Anal Sex', 'https://www.czechanalsex.com', '/en/search-results?value='),
+    1218: ('Dellia Twins', 'https://www.dellaitwins.com', '/en/search-results?value='),
+    1219: ('Chloe Lamour', 'https://www.chloelamour.com', '/en/search-results?value='),
+    1220: ('Public From Bohemia', 'https://www.publicfrombohemia.com', '/en/search-results?value='),
+    1221: ('Susan Ayn', 'https://www.susanayn.com', '/en/search-results?value='),
+    1222: ('Horny Girls CZ', 'https://www.hornygirlscz.com', '/en/search-results?value='),
+    1223: ('Czech Sex Party', 'https://www.czechsexparty.com', '/en/search-results?value='),
+    1224: ('Retro Porn CZ', 'https://www.retroporncz.com', '/en/search-results?value='),
+    1225: ('Boys Fuck MILFs', 'https://www.boysfuckmilfs.com', '/en/search-results?value='),
+    1226: ('Czech Bi Porn', 'https://www.czechbiporn.com', '/en/search-results?value='),
+    1227: ('Czech Shemale', 'https://www.czechshemale.com', '/en/search-results?value='),
+    1228: ('Czech Gay City', 'https://www.czechgaycity.com', '/en/search-results?value='),
+    1229: ('Top Web Models', 'https://tour.topwebmodels.com', '/search/'),
+    1230: ('Big Gulp Girls', 'https://tour.biggulpgirls.com', '/search/'),
+    1231: ('2 Girls 1 Camera', 'https://tour.2girls1camera.com', '/search/'),
+    1232: ('Cougar Season', 'https://tour.cougarseason.com', '/search/'),
+    1233: ('Deepthroat Sirens', 'https://tour.deepthroatsirens.com', '/search/'),
+    1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
+    1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
+    1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
 }
 
 abbreviations = (
@@ -1418,6 +1477,7 @@ abbreviations = (
     ('^fhl ', 'FakeHostel '),
     ('^fho ', 'FakehubOriginals '),
     ('^fittingroom ', 'Fitting-Room '),
+    ('^fj ', 'Femjoy '),
     ('^fka ', 'FakeAgent '),
     ('^fm ', 'FuckingMachines '),
     ('^fms ', 'FantasyMassage '),
@@ -1470,8 +1530,8 @@ abbreviations = (
     ('^mfl ', 'Mofos '),
     ('^mfp ', 'MyFamilyPies '),
     ('^mfst ', 'MyFirstSexTeacher '),
-    ('^mgbf ', 'MyGirlfriendsBustyFriend '),
     ('^mgb ', 'MommyGotBoobs '),
+    ('^mgbf ', 'MyGirlfriendsBustyFriend '),
     ('^mic ', 'MomsInControl '),
     ('^mih ', 'MilfHunter '),
     ('^mj ', 'ManoJob '),
@@ -1483,14 +1543,15 @@ abbreviations = (
     ('^mom ', 'MomXXX '),
     ('^mpov ', 'MrPOV '),
     ('^mr ', 'MassageRooms '),
+    ('^mrpov ', 'MisterPOV'),
     ('^mrs ', 'MassageRooms '),
     ('^mshf ', 'MySistersHotFriend '),
     ('^mts ', 'MomsTeachSex '),
     ('^mvft ', 'MyVeryFirstTime '),
     ('^mwhf ', 'MyWifesHotFriend '),
+    ('^na ', 'NaughtyAthletics '),
     ('^naf ', 'NeighborAffair '),
     ('^nam ', 'NaughtyAmerica '),
-    ('^na ', 'NaughtyAthletics '),
     ('^naughtyamericavr ', 'NaughtyAmerica '),
     ('^nb ', 'NaughtyBookworms '),
     ('^news ', 'NewSensations '),
@@ -1510,15 +1571,15 @@ abbreviations = (
     ('^pba ', 'PublicAgent '),
     ('^pc ', 'PrincessCum '),
     ('^pcfnm ', 'PureCFNM '),
-    ('^penthouse ', 'PenthouseGold '),
-    ('^pornditos', 'Culioneros '),
     ('^pdmcl ', 'ChicasLoca '),
+    ('^penthouse ', 'PenthouseGold '),
     ('^pf ', 'PornFidelity '),
     ('^phd ', 'PassionHD '),
     ('^phdp ', 'PetiteHDPorn '),
     ('^plib ', 'PornstarsLikeitBig '),
     ('^pml ', 'PornMegaLoad '),
     ('^pop ', 'PervsOnPatrol '),
+    ('^pornditos', 'Culioneros '),
     ('^ppu ', 'PublicPickups '),
     ('^prdi ', 'PrettyDirty '),
     ('^ps ', 'PropertySex '),
@@ -1533,7 +1594,7 @@ abbreviations = (
     ('^sbj ', 'StreetBlowjobs '),
     ('^seb ', 'SexuallyBroken '),
     ('^sed ', 'SexualDisgrace '),
-    ("^Shes New ", "She's New "),
+    ('^Shes New ', 'She\'s New '),
     ('^sins ', 'SinsLife '),
     ('^sislove ', 'SisLovesMe '),
     ('^smb ', 'ShareMyBF '),
@@ -1554,21 +1615,22 @@ abbreviations = (
     ('^tlhc ', 'TeensLoveHugeCocks '),
     ('^tlib ', 'TeensLikeItBig '),
     ('^tlm ', 'TeensLoveMoney '),
-    ('^togc ', 'TonightsGirlfriendClassic '),
     ('^tog ', 'TonightsGirlfriend '),
+    ('^togc ', 'TonightsGirlfriendClassic '),
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
+    ('^wcx', 'WoodmanCastingX'),
     ('^wfbg ', 'WeFuckBlackGirls '),
     ('^wkp ', 'Wicked '),
     ('^wlt ', 'WeLiveTogether '),
     ('^woc ', 'WildOnCam '),
     ('^wov ', 'WivesOnVacation '),
     ('^wowg ', 'WowGirls '),
-    ('^wy ', 'WebYoung '),
-    ('^wcx', 'WoodmanCastingX'),
     ('^wunf', 'WakeUpNFuck'),
+    ('^wy ', 'WebYoung '),
     ('^ztod ', 'ZeroTolerance '),
     ('^zzs ', 'ZZseries '),
 )
@@ -2427,7 +2489,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteSicflics
 
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075:
+        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191:
             provider = networkModelCentro
 
         # Culioneros
@@ -2514,9 +2576,9 @@ def getProviderFromSiteNum(siteNum):
         elif (1166 <= siteNum <= 1179):
             provider = networkAbbyWinters
 
-        # Tales From the Edge
-        elif siteNum == 1180:
-            provider = siteTalesFromTheEdge
+        # New Sensations Other
+        elif siteNum == 1180 or (1186 <= siteNum <= 1189):
+            provider = siteNewSensationsOther
 
         # Deranged Dollars
         elif (1181 <= siteNum <= 1182):
@@ -2525,5 +2587,29 @@ def getProviderFromSiteNum(siteNum):
         # DickDrainers
         elif siteNum == 1183:
             provider = siteDickDrainers
+
+        # ALS Angels
+        elif siteNum == 1184:
+            provider = siteAlsAngels
+
+        # Watch4Beauty
+        elif siteNum == 1185:
+            provider = siteWatch4Beauty
+
+        # Femjoy
+        elif siteNum == 1190:
+            provider = siteFemjoy
+
+        # Thick Cash
+        elif (1192 <= siteNum <= 1195):
+            provider = networkThickCash
+
+        # PornCZ
+        elif (1196 <= siteNum <= 1228):
+            provider = networkPornCZ
+
+        # Top Web Models
+        elif (1229 <= siteNum <= 1236):
+            provider = networkTopWebModels
 
     return provider

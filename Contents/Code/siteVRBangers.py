@@ -2,14 +2,14 @@ import PAsearchSites
 import PAutils
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+def search(results, lang, siteNum, searchData):
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//article'):
         titleNoFormatting = searchResult.xpath('.//a[@rel="bookmark"]')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
-        score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         if len(titleNoFormatting) > 29:
             titleNoFormatting = titleNoFormatting[:32] + '...'
@@ -54,14 +54,14 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[contains(@class,"video-item-info-tags")]//a'):
+    for genreLink in detailsPageElements.xpath('//div[contains(@class, "video-item-info-tags")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="video-content__download-info"]//div[contains(@class,"video-item-info--starring")]//a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="video-content__download-info"]//div[contains(@class, "video-item-info--starring")]//a'):
         actorName = actorLink.text_content().strip()
 
         actorPageURL = actorLink.get('href')

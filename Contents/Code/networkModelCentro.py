@@ -1,6 +1,5 @@
 import PAsearchSites
 import PAutils
-import re
 
 query = 'content.load?_method=content.load&tz=1&limit=512&transitParameters[v1]=OhUOlmasXD&transitParameters[v2]=OhUOlmasXD&transitParameters[preset]=videos'
 updatequery = 'content.load?_method=content.load&tz=1&filter[id][fields][0]=id&filter[id][values][0]={}&limit=1&transitParameters[v1]=ykYa8ALmUD&transitParameters[preset]=scene'
@@ -29,7 +28,7 @@ def getJSONfromAPI(url):
     return None
 
 
-def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
+def search(results, lang, siteNum, searchData):
     apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/videos/')
     searchResults = getJSONfromAPI(PAsearchSites.getSearchSearchURL(siteNum) + apiurl + query)
 
@@ -38,18 +37,18 @@ def search(results, encodedTitle, searchTitle, siteNum, lang, searchDate):
             sceneID = str(searchResult['id'])
             releaseDate = parse(searchResult.get('sites').get('collection').get(sceneID).get('publishDate')).strftime('%Y-%m-%d')
 
-            if searchDate:
-                delta = abs(parse(searchDate) - parse(releaseDate))
+            if searchData.date:
+                delta = abs(parse(searchData.date) - parse(releaseDate))
                 if delta.days < 2:
                     artobj = PAutils.Encode(json.dumps(searchResult.get('_resources').get('base')))
                     titleNoFormatting = str(searchResult['title'])
-                    score = 100 - Util.LevenshteinDistance(searchDate, releaseDate)
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
                     results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (sceneID, siteNum, titleNoFormatting, artobj),
                                                         name='%s %s [%s]' % (titleNoFormatting, releaseDate, PAsearchSites.getSearchSiteName(siteNum)),
                                                         score=score, lang=lang))
             else:
                 titleNoFormatting = str(searchResult['title'])
-                score = 100 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 if score >= 90:
                     artobj = PAutils.Encode(json.dumps(searchResult.get('_resources').get('base')))
@@ -139,6 +138,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
         baseactor = 'Vicki Valkyrie'
     elif siteNum == 1075:
         baseactor = 'Dillion Harper'
+    elif siteNum == 1191:
+        baseactor = 'Lilu Moon'
     else:
         baseactor = ''
 
