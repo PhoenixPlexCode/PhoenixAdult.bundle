@@ -160,6 +160,7 @@ import siteFemjoy
 import networkThickCash
 import networkPornCZ
 import networkTopWebModels
+import siteMyDirtyHobby
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -386,6 +387,7 @@ searchSites = {
     221: ('A Girl Knows', 'https://letsdoeit.com', '/search.en.html?q='),
     222: ('Porno Academie', 'https://letsdoeit.com', '/search.en.html?q='),
     223: ('Xchimera', 'https://letsdoeit.com', '/search.en.html?q='),
+    224: ('Carne Del Mercado', 'https://mamacitaz.com', '/search.en.html?q='),
     224: ('Carne Del Mercado', 'https://mamacitaz.com', '/search.en.html?q='),
     225: ('XXX Shades', 'https://letsdoeit.com', '/search.en.html?q='),
     226: ('Bums Bus', 'https://letsdoeit.com', '/search.en.html?q='),
@@ -1399,6 +1401,7 @@ searchSites = {
     1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
     1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
     1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
+    1237: ('MyDirtyHobby', 'https://mydirtyhobby.de', '/profil/'),
 }
 
 abbreviations = (
@@ -2611,5 +2614,9 @@ def getProviderFromSiteNum(siteNum):
         # Top Web Models
         elif (1229 <= siteNum <= 1236):
             provider = networkTopWebModels
+
+        # MyDirtyHobby
+        elif siteNum == 1237:
+            provider = siteMyDirtyHobby
 
     return provider
