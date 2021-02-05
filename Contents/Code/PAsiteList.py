@@ -2625,7 +2625,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMyDirtyHobby
 
         # Deviante
-        elif (1238 <= siteNum <= 1243)::
+        elif (1238 <= siteNum <= 1243):
             provider = network1service
 
     return provider
