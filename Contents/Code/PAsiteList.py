@@ -1400,7 +1400,7 @@ searchSites = {
     1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
     1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
     1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
-    1237: ('MyDirtyHobby', 'https://www.mydirtyhobby.com', '/search?searchKeyword='),
+    1237: ('MyDirtyHobby', 'https://en.mydirtyhobby.com', '/search?searchKeyword='),
     1238: ('Deviante', 'https://www.deviante.com', 'https://site-api.project1service.com'),
     1239: ('Forgive Me Father', 'https://www.forgivemefather.com', 'https://site-api.project1service.com'),
     1240: ('Sex Working', 'https://www.sexworking.com', 'https://site-api.project1service.com'),

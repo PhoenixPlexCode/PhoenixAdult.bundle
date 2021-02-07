@@ -1,9 +1,13 @@
 import PAsearchSites
 import PAutils
 
+supported_lang = ['en', 'de', 'fr', 'es', 'it']
+
 
 def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
+    if not lang == 'en' and lang in supported_lang:
+        url = url.replace('://en.', '://%s.' % lang, 1)
 
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
@@ -26,11 +30,15 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
+
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+
+    if not lang == 'en' and lang in supported_lang:
+        sceneURL = sceneURL.replace('://en.', '://%s.' % lang, 1)
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -55,7 +63,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Release Date
     date = detailsPageElements.xpath('//i[contains(@class, "fa-calendar")]/parent::dd')[0].text_content().strip()
     if date:
-        date_object = datetime.strptime(date, '%m/%d/%y')
+        date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 

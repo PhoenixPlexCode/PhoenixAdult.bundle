@@ -47,7 +47,7 @@ def ValidatePrefs():
 
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
-    languages = [Locale.Language.English]
+    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian]
     accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
     primary_provider = True
 
@@ -112,7 +112,7 @@ class PhoenixAdultAgent(Agent.Movies):
         if provider is not None:
             providerName = getattr(provider, '__name__')
             Log('Provider: %s' % providerName)
-            provider.update(metadata, siteNum, movieGenres, movieActors)
+            provider.update(metadata, lang, siteNum, movieGenres, movieActors)
 
         # Cleanup Genres and Add
         Log('Genres')
