@@ -41,14 +41,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[contains(@class, "inner-area")]/div[5]/ul/li'):
+    for genreLink in detailsPageElements.xpath('//div[contains(@class, "inner-area")]/div[3]/div[3]/ul/li/a'):
         genreName = genreLink.text_content().replace('Tags:', '').strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[contains(@class, "inner-area")]/div[4]/ul/li[@class="update_models"]/a')
+    actors = detailsPageElements.xpath('//div[contains(@class, "inner-area")]/div[3]/div[1]/ul/li[@class="update_models"]/a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -72,10 +72,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[contains(@class, "videoInfo")]/p')[0].text_content().replace('Date Added:', '').strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    # date = detailsPageElements.xpath('//div[contains(@class, "videoInfo")]/p')[0].text_content().replace('Date Added:', '').strip()
+    # date_object = parse(date)
+    # metadata.originally_available_at = date_object
+    # metadata.year = metadata.originally_available_at.year
 
     # Posters
     art = []
