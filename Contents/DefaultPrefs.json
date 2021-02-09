@@ -30,6 +30,12 @@
         "default": "Local Storage, Freeones, IAFD, Indexxx, AdultDVDEmpire, Boobpedia, Babes and Stars, Babepedia"
     },
     {
+        "id": "flaresolverr_endpoint",
+        "label": "FlareSolverr Endpoint URL",
+        "type": "text",
+        "default": "http://localhost:8191"
+    },
+    {
         "id": "proxy_enable",
         "label": "Enable Proxy",
         "type": "bool",

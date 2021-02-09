@@ -18,10 +18,40 @@ def getUserAgent():
     return ua.random
 
 
-def bypassCloudflare(url, method, **kwargs):
+def flareSolverrRequest(url, method, **kwargs):
     headers = kwargs.pop('headers', {})
     cookies = kwargs.pop('cookies', {})
-    proxies = kwargs.pop('proxies', {})
+    params = kwargs.pop('params', {})
+
+    if method not in ['GET', 'POST']:
+        return None
+
+    req_params = {
+        'cmd': 'request.%s' % method.lower(),
+        'url': url,
+        'userAgent': headers['User-Agent'] if 'User-Agent' in headers else getUserAgent(),
+        'maxTimeout': 60000,
+        'headers': json.dumps(headers),
+    }
+
+    if method == 'POST':
+        req_params['postData'] = json.dumps(params)
+
+    req = HTTPRequest('%s/v1' % Prefs['flaresolverr_endpoint'], headers={'Content-Type': 'application/json'}, params=json.dumps(req_params), timeout=60, bypass=False)
+    if req.ok:
+        data = req.json()['solution']
+        headers = data['headers']
+        headers['User-Agent'] = data['userAgent']
+        cookies = {cookie['name']: cookie['value'] for cookie in data['cookies']}
+
+        return FakeResponse(req, url, int(data['headers']['status']), data['response'], headers, cookies)
+
+    return None
+
+
+def cloudScraperRequest(url, method, **kwargs):
+    headers = kwargs.pop('headers', {})
+    cookies = kwargs.pop('cookies', {})
     params = kwargs.pop('params', {})
 
     scraper = cloudscraper.CloudScraper()
@@ -81,6 +111,39 @@ def reqBinRequest(url, method, **kwargs):
     return None
 
 
+def HTTPBypass(url, method='GET', **kwargs):
+    method = method.upper()
+    headers = kwargs.pop('headers', {})
+    cookies = kwargs.pop('cookies', {})
+    params = kwargs.pop('params', {})
+    proxies = kwargs.pop('proxies', {})
+
+    req_bypass = None
+
+    if not req_bypass or not req_bypass.ok:
+        Log('FlareSolverr')
+        try:
+            req_bypass = flareSolverrRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    if not req_bypass or not req_bypass.ok:
+        Log('CloudScraper')
+        try:
+            req_bypass = cloudScraperRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    if not req_bypass or not req_bypass.ok:
+        Log('ReqBin')
+        try:
+            req_bypass = reqBinRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    return req_bypass
+
+
 def HTTPRequest(url, method='GET', **kwargs):
     url = getClearURL(url)
     method = method.upper()
@@ -88,6 +151,7 @@ def HTTPRequest(url, method='GET', **kwargs):
     cookies = kwargs.pop('cookies', {})
     params = kwargs.pop('params', {})
     bypass = kwargs.pop('bypass', True)
+    timeout = kwargs.pop('timeout', None)
     allow_redirects = kwargs.pop('allow_redirects', True)
     proxies = {}
 
@@ -108,22 +172,14 @@ def HTTPRequest(url, method='GET', **kwargs):
 
     req = None
     try:
-        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, timeout=timeout, verify=False, allow_redirects=allow_redirects)
     except:
         req = FakeResponse(None, url, 418, None)
 
     req_bypass = None
     if not req.ok and bypass:
         if req.status_code == 403 or req.status_code == 503:
-            Log('%d: trying to bypass with CloudScraper' % req.status_code)
-            try:
-                req_bypass = bypassCloudflare(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
-                if not req_bypass.ok:
-                    raise Exception(req.status_code)
-            except Exception as e:
-                Log('CloudScraper error: %s' % e)
-                Log('Trying through ReqBIN')
-                req_bypass = reqBinRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+            req_bypass = HTTPBypass(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
 
     if req_bypass:
         req = req_bypass
