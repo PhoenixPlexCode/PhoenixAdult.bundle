@@ -6,6 +6,12 @@
         "default": "false"
     },
     {
+        "id": "metadataapi_enable",
+        "label": "Enable using MetadataAPI for unsuccessful search",
+        "type": "bool",
+        "default": "false"
+    },
+    {
         "id": "strip_enable",
         "label": "Enable FileName Strip",
         "type": "bool",
@@ -28,18 +34,6 @@
         "label": "Order List",
         "type": "text",
         "default": "Local Storage, Freeones, IAFD, Indexxx, AdultDVDEmpire, Boobpedia, Babes and Stars, Babepedia"
-    },
-    {
-        "id": "flaresolverr_endpoint",
-        "label": "FlareSolverr Endpoint URL",
-        "type": "text",
-        "default": "http://localhost:8191"
-    },
-    {
-        "id": "metadataapi_enable",
-        "label": "Enable using MetadataAPI for unsuccessful search",
-        "type": "bool",
-        "default": "false"
     },
     {
         "id": "proxy_enable",
@@ -70,6 +64,12 @@
         "label": "Proxy Port",
         "type": "text",
         "default": "9050"
+    },
+    {
+        "id": "flaresolverr_endpoint",
+        "label": "FlareSolverr Endpoint URL",
+        "type": "text",
+        "default": "http://localhost:8191"
     },
     {
         "id": "captcha_enable",
