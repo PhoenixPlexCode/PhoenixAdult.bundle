@@ -36,6 +36,12 @@
         "default": "http://localhost:8191"
     },
     {
+        "id": "metadataapi_enable",
+        "label": "Enable using MetadataAPI for unsuccessful search",
+        "type": "bool",
+        "default": "false"
+    },
+    {
         "id": "proxy_enable",
         "label": "Enable Proxy",
         "type": "bool",

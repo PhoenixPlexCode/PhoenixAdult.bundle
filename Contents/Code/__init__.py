@@ -92,14 +92,15 @@ class PhoenixAdultAgent(Agent.Movies):
                 Log('Provider: %s' % providerName)
                 provider.search(results, lang, siteNum, search)
 
-            if not results or 100 != max([result.score for result in results]):
-                siteNum = PAsearchSites.getSiteNumByFilter('MetadataAPI')
-                if siteNum is not None:
-                    provider = PAsiteList.getProviderFromSiteNum(siteNum)
-                    if provider is not None:
-                        providerName = getattr(provider, '__name__')
-                        Log('Provider: %s' % providerName)
-                        provider.search(results, lang, siteNum, search)
+                if Prefs['metadataapi_enable']:
+                    if providerName != 'networkMetadataAPI' and (not results or 100 != max([result.score for result in results])):
+                        siteNum = PAsearchSites.getSiteNumByFilter('MetadataAPI')
+                        if siteNum is not None:
+                            provider = PAsiteList.getProviderFromSiteNum(siteNum)
+                            if provider is not None:
+                                providerName = getattr(provider, '__name__')
+                                Log('Provider: %s' % providerName)
+                                provider.search(results, lang, siteNum, search)
 
         results.Sort('score', descending=True)
 
