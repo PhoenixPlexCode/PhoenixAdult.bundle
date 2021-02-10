@@ -83,7 +83,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]/img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
     movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')
