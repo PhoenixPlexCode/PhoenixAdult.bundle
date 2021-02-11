@@ -100,7 +100,10 @@ class PhoenixAdultAgent(Agent.Movies):
                             if provider is not None:
                                 providerName = getattr(provider, '__name__')
                                 Log('Provider: %s' % providerName)
-                                provider.search(results, lang, siteNum, search)
+                                try:
+                                    provider.search(results, lang, siteNum, search)
+                                except Exception as e:
+                                    Log(e)
 
         results.Sort('score', descending=True)
 
