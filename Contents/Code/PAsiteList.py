@@ -1324,7 +1324,7 @@ searchSites = {
     1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
     1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
     1159: ('Melena Maria Rya', 'https://www.melenamariarya.com', '/scene/'),
-    1160: ('Anal Overdose', 'https://filthyfamily.com', '/'),
+    1160: ('Anal Overdose', 'https://analoverdose.com', '/'),
     1161: ('Banging Beauties', 'https://www.bangingbeauties.com', '/'),
     1162: ('Chocolate BJs', 'https://www.chocolatebjs.com', '/'),
     1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
