@@ -6,10 +6,13 @@ supported_lang = ['en', 'de', 'fr', 'es', 'it']
 
 def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
-    if not lang == 'en' and lang in supported_lang:
-        url = url.replace('://en.', '://%s.' % lang, 1)
 
-    req = PAutils.HTTPRequest(url)
+    headers = {}
+    if lang in supported_lang:
+        url = url.replace('://en.', '://%s.' % lang, 1)
+        headers['Accept-Language'] = lang
+
+    req = PAutils.HTTPRequest(url, headers=headers)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@id="search-results"]//li[contains(@class, "video-panel-item")]'):
         sceneURL = searchResult.xpath('.//a/@href')[0]
@@ -37,10 +40,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
 
-    if not lang == 'en' and lang in supported_lang:
+    headers = {}
+    if lang in supported_lang:
         sceneURL = sceneURL.replace('://en.', '://%s.' % lang, 1)
+        headers['Accept-Language'] = lang
 
-    req = PAutils.HTTPRequest(sceneURL)
+    req = PAutils.HTTPRequest(sceneURL, headers=headers)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
