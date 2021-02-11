@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//li[.//div[@class="time-infos"]]//a'):
-        siteName = 'WowGirlsBlog.com'
+        siteName = PAsearchSites.getSearchSiteName(siteNum) 
         titleNoFormatting = searchResult.xpath('./@title')[0].strip()
         curID = PAutils.Encode(searchResult.xpath('./@href')[0])
 
