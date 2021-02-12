@@ -1140,9 +1140,9 @@ searchSites = {
     973: ('We Need New Talents', 'https://teencoreclub.com', '/video/'),
     974: ('X Core Club', 'https://teencoreclub.com', '/video/'),
     975: ('Blackmailed', 'https://www.evilangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', ''),
-    977: ('Black Ambush', 'https://blackambush.com', ''),
-    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', ''),
+    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', '/site/search.php?query='),
+    977: ('Black Ambush', 'https://blackambush.com', '/search.php?query='),
+    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', '/site/search.php?query='),
     979: ('Desperate Amateurs', 'https://desperateamateurs.com', '/fintour/search.php?st=advanced&qall='),
     980: ('Bang My Hand', 'http://www.bangmyhand.com', '/tour1/'),
     981: ('Dirty Sluts and Studs', 'http://www.dirtyharddrive.com', '/tour1/'),
@@ -1408,6 +1408,8 @@ searchSites = {
     1241: ('Pretty Dirty Teens', 'https://www.prettydirtyteens.com', 'https://site-api.project1service.com'),
     1242: ('Love Her Ass', 'https://www.loveherass.com', 'https://site-api.project1service.com'),
     1243: ('Erotic Spice', 'https://www.eroticspice.com', 'https://site-api.project1service.com'),
+    1244: ('I Kiss Girls', 'https://www.ikissgirls.com', '/search.php?query='),
+    1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
 }
 
 abbreviations = (
@@ -2281,9 +2283,9 @@ def getProviderFromSiteNum(siteNum):
         elif (837 <= siteNum <= 839):
             provider = networkTwoWebMedia
 
-        # Interracial Pass
-        elif siteNum == 840:
-            provider = siteInterracialPass
+        # Interracial Pass / ExploitedX / I Kiss Girls
+        elif siteNum == 840 or (976 <= siteNum <= 978) or siteNum == 1244:
+        provider = siteInterracialPass
 
         # LookAtHerNow
         elif siteNum == 841:
@@ -2449,10 +2451,6 @@ def getProviderFromSiteNum(siteNum):
         elif (943 <= siteNum <= 974):
             provider = networkTeenCoreClub
 
-        # Exploited X
-        elif (976 <= siteNum <= 978):
-            provider = networkExploitedX
-
         # Desperate Amateurs
         elif (siteNum == 979):
             provider = siteDesperateAmateurs
@@ -2502,7 +2500,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteSicflics
 
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191:
+        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
             provider = networkModelCentro
 
         # Culioneros
