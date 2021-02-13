@@ -1413,6 +1413,9 @@ searchSites = {
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
     1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
     1248: ('My Pervy Family', 'https://www.mypervyfamily.com/', '/MemberSceneSearch?q='),
+    1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
+    1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
+    1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
 }
 
 abbreviations = (
@@ -1832,7 +1835,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251):
             provider = networkTeamSkeet
 
         # Porndoe Premium
