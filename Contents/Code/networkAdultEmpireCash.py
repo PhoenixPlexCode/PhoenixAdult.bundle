@@ -29,7 +29,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip()
 
     # Tagline and Collection(s)
-    metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
+    metadata.collections.add('AdultEmpireCash')
 
     # Studio
     metadata.studio = detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip()
