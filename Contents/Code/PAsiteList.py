@@ -82,7 +82,7 @@ import siteAmourAngels
 import networkR18
 import networkBang
 import siteVivid
-import siteJaysPOV
+import networkAdultEmpireCash
 import siteBAMVisions
 import sitePJGirls
 import siteSinsLife
@@ -1412,6 +1412,7 @@ searchSites = {
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
     1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
+    1248: ('My Pervy Family', 'https://www.mypervyfamily.com/', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -2262,9 +2263,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 814:
             provider = siteVivid
 
-        # JAY's POV
-        elif siteNum == 815:
-            provider = siteJaysPOV
+        # AdultEmpireCash Network
+        elif siteNum == 815 or siteNum == 1248:
+            provider = networkAdultEmpireCash
 
         # PJGirls
         elif siteNum == 667:
