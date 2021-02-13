@@ -1410,6 +1410,7 @@ searchSites = {
     1243: ('Erotic Spice', 'https://www.eroticspice.com', 'https://site-api.project1service.com'),
     1244: ('I Kiss Girls', 'https://www.ikissgirls.com', '/search.php?query='),
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
+    1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
 }
 
 abbreviations = (
@@ -1972,7 +1973,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkNubiles
 
         # BellaPass
-        elif (548 <= siteNum <= 563):
+        elif (548 <= siteNum <= 563) or siteNum == 1246:
             provider = networkBellaPass
 
         # AllureMedia
