@@ -782,7 +782,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Sex With Muslims
   - Susan Ayn
   - Teen From Bohemia
-  - VR Porn CZ
+  - VR Porn CZ
 + #### Porndoe Premium Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - A Girl Knows
   - Badtime Stories
