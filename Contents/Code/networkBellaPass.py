@@ -3,25 +3,22 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "item-video")]'):
-        titleNoFormatting = searchResult.xpath('./div[1]/a/@title')[0].strip()
-        curID = PAutils.Encode('http:' + searchResult.xpath('./div[1]/a/@href')[0])
-
-        if searchData.date:
-            releaseDate = searchData.dateFormat()
-        else:
-            releaseDate = ''
-
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
-
     searchData.encoded = searchData.title.lower().replace(' ', '-')
     directURL = PAsearchSites.getSearchSearchURL(siteNum).replace('/search.php?query=', '/trailers/') + searchData.encoded + '.html'
 
     directResults = [directURL]
+
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    searchResults = HTML.ElementFromString(req.text)
+    for searchResult in searchResults.xpath('//div[contains(@class, "item-video")]'):
+        sceneURL = searchResult.xpath('./div[1]//a/@href')[0]
+
+        time = searchResult.xpath('.//div[contains(@class, "time")]/text()')[0].strip()
+        if time.replace(':', '').isdigit():
+            if not sceneURL.startswith('http'):
+                sceneURL = 'http:' + sceneURL
+            directResults.append(sceneURL)
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if '/trailers/' in sceneURL and sceneURL not in searchResults:
@@ -43,7 +40,7 @@ def search(results, lang, siteNum, searchData):
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
         except:
             pass
 
@@ -63,10 +60,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h3')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "videoDetails")]//p')[0].text_content().strip()
+    description = detailsPageElements.xpath('//div[contains(@class, "videoDetails")]//p')
+    if len(description):
+        metadata.summary = description[0].text_content().strip()
 
     # Studio
-    metadata.studio = "Hussie Pass" if PAsearchSites.getSearchSiteName(siteNum) == "Hussie Pass" else 'BellaPass'
+    if PAsearchSites.getSearchSiteName(siteNum) == "Hussie Pass" or "Babe Archives":
+        metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    else:
+        metadata.studio = 'BellaPass'
 
     # Tagline and Collection(s)
     metadata.collections.clear()

@@ -1411,6 +1411,7 @@ searchSites = {
     1244: ('I Kiss Girls', 'https://www.ikissgirls.com', '/search.php?query='),
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
+    1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -1632,6 +1633,7 @@ abbreviations = (
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^viparea ', 'Babe Archives '),
     ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
     ('^wcx', 'WoodmanCastingX'),
@@ -1973,7 +1975,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkNubiles
 
         # BellaPass
-        elif (548 <= siteNum <= 563) or siteNum == 1246:
+        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247):
             provider = networkBellaPass
 
         # AllureMedia
