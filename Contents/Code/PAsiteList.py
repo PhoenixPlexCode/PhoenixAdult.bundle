@@ -1417,6 +1417,7 @@ searchSites = {
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
     1252: ('AmateurBoxxx', 'https://tour.amateurboxxx.com', '/search.php?query='),
+    1253: ('AnalOnly', 'https://tour.analonly.com', '/view/'),
 }
 
 abbreviations = (
@@ -2175,8 +2176,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 765:
             provider = siteCumLouder
 
-        # AllAnal
-        elif siteNum == 767:
+        # AllAnal / AnalOnly
+        elif siteNum == 767 or siteNum == 1253:
             provider = networkSteppedUp
 
         # ZeroTolerance
