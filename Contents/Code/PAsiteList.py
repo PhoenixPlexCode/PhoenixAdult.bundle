@@ -1416,6 +1416,7 @@ searchSites = {
     1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
+    1252: ('AmateurBoxxx', 'https://tour.amateurboxxx.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -2042,8 +2043,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv
-        elif siteNum == 672 or siteNum == 673:
+        # MissaX / AllHerLuv / AmateurBoxxx
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252:
             provider = siteMissaX
 
         # Mylf
