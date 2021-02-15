@@ -907,7 +907,7 @@ searchSites = {
     740: ('Mofos Lab', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     741: ('Straplezz', 'https://straplezz.com', '/updates/'),
     742: ('LittleCaprice', 'https://www.littlecaprice-dreams.com', '/?s='),
-    743: ('WowGirls', 'https://www.wowgirls.xxx', '/?s='),
+    743: ('WowGirls', 'https://www.wowgirlsblog.com', '/?s='),
     744: ('VIPissy', 'https://www.vipissy.com', '/updates?search='),
     745: ('GirlsOutWest', 'https://tour.girlsoutwest.com', '/trailers/'),
     746: ('Girls Rimming', 'https://www.girlsrimming.com', '/tour/trailers/'),
