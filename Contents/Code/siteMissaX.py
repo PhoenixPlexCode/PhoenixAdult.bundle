@@ -92,13 +92,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters/Background
-    art = detailsPageElements.xpath('//img[contains(@class, "update_thumb")]/@src0_4x')
-    art.append(detailsPageElements.xpath('//img[contains(@class, "update_thumb")]/@src0_1x')[0])
+    art = []
+    xpaths = [
+        '//img[contains(@class, "update_thumb")]/@src0_4x',
+        '//img[contains(@class, "update_thumb")]/@src0_1x',
+    ]
+
+    for xpath in xpaths:
+        for img in detailsPageElements.xpath(xpath):
+            if not img.startswith('http'):
+                img = PAsearchSites.getSearchBaseURL(siteNum) + '/' + img
+            art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
-        if not posterUrl.startswith('http'):
-            posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + '/' + posterUrl
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:

@@ -61,11 +61,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Summary
     description = detailsPageElements.xpath('//div[contains(@class, "videoDetails")]//p')
-    if len(description):
+    if description:
         metadata.summary = description[0].text_content().strip()
 
     # Studio
-    if PAsearchSites.getSearchSiteName(siteNum) == "Hussie Pass" or "Babe Archives":
+    if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives']:
         metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     else:
         metadata.studio = 'BellaPass'
@@ -114,7 +114,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if date:
         releaseDate = parse(date[0].strip()).strftime('%Y-%m-%d')
     else:
-        releaseDate = sceneDate.dateFormat() if sceneDate else ''
+        releaseDate = sceneDate
+
     if releaseDate:
         date_object = parse(releaseDate)
         metadata.originally_available_at = date_object
@@ -122,27 +123,36 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Posters
     art = []
-    setID = detailsPageElements.xpath('//img[contains(@class, "thumbs")]/@id | //div[contains(@class, "item-thumb")]//img/@id')[0]
+    xpaths = [
+        '//img[contains(@class, "thumbs")]/@src0_3x',
+        '//div[contains(@class, "item-thumb")]//img/@src0_3x',
+    ]
 
-    imgs = detailsPageElements.xpath('//img[contains(@class, "thumbs")]/@src0_3x | //div[contains(@class, "item-thumb")]//img/@src0_3x')
-    for img in imgs:
-        art.append(PAsearchSites.getSearchBaseURL(siteNum) + img)
+    for xpath in xpaths:
+        for img in detailsPageElements.xpath(xpath):
+            if not img.startswith('http'):
+                img = PAsearchSites.getSearchBaseURL(siteNum) + img
+            art.append(img)
 
-    # Search Page
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + metadata.title.replace(' ', '+'))
-    searchPageElements = HTML.ElementFromString(req.text)
-    cnt = searchPageElements.xpath('//img[@id="%s"]/@cnt' % setID)
-    if cnt:
-        for i in range(int(cnt[0])):
-            img = searchPageElements.xpath('//img[@id="%s"]/@src%d_3x' % (setID, i))
-            if img:
-                art.append(PAsearchSites.getSearchBaseURL(siteNum) + img[0])
+    setID = detailsPageElements.xpath('//img[contains(@class, "thumbs")]/@id | //div[contains(@class, "item-thumb")]//img/@id')
+    if setID:
+        setID = setID[0]
 
-    # Photo page
-    req = PAutils.HTTPRequest(sceneURL.replace('/trailers/', '/preview/'))
-    photoPageElements = HTML.ElementFromString(req.text)
-    for image in photoPageElements.xpath('//img[@id="%s"]/@src0_3x' % setID):
-        art.append(PAsearchSites.getSearchBaseURL(siteNum) + image)
+        # Search Page
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + metadata.title.replace(' ', '+'))
+        searchPageElements = HTML.ElementFromString(req.text)
+        cnt = searchPageElements.xpath('//img[@id="%s"]/@cnt' % setID)
+        if cnt:
+            for i in range(int(cnt[0])):
+                img = searchPageElements.xpath('//img[@id="%s"]/@src%d_3x' % (setID, i))
+                if img:
+                    art.append(PAsearchSites.getSearchBaseURL(siteNum) + img[0])
+
+        # Photo page
+        req = PAutils.HTTPRequest(sceneURL.replace('/trailers/', '/preview/'))
+        photoPageElements = HTML.ElementFromString(req.text)
+        for image in photoPageElements.xpath('//img[@id="%s"]/@src0_3x' % setID):
+            art.append(PAsearchSites.getSearchBaseURL(siteNum) + image)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

@@ -36,7 +36,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Director
     directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
-    if len(directorElement):
+    if directorElement:
         director = metadata.directors.new()
         directorName = directorElement[0].strip()
         director.name = directorName
