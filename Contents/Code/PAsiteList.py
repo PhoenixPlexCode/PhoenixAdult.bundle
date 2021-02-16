@@ -1420,6 +1420,7 @@ searchSites = {
     1253: ('AnalOnly', 'https://tour.analonly.com', '/view/'),
     1254: ('Exposed Whores', 'https://exposedwhores.com/new-tour', '/search.php?query='),
     1255: ('She Seduced Me', 'https://www.sheseducedme.com', '/search.php?query='),
+    1256: ('Family Swap', 'https://nubiles-porn.com', '/video/website/52/'),
 }
 
 abbreviations = (
@@ -1979,7 +1980,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996):
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256:
             provider = networkNubiles
 
         # BellaPass
