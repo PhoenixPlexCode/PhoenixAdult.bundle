@@ -59,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Release Date
     try:
-        date = detailsPageElements.xpath('//span[@class="update_date"] | //span[contains(@class, "availdate")]')[0].text_content().strip()
+        date = detailsPageElements.xpath('//span[@class="update_date"] | //span[contains(@class, "availdate")]')[0].text_content().replace('Available to Members Now','').strip()
     except:
         date = detailsPageElements.xpath('//p[@class="dvd-scenes__data"]')[0].text_content().split('|')[1].replace('Added:', '').strip()
 
@@ -77,9 +77,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('//img[contains(@class, "model_bio_thumb")]/@src0_1x')[0]
-        if not actorPhotoURL.startswith('http'):
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+        actorPhotoURL = ''
+        actorPhotoElement = actorPageElements.xpath('//img[contains(@class, "model_bio_thumb")]/@src0_1x')
+        if actorPhotoElement:
+            actorPhotoURL = actorPhotoElement[0]
+            if not actorPhotoURL.startswith('http'):
+                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
 
