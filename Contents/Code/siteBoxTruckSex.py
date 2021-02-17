@@ -96,8 +96,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genre in detailsPageElements.xpath('//h5[contains(@class, "video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
-        movieGenres.addGenre(genre.strip())
+    for genreLink in detailsPageElements.xpath('//h5[contains(@class, "video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = []

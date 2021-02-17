@@ -59,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Release Date
     try:
-        date = detailsPageElements.xpath('//span[@class="update_date"] | //span[contains(@class, "availdate")]')[0].text_content().replace('Available to Members Now','').strip()
+        date = detailsPageElements.xpath('//span[@class="update_date"] | //span[contains(@class, "availdate")]')[0].text_content().replace('Available to Members Now', '').strip()
     except:
         date = detailsPageElements.xpath('//p[@class="dvd-scenes__data"]')[0].text_content().split('|')[1].replace('Added:', '').strip()
 

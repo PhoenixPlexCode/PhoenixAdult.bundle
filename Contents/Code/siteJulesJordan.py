@@ -140,7 +140,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         photoPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Photos"]')[0].get('href')
         req = PAutils.HTTPRequest(photoPageURL)
         photoPageElements = HTML.ElementFromString(req.text)
-        bigScript = photoPageElements.xpath('//script[contains(text(),"var ptx")]')[0].text_content()
+        bigScript = photoPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
         ptx1600starts = bigScript.find('1600')
         ptx1600ends = bigScript.find('togglestatus', ptx1600starts)
         ptx1600 = bigScript[ptx1600starts:ptx1600ends]
@@ -163,7 +163,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         capsPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Caps"]')[0].get('href')
         req = PAutils.HTTPRequest(capsPageURL)
         capsPageElements = HTML.ElementFromString(req.text)
-        bigScript = capsPageElements.xpath('//script[contains(text(),"var ptx")]')[0].text_content()
+        bigScript = capsPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
         ptxjpgstarts = bigScript.find('ptx["jpg"] = {};')
         ptxjpgends = bigScript.find('togglestatus', ptxjpgstarts)
         ptxjpg = bigScript[ptxjpgstarts:ptxjpgends]

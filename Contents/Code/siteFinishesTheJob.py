@@ -64,8 +64,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//section[@class="scene-content"]//p[1]//a')
-    for genre in genres:
-        movieGenres.addGenre(genre.text_content())
+    for genreLink in genres:
+        genreName = genreLink.text_content().strip()
+
+        movieGenres.addGenre(genreName)
 
     # Poster
     art = []

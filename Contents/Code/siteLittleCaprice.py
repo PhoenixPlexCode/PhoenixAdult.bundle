@@ -52,7 +52,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[contains(@class, "et_pb_text_align_left")]/ul/li[contains(.,"Models")]/a')
+    actors = detailsPageElements.xpath('//div[contains(@class, "et_pb_text_align_left")]/ul/li[contains(., "Models")]/a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')

@@ -60,14 +60,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//h5[contains(text(),"Categories:")]/a'):
+    for genreLink in detailsPageElements.xpath('//h5[contains(text(), "Categories:")]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//h4[contains(text(),"Starring:")]/a'):
+    for actorLink in detailsPageElements.xpath('//h4[contains(text(), "Starring:")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 

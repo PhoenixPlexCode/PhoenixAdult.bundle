@@ -151,8 +151,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if (len(actors) > 1) and subSite != 'Mylfed':
         genres.append('Threesome')
 
-    for genre in genres:
-        movieGenres.addGenre(genre)
+    for genreLink in genres:
+        genreName = genreLink
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = [

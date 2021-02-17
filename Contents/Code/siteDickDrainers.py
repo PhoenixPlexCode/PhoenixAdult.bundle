@@ -55,7 +55,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//li[contains(.,"Tags")]//parent::ul//a'):
+    for genreLink in detailsPageElements.xpath('//li[contains(., "Tags")]//parent::ul//a'):
         genreName = PAutils.parseTitle(genreLink.text_content().strip(), siteNum)
 
         movieGenres.addGenre(genreName)

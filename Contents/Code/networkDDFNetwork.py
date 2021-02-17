@@ -93,9 +93,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actor in detailsPageElements.xpath('//div[contains(@class, "pornstar-card")]//img'):
-        actorName = actor.xpath('.//../@title')[0]
-        actorPhotoURL = 'http:' + actor.get('data-src')
+    for actorLink in detailsPageElements.xpath('//div[contains(@class, "pornstar-card")]//img'):
+        actorName = actorLink.xpath('.//../@title')[0]
+        actorPhotoURL = 'http:' + actorLink.get('data-src')
 
         movieActors.addActor(actorName, actorPhotoURL)
 

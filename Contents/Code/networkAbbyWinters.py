@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
         subSite = PAutils.parseTitle(detailsPageElements.xpath('//div[@id="shoot-featured-image"]//h4')[0].text_content().strip(), siteNum)
         curID = PAutils.Encode(sceneURL)
 
-        modelURL = detailsPageElements.xpath('//tr[contains(.,"Scene")]//a/@href')[0]
+        modelURL = detailsPageElements.xpath('//tr[contains(., "Scene")]//a/@href')[0]
         if not modelURL == prevModelURL:
             req = PAutils.HTTPRequest(modelURL)
             actorPageElements = HTML.ElementFromString(req.text)
@@ -87,7 +87,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//tr[contains(.,"Scene")]//a'):
+    for actorLink in detailsPageElements.xpath('//tr[contains(., "Scene")]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 

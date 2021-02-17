@@ -66,8 +66,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actor in sceneActors.split(','):
-        actorName = actor.strip()
+    for actorLink in sceneActors.split(','):
+        actorName = actorLink.strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)

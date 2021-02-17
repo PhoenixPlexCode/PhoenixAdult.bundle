@@ -74,8 +74,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if tagline == 'KarupsOW':
         genres = ['MILF']
 
-    for genre in genres:
-        movieGenres.addGenre(genre)
+    for genreLink in genres:
+        genreName = genreLink
+
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()

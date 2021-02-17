@@ -97,8 +97,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actor in detailsPageElements.xpath('//div[@itemprop="actors"]//span[@itemprop="name"]'):
-        fullActorName = actor.text_content().strip()
+    for actorLink in detailsPageElements.xpath('//div[@itemprop="actors"]//span[@itemprop="name"]'):
+        fullActorName = actorLink.text_content().strip()
         if fullActorName != '----':
             splitActorName = fullActorName.split('(')
             mainName = splitActorName[0].strip()

@@ -181,8 +181,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genre in genres.split(','):
-        movieGenres.addGenre(genre.strip())
+    for genreLink in genres.split(','):
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = []

@@ -95,7 +95,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieGenres.addGenre('Orgy')
 
         for actorLink in actors:
-            actorName = str(actorLink.text_content().strip())
+            actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
             actorPageURL = 'https://18onlygirls.tv/models/' + actorName.replace(' ', '-')
