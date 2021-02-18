@@ -52,9 +52,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Release Date
-    date = detailsPageElements.xpath('//meta[@itemprop="uploadDate"]')[0].get('content')
+    date = detailsPageElements.xpath('//meta[@itemprop="uploadDate"]/@content')
     if date:
-        date_object = datetime.strptime(date, '%m/%d/%Y')
+        date_object = datetime.strptime(date[0], '%d/%m/%Y')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
     elif sceneDate:
