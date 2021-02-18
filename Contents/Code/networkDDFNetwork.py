@@ -50,7 +50,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     sceneURL = PAutils.Decode(metadata_id[0])
     if 'http' not in sceneURL:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
-    scenePoster = PAutils.Decode(metadata_id[2])
+    scenePoster = PAutils.Decode(metadata_id[2]) if len(metadata_id) > 2 else None
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
