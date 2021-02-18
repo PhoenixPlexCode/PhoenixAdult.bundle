@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(url)
         titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, ''), name=titleNoFormatting, score=100, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=100, lang=lang))
     else:
         searchData.encoded = searchData.title.replace(' ', '+')
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
@@ -50,7 +50,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     sceneURL = PAutils.Decode(metadata_id[0])
     if 'http' not in sceneURL:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
-    scenePoster = PAutils.Decode(metadata_id[2])
+    scenePoster = PAutils.Decode(metadata_id[2]) if len(metadata_id) > 2 else None
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
