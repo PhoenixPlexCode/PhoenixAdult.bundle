@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(url)
         titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=100, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, ''), name=titleNoFormatting, score=100, lang=lang))
     else:
         searchData.encoded = searchData.title.replace(' ', '+')
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
