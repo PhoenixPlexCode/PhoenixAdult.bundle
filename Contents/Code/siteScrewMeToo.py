@@ -29,7 +29,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -96,8 +96,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genre in detailsPageElements.xpath('//div[@class="amp-category"]')[0].text_content().split('\n'):
-        movieGenres.addGenre(genre.strip())
+    for genreLink in detailsPageElements.xpath('//div[@class="amp-category"]')[0].text_content().split('\n'):
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = []

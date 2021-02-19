@@ -22,7 +22,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -67,8 +67,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     movieGenres.addGenre(cat)
     # Related Categories / Keywords
     genreList = []
-    for genre in detailsPageElements.xpath('//span[@class="relatedCatLinks"]//a'):
-        genreName = genre.text_content().strip().lower()
+    for genreLink in detailsPageElements.xpath('//span[@class="relatedCatLinks"]//a'):
+        genreName = genreLink.text_content().strip().lower()
 
         genreList.append(genreName)
     # Add Actors
@@ -81,9 +81,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
     #  Klixen
     elif 'KLIXEN' in tagline:
         actors = detailsPageElements.xpath('//span[contains(., "Keywords:")]/following-sibling::span//a')
-        for actor in actors:
-            actorName = str(actor.text_content().strip())
+        for actorLink in actors:
+            actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
+
             genreList.remove(actorName)
             movieActors.addActor(actorName, actorPhotoURL)
 

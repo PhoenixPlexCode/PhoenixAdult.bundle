@@ -40,7 +40,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -65,8 +65,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genre in detailsPageElements.xpath('//span[@class="categories"]//strong'):
-        genreName = genre.text_content().replace(',', '').strip()
+    for genreLink in detailsPageElements.xpath('//span[@class="categories"]//strong'):
+        genreName = genreLink.text_content().replace(',', '').strip()
         if genreName == 'Sodomy':
             genreName = 'Anal'
 

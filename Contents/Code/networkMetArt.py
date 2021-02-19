@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -55,17 +55,17 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genre in detailsPageElements['tags']:
-        genreName = genre.title()
+    for genreLink in detailsPageElements['tags']:
+        genreName = genreLink.title()
 
         movieGenres.addGenre(genreName)
     movieGenres.addGenre('Glamorous')
 
     # Actors
     movieActors.clearActors()
-    for actor in detailsPageElements['models']:
-        actorName = actor['name']
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actor['headshotImagePath']
+    for actorLink in detailsPageElements['models']:
+        actorName = actorLink['name']
+        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink['headshotImagePath']
 
         movieActors.addActor(actorName, actorPhotoURL)
 

@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneActors = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -66,8 +66,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actor in sceneActors.split(','):
-        actorName = actor.strip()
+    for actorLink in sceneActors.split(','):
+        actorName = actorLink.strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)

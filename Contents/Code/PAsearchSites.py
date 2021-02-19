@@ -42,7 +42,6 @@ def getSiteNumByFilter(searchFilter):
     if searchResults:
         from operator import itemgetter
 
-        Log('Site found')
         return max(searchResults, key=itemgetter(1))[0]
 
     return None

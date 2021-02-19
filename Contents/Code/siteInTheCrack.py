@@ -45,7 +45,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -87,9 +87,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
     actorstr = actorstr.replace(',', '&')
     actorlist = actorstr.split('&')
 
-    for actor in actorlist:
-        actorName = actor.strip()
+    for actorLink in actorlist:
+        actorName = actorLink.strip()
         actorPhotoURL = ''
+
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters

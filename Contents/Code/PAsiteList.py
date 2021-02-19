@@ -82,7 +82,7 @@ import siteAmourAngels
 import networkR18
 import networkBang
 import siteVivid
-import siteJaysPOV
+import networkAdultEmpireCash
 import siteBAMVisions
 import sitePJGirls
 import siteSinsLife
@@ -116,7 +116,6 @@ import siteBoxTruckSex
 import siteAussieAss
 import network5Kporn
 import networkTeenCoreClub
-import networkExploitedX
 import siteDesperateAmateurs
 import networkDirtyHardDrive
 import siteMeloneChallenge
@@ -161,12 +160,13 @@ import networkThickCash
 import networkPornCZ
 import networkTopWebModels
 import siteMyDirtyHobby
+import networkMetadataAPI
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
     1: ('Blacked', 'https://www.blacked.com', '/api'),
     2: ('Brazzers', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
-    3: (),
+    3: ('MetadataAPI', 'https://metadataapi.net', 'https://api.metadataapi.net'),
     4: (),
     5: ('My Friends Hot Mom', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     6: ('My First Sex Teacher', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
@@ -727,8 +727,8 @@ searchSites = {
     561: ('Joe Perv', 'https://www.joeperv.com', '/search.php?query='),
     562: ('HD 19', 'https://www.hd19.com', '/search.php?query='),
     563: ('Bella HD', 'https://www.bellahd.com', '/search.php?query='),
-    564: ('Amateur Allure', 'https://www.amateurallure.com', '/tour/search.php?st=advanced&cat%5B%5D=5&qany='),
-    565: ('Swallow Salon', 'https://www.swallowsalon.com', '/search.php?st=advanced&cat%5B%5D=5&format=h&qany='),
+    564: ('Amateur Allure', 'https://www.amateurallure.com', '/tour/search.php?st=advanced&cat[]=5&qany='),
+    565: ('Swallow Salon', 'https://www.swallowsalon.com', '/search.php?st=advanced&cat[]=5&qany='),
     566: ('Black Valley Girls', 'https://www.blackvalleygirls.com', '/movies'),
     567: ('Sis Loves Me', 'https://www.sislovesme.com', '/movies'),
     568: ('Manyvids', 'https://www.manyvids.com', '/video/'),
@@ -906,7 +906,7 @@ searchSites = {
     740: ('Mofos Lab', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     741: ('Straplezz', 'https://straplezz.com', '/updates/'),
     742: ('LittleCaprice', 'https://www.littlecaprice-dreams.com', '/?s='),
-    743: ('WowGirls', 'https://www.wowgirls.xxx', '/?s='),
+    743: ('WowGirls', 'https://www.wowgirlsblog.com', '/?s='),
     744: ('VIPissy', 'https://www.vipissy.com', '/updates?search='),
     745: ('GirlsOutWest', 'https://tour.girlsoutwest.com', '/trailers/'),
     746: ('Girls Rimming', 'https://www.girlsrimming.com', '/tour/trailers/'),
@@ -1139,9 +1139,9 @@ searchSites = {
     973: ('We Need New Talents', 'https://teencoreclub.com', '/video/'),
     974: ('X Core Club', 'https://teencoreclub.com', '/video/'),
     975: ('Blackmailed', 'https://www.evilangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', ''),
-    977: ('Black Ambush', 'https://blackambush.com', ''),
-    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', ''),
+    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', '/site/search.php?query='),
+    977: ('Black Ambush', 'https://blackambush.com', '/search.php?query='),
+    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', '/site/search.php?query='),
     979: ('Desperate Amateurs', 'https://desperateamateurs.com', '/fintour/search.php?st=advanced&qall='),
     980: ('Bang My Hand', 'http://www.bangmyhand.com', '/tour1/'),
     981: ('Dirty Sluts and Studs', 'http://www.dirtyharddrive.com', '/tour1/'),
@@ -1229,7 +1229,7 @@ searchSites = {
     1063: ('The Sex Scout', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     1064: ('Pornstar Vote', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     1065: ('Mormon Girlz', 'https://mormongirlz.com', '/?s='),
-    1066: ('PurgatoryX', 'https://www.purgatoryx.com/', 'https://tour.purgatoryx.com/search/'),
+    1066: ('PurgatoryX', 'https://www.purgatoryx.com', 'https://tour.purgatoryx.com/search/'),
     1067: ('Plumper Pass', 'https://plumperpass.com', '/tour/search.php?q='),
     1068: ('FTVMilfs', 'https://ftvmilfs.com', '/update/s-'),
     1069: ('FTVGirls', 'https://www.ftvgirls.com', '/update/s-'),
@@ -1319,11 +1319,11 @@ searchSites = {
     1153: ('XXXPawn', 'http://xxxpawn.com', '/'),
     1154: ('Black Patrol', 'http://blackpatrol.com', '/'),
     1155: ('Putalocura', 'https://www.putalocura.com', '/buscar?q='),
-    1156: ('Mia Khalifa', 'http://miakhalifa.com/', '/'),
+    1156: ('Mia Khalifa', 'http://miakhalifa.com', '/'),
     1157: ('Blacks On Moms', 'http://blacksonmoms.com', '/'),
     1158: ('Filthy Family', 'https://filthyfamily.com', '/'),
     1159: ('Melena Maria Rya', 'https://www.melenamariarya.com', '/scene/'),
-    1160: ('Anal Overdose', 'https://filthyfamily.com', '/'),
+    1160: ('Anal Overdose', 'https://analoverdose.com', '/'),
     1161: ('Banging Beauties', 'https://www.bangingbeauties.com', '/'),
     1162: ('Chocolate BJs', 'https://www.chocolatebjs.com', '/'),
     1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
@@ -1352,8 +1352,8 @@ searchSites = {
     1186: ('Fresh Out Of High School', 'https://freshoutofhighschool.com', '/tour_fohs/search.php?query='),
     1187: ('The Tabu Tales', 'https://thetabutales.com', '/tour_tt/search.php?query='),
     1188: ('Shane Diesel\'s Banging Babes', 'https://www.shanedieselsbanginbabes.com', '/tour_sdbb/search.php?query='),
-    1189: ('The Romance Series', 'https://theromanceseries.com/', '/tour_rs/search.php?query='),
-    1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors%2Cdirectors&thumb_size=850x463&query='),
+    1189: ('The Romance Series', 'https://theromanceseries.com', '/tour_rs/search.php?query='),
+    1190: ('Femjoy', 'https://femjoy.com', '/api/v2/search/videos?include=actors,directors&thumb_size=850x463&query='),
     1191: ('Lilu Moon', 'https://www.lilumoonx.com', '/sapi/'),
     1192: ('Family Lust', 'https://www.familylust.com', '/models/'),
     1193: ('Over 40 Handjobs', 'https://www.over40handjobs.com', '/models/'),
@@ -1400,13 +1400,26 @@ searchSites = {
     1234: ('Facials Forever', 'https://tour.facialsforever.com', '/search/'),
     1235: ('Pounded Petite', 'https://tour.poundedpetite.com', '/search/'),
     1236: ('She\'s Brand New', 'https://tour.shesbrandnew.com', '/search/'),
-    1237: ('MyDirtyHobby', 'https://www.mydirtyhobby.com/', '/search?searchKeyword='),
+    1237: ('MyDirtyHobby', 'https://en.mydirtyhobby.com', '/search?searchKeyword='),
     1238: ('Deviante', 'https://www.deviante.com', 'https://site-api.project1service.com'),
     1239: ('Forgive Me Father', 'https://www.forgivemefather.com', 'https://site-api.project1service.com'),
     1240: ('Sex Working', 'https://www.sexworking.com', 'https://site-api.project1service.com'),
     1241: ('Pretty Dirty Teens', 'https://www.prettydirtyteens.com', 'https://site-api.project1service.com'),
     1242: ('Love Her Ass', 'https://www.loveherass.com', 'https://site-api.project1service.com'),
     1243: ('Erotic Spice', 'https://www.eroticspice.com', 'https://site-api.project1service.com'),
+    1244: ('I Kiss Girls', 'https://www.ikissgirls.com', '/search.php?query='),
+    1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
+    1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
+    1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
+    1248: ('My Pervy Family', 'https://www.mypervyfamily.com/', '/MemberSceneSearch?q='),
+    1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
+    1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
+    1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
+    1252: ('AmateurBoxxx', 'https://tour.amateurboxxx.com', '/search.php?query='),
+    1253: ('AnalOnly', 'https://tour.analonly.com', '/view/'),
+    1254: ('Exposed Whores', 'https://exposedwhores.com/new-tour', '/search.php?query='),
+    1255: ('She Seduced Me', 'https://www.sheseducedme.com', '/search.php?query='),
+    1256: ('Family Swap', 'https://nubiles-porn.com', '/video/website/52/'),
 }
 
 abbreviations = (
@@ -1628,6 +1641,7 @@ abbreviations = (
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^viparea ', 'Babe Archives '),
     ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
     ('^wcx', 'WoodmanCastingX'),
@@ -1659,6 +1673,10 @@ def getProviderFromSiteNum(siteNum):
         # Brazzers
         elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690:
             provider = network1service
+
+        # MetadataAPI
+        elif siteNum == 3:
+            provider = networkMetadataAPI
 
         # Naughty America
         elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749:
@@ -1821,7 +1839,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -1961,11 +1979,11 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996):
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256:
             provider = networkNubiles
 
         # BellaPass
-        elif (548 <= siteNum <= 563):
+        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247):
             provider = networkBellaPass
 
         # AllureMedia
@@ -2028,8 +2046,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv
-        elif siteNum == 672 or siteNum == 673:
+        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255):
             provider = siteMissaX
 
         # Mylf
@@ -2160,8 +2178,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 765:
             provider = siteCumLouder
 
-        # AllAnal
-        elif siteNum == 767:
+        # AllAnal / AnalOnly
+        elif siteNum == 767 or siteNum == 1253:
             provider = networkSteppedUp
 
         # ZeroTolerance
@@ -2252,9 +2270,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 814:
             provider = siteVivid
 
-        # JAY's POV
-        elif siteNum == 815:
-            provider = siteJaysPOV
+        # AdultEmpireCash Network
+        elif siteNum == 815 or siteNum == 1248:
+            provider = networkAdultEmpireCash
 
         # PJGirls
         elif siteNum == 667:
@@ -2276,8 +2294,8 @@ def getProviderFromSiteNum(siteNum):
         elif (837 <= siteNum <= 839):
             provider = networkTwoWebMedia
 
-        # Interracial Pass
-        elif siteNum == 840:
+        # Interracial Pass / ExploitedX / I Kiss Girls
+        elif siteNum == 840 or (976 <= siteNum <= 978) or siteNum == 1244:
             provider = siteInterracialPass
 
         # LookAtHerNow
@@ -2444,10 +2462,6 @@ def getProviderFromSiteNum(siteNum):
         elif (943 <= siteNum <= 974):
             provider = networkTeenCoreClub
 
-        # Exploited X
-        elif (976 <= siteNum <= 978):
-            provider = networkExploitedX
-
         # Desperate Amateurs
         elif (siteNum == 979):
             provider = siteDesperateAmateurs
@@ -2497,7 +2511,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteSicflics
 
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191:
+        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
             provider = networkModelCentro
 
         # Culioneros

@@ -24,7 +24,9 @@ def search(results, lang, siteNum, searchData):
         if req.ok:
             searchResults = HTML.ElementFromString(req.text)
             titleNoFormatting = searchResults.xpath('//h1[@class="customhcolor"]')[0].text_content()
-            curID = PAutils.Encode(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
+            if 'http' not in sceneURL:
+                sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+            curID = PAutils.Encode(sceneURL)
 
             releaseDate = ''
             date = searchResults.xpath('//div[@class="date"]')[0].text_content().strip()
@@ -41,7 +43,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(sceneURL)
@@ -80,6 +82,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
+        if actorName.endswith(' XXX'):
+            actorName = actorName[:-4]
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)

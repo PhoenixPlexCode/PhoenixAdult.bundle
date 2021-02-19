@@ -34,10 +34,10 @@ def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '_')
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "section-updates")]'):
+    for searchResult in searchResults.xpath('//div[contains(@class, "section-updates")]/div[contains(@class, "scene-update")]'):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         titleNoFormatting = searchResult.xpath('.//div[contains(@class, "scene-info")]//a')[0].text_content().strip()
-        poster = searchResult.xpath('.//img/@src')[0]
+        poster = PAutils.Encode(searchResult.xpath('.//img/@src')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
@@ -47,13 +47,13 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     sceneDate = metadata_id[2]
-    scenePoster = metadata_id[3] if len(metadata_id) > 3 else None
+    scenePoster = PAutils.Decode(metadata_id[3]) if len(metadata_id) > 3 else None
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 

@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchData):
                 releaseDate = searchData.dateFormat() if searchData.date else ''
             displayDate = releaseDate if date else ''
 
-            subSite = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
+            subSite = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
 
             if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -44,7 +44,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -62,7 +62,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
+    tagline = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -89,7 +89,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     if tagline == 'Mia Khalifa':
         movieActors.addActor('Mia Khalifa', '')
-        shootId = detailsPageElements.xpath('//script[@type="text/javascript"][contains(.,"siteName")]')[0].text_content().split('com/')[-1].split('/')[0].strip()
+        shootId = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('com/')[-1].split('/')[0].strip()
 
         art.append('http://images.miakhalifa.com/shoots/%s/members/626x420.jpg' % shootId)
 

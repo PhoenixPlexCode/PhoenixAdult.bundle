@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneName
@@ -65,11 +65,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
     movieGenres.clearGenres()
 
     for tag in ['categories', 'tags']:
-        for genre in video[tag]:
-            if isinstance(genre, dict):
-                genreName = genre['name']
+        for genreLink in video[tag]:
+            if isinstance(genreLink, dict):
+                genreName = genreLink['name']
             else:
-                genreName = genre
+                genreName = genreLink
 
             movieGenres.addGenre(genreName)
 
