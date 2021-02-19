@@ -4,7 +4,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-')
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-').replace('\'', '-')
     searchResults = [directURL]
 
     if unicode(directURL[-1], 'UTF-8').isdigit() and directURL[-2] == '-':
