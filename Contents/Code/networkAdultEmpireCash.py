@@ -61,6 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPhotoURL = actorLink.get('data-bgsrc')
 
         movieActors.addActor(actorName, actorPhotoURL)
+
     if 'filthykings' and '796896' in sceneURL:
         movieActors.addActor('Alice Visby', '')
 
