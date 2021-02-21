@@ -30,9 +30,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.add('AdultEmpireCash')
+    if 'filthykings' in sceneURL:
+        metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
 
     # Studio
     metadata.studio = detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip()
+
+    # Summary
+    summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
+    if summary:
+        metadata.summary = summary[0].strip()
 
     # Director
     directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
@@ -54,6 +61,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPhotoURL = actorLink.get('data-bgsrc')
 
         movieActors.addActor(actorName, actorPhotoURL)
+
+    if 'filthykings' and '796896' in sceneURL:
+        movieActors.addActor('Alice Visby', '')
 
     # Genres
     movieGenres.clearGenres()
