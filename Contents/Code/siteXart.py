@@ -97,8 +97,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//img[@alt="thumb"]/@src',
-        '//div[@class="gallery-item"]//img/@src',
-        '//img[contains(@src, "/videos")]/@src'
+        '//div[contains(@class, "video-tour")]//a/img/@src',
+        '//div[@class="gallery-item"]//img/@src'
+
     ]
 
     try:
