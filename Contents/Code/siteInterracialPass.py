@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [InterracialPass] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -36,7 +36,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.summary = detailsPageElements.xpath('//div[@class="update-info-block"]')[1].text_content().replace('Description:', '', 1).strip()
 
     # Studio
-    metadata.studio = 'Interracial Pass'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    if 976 <= siteNum <= 978:
+        metadata.studio = 'ExploitedX'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
