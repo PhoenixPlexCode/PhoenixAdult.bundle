@@ -961,7 +961,7 @@ searchSites = {
     795: ('GirlCore', 'https://www.girlsway.com', '/en/video/1/1/'),
     796: ('Moms On Moms', 'https://www.girlsway.com', '/en/video/1/1/'),
     797: ('We Like Girls', 'https://www.girlsway.com', '/en/video/1/1/'),
-    798: ('Lil Humpers', 'https://www.lilhumpers.com', 'https://site-api.project1service.com'),
+    798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     800: ('ClubSeventeen', 'https://www.clubseventeen.com', '/video.php?slug='),
     801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
@@ -1420,6 +1420,12 @@ searchSites = {
     1254: ('Exposed Whores', 'https://exposedwhores.com/new-tour', '/search.php?query='),
     1255: ('She Seduced Me', 'https://www.sheseducedme.com', '/search.php?query='),
     1256: ('Family Swap', 'https://nubiles-porn.com', '/video/website/52/'),
+    1257: ('Filthy POV', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1258: ('Filthy Massage', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1259: ('Filthy Taboo', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1260: ('Night Creep', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1261: ('Filthy Blowjobs', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1262: ('Filthy Newbies', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -2271,7 +2277,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1248:
+        elif siteNum == 815 or siteNum == 1248 or (1257 <= siteNum <= 1262):
             provider = networkAdultEmpireCash
 
         # PJGirls

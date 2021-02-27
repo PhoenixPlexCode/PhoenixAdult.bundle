@@ -98,13 +98,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     xpaths = [
         '//div[@class="gallery-item"]//img/@src',
         '//img[contains(@src, "/videos")]/@src',
-        '//section[@id="product-gallery"]//img/@data-src'
+        '//section[@id="product-gallery"]//img/@data-src',
+        '//img[@alt="thumb"]/@src',
+        '//div[contains(@class, "video-tour")]//a/img/@src',
+        '//div[@class="gallery-item"]//img/@src',
     ]
-    for xpath in xpaths:
-        for poster in detailsPageElements.xpath(xpath):
-            poster.replace(' ', '_')
 
-            art.append(poster)
+    elements = [detailsPageElements]
+
+    galleryURL = sceneURL.replace('/videos/', '/galleries/')
+    req = PAutils.HTTPRequest(galleryURL)
+    if req.ok:
+        galleryPageElements = HTML.ElementFromString(req.text)
+        elements.insert(0, galleryPageElements)
+
+    for element in elements:
+        for xpath in xpaths:
+            for poster in element.xpath(xpath):
+                poster.replace(' ', '_')
+
+                art.append(poster)
 
     # Extra Posters
     art_ext = []
