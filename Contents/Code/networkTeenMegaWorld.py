@@ -9,7 +9,9 @@ def search(results, lang, siteNum, searchData):
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//article'):
             if searchResult.xpath('//article'):
-                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h1')[0].text_content().strip(), siteNum)
+                titleNoFormatting = searchResult.xpath('.//h1')[0].text_content().strip()
+                titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
+
                 curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
                 releaseDate = parse(searchResult.xpath('.//time')[0].text_content()).strftime('%Y-%m-%d')
                 subSite = searchResult.xpath('.//div[@class="site"]/a')[0].text_content().replace('.com', '').strip()
@@ -33,7 +35,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="title-line"]/h1')[0].text_content().strip(), siteNum)
+    title = detailsPageElements.xpath('//div[@class="title-line"]/h1')[0].text_content().strip()
+    title = PAutils.parseTitle(title, siteNum)
+    metadata.title = title
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="text"]//p')[0].text_content().strip()
