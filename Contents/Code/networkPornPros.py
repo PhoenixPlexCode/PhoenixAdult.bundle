@@ -67,7 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//a[contains(@href, "/girls/")]')
+    actors = detailsPageElements.xpath('//div[@id="t2019-sinfo"]//a[contains(@href, "/girls/")]')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -118,7 +118,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if siteName.lower() == "Lubed".lower():
         for genreName in ['Lube', 'Raw', 'Wet']:
             movieGenres.addGenre(genreName)
-    elif siteName.lower() == "Holed".lower():
+    elif siteName.lower() == "Holed".lower() or siteName.lower() == "Anal4K".lower():
         for genreName in ['Anal', 'Ass']:
             movieGenres.addGenre(genreName)
     elif siteName.lower() == "POVD".lower():
