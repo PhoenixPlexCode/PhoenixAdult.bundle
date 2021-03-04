@@ -84,7 +84,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         genres = detailsPageElements['tags']['collection']
 
         if not isinstance(genres, list):
-            for (key, value) in genres.items():
+            for key, value in genres.items():
                 genre = value['alias']
 
                 if genre:
