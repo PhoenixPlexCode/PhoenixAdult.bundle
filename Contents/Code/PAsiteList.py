@@ -1500,6 +1500,7 @@ abbreviations = (
     ('^esp ', 'EuroSexParties '),
     ('^ete ', 'EuroTeenErotica '),
     ('^ext ', 'ExxxtraSmall '),
+    ('^family ', 'Taboo '),
     ('^fams ', 'FamilyStrokes '),
     ('^faq ', 'FirstAnalQuest '),
     ('^fds ', 'FakeDrivingSchool '),
