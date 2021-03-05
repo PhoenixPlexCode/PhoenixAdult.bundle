@@ -1427,6 +1427,7 @@ searchSites = {
     1261: ('Filthy Blowjobs', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
     1262: ('Filthy Newbies', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
     1263: ('Anal4K', 'https://www.anal4k.com', '/video/'),
+    1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -1523,6 +1524,7 @@ abbreviations = (
     ('^hegre-art ', 'Hegre '),
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
+    ('^houseofyre ', 'House of Fyre '),
     ('^hr ', 'HollyRandall '),
     ('^ht ', 'Hogtied '),
     ('^hustl3r ', 'Hustler '),
@@ -2053,8 +2055,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me
-        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255):
+        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or siteNum == 1264:
             provider = siteMissaX
 
         # Mylf
