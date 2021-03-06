@@ -7,6 +7,7 @@ def search(results, lang, siteNum, searchData):
     searchResultsURLs = [
         PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + searchData.encoded + '.html',
         PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + searchData.encoded + '-.html',
+        PAsearchSites.getSearchSearchURL(siteNum) + 'updates/' + searchData.encoded + '-4k.html',
         PAsearchSites.getSearchSearchURL(siteNum) + 'dvds/' + searchData.encoded + '.html'
     ]
 
