@@ -10,8 +10,8 @@ def search(results, lang, siteNum, searchData):
         sceneID = None
 
     if sceneID:
-        url = PAsearchSites.getSearchBaseURL(siteNum) + '/post/details/' + sceneID
-        req = PAutils.HTTPRequest(url)
+        url = '/post/details/' + sceneID
+        req = PAutils.HTTPRequest(PAutils.fixUrl(siteNum, url))
         detailsPageElements = HTML.ElementFromString(req.text)
 
         curID = PAutils.Encode(url)
