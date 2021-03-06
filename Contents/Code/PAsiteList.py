@@ -161,6 +161,7 @@ import networkPornCZ
 import networkTopWebModels
 import siteMyDirtyHobby
 import networkMetadataAPI
+import siteJvrporn
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1430,6 +1431,7 @@ searchSites = {
     1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
     1265: ('Philavise', 'https://www.philavise.com', '/search.php?query='),
     1266: ('FamilyXXX', 'http://www.familyxxx.com', '/tour_famxxx/'),
+    1267: ('JVR Porn', 'https://jvrporn.com', '/video/'),
 }
 
 abbreviations = (
@@ -2653,5 +2655,9 @@ def getProviderFromSiteNum(siteNum):
         # Deviante
         elif (1238 <= siteNum <= 1243):
             provider = network1service
+
+        # JVR Porn
+        elif siteNum == 1267:
+            provider = siteJvrporn
 
     return provider
