@@ -62,7 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.collections.add('Couples Cinema')
+    metadata.collections.add('CouplesCinema')
     metadata.collections.add(metadata.studio)
 
     # Release Date
