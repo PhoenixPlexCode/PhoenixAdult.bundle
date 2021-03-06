@@ -409,7 +409,7 @@ def processPosters(metadata, siteNum, art):
 
 
 def fixUrl(siteNum, url):
-    if 'http' not in url:
+    if not url.startswith('http'):
         url = PAsearchSites.getSearchBaseURL(siteNum) + url
 
     return url
