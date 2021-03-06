@@ -67,7 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//a[contains(@href, "/girls/")]')
+    actors = detailsPageElements.xpath('//div[@id="t2019-sinfo"]//a[contains(@href, "/girls/")]')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -102,7 +102,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if 'Poke Her In The Front' == metadata.title:
         actorPhotoURL = ''
 
-        actorName = 'Sara Luv'
+        actorName = 'Sara Luvv'
         movieActors.addActor(actorName, actorPhotoURL)
 
         actorName = 'Dillion Harper'
@@ -115,42 +115,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    if siteName.lower() == "Lubed".lower():
-        for genreName in ['Lube', 'Raw', 'Wet']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "Holed".lower():
-        for genreName in ['Anal', 'Ass']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "POVD".lower():
-        for genreName in ['Gonzo', 'POV']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "MassageCreep".lower():
-        for genreName in ['Massage', 'Oil']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "DeepThroatLove".lower():
-        for genreName in ['Blowjob', 'Deep Throat']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "PureMature".lower():
-        for genreName in ['MILF', 'Mature']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "Cum4K".lower():
-        for genreName in ['Creampie']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "GirlCum".lower():
-        for genreName in ['Orgasms', 'Girl Orgasm', 'Multiple Orgasms']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "PassionHD".lower():
-        for genreName in ['Hardcore']:
-            movieGenres.addGenre(genreName)
-    elif siteName.lower() == "BBCPie".lower():
-        for genreName in ['Interracial', 'BBC', 'Creampie']:
-            movieGenres.addGenre(genreName)
+    genres = []
+    for key, value in genresDB.items():
+        if key.lower() == siteName.lower():
+            genres = value
+            break
+
+    for genreName in genres:
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = []
     xpaths = [
         '//video/@poster',
-        '(//img[contains(@src, "handtouched")])[position() <5]/@src'
+        '(//img[contains(@src, "handtouched")])[position() < 5]/@src'
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
@@ -179,3 +157,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+genresDB = {
+    'Anal4K': ['Anal', 'Ass', 'Creampie'],
+    'BBCPie': ['Interracial', 'BBC', 'Creampie'],
+    'Cum4K': ['Creampie'],
+    'DeepThroatLove': ['Blowjob', 'Deep Throat'],
+    'GirlCum': ['Orgasms', 'Girl Orgasm', 'Multiple Orgasms'],
+    'Holed': ['Anal', 'Ass'],
+    'Lubed': ['Lube', 'Raw', 'Wet'],
+    'MassageCreep': ['Massage', 'Oil'],
+    'PassionHD': ['Hardcore'],
+    'POVD': ['Gonzo', 'POV'],
+    'PureMature': ['MILF', 'Mature'],
+}

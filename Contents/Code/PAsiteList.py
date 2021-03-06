@@ -955,7 +955,7 @@ searchSites = {
     789: ('Drilled.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     790: ('BCM.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
     791: ('Petite.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
-    792: ('Family.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
+    792: ('Family', 'https://www.cherrypimps.com', '/search.php?query='),
     793: ('Wicked', 'https://www.wicked.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     794: ('18 Only Girls', 'https://www.18onlygirlsblog.com', '/?s='),
     795: ('GirlCore', 'https://www.girlsway.com', '/en/video/1/1/'),
@@ -1426,6 +1426,10 @@ searchSites = {
     1260: ('Night Creep', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
     1261: ('Filthy Blowjobs', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
     1262: ('Filthy Newbies', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1263: ('Anal4K', 'https://www.anal4k.com', '/video/'),
+    1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
+    1265: ('Philavise', 'https://www.philavise.com', '/search.php?query='),
+    1266: ('FamilyXXX', 'http://www.familyxxx.com', '/tour_famxxx/'),
 }
 
 abbreviations = (
@@ -1496,6 +1500,7 @@ abbreviations = (
     ('^esp ', 'EuroSexParties '),
     ('^ete ', 'EuroTeenErotica '),
     ('^ext ', 'ExxxtraSmall '),
+    ('^family ', 'Taboo '),
     ('^fams ', 'FamilyStrokes '),
     ('^faq ', 'FirstAnalQuest '),
     ('^fds ', 'FakeDrivingSchool '),
@@ -1522,6 +1527,7 @@ abbreviations = (
     ('^hegre-art ', 'Hegre '),
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
+    ('^houseofyre ', 'House of Fyre '),
     ('^hr ', 'HollyRandall '),
     ('^ht ', 'Hogtied '),
     ('^hustl3r ', 'Hustler '),
@@ -1869,7 +1875,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteGloryHoleSecrets
 
         # NewSensations
-        elif siteNum == 280:
+        elif siteNum == 280 or siteNum == 1266:
             provider = siteNewSensations
 
         # Swallowed
@@ -1897,7 +1903,7 @@ def getProviderFromSiteNum(siteNum):
             provider = sitePrivate
 
         # PornPros Network
-        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890:
+        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263:
             provider = networkPornPros
 
         # DigitalPlayground
@@ -2052,8 +2058,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me
-        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255):
+        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265):
             provider = siteMissaX
 
         # Mylf
