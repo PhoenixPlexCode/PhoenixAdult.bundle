@@ -371,24 +371,23 @@ def manualWordFix(word):
 
 
 def processArt(metadata, siteNum, elements, art, xpaths):
-    art = processArtXpaths(siteNum, elements, art, xpaths)
+    art = processArtXpaths(elements, art, xpaths)
 
-    return processPosters(metadata, art)
+    return processPosters(metadata, siteNum, art)
 
 
-def processArtXpaths(siteNum, elements, art, xpaths):
+def processArtXpaths(elements, art, xpaths):
     for xpath in xpaths:
         for img in elements.xpath(xpath):
-            if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img
             art.append(img)
 
     return art
 
 
-def processPosters(metadata, art):
+def processPosters(metadata, siteNum, art):
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
+        posterUrl = fixUrl(siteNum, posterUrl)
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
@@ -407,3 +406,10 @@ def processPosters(metadata, art):
                 pass
 
     return metadata
+
+
+def fixUrl(siteNum, url):
+    if 'http' not in url:
+        url = PAsearchSites.getSearchBaseURL(siteNum) + url
+
+    return url
