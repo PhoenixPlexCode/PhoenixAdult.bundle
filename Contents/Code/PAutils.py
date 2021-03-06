@@ -368,3 +368,42 @@ def manualWordFix(word):
                 return correction
 
     return word
+
+
+def processArt(metadata, siteNum, elements, art, xpaths):
+    art = processArtXpaths(siteNum, elements, art, xpaths)
+
+    return processPosters(metadata, art)
+
+
+def processArtXpaths(siteNum, elements, art, xpaths):
+    for xpath in xpaths:
+        for img in elements.xpath(xpath):
+            if 'http' not in img:
+                img = PAsearchSites.getSearchBaseURL(siteNum) + img
+            art.append(img)
+
+    return art
+
+
+def processPosters(metadata, art):
+    Log('Artwork found: %d' % len(art))
+    for idx, posterUrl in enumerate(art, 1):
+        if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
+            # Download image file for analysis
+            try:
+                image = HTTPRequest(posterUrl)
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                if width > 100:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    return metadata
