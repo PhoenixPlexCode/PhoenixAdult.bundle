@@ -86,7 +86,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for actor in actors:
         actorName = actor.text_content().strip()
         if actorName.endswith(' XXX'):
-            actor = actorName[:-4]
+            actorName = actorName[:-4]
 
         movieActors.addActor(actorName, '')
 
