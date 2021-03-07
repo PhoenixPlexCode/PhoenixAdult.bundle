@@ -161,6 +161,7 @@ import networkPornCZ
 import networkTopWebModels
 import siteMyDirtyHobby
 import networkMetadataAPI
+import networkCouplesCinema
 import siteJvrporn
 
 searchSites = {
@@ -1431,7 +1432,26 @@ searchSites = {
     1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
     1265: ('Philavise', 'https://www.philavise.com', '/search.php?query='),
     1266: ('FamilyXXX', 'http://www.familyxxx.com', '/tour_famxxx/'),
-    1267: ('JVR Porn', 'https://jvrporn.com', '/video/'),
+    1267: ('Couple Fantasies', 'https://www.couplescinema.com', '/search/videos?s='),
+    1268: ('Verso Cinema', 'https://www.couplescinema.com', '/search/videos?s='),
+    1269: ('Sex School', 'https://www.couplescinema.com', '/search/videos?s='),
+    1270: ('JoyBear', 'https://www.couplescinema.com', '/search/videos?s='),
+    1271: ('Common Sensual', 'https://www.couplescinema.com', '/search/videos?s='),
+    1272: ('Gentle Desire', 'https://www.couplescinema.com', '/search/videos?s='),
+    1273: ('Petra Joy', 'https://www.couplescinema.com', '/search/videos?s='),
+    1274: ('Madison Young', 'https://www.couplescinema.com', '/search/videos?s='),
+    1275: ('Light Southern Cinema', 'https://www.couplescinema.com', '/search/videos?s='),
+    1276: ('Pink and Whit Productions', 'https://www.couplescinema.com', '/search/videos?s='),
+    1277: ('Signe Baumane', 'https://www.couplescinema.com', '/search/videos?s='),
+    1278: ('Maria Beatty', 'https://www.couplescinema.com', '/search/videos?s='),
+    1279: ('Spark Erotic', 'https://www.couplescinema.com', '/search/videos?s='),
+    1280: ('Foxhouse Films', 'https://www.couplescinema.com', '/search/videos?s='),
+    1281: ('Mario Ancewicz', 'https://www.couplescinema.com', '/search/videos?s='),
+    1282: ('Ninja', 'https://www.couplescinema.com', '/search/videos?s='),
+    1283: ('Morgana Muses', 'https://www.couplescinema.com', '/search/videos?s='),
+    1284: ('Thousand Faces Films', 'https://www.couplescinema.com', '/search/videos?s='),
+    1285: ('The Lifestyle', 'https://www.couplescinema.com', '/search/videos?s='),
+    1286: ('JVR Porn', 'https://jvrporn.com', '/video/'),
 }
 
 abbreviations = (
@@ -2656,8 +2676,12 @@ def getProviderFromSiteNum(siteNum):
         elif (1238 <= siteNum <= 1243):
             provider = network1service
 
+        # Couples Cinema Network
+        elif (1267 <= siteNum <= 1285):
+            provider = networkCouplesCinema
+
         # JVR Porn
-        elif siteNum == 1267:
+        elif siteNum == 1286:
             provider = siteJvrporn
 
     return provider
