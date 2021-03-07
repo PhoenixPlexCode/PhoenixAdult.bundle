@@ -82,9 +82,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')
+    actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')[0].text_content().replace('&nbsp', '').split(',')
     for actor in actors:
-        actorName = actor.text_content().strip()
+        actorName = actor.strip()
         if actorName.endswith(' XXX'):
             actorName = actorName[:-4]
 
