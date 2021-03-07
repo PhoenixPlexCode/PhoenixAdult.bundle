@@ -491,6 +491,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### JAY's POV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Joymii | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### JulesJordan Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*  **Movies Not Supported**
++ #### JVRPorn | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - GirlGirl
   - JulesJordan
   - ManuelFerrara

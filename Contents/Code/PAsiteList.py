@@ -162,7 +162,7 @@ import networkTopWebModels
 import siteMyDirtyHobby
 import networkMetadataAPI
 import networkCouplesCinema
-import siteJvrporn
+import siteJVRPorn
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -2682,6 +2682,6 @@ def getProviderFromSiteNum(siteNum):
 
         # JVR Porn
         elif siteNum == 1286:
-            provider = siteJvrporn
+            provider = siteJVRPorn
 
     return provider
