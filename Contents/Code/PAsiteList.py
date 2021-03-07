@@ -109,7 +109,7 @@ import siteVRConk
 import networkEvolvedFights
 import networkJavBus
 import siteHucows
-import siteAllAnalAllTheTime
+import networkVNA
 import siteQueenSnake
 import siteScrewMeToo
 import siteBoxTruckSex
@@ -1452,6 +1452,46 @@ searchSites = {
     1284: ('Thousand Faces Films', 'https://www.couplescinema.com', '/search/videos?s='),
     1285: ('The Lifestyle', 'https://www.couplescinema.com', '/search/videos?s='),
     1286: ('JVR Porn', 'https://jvrporn.com', '/video/'),
+    1287: ('Kimber Lee Live', 'https://kimberleelive.com', '/videos/'),
+    1288: ('Vicky at Home', 'https://vickyathome.com', '/videos/'),
+    1289: ('Shanda Fay', 'https://shandafay.com', '/videos/'),
+    1290: ('Deauxma Live', 'https://deauxmalive.com', '/videos/'),
+    1291: ('Sara Jay', 'https://sarajay.com', '/videos/'),
+    1292: ('Carmen Valentina', 'https://carmenvalentina.com', '/videos/'),
+    1293: ('Charlee Chase Live', 'https://charleechaselive.com', '/videos/'),
+    1294: ('Gabby Quinteros', 'https://gabbyquinteros.com', '/videos/'),
+    1295: ('Angelina Castro Live', 'https://angelinacastrolive.com', '/videos/'),
+    1296: ('Julia Ann Live', 'https://juliaannlive.com', '/videos/'),
+    1297: ('Nikki Benz', 'https://nikkibenz.com', '/videos/'),
+    1298: ('Sunny Lane Live', 'https://sunnylanelive.com', '/videos/'),
+    1299: ('Puma Swede XXX', 'https://pumaswedexxx.com', '/videos/'),
+    1300: ('Sophie Dee Live', 'https://sophiedeelive.com', '/videos/'),
+    1301: ('Its Cleo Live', 'https://itscleolive.com', '/videos/'),
+    1302: ('Maggie Green Live', 'https://maggiegreenlive.com', '/videos/'),
+    1303: ('Bobbi Eden Live', 'https://bobbiedenlive.com', '/videos/'),
+    1304: ('Eva Lin Live', 'https://evalin.live', '/videos/'),
+    1305: ('Tasha Reign', 'https://tashareign.com', '/videos/'),
+    1306: ('Jelena Jensen', 'https://jelenajensen.com', '/videos/'),
+    1307: ('Penny Pax Live', 'https://pennypaxlive.com', '/videos/'),
+    1308: ('Alex Legend', 'https://alexlegend.com', '/videos/'),
+    1309: ('Sex My Wife', 'https://sexmywife.com', '/videos/'),
+    1310: ('Rubber Doll', 'https://rubberdoll.net', '/videos/'),
+    1311: ('Fucked Feet', 'https://fuckedfeet.com', '/videos/'),
+    1312: ('Nina Kayy', 'https://ninakayy.com', '/videos/'),
+    1313: ('Rome Major', 'https://romemajor.com', '/videos/'),
+    1314: ('Siri', 'https://siripornstar.com', '/videos/'),
+    1315: ('Kink305', 'https://kink305.com', '/videos/'),
+    1316: ('Foxxed Up', 'https://foxxedup.com', '/videos/'),
+    1317: ('Natalia Starr', 'https://nataliastarr.com', '/videos/'),
+    1318: ('Samantha Grace', 'https://samanthagrace.com', '/videos/'),
+    1319: ('Rachel Storms XXX', 'https://rachelstormsxxx.com', '/videos/'),
+    1320: ('Kendra James', 'https://kendrajames.com', '/videos/'),
+    1321: ('Maxine X', 'https://maxinex.com', '/videos/'),
+    1322: ('POV Mania', 'https://povmania.com', '/videos/'),
+    1323: ('Girl Girl Mania', 'https://girlgirlmania.com', '/videos/'),
+    1324: ('Kayla Paige Live', 'https://kaylapaigelive.com', '/videos/'),
+    1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
+    1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
 }
 
 abbreviations = (
@@ -2460,9 +2500,9 @@ def getProviderFromSiteNum(siteNum):
         elif (918 <= siteNum <= 929):
             provider = network1service
 
-        # AllAnalAllTheTime
-        elif siteNum == 931:
-            provider = siteAllAnalAllTheTime
+        # VNA Network
+        elif siteNum == 931 or (1287 <= siteNum <= 1326):
+            provider = networkVNA
 
         # QueenSnake
         elif siteNum == 932:

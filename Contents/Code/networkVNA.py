@@ -16,20 +16,21 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if ('/videos/' in sceneURL and sceneURL not in searchResults):
-            searchResults.append(sceneURL)
+        if '/videos/' in sceneURL and '/page/' not in sceneURL:
+            if sceneURL not in searchResults:
+                searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         if req.ok:
-            searchResults = HTML.ElementFromString(req.text)
-            titleNoFormatting = searchResults.xpath('//h1[@class="customhcolor"]')[0].text_content()
+            detailsPageElements = HTML.ElementFromString(req.text)
+            titleNoFormatting = detailsPageElements.xpath('//h1[@class="customhcolor"]')[0].text_content()
             if 'http' not in sceneURL:
                 sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
             curID = PAutils.Encode(sceneURL)
 
             releaseDate = ''
-            date = searchResults.xpath('//div[@class="date"]')[0].text_content().strip()
+            date = detailsPageElements.xpath('//div[@class="date"]')[0].text_content().strip()
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
 
@@ -55,12 +56,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="customhcolor2"]')[0].text_content().strip()
 
+    if siteNum == 1287:
+        metadata.summary = metadata.summary.split('Don\'t forget to join me')[0]
+
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     metadata.tagline = metadata.studio
+    metadata.collections.add('VNA Network')
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -72,24 +77,37 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//h4[@class="customhcolor"]')[0].text_content().strip().split(',')
-    for genreLink in genres:
-        genreName = genreLink.strip()
+    for genre in genres:
+        movieGenres.addGenre(genre.strip())
 
-        movieGenres.addGenre(genreName)
-
-    # Actors / possible posters
+    # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')
-    for actorLink in actors:
-        actorName = actorLink.text_content().strip()
+    for actor in actors:
+        actorName = actor.text_content().strip()
         if actorName.endswith(' XXX'):
-            actorName = actorName[:-4]
-        actorPhotoURL = ''
+            actor = actorName[:-4]
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, '')
 
     # Posters/Background
     art = []
+    xpaths = [
+        '//center//img/@src',
+    ]
+
+    for xpath in xpaths:
+        for img in detailsPageElements.xpath(xpath):
+            if 'http' not in img:
+                img = PAsearchSites.getSearchBaseURL(siteNum) + '/' + img
+
+            art.append(img)
+
+    # add thumbnails not found on scene page
+    thumb2 = art[0].replace('thumb_1', 'thumb_2')
+    thumb3 = art[0].replace('thumb_1', 'thumb_3')
+    art.append(thumb2)
+    art.append(thumb3)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
