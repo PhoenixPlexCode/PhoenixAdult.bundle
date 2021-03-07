@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchData):
 
             studio = searchResult.xpath('.//span[contains(@class, "source")]')[0].text_content().strip()
             sceneCover = PAutils.Encode(searchResult.xpath('.//a[contains(@class, "media")]//img[contains(@class, "image")]/@src')[0])
-            releaseDate = searchData.dateFormat()
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
             curID = PAutils.Encode(sceneURL)
 
@@ -48,7 +48,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
-    searchDate = metadata_id[2]
+    searchDate = metadata_id[2] if len(metadata_id) > 2 else ''
     sceneCover = PAutils.Decode(metadata_id[3]) if len(metadata_id) > 3 else ''
 
     req = PAutils.HTTPRequest(sceneURL)
@@ -69,11 +69,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(metadata.studio)
 
     # Release Date
-    try:
+    if searchDate:
         date_object = parse(searchDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
-    except:
+    else:
         Log('Failed to parse searchDate: %s , using release year' % searchDate)
         year = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[1].strip()
         metadata.year = int(year)

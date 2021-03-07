@@ -162,6 +162,7 @@ import networkTopWebModels
 import siteMyDirtyHobby
 import networkMetadataAPI
 import networkCouplesCinema
+import siteJVRPorn
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1450,6 +1451,7 @@ searchSites = {
     1283: ('Morgana Muses', 'https://www.couplescinema.com', '/search/videos?s='),
     1284: ('Thousand Faces Films', 'https://www.couplescinema.com', '/search/videos?s='),
     1285: ('The Lifestyle', 'https://www.couplescinema.com', '/search/videos?s='),
+    1286: ('JVR Porn', 'https://jvrporn.com', '/video/'),
 }
 
 abbreviations = (
@@ -2677,5 +2679,9 @@ def getProviderFromSiteNum(siteNum):
         # Couples Cinema Network
         elif (1267 <= siteNum <= 1285):
             provider = networkCouplesCinema
+
+        # JVR Porn
+        elif siteNum == 1286:
+            provider = siteJVRPorn
 
     return provider
