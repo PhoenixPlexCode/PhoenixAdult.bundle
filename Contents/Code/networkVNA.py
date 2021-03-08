@@ -83,9 +83,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')[0].text_content().replace('&nbsp', '').split(',')
+    actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')
     for actorLink in actors:
-        actorName = actorLink.strip()
+        actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
         if actorName.endswith(' XXX'):
