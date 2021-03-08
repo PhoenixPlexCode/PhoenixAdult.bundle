@@ -1492,6 +1492,7 @@ searchSites = {
     1324: ('Kayla Paige Live', 'https://kaylapaigelive.com', '/videos/'),
     1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
+    1327: ('Lauren Phillips', 'https://laurenphillips.com/', '/search.php?query=')
 }
 
 abbreviations = (
@@ -2120,8 +2121,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise
-        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265):
+        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise / Lauren Phillips
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265) or siteNum == 1327:
             provider = siteMissaX
 
         # Mylf
