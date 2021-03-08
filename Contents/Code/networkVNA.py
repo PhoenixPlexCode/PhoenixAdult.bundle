@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if (PAsearchSites.getBaselessSearchSearchURL(siteNum) in sceneURL and '/page/' not in sceneURL) and sceneURL not in searchResults:
+        if ('videos/' in sceneURL and '/page/' not in sceneURL) and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
@@ -80,7 +80,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
-
 
     # Actors
     movieActors.clearActors()
