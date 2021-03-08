@@ -16,9 +16,8 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if '/videos/' in sceneURL and '/page/' not in sceneURL:
-            if sceneURL not in searchResults:
-                searchResults.append(sceneURL)
+        if ('/videos/' in sceneURL and '/page/' not in sceneURL) and sceneURL not in searchResults:
+            searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
@@ -77,18 +76,22 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//h4[@class="customhcolor"]')[0].text_content().strip().split(',')
-    for genre in genres:
-        movieGenres.addGenre(genre.strip())
+    for genreLink in genres:
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')[0].text_content().replace('&nbsp', '').split(',')
-    for actor in actors:
-        actorName = actor.strip()
+    for actorLink in actors:
+        actorName = actorLink.strip()
+        actorPhotoURL = ''
+
         if actorName.endswith(' XXX'):
             actorName = actorName[:-4]
 
-        movieActors.addActor(actorName, '')
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters/Background
     art = []
@@ -104,10 +107,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             art.append(img)
 
     # add thumbnails not found on scene page
-    thumb2 = art[0].replace('thumb_1', 'thumb_2')
-    thumb3 = art[0].replace('thumb_1', 'thumb_3')
-    art.append(thumb2)
-    art.append(thumb3)
+    if 'thumb_1' in art[0]:
+        art.extend([
+            art[0].replace('thumb_1', 'thumb_2'),
+            art[0].replace('thumb_1', 'thumb_3'),
+        ])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
