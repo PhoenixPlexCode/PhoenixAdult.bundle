@@ -25,7 +25,6 @@ def getSearchSearchURL(siteNum):
         if not url.startswith('http'):
             url = getSearchBaseURL(siteNum) + url
 
-
     return url
 
 
