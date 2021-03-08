@@ -19,11 +19,17 @@ def getSearchBaseURL(siteNum):
 
 
 def getSearchSearchURL(siteNum):
+    url = getBaselessSearchSearchURL(siteNum)
+    if not url.startswith('http'):
+        url = getSearchBaseURL(siteNum) + url
+
+    return url
+
+
+def getBaselessSearchSearchURL(siteNum):
     url = None
     if PAsiteList.searchSites[siteNum]:
         url = PAsiteList.searchSites[siteNum][2]
-        if not url.startswith('http'):
-            url = getSearchBaseURL(siteNum) + url
 
     return url
 

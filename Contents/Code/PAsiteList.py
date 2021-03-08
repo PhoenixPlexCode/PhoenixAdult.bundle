@@ -1453,7 +1453,7 @@ searchSites = {
     1285: ('The Lifestyle', 'https://www.couplescinema.com', '/search/videos?s='),
     1286: ('JVR Porn', 'https://jvrporn.com', '/video/'),
     1287: ('Kimber Lee Live', 'https://kimberleelive.com', '/videos/'),
-    1288: ('Vicky at Home', 'https://vickyathome.com', '/videos/'),
+    1288: ('Vicky at Home', 'https://vickyathome.com', '/milf-videos/'),
     1289: ('Shanda Fay', 'https://shandafay.com', '/videos/'),
     1290: ('Deauxma Live', 'https://deauxmalive.com', '/videos/'),
     1291: ('Sara Jay', 'https://sarajay.com', '/videos/'),
