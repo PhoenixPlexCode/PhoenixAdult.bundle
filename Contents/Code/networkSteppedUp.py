@@ -66,7 +66,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if tagline == 'Swallowed':
         movieGenres.addGenre('Blowjob')
         movieGenres.addGenre('Cum Swallow')
-    elif tagline == "TrueAnal" or "AllAnal":
+    elif tagline == "TrueAnal" or "AllAnal" or "AnalOnly":
         movieGenres.addGenre('Anal')
         movieGenres.addGenre('Gaping')
     elif tagline == 'Nympho':
