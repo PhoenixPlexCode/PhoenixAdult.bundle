@@ -73,7 +73,7 @@ import siteClubFilly
 import networkIntersec
 import networkCherryPimps
 import site18OnlyGirls
-import siteClubSeventeen
+import siteClubSweethearts
 import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
@@ -965,7 +965,7 @@ searchSites = {
     797: ('We Like Girls', 'https://www.girlsway.com', '/en/video/1/1/'),
     798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
-    800: ('ClubSeventeen', 'https://www.clubseventeen.com', '/video.php?slug='),
+    800: ('ClubSweethearts', 'https://www.clubsweethearts.com', '/video.php?slug='),
     801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/'),
@@ -1542,6 +1542,7 @@ abbreviations = (
     ('^bwb ', 'BigWetButts '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
     ('^clip ', 'LegalPorno '),
+    ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
     ('^css ', 'CzechStreets '),
     ('^cuf ', 'CumFiesta '),
@@ -2291,9 +2292,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 799 or siteNum == 876:
             provider = network1service
 
-        # ClubSeventeen
+        # ClubSeventeen / ClubSweethearts
         elif siteNum == 800:
-            provider = siteClubSeventeen
+            provider = siteClubSweethearts
 
         # Elegant Angel
         elif siteNum == 801:
