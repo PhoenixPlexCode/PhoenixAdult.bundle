@@ -164,6 +164,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
 
 genresDB = {
+    'Anal Mom': ['Anal', 'MILF'],
     'BFFs': ['Teen', 'Group Sex'],
     'Black Valley Girls': ['Teen', 'Ebony'],
     'DadCrush': ['Step Dad', 'Step Daughter'],
