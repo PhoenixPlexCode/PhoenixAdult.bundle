@@ -1492,7 +1492,8 @@ searchSites = {
     1324: ('Kayla Paige Live', 'https://kaylapaigelive.com', '/videos/'),
     1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
-    1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query=')
+    1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
+    1328: ('Milfed', 'https://milfed.com/', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -1818,7 +1819,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkGammaEnt
 
         # Mile High Media
-        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915):
+        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915) or siteNum == 1328:
             provider = network1service
 
         # Fantasy Massage
