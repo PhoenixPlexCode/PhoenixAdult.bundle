@@ -610,7 +610,7 @@ searchSites = {
     442: ('Euro Girls on Girls', 'https://eurogirlsongirls.com', '/videos/freeword/'),
     443: ('1ByDay', 'https://1by-day.com', '/videos/freeword/'),
     444: ('Euro Teen Erotica', 'https://euroteenerotica.com', '/videos/freeword/'),
-    445: ('Hot Legs & Feet', 'https://hotlegsandfeet.com', '/videos/freeword/'),
+    445: ('Hot Legs and Feet', 'https://hotlegsandfeet.com', '/videos/freeword/'),
     446: ('Only Blowjob', 'https://onlyblowjob.com', '/videos/freeword/'),
     447: ('Hands on Hardcore', 'https://handsonhardcore.com', '/videos/freeword/'),
     448: ('PerfectGonzo', 'https://www.perfectgonzo.com', '/movies?q='),
@@ -1588,6 +1588,7 @@ abbreviations = (
     ('^hart ', 'Hegre '),
     ('^hcm ', 'HotCrazyMess '),
     ('^hegre-art ', 'Hegre '),
+    ('^hlaf ', 'Hot Legs and Feet ')
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
     ('^houseofyre ', 'House of Fyre '),
