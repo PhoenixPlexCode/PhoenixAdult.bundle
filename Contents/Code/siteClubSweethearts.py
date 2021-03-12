@@ -38,11 +38,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.summary = detailsPageElements.xpath('//p[@class="mt-0 hidden-lg"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'ClubSeventeen'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -73,7 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + '/' + actorLink.get("href")
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        img = actorPage.xpath('//img[@class="model-profile-image"]/@src')[0]
+        img = actorPage.xpath('//img[@class="model-profile-image"]/@src')
         if img:
             actorPhotoURL = img[0]
             if 'http' not in actorPhotoURL:
