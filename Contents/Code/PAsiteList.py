@@ -1589,7 +1589,7 @@ abbreviations = (
     ('^hart ', 'Hegre '),
     ('^hcm ', 'HotCrazyMess '),
     ('^hegre-art ', 'Hegre '),
-    ('^hlaf ', 'Hot Legs and Feet ')
+    ('^hlaf ', 'Hot Legs and Feet '),
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
     ('^houseofyre ', 'House of Fyre '),
