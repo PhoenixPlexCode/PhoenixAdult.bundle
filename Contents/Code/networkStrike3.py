@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorData = getDatafromAPI(actorPageURL)['model']
 
         actorName = actorData['name']
-        actorPhotoURL = actorData['cdnUrl']
+        actorPhotoURL = actorData['images']['profile'][0]['highdpi']['3x']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
