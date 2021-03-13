@@ -82,7 +82,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//ul[contains(@class, "tags")]//li'):
+    for genreLink in detailsPageElements.xpath('//ul[contains(@class, "tags")]//li | //ul[contains(@class, "tags")]//li/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -98,6 +98,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         actorPhotoURL = 'http:' + actorLink.get('data-src')
 
         movieActors.addActor(actorName, actorPhotoURL)
+
+    for key, value in manualActorDB.items():
+        if sceneURL.endswith(key):
+            for actorName in value:
+                actorPhotoURL = ''
+                movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
@@ -133,3 +139,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+manualActorDB = {
+    '/22929': ['Canela Skin', 'Kai Taylor']
+}

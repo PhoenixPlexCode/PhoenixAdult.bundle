@@ -13,6 +13,7 @@ ActorsReplace = {
     'Anastasia Morna': ['Anna Morna'],
     'Andreina Deluxe': ['Andreina De Lux', 'Andreina De Luxe', 'Andreina Dlux'],
     'Angel Piaff': ['Angel Piaf', 'Angela Piaf'],
+    'Angel Youngs': ['Angel Young'],
     'Angie Moon': ['Angelina Mori'],
     'Ani Blackfox': ['Ani Black', 'Ani Black Fox'],
     'Anita Bellini Berlusconi': ['Anita Bellini'],
@@ -27,6 +28,7 @@ ActorsReplace = {
     'Bunny Colby': ['Nadya Nabakova', 'Nadya Nabokova'],
     'Capri Cavanni': ['Capri Cavalli'],
     'Carry Cherry': ['Carrie Cherry', 'Carry Cherri', 'Corry Cherry', 'Dormiona', 'Kerry Cherry'],
+    'Casey Norhman': ['Casey Nice', 'Eyla Moore'],
     'CeCe Capella': ['Ce Ce Capella'],
     'Charlie Red': ['Charli Red'],
     'Chris Strokes': ['Criss Strokes'],
@@ -46,7 +48,10 @@ ActorsReplace = {
     'Goldie Glock': ['Goldie'],
     'Gulliana Alexis': ['Guiliana Alexis'],
     'Haley Reed': ['Hailey Reed'],
+    'Hannah Hawthorne': ['Hanna Hawthorne'],
+    'Hina Nanase': ['Nanase Hina'],
     'Isabel Stern': ['Isabel Sterov', 'Isabelle Stern'],
+    'Isabella De Laa': ['Isabela De Laa', 'Isabella Della'],
     'Jaye Summers': ['Charlotte Lee'],
     'Jenna Ross': ['Jenna J Ross', 'Jenna J. Ross'],
     'Jenny Fer': ['Jenny Ferri'],
@@ -70,6 +75,7 @@ ActorsReplace = {
     'Linda Brugal': ['Milana Witch'],
     'Lola Taylor': ['Lolita Taylor'],
     'Lora Craft': ['Lara Craft'],
+    'Lucia Denville': ['Lucia Denvile'],
     'Maddy O\'Reilly': ['Maddy O\'reilly', 'Maddy OReilly', 'Maddy Oreilly'],
     'Mariana Martinez': ['Mariana Martix'],
     'Melena Maria Rya': ['Maria Rya', 'Melena Maria'],
@@ -105,18 +111,21 @@ ActorsReplace = {
     'Sofi Smile': ['Sofi Smail', 'Sonia Smile', 'Sony Smile'],
     'Sofy Soul': ['Sofy Torn'],
     'Sonia Sweet': ['Soniy Sweet', 'Sonya Sweet'],
+    'Spencer Bradley': ['Bradley Spencer'],
     'Stefanie Moon': ['Steffy Moon', 'Stephanie Moon'],
     'Stella Banxxx': ['Stella Bankxxx', 'Stella Ferrari'],
     'Stella Flex': ['Marselina Fiore', 'Marseling Fiote', 'Stella Shine'],
     'Stephanie Renee': ['Sedona', 'Stefanie Renee'],
     'Steven St. Croix': ['Steven St.Croix'],
     'Susy Gala': ['Susi Gala'],
-    'Sybil A': ['Sybil', 'Sybil Kailena'],
+    'Sybil A Kailena': ['Sybil', 'Sybil A', 'Sybil Kailena'],
     'Taissia Shanti': ['Taisha', 'Taisia', 'Taisia Shanti', 'Taissia', 'Taissia Shanty'],
     'Timea Bella': ['Lucianna Karel'],
     'Veronica Valentine': ['Veronica Vega'],
+    'Verónica Leal': ['Veronica Leal'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
     'Yu Shinoda': ['Shinoda Yuu'],
+    'Zazie Sky': ['Zazie Skymm'],
     'Zoe Bloom': ['Zoey Bloom'],
 }
 
@@ -1310,15 +1319,23 @@ ActorsReplaceStudios = {
         'Victoria Puppy': ['Victoria P'],
     },
     36: {  # HighTechVR
+        'Aisha Angel': ['Aisha'],
         'Casey Norhman': ['Casey'],
         'Cayla Lyons': ['Cayla'],
+        'Helena Moeller': ['Helena Moeler'],
+        'Isabella De Laa': ['Isabella Della'],
         'Lady Dee': ['Lady D'],
+        'Mina K': ['Mina K Medina'],
     },
     37: {  # BadoinkVR
+        'Adelle Unicorn': ['Adele Unicorn'],
         'Athina Love': ['Athina'],
+        'Aysha Dama': ['Aysha X'],
+        'Victoria Daniels': ['Viktoria Daniels'],
     },
     38: {  # CzechVR
         'Niki Sweet': ['Nikki Sweet'],
+        'Therese Bizzare': ['Theresa Bizarre'],
     },
     39: {  # Teen Mega World
         'Abby Byens': ['Demi'],
@@ -2058,7 +2075,7 @@ ActorsReplaceStudios = {
         'Sasha Rose': ['Ulia'],
         'Sausha': ['Lavanda'],
         'Selena Stuart': ['Katherine'],
-        'Selvaggia': ['Selvagia'],
+        'Selvaggia Babe': ['Selvaggia', 'Selvagia'],
         'Shantel': ['Mirabel'],
         'Shaylee': ['Elsa C', 'Olesya'],
         'Shrima Malati': ['Vega'],
@@ -5024,6 +5041,9 @@ ActorsReplaceStudios = {
     47: {  # Perfect Gonzo, Sapphic Erotica
         'Lilu Moon': ['Lilu'],
     },
+    48: {  # Reality Lovers
+        'Samantha Jolie': ['Holly'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5075,4 +5095,5 @@ ActorsStudioIndexes = {
     45: ['FAKings'],
     46: ['GinaGerson'],
     47: ['Perfect Gonzo', 'Sapphic Erotica'],
+    48: ['Reality Lovers'],
 }

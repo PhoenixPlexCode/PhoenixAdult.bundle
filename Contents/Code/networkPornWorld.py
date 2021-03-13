@@ -53,7 +53,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="scene-description__details"]//div[@class="scene-description__row"]//dd')[2].text_content().strip()
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="scene-description__details"]//div[@class="scene-description__row"]//dd')[2].text_content().strip()
+    except:
+        Log('Failed to extract summary')
 
     # Studio
     metadata.studio = 'DDFProd'

@@ -206,8 +206,6 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Clips4Sale | Matching type: *[Exact](./manualsearch.md#exact-match)* - **StudioID with Title Search**
 + #### ClubFilly | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, DVDs not supported**
 + #### ClubSeventeen | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
-+ #### CumBizz | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
-+ #### CumLouder | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Culioneros | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - Chicas de Porno
   - Chiva Culiona
@@ -219,6 +217,27 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Sexo en Publico
   - Tetangas Espanolas
   - Tetonas Locas
++ #### CumBizz | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
++ #### CumLouder | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
++ #### Couple Fantasies | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
+  - Common Sensual
+  - Foxhouse Films
+  - Gentle Desire
+  - JoyBear
+  - Light Southern Cinema
+  - Madison Young
+  - Maria Beatty
+  - Mario Ancewicz
+  - Morgana Muses
+  - Ninja
+  - Petra Joy
+  - Pink and Whit Productions
+  - Sex School
+  - Signe Baumane
+  - Spark Erotic
+  - The Lifestyle
+  - Thousand Faces Films
+  - Verso Cinema
 + #### CzechAV Network | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only, Date Add**
   - Czech Amateurs
   - Czech Bangbus
@@ -472,6 +491,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### JAY's POV | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Joymii | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### JulesJordan Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*  **Movies Not Supported**
++ #### JVRPorn | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
   - GirlGirl
   - JulesJordan
   - ManuelFerrara

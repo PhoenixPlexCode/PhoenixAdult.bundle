@@ -73,7 +73,7 @@ import siteClubFilly
 import networkIntersec
 import networkCherryPimps
 import site18OnlyGirls
-import siteClubSeventeen
+import siteClubSweethearts
 import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
@@ -109,7 +109,7 @@ import siteVRConk
 import networkEvolvedFights
 import networkJavBus
 import siteHucows
-import siteAllAnalAllTheTime
+import networkVNA
 import siteQueenSnake
 import siteScrewMeToo
 import siteBoxTruckSex
@@ -161,6 +161,8 @@ import networkPornCZ
 import networkTopWebModels
 import siteMyDirtyHobby
 import networkMetadataAPI
+import networkCouplesCinema
+import siteJVRPorn
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -608,7 +610,7 @@ searchSites = {
     442: ('Euro Girls on Girls', 'https://eurogirlsongirls.com', '/videos/freeword/'),
     443: ('1ByDay', 'https://1by-day.com', '/videos/freeword/'),
     444: ('Euro Teen Erotica', 'https://euroteenerotica.com', '/videos/freeword/'),
-    445: ('Hot Legs & Feet', 'https://hotlegsandfeet.com', '/videos/freeword/'),
+    445: ('Hot Legs and Feet', 'https://hotlegsandfeet.com', '/videos/freeword/'),
     446: ('Only Blowjob', 'https://onlyblowjob.com', '/videos/freeword/'),
     447: ('Hands on Hardcore', 'https://handsonhardcore.com', '/videos/freeword/'),
     448: ('PerfectGonzo', 'https://www.perfectgonzo.com', '/movies?q='),
@@ -963,7 +965,7 @@ searchSites = {
     797: ('We Like Girls', 'https://www.girlsway.com', '/en/video/1/1/'),
     798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
-    800: ('ClubSeventeen', 'https://www.clubseventeen.com', '/video.php?slug='),
+    800: ('ClubSweethearts', 'https://www.clubsweethearts.com', '/video.php?slug='),
     801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/'),
@@ -1430,6 +1432,68 @@ searchSites = {
     1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
     1265: ('Philavise', 'https://www.philavise.com', '/search.php?query='),
     1266: ('FamilyXXX', 'http://www.familyxxx.com', '/tour_famxxx/'),
+    1267: ('Couple Fantasies', 'https://www.couplescinema.com', '/search/videos?s='),
+    1268: ('Verso Cinema', 'https://www.couplescinema.com', '/search/videos?s='),
+    1269: ('Sex School', 'https://www.couplescinema.com', '/search/videos?s='),
+    1270: ('JoyBear', 'https://www.couplescinema.com', '/search/videos?s='),
+    1271: ('Common Sensual', 'https://www.couplescinema.com', '/search/videos?s='),
+    1272: ('Gentle Desire', 'https://www.couplescinema.com', '/search/videos?s='),
+    1273: ('Petra Joy', 'https://www.couplescinema.com', '/search/videos?s='),
+    1274: ('Madison Young', 'https://www.couplescinema.com', '/search/videos?s='),
+    1275: ('Light Southern Cinema', 'https://www.couplescinema.com', '/search/videos?s='),
+    1276: ('Pink and Whit Productions', 'https://www.couplescinema.com', '/search/videos?s='),
+    1277: ('Signe Baumane', 'https://www.couplescinema.com', '/search/videos?s='),
+    1278: ('Maria Beatty', 'https://www.couplescinema.com', '/search/videos?s='),
+    1279: ('Spark Erotic', 'https://www.couplescinema.com', '/search/videos?s='),
+    1280: ('Foxhouse Films', 'https://www.couplescinema.com', '/search/videos?s='),
+    1281: ('Mario Ancewicz', 'https://www.couplescinema.com', '/search/videos?s='),
+    1282: ('Ninja', 'https://www.couplescinema.com', '/search/videos?s='),
+    1283: ('Morgana Muses', 'https://www.couplescinema.com', '/search/videos?s='),
+    1284: ('Thousand Faces Films', 'https://www.couplescinema.com', '/search/videos?s='),
+    1285: ('The Lifestyle', 'https://www.couplescinema.com', '/search/videos?s='),
+    1286: ('JVR Porn', 'https://jvrporn.com', '/video/'),
+    1287: ('Kimber Lee Live', 'https://kimberleelive.com', '/videos/'),
+    1288: ('Vicky at Home', 'https://vickyathome.com', '/milf-videos/'),
+    1289: ('Shanda Fay', 'https://shandafay.com', '/videos/'),
+    1290: ('Deauxma Live', 'https://deauxmalive.com', '/videos/'),
+    1291: ('Sara Jay', 'https://sarajay.com', '/videos/'),
+    1292: ('Carmen Valentina', 'https://carmenvalentina.com', '/videos/'),
+    1293: ('Charlee Chase Live', 'https://charleechaselive.com', '/videos/'),
+    1294: ('Gabby Quinteros', 'https://gabbyquinteros.com', '/videos/'),
+    1295: ('Angelina Castro Live', 'https://angelinacastrolive.com', '/videos/'),
+    1296: ('Julia Ann Live', 'https://juliaannlive.com', '/videos/'),
+    1297: ('Nikki Benz', 'https://nikkibenz.com', '/videos/'),
+    1298: ('Sunny Lane Live', 'https://sunnylanelive.com', '/videos/'),
+    1299: ('Puma Swede XXX', 'https://pumaswedexxx.com', '/videos/'),
+    1300: ('Sophie Dee Live', 'https://sophiedeelive.com', '/videos/'),
+    1301: ('Its Cleo Live', 'https://itscleolive.com', '/videos/'),
+    1302: ('Maggie Green Live', 'https://maggiegreenlive.com', '/videos/'),
+    1303: ('Bobbi Eden Live', 'https://bobbiedenlive.com', '/videos/'),
+    1304: ('Eva Lin Live', 'https://evalin.live', '/videos/'),
+    1305: ('Tasha Reign', 'https://tashareign.com', '/videos/'),
+    1306: ('Jelena Jensen', 'https://jelenajensen.com', '/videos/'),
+    1307: ('Penny Pax Live', 'https://pennypaxlive.com', '/videos/'),
+    1308: ('Alex Legend', 'https://alexlegend.com', '/videos/'),
+    1309: ('Sex My Wife', 'https://sexmywife.com', '/videos/'),
+    1310: ('Rubber Doll', 'https://rubberdoll.net', '/videos/'),
+    1311: ('Fucked Feet', 'https://fuckedfeet.com', '/videos/'),
+    1312: ('Nina Kayy', 'https://ninakayy.com', '/videos/'),
+    1313: ('Rome Major', 'https://romemajor.com', '/videos/'),
+    1314: ('Siri', 'https://siripornstar.com', '/videos/'),
+    1315: ('Kink305', 'https://kink305.com', '/videos/'),
+    1316: ('Foxxed Up', 'https://foxxedup.com', '/videos/'),
+    1317: ('Natalia Starr', 'https://nataliastarr.com', '/videos/'),
+    1318: ('Samantha Grace', 'https://samanthagrace.com', '/videos/'),
+    1319: ('Rachel Storms XXX', 'https://rachelstormsxxx.com', '/videos/'),
+    1320: ('Kendra James', 'https://kendrajames.com', '/videos/'),
+    1321: ('Maxine X', 'https://maxinex.com', '/videos/'),
+    1322: ('POV Mania', 'https://povmania.com', '/videos/'),
+    1323: ('Girl Girl Mania', 'https://girlgirlmania.com', '/videos/'),
+    1324: ('Kayla Paige Live', 'https://kaylapaigelive.com', '/videos/'),
+    1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
+    1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
+    1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
+    1328: ('Milfed', 'https://milfed.com/', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -1478,6 +1542,7 @@ abbreviations = (
     ('^bwb ', 'BigWetButts '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
     ('^clip ', 'LegalPorno '),
+    ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
     ('^css ', 'CzechStreets '),
     ('^cuf ', 'CumFiesta '),
@@ -1525,6 +1590,7 @@ abbreviations = (
     ('^hart ', 'Hegre '),
     ('^hcm ', 'HotCrazyMess '),
     ('^hegre-art ', 'Hegre '),
+    ('^hlaf ', 'Hot Legs and Feet '),
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
     ('^houseofyre ', 'House of Fyre '),
@@ -1755,7 +1821,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkGammaEnt
 
         # Mile High Media
-        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915):
+        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915) or siteNum == 1328:
             provider = network1service
 
         # Fantasy Massage
@@ -2058,8 +2124,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 671:
             provider = networkStrike3
 
-        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise
-        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265):
+        # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise / Lauren Phillips
+        elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265) or siteNum == 1327:
             provider = siteMissaX
 
         # Mylf
@@ -2226,9 +2292,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 799 or siteNum == 876:
             provider = network1service
 
-        # ClubSeventeen
+        # ClubSeventeen / ClubSweethearts
         elif siteNum == 800:
-            provider = siteClubSeventeen
+            provider = siteClubSweethearts
 
         # Elegant Angel
         elif siteNum == 801:
@@ -2438,9 +2504,9 @@ def getProviderFromSiteNum(siteNum):
         elif (918 <= siteNum <= 929):
             provider = network1service
 
-        # AllAnalAllTheTime
-        elif siteNum == 931:
-            provider = siteAllAnalAllTheTime
+        # VNA Network
+        elif siteNum == 931 or (1287 <= siteNum <= 1326):
+            provider = networkVNA
 
         # QueenSnake
         elif siteNum == 932:
@@ -2653,5 +2719,13 @@ def getProviderFromSiteNum(siteNum):
         # Deviante
         elif (1238 <= siteNum <= 1243):
             provider = network1service
+
+        # Couples Cinema Network
+        elif (1267 <= siteNum <= 1285):
+            provider = networkCouplesCinema
+
+        # JVR Porn
+        elif siteNum == 1286:
+            provider = siteJVRPorn
 
     return provider
