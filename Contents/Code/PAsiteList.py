@@ -1493,7 +1493,7 @@ searchSites = {
     1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
-    1328: ('Milfed', 'https://milfed.com/', 'https://site-api.project1service.com'),
+    1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
