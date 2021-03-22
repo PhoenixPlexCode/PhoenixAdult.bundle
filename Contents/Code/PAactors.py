@@ -133,7 +133,8 @@ def getFromFreeones(actorName, actorEncoded):
     actorSearch = HTML.ElementFromString(req.text)
     actorPageURL = actorSearch.xpath('//div[contains(@class, "grid-item")]//a/@href')
     if actorPageURL:
-        actorPageURL = 'https://www.freeones.com%s/profile' % actorPageURL[0]
+        actorPageURL = actorPageURL[0].replace('/feed', '/profile', 1)
+        actorPageURL = 'https://www.freeones.com' + actorPageURL
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
 
