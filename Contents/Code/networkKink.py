@@ -185,7 +185,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Director
     director = metadata.directors.new()
     try:
-        directors = detailsPageElements.xpath('//p[@class="director"]/a')
+        directors = detailsPageElements.xpath('//span[@class="director-name"]/a')
         for dirname in directors:
             director.name = dirname.text_content().strip()
     except:
