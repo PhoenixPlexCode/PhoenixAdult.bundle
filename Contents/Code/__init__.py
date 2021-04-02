@@ -67,7 +67,6 @@ class PhoenixAdultAgent(Agent.Movies):
         filename = None
         if media.filename:
             filepath = urllib.unquote(media.filename)
-            filename = str(os.path.splitext(os.path.basename(filepath))[0])
 
         if searchSettings['siteNum'] is None and filepath:
             directory = str(os.path.split(os.path.dirname(filepath))[1])
@@ -82,28 +81,29 @@ class PhoenixAdultAgent(Agent.Movies):
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
         siteNum = searchSettings['siteNum']
+        providerName = None
+        search = PAsearchData.SearchData(media, searchSettings['searchTitle'], searchSettings['searchDate'], filepath)
+        if not search.title and search.filepath:
+            search.title = search.filename
 
         if siteNum is not None:
-            search = PAsearchData.SearchData(media, searchSettings['searchTitle'], searchSettings['searchDate'], filepath, filename)
-
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
             if provider is not None:
                 providerName = getattr(provider, '__name__')
                 Log('Provider: %s' % providerName)
                 provider.search(results, lang, siteNum, search)
 
-                if Prefs['metadataapi_enable']:
-                    if providerName != 'networkMetadataAPI' and (not results or 100 != max([result.score for result in results])):
-                        siteNum = PAsearchSites.getSiteNumByFilter('MetadataAPI')
-                        if siteNum is not None:
-                            provider = PAsiteList.getProviderFromSiteNum(siteNum)
-                            if provider is not None:
-                                providerName = getattr(provider, '__name__')
-                                Log('Provider: %s' % providerName)
-                                try:
-                                    provider.search(results, lang, siteNum, search)
-                                except Exception as e:
-                                    Log(e)
+        if Prefs['metadataapi_enable'] and providerName != 'networkMetadataAPI' and (siteNum is None or not results or 100 != max([result.score for result in results])):
+            siteNum = PAsearchSites.getSiteNumByFilter('MetadataAPI')
+            if siteNum is not None:
+                provider = PAsiteList.getProviderFromSiteNum(siteNum)
+                if provider is not None:
+                    providerName = getattr(provider, '__name__')
+                    Log('Provider: %s' % providerName)
+                    try:
+                        provider.search(results, lang, siteNum, search)
+                    except Exception as e:
+                        Log(e)
 
         results.Sort('score', descending=True)
 
