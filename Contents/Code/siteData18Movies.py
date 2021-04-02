@@ -35,6 +35,21 @@ def search(results, lang, siteNum, searchData):
 
             date = searchResult.text
 
+            sceneURL = PAutils.Decode(curID)
+            req = PAutils.HTTPRequest(sceneURL)
+            detailsPageElements = HTML.ElementFromString(req.text)
+
+            # Studio
+            try:
+                studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+            except:
+                try:
+                    studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+                except:
+                    try:
+                        studio = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+                    except:
+                        studio = ''
             if date and not date == 'unknown':
                 try:
                     releaseDate = datetime.strptime(date, '%Y%m%d').strftime('%Y-%m-%d')
@@ -53,9 +68,9 @@ def search(results, lang, siteNum, searchData):
 
             if score == 80:
                 count += 1
-                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
             else:
-                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for movieURL in googleResults:
