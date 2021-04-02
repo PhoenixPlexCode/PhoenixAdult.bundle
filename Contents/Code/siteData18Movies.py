@@ -51,8 +51,7 @@ def search(results, lang, siteNum, searchData):
             else:
                 score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            
-            if (score > 70):
+            if score > 70:
                 sceneURL = PAutils.Decode(curID)
                 req = PAutils.HTTPRequest(sceneURL)
                 detailsPageElements = HTML.ElementFromString(req.text)
@@ -68,6 +67,7 @@ def search(results, lang, siteNum, searchData):
                             studio = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
                         except:
                             studio = ''
+
                 if score == 80:
                     count += 1
                     temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
