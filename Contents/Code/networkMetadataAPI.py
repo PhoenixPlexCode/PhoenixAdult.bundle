@@ -3,9 +3,6 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    if not searchData.filename:
-        return results
-
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.title)
     req = PAutils.HTTPRequest(url)
     searchResults = req.json()

@@ -80,11 +80,13 @@ class PhoenixAdultAgent(Agent.Movies):
                 Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
-        siteNum = searchSettings['siteNum']
         providerName = None
-        search = PAsearchData.SearchData(media, searchSettings['searchTitle'], searchSettings['searchDate'], filepath)
-        if not search.title and search.filepath:
-            search.title = search.filename
+        siteNum = searchSettings['siteNum']
+        searchTitle = searchSettings['searchTitle']
+        if not searchTitle:
+            searchTitle = title
+        searchDate = searchSettings['searchDate']
+        search = PAsearchData.SearchData(media, searchTitle, searchDate, filepath)
 
         if siteNum is not None:
             provider = PAsiteList.getProviderFromSiteNum(siteNum)
