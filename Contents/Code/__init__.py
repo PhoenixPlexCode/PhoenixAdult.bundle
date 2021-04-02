@@ -103,7 +103,7 @@ class PhoenixAdultAgent(Agent.Movies):
                     try:
                         provider.search(results, lang, siteNum, search)
                     except Exception as e:
-                        Log(e)
+                        Log.Error(e)
 
         results.Sort('score', descending=True)
 
