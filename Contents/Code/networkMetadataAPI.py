@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     if not searchData.filename:
         return results
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.filename)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.title)
     req = PAutils.HTTPRequest(url)
     searchResults = req.json()
     if searchResults and 'data' in searchResults and searchResults['data']:
