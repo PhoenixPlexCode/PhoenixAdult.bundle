@@ -1,21 +1,6 @@
 import PAsearchSites
-import PAextras
 import PAutils
 
-plurals = {
-    "brothers"  : "brother-s",
-    "bros"      : "bro-s",
-    "sisters"   : "sister-s",
-    "siss"      : "sis-s",
-    "friends"   : "friend-s",
-    "mothers"   : "mother-s",
-    "moms"      : "mom-s",
-    "fathers"   : "father-s",
-    "dads"      : "dad-s",
-    "sons"      : "son-s",
-    "daughters" : "daughter-s",
-    "-and-"       : "-"
-}
 
 def search(results, lang, siteNum, searchData):
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-').replace('\'', '-')
@@ -33,9 +18,10 @@ def search(results, lang, siteNum, searchData):
     searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
 
     for sceneURL in searchResults:
-        if sceneURL == directURL.replace("www.", '', 1):
-                for original, new in plurals.items():
-                    sceneURL = sceneURL.replace(original, new)
+        if sceneURL == directURL.replace('www.', '', 1):
+            for original, new in plurals.items():
+                sceneURL = sceneURL.replace(original, new)
+
         req = PAutils.HTTPRequest(sceneURL)
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
@@ -188,4 +174,19 @@ genresDB = {
     'PassionHD': ['Hardcore'],
     'POVD': ['Gonzo', 'POV'],
     'PureMature': ['MILF', 'Mature'],
+}
+
+plurals = {
+    'brothers': 'brother-s',
+    'bros': 'bro-s',
+    'sisters': 'sister-s',
+    'siss': 'sis-s',
+    'friends': 'friend-s',
+    'mothers': 'mother-s',
+    'moms': 'mom-s',
+    'fathers': 'father-s',
+    'dads': 'dad-s',
+    'sons': 'son-s',
+    'daughters': 'daughter-s',
+    '-and-': '-',
 }
