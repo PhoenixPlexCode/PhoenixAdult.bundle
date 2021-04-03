@@ -25,7 +25,7 @@
     },
     {
         "id": "custom_title_enable",
-        "label": "Use Custom File Format",
+        "label": "Use Custom Title Format",
         "type": "bool",
         "default": "false"
     },
@@ -33,7 +33,7 @@
         "id": "custom_title",
         "label": "Title format",
         "type": "text",
-        "default": ""
+        "default": "{actors} - {title} [{studio}/{series}]"
     },
     {
         "id": "order_enable",
