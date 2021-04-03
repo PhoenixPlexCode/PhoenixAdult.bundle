@@ -107,3 +107,24 @@ Here are some examples for each type of search:
     - Add `Date` `Actress` At `Studio`
   - Add Date, actresses, title and studio:
     - Add `Date` `Actress` And `Actress` In `Scene` At `Studio`
+
+# Custom Title Naming
+
+#### Create a custom title from data pulled by scrapers
+
+Enable custom title formats in agent settings
+
+Create a string with a combination of fixed characters and metadata tags
+
+Tags should be used in the format: `{Tag Name}`
+
+- `Title` - The title/name of the scene originally pulled by scraper
+- `Actors` - Comma separated string consisting of all actors
+- `Studio` - Studio producing video
+- `Series` - Specific series for video
+
+### Examples:
+- \[Series\] Title:
+    - `[{Series}] {Title}`
+- \[Actors\] Title:
+    - `[{Actors}] {Title}`
