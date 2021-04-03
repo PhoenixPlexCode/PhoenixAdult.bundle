@@ -621,7 +621,7 @@ searchSites = {
     453: ('PurePOV', 'https://www.perfectgonzo.com', '/movies?tag=purepov&q='),
     454: ('SpermSwap', 'https://www.perfectgonzo.com', '/movies?tag=spermaswap&q='),
     455: ('TamedTeens', 'https://www.perfectgonzo.com', '/movies?tag=tamedteens&q='),
-    456: ('GiveMePink', 'https://www.perfectgonzo.com', '/movies?tag=givemepink&q='),
+    456: ('GiveMePink', 'https://givemepink.com', '/movies?tag=givemepink&q='),
     457: ('FistFlush', 'https://www.perfectgonzo.com', '/movies?tag=fistflush&q='),
     458: ('MilfThing', 'https://www.perfectgonzo.com', '/movies?tag=milfthing&q='),
     459: ('PerfectGonzoInterview', 'https://www.perfectgonzo.com', '/movies?tag=interview&q='),
