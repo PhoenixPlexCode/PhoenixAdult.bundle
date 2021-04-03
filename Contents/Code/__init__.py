@@ -140,6 +140,15 @@ class PhoenixAdultAgent(Agent.Movies):
         # Add Content Rating
         metadata.content_rating = 'XXX'
 
+        if Prefs['custom_title_enable']:
+            metadata.title = Prefs['custom_title'].format(
+                title = metadata.title,
+                actors = ", ".join([(x.name).encode('ascii', 'ignore') for x in metadata.roles]),
+                series = metadata.studio,
+                studio = ", ".join(set([(x).encode('ascii', 'ignore') for x in metadata.collections if x not in metadata.studio]))
+            )
+            Log("Custom Title: %s" % metadata.title)
+
 
 def getSearchTitle(title):
     trashTitle = (

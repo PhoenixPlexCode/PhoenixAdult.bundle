@@ -24,6 +24,18 @@
         "default": "~"
     },
     {
+        "id": "custom_title_enable",
+        "label": "Use Custom File Format",
+        "type": "bool",
+        "default": "false"
+    },
+    {
+        "id": "custom_title",
+        "label": "Title format",
+        "type": "text",
+        "default": ""
+    },
+    {
         "id": "order_enable",
         "label": "Enable Custom Order",
         "type": "bool",
