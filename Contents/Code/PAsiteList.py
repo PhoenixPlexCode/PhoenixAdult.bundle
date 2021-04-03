@@ -1413,7 +1413,7 @@ searchSites = {
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
     1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
-    1248: ('My Pervy Family', 'https://www.mypervyfamily.com/', '/MemberSceneSearch?q='),
+    1248: ('My Pervy Family', 'https://www.mypervyfamily.com', '/MemberSceneSearch?q='),
     1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
@@ -1494,7 +1494,7 @@ searchSites = {
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
     1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
-    1329: ('PervNana', 'https://www.pervnana.com/', '/movies/'),
+    1329: ('PervNana', 'https://www.pervnana.com', '/movies/'),
 }
 
 abbreviations = (
