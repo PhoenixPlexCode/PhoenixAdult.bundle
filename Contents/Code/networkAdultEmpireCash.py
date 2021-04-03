@@ -35,12 +35,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip()
 
     # Tagline and Collection(s)
-    metadata.collections.add('AdultEmpireCash')
+    metadata.collections.add(detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip())
     if 'filthykings' in sceneURL:
         metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
 
     # Studio
-    metadata.studio = detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip()
+    metadata.studio = 'AdultEmpireCash'
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
