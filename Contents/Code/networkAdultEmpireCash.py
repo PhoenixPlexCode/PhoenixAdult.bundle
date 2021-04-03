@@ -8,10 +8,16 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
         titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]/text()')[0]
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
-
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=score, lang=lang))
+        displayTitle = titleNoFormatting
+        if siteNum != 815:
+            date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))
+            if date:
+                releaseDate = date[0].strip()
+                displayTitle = '%s [%s]' % (titleNoFormatting, releaseDate)
+
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=displayTitle, score=score, lang=lang))
 
     return results
 
