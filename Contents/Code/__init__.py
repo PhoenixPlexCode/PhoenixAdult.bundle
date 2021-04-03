@@ -144,8 +144,8 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata.title = Prefs['custom_title'].format(
                 title = metadata.title,
                 actors = ", ".join([(x.name).encode('ascii', 'ignore') for x in metadata.roles]),
-                series = metadata.studio,
-                studio = ", ".join(set([(x).encode('ascii', 'ignore') for x in metadata.collections if x not in metadata.studio]))
+                studio = metadata.studio,
+                series = ", ".join(set([(x).encode('ascii', 'ignore') for x in metadata.collections if x not in metadata.studio]))
             )
             Log("Custom Title: %s" % metadata.title)
 
