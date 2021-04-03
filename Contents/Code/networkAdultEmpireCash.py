@@ -9,11 +9,15 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]/text()')[0]
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        displayTitle = titleNoFormatting
         if siteNum != 815:
-            date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))[0].strip()
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, date), score=score, lang=lang))
-        else:
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=score, lang=lang))
+            date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))
+            if date:
+                releaseDate = date[0].strip()
+                displayTitle = '%s [%s]' % (titleNoFormatting, releaseDate)
+
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=displayTitle, score=score, lang=lang))
 
     return results
 
