@@ -1494,6 +1494,7 @@ searchSites = {
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
     1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
+    1329: ('PervNana', 'https://www.pervnana.com/', '/movies/'),
 }
 
 abbreviations = (
@@ -2129,7 +2130,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887):
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329:
             provider = siteMylf
 
         # Manually Add Actors
