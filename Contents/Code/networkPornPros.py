@@ -188,5 +188,4 @@ plurals = {
     'dads': 'dad-s',
     'sons': 'son-s',
     'daughters': 'daughter-s',
-    '-and-': '-',
 }
