@@ -1,7 +1,7 @@
 import PAsearchSites
 import PAextras
 import PAutils
-
+import siteData18Content
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
@@ -73,6 +73,21 @@ def search(results, lang, siteNum, searchData):
                     temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
                 else:
                     results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                
+                #Split Scenes
+                sceneCount = detailsPageElements.xpath('//text()[contains(., "Related Scenes")]')[0][-2]
+                if sceneCount.isdigit():
+                    sceneCount = int(sceneCount)
+                else:
+                    sceneCount = 0
+                for sceneNum in range(1,sceneCount + 1):
+                    section = "Scene " + str(sceneNum)
+                    scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
+                    if score == 80:
+                        count += 1
+                        temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
+                    else:
+                        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
             else:
                 if score == 80:
                     count += 1
@@ -144,6 +159,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
+    if len(metadata_id) > 3:
+        Log("Switching to Data18Content")
+        siteData18Content.update(metadata, lang, siteNum, movieGenres, movieActors)
+        return metadata
+    
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
