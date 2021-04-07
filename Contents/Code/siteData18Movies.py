@@ -137,11 +137,38 @@ def search(results, lang, siteNum, searchData):
         else:
             score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
+        # Studio
+        try:
+            studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+        except:
+            try:
+                studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            except:
+                try:
+                    studio = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+                except:
+                    studio = ''
+
         if score == 80:
             count += 1
-            temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
+            temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
         else:
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+        
+        #Split Scenes
+        sceneCount = detailsPageElements.xpath('//text()[contains(., "Related Scenes")]')[0][-2]
+        if sceneCount.isdigit():
+            sceneCount = int(sceneCount)
+        else:
+            sceneCount = 0
+        for sceneNum in range(1,sceneCount + 1):
+            section = "Scene " + str(sceneNum)
+            scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
+            if score == 80:
+                count += 1
+                temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
+            else:
+                results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
 
     for result in temp:
         if count > 1 and result.score == 80:
