@@ -10,6 +10,12 @@
         "label": "Enable using MetadataAPI for unsuccessful search",
         "type": "bool",
         "default": "false"
+    },    
+    {
+        "id": "metadataapi_token",
+        "label": "MetadataAPI Token",
+        "type": "text",
+        "default": ""
     },
     {
         "id": "strip_enable",

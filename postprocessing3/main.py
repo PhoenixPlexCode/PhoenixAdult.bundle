@@ -11,6 +11,8 @@ import requests
 from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 
+
+TOKEN = ''
 FILE_NAME_FORMAT = '{site} - {date} - {title} ~ {actors}'
 EXTENSIONS = (
     '.mp4', '.mkv', '.avi', '.wmv'
@@ -114,13 +116,14 @@ def get_new_file_name(data):
 
 def get_data_from_api(file_name):
     logging.info('Searching `%s`', file_name)
-    response = requests.get('https://api.metadataapi.net/scenes', headers={
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }, params={
-        'parse': file_name,
-        'limit': 1
-    })
+
+    url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_name
+    headers = {}
+
+    if TOKEN:
+        headers['Authorization'] = 'Bearer %s' % TOKEN
+
+    response = requests.get(url, headers=headers)
 
     data = response.json()
     if data and 'data' in data and data['data']:

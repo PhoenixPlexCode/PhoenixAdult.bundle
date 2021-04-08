@@ -2,10 +2,22 @@ import PAsearchSites
 import PAutils
 
 
+def getDataFromAPI(url):
+    headers = {}
+
+    token = Prefs['metadataapi_token']
+    if token:
+        headers['Authorization'] = 'Bearer %s' % token
+
+    req = PAutils.HTTPRequest(url, headers=headers)
+    data = req.json()
+
+    return data
+
+
 def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.title)
-    req = PAutils.HTTPRequest(url)
-    searchResults = req.json()
+    searchResults = getDataFromAPI(url)
     if searchResults and 'data' in searchResults and searchResults['data']:
         for searchResult in searchResults['data']:
             curID = searchResult['_id']
@@ -30,8 +42,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     sceneID = metadata_id[0]
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes/' + sceneID
-    req = PAutils.HTTPRequest(url)
-    detailsPageElements = req.json()['data']
+    req = getDataFromAPI(url)
+    detailsPageElements = req['data']
 
     # Title
     metadata.title = detailsPageElements['title']
