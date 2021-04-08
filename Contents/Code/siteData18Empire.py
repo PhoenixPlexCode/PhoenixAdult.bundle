@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAextras
 import PAutils
 import random
 
@@ -47,7 +46,7 @@ def search(results, lang, siteNum, searchData):
                     detailsPageElements = HTML.ElementFromString(req.text)
 
                     #Find date on movie specific page
-                    date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(.,"Released:")]]/text()')[0].strip()
+                    date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(., "Released:")]]/text()')[0].strip()
                     if date and not date == 'unknown':
                         try:
                             releaseDate = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
@@ -104,7 +103,7 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip(), siteNum)
         curID = PAutils.Encode(movieURL)
 
-        date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(.,"Released:")]]/text()')[0].strip()
+        date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(., "Released:")]]/text()')[0].strip()
         if date and not date == 'unknown':
             try:
                 releaseDate = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
@@ -162,7 +161,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     if len(metadata_id) > 3:
-        Log("Split Scene: %d" % int(metadata_id[3]))
+        Log('Split Scene: %d' % int(metadata_id[3]))
         splitScene = True
     
     # Title
@@ -218,6 +217,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             actors.append(detailsPageElements.xpath('//div[@class="video-performer"]/a[./img[@title="%s"]]/span/span' % (name))[0])
     else:
         actors = detailsPageElements.xpath('//div[@class="video-performer"]/a/span/span')
+
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
         actorPhotoURL = detailsPageElements.xpath('//div[@class="video-performer"]/a/img[@title="%s"]/@data-bgsrc' % (actorName))[0].strip()
