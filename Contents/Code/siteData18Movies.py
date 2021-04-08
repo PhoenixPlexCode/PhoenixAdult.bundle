@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAextras
 import PAutils
 import siteData18Content
 
@@ -187,7 +186,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     if len(metadata_id) > 3:
-        Log("Switching to Data18Content")
+        Log('Switching to Data18Content')
         siteData18Content.update(metadata, lang, siteNum, movieGenres, movieActors)
         return metadata
     

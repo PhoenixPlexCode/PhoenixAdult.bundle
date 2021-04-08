@@ -1,5 +1,4 @@
 import PAsearchSites
-import PAextras
 import PAutils
 
 
@@ -172,7 +171,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     try:
         tagline = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
         if len(metadata_id) > 3:
-            Log("Using original series information")
+            Log('Using original series information')
             tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a[@title]')[0].text_content().strip()
             metadata.title = ("%s [Scene %s]" % (metadata_id[3], metadata_id[4]))
         if not metadata.studio:
