@@ -149,8 +149,11 @@ def getFromFreeones(actorName, actorEncoded):
 
         aliases.append(DBactorName)
 
-        professions = actorPage.xpath('//p[contains(., "Profession")]/following-sibling::div/p')[0].text_content().strip()
-
+        professions = ''
+        try:
+            professions = actorPage.xpath('//p[contains(., "Profession")]/following-sibling::div/p')[0].text_content().strip()
+        except:
+            pass
         img = actorPage.xpath('//div[contains(@class, "image-container")]//a/img/@src')
 
         is_true = False
