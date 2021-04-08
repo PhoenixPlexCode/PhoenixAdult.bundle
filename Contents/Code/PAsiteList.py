@@ -139,6 +139,7 @@ import siteJacquieEtMichel
 import siteData18Content
 import sitePenthouseGold
 import siteData18Movies
+import siteData18Empire
 import siteWUNF
 import siteSexMex
 import siteExpliciteArt
@@ -1495,6 +1496,7 @@ searchSites = {
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
     1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
     1329: ('PervNana', 'https://www.pervnana.com', '/movies/'),
+    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q=')
 }
 
 abbreviations = (
@@ -2728,5 +2730,9 @@ def getProviderFromSiteNum(siteNum):
         # JVR Porn
         elif siteNum == 1286:
             provider = siteJVRPorn
+        
+        # Data18 Empire
+        elif siteNum == 1330:
+            provider = siteData18Empire
 
     return provider
