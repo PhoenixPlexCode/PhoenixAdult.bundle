@@ -246,11 +246,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if gallery:
             req = PAutils.HTTPRequest('%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), gallery[0]))
             galleryPageElement = HTML.ElementFromString(req.text)
-            galleries = galleryPageElement.xpath(gallery_image)
-            if len(galleries) > 20:
-                art = art + random.sample(galleries, 20)
-            else:
-                art = art + galleries
+            art = art + galleryPageElement.xpath(gallery_image)
         if splitScene:
             art.append(detailsPageElements.xpath(scene)[int(metadata_id[3])])
     except:
@@ -259,10 +255,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     images = []
     posterExists = False
     Log('Artwork found: %d' % len(art))
+    numPosters = 20
+    numArt = 5
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
+                if random.randint(0,1) == 0 and idx != 0:
+                    continue
                 image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.data18.empirestores.co'})
                 images.append(image)
                 im = StringIO(image.content)
@@ -271,10 +271,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 # Add the image proxy items to the collection
                 if height > width:
                     # Item is a poster
+                    if numPosters != 0:
+                        numPosters = numPosters - 1
+                    else:
+                        continue
                     posterExists = True
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > height:
                     # Item is an art item
+                    if numArt != 0:
+                        numArt = numArt - 1
+                    else:
+                        continue
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
