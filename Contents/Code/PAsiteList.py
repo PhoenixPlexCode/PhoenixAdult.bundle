@@ -139,6 +139,7 @@ import siteJacquieEtMichel
 import siteData18Content
 import sitePenthouseGold
 import siteData18Movies
+import siteData18Empire
 import siteWUNF
 import siteSexMex
 import siteExpliciteArt
@@ -621,7 +622,7 @@ searchSites = {
     453: ('PurePOV', 'https://www.perfectgonzo.com', '/movies?tag=purepov&q='),
     454: ('SpermSwap', 'https://www.perfectgonzo.com', '/movies?tag=spermaswap&q='),
     455: ('TamedTeens', 'https://www.perfectgonzo.com', '/movies?tag=tamedteens&q='),
-    456: ('GiveMePink', 'https://www.perfectgonzo.com', '/movies?tag=givemepink&q='),
+    456: ('GiveMePink', 'https://givemepink.com', '/movies?tag=givemepink&q='),
     457: ('FistFlush', 'https://www.perfectgonzo.com', '/movies?tag=fistflush&q='),
     458: ('MilfThing', 'https://www.perfectgonzo.com', '/movies?tag=milfthing&q='),
     459: ('PerfectGonzoInterview', 'https://www.perfectgonzo.com', '/movies?tag=interview&q='),
@@ -1413,7 +1414,7 @@ searchSites = {
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
     1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
-    1248: ('My Pervy Family', 'https://www.mypervyfamily.com/', '/MemberSceneSearch?q='),
+    1248: ('My Pervy Family', 'https://www.mypervyfamily.com', '/MemberSceneSearch?q='),
     1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
@@ -1493,7 +1494,9 @@ searchSites = {
     1325: ('Women By Julia Ann', 'https://womenbyjuliaann.com', '/videos/'),
     1326: ('VNA Live', 'https://vnalive.com', '/videos/'),
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
-    1328: ('Milfed', 'https://milfed.com/', 'https://site-api.project1service.com'),
+    1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
+    1329: ('PervNana', 'https://www.pervnana.com', '/movies/'),
+    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q=')
 }
 
 abbreviations = (
@@ -2129,7 +2132,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887):
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329:
             provider = siteMylf
 
         # Manually Add Actors
@@ -2727,5 +2730,9 @@ def getProviderFromSiteNum(siteNum):
         # JVR Porn
         elif siteNum == 1286:
             provider = siteJVRPorn
+        
+        # Data18 Empire
+        elif siteNum == 1330:
+            provider = siteData18Empire
 
     return provider

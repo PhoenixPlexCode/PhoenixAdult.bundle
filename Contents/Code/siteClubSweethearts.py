@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.replace(' ', '_')
+    searchData.encoded = searchData.title.replace(' ', '_').replace('\'', '')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
