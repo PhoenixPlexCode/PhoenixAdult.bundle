@@ -6,10 +6,15 @@ def getJSONfromPage(url):
     req = PAutils.HTTPRequest(url)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    if req:
-        jsonData = detailsPageElements.xpath('//body/script')[1].text_content().split('=')[-1].strip()
-        if jsonData:
-            return json.loads(jsonData)['data']
+    if req.ok:
+        data = None
+        node = detailsPageElements.xpath('//script[contains(., "window.__DATA__")]')
+        if node:
+            data = node[0].text_content().split('=', 1)[1].strip()
+
+        if data:
+            return json.loads(data)['data']
+
     return None
 
 
@@ -66,7 +71,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements['title']
 
     # Summary
-    metadata.summary = re.sub(r'(?=\<)(.*?)(?<=\>)', '', detailsPageElements['description'])
+    metadata.summary = PAutils.cleanHTML(detailsPageElements['description'])
 
     # Studio
     metadata.studio = 'Top Web Models'
