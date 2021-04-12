@@ -372,3 +372,10 @@ def manualWordFix(word):
                 return correction
 
     return word
+
+
+def cleanHTML(text):
+    data = re.sub(r'<.*?>', '', text)
+    data = data.strip()
+
+    return data
