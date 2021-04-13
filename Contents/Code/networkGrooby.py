@@ -7,6 +7,7 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
+        sceneURL = sceneURL.split('?', 1)[0]
         if '/trailers/' in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
@@ -16,14 +17,14 @@ def search(results, lang, siteNum, searchData):
             detailsPageElements = HTML.ElementFromString(req.text)
 
             curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
-            releaseDate = None
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip(), siteNum)
+            releaseDate = ''
 
-            dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')
+            dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')
             if dateNode:
                 date = None
                 try:
-                    date = dateNode[0].text_content().split('-')[1].strip()
+                    date = dateNode[0].text_content().split('-')[-1].strip()
                 except:
                     pass
 
@@ -49,10 +50,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p')[-1].text_content()
+    metadata.summary = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p | //div[@class="trailerpage_info"]/p[not(@class)]')[-1].text_content()
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
@@ -64,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')[0].text_content().split('-')[1].strip()
+    date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')[0].text_content().split('-')[-1].strip()
     if date:
         date_object = parse(date)
         metadata.originally_available_at = date_object
@@ -72,13 +73,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a | //div[@class="setdesc"]//a'):
         actorName = actorLink.text_content().strip()
 
-        actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
+        actorURL = actorLink.get('href')
+        if not actorURL.startswith('http'):
+            actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL
+
         req = PAutils.HTTPRequest(actorURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPageElements.xpath('//div[@class="model_photo"]/img/@src')[0]
+        actorPhotoURL = actorPageElements.xpath('(//div[@class="model_photo"]//img[@id]/@src0_1x | //div[@class="model_photo"]/img/@src)')[0]
+        if not actorPhotoURL.startswith('http'):
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
 
