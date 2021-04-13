@@ -455,6 +455,10 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Gender X | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlfriendsFilms | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlsOutWest | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Grooby Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Grooby Girls
+  - TGirl Japan
+  - TGirl Japan Hardcore
 + #### Girls Rimming | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
 + #### Girlsway | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - GirlCore
