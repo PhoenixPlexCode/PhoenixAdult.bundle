@@ -12,29 +12,30 @@ def search(results, lang, siteNum, searchData):
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
-        detailsPageElements = HTML.ElementFromString(req.text)
+        if req.ok:
+            detailsPageElements = HTML.ElementFromString(req.text)
 
-        curID = PAutils.Encode(sceneURL)
-        titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
-        releaseDate = None
+            curID = PAutils.Encode(sceneURL)
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
+            releaseDate = None
 
-        dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')
-        if dateNode:
-            date = None
-            try:
-                date = dateNode[0].text_content().split('-')[1].strip()
-            except:
-                pass
+            dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')
+            if dateNode:
+                date = None
+                try:
+                    date = dateNode[0].text_content().split('-')[1].strip()
+                except:
+                    pass
 
-            if date:
-                releaseDate = parse(date).strftime('%Y-%m-%d')
+                if date:
+                    releaseDate = parse(date).strftime('%Y-%m-%d')
 
-        if searchData.date and releaseDate:
-            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            if searchData.date and releaseDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
