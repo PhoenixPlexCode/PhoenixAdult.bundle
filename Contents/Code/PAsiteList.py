@@ -164,6 +164,7 @@ import siteMyDirtyHobby
 import networkMetadataAPI
 import networkCouplesCinema
 import siteJVRPorn
+import siteTGirlJapan
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1496,7 +1497,9 @@ searchSites = {
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
     1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
     1329: ('PervNana', 'https://www.pervnana.com', '/movies/'),
-    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q=')
+    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q='),
+    1331: ('TGirl Japan Hardcore', 'https://www.tgirljapanhardcore.com', '/tour/trailers/'),
+    1332: ('TGirl Japan', 'https://www.tgirljapan.com', '/tour/trailers/'),
 }
 
 abbreviations = (
@@ -2730,9 +2733,13 @@ def getProviderFromSiteNum(siteNum):
         # JVR Porn
         elif siteNum == 1286:
             provider = siteJVRPorn
-        
+
         # Data18 Empire
         elif siteNum == 1330:
             provider = siteData18Empire
+
+        # TGirl Japan (Hardcore)
+        elif (1331 <= siteNum <= 1332):
+            provider = siteTGirlJapan
 
     return provider
