@@ -167,6 +167,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Big Tits in Sports
   - Big Tits in Uniform
   - Big Wet Butts
+  - Brazzers Exxtra
   - Busty and Real
   - Busty Z
   - Butts and Blacks
@@ -174,7 +175,6 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Day With A Porn Star
   - Dirty Masseur
   - Doctor Adventures
-  - Exxtra
   - Hot and Mean
   - Hot Chicks Big Asses
   - Milfs Like It Big
