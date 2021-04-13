@@ -1,26 +1,44 @@
 import PAutils
 import PAsearchSites
 
+
 def search(results, lang, siteNum, searchData):
     searchResults = []
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
+        if '/trailers/' in sceneURL and sceneURL not in searchResults:
+            searchResults.append(sceneURL)
+
+    for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
 
         curID = PAutils.Encode(sceneURL)
-        title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), title.lower())
+        titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
+        releaseDate = None
 
-        date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p')[1].text_content().split('-')[1].strip()
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
+        dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')
+        if dateNode:
+            date = None
+            try:
+                date = dateNode[0].text_content().split('-')[1].strip()
+            except:
+                pass
+
+            if date:
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+
+        if searchData.date and releaseDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            releasedate = "0"
-        
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name = '%s [%s]' % (title, releaseDate), score=score, lang=lang))
-        
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+
+    return results
+
+
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -32,11 +50,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3')[0].text_content().strip(), siteNum)
 
-    # Summary 
+    # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p')[-1].text_content()
-    
+
     # Studio
-    metadata.studio = "TGirl Japan" + ' Hardcore' if siteNum == 1330 else ''
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -45,35 +63,41 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p')[1].text_content().split('-')[1].strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")]')[0].text_content().split('-')[1].strip()
+    if date:
+        date_object = parse(date)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Actors
     movieActors.clearActors()
-    actorLink = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p/a')[0]
-    actorName = actorLink.text_content().strip()
+    for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a'):
+        actorName = actorLink.text_content().strip()
 
-    actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.xpath('.//@href')[0]
-    req = PAutils.HTTPRequest(actorURL)
-    actorPageElements = HTML.ElementFromString(req.text)
-    actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPageElements.xpath('//div[@class="model_photo"]/img/@src')[0]
+        actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
+        req = PAutils.HTTPRequest(actorURL)
+        actorPageElements = HTML.ElementFromString(req.text)
+        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPageElements.xpath('//div[@class="model_photo"]/img/@src')[0]
 
-    movieActors.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
-    for poster in detailsPageElements.xpath('//div[@class="trailerpage_photoblock_fullsize"]//a/@href'):
-        art.append(PAsearchSites.getSearchBaseURL(siteNum)+ '/tour/' + poster)
-        
-    Log('Artwork found: %d' % len(art))   
+    xpaths = [
+        '//div[@class="trailerpage_photoblock_fullsize"]//a/@href'
+    ]
+    for xpath in xpaths:
+        for poster in detailsPageElements.xpath(xpath):
+            if not poster.startswith('http'):
+                poster = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/' + poster
+
+            art.append(poster)
+
+    Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
-            Log('74')
             try:
-                Log('76')
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
@@ -86,7 +110,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
-                Log('88')
                 pass
 
     return metadata
