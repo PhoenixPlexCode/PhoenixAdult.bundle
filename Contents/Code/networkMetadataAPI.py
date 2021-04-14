@@ -17,6 +17,8 @@ def getDataFromAPI(url):
 
 def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.title)
+    if searchData.ohash:
+        url += '&hash=%s' % searchData.ohash
     searchResults = getDataFromAPI(url)
     if searchResults and 'data' in searchResults and searchResults['data']:
         for searchResult in searchResults['data']:

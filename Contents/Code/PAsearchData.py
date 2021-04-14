@@ -5,6 +5,7 @@ class SearchData:
     filepath = ''
     filename = ''
     duration = ''
+    ohash = ''
 
     def __init__(self, media, searchTitle, searchDate, filepath):
         self.title = searchTitle
@@ -15,6 +16,8 @@ class SearchData:
         if filepath:
             self.filename = str(os.path.splitext(os.path.basename(filepath))[0])
         self.duration = media.duration
+        if media.openSubtitlesHash:
+            self.ohash = media.openSubtitlesHash
 
         Log('SearchData.title: %s' % self.title)
 
