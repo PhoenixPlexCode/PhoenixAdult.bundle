@@ -10,7 +10,10 @@ def getDataFromAPI(url):
         headers['Authorization'] = 'Bearer %s' % token
 
     req = PAutils.HTTPRequest(url, headers=headers)
-    data = req.json()
+
+    data = None
+    if req.ok:
+        data = req.json()
 
     return data
 
