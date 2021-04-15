@@ -12,7 +12,6 @@ from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 
 
-TOKEN = ''
 FILE_NAME_FORMAT = '{site} - {date} - {title} ~ {actors}'
 EXTENSIONS = (
     '.mp4', '.mkv', '.avi', '.wmv'
@@ -74,7 +73,13 @@ class WatchFileHandler(FileSystemEventHandler):
 def work_with_file(file_path):
     if file_path.suffix in EXTENSIONS and file_path.stat().st_size > MINIMAL_FILE_SIZE:
         logging.info('Working with `%s`', ''.join(file_path.name))
-        data = get_data_from_api(get_clean_str(file_path.name, True))
+
+        ohash = None
+        if OHASH and opensubtitle_hash:
+            ohash = oshash.oshash(file_path)
+            logging.info('Calculated hash is `%s`', ohash)
+
+        data = get_data_from_api(get_clean_str(file_path.name, True), ohash)
         if data:
             new_file_name = get_new_file_name(data)
             new_file_name = output_path / (new_file_name + file_path.suffix)
@@ -114,14 +119,16 @@ def get_new_file_name(data):
     return new_file_name
 
 
-def get_data_from_api(file_name):
+def get_data_from_api(file_name, ohash):
     logging.info('Searching `%s`', file_name)
 
     url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_name
-    headers = {}
+    if ohash:
+        url += '&hash=%s' % ohash
 
-    if TOKEN:
-        headers['Authorization'] = 'Bearer %s' % TOKEN
+    headers = {
+        'Authorization': 'Bearer %s' % token,
+    }
 
     response = requests.get(url, headers=headers)
 
@@ -173,14 +180,18 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Watchdog Adult Renamer.')
     parser.add_argument('-i', '--input_path', required=True, help='Directory to watch files')
     parser.add_argument('-o', '--output_path', required=True, help='Directory to store renamed files')
+    parser.add_argument('-t', '--token', required=True, help='MetadataAPI Token')
     parser.add_argument('-c', '--cleanup', action='store_true', help='Remove metadata title from file')
     parser.add_argument('-a', '--additional_info', action='store_true', help='Add additional info to filename')
+    parser.add_argument('-oh', '--oshash', action='store_true', help='Use OpenSubtitle Hash for search')
 
     args = parser.parse_args()
     input_path = Path(args.input_path).resolve()
     output_path = Path(args.output_path).resolve()
+    token = args.token
     cleanup = args.cleanup
     additional_info = args.additional_info
+    opensubtitle_hash = args.oshash
     if not str(output_path).startswith(str(input_path)):
         log_path = Path.cwd() / 'logs'
         log_path.mkdir(parents=True, exist_ok=True)
@@ -202,6 +213,13 @@ if __name__ == '__main__':
             except ImportError:
                 IMPORTED = False
                 logging.error('Required `ffmpeg-python` and `pymediainfo` for cleanup methods')
+
+        OHASH = True
+        if opensubtitle_hash:
+            try:
+                import oshash
+            except ImportError:
+                OHASH = False
 
         if IMPORTED:
             if not additional_info:
