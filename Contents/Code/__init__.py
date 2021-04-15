@@ -48,7 +48,7 @@ def ValidatePrefs():
 
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
-    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian]
+    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
     accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
     primary_provider = True
 
