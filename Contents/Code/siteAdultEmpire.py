@@ -1,6 +1,5 @@
 import PAsearchSites
 import PAutils
-import random
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
