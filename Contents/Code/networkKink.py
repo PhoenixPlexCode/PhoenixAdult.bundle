@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
             titleNoFormatting = searchResult.xpath('.//img/@alt')[0].strip()
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="shoot-link"]/@href')[0])
             releaseDate = parse(searchResult.xpath('.//div[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
-            shootID = searchResult.xpath('.//span[contains(@class, "favorite-button")]/@data-id')[0]
+            shootID = searchResult.xpath('.//div[contains(@class, "favorite-button")]/@data-id')[0]
 
             if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
