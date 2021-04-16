@@ -1,6 +1,6 @@
 import PAsearchSites
 import PAutils
-import random
+
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     if not directID:
         for searchResult in searchPageElements.xpath('//a[@class="boxcover"]'):
             movieURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./@href')[0])
-            urlID = searchResult.xpath('./@href')[0].split("/")[1]
+            urlID = searchResult.xpath('./@href')[0].split('/')[1]
             if movieURL not in searchResults:
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./span/span/text()')[0].strip(), siteNum)
                 curID = PAutils.Encode(movieURL)
@@ -45,13 +45,13 @@ def search(results, lang, siteNum, searchData):
                     req = PAutils.HTTPRequest(sceneURL)
                     detailsPageElements = HTML.ElementFromString(req.text)
 
-                    #Find date on movie specific page
+                    # Find date on movie specific page
                     date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(., "Released:")]]/text()')[0].strip()
                     if date and not date == 'unknown':
                         try:
                             releaseDate = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
                         except:
-                            releaseDate = ''    
+                            releaseDate = ''
                     else:
                         releaseDate = searchData.dateFormat() if searchData.date else ''
                     displayDate = releaseDate if date else ''
@@ -77,8 +77,8 @@ def search(results, lang, siteNum, searchData):
                     # Split Scenes
                     scenes = detailsPageElements.xpath('//div[@class="item-grid item-grid-scene"]/div/a/@href')
                     sceneCount = len(scenes)
-                    for sceneNum in range(0,sceneCount):
-                        section = "Scene %d" % (sceneNum + 1)
+                    for sceneNum in range(0, sceneCount):
+                        section = 'Scene %d' % (sceneNum + 1)
                         if score == 80:
                             count += 1
                             temp.append(MetadataSearchResult(id='%s|%d|%s|%d' % (curID, siteNum, releaseDate, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
@@ -131,12 +131,12 @@ def search(results, lang, siteNum, searchData):
             temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
         else:
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
-        
+
         # Split Scenes
         scenes = detailsPageElements.xpath('//div[@class="item-grid item-grid-scene"]/div/a/@href')
         sceneCount = len(scenes)
-        for sceneNum in range(1,sceneCount + 1):
-            section = "Scene %d" % (sceneNum)
+        for sceneNum in range(1, sceneCount + 1):
+            section = 'Scene %d' % (sceneNum)
             if score == 80:
                 count += 1
                 temp.append(MetadataSearchResult(id='%s|%d|%s|%d' % (curID, siteNum, releaseDate, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
@@ -163,11 +163,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if len(metadata_id) > 3:
         Log('Split Scene: %d' % int(metadata_id[3]))
         splitScene = True
-    
+
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0], siteNum).strip()
     if splitScene:
-        metadata.title = ("%s [Scene %s]" % (metadata.title, metadata_id[3]))
+        metadata.title = '%s [Scene %s]' % (metadata.title, metadata_id[3])
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="synopsis"]')[0].text_content().strip()
@@ -189,11 +189,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.collections.add(tagline)
     except:
         try:
-            tagline = detailsPageElements.xpath('//a[@data-label="Series List"]/h2/text()')[0].strip().replace("Series:", "").replace("(%s)" % studio, "").strip()
+            tagline = detailsPageElements.xpath('//a[@data-label="Series List"]/h2/text()')[0].strip().replace('Series:', '').replace('(%s)' % studio, '').strip()
             metadata.collections.add(tagline)
         except:
             metadata.collections.add(metadata.studio)
-    Log("Tagline: %s" % tagline)
 
     # Release Date
     if sceneDate:
@@ -261,7 +260,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                if random.randint(0,1) == 0 and idx != 0:
+                if random.randint(0, 1) == 0 and idx != 0:
                     continue
                 image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://www.data18.empirestores.co'})
                 images.append(image)

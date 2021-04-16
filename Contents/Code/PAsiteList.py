@@ -2745,7 +2745,7 @@ def getProviderFromSiteNum(siteNum):
         # TGirl Japan (Hardcore)
         elif (1331 <= siteNum <= 1333):
             provider = networkGrooby
-        
+
         # Adult Empire
         elif siteNum == 1334:
             provider = siteAdultEmpire
