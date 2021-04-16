@@ -165,6 +165,7 @@ import networkMetadataAPI
 import networkCouplesCinema
 import siteJVRPorn
 import networkGrooby
+import siteAdultEmpire
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1501,6 +1502,7 @@ searchSites = {
     1331: ('TGirl Japan Hardcore', 'https://www.tgirljapanhardcore.com', '/tour/trailers/'),
     1332: ('TGirl Japan', 'https://www.tgirljapan.com', '/tour/trailers/'),
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
+    1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
 }
 
 abbreviations = (
@@ -2743,5 +2745,9 @@ def getProviderFromSiteNum(siteNum):
         # TGirl Japan (Hardcore)
         elif (1331 <= siteNum <= 1333):
             provider = networkGrooby
+        
+        # Adult Empire
+        elif siteNum == 1334:
+            provider = siteAdultEmpire
 
     return provider
