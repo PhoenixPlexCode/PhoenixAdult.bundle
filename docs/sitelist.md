@@ -44,6 +44,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Podcast
   - Video Masturbation
   - Video Of Myself at Home
++ #### Adult Empire | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Adult Time | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllAnalAllTheTime | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
