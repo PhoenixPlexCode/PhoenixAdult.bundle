@@ -68,6 +68,9 @@ def search(results, lang, siteNum, searchData):
                     titleNoFormatting = '[%s] %s' % (sceneType.capitalize(), titleNoFormatting)
                     score = score - 10
 
+                if subSite and PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower() != subSite.replace(' ', '').lower():
+                    score = score - 10
+
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, sceneType), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, releaseDate), score=score, lang=lang))
 
     return results
