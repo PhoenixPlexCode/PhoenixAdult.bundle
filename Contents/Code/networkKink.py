@@ -4,10 +4,11 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     shootID = None
-    for parts in searchData.title.split():
-        if unicode(parts, 'UTF-8').isdigit():
-            shootID = parts
-            break
+
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        shootID = parts[0]
+        searchData.title = searchData.title.replace(shootID, '', 1).strip()
 
     if shootID:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/shoot/' + shootID
