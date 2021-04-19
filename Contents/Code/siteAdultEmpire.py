@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
     searchPageElements = HTML.ElementFromString(req.text)
     if not directID:
         for searchResult in searchPageElements.xpath('//div[@class="product-card"]'):
-            movieURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./div[@class="boxcover-container"]/a/@href')[0])
+            movieURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./div[@class="boxcover-container"]/a/@href')[0].strip())
             urlID = searchResult.xpath('./div[@class="boxcover-container"]/a/@href')[0].split("/")[1]
             if movieURL not in searchResults:
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./div[@class="product-details"]/div/a/text()')[0].strip(), siteNum)
