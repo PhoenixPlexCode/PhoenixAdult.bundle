@@ -48,7 +48,7 @@ def ValidatePrefs():
 
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
-    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian]
+    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
     accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
     primary_provider = True
 
@@ -65,8 +65,10 @@ class PhoenixAdultAgent(Agent.Movies):
         Log(searchSettings)
 
         filepath = None
+        filename = None
         if media.filename:
             filepath = urllib.unquote(media.filename)
+            filename = str(os.path.splitext(os.path.basename(filepath))[0])
 
         if searchSettings['siteNum'] is None and filepath:
             directory = str(os.path.split(os.path.dirname(filepath))[1])
@@ -75,7 +77,10 @@ class PhoenixAdultAgent(Agent.Movies):
             Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
             searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
-            if searchSettings['siteNum'] is not None and searchSettings['searchTitle'].lower() == PAsearchSites.getSearchSiteName(searchSettings['siteNum']).lower():
+            if searchSettings['siteNum'] is None:
+                if title == newTitle and title != filename:
+                    title = filename
+
                 newTitle = '%s %s' % (newTitle, title)
                 Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
                 searchSettings = PAsearchSites.getSearchSettings(newTitle)

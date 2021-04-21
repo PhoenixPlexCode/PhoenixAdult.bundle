@@ -44,6 +44,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Podcast
   - Video Masturbation
   - Video Of Myself at Home
++ #### Adult Empire | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Adult Time | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllAnalAllTheTime | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### AllHerLuv | Matching type: *[Limited](./manualsearch.md#limited-search)*
@@ -167,6 +168,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Big Tits in Sports
   - Big Tits in Uniform
   - Big Wet Butts
+  - Brazzers Exxtra
   - Busty and Real
   - Busty Z
   - Butts and Blacks
@@ -174,7 +176,6 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Day With A Porn Star
   - Dirty Masseur
   - Doctor Adventures
-  - Exxtra
   - Hot and Mean
   - Hot Chicks Big Asses
   - Milfs Like It Big
@@ -455,6 +456,10 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Gender X | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlfriendsFilms | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlsOutWest | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Grooby Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Grooby Girls
+  - TGirl Japan
+  - TGirl Japan Hardcore
 + #### Girls Rimming | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
 + #### Girlsway | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - GirlCore

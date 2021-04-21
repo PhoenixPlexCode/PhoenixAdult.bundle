@@ -1,12 +1,20 @@
 import PAsearchSites
 import PAutils
 
+supported_lang = ['en', 'de', 'fr', 'es', 'nl']
+
 
 def search(results, lang, siteNum, searchData):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
+
+    headers = {}
+    if lang in supported_lang:
+        headers['Accept-Language'] = lang
+
+    req = PAutils.HTTPRequest(url, headers=headers)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[contains(@class, "col-sm-6")]'):
-        titleNoFormatting = searchResult.xpath('.//div[@class="scene"]//div//h3//a')[0].text_content()
+        titleNoFormatting = searchResult.xpath('.//div[@class="scene"]//img/@alt')[0].split(':', 1)[-1].strip()
         curID = PAutils.Encode(searchResult.xpath('.//div[@class="scene"]//div//h3//a/@href')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
 
@@ -22,8 +30,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+
+    headers = {}
+    if lang in supported_lang:
+        headers['Accept-Language'] = lang
+
     sceneDate = metadata_id[2]
-    req = PAutils.HTTPRequest(sceneURL)
+    req = PAutils.HTTPRequest(sceneURL, headers=headers)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
@@ -52,13 +65,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Release Date
+    date_object = None
+
     date = detailsPageElements.xpath('//meta[@itemprop="uploadDate"]/@content')
     if date:
-        date_object = datetime.strptime(date[0], '%m/%d/%Y')
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
+        date_object = parse(date[0])
     elif sceneDate:
-        date_object = parse(date)
+        date_object = parse(sceneDate)
+
+    if date_object:
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 

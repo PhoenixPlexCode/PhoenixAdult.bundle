@@ -164,6 +164,8 @@ import siteMyDirtyHobby
 import networkMetadataAPI
 import networkCouplesCinema
 import siteJVRPorn
+import networkGrooby
+import siteAdultEmpire
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -232,7 +234,7 @@ searchSites = {
     63: ('Milfs Like It Big', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     64: ('Big Tits in Uniform', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     65: ('Doctor Adventures', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
-    66: ('Exxtra', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
+    66: ('Brazzers Exxtra', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     67: ('Big Tits in Sports', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     68: ('Big Butts like it big', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     69: ('Big Wet Butts', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
@@ -1496,7 +1498,11 @@ searchSites = {
     1327: ('Lauren Phillips', 'https://laurenphillips.com', '/search.php?query='),
     1328: ('Milfed', 'https://milfed.com', 'https://site-api.project1service.com'),
     1329: ('PervNana', 'https://www.pervnana.com', '/movies/'),
-    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q=')
+    1330: ('Data18 Empire', 'https://data18.empirestores.co', '/Search?q='),
+    1331: ('TGirl Japan Hardcore', 'https://www.tgirljapanhardcore.com', '/tour/trailers/'),
+    1332: ('TGirl Japan', 'https://www.tgirljapan.com', '/tour/trailers/'),
+    1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
+    1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
 }
 
 abbreviations = (
@@ -1568,6 +1574,7 @@ abbreviations = (
     ('^esp ', 'EuroSexParties '),
     ('^ete ', 'EuroTeenErotica '),
     ('^ext ', 'ExxxtraSmall '),
+    ('^Exxtra ', 'BrazzersExxtra '),
     ('^family ', 'Taboo '),
     ('^fams ', 'FamilyStrokes '),
     ('^faq ', 'FirstAnalQuest '),
@@ -2730,9 +2737,17 @@ def getProviderFromSiteNum(siteNum):
         # JVR Porn
         elif siteNum == 1286:
             provider = siteJVRPorn
-        
+
         # Data18 Empire
         elif siteNum == 1330:
             provider = siteData18Empire
+
+        # TGirl Japan (Hardcore)
+        elif (1331 <= siteNum <= 1333):
+            provider = networkGrooby
+
+        # Adult Empire
+        elif siteNum == 1334:
+            provider = siteAdultEmpire
 
     return provider
