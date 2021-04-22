@@ -74,10 +74,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements['tags']:
-        genreName = genreLink['name']
+    if 'tags' in detailsPageElements:
+        for genreLink in detailsPageElements['tags']:
+            genreName = genreLink['name']
 
-        movieGenres.addGenre(genreName)
+            movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
