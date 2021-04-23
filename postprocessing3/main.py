@@ -17,10 +17,6 @@ EXTENSIONS = (
     '.mp4', '.mkv', '.avi', '.wmv'
 )
 MINIMAL_FILE_SIZE = 15728640
-TRASH_TITLE = (
-    'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', 'H265', 'AVC', r'\dK',
-    r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD', 'rq'
-)
 
 
 class PhoenixAdultRenamer():
@@ -79,7 +75,7 @@ def work_with_file(file_path):
             ohash = oshash.oshash(file_path)
             logging.info('Calculated hash is `%s`', ohash)
 
-        data = get_data_from_api(get_clean_str(file_path.name, True), ohash)
+        data = get_data_from_api(file_path, ohash)
         if data:
             new_file_name = get_new_file_name(data)
             new_file_name = output_path / (new_file_name + file_path.suffix)
@@ -119,10 +115,10 @@ def get_new_file_name(data):
     return new_file_name
 
 
-def get_data_from_api(file_name, ohash):
-    logging.info('Searching `%s`', file_name)
+def get_data_from_api(file_path, ohash):
+    logging.info('Searching `%s`', file_path)
 
-    url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_name
+    url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_path
     if ohash:
         url += '&hash=%s' % ohash
 
@@ -160,13 +156,9 @@ def cleanup_metadata(file_name, new_file_name):
     file_name.unlink()
 
 
-def get_clean_str(title, delete_trash=False):
+def get_clean_str(title):
     title = re.sub(r'[\'\"]', '', title)
     title = re.sub(r'(?:\W|[_])', ' ', title)
-
-    if delete_trash:
-        for trash in TRASH_TITLE:
-            title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
 
     title = ' '.join(title.split())
 
