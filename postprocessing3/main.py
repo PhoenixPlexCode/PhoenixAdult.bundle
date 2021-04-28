@@ -12,7 +12,7 @@ from watchdog.observers.polling import PollingObserver as Observer
 from watchdog.events import FileSystemEventHandler
 
 
-FILE_NAME_FORMAT = '{site} - {date} - {title} ~ {actors}'
+FILE_NAME_FORMAT = '{site}/{title} - {date} ~ {actors}'
 EXTENSIONS = (
     '.mp4', '.mkv', '.avi', '.wmv'
 )
@@ -87,13 +87,16 @@ def work_with_file(file_path):
                     if title:
                         title_clean = False
 
+                if not new_file_name.parent.is_dir():
+                    new_file_name.parent.mkdir(parents=True, exist_ok=True)
+
                 if cleanup and not title_clean:
                     cleanup_metadata(file_path, new_file_name)
                 else:
                     file_path.rename(new_file_name)
-                logging.info('Saving as `%s`', new_file_name.name)
+                logging.info('Saving as `%s`', new_file_name)
             else:
-                logging.error('Already exist `%s`', new_file_name.name)
+                logging.error('Already exist `%s`', new_file_name)
         else:
             logging.info('Nothing found')
 
