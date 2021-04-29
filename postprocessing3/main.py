@@ -216,6 +216,15 @@ if __name__ == '__main__':
             except ImportError:
                 OHASH = False
 
+        CACHE = True
+        try:
+            import requests_cache
+        except:
+            CACHE = False
+
+        if CACHE:
+            requests_cache.install_cache('main')
+
         if IMPORTED:
             if not additional_info:
                 FILE_NAME_FORMAT = FILE_NAME_FORMAT.split('~')[0].strip()
