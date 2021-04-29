@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 import argparse
 import logging
+import json
 
 import requests
 from watchdog.observers.polling import PollingObserver as Observer
@@ -120,6 +121,33 @@ def get_new_file_name(data):
 
 def get_data_from_api(file_path, ohash):
     logging.info('Searching `%s`', file_path)
+
+    if ohash:
+        url = 'https://stashdb.org/graphql'
+        headers = {
+            'Content-Type': 'application/json',
+            'apiKey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhZTA1NmQ0ZC0wYjRmLTQzNmMtYmVhMy0zNjNjMTQ2MmZlNjMiLCJpYXQiOjE1ODYwNDAzOTUsInN1YiI6IkFQSUtleSJ9.5VENvrLtJXTGcdOhA0QC1SyPQ59padh1XiQRDQelzA4',
+        }
+        data = {
+            'operationName': 'Scene',
+            'variables': {
+                'fingerprints': [ohash],
+            },
+            'query': 'query Scene($fingerprints:[String!]!){findScenesByFingerprints(fingerprints:$fingerprints){date title studio{name}}}',
+        }
+
+        response = requests.post(url, headers=headers, data=json.dumps(data)).json()
+        if 'data' in response and response['data'] and response['data']['findScenesByFingerprints'] and response['data']['findScenesByFingerprints'][0]:
+            response = response['data']['findScenesByFingerprints'][0]
+
+            result = {
+                'title': response['title'],
+                'date': response['date'],
+                'site': response['studio']['name'].replace(' ', ''),
+            }
+            file_path = '{site} - {date} - {title}'.format(**result)
+
+            logging.info('Founded in StashDB searching `%s`', file_path)
 
     url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_path
     if ohash:
