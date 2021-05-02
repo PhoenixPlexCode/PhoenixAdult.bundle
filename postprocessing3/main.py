@@ -73,8 +73,13 @@ def work_with_file(file_path):
 
         ohash = None
         if OHASH and opensubtitle_hash:
-            ohash = oshash.oshash(file_path)
-            logging.info('Calculated hash is `%s`', ohash)
+            try:
+                ohash = oshash.oshash(file_path)
+            except:
+                pass
+
+            if ohash:
+                logging.info('Calculated hash is `%s`', ohash)
 
         data = get_data_from_api(file_path, ohash)
         if data:
@@ -251,7 +256,7 @@ if __name__ == '__main__':
             CACHE = False
 
         if CACHE:
-            requests_cache.install_cache('main')
+            requests_cache.install_cache(Path(__file__).stem)
 
         if IMPORTED:
             if not additional_info:
