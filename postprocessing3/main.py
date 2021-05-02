@@ -67,7 +67,7 @@ class WatchFileHandler(FileSystemEventHandler):
             pass
 
 
-def work_with_file(file_path):
+def work_with_file(file_path: Path):
     if file_path.suffix in EXTENSIONS and file_path.stat().st_size > MINIMAL_FILE_SIZE:
         logging.info('Working with `%s`', ''.join(file_path.name))
 
@@ -96,18 +96,27 @@ def work_with_file(file_path):
                 if not new_file_name.parent.is_dir():
                     new_file_name.parent.mkdir(parents=True, exist_ok=True)
 
-                if cleanup and not title_clean:
-                    cleanup_metadata(file_path, new_file_name)
+                answ = True
+                if CONFIRM:
+                    logging.info('Is new name correct `%s`?', new_file_name)
+                    answ = is_confirm()
+
+                if answ:
+                    if cleanup and not title_clean:
+                        cleanup_metadata(file_path, new_file_name)
+                    else:
+                        file_path.rename(new_file_name)
+
+                    logging.info('Saving as `%s`', new_file_name)
                 else:
-                    file_path.rename(new_file_name)
-                logging.info('Saving as `%s`', new_file_name)
+                    logging.info('User not confirm')
             else:
                 logging.error('Already exist `%s`', new_file_name)
         else:
             logging.info('Nothing found')
 
 
-def get_new_file_name(data):
+def get_new_file_name(data: dict) -> str:
     result = {
         'site': get_clean_str(data['site']['name']),
         'title': get_clean_str(data['title']),
@@ -124,7 +133,7 @@ def get_new_file_name(data):
     return new_file_name
 
 
-def get_data_from_api(file_path, ohash):
+def get_data_from_api(file_path: str, ohash: str) -> dict:
     logging.info('Searching `%s`', file_path)
 
     if ohash:
@@ -154,9 +163,9 @@ def get_data_from_api(file_path, ohash):
 
             logging.info('Founded in StashDB searching `%s`', file_path)
 
-    url = 'https://api.metadataapi.net/scenes?parse=%s&limit=1' % file_path
-    if ohash:
-        url += '&hash=%s' % ohash
+    url = 'https://api.metadataapi.net/scenes?parse=%s&per_page=1' % file_path
+    # if ohash:
+        # url += '&hash=%s' % ohash
 
     headers = {
         'Authorization': 'Bearer %s' % token,
@@ -171,7 +180,7 @@ def get_data_from_api(file_path, ohash):
     return None
 
 
-def get_title_from_metadata(file_name):
+def get_title_from_metadata(file_name: Path) -> str:
     media_info = MediaInfo.parse(str(file_name))
     for track in media_info.tracks:
         if track.track_type == 'General':
@@ -192,7 +201,7 @@ def cleanup_metadata(file_name, new_file_name):
     file_name.unlink()
 
 
-def get_clean_str(title):
+def get_clean_str(title: str) -> str:
     title = re.sub(r'[\'\"]', '', title)
     title = re.sub(r'(?:\W|[_])', ' ', title)
 
@@ -201,8 +210,16 @@ def get_clean_str(title):
     return title
 
 
-def searching_all_files(directory: Path):
+def searching_all_files(directory: Path) -> list:
     return [file for file in directory.rglob('*.*') if file.is_file()]
+
+
+def is_confirm() -> bool:
+    answer = ''
+    while answer not in ['y', 'n']:
+        answer = input('OK to push to continue [Y/N]?').lower()
+
+    return answer == 'y'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Watchdog Adult Renamer.')
@@ -212,6 +229,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--cleanup', action='store_true', help='Remove metadata title from file')
     parser.add_argument('-a', '--additional_info', action='store_true', help='Add additional info to filename')
     parser.add_argument('-oh', '--oshash', action='store_true', help='Use OpenSubtitle Hash for search')
+    parser.add_argument('-co', '--confirm', action='store_true', help='Ask user confirm before rename')
 
     args = parser.parse_args()
     input_path = Path(args.input_path).resolve()
@@ -220,6 +238,7 @@ if __name__ == '__main__':
     cleanup = args.cleanup
     additional_info = args.additional_info
     opensubtitle_hash = args.oshash
+    confirm = args.confirm
     if not str(output_path).startswith(str(input_path)):
         log_path = Path.cwd() / 'logs'
         log_path.mkdir(parents=True, exist_ok=True)
@@ -248,6 +267,10 @@ if __name__ == '__main__':
                 import oshash
             except ImportError:
                 OHASH = False
+
+        CONFIRM = False
+        if confirm:
+            CONFIRM = True
 
         CACHE = True
         try:
