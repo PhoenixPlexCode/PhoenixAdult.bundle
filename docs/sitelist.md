@@ -1225,6 +1225,48 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### VirtualRealPorn | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### VirtualTaboo | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### Vivid Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Title only for DVDs**
++ #### VNA Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Alex Legend
+  - All Anal All The Time
+  - Angelina Castro Live
+  - Bobbi Eden Live
+  - Carmen Valentina
+  - Charlee Chase Live
+  - Deauxma Live
+  - Eva Lin Live
+  - Foxxed Up
+  - Fucked Feet
+  - Gabby Quinteros
+  - Girl Girl Mania
+  - Its Cleo Live
+  - Jelena Jensen
+  - Julia Ann Live
+  - Kayla Paige Live
+  - Kendra James
+  - Kimber Lee Live
+  - Kink305
+  - Maggie Green Live
+  - Maxine X
+  - Natalia Starr
+  - Nikki Benz
+  - Nina Kayy
+  - Penny Pax Live
+  - POV Mania
+  - Puma Swede XXX
+  - Rachel Storms XXX
+  - Rome Major
+  - Rubber Doll
+  - Samantha Grace
+  - Sara Jay
+  - Sex My Wife
+  - Shanda Fay
+  - Siri
+  - Sophie Dee Live
+  - Sunny Lane Live
+  - Tasha Reign
+  - Vicky at Home
+  - VNA Live
+  - Women By Julia Ann
 + #### VRBangers | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### VRConk | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### VRHush | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
