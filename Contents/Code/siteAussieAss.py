@@ -96,13 +96,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Title
     if 'webmasters' in sceneURL:
-        resultTitleID = detailsPageElements.xpath('//h1/text()')[0].title()
-        metadata.title = re.sub(r'^\d+', '', resultTitleID)
+        resultTitleID = detailsPageElements.xpath('//h1/text()')[0]
     else:
-        resultTitleID = detailsPageElements.xpath('//h4/span')[0].text_content().title()
-        metadata.title = re.sub(r'^\d+', '', resultTitleID)
+        resultTitleID = detailsPageElements.xpath('//h4/span')[0].text_content()
 
     sceneID = re.sub(r'\D.*', '', resultTitleID)
+    metadata.title = PAutils.parseTitle(re.sub(r'^\d+', '', resultTitleID), siteNum)
 
     # Summary
     try:
