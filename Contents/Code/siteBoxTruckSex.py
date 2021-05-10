@@ -6,8 +6,9 @@ def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '+').replace('--', '+').lower()
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
+    
     for searchResult in searchResults.xpath('//ul[@class="slides"]/li'):
-        titleNoFormatting = searchResult.xpath('.//h5')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h5')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//@href')[0]
         curID = PAutils.Encode(sceneURL)
 
@@ -40,7 +41,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2')[0].text_content()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content(), siteNum)
 
     # Summary
     try:
