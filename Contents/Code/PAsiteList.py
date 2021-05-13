@@ -2748,6 +2748,10 @@ def getProviderFromSiteNum(siteNum):
         elif (1331 <= siteNum <= 1333):
             provider = networkGrooby
 
+        # Adult Empire
+        elif siteNum == 1334:
+            provider = siteAdultEmpire
+
         # Family Therapy
         elif siteNum == 1335:
             provider = siteFamilyTherapy

@@ -2,6 +2,7 @@ import PAsearchSites
 import PAutils
 import siteClips4Sale
 
+
 class FakeResults:
     def __init__(self):
         self.list = list()
@@ -19,6 +20,7 @@ def clean(title):
         title = title.replace(word.upper(), '')
     return title
 
+
 def search(results, lang, siteNum, searchData):
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded.replace('and', '&')
     req = PAutils.HTTPRequest(sceneURL)
@@ -31,7 +33,6 @@ def search(results, lang, siteNum, searchData):
         releaseDate = parse(date).strftime('%b %d, %Y')
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
         results.Append(MetadataSearchResult(id='%s|%d|%d' % (curID, siteNum, 0), name='%s [FamilyTherapy] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
-    
 
     if len(searchResults) == 0:
         Log("Using Clips4Sale")
@@ -56,13 +57,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     siteNum = metadata_id[1]
     mode = int(metadata_id[2])
     if mode == 1:
-        #Using Clips4Sale
+        # Using Clips4Sale
         metadata = siteClips4Sale.update(metadata, lang, 760, movieGenres, movieActors)
         if not sceneURL.startswith('http'):
             sceneURL = PAsearchSites.getSearchBaseURL(760) + sceneURL
         req = PAutils.HTTPRequest(sceneURL)
         detailsPageElements = HTML.ElementFromString(req.text)
-        
+
         # Title
         metadata.title = clean(metadata.title)
 
