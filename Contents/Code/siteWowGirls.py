@@ -3,17 +3,20 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//li[.//div[@class="time-infos"]]//a'):
-        siteName = PAsearchSites.getSearchSiteName(siteNum)
-        titleNoFormatting = searchResult.xpath('./@title')[0].strip()
-        curID = PAutils.Encode(searchResult.xpath('./@href')[0])
+    pages = searchResults.xpath('//div[@class="pagination"]/ul/li/a/@href')
+    for link in pages:
+        req = PAutils.HTTPRequest(link)
+        searchResults = HTML.ElementFromString(req.text)
+        for searchResult in searchResults.xpath('//li[.//div[@class="time-infos"]]//a'):
+            siteName = PAsearchSites.getSearchSiteName(siteNum)
+            titleNoFormatting = searchResult.xpath('./@title')[0].strip()
+            curID = PAutils.Encode(searchResult.xpath('./@href')[0])
 
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, siteName), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, siteName), score=score, lang=lang))
 
     return results
 
