@@ -2,6 +2,7 @@ import PAutils
 
 regexList = [
     r'(?P<actors>.*) in (?P<title>.*) at (?P<studio>.*) with (?P<genres>.*)',
+    r'(?P<actors>.*) in (?P<title>.*) with (?P<genres>.*)',
     r'(?P<actors>.*) in (?P<title>.*) at (?P<studio>.*)',
     r'(?P<actors>.*) in (?P<title>.*)',
 ]
