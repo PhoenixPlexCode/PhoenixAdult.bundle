@@ -705,6 +705,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     elif 'Exquisite Goddess' in tagline:
         movieActors.addActor('Exquisite Goddess', '')
 
+    # Family Therapy
+    elif 'Family Therapy' in tagline:
+        if genreList:
+            del genreList[0]
+
     #  femdomuncut Store
     elif 'femdomuncut Store' in tagline:
         if 'Princess Nikki' in metadata.summary or 'Nikki' in metadata.summary:

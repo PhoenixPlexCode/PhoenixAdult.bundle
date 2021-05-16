@@ -111,7 +111,13 @@ def actorDBfinder(actorName):
 
     for sourceName in searchOrder:
         task = searchResults[sourceName]
-        url = task(actorName, actorEncoded)
+
+        url = None
+        try:
+            url = task(actorName, actorEncoded)
+        except Exception as e:
+            Log.Error(format_exc())
+
         if url:
             databaseName = sourceName
             actorPhotoURL = url

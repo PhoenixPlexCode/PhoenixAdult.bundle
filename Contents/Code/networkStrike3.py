@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = getDatafromAPI(url)
     if searchResults:
         for searchResult in searchResults['videos']:
-            titleNoFormatting = searchResult['title']
+            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
             releaseDate = parse(searchResult['releaseDate']).strftime('%Y-%m-%d')
             curID = PAutils.Encode(searchResult['targetUrl'])
 
@@ -40,7 +40,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     pictureset = detailsPageElements['pictureset']
 
     # Title
-    metadata.title = video['title']
+    metadata.title = PAutils.parseTitle(video['title'], siteNum)
 
     # Summary
     metadata.summary = video['description']

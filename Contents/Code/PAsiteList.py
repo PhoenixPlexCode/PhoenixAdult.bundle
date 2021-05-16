@@ -166,6 +166,7 @@ import networkCouplesCinema
 import siteJVRPorn
 import networkGrooby
 import siteAdultEmpire
+import siteFamilyTherapy
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1056,8 +1057,8 @@ searchSites = {
     885: ('Mylf X Owen Gray', 'https://www.mylf.com', '/movies/'),
     886: ('Mylf X SpankMonster', 'https://www.mylf.com', '/movies/'),
     887: ('StayHomeMilf', 'https://www.mylf.com', '/movies/'),
-    888: ('Evolved Fights Lesbian Edition', 'http://www.kink.com', '/search?channelIds=evolvedfightslesbianedition&q='),
-    889: ('Evolved Fights', 'http://www.kink.com', '/search?channelIds=evolvedfights&q='),
+    888: ('Kink Evolved Fights Lesbian Edition', 'http://www.kink.com', '/search?channelIds=evolvedfightslesbianedition&q='),
+    889: ('Kink Evolved Fights', 'http://www.kink.com', '/search?channelIds=evolvedfights&q='),
     890: ('WetVR', 'https://www.wetvr.com', '/video/'),
     891: ('HoloGirlsVR', 'https://www.hologirlsvr.com', '/Scenes?back=1&search='),
     892: ('LethalHardcoreVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
@@ -1503,6 +1504,7 @@ searchSites = {
     1332: ('TGirl Japan', 'https://www.tgirljapan.com', '/tour/trailers/'),
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
+    1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
 }
 
 abbreviations = (
@@ -2749,5 +2751,9 @@ def getProviderFromSiteNum(siteNum):
         # Adult Empire
         elif siteNum == 1334:
             provider = siteAdultEmpire
+
+        # Family Therapy
+        elif siteNum == 1335:
+            provider = siteFamilyTherapy
 
     return provider
