@@ -44,7 +44,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].text_content().strip()
+    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].strip()
     if date:
         date_object = parse(date)
         metadata.originally_available_at = date_object
@@ -71,8 +71,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
-            poster = poster.split('?')[0]
-
             art.append(poster)
 
     Log('Artwork found: %d' % len(art))
