@@ -4,12 +4,14 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.lower().replace(' ', '-')
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
+    req = PAutils.HTTPRequest(url)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().split('|')[-1].strip()
+    titleNoFormatting = detailsPageElements.xpath('//span[@class="update_title"]')[0].text_content().strip()
     curID = PAutils.Encode(url)
-    releaseDate = parse(detailsPageElements.xpath('/html/body/div/div[4]/div[4]/div/main/div[2]/div[2]/div/div/div[2]/div/div/div[4]/p/span')[0].text_content().strip()).strftime('%Y-%m-%d')
+    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].strip()
+    releaseDate = parse(date).strftime('%Y-%m-%d')
 
     score = 100
 
@@ -26,13 +28,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-
     # Title
-    metadata.title = detailsPageElements.xpath('//title')[0].text_content().split('|')[-1].strip()
+    metadata.title = detailsPageElements.xpath('//span[@class="update_title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//meta[@name="description"]')[0].get('content').strip()
+    metadata.summary = detailsPageElements.xpath('//span[@class="latest_update_description"]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'ReidMyLips'
@@ -44,11 +44,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('/html/body/div/div[4]/div[4]/div/main/div[2]/div[2]/div/div/div[2]/div/div/div[4]/p/span')[0].text_content().strip()
-    if len(date) > 0:
-        date_object = datetime.strptime(date, '%B %d, %Y')
+    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].text_content().strip()
+    if date:
+        date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
+
+    # Genres
+    movieGenres.clearGenres()
+    for genreLink in detailsPageElements.xpath('//span[@class="update_tags"]//a'):
+        genreName = genreLink.text_content().strip()
+
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
@@ -59,12 +66,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Posters
     art = []
+    xpaths = [
+        '//div[@class="update_image"]//img/@src0_2x',
+    ]
+    for xpath in xpaths:
+        for poster in detailsPageElements.xpath(xpath):
+            poster = poster.split('?')[0]
 
-    photos = detailsPageElements.xpath('//div[@id="pro-gallery-margin-container"]//a[@class="block-fullscreen gallery-item-social-download  pull-right  gallery-item-social-button"]//@href')
-    for photoLink in photos:
-        photo = photoLink.split('?')[0]
-
-        art.append(photo)
+            art.append(poster)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

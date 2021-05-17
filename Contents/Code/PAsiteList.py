@@ -972,7 +972,7 @@ searchSites = {
     800: ('ClubSweethearts', 'https://www.clubsweethearts.com', '/video.php?slug='),
     801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
-    803: ('ReidMyLips', 'https://www.reidmylips.com', '/'),
+    803: ('ReidMyLips', 'https://www.reidmylips.com', '/updates/'),
     804: ('Playboy Plus', 'https://www.playboyplus.com', '/search'),
     805: ('Meana Wolf', 'https://meanawolf.elxcomplete.com', '/search.php?query='),
     806: ('Transsensual', 'https://www.transsensual.com', 'https://site-api.project1service.com'),
