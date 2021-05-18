@@ -7,6 +7,7 @@ def getDataFromAPI(url):
 
     token = Prefs['metadataapi_token']
     if token:
+        headers['Accept'] = 'application/json'
         headers['Authorization'] = 'Bearer %s' % token
 
     req = PAutils.HTTPRequest(url, headers=headers)
@@ -22,6 +23,7 @@ def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes?parse=' + urllib.quote(searchData.title)
     if searchData.ohash:
         url += '&hash=%s' % searchData.ohash
+
     searchResults = getDataFromAPI(url)
     if searchResults and 'data' in searchResults and searchResults['data']:
         for searchResult in searchResults['data']:
@@ -56,14 +58,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Summary
     metadata.summary = detailsPageElements['description']
 
-    # Studio
-    metadata.studio = detailsPageElements['site']['name']
-
-    # Tagline and Collection(s)
+    # Studio, Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements['site']['name']
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    if 'site' in detailsPageElements and detailsPageElements['site']:
+        studio_name = detailsPageElements['site']['name']
+        collections = [studio_name]
+
+        site_id = detailsPageElements['site']['id']
+        network_id = detailsPageElements['site']['network_id']
+
+        if site_id != network_id:
+            url = PAsearchSites.getSearchSearchURL(siteNum) + '/sites/%d' % network_id
+            req = getDataFromAPI(url)
+            if req and 'data' in req and req['data']:
+                studio_name = req['data']['name']
+                collections.append(studio_name)
+
+        metadata.tagline = studio_name
+        metadata.studio = studio_name
+
+        for collection in collections:
+            metadata.collections.add(collection)
 
     # Release Date
     date = detailsPageElements['date']
@@ -85,6 +100,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for actorLink in detailsPageElements['performers']:
         actorName = actorLink['name']
         actorPhotoURL = actorLink['image']
+
+        if 'parent' in actorLink and actorLink['parent'] and 'name' in actorLink['parent']:
+            actorName = actorLink['parent']['name']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
