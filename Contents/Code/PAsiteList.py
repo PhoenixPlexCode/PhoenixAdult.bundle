@@ -129,6 +129,7 @@ import networkScoreGroup
 import siteTwoTGirls
 import siteSicflics
 import networkModelCentro
+import siteAlettaOceanLive
 import siteCulioneros
 import networkPornWorld
 import siteMormonGirlz
@@ -2598,8 +2599,12 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1023:
             provider = siteSicflics
 
+        # AlettaOceanLive
+        elif siteNum == 1024:
+            provider = siteAlettaOceanLive
+        
         # ModelCentro network
-        elif (1024 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
+        elif (1025 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
             provider = networkModelCentro
 
         # Culioneros
