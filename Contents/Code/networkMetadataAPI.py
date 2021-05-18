@@ -67,7 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         site_id = detailsPageElements['site']['id']
         network_id = detailsPageElements['site']['network_id']
 
-        if site_id != network_id:
+        if network_id and site_id != network_id:
             url = PAsearchSites.getSearchSearchURL(siteNum) + '/sites/%d' % network_id
             req = getDataFromAPI(url)
             if req and 'data' in req and req['data']:
