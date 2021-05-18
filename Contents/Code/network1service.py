@@ -57,12 +57,13 @@ def search(results, lang, siteNum, searchData):
                     subSite = searchResult['collections'][0]['name']
                 siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
 
+                score = 100
                 if sceneID:
-                    score = 100 - Util.LevenshteinDistance(sceneID, curID)
-                elif searchData.date:
-                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                    score = score - Util.LevenshteinDistance(sceneID, curID)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                    if searchData.date:
+                        score = score - 2*Util.LevenshteinDistance(searchData.date, releaseDate)
+                    score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 if sceneType == 'trailer':
                     titleNoFormatting = '[%s] %s' % (sceneType.capitalize(), titleNoFormatting)
