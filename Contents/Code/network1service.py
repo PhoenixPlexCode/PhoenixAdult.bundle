@@ -62,7 +62,7 @@ def search(results, lang, siteNum, searchData):
                     score = score - Util.LevenshteinDistance(sceneID, curID)
                 else:
                     if searchData.date:
-                        score = score - 2*Util.LevenshteinDistance(searchData.date, releaseDate)
+                        score = score - 2 * Util.LevenshteinDistance(searchData.date, releaseDate)
                     score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 if sceneType == 'trailer':
