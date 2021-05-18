@@ -49,7 +49,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     url = PAsearchSites.getSearchSearchURL(siteNum) + '/scenes/' + sceneID
     req = getDataFromAPI(url)
     detailsPageElements = req['data']
-
     # Title
     metadata.title = detailsPageElements['title']
 
@@ -57,7 +56,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.summary = detailsPageElements['description']
 
     # Studio
-    metadata.studio = detailsPageElements['site']['name']
+    studioID = detailsPageElements['site']['network_id']
+    url = PAsearchSites.getSearchSearchURL(siteNum) + '/sites/' + str(studioID)
+    req = getDataFromAPI(url)
+    studioPageElements = req['data']
+    metadata.studio = studioPageElements['name']
 
     # Tagline and Collection(s)
     metadata.collections.clear()
