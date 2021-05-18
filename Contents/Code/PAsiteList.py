@@ -1193,7 +1193,7 @@ searchSites = {
     1021: ('Scoreland', 'https://www.scoreland.com', '/big-boob-videos/'),
     1022: ('TwoTGirls', 'https://twotgirls.com', '/videos?query='),
     1023: ('Sicflics', 'https://www.sicflics.com', '/search/'),
-    1024: ('AlettaOceanLive', 'https://www.alettaoceanlive.com', '/sapi/'),
+    1024: ('AlettaOceanLive', 'https://www.alettaoceanlive.com', '/tour/categories/movies_1_d.html'),
     1025: ('FallInLovia', 'https://www.fallinlovia.com', '/sapi/'),
     1026: ('RomiRain', 'https://www.romirain.com', '/sapi/'),
     1027: ('JerkOffWithMe', 'https://www.jerkoffwithme.com', '/sapi/'),
