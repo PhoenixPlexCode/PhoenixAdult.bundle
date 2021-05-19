@@ -168,6 +168,7 @@ import siteJVRPorn
 import networkGrooby
 import siteAdultEmpire
 import siteFamilyTherapy
+import siteFit18
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1506,6 +1507,7 @@ searchSites = {
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
+    1336: ('Fit 18', 'https://www.fit18.com', '/models/'),
 }
 
 abbreviations = (
@@ -2760,5 +2762,9 @@ def getProviderFromSiteNum(siteNum):
         # Family Therapy
         elif siteNum == 1335:
             provider = siteFamilyTherapy
+
+        # Fit 18
+        elif siteNum == 1336:
+            provider = siteFit18
 
     return provider
