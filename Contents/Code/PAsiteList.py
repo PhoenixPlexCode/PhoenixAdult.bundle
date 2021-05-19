@@ -1208,7 +1208,7 @@ searchSites = {
     1035: ('Lisey Sweet', 'https://theliseysweet.com', '/sapi/'),
     1036: ('MyLifeInMiami', 'https://mylifeinmiami.com', '/sapi/'),
     1037: ('GinaGerson', 'https://www.ginagerson.xxx', '/sapi/'),
-    1038: ('ValeNappi', 'https://www.valenappi.com', '/sapi/'),
+    1038: (),
     1039: ('VinaSkyXXX', 'https://www.vinaskyxxx.com', '/sapi/'),
     1040: ('Culioneros', 'http://www.pornditos.com', '/t1/videos/0_'),
     1041: ('Sexo en Public', 'http://www.pornditos.com', '/t1/videos/0_'),
