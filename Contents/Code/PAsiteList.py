@@ -1193,7 +1193,7 @@ searchSites = {
     1021: ('Scoreland', 'https://www.scoreland.com', '/big-boob-videos/'),
     1022: ('TwoTGirls', 'https://twotgirls.com', '/videos?query='),
     1023: ('Sicflics', 'https://www.sicflics.com', '/search/'),
-    1024: ('AlettaOceanLive', 'https://www.alettaoceanlive.com', '/tour/categories/movies_1_d.html'),
+    1024: ('AlettaOceanLive', 'https://www.alettaoceanlive.com', '/tour/categories/movies_%d_d.html'),
     1025: ('FallInLovia', 'https://www.fallinlovia.com', '/sapi/'),
     1026: ('RomiRain', 'https://www.romirain.com', '/sapi/'),
     1027: ('JerkOffWithMe', 'https://www.jerkoffwithme.com', '/sapi/'),
@@ -2602,7 +2602,7 @@ def getProviderFromSiteNum(siteNum):
         # AlettaOceanLive
         elif siteNum == 1024:
             provider = siteAlettaOceanLive
-        
+
         # ModelCentro network
         elif (1025 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
             provider = networkModelCentro

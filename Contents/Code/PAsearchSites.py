@@ -71,7 +71,7 @@ def getSearchSettings(mediaTitle):
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
-        title = mediaTitle
+        title = mediaTitle.lower()
         site = getSearchSiteName(siteNum).lower()
 
         title = re.sub(r'[^a-zA-Z0-9#&, ]', ' ', title)
