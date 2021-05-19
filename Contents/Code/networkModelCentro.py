@@ -51,8 +51,9 @@ def search(results, lang, siteNum, searchData):
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
-    sceneID = metadata_id[0]
-    title = metadata_id[2].strip()
+    sceneID = PAutils.Decode(metadata_id[0])
+    title = metadata_id[2].strip().title()
+    
     apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/scene/' + sceneID + '/' + urllib.quote(title))
     apiurl = PAsearchSites.getSearchSearchURL(siteNum) + apiurl
     detailsPageElements = getJSONfromAPI(apiurl + updatequery.format(sceneID))[0]
