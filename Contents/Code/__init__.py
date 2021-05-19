@@ -26,7 +26,7 @@ import PAsearchData
 def Start():
     HTTP.ClearCache()
     HTTP.CacheTime = CACHE_1MINUTE * 20
-    HTTP.Headers['User-Agent'] = PAutils.getUserAgent()
+    HTTP.Headers['User-Agent'] = PAutils.getUserAgent(True)
     HTTP.Headers['Accept-Encoding'] = 'gzip'
 
     requests.packages.urllib3.disable_warnings()
