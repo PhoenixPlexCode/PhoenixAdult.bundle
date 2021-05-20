@@ -135,15 +135,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
             art.append(poster)
 
-    galleryURL = 'https://nubiles-porn.com/photo/gallery/' + metadata_id[0]
+    galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[@class="col-12 col-md-5 col-lg-7 content-pane-related-links"]/a[contains(.,"Pic")]/@href')[0]
     req = PAutils.HTTPRequest(galleryURL)
     photoPageElements = HTML.ElementFromString(req.text)
-    for poster in photoPageElements.xpath('//div[@class="img-wrapper"]//source[1]/@src'):
+    for poster in photoPageElements.xpath('//div[@class="img-wrapper"]/a/picture/source[1]/@srcset'):
         if not poster.startswith('http'):
             poster = 'http:' + poster
 
         art.append(poster)
-
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
