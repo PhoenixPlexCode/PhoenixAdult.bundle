@@ -8,15 +8,19 @@ def search(results, lang, siteNum, searchData):
     count = 0
     while True:
         count += 1
-        searchURL = baseURL + "scene%d" % count
+        searchURL = baseURL + 'scene%d' % count
         req = PAutils.HTTPRequest(searchURL)
-        if req.status_code ==  404:
+        if not req.ok:
             break
+
         searchPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = PAutils.parseTitle(searchPageElements.xpath('//div[@class="scene-info medium-7 columns"]/h1/text()')[0], siteNum)
+        titleNoFormatting = searchPageElements.xpath('//div[contains(@class, "scene-info")]/h1/text()')[0]
+        titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
+
         curID = PAutils.Encode(searchURL)
-        actor = searchPageElements.xpath('//div[@class="scene-info medium-7 columns"]/h2/a/text()')[0]
+        actor = searchPageElements.xpath('//div[contains(@class, "scene-info")]/h2/a/text()')[0]
+
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=80, lang=lang))
 
 
@@ -26,41 +30,48 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
-    
+
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="scene-info medium-7 columns"]/h1/text()')[0]
+    metadata.title = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/h1/text()')[0]
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="scene-info medium-7 columns"]/p/text()')[0]
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/p/text()')[0]
 
     # Studio
     metadata.studio = 'Fit18'
 
     # Collections / Tagline
     metadata.collections.clear()
-    metadata.tagline = metadata.studio
-    metadata.collections.add(metadata.studio)
+    tagline = 'Fit18'
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Genres
     movieGenres.clearGenres()
-    movieGenres.addGenre("Young")
-    movieGenres.addGenre("Gym")
+    movieGenres.addGenre('Young')
+    movieGenres.addGenre('Gym')
 
     # Actors
     movieActors.clearActors()
-    actorName = detailsPageElements.xpath('//div[@class="scene-info medium-7 columns"]/h2/a/text()')[0]
+    actorName = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/h2/a/text()')[0]
     actorPhotoURL = ''
+
     movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = detailsPageElements.xpath('//div[@class="columns small-12 photos"]//div/a/div/img/@src')
+    art = []
+    xpaths = [
+        '//div[contains(@class, "scene-info")]//div/a/div/img/@src',
+    ]
+
+    for xpath in xpaths:
+        for poster in detailsPageElements.xpath(xpath):
+            art.append(poster)
+
+    art = [o for o in art if len(art) >= 10]
 
     Log('Artwork found: %d' % len(art))
-    maxPosters = 2
-    maxArt = 5
     for idx, posterUrl in enumerate(art, 1):
-        if maxArt == 0 and maxPosters == 0:
-            break
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
@@ -69,16 +80,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if width > 1:
+                if width > 1 or height > width:
                     # Item is a poster
-                    if maxPosters > 0 and width < height:
-                        maxPosters = maxPosters - 1
-                        metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > 100 and width > height:
                     # Item is an art item
-                    if maxArt > 0:
-                        maxArt = maxArt - 1
-                        metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
