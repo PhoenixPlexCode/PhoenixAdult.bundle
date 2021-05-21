@@ -126,6 +126,7 @@ ActorsReplace = {
     'Veronica Leal': ['Verónica Leal'],
     'Veronica Valentine': ['Veronica Vega'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
+    'Yiny Leon': ['YInyleon', 'Yini Leon', 'YiniLeon', 'YinyLeon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Sky': ['Zazie Skymm'],
     'Zoe Bloom': ['Zoey Bloom'],
@@ -468,6 +469,7 @@ ActorsReplaceStudios = {
         'Spencer Bradley': ['Spencer_Bradley'],
         'Valentina Nappi': ['valentinanappi'],
         'Vanessa Veracruz': ['VanessaVeracruz'],
+        'Yiny Leon': ['YInyleon'],
     },
     14: {  # Mylf
         'Scarlet Domingo': ['Scarlett'],
