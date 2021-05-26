@@ -1508,6 +1508,7 @@ searchSites = {
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
     1336: ('Fit 18', 'https://www.fit18.com', '/models/'),
+    1337: ('SpankMonster', 'https://spankmonster.com', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -2364,7 +2365,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1248 or (1257 <= siteNum <= 1262):
+        elif siteNum == 815 or siteNum == 1248 or (1257 <= siteNum <= 1262) or siteNum == 1337:
             provider = networkAdultEmpireCash
 
         # PJGirls
