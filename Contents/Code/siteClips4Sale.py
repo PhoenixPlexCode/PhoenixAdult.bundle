@@ -10,7 +10,7 @@ def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "clipWrapper")]//section[@class="p-0"]'):
+    for searchResult in searchResults.xpath('//div[contains(@class, "clipWrapper")]//section[@id]'):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
         curID = PAutils.Encode(searchResult.xpath('.//h3//a/@href')[0])
         subSite = searchResult.xpath('//title')[0].text_content().strip()

@@ -1,10 +1,10 @@
 import PAutils
 
 regexList = [
-    r'(?P<actors>.*) in (?P<title>.*) at (?P<studio>.*) with (?P<genres>.*)',
-    r'(?P<actors>.*) in (?P<title>.*) with (?P<genres>.*)',
-    r'(?P<actors>.*) in (?P<title>.*) at (?P<studio>.*)',
-    r'(?P<actors>.*) in (?P<title>.*)',
+    r'(?P<actors>.*?) (in\b(?P<title>.*)) (at\b(?P<studio>.*)) (with\b(?P<genres>.*))',
+    r'(?P<actors>.*?) (in\b(?P<title>.*)) (with\b(?P<genres>.*))',
+    r'(?P<actors>.*?) (in\b(?P<title>.*)) (at\b(?P<studio>.*))',
+    r'(?P<actors>.*?) (in\b(?P<title>.*))',
 ]
 
 
@@ -17,13 +17,13 @@ def search(results, lang, siteNum, searchData):
             break
 
     if data:
-        sceneName = data['title']
-        siteName = data['studio'] if 'studio' in data else ''
+        sceneName = data['title'].strip()
+        siteName = data['studio'].strip() if 'studio' in data else ''
 
-        genres = data['genres'] if 'genres' in data else ''
+        genres = data['genres'].strip() if 'genres' in data else ''
         genresID = PAutils.Encode(genres)
 
-        actors = data['actors']
+        actors = data['actors'].strip()
         actors = ', '.join(actors.split(' and ')) if ' and ' in actors else actors  # Backward compatibility
         actorsID = PAutils.Encode(actors)
 

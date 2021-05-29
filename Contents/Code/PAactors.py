@@ -284,6 +284,8 @@ def getFromLocalStorage(actorName, actorEncoded):
 
 # fetches a copy of an actor image and stores it locally, then returns a URL from which Plex can fetch it later
 def cacheActorPhoto(url, actorName, **kwargs):
+    localPhoto = ''
+
     req = PAutils.HTTPRequest(url, **kwargs)
 
     actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')
@@ -291,15 +293,16 @@ def cacheActorPhoto(url, actorName, **kwargs):
         os.makedirs(actorsResourcesPath)
 
     extension = mimetypes.guess_extension(req.headers['Content-Type'])
-    filename = 'actor.' + actorName.replace(' ', '-').lower() + extension
-    filepath = os.path.join(actorsResourcesPath, filename)
+    if extension:
+        filename = 'actor.' + actorName.replace(' ', '-').lower() + extension
+        filepath = os.path.join(actorsResourcesPath, filename)
 
-    Log('Saving actor image as: "%s"' % filename)
-    with codecs.open(filepath, 'wb+') as file:
-        file.write(req.content)
+        Log('Saving actor image as: "%s"' % filename)
+        with codecs.open(filepath, 'wb+') as file:
+            file.write(req.content)
 
-    localPhoto = Resource.ExternalPath(filename)
-    if not localPhoto:
-        localPhoto = ''
+        localPhoto = Resource.ExternalPath(filename)
+        if not localPhoto:
+            localPhoto = ''
 
     return localPhoto

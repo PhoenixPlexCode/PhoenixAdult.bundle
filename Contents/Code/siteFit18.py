@@ -3,63 +3,57 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.lower().replace(' ', '-')
-    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
-    req = PAutils.HTTPRequest(url)
-    detailsPageElements = HTML.ElementFromString(req.text)
+    actorName = searchData.title.lower()
+    baseURL = PAsearchSites.getSearchSearchURL(siteNum) + actorName.replace(' ', '-') + '/'
+    count = 0
+    while True:
+        count += 1
+        searchURL = baseURL + 'scene%d' % count
+        req = PAutils.HTTPRequest(searchURL)
+        if not req.ok:
+            break
 
-    titleNoFormatting = detailsPageElements.xpath('//span[@class="update_title"]')[0].text_content().strip()
-    curID = PAutils.Encode(url)
-    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].strip()
-    releaseDate = parse(date).strftime('%Y-%m-%d')
+        searchPageElements = HTML.ElementFromString(req.text)
 
-    score = 100
+        titleNoFormatting = searchPageElements.xpath('//div[contains(@class, "scene-info")]/h1/text()')[0]
+        titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
 
-    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [ReidMyLips] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+        curID = PAutils.Encode(searchURL)
+        actor = searchPageElements.xpath('//div[contains(@class, "scene-info")]/h2/a/text()')[0]
 
-    return results
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=80, lang=lang))
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    if not sceneURL.startswith('http'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//span[@class="update_title"]')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/h1/text()')[0]
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//span[@class="latest_update_description"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/p/text()')[0]
 
     # Studio
-    metadata.studio = 'ReidMyLips'
+    metadata.studio = 'Fit18'
 
-    # Tagline and Collection(s)
+    # Collections / Tagline
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = 'Fit18'
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # Release Date
-    date = detailsPageElements.xpath('//span[@class="availdate"]/text()')[0].strip()
-    if date:
-        date_object = parse(date)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//span[@class="update_tags"]//a'):
-        genreName = genreLink.text_content().strip()
-
-        movieGenres.addGenre(genreName)
+    movieGenres.addGenre('Young')
+    movieGenres.addGenre('Gym')
 
     # Actors
     movieActors.clearActors()
-    actorName = 'Riley Reid'
+    actorName = detailsPageElements.xpath('//div[contains(@class, "scene-info")]/h2/a/text()')[0]
     actorPhotoURL = ''
 
     movieActors.addActor(actorName, actorPhotoURL)
@@ -67,11 +61,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//div[@class="update_image"]//img/@src0_2x',
+        '//div[contains(@class, "scene-info")]//div/a/div/img/@src',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             art.append(poster)
+
+    art = [o for o in art if len(art) >= 10]
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

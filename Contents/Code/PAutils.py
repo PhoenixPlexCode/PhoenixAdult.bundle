@@ -11,11 +11,17 @@ from requests_response import FakeResponse
 
 import PAsearchSites
 
+UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
 
-def getUserAgent():
-    ua = fake_useragent.UserAgent(fallback='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36')
 
-    return ua.random
+def getUserAgent(fixed=False):
+    if fixed:
+        result = UserAgent
+    else:
+        ua = fake_useragent.UserAgent(fallback=UserAgent)
+        result = ua.random
+
+    return result
 
 
 def flareSolverrRequest(url, method, **kwargs):
@@ -153,6 +159,7 @@ def HTTPRequest(url, method='GET', **kwargs):
     bypass = kwargs.pop('bypass', True)
     timeout = kwargs.pop('timeout', None)
     allow_redirects = kwargs.pop('allow_redirects', True)
+    fixed_useragent = kwargs.pop('fixed_useragent', False)
     proxies = {}
 
     if Prefs['proxy_enable']:
@@ -167,7 +174,7 @@ def HTTPRequest(url, method='GET', **kwargs):
         }
 
     if 'User-Agent' not in headers:
-        headers['User-Agent'] = getUserAgent()
+        headers['User-Agent'] = getUserAgent(fixed_useragent)
 
     if params:
         method = 'POST'
