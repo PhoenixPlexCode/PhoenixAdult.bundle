@@ -198,7 +198,11 @@ def HTTPRequest(url, method='GET', **kwargs):
     req.encoding = 'UTF-8'
 
     if Prefs['debug_enable']:
-        saveRequest(url, req)
+        try:
+            saveRequest(url, req)
+        except:
+            Log('saveRequest Error')
+            pass
 
     return req
 
