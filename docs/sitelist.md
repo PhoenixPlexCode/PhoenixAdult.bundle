@@ -460,9 +460,13 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### GirlfriendsFilms | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlsOutWest | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Grooby Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Black TGirls
+  - Brazilian Transsexuals
+  - Femout.xxx
   - Grooby Girls
   - TGirl Japan
   - TGirl Japan Hardcore
+  - TGirls.xxx
 + #### Girls Rimming | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
 + #### Girlsway | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - GirlCore
