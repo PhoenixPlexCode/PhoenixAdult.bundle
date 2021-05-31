@@ -20,17 +20,16 @@ def search(results, lang, siteNum, searchData):
             titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip(), siteNum)
             releaseDate = ''
 
-            dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')
+            # I found that this method has a higher success rate for all sites
+            dateNode = detailsPageElements.xpath('//div[@class="setdesc"]//b[contains(., "Added")]')
             if dateNode:
                 date = None
-                try:
-                    date = dateNode[0].text_content().split('-')[-1].strip()
-                except:
-                    pass
-
+                dateSplit = str(detailsPageElements.xpath('//div[@class="setdesc"]//b[contains(text(), "Added")]//following-sibling::text()')).split()
+                date = "{}-{}-{}".format(dateSplit[1],dateSplit[2].replace(',', ''),dateSplit[3][0:4])
                 if date:
-                    releaseDate = parse(date).strftime('%Y-%m-%d')
-
+                    releaseDate = datetime.strptime(date, '%B-%d-%Y')
+            # It probably isn't the best way to do the date, but there are discrepencies between the sites, some use '-' and some ':' this is currently working for all sites I have tested
+            
             if searchData.date and releaseDate:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
@@ -65,19 +64,34 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')[0].text_content().split('-')[-1].strip()
-    if date:
-        date_object = parse(date)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
+    try:
+        date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')[0].text_content().split('-')[-1].strip()
+        if date:
+            date_object = parse(date)
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year
+    except:
+        date = ""
+        for detailsPageElements in detailsPageElements.xpath('//div[@class="setdesc"]/b[contains(., "Added")]'):
+            dateSplit = str(detailsPageElements.xpath('.//following-sibling::text()')).split()
+            date = "{}-{}-{}".format(dateSplit[1],dateSplit[2].replace(',', ''),dateSplit[3][0:4])
+            if date:
+                date_object = datetime.strptime(date, '%B-%d-%Y')
+                metadata.originally_available_at = date_object
+                metadata.year = metadata.originally_available_at.year
+    # There is probably a better way to set the release date out, but this works in my testing
 
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a | //div[@class="setdesc"]//a'):
         actorName = actorLink.text_content().strip()
-
+        
         actorURL = actorLink.get('href')
-        if not actorURL.startswith('http'):
+        # Bob's TGirls actor links are //www. I still haven't managed to get this site working properly though it does not grab the photo correctly from the code
+        # I do not understand why, same goes for TGirls.porn - Once this is fixed these sites will be supported
+        if actorURL.startswith('//'):
+            actorURL = 'http:' + actorURL
+        elif not actorURL.startswith('http'):
             actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL
 
         req = PAutils.HTTPRequest(actorURL)
@@ -99,6 +113,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 poster = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/' + poster
 
             art.append(poster)
+    # We need to find a way to fallback to the trailer image, as some of the older videos do not have the 4 photos, they are in the source code but 404 when selected
+    # Also we could set the trailer image as the background for the video in Plex
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
