@@ -69,9 +69,13 @@ class PhoenixAdultAgent(Agent.Movies):
         if media.filename:
             filepath = urllib.unquote(media.filename)
             filename = str(os.path.splitext(os.path.basename(filepath))[0])
+            if Prefs['strip_enable']:
+                filename = filename.split(Prefs['strip_symbol'], 1)[0]
 
         if searchSettings['siteNum'] is None and filepath:
             directory = str(os.path.split(os.path.dirname(filepath))[1])
+            if Prefs['strip_enable']:
+                directory = directory.split(Prefs['strip_symbol'], 1)[0]
 
             newTitle = getSearchTitle(directory)
             Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
