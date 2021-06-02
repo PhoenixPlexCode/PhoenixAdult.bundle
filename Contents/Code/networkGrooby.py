@@ -20,16 +20,12 @@ def search(results, lang, siteNum, searchData):
             titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip(), siteNum)
             releaseDate = ''
 
-            # I found that this method has a higher success rate for all sites
-            dateNode = detailsPageElements.xpath('//div[@class="setdesc"]//b[contains(., "Added")]')
+            dateNode = detailsPageElements.xpath('//div[@class="setdesc"]//b[contains(., "Added")]//following-sibling::text()')
             if dateNode:
-                date = None
-                dateSplit = str(detailsPageElements.xpath('//div[@class="setdesc"]//b[contains(text(), "Added")]//following-sibling::text()')).split()
-                date = "{}-{}-{}".format(dateSplit[1],dateSplit[2].replace(',', ''),dateSplit[3][0:4])
+                date = dateNode[0].split('-', 1)[-1].strip()
                 if date:
-                    releaseDate = datetime.strptime(date, '%B-%d-%Y')
-            # It probably isn't the best way to do the date, but there are discrepencies between the sites, some use '-' and some ':' this is currently working for all sites I have tested
-            
+                    releaseDate = parse(date).strftime('%Y-%m-%d')
+
             if searchData.date and releaseDate:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
@@ -49,7 +45,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip(), siteNum)
+    title = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//h3 | //div[@class="trailer_toptitle_left"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p | //div[@class="trailerpage_info"]/p[not(@class)]')[-1].text_content()
@@ -64,28 +61,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    try:
-        date = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]')[0].text_content().split('-')[-1].strip()
-        if date:
-            date_object = parse(date)
-            metadata.originally_available_at = date_object
-            metadata.year = metadata.originally_available_at.year
-    except:
-        date = ""
-        for detailsPageElements in detailsPageElements.xpath('//div[@class="setdesc"]/b[contains(., "Added")]'):
-            dateSplit = str(detailsPageElements.xpath('.//following-sibling::text()')).split()
-            date = "{}-{}-{}".format(dateSplit[1],dateSplit[2].replace(',', ''),dateSplit[3][0:4])
-            if date:
-                date_object = datetime.strptime(date, '%B-%d-%Y')
-                metadata.originally_available_at = date_object
-                metadata.year = metadata.originally_available_at.year
+    dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]/*[contains(., "Added")]//following-sibling::text()')
+    if dateNode:
+        date = dateNode[0].text_content().split('-', 1)[-1].strip()
+        date_object = parse(date)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
     # There is probably a better way to set the release date out, but this works in my testing
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a | //div[@class="setdesc"]//a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Featuring")]//a | //div[@class="setdesc"]//a[contains(@href, "/models/")]'):
         actorName = actorLink.text_content().strip()
-        
+
         actorURL = actorLink.get('href')
         # Bob's TGirls actor links are //www. I still haven't managed to get this site working properly though it does not grab the photo correctly from the code
         # I do not understand why, same goes for TGirls.porn - Once this is fixed these sites will be supported
@@ -96,9 +84,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
         req = PAutils.HTTPRequest(actorURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('(//div[@class="model_photo"]//img[@id]/@src0_1x | //div[@class="model_photo"]/img/@src)')[0]
-        if not actorPhotoURL.startswith('http'):
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+
+        actorPhotoURL = ''
+        photoNode = actorPageElements.xpath('//div[@class="model_photo"]//img[@id]/@src0_1x | //div[@class="model_photo"]/img/@src')
+        if photoNode:
+            actorPhotoURL = photoNode[0]
+
+            if not actorPhotoURL.startswith('http'):
+                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
 
