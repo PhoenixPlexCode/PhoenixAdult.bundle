@@ -3,8 +3,15 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    userID = searchData.title.split(' ', 1)[0]
-    sceneTitle = searchData.title.split(' ', 1)[1]
+    parts = searchData.title.split(' ', 1)
+    if len(parts) == 1 and searchData.filename != searchData.title:
+        parts.append(searchData.filename)
+    else:
+        Log('No scene name')
+        return results
+
+    userID = parts[0]
+    sceneTitle = parts[1]
     searchData.encoded = urllib.quote(sceneTitle)
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded

@@ -64,16 +64,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actorsBox = detailsPageElements.xpath('//div[@class="col-xs-12 casting"]')[0].xpath('//div[contains(@class, "slider-xl")]')[0]
-    actors = actorsBox.xpath('//div[@class="col-xs-2"]/a[@class="link oneline"]')
-    for actorLink in actors:
-        actorName = str(actorLink.text_content().strip())
-
-        actorPageURL = actorLink.get('href').replace('https:', 'http:')
-        req = PAutils.HTTPRequest(actorPageURL)
-        actorPage = HTML.ElementFromString(req.text)
-        actorBoxA = actorPage.xpath('//div[@class="slider-part screenshots"]')[0]
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorBoxA.xpath('//div[contains(@class, "slider-xl")]/div[@class="slides"]/a/@href')[0].replace('https:', 'http:')
+    for actorLink in detailsPageElements.xpath('//div[contains(@class, "casting")]//div[contains(@class, "slider-xl")]//div[@class="col-xs-2"]'):
+        actorName = actorLink.xpath('.//a/strong').text_content().strip()
+        actorPhotoURL = actorLink.xpath('.//img/@data-src')
+        if not actorPhotoURL.startswith('http:'):
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
 

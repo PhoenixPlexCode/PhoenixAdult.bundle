@@ -63,33 +63,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = javTitle
 
     # Tagline
-    taglineQuery = ['N', 'N', 0]
-    label = ''
-    series = ''
+    data = {}
 
-    try:
-        label = detailsPageElements.xpath('//p/a[contains(@href, "/label/")]')[0].text_content().strip()
-        taglineQuery[2] = taglineQuery[2] + 1
-    except:
-        pass
+    label = detailsPageElements.xpath('//p/a[contains(@href, "/label/")]')
+    if label:
+        data['Label'] = label[0].text_content().strip()
 
-    try:
-        series = detailsPageElements.xpath('//p/a[contains(@href, "/series/")]')[0].text_content().strip()
-        taglineQuery[2] = taglineQuery[2] + 2
-    except:
-        pass
+    series = detailsPageElements.xpath('//p/a[contains(@href, "/series/")]')
+    if series:
+        data['Series'] = series[0].text_content().strip()
 
-    taglineQuery[0] = label
-    taglineQuery[1] = series
-
-    if taglineQuery[2] == 0:
-        metadata.tagline = ''
-    elif taglineQuery[2] == 1:
-        metadata.tagline = 'Label: ' + taglineQuery[0]
-    elif taglineQuery[2] == 2:
-        metadata.tagline = 'Series: ' + taglineQuery[1]
-    elif taglineQuery[2] == 3:
-        metadata.tagline = 'Label: ' + taglineQuery[0] + ', Series: ' + taglineQuery[1]
+    metadata.tagline = ', '.join(['%s: %s' % (key, value) for key, value in data.items()])
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="col-md-3 info"]/p[2]')[0].text_content().strip().replace('Release Date: ', '')
@@ -109,6 +93,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         fullActorName = actorLink.text_content().strip()
 
         actorPhotoURL = detailsPageElements.xpath('//a[@class="avatar-box"]/div[@class="photo-frame"]/img[contains(@title, "%s")]/@src' % (fullActorName))[0]
+        if not actorPhotoURL.startswith('http'):
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+
         if actorPhotoURL.rsplit('/', 1)[1] == 'nowprinting.gif':
             actorPhotoURL = ''
 
@@ -122,6 +109,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
+            if not poster.startswith('http'):
+                poster = PAsearchSites.getSearchBaseURL(siteNum) + poster
+
             art.append(poster)
 
     coverImage = detailsPageElements.xpath('//a[contains(@href, "/cover/")]/@href')
@@ -130,6 +120,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     coverImage = imageHost + '/thumb/' + coverImageCode + '.jpg'
     if coverImage.count('/images.') == 1:
         coverImage = coverImage.replace('thumb', 'thumbs')
+
+    if not coverImage.startswith('http'):
+        coverImage = PAsearchSites.getSearchBaseURL(siteNum) + coverImage
 
     art.append(coverImage)
 

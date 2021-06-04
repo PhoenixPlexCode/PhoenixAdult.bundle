@@ -53,11 +53,7 @@ class PhoenixAdultAgent(Agent.Movies):
     primary_provider = True
 
     def search(self, results, media, lang):
-        if Prefs['strip_enable']:
-            title = media.name.split(Prefs['strip_symbol'], 1)[0]
-        else:
-            title = media.name
-
+        title = getSearchTitleStrip(media.name)
         title = getSearchTitle(title)
 
         Log('***MEDIA TITLE [from media.name]*** %s' % title)
@@ -69,9 +65,11 @@ class PhoenixAdultAgent(Agent.Movies):
         if media.filename:
             filepath = urllib.unquote(media.filename)
             filename = str(os.path.splitext(os.path.basename(filepath))[0])
+            filename = getSearchTitleStrip(filename)
 
         if searchSettings['siteNum'] is None and filepath:
             directory = str(os.path.split(os.path.dirname(filepath))[1])
+            directory = getSearchTitleStrip(directory)
 
             newTitle = getSearchTitle(directory)
             Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
@@ -172,3 +170,14 @@ def getSearchTitle(title):
     title = ' '.join(title.split())
 
     return title
+
+
+def getSearchTitleStrip(title):
+    if Prefs['strip_enable']:
+        if Prefs['strip_symbol'] and Prefs['strip_symbol'] in title:
+            title = title.split(Prefs['strip_symbol'], 1)[0]
+
+        if Prefs['strip_symbol_reverse'] and Prefs['strip_symbol_reverse'] in title:
+            title = title.rsplit(Prefs['strip_symbol_reverse'], 1)[-1]
+
+    return title.strip()

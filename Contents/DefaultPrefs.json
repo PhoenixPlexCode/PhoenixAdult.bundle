@@ -25,9 +25,15 @@
     },
     {
         "id": "strip_symbol",
-        "label": "Strip Symbol",
+        "label": "Strip After Symbol",
         "type": "text",
         "default": "~"
+    },
+    {
+        "id": "strip_symbol_reverse",
+        "label": "Strip Before Symbol",
+        "type": "text",
+        "default": "%"
     },
     {
         "id": "custom_title_enable",
