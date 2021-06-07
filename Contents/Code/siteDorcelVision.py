@@ -65,8 +65,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "casting")]//div[contains(@class, "slider-xl")]//div[@class="col-xs-2"]'):
-        actorName = actorLink.xpath('.//a/strong').text_content().strip()
-        actorPhotoURL = actorLink.xpath('.//img/@data-src')
+        actorName = actorLink.xpath('.//a/strong')[0].text_content().strip()
+        actorPhotoURL = actorLink.xpath('.//img/@data-src')[0]
         if not actorPhotoURL.startswith('http:'):
             actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
