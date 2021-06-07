@@ -4,7 +4,7 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     parts = searchData.title.split(' ', 1)
-    if len(parts) == 1 and searchData.filename != searchData.title:
+    if len(parts) != 1 and searchData.filename != searchData.title:
         parts.append(searchData.filename)
     else:
         Log('No scene name')
