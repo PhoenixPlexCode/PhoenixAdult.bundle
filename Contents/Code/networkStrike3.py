@@ -11,7 +11,7 @@ def getDatafromAPI(url):
 
 
 def search(results, lang, siteNum, searchData):
-    url = PAsearchSites.getSearchBaseURL(siteNum) + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
+    url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
 
     searchResults = getDatafromAPI(url)
     if searchResults:
@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
-    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + update_query % (sceneName, PAsearchSites.getSearchSiteName(siteNum).upper())
+    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + update_query % (sceneName, PAsearchSites.getSearchSiteName(siteNum).upper())
 
     detailsPageElements = getDatafromAPI(sceneURL)
     video = detailsPageElements['findOneVideo']
@@ -120,5 +120,5 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     return metadata
 
 
-search_query = '{searchVideos(input:{query:%s,site:%s,first:10}){edges{node{videoId,title,releaseDate,slug}}}}'
-update_query = '{findOneVideo(input:{slug:%s,site:%s}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}'
+search_query = '{searchVideos(input:{query:\"%s\",site:%s,first:10}){edges{node{videoId,title,releaseDate,slug}}}}'
+update_query = '{findOneVideo(input:{slug:\"%s\",site:%s}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}'
