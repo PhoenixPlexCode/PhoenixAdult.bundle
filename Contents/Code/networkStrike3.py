@@ -1,24 +1,22 @@
 import PAsearchSites
 import PAutils
 
-
 def getDatafromAPI(url):
     req = PAutils.HTTPRequest(url)
-
     if req:
         return req.json()['data']
     return req
 
-
 def search(results, lang, siteNum, searchData):
-    url = PAsearchSites.getSearchSearchURL(siteNum) + '/search?q=' + searchData.encoded
+    url = PAsearchSites.getSearchBaseURL(siteNum) + "/graphql?query={searchVideos(input:{query:\"" + searchData.encoded + \
+    "\",site:" + PAsearchSites.getSearchSiteName(siteNum).upper() + ",first:10}){edges{node{videoId,title,releaseDate,slug}}}}"
 
     searchResults = getDatafromAPI(url)
     if searchResults:
-        for searchResult in searchResults['videos']:
-            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
-            releaseDate = parse(searchResult['releaseDate']).strftime('%Y-%m-%d')
-            curID = PAutils.Encode(searchResult['targetUrl'])
+        for searchResult in searchResults['searchVideos']['edges']:
+            titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
+            releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
+            curID = PAutils.Encode(searchResult['node']['slug'])
 
             if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -33,12 +31,12 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneName
+    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/graphql?query={findOneVideo(input:{slug:\"" + sceneName + "\",site:" + PAsearchSites.getSearchSiteName(siteNum).upper() + \
+    "}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}"
 
     detailsPageElements = getDatafromAPI(sceneURL)
-    video = detailsPageElements['video']
-    pictureset = detailsPageElements['pictureset']
-
+    video = detailsPageElements['findOneVideo']
+    pictureset = video['carousel']
     # Title
     metadata.title = PAutils.parseTitle(video['title'], siteNum)
 
@@ -46,11 +44,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.summary = video['description']
 
     # Director
-    director = metadata.directors.new()
-    director.name = video['directorNames']
+    if video['directors']:
+        director = metadata.directors.new()
+        director.name = video['directors'][0]['name']
 
     # Studio
-    metadata.studio = video['primarySite'].title()
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum).title()
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -62,36 +61,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
-
-    for tag in ['categories', 'tags']:
-        for genreLink in video[tag]:
-            if isinstance(genreLink, dict):
-                genreName = genreLink['name']
-            else:
-                genreName = genreLink
-
-            movieGenres.addGenre(genreName)
+    if video['categories']:
+        movieGenres.clearGenres()
+        for tag in video['categories']:
+            movieGenres.addGenre(tag['name'])
 
     # Actors
     movieActors.clearActors()
-    actors = video['modelsSlugged']
-    for actorLink in actors:
-        actorPageURL = PAsearchSites.getSearchSearchURL(siteNum) + '/' + actorLink['slugged']
-        actorData = getDatafromAPI(actorPageURL)['model']
-
-        actorName = actorData['name']
+    actors = video['models']
+    for actor in actors:
         actorPhotoURL = ''
-        if actorData['images']['profile']:
-            actorPhotoURL = actorData['images']['profile'][0]['highdpi']['3x']
-
-        movieActors.addActor(actorName, actorPhotoURL)
-
+        if actor['images']:
+            actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
+        movieActors.addActor(actor['name'], actorPhotoURL)
+    
     # Posters
     art = []
 
     for name in ['movie', 'poster']:
-        if name in video['images'] and video['images'][name]:
+        if name in video['carousel'] and video['images'][name]:
             image = video['images'][name][-1]
             if 'highdpi' in image:
                 art.append(image['highdpi']['3x'])
@@ -100,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             break
 
     for image in pictureset:
-        img = image['main'][0]['src']
+        img = image['listing'][0]['highdpi']['triple']
 
         art.append(img)
 
