@@ -1,15 +1,17 @@
 import PAsearchSites
 import PAutils
 
+
 def getDatafromAPI(url):
     req = PAutils.HTTPRequest(url)
+
     if req:
         return req.json()['data']
     return req
 
+
 def search(results, lang, siteNum, searchData):
-    url = PAsearchSites.getSearchBaseURL(siteNum) + "/graphql?query={searchVideos(input:{query:\"" + searchData.encoded + \
-    "\",site:" + PAsearchSites.getSearchSiteName(siteNum).upper() + ",first:10}){edges{node{videoId,title,releaseDate,slug}}}}"
+    url = PAsearchSites.getSearchBaseURL(siteNum) + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
 
     searchResults = getDatafromAPI(url)
     if searchResults:
@@ -31,12 +33,12 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
-    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/graphql?query={findOneVideo(input:{slug:\"" + sceneName + "\",site:" + PAsearchSites.getSearchSiteName(siteNum).upper() + \
-    "}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}"
+    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + update_query % (sceneName, PAsearchSites.getSearchSiteName(siteNum).upper())
 
     detailsPageElements = getDatafromAPI(sceneURL)
     video = detailsPageElements['findOneVideo']
     pictureset = video['carousel']
+
     # Title
     metadata.title = PAutils.parseTitle(video['title'], siteNum)
 
@@ -64,17 +66,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if video['categories']:
         movieGenres.clearGenres()
         for tag in video['categories']:
-            movieGenres.addGenre(tag['name'])
+            genreName = tag['name']
+
+            movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
     actors = video['models']
     for actor in actors:
+        actorName = actor['name']
         actorPhotoURL = ''
         if actor['images']:
             actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
-        movieActors.addActor(actor['name'], actorPhotoURL)
-    
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
     # Posters
     art = []
 
@@ -112,3 +118,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+search_query = '{searchVideos(input:{query:%s,site:%s,first:10}){edges{node{videoId,title,releaseDate,slug}}}}'
+update_query = '{findOneVideo(input:{slug:%s,site:%s}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}'
