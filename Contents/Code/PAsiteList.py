@@ -1514,7 +1514,8 @@ searchSites = {
     1340: ('TGirls Porn', 'https://www.tgirls.porn', '/tour/trailers/'),
     1341: ('Brazilian Transsexuals', 'https://www.brazilian-transsexuals.com', '/tour/trailers/'),
     1342: ('TS Casting Couch', 'https://www.ts-castingcouch.com', '/tour/trailers/'),
-    1343: ('Black TGirls', 'https://www.black-tgirls.com', '/tour/trailers/')
+    1343: ('Black TGirls', 'https://www.black-tgirls.com', '/tour/trailers/'),
+    1344: ('Christy Marks', 'https://www.christymarks.com', '/videos/')
 }
 
 abbreviations = (
@@ -2599,7 +2600,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteWoodmanCastingX
 
         # ScoreGroup
-        elif (1012 <= siteNum <= 1021):
+        elif (1012 <= siteNum <= 1021) or siteNum == 1344:
             provider = networkScoreGroup
 
         # TwoTGirls

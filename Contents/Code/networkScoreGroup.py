@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
-    titleNoFormatting = detailsPageElements.xpath('//h2')[1].text_content().strip()
+    titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     curID = PAutils.Encode(sceneURL)
 
@@ -29,10 +29,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2')[1].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="p-desc"]')[0].text_content().replace('Read More »', '').strip()
+    summary_xpaths = [
+        '//div[@class="p-desc"]',
+        '//div[@class="desc"]',
+        '//div[@class="desc row"]'
+    ]
+
+    for xpath in summary_xpaths:
+        for summary in detailsPageElements.xpath(xpath):
+            metadata.summary = summary.text_content().replace('Read More »', '').strip()
+            break
 
     # Studio
     metadata.studio = 'Score Group'
@@ -44,10 +53,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(metadata.tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div/span[@class="value"]')[1].text_content().strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    if detailsPageElements.xpath('//div/span[@class="value"]'):
+        date = detailsPageElements.xpath('//div/span[@class="value"]')[1].text_content().strip()
+        date_object = parse(date)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Actors
     movieActors.clearActors()
@@ -73,6 +83,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     xpaths = [
         '//div[contains(@class, "thumb")]/img/@src',
+        '//div[contains(@class, "p-image")]/a/img/@src',
+        '//div[contains(@class, "dl-opts")]/a/img/@src',
+        '//div[contains(@class, "p-photos")]/div/div/a/@href'
     ]
 
     for xpath in xpaths:
