@@ -34,8 +34,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Summary
     summary_xpaths = [
         '//div[@class="p-desc"]',
-        '//div[@class="desc"]',
-        '//div[@class="desc row"]'
+        '//div[contains(@class, "desc")]'
     ]
 
     for xpath in summary_xpaths:
@@ -86,7 +85,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         '//div[contains(@class, "thumb")]/img/@src',
         '//div[contains(@class, "p-image")]/a/img/@src',
         '//div[contains(@class, "dl-opts")]/a/img/@src',
-        '//div[contains(@class, "p-photos")]/div/div/a/@href'
+        '//div[contains(@class, "p-photos")]/div/div/a/@href',
+        '//div[contains(@class, "gallery")]/div/div/a/@href'
     ]
 
     for xpath in xpaths:
