@@ -169,6 +169,7 @@ import networkGrooby
 import siteAdultEmpire
 import siteFamilyTherapy
 import siteFit18
+import siteDarkRoomVR
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1509,14 +1510,7 @@ searchSites = {
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
     1336: ('Fit 18', 'https://www.fit18.com', '/models/'),
     1337: ('SpankMonster', 'https://spankmonster.com', '/MemberSceneSearch?q='),
-    1338: ('Femout', 'https://www.femout.xxx', '/tour/trailers/'),
-    1339: ('TGirls', 'https://www.tgirls.xxx', '/tour/trailers/'),
-    1340: ('TGirls Porn', 'https://www.tgirls.porn', '/tour/trailers/'),
-    1341: ('Brazilian Transsexuals', 'https://www.brazilian-transsexuals.com', '/tour/trailers/'),
-    1342: ('TS Casting Couch', 'https://www.ts-castingcouch.com', '/tour/trailers/'),
-    1343: ('Black TGirls', 'https://www.black-tgirls.com', '/tour/trailers/'),
-    1344: ('Christy Marks', 'https://www.christymarks.com', '/videos/'),
-    1345: ('Scoreland2', 'https://www.scoreland2.com', '/big-boob-scenes/')
+    1338: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
 }
 
 abbreviations = (
@@ -2601,7 +2595,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteWoodmanCastingX
 
         # ScoreGroup
-        elif (1012 <= siteNum <= 1021) or (1344 <= siteNum <= 1345):
+        elif (1012 <= siteNum <= 1021):
             provider = networkScoreGroup
 
         # TwoTGirls
@@ -2760,8 +2754,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1330:
             provider = siteData18Empire
 
-        # Grooby Network
-        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343):
+        # TGirl Japan (Hardcore)
+        elif (1331 <= siteNum <= 1333):
             provider = networkGrooby
 
         # Adult Empire
@@ -2775,5 +2769,9 @@ def getProviderFromSiteNum(siteNum):
         # Fit 18
         elif siteNum == 1336:
             provider = siteFit18
+
+        # DarkRoomVR
+        elif siteNum == 1338:
+            provider = siteDarkRoomVR
 
     return provider
