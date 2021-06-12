@@ -8,8 +8,11 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//a[@class="video-card__item"]'):
         titleNoFormatting = searchResult.xpath('//div/div[@class="video-card__title"]')[0].text_content().strip()
         curID = PAutils.Encode(searchResult.xpath('//a[@class="video-card__item"]/@href')[0])
+
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+
     return results
 
 
@@ -25,10 +28,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    try: 
-        metadata.summary = detailsPageElements.xpath('//div[@data-id="description" and @class="hidden"]')[0].text_content().strip().replace('Read less','')
-    except:
-        pass
+    description = detailsPageElements.xpath('//div[@data-id="description" and @class="hidden"]')
+    if description:
+        metadata.summary = description[0].text_content().strip().replace('Read less', '')
 
     # Studio
     metadata.studio = 'DarkRoomVR'
