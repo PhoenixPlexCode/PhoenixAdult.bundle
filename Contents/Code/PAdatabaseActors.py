@@ -74,7 +74,7 @@ ActorsReplace = {
     'Lilly Ford': ['Lilly Lit'],
     'Lilu Moon': ['Lilu'],
     'Lily Labeau': ['Lilly LaBeau', 'Lilly Labuea', 'Lily La Beau', 'Lily Lebeau', 'Lily Luvs'],
-    'Lina Arian Joy': ['Lina Arian', 'Arian Joy', 'Lina Joy'],
+    'Lina Arian Joy': ['Arian Joy', 'Lina Arian', 'Lina Joy'],
     'Linda Brugal': ['Milana Witch'],
     'Little Caprice': ['Caprice', 'Caprice A', 'Caprice S', 'Lil Caprice', 'Lola Karups', 'Marketa'],
     'Lola Taylor': ['Lolita Taylor'],
@@ -109,7 +109,7 @@ ActorsReplace = {
     'Rosaline Rosa': ['Rosaline Rose'],
     'Sara Luvv': ['Sara Luv'],
     'Scarlet Domingo': ['Scarlet Rebel', 'Scarlett Domingo', 'Scarlett Rebel'],
-    'Selena Gomez ': ['Selena Gomez'],
+    'Selena Gomez': ['Selena Gomez'],
     'Selvaggia Babe': ['Selvaggia'],
     'Shalina Divine': ['Shalina Devine'],
     'Shelley Bliss': ['Mia Ferrari'],
@@ -131,7 +131,7 @@ ActorsReplace = {
     'Veronica Valentine': ['Veronica Vega'],
     'Victoria Tiffani': ['Victoria Tiffany'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
-    'Yiny Leon': ['YInyleon', 'Yini Leon', 'YiniLeon', 'YinyLeon'],
+    'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Sky': ['Zazie Skymm'],
     'Zoe Bloom': ['Zoey Bloom'],
@@ -5116,14 +5116,14 @@ ActorsReplaceStudios = {
         'Tyna Gold': ['Tee Nka'],
         'Violette Pink': ['Violette'],
     },
-    50: {  # NaughtyAmerica
+    50: {  # Naughty America
         'Dakota Skye': ['Dakota'],
     },
-    51: { # Teen Core Club
+    51: {  # Teen Core Club
         'Amanda': ['Kimberly'],
         'Belle Claire': ['Bella Clare'],
-        'Violette Pink': ['Violette'],
         'Katrin Tequila': ['Janett'],
+        'Violette Pink': ['Violette'],
     },
 }
 
