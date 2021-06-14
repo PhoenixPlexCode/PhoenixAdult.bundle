@@ -49,6 +49,7 @@ ActorsReplace = {
     'Gulliana Alexis': ['Guiliana Alexis'],
     'Haley Reed': ['Hailey Reed'],
     'Hannah Hawthorne': ['Hanna Hawthorne'],
+    'Henessy': ['Alina Henessy'],
     'Hina Nanase': ['Nanase Hina'],
     'Isabel Stern': ['Isabel Sterov', 'Isabelle Stern'],
     'Isabella De Laa': ['Isabela De Laa', 'Isabella Della'],
@@ -62,6 +63,7 @@ ActorsReplace = {
     'Kagney Linn Karter': ['Kagney Lynn Karter'],
     'Kari Sweet': ['Kari Sweets'],
     'Katerina Hartlova': ['Katarina'],
+    'Katya Clover': ['Caramel S'],
     'Kendra Lust': ['Kendra May Lust'],
     'Khloe Kapri': ['Chloe Capri', 'Khloe Capri'],
     'Kristall Rush': ['Aurelly Rebel', 'Crystal Rush'],
@@ -80,12 +82,14 @@ ActorsReplace = {
     'Lucia Denville': ['Lucia Denvile'],
     'Maddy O\'Reilly': ['Maddy O\'reilly', 'Maddy OReilly', 'Maddy Oreilly'],
     'Mariana Martinez': ['Mariana Martix'],
+    'Mayara Rodrigues': ['Mayara Rodriguez'],
     'Melena Maria Rya': ['Maria Rya', 'Melena Maria'],
     'Miss Jade Indica': ['Jade Indica'],
     'Moe Johnson': ['Moe The Monster Johnson'],
     'Nancy Ace': ['Nancy A', 'Nancy A.'],
     'Nathaly Cherie': ['Natalie Cherie', 'Nathalie Cherie', 'Nathaly'],
     'Nekane Sweet': ['Nekane'],
+    'Nicole Black': ['Nicol Black'],
     'Nika Noire': ['Nika Noir'],
     'Noemilk': ['Noe Milk', 'Noemiek'],
     'Ornella Morgan': ['Ornella Morgen'],
@@ -105,7 +109,7 @@ ActorsReplace = {
     'Rosaline Rosa': ['Rosaline Rose'],
     'Sara Luvv': ['Sara Luv'],
     'Scarlet Domingo': ['Scarlet Rebel', 'Scarlett Domingo', 'Scarlett Rebel'],
-    'Selena Gomez ': ['Selena Gomez'],
+    'Selena Gomez': ['Selena Gomez'],
     'Selvaggia Babe': ['Selvaggia'],
     'Shalina Divine': ['Shalina Devine'],
     'Shelley Bliss': ['Mia Ferrari'],
@@ -125,8 +129,9 @@ ActorsReplace = {
     'Timea Bella': ['Lucianna Karel'],
     'Veronica Leal': ['Verónica Leal'],
     'Veronica Valentine': ['Veronica Vega'],
+    'Victoria Tiffani': ['Victoria Tiffany'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
-    'Yiny Leon': ['YInyleon', 'Yini Leon', 'YiniLeon', 'YinyLeon'],
+    'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Sky': ['Zazie Skymm'],
     'Zoe Bloom': ['Zoey Bloom'],
@@ -137,8 +142,10 @@ ActorsReplaceStudios = {
         'Henessy': ['Henna Ssy'],
         'Katarina Muti': ['Ariel Temple'],
         'Krystal Boyd': ['Abbie'],
+        'Lina Arian Joy': ['Arian'],
         'Mishelle Klein': ['Molly A'],
         'Stefanie Moon': ['Stefanie'],
+        'Victoria Tiffani': ['Ioana'],
     },
     1: {  # Babes
         'Aika May': ['Aiko May'],
@@ -167,7 +174,10 @@ ActorsReplaceStudios = {
         'Vina Sky': ['Vina Skyy'],
     },
     6: {  # Evilangel
+        'Alice Miller': ['Paulina B'],
+        'Sasha Rose': ['Lynn'],
         'Scarlet Domingo': ['Scarlett'],
+        'Victoria Tiffani': ['Ioana'],
     },
     7: {  # FuelVirtual
         'Abigaile Johnson': ['Abigaile'],
@@ -1254,6 +1264,7 @@ ActorsReplaceStudios = {
     21: {  # DDFProd
         'Alena H': ['Helen'],
         'Amirah Adara': ['Amirah'],
+        'Foxy Di': ['Foxy D'],
         'Goldie Baby': ['Ms White-Kitten'],
         'Jennifer Stone': ['Jeniffer Stone'],
         'Mishelle Klein': ['Molly'],
@@ -1286,9 +1297,12 @@ ActorsReplaceStudios = {
         'Gabriella Lati': ['Gabrielle Lati'],
     },
     29: {  # Rocco Siffredi
+        'Alice Miller': ['Paulina B'],
         'Krystal Boyd': ['Abbie'],
+        'Victoria Tiffani': ['Ioana'],
     },
     30: {  # Puffy Network
+        'Erika Bellucci': ['Erika Black'],
         'Stefanie Moon': ['Stefany'],
     },
     31: {  # HuCows.com
@@ -1658,7 +1672,6 @@ ActorsReplaceStudios = {
         'Inna E.': ['Inna E'],
         'Ira E': ['Alla B', 'Anastasija'],
         'Ira F.': ['Ira', 'Ira F'],
-        'Irena M': ['Angel C'],
         'Irina Ann': ['Mila C'],
         'Irina Bruni': ['Cali'],
         'Irina K': ['Varya'],
@@ -5103,6 +5116,15 @@ ActorsReplaceStudios = {
         'Tyna Gold': ['Tee Nka'],
         'Violette Pink': ['Violette'],
     },
+    50: {  # Naughty America
+        'Dakota Skye': ['Dakota'],
+    },
+    51: {  # Teen Core Club
+        'Amanda': ['Kimberly'],
+        'Belle Claire': ['Bella Clare'],
+        'Katrin Tequila': ['Janett'],
+        'Violette Pink': ['Violette'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5156,4 +5178,6 @@ ActorsStudioIndexes = {
     47: ['Perfect Gonzo', 'Sapphic Erotica'],
     48: ['Reality Lovers'],
     49: ['UltraFilms'],
+    50: ['Naughty America'],
+    51: ['Teen Core Club'],
 }
