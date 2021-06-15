@@ -1192,10 +1192,12 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - 60 Plus MILFS
   - Big Boob Bundle
   - Bootylicious Mag
+  - Christy Marks
   - Leg Sex
   - Naughty Mag
   - Porn Mega Load
   - Scoreland
+  - Scoreland2
   - XL Girls
 + #### Thick Cash Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-match)* - **Actor only, Date Add**
  - Ebony Tugs

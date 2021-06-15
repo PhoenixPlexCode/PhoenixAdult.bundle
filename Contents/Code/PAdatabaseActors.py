@@ -113,6 +113,7 @@ ActorsReplace = {
     'Selvaggia Babe': ['Selvaggia'],
     'Shalina Divine': ['Shalina Devine'],
     'Shelley Bliss': ['Mia Ferrari'],
+    'Siri': ['Siri Dahl'],
     'Skylar Vox': ['Dylan Vox', 'Dylann Vox'],
     'Sofi Smile': ['Sofi Smail', 'Sonia Smile', 'Sony Smile'],
     'Sofy Soul': ['Sofy Torn'],
