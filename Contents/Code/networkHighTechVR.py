@@ -10,7 +10,7 @@ def search(results, lang, siteNum, searchData):
     titleNoFormatting = searchResults.xpath('//h1')[0].text_content().strip()
     curID = searchData.encoded
 
-    date = searchResults.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"]')[0].text_content().strip()
+    date = searchResults.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"] | //div[@class="c-video-item-header-date date"]')[0].text_content().strip()
     releaseDate = parse(date).strftime('%Y-%m-%d')
 
     score = 100
@@ -30,7 +30,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="video-group-bottom"]/p | //p[@class="u-lh--opt"] | //div[@class="video-info"]/p | //div[@class="desc"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="video-group-bottom"]/p | //p[@class="u-lh--opt"] | //div[@class="video-info"]/p | //div[contains(@class, "desc")]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'HighTechVR'
@@ -42,21 +42,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//span[@class="u-inline-block u-mr--nine"] | //div[contains(@class, "date"])')[0].text_content().strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[contains(@class, "video-tags")]//a | //div[@class="tags"]//a'):
+    for genreLink in detailsPageElements.xpath('//div[contains(@class, "tags")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="video-actress-name"]//a | //div[@class="u-mt--three u-mb--three"]//a | //div[@class="model-one-inner js-trigger-lazy-item"]//a | //div[@class="featuring commed"]//a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="video-actress-name"]//a | //div[@class="u-mt--three u-mb--three"]//a | //div[@class="model-one-inner js-trigger-lazy-item"]//a | //div[contains(@class, "featuring")]//a'):
         actorName = actorLink.text_content().strip()
 
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
@@ -69,7 +69,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Posters
     art = []
 
-    for poster in detailsPageElements.xpath('//div[contains(@class, "video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[@class="scene-previews-container"]//a'):
+    for poster in detailsPageElements.xpath('//div[contains(@class, "video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[contains(@class, "scene-previews-container")]//a'):
         img = poster.get('href').split('?')[0]
         if img.startswith('http'):
             art.append(img)
