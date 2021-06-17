@@ -49,7 +49,7 @@ def search(results, lang, siteNum, searchData):
                     date = detailsPageElements.xpath('//ul[@class="list-unstyled m-b-2"]/li[contains(., "Released:")]/text()')[0].strip()
                     if date and not date == 'unknown':
                         try:
-                            releaseDate = datetime.strptime(date, '%b %d, %Y').strftime('%Y-%m-%d')
+                            releaseDate = datetime.strptime(date, '%b %d %Y').strftime('%Y-%m-%d')
                         except:
                             releaseDate = ''
                     else:
