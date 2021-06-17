@@ -40,6 +40,7 @@ ActorsReplace = {
     'Elsa Jean': ['Elsa Dream'],
     'Emma Fantasy': ['Emma Fantazy'],
     'Emma Hix': ['Crissy Kay', 'Emma Hicks', 'Emma Hixx'],
+    'Emmanuelle London': ['London Jolie', 'Emmanuel London'],
     'Eva Elfie': ['Lady Jay', 'Tieny Mieny', 'Tiny Teen', 'Tiny Teen / Eva Elfie'],
     'Eve Laurence': ['Eve Lawrence'],
     'Foxy Di': ['Foxi Di'],
