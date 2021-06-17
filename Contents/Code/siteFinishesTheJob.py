@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="scene"]'):
-        titleNoFormatting = searchResult.xpath('.//h4[@itemprop="name"]//a')[0].text_content()
+        titleNoFormatting = searchResult.xpath('.//h3[@itemprop="name"]//a')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
 
