@@ -5124,6 +5124,7 @@ ActorsReplaceStudios = {
         'Amanda': ['Kimberly'],
         'Belle Claire': ['Bella Clare'],
         'Katrin Tequila': ['Janett'],
+        'Susan Ayn': ['Susan'],
         'Violette Pink': ['Violette'],
     },
 }
