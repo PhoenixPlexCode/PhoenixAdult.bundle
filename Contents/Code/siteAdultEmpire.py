@@ -1,6 +1,20 @@
 import PAsearchSites
 import PAutils
 
+def getReleaseDate(detailsPageElements):
+    date = detailsPageElements.xpath('//ul[@class="list-unstyled m-b-2"]/li[contains(., "Released:")]/text()')[0].strip()
+    if date and not date == 'unknown':
+        try:
+            releaseDate = datetime.strptime(date, '%b %d %Y').strftime('%Y-%m-%d')
+        except:
+            releaseDate = ''
+    else:
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+    return releaseDate
+
+def toDisplayDate(releaseDate):
+    displayDate = releaseDate if date else ''
+    return displayDate
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
@@ -46,15 +60,8 @@ def search(results, lang, siteNum, searchData):
                     detailsPageElements = HTML.ElementFromString(req.text)
 
                     # Find date on movie specific page
-                    date = detailsPageElements.xpath('//ul[@class="list-unstyled m-b-2"]/li[contains(., "Released:")]/text()')[0].strip()
-                    if date and not date == 'unknown':
-                        try:
-                            releaseDate = datetime.strptime(date, '%b %d %Y').strftime('%Y-%m-%d')
-                        except:
-                            releaseDate = ''
-                    else:
-                        releaseDate = searchData.dateFormat() if searchData.date else ''
-                    displayDate = releaseDate if date else ''
+                    releaseDate = getReleaseDate(detailsPageElements)
+                    displayDate = toDisplayDate(releaseDate)
 
                     # Studio
                     try:
@@ -104,15 +111,8 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1/text()')[0].strip(), siteNum)
         curID = PAutils.Encode(movieURL)
 
-        date = detailsPageElements.xpath('//ul[@class="list-unstyled m-b-2"]/li[contains(., "Released:")]/text()')[0].strip()
-        if date and not date == 'unknown':
-            try:
-                releaseDate = datetime.strptime(date, '%b %d %Y').strftime('%Y-%m-%d')
-            except:
-                releaseDate = ''
-        else:
-            releaseDate = searchData.dateFormat() if searchData.date else ''
-        displayDate = releaseDate if date else ''
+        releaseDate = getReleaseDate(detailsPageElements)
+        displayDate = toDisplayDate(releaseDate)
 
         if sceneID == urlID:
             score = 100
@@ -205,6 +205,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
+    else:
+        releaseDate = getReleaseDate(detailsPageElements)
+        if releaseDate:
+            date_object = datetime.strptime(releaseDate, '%Y-%m-%d')
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
