@@ -280,6 +280,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - CzechVR
   - CzechVR Casting
   - CzechVR Fetish
++ #### DarkRoomVR | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### Data18 Porn Database | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Empire
   - Content

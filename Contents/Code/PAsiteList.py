@@ -169,6 +169,7 @@ import networkGrooby
 import siteAdultEmpire
 import siteFamilyTherapy
 import siteFit18
+import siteDarkRoomVR
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1516,7 +1517,8 @@ searchSites = {
     1342: ('TS Casting Couch', 'https://www.ts-castingcouch.com', '/tour/trailers/'),
     1343: ('Black TGirls', 'https://www.black-tgirls.com', '/tour/trailers/'),
     1344: ('Christy Marks', 'https://www.christymarks.com', '/videos/'),
-    1345: ('Scoreland2', 'https://www.scoreland2.com', '/big-boob-scenes/')
+    1345: ('Scoreland2', 'https://www.scoreland2.com', '/big-boob-scenes/'),
+    1346: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
 }
 
 abbreviations = (
@@ -2775,5 +2777,9 @@ def getProviderFromSiteNum(siteNum):
         # Fit 18
         elif siteNum == 1336:
             provider = siteFit18
+
+        # DarkRoomVR
+        elif siteNum == 1346:
+            provider = siteDarkRoomVR
 
     return provider
