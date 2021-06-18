@@ -12,7 +12,6 @@ def getDatafromAPI(url):
 
 def search(results, lang, siteNum, searchData):
     if searchData.encoded.isdigit():
-        Log('searching ID..')
         url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_id_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
         searchResult = getDatafromAPI(url)
         if searchResult:
@@ -26,11 +25,7 @@ def search(results, lang, siteNum, searchData):
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
-                
-    
-        return results
     else:
-        Log('searching string..')
         url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
         searchResults = getDatafromAPI(url)
         if searchResults:
@@ -38,18 +33,15 @@ def search(results, lang, siteNum, searchData):
                 titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
                 releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
                 curID = PAutils.Encode(searchResult['node']['slug'])
-    
+
                 if searchData.date:
                     score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
                 else:
                     score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-    
-                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
-    
-        return results
-    
 
-    
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+
+    return results
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
