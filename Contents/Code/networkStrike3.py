@@ -11,14 +11,14 @@ def getDatafromAPI(url):
 
 
 def search(results, lang, siteNum, searchData):
-    url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
-
-    searchResults = getDatafromAPI(url)
-    if searchResults:
-        for searchResult in searchResults['searchVideos']['edges']:
-            titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
-            releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
-            curID = PAutils.Encode(searchResult['node']['slug'])
+    if searchData.encoded.isdigit():
+        Log('searching ID..')
+        url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_id_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
+        searchResult = getDatafromAPI(url)
+        if searchResult:
+            titleNoFormatting = PAutils.parseTitle(searchResult['findOneVideo']['title'], siteNum)
+            releaseDate = parse(searchResult['findOneVideo']['releaseDate']).strftime('%Y-%m-%d')
+            curID = PAutils.Encode(searchResult['findOneVideo']['slug'])
 
             if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -26,8 +26,30 @@ def search(results, lang, siteNum, searchData):
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+                
+    
+        return results
+    else:
+        Log('searching string..')
+        url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
+        searchResults = getDatafromAPI(url)
+        if searchResults:
+            for searchResult in searchResults['searchVideos']['edges']:
+                titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
+                releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
+                curID = PAutils.Encode(searchResult['node']['slug'])
+    
+                if searchData.date:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+    
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+    
+        return results
+    
 
-    return results
+    
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
@@ -122,3 +144,4 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
 search_query = '{searchVideos(input:{query:\"%s\",site:%s,first:10}){edges{node{videoId,title,releaseDate,slug}}}}'
 update_query = '{findOneVideo(input:{slug:\"%s\",site:%s}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}'
+search_id_query = '{findOneVideo(input:{videoId:\"%s\",site:%s}){videoId,title,releaseDate,slug}}'
