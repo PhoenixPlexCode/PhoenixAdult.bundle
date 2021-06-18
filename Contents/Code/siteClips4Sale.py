@@ -74,10 +74,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for format_ in formats:
         for quality in qualities:
             for fileType in fileTypes:
-                temp_title = temp_title.replace(format_ % {"quality": quality.lower(), "fileType": fileType.lower()}, '')
-                temp_title = temp_title.replace(format_ % {"quality": quality.lower(), "fileType": fileType.upper()}, '')
-                temp_title = temp_title.replace(format_ % {"quality": quality.upper(), "fileType": fileType.lower()}, '')
-                temp_title = temp_title.replace(format_ % {"quality": quality.upper(), "fileType": fileType.upper()}, '')
+                temp_title = temp_title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.lower()}, '')
+                temp_title = temp_title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.upper()}, '')
+                temp_title = temp_title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.lower()}, '')
+                temp_title = temp_title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.upper()}, '')
     metadata.title = temp_title.strip()
 
     # Summary

@@ -5,11 +5,13 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
+    pattern = re.compile(r'(?<=scene\/)(.*?)(?=\/)')
     for searchResult in searchResults.xpath('//div[contains(@class, "scene")]'):
         titleNoFormatting = searchResult.xpath('.//h3[@itemprop="name"]')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
-        subSite = re.search('(?<=scene\/)(.*?)(?=\/)', searchResult.xpath('.//div[@class="card-footer"]//a/@href')[0].strip()).group(0)
+
+        subSite = pattern.search(searchResult.xpath('.//div[@class="card-footer"]//a/@href')[0].strip()).group(0)
         subSiteNum = PAsearchSites.getSiteNumByFilter(subSite)
         if subSiteNum == siteNum:
             siteScore = 10
@@ -22,6 +24,7 @@ def search(results, lang, siteNum, searchData):
             subSiteName = PAsearchSites.getSearchSiteName(PAsearchSites.getSiteNumByFilter(subSite))
         else:
             subSiteName = ''
+
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, subSiteName), score=score, lang=lang))
 
     return results
