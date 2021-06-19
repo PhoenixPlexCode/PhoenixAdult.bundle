@@ -2,7 +2,6 @@ import PAsearchSites
 import PAutils
 
 
-
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
@@ -34,6 +33,7 @@ def search(results, lang, siteNum, searchData):
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (PAsearchSites.getSearchSiteName(siteNum), titleNoFormatting), score=score, lang=lang))
 
     return results
+
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
