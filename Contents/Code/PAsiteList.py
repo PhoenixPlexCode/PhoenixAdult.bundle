@@ -1719,6 +1719,7 @@ abbreviations = (
     ('^sart ', 'SexArt '),
     ('^sas ', 'SexandSubmission '),
     ('^sbj ', 'StreetBlowjobs '),
+    ('^scoreland2', 'ScorelandTwo '),
     ('^seb ', 'SexuallyBroken '),
     ('^sed ', 'SexualDisgrace '),
     ('^Shes New ', 'She\'s New '),
@@ -1761,7 +1762,6 @@ abbreviations = (
     ('^wy ', 'WebYoung '),
     ('^ztod ', 'ZeroTolerance '),
     ('^zzs ', 'ZZseries '),
-    ('^scoreland2', 'ScorelandTwo ')
 )
 
 
