@@ -1518,7 +1518,7 @@ searchSites = {
     1342: ('TS Casting Couch', 'https://www.ts-castingcouch.com', '/tour/trailers/'),
     1343: ('Black TGirls', 'https://www.black-tgirls.com', '/tour/trailers/'),
     1344: ('Christy Marks', 'https://www.christymarks.com', '/videos/'),
-    1345: ('Scoreland2', 'https://www.scoreland2.com', '/big-boob-scenes/'),
+    1345: ('ScorelandTwo', 'https://www.scoreland2.com', '/big-boob-scenes/'),
     1346: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
     1347: ('Puba', 'https://www.puba.com', '/pornstarnetwork/'),
 }
@@ -1719,6 +1719,7 @@ abbreviations = (
     ('^sart ', 'SexArt '),
     ('^sas ', 'SexandSubmission '),
     ('^sbj ', 'StreetBlowjobs '),
+    ('^scoreland2', 'ScorelandTwo '),
     ('^seb ', 'SexuallyBroken '),
     ('^sed ', 'SexualDisgrace '),
     ('^Shes New ', 'She\'s New '),
