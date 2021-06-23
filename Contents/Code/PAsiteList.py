@@ -171,7 +171,7 @@ import siteFamilyTherapy
 import siteFit18
 import siteDarkRoomVR
 import sitePuba
-import siteStasyq
+import siteStasyQ
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1523,7 +1523,6 @@ searchSites = {
     1346: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
     1347: ('Puba', 'https://www.puba.com', '/pornstarnetwork/'),
     1348: ('StasyQ', 'https://www.stasyq.com', '/r/Q/'),
-
 }
 
 abbreviations = (
@@ -2792,6 +2791,6 @@ def getProviderFromSiteNum(siteNum):
 
         # StasyQ
         elif (1348 == siteNum):
-            provider = siteStasyq
+            provider = siteStasyQ
 
     return provider
