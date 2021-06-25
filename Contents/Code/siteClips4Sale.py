@@ -4,11 +4,12 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     parts = searchData.title.split(' ', 1)
-    if len(parts) != 1 and searchData.filename != searchData.title:
-        parts.append(searchData.filename)
-    else:
+
+    if len(parts) == 1 and searchData.filename == searchData.title:
         Log('No scene name')
         return results
+    elif len(parts) == 1 and searchData.filename != searchData.title:
+        parts.append(searchData.filename)
 
     userID = parts[0]
     sceneTitle = parts[1]
