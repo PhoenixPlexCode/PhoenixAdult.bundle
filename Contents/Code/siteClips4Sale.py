@@ -178,6 +178,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'astrodomina' in genreList:
             movieActors.addActor('Astro Domina', '')
             genreList.remove('astrodomina')
+        if 'alrik angel' in genreList:
+            movieActors.AddActor('Alrik Angel', '')
+            genreList.remove('alrik angel')
+        if 'casey calvert' in genreList:
+            movieActors.AddActor('casey calvert', '')
+            genreList.remove('casey calvert')
+        if 'Ellie Idol' in metadata.title:
+            movieActors.addActor('Ellie Idol', '')
+        if 'Ellie Idol' in genreList:
+            movieActors.addActor('Ellie Idol', '')
+            genreList.remove('ellie idol')
         if 'Astrodomina' in metadata.title or 'AstroDomina' in metadata.title:
             movieActors.addActor('Astro Domina', '')
         if 'StellarLoving' in metadata.title:
@@ -264,6 +275,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor('Natalya Vega', '')
         if 'Jessica' in metadata.summary:
             movieActors.addActor('Jessica', '')
+        # title match
+        if 'Alexis' in metadata.title:
+            movieActors.addActor('Alexis Grace', '')
+        if 'Amadahy' in metadata.title:
+            movieActors.addActor('Goddess Amadahy', '')
+        if 'Jade' in metadata.title: 
+            movieActors.addActor('Jade Indica', '')
 
     #  Brat Princess Natalya
     elif 'Brat Princess Natalya' in tagline:
