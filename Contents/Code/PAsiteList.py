@@ -172,6 +172,9 @@ import siteFit18
 import siteDarkRoomVR
 import sitePuba
 import siteStasyQ
+import siteBoundHoneys
+import siteLustomic
+import siteStraponCum
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1523,6 +1526,10 @@ searchSites = {
     1346: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
     1347: ('Puba', 'https://www.puba.com', '/pornstarnetwork/'),
     1348: ('StasyQ', 'https://www.stasyq.com', '/r/Q/'),
+    1349: ('Bound Honeys', 'https://www.boundhoneys.com', '/search.php?search='),
+    1350: ('Lustomic', 'https://lustomic.com', '/video_preview_page.php?iID='),
+    1351: ('Girl Grind', 'https://www.girlgrind.com/', 'https://site-api.project1service.com'),
+    1352: ('Strapon Cum', 'https://straponcum.com', '/updates/')
 }
 
 abbreviations = (
@@ -1780,7 +1787,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Brazzers
-        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690:
+        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690 or siteNum == 1351:
             provider = network1service
 
         # MetadataAPI
@@ -2793,5 +2800,17 @@ def getProviderFromSiteNum(siteNum):
         # StasyQ
         elif (1348 == siteNum):
             provider = siteStasyQ
+
+        # Bound Honeys
+        elif siteNum == 1349:
+            provider = siteBoundHoneys
+
+        # Lustomic
+        elif siteNum == 1350:
+            provider = siteLustomic
+
+        # Strapon Cum
+        elif siteNum == 1352:
+            provider = siteStraponCum
 
     return provider
