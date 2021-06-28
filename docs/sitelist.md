@@ -160,9 +160,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Throated
   - My XXX Pass
 + #### Box Truck Sex | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
-+ #### Bound Honeys | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Bound Honeys | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only, Date Add**
 + #### Brazzers Network
-  ##### Matching type (main): *[Limited](./manualsearch.md#limited-search)* - **Title only.**
+  ##### Matching type (main): *[Limited](./manualsearch.md#limited-search)* - **Title only**
   ##### Matching type (alternate): *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - Asses In Public
   - Baby Got Boobs
@@ -568,7 +568,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Look At Her Now | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Love Her Feet | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### LustReality | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
-+ #### Lustomic | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
++ #### Lustomic | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### ManyVids | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Meana Wolf | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**

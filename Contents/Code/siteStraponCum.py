@@ -10,14 +10,15 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[@class="card"]'):
         titleNoFormatting = searchResult.xpath('.//h1[@class="card-title"]')[0].text_content().strip()
         curID = PAutils.Encode(url)
-        releaseDate = parse(searchResult.xpath('.//p[@class="card-text text-muted"]')[0].text_content().split('•')[1].strip()).strftime('%Y-%m-%d')
+        date = searchResult.xpath('.//i[contains(@class, "fa-clock")]/following-sibling::text()')[0].text_content().split('•')[1].strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
         if searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Strapon Cum] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -46,7 +47,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//p[@class="card-text text-muted"]')[0].text_content().split('•')[1].strip()
+    date = detailsPageElements.xpath('//div[@class="card"]//i[contains(@class, "fa-clock")]/following-sibling::text()')[0].text_content().split('•')[1].strip()
     if date:
         date_object = datetime.strptime(date, '%B %d, %Y')
         metadata.originally_available_at = date_object
@@ -54,15 +55,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//li[@class="list-inline-item tag"]/a'):
-        genreName = genreLink.text_content().strip()
-        movieGenres.addGenre(genreName)
     movieGenres.addGenre('Strap-On')
     movieGenres.addGenre('Lesbian')
+    for genreLink in detailsPageElements.xpath('//div[contains(@class, "tag-cloud")]//a'):
+        genreName = genreLink.text_content().strip()
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//p[@class="card-text d-inline-block"]/a')
+    actors = detailsPageElements.xpath('//div[@class="card"]//span[contains(text(), "Featuring:")]/following-sibling::a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -72,28 +73,28 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieGenres.addGenre('Orgy')
 
         for actorLink in actors:
-            try:
-                actorPageURL = actorLink.get('href')
-                req = PAutils.HTTPRequest(actorPageURL)
-                actorPage = HTML.ElementFromString(req.text)
+            actorName = actorPage[0].text_content().strip()
+            actorPhotoURL = ''
 
-                actorName = actorPage.xpath('//div[@class="row mb-3"]/div[2]/h1')[0].text_content().strip()
-                actorPhotoURL = actorPage.xpath('//img[starts-with(@id,"set-target")]/@data-src0_1x')[0]
+            actorPageURL = actorLink.get('href')
+            req = PAutils.HTTPRequest(actorPageURL)
+            actorPage = HTML.ElementFromString(req.text)
 
-                movieActors.addActor(actorName, actorPhotoURL)
-            except:
-                pass
+            actorPhotoNode = actorPage.xpath('//img[starts-with(@id, "set-target")]/@data-src0_1x')
+            if actorPhotoNode:
+                actorPhotoURL = actorPhotoNode[0]
+
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
-    try:
-        sceneID = detailsPageElements.xpath('//div[@class="col-md-12 col-lg-3 d-none d-md-block"]/div/div[1]/a/img/@alt')[0]
+    sceneID = detailsPageElements.xpath('//div[@class="trailer"]//img/@alt')
+    if sceneID:
+        sceneID = [0]
         for idx in range(0, 4):
-            photo = '%s/content/%s/%d.jpg' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID, idx)
+            photo = PAsearchSites.getSearchBaseURL(siteNum) + '/content/%s/%d.jpg' % (sceneID, idx)
 
             art.append(photo)
-    except:
-        pass
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

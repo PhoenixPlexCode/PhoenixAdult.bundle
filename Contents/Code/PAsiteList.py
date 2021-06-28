@@ -1528,8 +1528,8 @@ searchSites = {
     1348: ('StasyQ', 'https://www.stasyq.com', '/r/Q/'),
     1349: ('Bound Honeys', 'https://www.boundhoneys.com', '/search.php?search='),
     1350: ('Lustomic', 'https://lustomic.com', '/video_preview_page.php?iID='),
-    1351: ('Girl Grind', 'https://www.girlgrind.com/', 'https://site-api.project1service.com'),
-    1352: ('Strapon Cum', 'https://straponcum.com', '/updates/')
+    1351: ('Girl Grind', 'https://www.girlgrind.com', 'https://site-api.project1service.com'),
+    1352: ('Strapon Cum', 'https://straponcum.com', '/updates/'),
 }
 
 abbreviations = (

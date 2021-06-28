@@ -280,7 +280,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor('Alexis Grace', '')
         if 'Amadahy' in metadata.title:
             movieActors.addActor('Goddess Amadahy', '')
-        if 'Jade' in metadata.title: 
+        if 'Jade' in metadata.title:
             movieActors.addActor('Jade Indica', '')
 
     #  Brat Princess Natalya

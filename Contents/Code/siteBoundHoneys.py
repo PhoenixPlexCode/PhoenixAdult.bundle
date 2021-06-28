@@ -1,19 +1,22 @@
 import PAsearchSites
 import PAutils
-import urlparse
+
 
 def search(results, lang, siteNum, searchData):
     searchUrl = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(searchUrl)
     searchResults = HTML.ElementFromString(req.text)
-    
+
     for searchResult in searchResults.xpath('//div[@class="update"]'):
         titleNoFormatting = searchResult.xpath('.//div[@class="updateTitle"]')[0].text_content().strip()
-        sceneURL = urlparse.urljoin(searchUrl, searchResult.xpath('.//div[@class="updateTitle"]/a/@href')[0])
+        sceneURL = searchResult.xpath('.//div[@class="updateTitle"]/a/@href')[0]
         curID = PAutils.Encode(sceneURL)
+
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [BoundHoneys]' % (titleNoFormatting), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -21,7 +24,10 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    sceneURL = urlparse.urljoin(PAsearchSites.getSearchBaseURL(siteNum), sceneURL)
+    if not sceneURL.startswith('http'):
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+    releaseDate = metadata_id[2]
+
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -39,6 +45,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
+
+    # Release Date
+    if releaseDate:
+        date_object = parse(releaseDate)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
@@ -62,32 +74,35 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
-            try:
-                actorPageURL = urlparse.urljoin(sceneURL, actorLink.get('href'))
-                req = PAutils.HTTPRequest(actorPageURL)
-                actorPage = HTML.ElementFromString(req.text)
-                actorPhotoURL = actorPage.xpath('//div[@class="modelDetailPhoto"]/img/@src')[0]
-                actorPhotoURL = urlparse.urljoin(sceneURL, actorPhotoURL)
-            except:
-                pass
+            actorPageURL = PAsearchSites.getSearchBaseURL(sceneURL) + actorLink.get('href')
+            req = PAutils.HTTPRequest(actorPageURL)
+            actorPage = HTML.ElementFromString(req.text)
+            actorPhotoNode = actorPage.xpath('//div[@class="modelDetailPhoto"]/img/@src')
+            if actorPhotoNode:
+                actorPhotoURL = actorPhotoNode[0]
+                if not actorPhotoURL.startswith('http'):
+                    actorPhotoURL = PAsearchSites.getSearchBaseURL(sceneURL) + actorPhotoURL
 
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
     xpaths = [
-        '//link[@rel="preload"]/@href'
+        '//link[@rel="preload"]/@href',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
+            if not poster.startswith('http'):
+                poster = PAsearchSites.getSearchBaseURL(siteNum) + poster
+
             art.append(poster)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
-            try: 
-                posterUrl = urlparse.urljoin(sceneURL, posterUrl)
+            try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)

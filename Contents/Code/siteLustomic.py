@@ -1,6 +1,5 @@
 import PAsearchSites
 import PAutils
-from dateutil.relativedelta import relativedelta
 
 
 def search(results, lang, siteNum, searchData):
@@ -9,23 +8,24 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
 
     for searchResult in searchResults.xpath('//img[@alt="Video Preview"]/following-sibling::p'):
-        titleNoFormatting = searchResult.xpath('//img[@alt="Video Preview"]/following-sibling::p')[0].text_content().strip()
+        titleNoFormatting = searchResult.text_content().strip()
         curID = PAutils.Encode(url)
-        
+
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-        
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Lustomic]' % titleNoFormatting, score=score, lang=lang))
+
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
-    Log(metadata)
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    Log(sceneURL)
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+    releaseDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
@@ -44,9 +44,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
+    # Release Date
+    if releaseDate:
+        date_object = parse(releaseDate)
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+
+    # Genres
+    movieGenres.clearGenres()
+
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//p[contains(text(),"Starring")]/span')[0].text_content().split(';')
+    actors = detailsPageElements.xpath('//p[contains(text(), "Starring")]/span')[0].text_content().split(';')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -55,8 +64,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
 
-        for actor in actors:
-            actorName = actor.strip()
+        for actorLink in actors:
+            actorName = actorLink.strip()
             actorPhotoURL = ''
 
             movieActors.addActor(actorName, actorPhotoURL)
@@ -64,7 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//a[contains(@href,"video_preview_images")]/@href'
+        '//a[contains(@href, "video_preview_images")]/@href',
     ]
 
     for xpath in xpaths:
