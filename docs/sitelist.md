@@ -160,8 +160,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Throated
   - My XXX Pass
 + #### Box Truck Sex | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Bound Honeys | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only, Date Add**
 + #### Brazzers Network
-  ##### Matching type (main): *[Limited](./manualsearch.md#limited-search)* - **Title only.**
+  ##### Matching type (main): *[Limited](./manualsearch.md#limited-search)* - **Title only**
   ##### Matching type (alternate): *[Exact](./manualsearch.md#exact-match)* - **SceneID**
   - Asses In Public
   - Baby Got Boobs
@@ -458,16 +459,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Twisted Visual
 + #### Gangbang Creampie | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Gender X | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Girl Grind | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlfriendsFilms | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### GirlsOutWest | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
-+ #### Grooby Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
-  - Black TGirls
-  - Brazilian Transsexuals
-  - Femout.xxx
-  - Grooby Girls
-  - TGirl Japan
-  - TGirl Japan Hardcore
-  - TGirls.xxx
 + #### Girls Rimming | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
 + #### Girlsway | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - GirlCore
@@ -479,6 +473,14 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - WebYoung
   - WeLikeGirls
 + #### Gloryhole Secrets | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only** (Title includes actress first name)
++ #### Grooby Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
+  - Black TGirls
+  - Brazilian Transsexuals
+  - Femout.xxx
+  - Grooby Girls
+  - TGirl Japan
+  - TGirl Japan Hardcore
+  - TGirls.xxx
 + #### Hegre | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Title only**
 + #### HentaiPros | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### HighTechVR Network | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID**
@@ -566,6 +568,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 + #### Look At Her Now | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Love Her Feet | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### LustReality | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Lustomic | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### ManyVids | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
 + #### Meana Wolf | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Melena Maria Rya | Matching type: *[Exact](./manualsearch.md#exact-match)* - **SceneID, Date Add**
@@ -1047,6 +1050,8 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - RawAttack
   - TheStripperExperience
 + #### Step Secrets | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
++ #### Straplezz | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
++ #### StraponCum | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Strike3 Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - Blacked
   - BlackedRaw
