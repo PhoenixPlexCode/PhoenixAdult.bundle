@@ -1754,6 +1754,7 @@ abbreviations = (
     ('^tlm ', 'TeensLoveMoney '),
     ('^tog ', 'TonightsGirlfriend '),
     ('^togc ', 'TonightsGirlfriendClassic '),
+    ('^trwo ', 'TheRealWorkout '),
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
