@@ -1532,7 +1532,6 @@ searchSites = {
     1351: ('Girl Grind', 'https://www.girlgrind.com', 'https://site-api.project1service.com'),
     1352: ('Strapon Cum', 'https://straponcum.com', '/updates/'),
     1353: ('HotwifeXXX', 'http://www.hotwifexxx.com', '/tour_hwxxx/'),
-
 }
 
 abbreviations = (

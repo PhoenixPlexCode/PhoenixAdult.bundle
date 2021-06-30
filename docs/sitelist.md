@@ -488,6 +488,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - SinsVR
   - StasyQVR
 + #### Holly Randall | Matching type: *[Limited](./manualsearch.md#limited-search)*
++ #### HotwifeXXX | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### HuCows | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
 + #### Hustler | Matching type: *[Limited](./manualsearch.md#limited-search)* - **Date Add**
 + #### I Kiss Girls | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
