@@ -175,6 +175,7 @@ import siteStasyQ
 import siteBoundHoneys
 import siteLustomic
 import siteStraponCum
+import siteHotwifeXXX
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1530,6 +1531,8 @@ searchSites = {
     1350: ('Lustomic', 'https://lustomic.com', '/video_preview_page.php?iID='),
     1351: ('Girl Grind', 'https://www.girlgrind.com', 'https://site-api.project1service.com'),
     1352: ('Strapon Cum', 'https://straponcum.com', '/updates/'),
+    1353: ('HotwifeXXX', 'http://www.hotwifexxx.com', '/tour_hwxxx/'),
+
 }
 
 abbreviations = (
@@ -2812,5 +2815,9 @@ def getProviderFromSiteNum(siteNum):
         # Strapon Cum
         elif siteNum == 1352:
             provider = siteStraponCum
+
+        # HotwifeXXX
+        elif siteNum == 1353:
+            provider = siteHotwifeXXX
 
     return provider
