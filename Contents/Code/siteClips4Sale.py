@@ -13,14 +13,36 @@ def search(results, lang, siteNum, searchData):
 
     userID = parts[0]
     sceneTitle = parts[1]
+
+    parts = sceneTitle.split(' ', 1)
+    sceneID = None
+    if len(parts) == 1 and unicode(parts[0]).isdigit():
+        sceneID = parts[0]
+
     searchData.encoded = urllib.quote(sceneTitle)
+
+    if sceneID:
+        sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + '%s/%s/' % (userID, sceneID)
+        req = PAutils.HTTPRequest(sceneURL)
+        if req.ok:
+            detailsPageElements = HTML.ElementFromString(req.text)
+
+            curID = PAutils.Encode(sceneURL)
+            titleNoFormatting = getCleanTitle(detailsPageElements.xpath('//h3')[0].text_content())
+            subSite = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+
+            score = 100
+
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Clips4Sale/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "clipWrapper")]//section[@id]'):
-        titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().replace('(HD MP4)', '').replace('(WMV)', '').strip()
-        curID = PAutils.Encode(searchResult.xpath('.//h3//a/@href')[0])
+        sceneURL = searchResult.xpath('.//h3//a/@href')[0]
+        curID = PAutils.Encode(sceneURL)
+
+        titleNoFormatting = getCleanTitle(searchResult.xpath('.//h3')[0].text_content())
         subSite = searchResult.xpath('//title')[0].text_content().strip()
 
         score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
@@ -45,41 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
 
     # Title
-    fileTypes = [
-        'mp4',
-        'wmv',
-        'avi'
-    ]
-
-    qualities = [
-        'standard',
-        'hd',
-        '720p',
-        '1080p',
-        '4k'
-    ]
-
-    formats = [
-        '(%(quality)s %(fileType)s)',
-        '%(quality)s %(fileType)s',
-        '- %(quality)s;',
-        '(.%(fileType)s)',
-        '(%(quality)s)',
-        '(%(fileType)s)',
-        '.%(fileType)s',
-        '%(quality)s',
-        '%(fileType)s'
-    ]
-
-    temp_title = detailsPageElements.xpath('//h3')[0].text_content()
-    for format_ in formats:
-        for quality in qualities:
-            for fileType in fileTypes:
-                temp_title = temp_title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.lower()}, '')
-                temp_title = temp_title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.upper()}, '')
-                temp_title = temp_title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.lower()}, '')
-                temp_title = temp_title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.upper()}, '')
-    metadata.title = temp_title.strip()
+    metadata.title = getCleanTitle(detailsPageElements.xpath('//h3')[0].text_content())
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="individualClipDescription"]')[0].text_content().strip()
@@ -2740,3 +2728,44 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+def getCleanTitle(title):
+    for format_ in formats:
+        for quality in qualities:
+            for fileType in fileTypes:
+                title = title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.lower()}, '')
+                title = title.replace(format_ % {'quality': quality.lower(), 'fileType': fileType.upper()}, '')
+                title = title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.lower()}, '')
+                title = title.replace(format_ % {'quality': quality.upper(), 'fileType': fileType.upper()}, '')
+
+    return title.strip()
+
+
+fileTypes = [
+    'mp4',
+    'wmv',
+    'avi',
+]
+
+
+qualities = [
+    'standard',
+    'hd',
+    '720p',
+    '1080p',
+    '4k',
+]
+
+
+formats = [
+    '(%(quality)s %(fileType)s)',
+    '%(quality)s %(fileType)s',
+    '- %(quality)s;',
+    '(.%(fileType)s)',
+    '(%(quality)s)',
+    '(%(fileType)s)',
+    '.%(fileType)s',
+    '%(quality)s',
+    '%(fileType)s',
+]
