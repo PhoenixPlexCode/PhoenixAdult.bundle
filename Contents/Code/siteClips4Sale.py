@@ -2789,6 +2789,7 @@ qualities = [
 
 
 formats = [
+    '(%(quality)s - %(quality)s)',
     '(%(quality)s %(fileType)s)',
     '%(quality)s %(fileType)s',
     '- %(quality)s;',
