@@ -100,6 +100,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
+            poster = poster.strip()
+            
             art.append(poster)
 
     Log('Artwork found: %d' % len(art))
