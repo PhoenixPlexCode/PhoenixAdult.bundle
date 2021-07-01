@@ -1341,6 +1341,36 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'setina rose' in genreList:
             movieActors.addActor('Setina Rose', '')
             genreList.remove('setina rose')
+            
+    #  Jerky Wives
+    elif 'Jerky Wives' in tagline:
+        #  Genre list match
+        if 'cory chase' in genreList:
+            movieActors.addActor('Cory Chase', '')
+            genreList.remove('Cory Chase')
+        if 'luke longly' in genreList:
+            movieActors.addActor('Luke Longly', '')
+            genreList.remove('luke longly')
+        if 'coco vandi' in genreList:
+            movieActors.addActor('Coco Vandi', '')
+            genreList.remove('coco vandi')
+        if 'vanessa cage' in genreList:
+            movieActors.addActor('Vanessa Cage', '')
+            genreList.remove('vanessa cage')
+        if 'melanie hicks' in genreList:
+            movieActors.addActor('Melanie Hicks', '')
+            genreList.remove('melanie hicks')
+        #  Metadata match
+        if 'cory chase' in metadata.summary:
+            movieActors.addActor('Cory Chase', '')
+        if 'luke longly' in metadata.summary:
+            movieActors.addActor('Luke Longly', '')
+        if 'coco vandi' in metadata.summary:
+            movieActors.addActor('Coco Vandi', '')
+        if 'vanessa cage' in metadata.summary:
+            movieActors.addActor('Vanessa Cage', '')
+        if 'melanie hicks' in metadata.summary:
+            movieActors.addActor('Melanie Hicks', '')
 
     #  KEBRANOZES BRAZILIAN BALLBUSTING
     elif 'KEBRANOZES BRAZILIAN BALLBUSTING' in tagline:
