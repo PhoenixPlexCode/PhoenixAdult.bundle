@@ -1347,7 +1347,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         #  Genre list match
         if 'cory chase' in genreList:
             movieActors.addActor('Cory Chase', '')
-            genreList.remove('Cory Chase')
+            genreList.remove('cory chase')
         if 'luke longly' in genreList:
             movieActors.addActor('Luke Longly', '')
             genreList.remove('luke longly')
