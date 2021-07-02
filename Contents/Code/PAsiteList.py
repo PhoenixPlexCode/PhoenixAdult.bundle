@@ -1758,6 +1758,7 @@ abbreviations = (
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^txc ', 'TeamSkeetXCamSoda '),
     ('^viparea ', 'Babe Archives '),
     ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
