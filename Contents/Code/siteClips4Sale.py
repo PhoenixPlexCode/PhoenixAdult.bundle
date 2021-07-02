@@ -195,7 +195,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     elif 'Ballbusting World PPV' in tagline:
         if 'Tasha Holz' in metadata.summary or 'Tasha' in metadata.summary:
             movieActors.addActor('Tasha Holz', '')
-            
+
     #  Bare Back Studios
     elif 'Bare Back Studios' in tagline:
         #  Genre list match
@@ -253,7 +253,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'skylar vox' in genreList:
             movieActors.addActor('Skylar Vox', '')
             genreList.remove('skylar vox')
-            
+
         #  Metadata match
         if 'cory chase' in metadata.summary:
             movieActors.addActor('Cory Chase', '')
@@ -1437,7 +1437,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'setina rose' in genreList:
             movieActors.addActor('Setina Rose', '')
             genreList.remove('setina rose')
-            
+
     #  Jerky Wives
     elif 'Jerky Wives' in tagline:
         #  Genre list match
@@ -1495,7 +1495,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'skylar vox' in genreList:
             movieActors.addActor('Skylar Vox', '')
             genreList.remove('skylar vox')
-            
+
         #  Metadata match
         if 'cory chase' in metadata.summary:
             movieActors.addActor('Cory Chase', '')
@@ -1811,7 +1811,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor('Jessica Rayne', '')
         if 'Mandy Haze' in metadata.summary:
             movieActors.addActor('Mandy Haze', '')
-            
+
     #  Maternal Seductions
     elif 'Maternal Seductions' in tagline:
         #  Genre list match
@@ -1869,7 +1869,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if 'skylar vox' in genreList:
             movieActors.addActor('Skylar Vox', '')
             genreList.remove('skylar vox')
-            
+
         #  Metadata match
         if 'cory chase' in metadata.summary:
             movieActors.addActor('Cory Chase', '')
