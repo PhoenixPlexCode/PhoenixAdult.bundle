@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
-        titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]/text()')[0]
+        titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
