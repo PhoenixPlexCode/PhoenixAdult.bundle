@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//h2//a')
-    actorName = ""
+    actorName = ''
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -84,6 +84,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieGenres.addGenre('Foursome')
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
+
         for actorLink in actors:
             actorName = actorLink.text_content()
 
@@ -113,11 +114,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for element in elements:
         for xpath in xpaths:
             for poster in element.xpath(xpath):
-                if 'videos' in poster and poster.endswith('_1.jpg'):
-                    art.append(poster.replace('_1.jpg', '_2.jpg'))
-                elif 'videos' in poster and poster.endswith('_1-lrg.jpg'):
-                    art.append(poster.replace('_1-lrg.jpg', '_2-lrg.jpg'))
-                art.append(poster)
+                if 'videos' in poster:
+                    art.append(poster)
+
+                    if poster.endswith('_1.jpg'):
+                        poster = poster.replace('_1.jpg', '_2.jpg')
+                    elif poster.endswith('_1-lrg.jpg'):
+                        poster = poster.replace('_1-lrg.jpg', '_2-lrg.jpg')
+
+                    art.append(poster)
 
     # Extra Posters
     art_ext = []
