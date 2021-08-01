@@ -62,12 +62,14 @@ class PhoenixActors:
                     for newActor in actorName.split(','):
                         actorName = newActor.strip()
                         displayActorName = actorName.replace('\xc2\xa0', '').strip()
+
                         (actorPhoto, gender) = actorDBfinder(displayActorName)
                         Log('Actor: %s %s' % (displayActorName, actorPhoto))
                         Log('Gender: %s' % gender)
                         if Prefs['gender_enable']:
-                            if gender == "male":
+                            if gender == 'male':
                                 continue
+
                         role = metadata.roles.new()
                         role.name = actorName
                         role.photo = actorPhoto
@@ -81,12 +83,12 @@ class PhoenixActors:
                         (actorPhoto, gender) = actorDBfinder(displayActorName)
                         Log('Gender: %s' % gender)
                         if Prefs['gender_enable']:
-                            if gender == "male":
+                            if gender == 'male':
                                 continue
                     elif Prefs['gender_enable']:
                         gender = genderCheck(urllib.quote(actorName))
                         Log('Gender: %s' % gender)
-                        if gender == "male":
+                        if gender == 'male':
                             continue
 
                     if actorPhoto:
@@ -143,13 +145,14 @@ def actorDBfinder(actorName):
 
 def genderCheck(actorEncoded):
     gender = ''
-    req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
+
+    url = 'http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded
+    req = PAutils.HTTPRequest(url)
     actorSearch = HTML.ElementFromString(req.text)
     actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
     if actorPageURL:
-        gender = "male" if "gender=m" in actorPageURL[0] else "female"
-        actorPageURL = 'http://www.iafd.com' + actorPageURL[0]
-        req = PAutils.HTTPRequest(actorPageURL)
+        gender = 'male' if 'gender=m' in actorPageURL[0] else 'female'
+
     return gender
 
 def getFromFreeones(actorName, actorEncoded):
@@ -191,7 +194,7 @@ def getFromFreeones(actorName, actorEncoded):
         if img and actorName.lower() in aliases and is_true:
             actorPhotoURL = img[0]
 
-    return actorPhotoURL, "female"
+    return actorPhotoURL, 'female'
 
 
 def getFromIndexxx(actorName, actorEncoded):
@@ -209,7 +212,7 @@ def getFromIndexxx(actorName, actorEncoded):
             actorPhotoURL = img[0]
             actorPhotoURL = cacheActorPhoto(actorPhotoURL, actorName, headers={'Referer': actorPageURL})
 
-    return actorPhotoURL, "female"
+    return actorPhotoURL, 'female'
 
 
 def getFromAdultDVDEmpire(actorName, actorEncoded):
@@ -239,7 +242,7 @@ def getFromBoobpedia(actorName, actorEncoded):
     if img:
         actorPhotoURL = 'http://www.boobpedia.com' + img[0]
 
-    return actorPhotoURL, "female"
+    return actorPhotoURL, 'female'
 
 
 def getFromBabesandStars(actorName, actorEncoded):
@@ -252,7 +255,7 @@ def getFromBabesandStars(actorName, actorEncoded):
     if img:
         actorPhotoURL = img[0]
 
-    return actorPhotoURL, "female"
+    return actorPhotoURL, 'female'
 
 
 def getFromIAFD(actorName, actorEncoded):
@@ -262,13 +265,14 @@ def getFromIAFD(actorName, actorEncoded):
     actorSearch = HTML.ElementFromString(req.text)
     actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
     if actorPageURL:
-        gender = "male" if "gender=m" in actorPageURL[0] else "female"
         actorPageURL = 'http://www.iafd.com' + actorPageURL[0]
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         img = actorPage.xpath('//div[@id="headshot"]//img/@src')
         if img and 'nophoto' not in img[0]:
             actorPhotoURL = img[0]
+
+        gender = 'male' if 'gender=m' in actorPageURL[0] else 'female'
 
     return actorPhotoURL, gender
 
@@ -281,7 +285,7 @@ def getFromBabepedia(actorName, actorEncoded):
     if req.ok:
         actorPhotoURL = img
 
-    return actorPhotoURL, "female"
+    return actorPhotoURL, 'female'
 
 
 def getFromLocalStorage(actorName, actorEncoded):
