@@ -63,12 +63,11 @@ class PhoenixActors:
                         actorName = newActor.strip()
                         displayActorName = actorName.replace('\xc2\xa0', '').strip()
                         (actorPhoto, gender) = actorDBfinder(displayActorName)
-                        Log('Gender: %s' % gender)
                         Log('Actor: %s %s' % (displayActorName, actorPhoto))
+                        Log('Gender: %s' % gender)
                         if Prefs['gender_enable']:
                             if gender == "male":
                                 continue
-                        # Log('Gender: %s' % gender)
                         role = metadata.roles.new()
                         role.name = actorName
                         role.photo = actorPhoto
@@ -94,8 +93,6 @@ class PhoenixActors:
                         actorPhoto = PAutils.getClearURL(actorPhoto)
 
                     Log('Actor: %s %s' % (displayActorName, actorPhoto))
-                    
-                    # Log('Gender: %s' % gender)
                     role = metadata.roles.new()
                     role.name = actorName
                     role.photo = actorPhoto
