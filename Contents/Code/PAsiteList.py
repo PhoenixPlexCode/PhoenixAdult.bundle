@@ -1535,6 +1535,7 @@ searchSites = {
     1354: ('PervDoctor', 'http://pervdoctor.com', '/movies'),
     1355: ('MomSwap', 'http://momswap.com', '/movies'),
     1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies'),
+    1357: ('Slayed', 'https://www.slayed.com', '/api'),
 }
 
 abbreviations = (
@@ -2824,5 +2825,9 @@ def getProviderFromSiteNum(siteNum):
         # HotwifeXXX
         elif siteNum == 1353:
             provider = siteHotwifeXXX
+
+        # Slayed
+        elif siteNum == 1357:
+            provider = networkStrike3
 
     return provider
