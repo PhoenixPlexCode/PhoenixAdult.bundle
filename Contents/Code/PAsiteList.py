@@ -172,6 +172,10 @@ import siteFit18
 import siteDarkRoomVR
 import sitePuba
 import siteStasyQ
+import siteBoundHoneys
+import siteLustomic
+import siteStraponCum
+import siteHotwifeXXX
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1523,6 +1527,15 @@ searchSites = {
     1346: ('DarkRoomVR', 'https://darkroomvr.com', '/search?q='),
     1347: ('Puba', 'https://www.puba.com', '/pornstarnetwork/'),
     1348: ('StasyQ', 'https://www.stasyq.com', '/r/Q/'),
+    1349: ('Bound Honeys', 'https://www.boundhoneys.com', '/search.php?search='),
+    1350: ('Lustomic', 'https://lustomic.com', '/video_preview_page.php?iID='),
+    1351: ('Girl Grind', 'https://www.girlgrind.com', 'https://site-api.project1service.com'),
+    1352: ('Strapon Cum', 'https://straponcum.com', '/updates/'),
+    1353: ('HotwifeXXX', 'http://www.hotwifexxx.com', '/tour_hwxxx/'),
+    1354: ('PervDoctor', 'http://pervdoctor.com', '/movies'),
+    1355: ('MomSwap', 'http://momswap.com', '/movies'),
+    1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies'),
+    1357: ('Slayed', 'https://www.slayed.com', '/api'),
 }
 
 abbreviations = (
@@ -1596,6 +1609,7 @@ abbreviations = (
     ('^ext ', 'ExxxtraSmall '),
     ('^Exxtra ', 'BrazzersExxtra '),
     ('^family ', 'Taboo '),
+    ('^familyxxx ', 'Taboo '),
     ('^fams ', 'FamilyStrokes '),
     ('^faq ', 'FirstAnalQuest '),
     ('^fds ', 'FakeDrivingSchool '),
@@ -1747,9 +1761,11 @@ abbreviations = (
     ('^tlm ', 'TeensLoveMoney '),
     ('^tog ', 'TonightsGirlfriend '),
     ('^togc ', 'TonightsGirlfriendClassic '),
+    ('^trwo ', 'TheRealWorkout '),
     ('^tspa ', 'TrickySpa '),
     ('^tss ', 'ThatSitcomShow '),
     ('^tuf ', 'TheUpperFloor '),
+    ('^txc ', 'TeamSkeetXCamSoda '),
     ('^viparea ', 'Babe Archives '),
     ('^w4b ', 'Watch4Beauty '),
     ('^wa ', 'WhippedAss '),
@@ -1780,7 +1796,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Brazzers
-        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690:
+        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690 or siteNum == 1351:
             provider = network1service
 
         # MetadataAPI
@@ -1948,7 +1964,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2793,5 +2809,25 @@ def getProviderFromSiteNum(siteNum):
         # StasyQ
         elif (1348 == siteNum):
             provider = siteStasyQ
+
+        # Bound Honeys
+        elif siteNum == 1349:
+            provider = siteBoundHoneys
+
+        # Lustomic
+        elif siteNum == 1350:
+            provider = siteLustomic
+
+        # Strapon Cum
+        elif siteNum == 1352:
+            provider = siteStraponCum
+
+        # HotwifeXXX
+        elif siteNum == 1353:
+            provider = siteHotwifeXXX
+
+        # Slayed
+        elif siteNum == 1357:
+            provider = networkStrike3
 
     return provider
