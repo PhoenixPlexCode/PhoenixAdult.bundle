@@ -42,7 +42,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[@class="u-inline-block u-mr--nine"] | //div[contains(@class, "date"])')[0].text_content().strip()
+    date = detailsPageElements.xpath('//span[@class="u-inline-block u-mr--nine"] | //div[contains(@class, "date")]')[0].text_content().strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
