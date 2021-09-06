@@ -1,6 +1,7 @@
 import PAsearchSites
 import PAutils
 
+
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
@@ -24,7 +25,7 @@ def search(results, lang, siteNum, searchData):
 
         if len(searchResults.xpath('//h1[@class="section__title mb-20"]')) == 0:
             # if there is only one result returned by the search function it automatically redirects to the video page
-            titleNoFormatting =  searchResults.xpath('//h1[@class="watch__title h2 mb-15"]')[0].text_content().strip()
+            titleNoFormatting = searchResults.xpath('//h1[@class="watch__title h2 mb-15"]')[0].text_content().strip()
 
             url = searchResults.xpath('//a[@class="btn btn-black __pagination_button __pagination_button--more"]/@href')[0]
             curID = PAutils.Encode(url)
@@ -46,6 +47,7 @@ def search(results, lang, siteNum, searchData):
 
     return results
 
+
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -56,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Title
     metadata.title = detailsPageElements.xpath('//h1[@class="watch__title h2 mb-15"]/text()')[0].strip()
-   
+
     # Summary
     try:
         metadata.summary = detailsPageElements.xpath('//div[@class="text-mob-more p-md"]')[0].text_content().strip()
@@ -96,8 +98,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-    art.append(detailsPageElements.xpath('//video/@data-poster')[0])
+    art = [
+        detailsPageElements.xpath('//video/@data-poster')[0],
+    ]
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
