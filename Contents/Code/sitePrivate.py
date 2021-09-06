@@ -108,8 +108,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     backgrounds = backgrounds[:k] + 'Fullwatermarked/'
     for i in range(1, 10):
         img = backgrounds + sceneID.lower() + '_' + '{0:0=3d}'.format(i * 5) + '.jpg'
+        img = img.replace('pcoms', 'pcom')
 
-        art.append(img.replace('pcoms','pcom'))    
+        art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
