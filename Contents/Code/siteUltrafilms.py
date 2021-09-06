@@ -15,9 +15,6 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-        Log("title: %s", titleNoFormatting)
-        Log("curID: %s", curID)
-        Log("Score: %s", score)
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, image), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
@@ -99,7 +96,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     art = []
     image = PAutils.Decode(metadata_id[2])
     if image:
-       art.append(image)
+        art.append(image)
+
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
