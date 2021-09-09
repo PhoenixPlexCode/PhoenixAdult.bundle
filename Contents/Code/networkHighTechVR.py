@@ -10,8 +10,11 @@ def search(results, lang, siteNum, searchData):
     titleNoFormatting = searchResults.xpath('//h1')[0].text_content().strip()
     curID = searchData.encoded
 
+    releaseDate = ''
     date = searchResults.xpath('//span[@class="date-display-single"] | //span[@class="u-inline-block u-mr--nine"] | //div[@class="video-meta-date"] | //div[@class="date"] | //div[@class="c-video-item-header-date date"] | //div[contains(@class, "video-detail__specs")]//div[4]/span/time')
-    releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
+    if date:
+        date = date[0].text_content().strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
     score = 100
 
@@ -30,19 +33,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="video-group-bottom"]/p | //p[@class="u-lh--opt"] | //div[@class="video-info"]/p | //div[contains(@class, "desc")] |  //li[contains(@class, "video-detail__desc active")]/div/p')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="video-group-bottom"]/p | //p[@class="u-lh--opt"] | //div[@class="video-info"]/p | //div[contains(@class, "desc")] | //li[contains(@class, "video-detail__desc active")]/div/p')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'HighTechVR'
 
     # Tagline and Collection
     metadata.collections.clear()
-    tagline = ""
     rawtagline = detailsPageElements.xpath('//title')[0].text_content().strip()
     if '|' in rawtagline:
         tagline = rawtagline.split('|')[1].strip()
     elif '-' in rawtagline:
         tagline = rawtagline.split('-')[0].strip()
+
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -79,12 +82,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         if img.startswith('http'):
             art.append(img)
 
-    img = ""
     poster = detailsPageElements.xpath('//div[@class="splash-screen fullscreen-message is-visible"] | //dl8-video')[0]
-    if poster.get('poster'):
-        img = poster.get('poster')
-    elif poster.get('style'):
+
+    img = poster.get('poster')
+    if not img:
         img = poster.get('style').split('url(')[1].split(')')[0]
+
     art.append(img)
 
     Log('Artwork found: %d' % len(art))
