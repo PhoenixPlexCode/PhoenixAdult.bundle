@@ -95,20 +95,40 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in dataElements['actresses']:
-        fullActorName = actorLink['name']
-        if fullActorName != '----':
-            splitActorName = fullActorName.split('(')
-            mainName = splitActorName[0].strip()
+    if dataElements['actresses']:
+        for actorLink in dataElements['actresses']:
+            fullActorName = actorLink['name']
+            if fullActorName != '----':
+                splitActorName = fullActorName.split('(')
+                mainName = splitActorName[0].strip()
 
-            actorPhotoURL = actorLink['image_url']
+                actorPhotoURL = actorLink['image_url']
 
-            if len(splitActorName) > 1 and mainName == splitActorName[1][:-1]:
-                actorName = mainName
-            else:
-                actorName = fullActorName
+                if len(splitActorName) > 1 and mainName == splitActorName[1][:-1]:
+                    actorName = mainName
+                else:
+                    actorName = fullActorName
 
-            movieActors.addActor(actorName, actorPhotoURL)
+                movieActors.addActor(actorName, actorPhotoURL)
+
+    else:
+        alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + scene_id
+        alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
+        alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
+        if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+            for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                actorName = actress.text_content()
+                movieActors.addActor(actorName, "")
+        else:
+            alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
+            if javID.startswith('3DSVR'):
+                alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID.replace('3DSVR', 'DSVR')
+            alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
+            alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
+            if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                    actorName = actress.text_content()
+                    movieActors.addActor(actorName, "")
 
     # Genres
     movieGenres.clearGenres()
