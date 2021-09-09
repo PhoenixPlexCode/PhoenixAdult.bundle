@@ -95,20 +95,45 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in dataElements['actresses']:
-        fullActorName = actorLink['name']
-        if fullActorName != '----':
-            splitActorName = fullActorName.split('(')
-            mainName = splitActorName[0].strip()
+    if dataElements['actresses']:
+        for actorLink in dataElements['actresses']:
+            fullActorName = actorLink['name']
+            if fullActorName != '----':
+                splitActorName = fullActorName.split('(')
+                mainName = splitActorName[0].strip()
 
-            actorPhotoURL = actorLink['image_url']
+                actorPhotoURL = actorLink['image_url']
 
-            if len(splitActorName) > 1 and mainName == splitActorName[1][:-1]:
-                actorName = mainName
-            else:
-                actorName = fullActorName
+                if len(splitActorName) > 1 and mainName == splitActorName[1][:-1]:
+                    actorName = mainName
+                else:
+                    actorName = fullActorName
 
-            movieActors.addActor(actorName, actorPhotoURL)
+                movieActors.addActor(actorName, actorPhotoURL)
+
+    else:
+        alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + scene_id
+        alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
+        alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
+
+        if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+            for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                actorName = actress.text_content().strip()
+
+                movieActors.addActor(actorName, '')
+        else:
+            if javID.startswith('3DSVR'):
+                javID = javID.replace('3DSVR', 'DSVR')
+                
+            alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
+
+            alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
+            alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
+            if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
+                    actorName = actress.text_content().strip()
+
+                    movieActors.addActor(actorName, '')
 
     # Genres
     movieGenres.clearGenres()
@@ -143,12 +168,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     art = []
     for photo in dataElements['gallery']:
         photoURL = photo['large']
+
         art.append(photoURL)
 
     for poster in dataElements['images']:
         poster_idx = poster.index('jacket_image')
         if poster_idx:
             posterURL = poster[poster_idx]['large']
+
             art.append(posterURL)
 
     Log('Artwork found: %d' % len(art))
