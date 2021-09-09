@@ -42,12 +42,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     scene_id = sceneURL.split('id=')[1]
     dataURL = PAsearchSites.getSearchBaseURL(siteNum) + '/api/v4f/contents/' + scene_id
     dataReq = PAutils.HTTPRequest(dataURL)
-    dataElements = json.loads(dataReq.text)["data"]
+    dataElements = json.loads(dataReq.text)['data']
 
-    javID = dataElements["dvd_id"]
+    javID = dataElements['dvd_id']
 
     # Title
-    JavTitle = dataElements["title"]
+    JavTitle = dataElements['title']
 
     # Undoing the Self Censoring R18.com does to their tags and titles
     if '**' in JavTitle:
@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         pass
 
     # Studio
-    metadata.studio = dataElements["maker"]['name']
+    metadata.studio = dataElements['maker']['name']
 
     # Director
     director = metadata.directors.new()
@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         director.name = directorName
 
     # Release Date
-    date = dataElements["release_date"]
+    date = dataElements['release_date']
     date_object = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
@@ -146,11 +146,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         art.append(photoURL)
 
     for poster in dataElements['images']:
-        poster_idx = poster.index("jacket_image")
+        poster_idx = poster.index('jacket_image')
         if poster_idx:
-            Log("poster_idx " + str(poster_idx))
             posterURL = poster[poster_idx]['large']
-            Log("posterURL " + str(posterURL))
             art.append(posterURL)
 
     Log('Artwork found: %d' % len(art))
