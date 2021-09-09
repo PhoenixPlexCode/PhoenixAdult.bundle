@@ -115,20 +115,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + scene_id
         alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
         alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
+
         if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
             for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
-                actorName = actress.text_content()
-                movieActors.addActor(actorName, "")
+                actorName = actress.text_content().strip()
+
+                movieActors.addActor(actorName, '')
         else:
-            alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
             if javID.startswith('3DSVR'):
-                alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID.replace('3DSVR', 'DSVR')
+                javID = javID.replace('3DSVR', 'DSVR')
+                
+            alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
+
             alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
             alternateDetailsPageElements = HTML.ElementFromString(alternateSceneReq.text)
             if alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
                 for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
-                    actorName = actress.text_content()
-                    movieActors.addActor(actorName, "")
+                    actorName = actress.text_content().strip()
+
+                    movieActors.addActor(actorName, '')
 
     # Genres
     movieGenres.clearGenres()
@@ -163,12 +168,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     art = []
     for photo in dataElements['gallery']:
         photoURL = photo['large']
+
         art.append(photoURL)
 
     for poster in dataElements['images']:
         poster_idx = poster.index('jacket_image')
         if poster_idx:
             posterURL = poster[poster_idx]['large']
+
             art.append(posterURL)
 
     Log('Artwork found: %d' % len(art))
