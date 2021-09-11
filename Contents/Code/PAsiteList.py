@@ -747,7 +747,7 @@ searchSites = {
     566: ('Black Valley Girls', 'https://www.blackvalleygirls.com', '/movies'),
     567: ('Sis Loves Me', 'https://www.sislovesme.com', '/movies'),
     568: ('Manyvids', 'https://www.manyvids.com', '/video/'),
-    569: ('SinsVR', 'https://www.sinsvr.com', '/virtualreality/scene/id/'),
+    569: ('SinsVR', 'https://www.xsinsvr.com', '/video/'),
     570: ('StasyQ VR', 'https://www.stasyqvr.com', '/virtualreality/scene/id/'),
     571: ('First Class POV', 'https://www.spizoo.com', '/search.php?query='),
     572: ('Intimate Lesbians', 'https://www.spizoo.com', '/search.php?query='),
@@ -1235,7 +1235,7 @@ searchSites = {
     1054: ('Femme', 'https://www.cherrypimps.com', '/search.php?query='),
     1055: ('Fresh', 'https://www.cherrypimps.com', '/search.php?query='),
     1056: ('Taboo', 'https://www.cherrypimps.com', '/search.php?query='),
-    1057: ('PornWorld', 'https://pornworld.com', '/search?query='),
+    1057: ('PornWorld', 'https://pornworld.com', '/search/'),
     1058: ('Vicki Valkyrie', 'https://www.vickivalkyrie.com', '/sapi/'),
     1059: ('Busted Babysitters', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     1060: ('Ebony Sex Tapes', 'https://www.mofos.com', 'https://site-api.project1service.com'),
@@ -1514,7 +1514,7 @@ searchSites = {
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
-    1336: ('Fit 18', 'https://www.fit18.com', '/models/'),
+    1336: ('Fit 18', 'https://www.fit18.com', '/videos/'),
     1337: ('SpankMonster', 'https://spankmonster.com', '/MemberSceneSearch?q='),
     1338: ('Femout', 'https://www.femout.xxx', '/tour/trailers/'),
     1339: ('TGirls', 'https://www.tgirls.xxx', '/tour/trailers/'),
@@ -1536,6 +1536,7 @@ searchSites = {
     1355: ('MomSwap', 'http://momswap.com', '/movies'),
     1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies'),
     1357: ('Slayed', 'https://www.slayed.com', '/api'),
+    1358: ('White Teens Black Cocks', 'https://teencoreclub.com', '/video/'),
 }
 
 abbreviations = (
@@ -2584,7 +2585,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network5Kporn
 
         # Teen Core Club
-        elif (943 <= siteNum <= 974):
+        elif (943 <= siteNum <= 974 or siteNum == 1358):
             provider = networkTeenCoreClub
 
         # Desperate Amateurs

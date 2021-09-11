@@ -272,7 +272,7 @@ def getFromIAFD(actorName, actorEncoded):
         if img and 'nophoto' not in img[0]:
             actorPhotoURL = img[0]
 
-        gender = 'male' if 'gender=m' in actorPageURL[0] else 'female'
+        gender = 'male' if 'gender=m' in actorPageURL else 'female'
 
     return actorPhotoURL, gender
 
