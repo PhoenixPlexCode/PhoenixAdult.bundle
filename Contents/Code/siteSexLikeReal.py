@@ -66,8 +66,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//meta[@property="video:actor"]/@content')
     for actorName in actors:
-        actorLink = '/pornstars/' + actorName.replace(" ", "-").lower()
+        actorLink = '/pornstars/' + actorName.replace(' ', '-').lower()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink
+
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class, "c-meta-poster")]//img/@data-src')[0]
@@ -80,6 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         '//meta[@property="og:image"]/@content',
         '//a[contains(@class, "u-ratio--lightbox")]/@href',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             art.append(poster)
