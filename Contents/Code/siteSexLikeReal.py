@@ -47,30 +47,28 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Studio/Tagline/Collection
     metadata.collections.clear()
-    metadata.studio = detailsPageElements.xpath('//a[@rel="category"]')[0].text_content().strip()
+    metadata.studio = detailsPageElements.xpath('//div[contains(@class, "u-inline-block u-align-y--m u-relative u-fw--bold")]')[0].text_content().strip()
     metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Release Date
-    date = detailsPageElements.xpath('//time/@datetime')[0]
+    date = detailsPageElements.xpath('//time[contains(@class, "u-inline-block u-align-y--m u-ml--three desktop:u-ml--four")]')[0].text_content().strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//a[@rel="tag"]'):
-        genreName = genreLink.text_content().strip()
-
+    for genreName in detailsPageElements.xpath('//meta[@property="video:tag"]/@content'):
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//ul//a[contains(@title, "profile")]')
-    for actorLink in actors:
-        actorName = actorLink.text_content()
+    actors = detailsPageElements.xpath('//meta[@property="video:actor"]/@content')
+    for actorName in actors:
+        actorLink = '/pornstars/' + actorName.replace(' ', '-').lower()
+        actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink
 
-        actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class, "c-meta-poster")]//img/@data-src')[0]
@@ -83,6 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         '//meta[@property="og:image"]/@content',
         '//a[contains(@class, "u-ratio--lightbox")]/@href',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             art.append(poster)
