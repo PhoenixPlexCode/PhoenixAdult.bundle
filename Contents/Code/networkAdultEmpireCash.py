@@ -6,8 +6,8 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
-        if siteNum == 815:
-            # Modification for JAYs POV
+        if siteNum == 815 or siteNum == 1337:
+            # Modification for JAYs POV and SpankMonster
             titleNoFormatting = searchResult.xpath('.//a[@class="animated-screen"]/@title')[0]
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="animated-screen"]/@href')[0])
         else:
@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         displayTitle = titleNoFormatting
-        if siteNum != 815:
+        if siteNum != 815 or siteNum != 1337:
             date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))
             if date:
                 releaseDate = date[0].strip()
