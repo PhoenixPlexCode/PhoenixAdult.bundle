@@ -1585,6 +1585,7 @@ abbreviations = (
     ('^bwb ', 'BigWetButts '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
     ('^clip ', 'LegalPorno '),
+    ('^analvids', 'LegalPorno'),
     ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
     ('^css ', 'CzechStreets '),
