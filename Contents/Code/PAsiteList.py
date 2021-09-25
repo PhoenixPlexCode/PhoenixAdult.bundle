@@ -1554,6 +1554,7 @@ abbreviations = (
     ('^agm ', 'AllGirlMassage '),
     ('^am ', 'AssMasterpiece '),
     ('^analb ', 'AnalBeauty '),
+    ('^analvids ', 'LegalPorno '),
     ('^ap ', 'AssParade '),
     ('^aw ', 'AngelaWhite '),
     ('^baebz ', 'Baeb '),
