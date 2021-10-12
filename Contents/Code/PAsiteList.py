@@ -748,7 +748,7 @@ searchSites = {
     566: ('Black Valley Girls', 'https://www.blackvalleygirls.com', '/movies'),
     567: ('Sis Loves Me', 'https://www.sislovesme.com', '/movies'),
     568: ('Manyvids', 'https://www.manyvids.com', '/video/'),
-    569: ('SinsVR', 'https://www.xsinsvr.com', '/video/'),
+    569: ('SinsVR', 'https://www.xsinsvr.com', '/search/'),
     570: ('StasyQ VR', 'https://www.stasyqvr.com', '/virtualreality/scene/id/'),
     571: ('First Class POV', 'https://www.spizoo.com', '/search.php?query='),
     572: ('Intimate Lesbians', 'https://www.spizoo.com', '/search.php?query='),
