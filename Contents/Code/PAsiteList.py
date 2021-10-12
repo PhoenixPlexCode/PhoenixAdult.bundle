@@ -652,7 +652,7 @@ searchSites = {
     471: ('18VR', 'https://www.18vr.com', '/vrpornvideos/search/'),
     472: ('KinkVR', 'http://www.kinkvr.com', '/bdsm-vr-videos/search/'),
     473: ('VRCosplayX', 'https://www.vrcosplayx.com', '/cosplaypornvideos/search/'),
-    474: ('VRBangers', 'https://www.vrbangers.com', '/?post_type=video&s='),
+    474: ('VRBangers', 'https://www.vrbangers.com', '/api/content/v1/search/'),
     475: ('SexBabesVR', 'https://www.sexbabesvr.com', '/virtualreality/scene/id/'),
     476: ('WankzVR', 'https://www.wankzvr.com', '/search?q='),
     477: ('MilfVR', 'https://www.milfvr.com', '/search?q='),
