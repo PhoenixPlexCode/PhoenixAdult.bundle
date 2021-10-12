@@ -176,6 +176,7 @@ import siteBoundHoneys
 import siteLustomic
 import siteStraponCum
 import siteHotwifeXXX
+import siteXSinsVR
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -2083,7 +2084,7 @@ def getProviderFromSiteNum(siteNum):
 
         # SinsVR
         elif siteNum == 569:
-            provider = networkHighTechVR
+            provider = siteXSinsVR
 
         # StasyQ VR
         elif siteNum == 570:
