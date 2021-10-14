@@ -177,6 +177,7 @@ import siteLustomic
 import siteStraponCum
 import siteHotwifeXXX
 import siteXSinsVR
+import sitePOVR
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1538,6 +1539,7 @@ searchSites = {
     1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies'),
     1357: ('Slayed', 'https://www.slayed.com', '/api'),
     1358: ('White Teens Black Cocks', 'https://teencoreclub.com', '/video/'),
+    1359: ('POVR', 'https://povr.com', '/search?q=')
 }
 
 abbreviations = (
@@ -2832,5 +2834,9 @@ def getProviderFromSiteNum(siteNum):
         # Slayed
         elif siteNum == 1357:
             provider = networkStrike3
+
+        # POVR
+        elif siteNum == 1359:
+            provider = sitePOVR
 
     return provider
