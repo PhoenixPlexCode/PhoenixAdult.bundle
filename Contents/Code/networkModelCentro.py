@@ -51,7 +51,7 @@ def search(results, lang, siteNum, searchData):
 
 def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
-    sceneID = PAutils.Decode(metadata_id[0])
+    sceneID = metadata_id[0]
     title = metadata_id[2].strip().title()
     
     apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/scene/' + sceneID + '/' + urllib.quote(title))
