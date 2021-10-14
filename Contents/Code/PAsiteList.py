@@ -1081,7 +1081,7 @@ searchSites = {
     899: ('Sex Like Real', 'https://www.sexlikereal.com', '/scenes/'),
     900: ('Doe Girls', 'https://doegirls.com', '/search.en.html?q='),
     901: ('Xillimite', 'https://www.xillimite.com', '/en/search?type=4&keyword='),
-    902: ('VRP Films', 'https://vrpfilms.com', '/vrp-movies?s='),
+    902: ('VRPFilms', 'https://vrpfilms.com', '/m/'),
     903: ('VR Latina', 'https://vrlatina.com', '/video/'),
     904: ('VRConk', 'https://www.vrconk.com', '/virtualreality/scene/id/'),
     905: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
