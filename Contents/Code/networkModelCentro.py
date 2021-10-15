@@ -35,7 +35,7 @@ def search(results, lang, siteNum, searchData):
     if searchResults:
         for searchResult in searchResults:
             sceneID = searchResult['id']
-            titleNoFormatting = PAutils.parseTitle(searchResult['title'].title(), siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult['title'].strip().title(), siteNum)
             artobj = PAutils.Encode(json.dumps(searchResult['_resources']['base']))
             releaseDate = parse(searchResult['sites']['collection'][str(sceneID)]['publishDate']).strftime('%Y-%m-%d')
 
