@@ -5,7 +5,7 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     site_name = PAsearchSites.getSearchSiteName(siteNum).lower() + '-'
     scene_slug = searchData.filename.lower().replace(' ', '-').replace('_', ' ').replace(site_name, '')
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + scene_slug
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + scene_slug.lower()
     req = PAutils.HTTPRequest(directURL)
 
     if req and req.ok:
