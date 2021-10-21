@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = req.json()['data']
     for searchResult in searchResults['videos']:
         title = searchResult['title']
-        curID = searchResult['slug']
+        curID = PAutils.Encode(searchResult['slug'])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), title.lower())
 
