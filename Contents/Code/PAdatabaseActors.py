@@ -109,6 +109,7 @@ ActorsReplace = {
     'Polina Maxim': ['Polina Max', 'Polina Maxima', 'Venera Maxima'],
     'Polly Pons': ['Polly Pon'],
     'Pristine Edge': ['Jane Doux'],
+    'Priya Rai': ['Priya Anjali Rai', 'Priya Anjali', 'Priya'],
     'Pussy Kat': ['Pussykat'],
     'Rachel Roxxx': ['Rachel Rox', 'Rachel Roxx'],
     'Rebeca Linares': ['Rebecca Linares'],
