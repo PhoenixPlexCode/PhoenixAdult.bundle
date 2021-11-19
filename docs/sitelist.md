@@ -19,13 +19,13 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 | <h4>Adult Time</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>AllAnalAllTheTime</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>AllHerLuv</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>ALS Angels</h4> |  | [Exact](./manualsearch.md#exact-match) - **Actress name with subject, Date Add** |
+| <h4>ALS Angels</h4> |  | *[Exact](./manualsearch.md#exact-match)* - **Actress name with subject, Date Add** |
 | <h4>AmateurBoxxx</h4> |  | [Limited](./manualsearch.md#limited-search) |
 | <h4>Amateur Allure</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>AmourAngels</h4> |  | [Exact](./manualsearch.md#exact-match) - **SceneID** |
-| <h4>AngelaWhite</h4> |  | [Exact](./manualsearch.md#limited-search) - **Actor** |
+| <h4>AmourAngels</h4> |  | *[Exact](./manualsearch.md#exact-match)* - **SceneID** |
+| <h4>AngelaWhite</h4> |  | *[Exact](./manualsearch.md#limited-search)* - **Actor** |
 | <h4>ArchAngel</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>ATK Network</h4><ul><li>ATKGirlfriends</li></ul> |  | [Exact](./manualsearch.md#exact-match) - **ActressID with Title Search, Date Add*** |
+| <h4>ATK Network</h4><ul><li>ATKGirlfriends</li></ul> |  | *[Exact](./manualsearch.md#exact-match)* - **ActressID with Title Search, Date Add*** |
 | <h4>Aussie Ass</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Babes Network</h4><ul><li>Babes</li><li>Babes Unleashed</li><li>Black is Better</li><li>Elegant Anal</li><li>Office Obsession</li><li>Stepmom Lessons</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>BaDoinkVR Network</h4><ul><li>BaDoinkVR</li><li>18VR</li><li>BabeVR</li><li>KinkVR</li><li>VRCosplayX</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
@@ -34,14 +34,13 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 | <h4>Other BangBros Sites</h4><ul><li>Black Patrol</li><li>Blacks On Moms</li><li>Filthy Family</li><li>Mia Khalifa</li><li>XXXPawn</li></ul> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
 | <h4>Bang!</h4> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
 | <h4>BBC Paradise</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
-| <h4>BellaPass</h4><ul><li>AleahJasmine</li><li>AlexisMonroe</li><li>AvaDawn</li><li>Babe Archives</li><li>BellaHD</li><li>BellaNextDoor</li><li>Bryci</li><li>CaliCarter</li><li>CeceSeptember</li><li>HD19</li><li>HunterLeigh</li><li>Hussie Pass</li><li>JanaFox</li><li>JoePerv</li><li>KatieBanks</li><li>MonroeLee</li><li>TaliaShepard</li></ul> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
+| <h4>BellaPass</h4><ul><li>AleahJasmine</li><li>AlexisMonroe</li><li>AvaDawn</li><li>Babe Archives</li><li>BellaHD</li><li>BellaNextDoor</li><li>Bryci</li><li>CaliCarter</li><li>CeceSeptember</li><li>HD19</li><li>HunterLeigh</li><li>Hussie Pass</li><li>JanaFox</li><li>JoePerv</li><li>KatieBanks</li><li>MonroeLee</li><li>TaliaShepard</li></ul> |  | *[Limited](./manualsearch.md#limited-search)* - **Title only** |
 | <h4>Black PayBack</h4> |  | [Limited](./manualsearch.md#limited-search) |
 | <h4>Black Valley Girls</h4> |  | [Exact](./manualsearch.md#exact-match) - **SceneID** |
 | <h4>Blowpass</h4><ul><li>1000 Facials</li><li>ImmoralLive</li><li>MommyBlowsBest</li><li>OnlyTeenBlowjobs</li><li>Throated</li><li>My XXX Pass</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Box Truck Sex</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Bound Honeys</h4> |  | [Limited](./manualsearch.md#limited-search) - **Title only, Date Add** |
-| <h4>Brazzers Network</h4><ul><li>Asses In Public</li><li>Baby Got Boobs</li><li>Big Butts Like It Big</li><li>Big Tits at School</li><li>Big Tits at Work</li><li>Big Tits in Sports</li><li>Big Tits in Uniform</li><li>Big Wet Butts</li><li>Brazzers Exxtra</li><li>Busty and Real</li><li>Busty Z</li><li>Butts and Blacks</li><li>CFNM Clothed Female Male Nude</li><li>Day With A Porn Star</li><li>Dirty Masseur</li><li>Doctor Adventures</li><li>Hot and Mean</li><li>Hot Chicks Big Asses</li><li>Milfs Like It Big</li><li>Mommy Got Boobs</li><li>Moms in Control</li><li>Pornstars Like It Big</li><li>Racks and Blacks</li><li>Real Wife Stories</li><li>Shes Gonna Squirt</li><li>Teens Like It Big</li><li>Teens Like It Black</li><li>ZZ Series</li></ul> |  | Main: [Limited](./manualsearch.md#limited-search) - **Title only**<br>Alternate: [Exact](./manualsearch.md#exact-match) - **SceneID** |
-|  |  |  |
+| <h4>Brazzers Network</h4><ul><li>Asses In Public</li><li>Baby Got Boobs</li><li>Big Butts Like It Big</li><li>Big Tits at School</li><li>Big Tits at Work</li><li>Big Tits in Sports</li><li>Big Tits in Uniform</li><li>Big Wet Butts</li><li>Brazzers Exxtra</li><li>Busty and Real</li><li>Busty Z</li><li>Butts and Blacks</li><li>CFNM Clothed Female Male Nude</li><li>Day With A Porn Star</li><li>Dirty Masseur</li><li>Doctor Adventures</li><li>Hot and Mean</li><li>Hot Chicks Big Asses</li><li>Milfs Like It Big</li><li>Mommy Got Boobs</li><li>Moms in Control</li><li>Pornstars Like It Big</li><li>Racks and Blacks</li><li>Real Wife Stories</li><li>Shes Gonna Squirt</li><li>Teens Like It Big</li><li>Teens Like It Black</li><li>ZZ Series</li></ul> |  | <p>Main: [Limited](./manualsearch.md#limited-search) - **Title only**</p><p>Alternate: [Exact](./manualsearch.md#exact-match) - **SceneID**</p> |
 | <h4>BurningAngel</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>CherryPimps Network</h4><ul><li>Britney Amber</li><li>Cherry Pimps</li><li>Cherry Spot</li><li>Wild on Cam</li><li>BCM.XXX</li><li>Busted</li><li>Cheese.XXX</li><li>Confessions.XXX</li><li>Cucked.XXX</li><li>Drilled.XXX</li><li>Femme</li><li>Fresh</li><li>Petite.XXX</li><li>Taboo (formerly Family.XXX)</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Clips4Sale</h4> |  | [Exact](./manualsearch.md#exact-match) - **StudioID with Title Search** |
@@ -201,20 +200,9 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 | <h4>TeenCoreClub Network</h4><ul><li>Anal Checkups</li><li>Analyzed Girls</li><li>Ass Teen Mouth</li><li>Bang Teen Pussy</li><li>Brutal Invasion</li><li>Cumoholic Teens</li><li>Defiled 18</li><li>Double Teamed Teens</li><li>Dream Teens HD</li><li>Drilled Chicks</li><li>Fab Sluts</li><li>Girls Got Cream</li><li>Hardcore Youth</li><li>Jerk-Off Pass</li><li>Little Hellcat</li><li>Make Teen Gape</li><li>Nylon Spunk Junkies</li><li>Nylon Sweeties</li><li>Seductive 18</li><li>She Got Six</li><li>Spear Teen Pussy</li><li>Spermatino</li><li>Teach My Ass</li><li>Teen Anal Casting</li><li>Teen Core Club</li><li>Teen Core Zine</li><li>Teen Drillers</li><li>Teens Go Porn</li><li>Teens Natural Way</li><li>Teens Try Black</li><li>We Need New Talents</li><li>White Teens Black Cocks</li><li>X Core Club</li></ul> |  | [Direct](./manualsearch.md#exact-match) - **Scene ID** |
 | <h4>TeenMegaWorld Network</h4><ul><li>18 First Sex</li><li>ATMovs</li><li>About Girls Love</li><li>Anal Angels</li><li>Anal Beauty</li><li>Beauty 4K</li><li>BeautyAngels</li><li>Coeds Reality</li><li>Creampie Angels</li><li>Dirty Coach</li><li>Dirty Doctor</li><li>el Porno Latino</li><li>ExGfBox</li><li>First BGG</li><li>Fuck Studies</li><li>Gag N Gape</li><li>Home Teen Vids</li><li>Home Toy Teens</li><li>Lolly Hardcore</li><li>No Boring</li><li>Nubile Girls HD</li><li>NylonsX</li><li>Old N Young</li><li>Private Teen Video</li><li>Raw Couples</li><li>Solo Teen Girls</li><li>Squirting Virgin</li><li>Teen Sex Mania</li><li>Teen Sex Movs</li><li>Teen Stars Only</li><li>Teens 3 Some</li><li>TmwVRnet</li><li>Tricky Masseur</li><li>WOW Orgasms</li><li>Watch Me Fucked</li><li>X Angels</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>The Score Group</h4><ul><li>18 Eighteen</li><li>50 Plus MILFS</li><li>60 Plus MILFS</li><li>Big Boob Bundle</li><li>Bootylicious Mag</li><li>Christy Marks</li><li>Leg Sex</li><li>Naughty Mag</li><li>Porn Mega Load</li><li>Scoreland</li><li>Scoreland2</li><li>XL Girls</li></ul> |  | [Exact](./manualsearch.md#exact-match) - **Direct URL** |
-| <h4>Thick Cash Network</h4> |  | [Enhanced](./manualsearch.md#enhanced-match) - **Actor only, Date Add** |
-| - Ebony Tugs |  |  |
-| - Family Lust |  |  |
-| - Over 40 Handjobs |  |  |
-| - Teen Tugs |  |  |
+| <h4>Thick Cash Network</h4><ul><li>Ebony Tugs</li><li>Family Lust</li><li>Over 40 Handjobs</li><li>Teen Tugs</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-match) - **Actor only, Date Add** |
 | <h4>Tonights Girlfriend</h4> |  | [Limited](./manualsearch.md#limited-search) - **Actor only** |
-| <h4>Top Web Models</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
-| - 2 Girls 1 Camera |  |  |
-| - Big Gulp Girls |  |  |
-| - Cougar Season |  |  |
-| - Deepthroat Sirens |  |  |
-| - Facials Forever |  |  |
-| - Pounded Petite |  |  |
-| - She's Brand New |  |  |
+| <h4>Top Web Models</h4><ul><li>2 Girls 1 Camera</li><li>Big Gulp Girls</li><li>Cougar Season</li><li>Deepthroat Sirens</li><li>Facials Forever</li><li>Pounded Petite</li><li>She's Brand New</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>ToughLoveX</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) - **Actor only, Date Add** |
 | <h4>TransAngels</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>True Amateurs</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
