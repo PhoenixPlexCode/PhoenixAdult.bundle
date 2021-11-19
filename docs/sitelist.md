@@ -7,10 +7,14 @@
 The above is a reference list. Please see [the manualsearch doc](./manualsearch.md) for how to use these further.
 # All supported networks and sites
 
-+ #### 5Kporn | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
-  - 5Kporn
-  - 5Kteens
-+ #### 18OnlyGirls | Matching type: *[Enhanced](./manualsearch.md#Enhanced-search)*
+| Site                                 | URL that Phoenix Searches | Match Type                                    |
+|--------------------------------------|---------------------------|-----------------------------------------------|
+| #### 5Kporn<br>- 5Kporn<br>- 5Kteens |                           | [Enhanced](./manualsearch.md#enhanced-search) |
+| #### 18OnlyGirls                     |                           | [Enhanced](./manualsearch.md#enhanced-search) |
+
++  | Matching type: **
+
++  | Matching type: *[Enhanced](./manualsearch.md#Enhanced-search)*
 + #### 21Naturals | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
   - 21Naturals
   - 21FootArt
@@ -559,7 +563,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - WaterBondage
   - WhippedAss
   - WiredPussy
-+ #### Kinky Spa | Matching type: *[Limited](./manualsearch.md#limited-search)*  
++ #### Kinky Spa | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### Karups | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Actor only**
   - Karups Hometown Amateurs
   - Karups Older Women
@@ -748,7 +752,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Daddy's Lil Angel
   - Detention Girls
   - Driver XXX
-  - Moms Teach Sex  
+  - Moms Teach Sex
   - My Family Pies
   - Nubiles Casting
   - Nubiles ET
