@@ -9,27 +9,35 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 
 | Site | URL that Phoenix Searches | Match Type |
 |---|---|---|
-| <h4>5Kporn</h4><ul><li>5Kporn</li><li>5Kteens</li></ul> |  | **[Enhanced](./manualsearch.md#enhanced-search)** |
-| <h4>18OnlyGirls</h4> |  | **[Enhanced](./manualsearch.md#enhanced-search)** |
-| <h4>21Naturals</h4><ul><li>21Naturals</li><li>21FootArt</li><li>21EroticAnal</li></ul> |  | **[Enhanced](./manualsearch.md#enhanced-search)** |
+| <h4>Test Row</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>Test Row</h4> |  | **[Limited](./manualsearch.md#limited-search)** |
+| <h4>Test Row</h4> |  | **_[Exact](./manualsearch.md#exact-match)_** - Actress name with subject, Date Add |
+| <h4>Test Row</h4> |  | [Limited](./manualsearch.md#limited-search) |
+| <h4>Test Row</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>Test Row</h4> |  | **_[Exact](./manualsearch.md#exact-match)_** - Actress name with subject, Date Add |
+| <h4>Test Row</h4> |  | _[Limited](./manualsearch.md#limited-search)_ - Title only |
+| <h4>Test Row</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>5Kporn</h4><ul><li>5Kporn</li><li>5Kteens</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>18OnlyGirls</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>21Naturals</h4><ul><li>21Naturals</li><li>21FootArt</li><li>21EroticAnal</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>21Sextreme</h4><ul><li>DominatedGirls</li><li>GrandpasFuckTeens</li><li>LustyGrandmas</li><li>TeachMeFisting</li><li>Zoliboy</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>21Sextury</h4><ul><li>AnalTeenAngels</li><li>ButtPlays</li><li>DeepthroatFrenzy</li><li>DPFanatics</li><li>FootsieBabes</li><li>Gapeland</li><li>LezCuties</li><li>PixandVideo</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Abby Winters</h4><ul><li>Behind the Scenes</li><li>Best Of</li><li>Girl Girl</li><li>Girls and Their Boys</li><li>Girls In Lingerie At Night</li><li>Guest Direction</li><li>Learn How to Get Women</li><li>Mystery Shoot</li><li>Nude Girls</li><li>Nude In Public</li><li>Podcast</li><li>Video Masturbation</li><li>Video Of Myself at Home</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Adult Empire</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Adult Time</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>AllAnalAllTheTime</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
-| <h4>AllHerLuv</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>ALS Angels</h4> |  | *[Exact](./manualsearch.md#exact-match)* - **Actress name with subject, Date Add** |
-| <h4>AmateurBoxxx</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>Amateur Allure</h4> |  | [Limited](./manualsearch.md#limited-search) |
-| <h4>AmourAngels</h4> |  | *[Exact](./manualsearch.md#exact-match)* - **SceneID** |
+| <h4>AllHerLuv</h4> |  | _[Limited](./manualsearch.md#limited-search)_ |
+| <h4>ALS Angels</h4> |  | **_[Exact](./manualsearch.md#exact-match)_** - Actress name with subject, Date Add |
+| <h4>AmateurBoxxx</h4> |  | _[Limited](./manualsearch.md#limited-search)_ |
+| <h4>Amateur Allure</h4> |  | *[Limited](./manualsearch.md#limited-search)* |
+| <h4>AmourAngels</h4> |  | *[Exact](./manualsearch.md#exact-match) - SceneID* |
 | <h4>AngelaWhite</h4> |  | *[Exact](./manualsearch.md#limited-search)* - **Actor** |
-| <h4>ArchAngel</h4> |  | [Limited](./manualsearch.md#limited-search) |
+| <h4>ArchAngel</h4> |  | _[Limited](./manualsearch.md#limited-search)_ |
 | <h4>ATK Network</h4><ul><li>ATKGirlfriends</li></ul> |  | *[Exact](./manualsearch.md#exact-match)* - **ActressID with Title Search, Date Add*** |
 | <h4>Aussie Ass</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Babes Network</h4><ul><li>Babes</li><li>Babes Unleashed</li><li>Black is Better</li><li>Elegant Anal</li><li>Office Obsession</li><li>Stepmom Lessons</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>BaDoinkVR Network</h4><ul><li>BaDoinkVR</li><li>18VR</li><li>BabeVR</li><li>KinkVR</li><li>VRCosplayX</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
-| <h4>BAMVisions</h4> |  | [Limited](./manualsearch.md#limited-search) |
+| <h4>BAMVisions</h4> |  | _[Limited](./manualsearch.md#limited-search)_ |
 | <h4>Bang Bros Network</h4><ul><li>Ass Parade</li><li>AvaSpice</li><li>Back Room Facials</li><li>Backroom MILF</li><li>Ball Honeys</li><li>Bang Bus</li><li>Bang Casting</li><li>Bang POV</li><li>Bang Tryouts</li><li>BangBros 18</li><li>BangBros Angels</li><li>Bangbros Clips</li><li>BangBros Remastered</li><li>Big Mouthfuls</li><li>Big Tit Cream Pie</li><li>Big Tits Round Asses</li><li>BlowJob Fridays</li><li>Blowjob Ninjas</li><li>Boob Squad</li><li>Brown Bunnies</li><li>Can He Score</li><li>Casting</li><li>Chongas</li><li>Colombia Fuck Fest</li><li>Dirty World Tour</li><li>Dorm Invasion</li><li>Facial Fest</li><li>Fuck Team Five</li><li>Glory Hole Loads</li><li>Latina Rampage</li><li>Living With Anna</li><li>Magical Feet</li><li>MILF Lessons</li><li>Milf Soup</li><li>MomIsHorny</li><li>Monsters of Cock</li><li>Mr CamelToe</li><li>Mr Anal</li><li>My Dirty Maid</li><li>My Life In Brazil</li><li>Newbie Black</li><li>Party of 3</li><li>Pawg</li><li>Penny Show</li><li>Porn Star Spa</li><li>Power Munch</li><li>Public Bang</li><li>Slutty White Girls</li><li>Stepmom Videos</li><li>Street Ranger</li><li>Tugjobs</li><li>Working Latinas</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Other BangBros Sites</h4><ul><li>Black Patrol</li><li>Blacks On Moms</li><li>Filthy Family</li><li>Mia Khalifa</li><li>XXXPawn</li></ul> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
 | <h4>Bang!</h4> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
@@ -44,13 +52,13 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 | <h4>BurningAngel</h4> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>CherryPimps Network</h4><ul><li>Britney Amber</li><li>Cherry Pimps</li><li>Cherry Spot</li><li>Wild on Cam</li><li>BCM.XXX</li><li>Busted</li><li>Cheese.XXX</li><li>Confessions.XXX</li><li>Cucked.XXX</li><li>Drilled.XXX</li><li>Femme</li><li>Fresh</li><li>Petite.XXX</li><li>Taboo (formerly Family.XXX)</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
 | <h4>Clips4Sale</h4> |  | [Exact](./manualsearch.md#exact-match) - **StudioID with Title Search** |
-| <h4>ClubFilly</h4> |  | [Exact](./manualsearch.md#exact-match) - **SceneID, DVDs not supported** |
-| <h4>ClubSeventeen</h4> |  | [Exact](./manualsearch.md#exact-match) - **Direct URL** |
+| <h4>ClubFilly</h4> |  | *[Exact](./manualsearch.md#exact-match)* - **SceneID, DVDs not supported** |
+| <h4>ClubSeventeen</h4> |  | **_[Exact](./manualsearch.md#exact-match)_ - Direct URL** |
 | <h4>Culioneros</h4><ul><li>Chicas de Porno</li><li>Chiva Culiona</li><li>Costenas Locas</li><li>Cuchi Mami</li><li>Mi Primer Porno</li><li>Nalgas Grandes</li><li>Por El Chiquito</li><li>Sexo en Publico</li><li>Tetangas Espanolas</li><li>Tetonas Locas</li></ul> |  | [Exact](./manualsearch.md#exact-match) - **SceneID** |
 | <h4>CumBizz</h4> |  | [Exact](./manualsearch.md#exact-match) - **Direct URL** |
 | <h4>CumLouder</h4> |  | [Exact](./manualsearch.md#exact-match) - **Direct URL** |
-| <h4>Couple Fantasies</h4><ul><li>Common Sensual</li><li>Foxhouse Films</li><li>Gentle Desire</li><li>JoyBear</li><li>Light Southern Cinema</li><li>Madison Young</li><li>Maria Beatty</li><li>Mario Ancewicz</li><li>Morgana Muses</li><li>Ninja</li><li>Petra Joy</li><li>Pink and Whit Productions</li><li>Sex School</li><li>Signe Baumane</li><li>Spark Erotic</li><li>The Lifestyle</li><li>Thousand Faces Films</li><li>Verso Cinema</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) - **Date Add** |
-| <h4>CzechAV Network</h4><ul><li>Czech Amateurs</li><li>Czech Bangbus</li><li>Czech Bitch</li><li>Czech Cabins</li><li>Czech Couples</li><li>Czech Dungeon</li><li>Czech Estrogenolit</li><li>Czech Experiment</li><li>Czech Fantasy</li><li>Czech First</li><li>Czech Game</li><li>Czech Gangbang</li><li>Czech Garden Party</li><li>Czech Harem</li><li>Czech Home Orgy</li><li>Czech Lesbians</li><li>Czech Massage</li><li>Czech Mega Swingers</li><li>Czech Orgasm</li><li>Czech Parties</li><li>Czech Pawn Shop</li><li>Czech Pool</li><li>Czech Sauna</li><li>Czech Sharking</li><li>Czech Snooper</li><li>Czech Solarium</li><li>Czech Spy</li><li>Czech Streets</li><li>Czech Super Models</li><li>Czech Taxi</li><li>Czech Toilets</li><li>Czech Twins</li><li>Czech Wife Swap</li></ul> |  | [Limited](./manualsearch.md#limited-search) - **Title only, Date Add** |
+| <h4>Couple Fantasies</h4><ul><li>Common Sensual</li><li>Foxhouse Films</li><li>Gentle Desire</li><li>JoyBear</li><li>Light Southern Cinema</li><li>Madison Young</li><li>Maria Beatty</li><li>Mario Ancewicz</li><li>Morgana Muses</li><li>Ninja</li><li>Petra Joy</li><li>Pink and Whit Productions</li><li>Sex School</li><li>Signe Baumane</li><li>Spark Erotic</li><li>The Lifestyle</li><li>Thousand Faces Films</li><li>Verso Cinema</li></ul> |  | **[Enhanced](./manualsearch.md#enhanced-search) - Date Add** |
+| <h4>CzechAV Network</h4><ul><li>Czech Amateurs</li><li>Czech Bangbus</li><li>Czech Bitch</li><li>Czech Cabins</li><li>Czech Couples</li><li>Czech Dungeon</li><li>Czech Estrogenolit</li><li>Czech Experiment</li><li>Czech Fantasy</li><li>Czech First</li><li>Czech Game</li><li>Czech Gangbang</li><li>Czech Garden Party</li><li>Czech Harem</li><li>Czech Home Orgy</li><li>Czech Lesbians</li><li>Czech Massage</li><li>Czech Mega Swingers</li><li>Czech Orgasm</li><li>Czech Parties</li><li>Czech Pawn Shop</li><li>Czech Pool</li><li>Czech Sauna</li><li>Czech Sharking</li><li>Czech Snooper</li><li>Czech Solarium</li><li>Czech Spy</li><li>Czech Streets</li><li>Czech Super Models</li><li>Czech Taxi</li><li>Czech Toilets</li><li>Czech Twins</li><li>Czech Wife Swap</li></ul> |  | *[Limited](./manualsearch.md#limited-search)* - Title only, Date Add* |
 | <h4>CzechVR</h4><ul><li>CzechVR</li><li>CzechVR Casting</li><li>CzechVR Fetish</li></ul> |  | [Limited](./manualsearch.md#limited-search) - **Actor only** |
 | <h4>DarkRoomVR</h4> |  | [Limited](./manualsearch.md#limited-search) - **Title only** |
 | <h4>Data18 Porn Database</h4><ul><li>Empire</li><li>Content</li><li>Movies</li></ul> |  | [Enhanced](./manualsearch.md#enhanced-search) |
