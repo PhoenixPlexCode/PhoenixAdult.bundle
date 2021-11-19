@@ -9,7 +9,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
 
 | Site                                 | URL that Phoenix Searches | Match Type                                    |
 |--------------------------------------|---------------------------|-----------------------------------------------|
-| #### 5Kporn<br>- 5Kporn<br>- 5Kteens |                           | [Enhanced](./manualsearch.md#enhanced-search) |
+| <h4>5Kporn</h4><ul><li>5Kporn</li><li>5Kteens</li></ul> |                           | [Enhanced](./manualsearch.md#enhanced-search) |
 | #### 18OnlyGirls                     |                           | [Enhanced](./manualsearch.md#enhanced-search) |
 
 +  | Matching type: **
