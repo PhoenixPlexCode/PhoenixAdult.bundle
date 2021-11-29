@@ -85,6 +85,7 @@ ActorsReplace = {
     'Krystal Boyd': ['Abby H', 'Anjelica', 'Ebbi', 'Katherine A'],
     'Kurea Hasumi': ['Hasumi Kurea'],
     'La Sirena 69': ['La Sirena69', 'LaSirena69', 'Antonella', 'Antonella La Sirena', 'Antonella LaSirena', 'Sirena69'],
+    'Lacey Channing': ['Lacie Channing', 'Lacy Channing', 'Jade Symz', 'Jayde Symz'],
     'Lana Rhoades': ['Lana Rhodes'],
     'Lexi Anne Garza': ['Lexi Aaane', 'Lexi Anne'],
     'Lilly Ford': ['Lilly Lit'],
