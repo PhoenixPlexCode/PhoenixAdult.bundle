@@ -1064,6 +1064,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - TushyRaw
   - Vixen
 + #### Sunny Lane Live | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)*
++ #### Swallow Bay | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallowed / TrueAnal / Nymphos / AllAnal / AnalOnly | Matching type: *[Exact](./manualsearch.md#exact-match)* - **Direct URL**
 + #### Swallow Salon | Matching type: *[Limited](./manualsearch.md#limited-search)*
 + #### TeamSkeet Network | Matching type: *[Enhanced](./manualsearch.md#enhanced-search)* - **Date Add**
