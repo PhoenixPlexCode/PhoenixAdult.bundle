@@ -50,7 +50,7 @@ class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
     languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
     accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
-    contributes_to = ['com.plexapp.agents.stashplexagent']
+    contributes_to = ['com.plexapp.agents.stashplexagent', 'com.plexapp.agents.themoviedb', 'com.plexapp.agents.imdb']
     primary_provider = True
 
     def search(self, results, media, lang):
