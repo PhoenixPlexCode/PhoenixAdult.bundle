@@ -1,4 +1,4 @@
-#### Legend: Supported Search Methods
+#### Key: Supported Search Methods
 + ✅ = **[Enhanced Search](./manualsearch.md#enhanced-search)**. This includes searching by title and/or actor(s), enhanced with date and/or SceneID matching.
 + ✓ = **[Limited Search](./manualsearch.md#limited-search)**. Only title and/or actor can be used, unless otherwise noted.
 + ❌ = **[Exact Match](./manualsearch.md#exact-match)** only. Either using a numerical Scene&nbsp;ID or a Direct&nbsp;URL.
