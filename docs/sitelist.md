@@ -5,6 +5,7 @@
 
 If the site is not listed below &mdash; i.e. the site is not yet supported &mdash; use the instructions for [manual adding](./manualsearch.md#manual-add).
 
+If you're having difficulty finding the SceneID, double-check [PAsiteList.py](../Contents/Code/PAsiteList.py#L183) to make sure you're searching the right website. That code also contains the list of valid [site abbreviations](../Contents/Code/PAsiteList.py#L1548) to use in naming your files.
 
 # All Supported Networks and Sites
 
