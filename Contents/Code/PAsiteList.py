@@ -178,6 +178,7 @@ import siteStraponCum
 import siteHotwifeXXX
 import siteXSinsVR
 import sitePOVR
+import siteSwallowBay
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1539,7 +1540,9 @@ searchSites = {
     1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies'),
     1357: ('Slayed', 'https://www.slayed.com', '/api'),
     1358: ('White Teens Black Cocks', 'https://teencoreclub.com', '/video/'),
-    1359: ('POVR', 'https://povr.com', '/search?q=')
+    1359: ('POVR', 'https://povr.com', '/search?q='),
+    1360: ('Bratty MILF', 'https://brattymilf.com', '/video/gallery/'),
+    1361: ('Swallow Bay', 'https://swallowbay.com', '/video/'),
 }
 
 abbreviations = (
@@ -2109,7 +2112,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256:
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360:
             provider = networkNubiles
 
         # BellaPass
@@ -2838,5 +2841,9 @@ def getProviderFromSiteNum(siteNum):
         # POVR
         elif siteNum == 1359:
             provider = sitePOVR
+
+        # Swallow Bay
+        elif siteNum == 1361:
+            provider = siteSwallowBay
 
     return provider
