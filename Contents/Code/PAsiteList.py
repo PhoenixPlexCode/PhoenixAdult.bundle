@@ -876,7 +876,7 @@ searchSites = {
     692: ('Butt Plays', 'http://www.21sextury.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     693: ('Dorcel Vision', 'https://www.dorcelvision.com', '/en/search?type=4&keyword='),
     694: ('Feminized', 'http://feminized.com', '/tour/search.php?st=advanced&qany='),
-    695: ('XConfessions', 'https://xconfessions.com', '/api/search'),
+    695: ('XConfessions', 'https://api.xconfessions.com', '/api/search'),
     696: ('Czech Amateurs', 'https://czechamateurs.com', '/tour/search/?q='),
     697: ('Czech Bangbus', 'https://czechbangbus.com', '/tour/search/?q='),
     698: ('Czech Bitch', 'https://czechbitch.com', '/tour/search/?q='),
