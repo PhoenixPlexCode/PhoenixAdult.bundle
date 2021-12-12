@@ -1543,6 +1543,9 @@ searchSites = {
     1359: ('POVR', 'https://povr.com', '/search?q='),
     1360: ('Bratty MILF', 'https://brattymilf.com', '/video/gallery/'),
     1361: ('Swallow Bay', 'https://swallowbay.com', '/video/'),
+    1362: ('SisSwap', 'https://www.sisswap.com', '/movies'),
+    1363: ('IMadePorn', 'https://www.teamskeet.com', '/movies'),
+    1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
 }
 
 abbreviations = (
@@ -1972,7 +1975,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2024,7 +2027,7 @@ def getProviderFromSiteNum(siteNum):
             provider = sitePrivate
 
         # PornPros Network
-        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263:
+        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364:
             provider = networkPornPros
 
         # DigitalPlayground
