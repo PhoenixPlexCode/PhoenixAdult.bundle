@@ -921,6 +921,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - CastingCouch-X
   - Cum4K
   - Exotic4k
+  - Facials4k
   - FantasyHD
   - Holed
   - Lubed
@@ -1084,6 +1085,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Freeuse Fantasy
   - Gingerpatch
   - Her Freshman Year
+  - I Made Porn
   - Innocent High
   - Little Asians
   - Lust HD
@@ -1099,6 +1101,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Shoplyfter
   - ShoplyfterMylf
   - Sis Loves Me
+  - Sis Swap
   - Solo Interviews
   - StepSiblings
   - Team Skeet Extras
