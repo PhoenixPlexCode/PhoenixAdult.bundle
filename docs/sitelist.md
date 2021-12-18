@@ -919,6 +919,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - CastingCouch-X
   - Cum4K
   - Exotic4k
+  - Facials4k
   - FantasyHD
   - Holed
   - Lubed
@@ -1082,6 +1083,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Freeuse Fantasy
   - Gingerpatch
   - Her Freshman Year
+  - I Made Porn
   - Innocent High
   - Little Asians
   - Lust HD
@@ -1097,6 +1099,7 @@ The above is a reference list. Please see [the manualsearch doc](./manualsearch.
   - Shoplyfter
   - ShoplyfterMylf
   - Sis Loves Me
+  - Sis Swap
   - Solo Interviews
   - StepSiblings
   - Team Skeet Extras
