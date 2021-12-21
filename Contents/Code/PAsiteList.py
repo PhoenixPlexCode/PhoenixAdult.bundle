@@ -137,7 +137,7 @@ import sitePurgatoryX
 import sitePlumperPass
 import networkFTV
 import siteJacquieEtMichel
-import siteData18Content
+import siteData18Scenes
 import sitePenthouseGold
 import siteData18Movies
 import siteData18Empire
@@ -1252,7 +1252,7 @@ searchSites = {
     1068: ('FTVMilfs', 'https://ftvmilfs.com', '/update/s-'),
     1069: ('FTVGirls', 'https://www.ftvgirls.com', '/update/s-'),
     1070: ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', '/en/recherche/'),
-    1071: ('Data18 Content', 'http://www.data18.com', '/search/?k='),
+    1071: ('Data18 Scenes', 'http://www.data18.com', '/search/?k='),
     1072: ('Penthouse Gold', 'https://penthousegold.com', '/search.php?query='),
     1073: ('Data18 Movies', 'http://www.data18.com', '/search/?k='),
     1074: ('WakeUpNFuck', 'https://www.wakeupnfuck.com', '/search?query='),
@@ -2682,9 +2682,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1070:
             provider = siteJacquieEtMichel
 
-        # Data18 Content
+        # Data18 Scenes
         elif siteNum == 1071:
-            provider = siteData18Content
+            provider = siteData18Scenes
 
         # Penthouse Gold
         elif siteNum == 1072:
