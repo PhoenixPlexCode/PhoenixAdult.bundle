@@ -15,7 +15,7 @@ def search(results, lang, siteNum, searchData):
 
         if int(sceneID) > 100:
             searchData.title = searchData.title.replace(sceneID, '', 1).strip()
-            sceneURL = '%s/content/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+            sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
     searchData.encoded = searchData.title.replace(' ', '+')
@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     searchPageElements = HTML.ElementFromString(req.text)
 
     for searchResult in searchPageElements.xpath('//p[@class="genmed"]//parent::div'):
-        sceneURL = searchResult.xpath('.//*[contains(@href, "content")]/@href')[0]
+        sceneURL = searchResult.xpath('.//*[contains(@href, "scenes")]/@href')[0]
 
         if sceneURL not in searchResults:
             urlID = re.sub(r'.*/', '', sceneURL)
@@ -47,7 +47,7 @@ def search(results, lang, siteNum, searchData):
             else:
                 siteDisplay = subSite
 
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "content")]')[1].text_content(), siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "scenes")]')[1].text_content(), siteNum)
             curID = PAutils.Encode(sceneURL)
             siteResults.append(sceneURL)
 
@@ -79,7 +79,7 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if ('/content/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
+        if ('/scenes/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
