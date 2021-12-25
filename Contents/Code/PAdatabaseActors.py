@@ -17,7 +17,7 @@ ActorsReplace = {
     'Angel Piaff': ['Angel Piaf', 'Angela Piaf'],
     'Angel Youngs': ['Angel Young'],
     'Angie Moon': ['Angelina Mori'],
-    'Ani Blackfox': ['Ani Black', 'Ani Black Fox'],
+    'Ani Blackfox': ['Ani Black', 'Ani Black Fox', 'Ani', 'Anni Blackfox', 'Any Blackfox'],
     'Anita Bellini Berlusconi': ['Anita Bellini'],
     'Anna De Ville': ['Anna Deville', 'Anna DeVille'],
     'Annika Albrite': ['Anikka Albrite'],
