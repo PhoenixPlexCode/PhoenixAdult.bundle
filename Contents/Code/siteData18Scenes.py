@@ -88,15 +88,15 @@ def search(results, lang, siteNum, searchData):
         urlID = re.sub(r'.*/', '', sceneURL)
 
         try:
-            siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+            siteName = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
         except:
             try:
-                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+                siteName = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::a')[0].text_content().strip()
             except:
                 siteName = ''
 
         try:
-            subSite = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+            subSite = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
         except:
             subSite = ''
 
@@ -109,7 +109,7 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(sceneURL)
 
         try:
-            date = detailsPageElements.xpath('//span[@class][./*[contains(.., "date")]]')[0].text_content().split(':', 2)[-1].strip()
+            date = detailsPageElements.xpath('//@datetime')[0].strip()
         except:
             date = ''
 
@@ -159,17 +159,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Studio
     try:
-        metadata.studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+        metadata.studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
     except:
         try:
-            metadata.studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            metadata.studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::a')[0].text_content().strip()
         except:
             pass
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     try:
-        tagline = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+        tagline = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
         if len(metadata_id) > 3:
             Log('Using original series information')
             tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a[@title]')[0].text_content().strip()
@@ -188,7 +188,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
     else:
-        date_object = parse(detailsPageElements.xpath('//span[contains(., "Release")]')[0].text_content().split(':', 1)[1].strip())
+        date_object = parse(detailsPageElements.xpath('//@datetime')[0].strip())
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -201,11 +201,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//p[contains(., "Starring")]//following-sibling::a[1]')
+    actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "pornstars")]//img')
     if actors:
         for actorLink in actors:
-            actorName = actorLink.text_content().strip()
-            actorPhotoURL = ''
+            actorName = actorLink.xpath('./@alt')[0].strip()
+            actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
+            Log('Actor Photo URL: %s' % actorPhotoURL)
 
             movieActors.addActor(actorName, actorPhotoURL)
 
