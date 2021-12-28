@@ -18,65 +18,6 @@ def search(results, lang, siteNum, searchData):
             sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
-    searchData.encoded = searchData.title.replace(' ', '+')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
-    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
-    searchPageElements = HTML.ElementFromString(req.text)
-
-    for searchResult in searchPageElements.xpath('//p[@class="genmed"]//parent::div'):
-        sceneURL = searchResult.xpath('.//*[contains(@href, "scenes")]/@href')[0]
-
-        if sceneURL not in searchResults:
-            urlID = re.sub(r'.*/', '', sceneURL)
-
-            try:
-                siteName = searchResult.xpath('.//*[contains(., "Network")]')[0].text_content().replace('Network:', '').strip()
-            except:
-                try:
-                    siteName = searchResult.xpath('.//*[contains(., "Studio")]')[0].text_content().replace('Studio:', '').strip()
-                except:
-                    siteName = ''
-
-            try:
-                subSite = searchResult.xpath('.//p[@class][contains(., "Site:")]')[0].text_content().replace('Site:', '').strip()
-            except:
-                subSite = ''
-
-            if siteName:
-                siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
-            else:
-                siteDisplay = subSite
-
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "scenes")]')[1].text_content(), siteNum)
-            curID = PAutils.Encode(sceneURL)
-            siteResults.append(sceneURL)
-
-            try:
-                date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content().strip()
-                date = re.sub(r'^#(.*?)\s', '', date)
-            except:
-                date = ''
-
-            if date and not date == 'unknown':
-                date = date.replace('Sept', 'Sep')
-                releaseDate = parse(date).strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
-            displayDate = releaseDate if date else ''
-
-            if sceneID == urlID:
-                score = 100
-            elif searchData.date and displayDate:
-                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-            if score == 80:
-                count += 1
-                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-            else:
-                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/scenes/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
