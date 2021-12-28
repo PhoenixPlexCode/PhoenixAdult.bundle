@@ -157,11 +157,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     ]
 
     try:
-        req = PAutils.HTTPRequest(detailsPageElements.xpath('//@href[contains(., "viewer")]')[0])
-        photoPageElements = HTML.ElementFromString(req.text)
-        for xpath in xpaths:
-            for img in photoPageElements.xpath(xpath):
-                art.append(img.replace('/th8', ''))
+        galleries = detailsPageElements.xpath('//div[@id="galleriesoff"]//div')
+        gallerySizes = detailsPageElements.xpath('//div[@id="galleriesoff"]//b')
+        sceneID = re.sub(r'.*/', '', sceneURL)
+
+        for idx, gallery in enumerate(galleries, 0):
+            galleryID = gallery.xpath('./@id')[0].replace('gallery', '')
+
+            for idx in range(int(gallerySizes[idx].text_content())):
+                pictureID = int(galleryID) + idx
+                photoViewerURL = ("%s/sys/media_photos.php?s=1&scene=%s&pic=%s" % (PAsearchSites.getSearchBaseURL(siteNum), sceneID[1:], pictureID))
+                req = PAutils.HTTPRequest(photoViewerURL)
+                photoPageElements = HTML.ElementFromString(req.text)
+
+                art.append(photoPageElements.xpath('//img[@id="photoimg"]/@src')[0])
     except:
         pass
 
