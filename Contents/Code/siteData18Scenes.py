@@ -94,7 +94,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/div[contains(., "Story")]')[0].text_content().split('-')[-1].strip()
     except:
         pass
 
