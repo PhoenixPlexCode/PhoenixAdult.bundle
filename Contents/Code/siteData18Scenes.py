@@ -18,65 +18,6 @@ def search(results, lang, siteNum, searchData):
             sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
-    searchData.encoded = searchData.title.replace(' ', '+')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
-    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.com'})
-    searchPageElements = HTML.ElementFromString(req.text)
-
-    for searchResult in searchPageElements.xpath('//p[@class="genmed"]//parent::div'):
-        sceneURL = searchResult.xpath('.//*[contains(@href, "scenes")]/@href')[0]
-
-        if sceneURL not in searchResults:
-            urlID = re.sub(r'.*/', '', sceneURL)
-
-            try:
-                siteName = searchResult.xpath('.//*[contains(., "Network")]')[0].text_content().replace('Network:', '').strip()
-            except:
-                try:
-                    siteName = searchResult.xpath('.//*[contains(., "Studio")]')[0].text_content().replace('Studio:', '').strip()
-                except:
-                    siteName = ''
-
-            try:
-                subSite = searchResult.xpath('.//p[@class][contains(., "Site:")]')[0].text_content().replace('Site:', '').strip()
-            except:
-                subSite = ''
-
-            if siteName:
-                siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
-            else:
-                siteDisplay = subSite
-
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//*[contains(@href, "scenes")]')[1].text_content(), siteNum)
-            curID = PAutils.Encode(sceneURL)
-            siteResults.append(sceneURL)
-
-            try:
-                date = searchResult.xpath('.//p[@class="genmed"]')[0].text_content().strip()
-                date = re.sub(r'^#(.*?)\s', '', date)
-            except:
-                date = ''
-
-            if date and not date == 'unknown':
-                date = date.replace('Sept', 'Sep')
-                releaseDate = parse(date).strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
-            displayDate = releaseDate if date else ''
-
-            if sceneID == urlID:
-                score = 100
-            elif searchData.date and displayDate:
-                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-            if score == 80:
-                count += 1
-                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-            else:
-                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if ('/scenes/' in sceneURL and '.html' not in sceneURL and sceneURL not in searchResults and sceneURL not in siteResults):
@@ -88,15 +29,15 @@ def search(results, lang, siteNum, searchData):
         urlID = re.sub(r'.*/', '', sceneURL)
 
         try:
-            siteName = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+            siteName = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
         except:
             try:
-                siteName = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+                siteName = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::a')[0].text_content().strip()
             except:
                 siteName = ''
 
         try:
-            subSite = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+            subSite = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
         except:
             subSite = ''
 
@@ -109,7 +50,7 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(sceneURL)
 
         try:
-            date = detailsPageElements.xpath('//span[@class][./*[contains(.., "date")]]')[0].text_content().split(':', 2)[-1].strip()
+            date = detailsPageElements.xpath('//@datetime')[0].strip()
         except:
             date = ''
 
@@ -153,23 +94,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/p[contains(., "Story")]')[0].text_content().split('\n', 2)[-1]
+        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/div[contains(., "Story")]')[0].text_content().split('-')[-1].strip()
     except:
         pass
 
     # Studio
     try:
-        metadata.studio = detailsPageElements.xpath('//i[contains(., "Network")]//preceding-sibling::a[1]')[0].text_content().strip()
+        metadata.studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
     except:
         try:
-            metadata.studio = detailsPageElements.xpath('//i[contains(., "Studio")]//preceding-sibling::a[1]')[0].text_content().strip()
+            metadata.studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::a')[0].text_content().strip()
         except:
             pass
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     try:
-        tagline = detailsPageElements.xpath('//i[contains(., "Site")]//preceding-sibling::a[1]')[0].text_content().strip()
+        tagline = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
         if len(metadata_id) > 3:
             Log('Using original series information')
             tagline = detailsPageElements.xpath('//p[contains(., "Serie")]//a[@title]')[0].text_content().strip()
@@ -188,7 +129,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
     else:
-        date_object = parse(detailsPageElements.xpath('//span[contains(., "Release")]')[0].text_content().split(':', 1)[1].strip())
+        date_object = parse(detailsPageElements.xpath('//@datetime')[0].strip())
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -201,26 +142,35 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//p[contains(., "Starring")]//following-sibling::a[1]')
+    actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "pornstars")]//img')
     if actors:
         for actorLink in actors:
-            actorName = actorLink.text_content().strip()
-            actorPhotoURL = ''
+            actorName = actorLink.xpath('./@alt')[0].strip()
+            actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
 
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art = []
     xpaths = [
+        '//img[@id="photoimg"]/@src',
         '//img[contains(@src, "th8")]/@src',
+        '//img[contains(@data-original, "th8")]/@data-original',
     ]
 
     try:
-        req = PAutils.HTTPRequest(detailsPageElements.xpath('//@href[contains(., "viewer")]')[0])
-        photoPageElements = HTML.ElementFromString(req.text)
-        for xpath in xpaths:
-            for img in photoPageElements.xpath(xpath):
-                art.append(img.replace('/th8', ''))
+        galleries = detailsPageElements.xpath('//div[@id="galleriesoff"]//div')
+        sceneID = re.sub(r'.*/', '', sceneURL)
+
+        for gallery in galleries:
+            galleryID = gallery.xpath('./@id')[0].replace('gallery', '')
+            photoViewerURL = ("%s/sys/media_photos.php?s=1&scene=%s&pic=%s" % (PAsearchSites.getSearchBaseURL(siteNum), sceneID[1:], galleryID))
+            req = PAutils.HTTPRequest(photoViewerURL)
+            photoPageElements = HTML.ElementFromString(req.text)
+
+            for xpath in xpaths:
+                for img in photoPageElements.xpath(xpath):
+                    art.append(img.replace('/th8', ''))
     except:
         pass
 
