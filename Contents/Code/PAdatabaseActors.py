@@ -139,7 +139,7 @@ ActorsReplace = {
     'Scarlett Snow': ['Scarlet Snow'],
     'Selenna Gomez': ['Selena Gomez'],
     'Selvaggia Babe': ['Selvaggia'],
-    'Shalina Divine': ['Shalina Devine'],
+    'Shalina Devine': ['Shalina Divine', 'Shelina Devine', 'Cosmina', 'Shalina Divine', 'Chalina Devine', 'Shalina Levine'],
     'Shannya Tweeks': ['Shannya Tweaks', 'Shannya Tweens', 'Shannya T'],
     'Shelley Bliss': ['Mia Ferrari'],
     'Siri': ['Siri Dahl'],
