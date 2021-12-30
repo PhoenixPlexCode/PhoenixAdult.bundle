@@ -212,7 +212,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
             for xpath in xpaths:
                 for img in photoPageElements.xpath(xpath):
-                    art.append(img.replace('/th8', ''))
+                    art.append(img.replace('/th8', '').replace('-th8', ''))
     except:
         pass
 
