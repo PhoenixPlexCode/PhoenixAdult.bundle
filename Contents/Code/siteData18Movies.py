@@ -263,6 +263,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "/pornstars/")]//img')
+    actors.extend(detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//img[contains(@data-original, "user")]'))
     for actorLink in actors:
         actorName = actorLink.xpath('./@alt')[0].strip()
         actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
