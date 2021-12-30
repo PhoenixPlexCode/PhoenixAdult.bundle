@@ -18,85 +18,98 @@ def search(results, lang, siteNum, searchData):
             movieURL = '%s/movies/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(movieURL)
 
-    searchData.encoded = searchData.title.replace(',', '').replace('& ', '')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    searchData.encoded = searchData.title.replace('\'', '').replace(',', '').replace('& ', '').replace('#', '')
+    searchURL = '%s%s&key2=%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded)
+    Log(searchURL)
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
-    for searchResult in searchPageElements.xpath('//a'):
-        movieURL = searchResult.xpath('./@href')[0].split('-')[0]
+    searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
+    if searchPages:
+        numSearchPages = int(searchPages.group(0))
+    else:
+        numSearchPages = 1
 
-        if ('/movies/' in movieURL and movieURL not in searchResults):
-            urlID = re.sub(r'.*/', '', movieURL).split('-')[0]
+    for idx in range(0, numSearchPages):
+        for searchResult in searchPageElements.xpath('//a'):
+            movieURL = searchResult.xpath('./@href')[0].split('-')[0]
 
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
-            curID = PAutils.Encode(movieURL)
-            siteResults.append(movieURL)
+            if ('/movies/' in movieURL and movieURL not in searchResults):
+                urlID = re.sub(r'.*/', '', movieURL).split('-')[0]
 
-            try:
-                date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
-            except:
-                date = ''
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
+                curID = PAutils.Encode(movieURL)
+                siteResults.append(movieURL)
 
-            if date and not date == 'unknown':
-                releaseDate = datetime.strptime(date, "%B, %Y").strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
-            displayDate = releaseDate if date else ''
-
-            if sceneID == urlID:
-                score = 100
-            elif searchData.date and displayDate:
-                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-            if score > 70:
-                sceneURL = PAutils.Decode(curID)
-                req = PAutils.HTTPRequest(sceneURL)
-                detailsPageElements = HTML.ElementFromString(req.text)
-
-                # Studio
                 try:
-                    studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
+                    date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
                 except:
+                    date = ''
+
+                if date and not date == 'unknown':
+                    releaseDate = datetime.strptime(date, "%B, %Y").strftime('%Y-%m-%d')
+                else:
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
+                displayDate = releaseDate if date else ''
+
+                if sceneID == urlID:
+                    score = 100
+                elif searchData.date and displayDate:
+                    score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                if score > 70:
+                    sceneURL = PAutils.Decode(curID)
+                    req = PAutils.HTTPRequest(sceneURL)
+                    detailsPageElements = HTML.ElementFromString(req.text)
+
+                    # Studio
                     try:
-                        studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::b')[0].text_content().strip()
+                        studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
                     except:
                         try:
-                            studio = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
+                            studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::b')[0].text_content().strip()
                         except:
-                            studio = ''
-
-                if score == 80:
-                    count += 1
-                    temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
-                else:
-                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
-
-                #Split Scenes
-                sceneCount = detailsPageElements.xpath('//text()[contains(., "Scenes:")]')[0].split(':')[-1].strip()
-                if sceneCount.isdigit():
-                    sceneCount = int(sceneCount)
-                else:
-                    sceneCount = 0
-
-                for sceneNum in range(1, sceneCount + 1):
-                    section = "Scene " + str(sceneNum)
-                    scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
+                            try:
+                                studio = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
+                            except:
+                                studio = ''
 
                     if score == 80:
                         count += 1
-                        temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
+                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
                     else:
-                        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
-            else:
-                if score == 80:
-                    count += 1
-                    temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
-                else:
-                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
+                    # Split Scenes
+                    sceneCount = detailsPageElements.xpath('//text()[contains(., "Scenes:")]')[0].split(':')[-1].strip()
+                    if sceneCount.isdigit():
+                        sceneCount = int(sceneCount)
+                    else:
+                        sceneCount = 0
+
+                    for sceneNum in range(1, sceneCount + 1):
+                        section = "Scene " + str(sceneNum)
+                        scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
+
+                        if score == 80:
+                            count += 1
+                            temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
+                        else:
+                            results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s][%s] %s' % (titleNoFormatting, section, studio, displayDate), score=score, lang=lang))
+                else:
+                    if score == 80:
+                        count += 1
+                        temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                    else:
+                        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+
+        if numSearchPages > 1 and not idx + 1 == numSearchPages:
+            searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
+            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+            searchPageElements = HTML.ElementFromString(req.text)
+            
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for movieURL in googleResults:
         movieURL = movieURL.replace('http:', 'https:')
@@ -147,7 +160,7 @@ def search(results, lang, siteNum, searchData):
         else:
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
-        #Split Scenes
+        # Split Scenes
         sceneCount = detailsPageElements.xpath('//text()[contains(., "Scenes:")]')[0].split(':')[-1].strip()
 
         if sceneCount.isdigit():
@@ -249,7 +262,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.directors.clear()
     director = metadata.directors.new()
     try:
-        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[2].strip()
+        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[-1].split('-')[0].strip()
         if not directorName == 'Unknown':
             director.name = directorName
     except:
