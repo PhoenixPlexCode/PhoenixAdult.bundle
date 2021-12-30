@@ -37,6 +37,18 @@ def search(results, lang, siteNum, searchData):
             if ('/movies/' in movieURL and movieURL not in searchResults):
                 urlID = re.sub(r'.*/', '', movieURL).split('-')[0]
 
+                # Studio
+                try:
+                    studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
+                except:
+                    try:
+                        studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::b')[0].text_content().strip()
+                    except:
+                        try:
+                            studio = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
+                        except:
+                            studio = ''
+
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
                 curID = PAutils.Encode(movieURL)
                 siteResults.append(movieURL)
@@ -83,7 +95,7 @@ def search(results, lang, siteNum, searchData):
                         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
                     # Split Scenes
-                    sceneCount = detailsPageElements.xpath('//text()[contains(., "Scenes:")]')[0].split(':')[-1].strip()
+                    sceneCount = detailsPageElements.xpath('//div[@id="relatedscenes"]//span')[0].text_content().split(' ')[0].strip()
                     if sceneCount.isdigit():
                         sceneCount = int(sceneCount)
                     else:
@@ -101,9 +113,9 @@ def search(results, lang, siteNum, searchData):
                 else:
                     if score == 80:
                         count += 1
-                        temp.append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
                     else:
-                        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%d' % (scene, siteNum, releaseDate, titleNoFormatting, sceneNum), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio,  displayDate), score=score, lang=lang))
 
         if numSearchPages > 1 and not idx + 1 == numSearchPages:
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
@@ -161,7 +173,7 @@ def search(results, lang, siteNum, searchData):
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
         # Split Scenes
-        sceneCount = detailsPageElements.xpath('//text()[contains(., "Scenes:")]')[0].split(':')[-1].strip()
+        sceneCount = detailsPageElements.xpath('//div[@id="relatedscenes"]//span')[0].text_content().split(' ')[0].strip()
 
         if sceneCount.isdigit():
             sceneCount = int(sceneCount)
