@@ -18,6 +18,47 @@ def search(results, lang, siteNum, searchData):
             sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
+    searchData.encoded = searchData.title.replace(',', '').replace('& ', '')
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+    searchPageElements = HTML.ElementFromString(req.text)
+
+    for searchResult in searchPageElements.xpath('//a'):
+        sceneURL = searchResult.xpath('./@href')[0]
+
+        if ('/scenes/' in sceneURL and sceneURL not in searchResults):
+            urlID = re.sub(r'.*/', '', sceneURL)
+
+            siteDisplay = searchResult.xpath('.//i')[0].text_content().strip()
+
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
+            curID = PAutils.Encode(sceneURL)
+            siteResults.append(sceneURL)
+
+            try:
+                date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
+            except:
+                date = ''
+
+            if date and not date == 'unknown':
+                releaseDate = datetime.strptime(date, "%B %d, %Y").strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
+            displayDate = releaseDate if date else ''
+
+            if sceneID == urlID:
+                score = 100
+            elif searchData.date and displayDate:
+                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            if score == 80:
+                count += 1
+                temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+            else:
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('/content/', '/scenes/').replace('http:', 'https:')
