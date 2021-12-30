@@ -72,6 +72,7 @@ ActorsReplace = {
     'Jessica Foxx': ['Jessica Blue', 'Jessica Cute'],
     'Jmac': ['J Mac', 'JMac'],
     'Jojo Kiss': ['Jo Jo Kiss'],
+    'Jordi El Nino Polla': ['Jordi Enp'],
     'Josephine Jackson': ['Josephina Jackson'],
     'Kagney Linn Karter': ['Kagney Lynn Karter'],
     'Kari Sweets': ['Kari Sweet'],
