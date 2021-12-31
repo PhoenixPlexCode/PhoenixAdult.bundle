@@ -302,17 +302,26 @@ def parseTitle(s, siteNum):
         final.append(parseWord(word, siteNum))
 
     output = ' '.join(final)
-    output = re.sub(r'\b(?:\.)$', '', output)
+
+    # Add space after a punctuation if missing
     output = re.sub(r'(!|:|\?|\.|,)(?=\w)', lambda m: m.group(0) + ' ', output)
+    # Remove single period at end of title
+    output = re.sub(r'\b(?:(?<=\S.)\.)$', '', output)
+    # Remove space between word and punctuation
     output = re.sub(r'\s+(?=[.,!\":])', '', output)
+    # Override lowercase if word follows a punctuation
     output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    # Override lowercase if word follows a parenthesis
+    output = re.sub(r'(?<=\()(\w)(\W)', lambda m: m.group(1).upper() + m.group(2), output)
+    # Override lowercase if last word
+    output = re.sub(r'\b([a-z]+)$', lambda m: m.group(0).capitalize(), output)
 
     return output
 
 
 def parseWord(word, siteNum):
     lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
-    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf']
+    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
     letter_exceptions = ['A', 'V', 'Y']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 

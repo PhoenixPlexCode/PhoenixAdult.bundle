@@ -18,6 +18,62 @@ def search(results, lang, siteNum, searchData):
             sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
+    searchData.encoded = searchData.title.replace(',', '').replace('& ', '')
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+    searchPageElements = HTML.ElementFromString(req.text)
+
+    searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
+    if searchPages:
+        numSearchPages = int(searchPages.group(0))
+    else:
+        numSearchPages = 1
+
+    for idx in range(0, numSearchPages):
+        for searchResult in searchPageElements.xpath('//a'):
+            sceneURL = searchResult.xpath('./@href')[0]
+
+            if ('/scenes/' in sceneURL and sceneURL not in searchResults):
+                urlID = re.sub(r'.*/', '', sceneURL)
+
+                try:
+                    siteDisplay = searchResult.xpath('.//i')[0].text_content().strip()
+                except:
+                    siteDisplay = ''
+
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
+                curID = PAutils.Encode(sceneURL)
+                siteResults.append(sceneURL)
+
+                try:
+                    date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
+                except:
+                    date = ''
+
+                if date and not date == 'unknown':
+                    releaseDate = datetime.strptime(date, "%B %d, %Y").strftime('%Y-%m-%d')
+                else:
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
+                displayDate = releaseDate if date else ''
+
+                if sceneID == urlID:
+                    score = 100
+                elif searchData.date and displayDate:
+                    score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                if score == 80:
+                    count += 1
+                    temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+                else:
+                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+
+        if numSearchPages > 1 and not idx + 1 == numSearchPages:
+            searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
+            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+            searchPageElements = HTML.ElementFromString(req.text)
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('/content/', '/scenes/').replace('http:', 'https:')
@@ -144,11 +200,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "/pornstars/")]//img')
-    if actors:
-        for actorLink in actors:
-            actorName = actorLink.xpath('./@alt')[0].strip()
-            actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
+    for actorLink in actors:
+        actorName = actorLink.xpath('./@alt')[0].strip()
+        actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
 
+        if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
@@ -171,7 +227,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
             for xpath in xpaths:
                 for img in photoPageElements.xpath(xpath):
-                    art.append(img.replace('/th8', ''))
+                    art.append(img.replace('/th8', '').replace('-th8', ''))
     except:
         pass
 
