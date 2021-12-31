@@ -24,6 +24,7 @@ ActorsReplace = {
     'April O\'Neil': ['April O\'neil', 'April ONeil', 'April Oneil'],
     'Ashlee Graham': ['Ashley Graham'],
     'Ashly Anderson': ['Ashley Anderson'],
+    'Austyn Summers': ['Austyn Summer'],
     'Billie Star': ['Billy Star', 'Katia', 'Petra'],
     'Black Angelika': ['Angelika Black', 'Black Angelica'],
     'Bridgette B': ['Bridgette B.'],
@@ -55,6 +56,7 @@ ActorsReplace = {
     'Foxy Di': ['Foxi Di'],
     'Francesca DiCaprio': ['Francesca Di Caprio', 'Francesca Dicaprio'],
     'Gabriella Paltrova': ['Gabi Paltrova'],
+    'Gia Milana': ['Shay Evans'],
     'Gina Gerson': ['Doris Ivy', 'Gena Gerson'],
     'Goldie Glock': ['Goldie'],
     'Gulliana Alexis': ['Guiliana Alexis'],
@@ -100,6 +102,7 @@ ActorsReplace = {
     'Lina Arian Joy': ['Arian Joy', 'Lina Arian', 'Lina Joy'],
     'Linda Brugal': ['Milana Witch'],
     'Little Caprice': ['Caprice', 'Caprice A', 'Caprice S', 'Lil Caprice', 'Lola Karups', 'Marketa'],
+    'Little Dragon': ['Your Little Dragon'],
     'Lola Taylor': ['Lolita Taylor'],
     'Lola Shine': ['Aon Flux', 'Lolla Shine'],
     'Lora Craft': ['Lara Craft'],
@@ -161,6 +164,7 @@ ActorsReplace = {
     'Stella Flex': ['Marselina Fiore', 'Marseling Fiote', 'Stella Shine'],
     'Stephanie Renee': ['Sedona', 'Stefanie Renee'],
     'Steven St. Croix': ['Steven St.Croix'],
+    'Sultana': ['Franzisca', 'Olivia Sweet', 'Sasha C.', 'Vallery'],
     'Susy Gala': ['Susi Gala'],
     'Sybil A Kailena': ['Sybil', 'Sybil A', 'Sybil Kailena', 'Sybil A.'],
     'Taissia Shanti': ['Taisha', 'Taisia', 'Taisia Shanti', 'Taissia', 'Taissia Shanty'],
@@ -171,7 +175,6 @@ ActorsReplace = {
     'Victoria Tiffani': ['Victoria Tiffany'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
-    'Little Dragon': ['Your Little Dragon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Sky': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
     'Zoe Bloom': ['Zoey Bloom'],
@@ -195,6 +198,7 @@ ActorsReplaceStudios = {
     },
     2: {  # Bang Bros
         'Abella Anderson': ['Amy'],
+        'Briella Bounce': ['Roxi'],
         'Noemie Bilas': ['Noemi Bilas'],
         'Rahyndee James': ['Rahyndee'],
         'Sofia Nix': ['Sofia'],
@@ -5104,6 +5108,7 @@ ActorsReplaceStudios = {
     47: {  # Perfect Gonzo, Sapphic Erotica
         'Lilu Moon': ['Lilu'],
         'Lola Shine': ['Lolla'],
+        'Melanie Taylor': ['Melanie'],
     },
     48: {  # Reality Lovers
         'Samantha Jolie': ['Holly'],
@@ -5291,6 +5296,9 @@ ActorsReplaceStudios = {
         'Yasmeena Ali': ['Yasmeena'],
         'Zarina Masood': ['Zarina'],
     },
+    53: {  # FakeHub
+        'Sharon Saint': ['Steffany'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5347,4 +5355,5 @@ ActorsStudioIndexes = {
     50: ['Naughty America'],
     51: ['Teen Core Club'],
     52: ['Abby Winters'],
+    53: ['FakeHub'],
 }
