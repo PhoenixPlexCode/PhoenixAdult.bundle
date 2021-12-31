@@ -279,6 +279,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Posters
     art = []
+    photos = []
     xpaths = [
         '//a[@id="enlargecover"]//@href',
         '//img[@id="backcoverzone"]//@src',
@@ -303,7 +304,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
             for xpath in xpaths:
                 for img in photoPageElements.xpath(xpath):
-                    art.append(img.replace('/th8', '').replace('-th8', ''))
+                    photos.append(img.replace('/th8', '').replace('-th8', ''))
+        
+        for x in range(10):
+            art.append(photos[random.randint(1, len(photos))])
     except:
         pass
 
