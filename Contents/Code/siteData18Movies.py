@@ -39,15 +39,9 @@ def search(results, lang, siteNum, searchData):
 
                 # Studio
                 try:
-                    studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
+                    studio = searchResult.xpath('.//i')[0].text_content().strip()
                 except:
-                    try:
-                        studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::b')[0].text_content().strip()
-                    except:
-                        try:
-                            studio = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
-                        except:
-                            studio = ''
+                    studio = ''
 
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
                 curID = PAutils.Encode(movieURL)

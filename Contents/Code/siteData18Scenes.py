@@ -29,7 +29,10 @@ def search(results, lang, siteNum, searchData):
         if ('/scenes/' in sceneURL and sceneURL not in searchResults):
             urlID = re.sub(r'.*/', '', sceneURL)
 
-            siteDisplay = searchResult.xpath('.//i')[0].text_content().strip()
+            try:
+                siteDisplay = searchResult.xpath('.//i')[0].text_content().strip()
+            except:
+                siteDisplay = ''
 
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
             curID = PAutils.Encode(sceneURL)
