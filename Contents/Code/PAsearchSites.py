@@ -71,7 +71,7 @@ def getSearchSettings(mediaTitle):
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
-        title = mediaTitle.lower().replace('\'', '')
+        title = mediaTitle.lower()
         site = getSearchSiteName(siteNum).lower()
 
         # \u0410-\u042F == А-Я, \u0430-\u044F == а-я
