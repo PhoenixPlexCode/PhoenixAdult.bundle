@@ -20,7 +20,6 @@ def search(results, lang, siteNum, searchData):
 
     searchData.encoded = searchData.title.replace('\'', '').replace(',', '').replace('& ', '').replace('#', '')
     searchURL = '%s%s&key2=%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded)
-    Log(searchURL)
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
