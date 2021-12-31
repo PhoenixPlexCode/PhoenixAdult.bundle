@@ -90,7 +90,7 @@ ActorsReplace = {
     'La Sirena 69': ['La Sirena69', 'LaSirena69', 'Antonella', 'Antonella La Sirena', 'Antonella LaSirena', 'Sirena69', 'Lasirena 69', 'LaSirena 69'],
     'Lacey Channing': ['Lacie Channing', 'Lacy Channing', 'Jade Symz', 'Jayde Symz'],
     'Lana Rhoades': ['Lana Rhodes'],
-    'Leana Lovings': ['Leanna Lovings']
+    'Leana Lovings': ['Leanna Lovings'],
     'Lexi Anne Garza': ['Lexi Aaane', 'Lexi Anne'],
     'Lilly Ford': ['Lilly Lit'],
     'Lilu Moon': ['Lilu'],
