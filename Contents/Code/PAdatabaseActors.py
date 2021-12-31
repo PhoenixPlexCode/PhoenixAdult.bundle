@@ -88,6 +88,7 @@ ActorsReplace = {
     'Kris The Foxx': ['Kris De Foxx', 'Kriss The Fox', 'Kriss The Foxx', 'Kriss Foxx', 'Kristi Fox'],
     'Krystal Boyd': ['Abby H', 'Anjelica', 'Ebbi', 'Katherine A'],
     'Kurea Hasumi': ['Hasumi Kurea'],
+    'Kylie Le Beau': ['Kylie Lebeau'],
     'La Sirena 69': ['La Sirena69', 'LaSirena69', 'Antonella', 'Antonella La Sirena', 'Antonella LaSirena', 'Sirena69', 'Lasirena 69', 'LaSirena 69'],
     'Lacey Channing': ['Lacie Channing', 'Lacy Channing', 'Jade Symz', 'Jayde Symz'],
     'Lana Rhoades': ['Lana Rhodes'],
@@ -172,7 +173,7 @@ ActorsReplace = {
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
     'Little Dragon': ['Your Little Dragon'],
     'Yu Shinoda': ['Shinoda Yuu'],
-    'Zazie Sky': ['Zazie Skymm'],
+    'Zazie Sky': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
     'Zoe Bloom': ['Zoey Bloom'],
 }
 
