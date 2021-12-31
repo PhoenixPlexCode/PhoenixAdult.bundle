@@ -37,7 +37,6 @@ def search(results, lang, siteNum, searchData):
             if ('/movies/' in movieURL and movieURL not in searchResults):
                 urlID = re.sub(r'.*/', '', movieURL).split('-')[0]
 
-                # Studio
                 try:
                     studio = searchResult.xpath('.//i')[0].text_content().strip()
                 except:
@@ -238,14 +237,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         pass
 
     # Release Date
-    if sceneDate:
-        date_object = parse(sceneDate)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-    else:
+    try:
         date_object = parse(detailsPageElements.xpath('//@datetime')[0].strip())
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
+    except:
+        if sceneDate:
+            date_object = parse(sceneDate)
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year
+        else:
+            pass
 
     # Genres
     movieGenres.clearGenres()
