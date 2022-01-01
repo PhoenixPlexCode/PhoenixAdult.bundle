@@ -133,6 +133,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Mia Khalifa
   - XXXPawn
 + #### Bang! | ✓ - **Title only**
++ #### Bang! Movies | ✓ - **Title only**
 + #### BBC Paradise | ✅
 + #### BellaPass | ✓ - **Title only**
   - AleahJasmine
