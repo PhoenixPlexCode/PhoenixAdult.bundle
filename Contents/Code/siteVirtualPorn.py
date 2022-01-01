@@ -1,12 +1,14 @@
 import PAsearchSites
 import PAutils
-import re
+
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
+    urlRegEx = re.compile(r'/video[0-9]+/')
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if re.search(r'/video[0-9]*/', sceneURL):
+        if urlRegEx.search(sceneURL):
             searchResults.append(sceneURL)
 
     searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
@@ -21,8 +23,8 @@ def search(results, lang, siteNum, searchData):
             releaseDate = ''
             date = detailsPageElements.xpath('//p[contains(text(), "Released:")]')
             if date:
-                dateStr = parse(date[0].text_content().split(":")[1].strip())
-                releaseDate = dateStr.strftime('%Y-%m-%d')
+                date_object = parse(date[0].text_content().split(':')[1].strip())
+                releaseDate = date_object.strftime('%Y-%m-%d')
 
             if searchData.date and releaseDate:
                 score = 100 - Util.LevenshteinDistance(searchData.dateFormat(), releaseDate)
@@ -59,10 +61,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
+    movieGeinres.clearGenres()
     genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0]
-    for genre in genres.split(','):
-        genreName = genre.strip()
+    for genreLink in genres.split(','):
+        genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
@@ -81,7 +83,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     art = []
     xpaths = [
         '//dl8-video/@poster',
-        '//img[@class="player__thumbs__img"]/@src'
+        '//img[@class="player__thumbs__img"]/@src',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):

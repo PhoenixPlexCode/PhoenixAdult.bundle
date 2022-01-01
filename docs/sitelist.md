@@ -1246,6 +1246,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Wank It Now
 + #### Ultrafilms | ✓
 + #### VIPissy | ✓
++ #### VirtualPorn | ✅
 + #### VirtualRealPorn | ❌ - **Direct URL**
 + #### VirtualTaboo | ✓ - **Title only**
 + #### Vivid Network | ✅ - **Title only for DVDs**

@@ -1549,6 +1549,7 @@ searchSites = {
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
     1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
     1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
+}
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
