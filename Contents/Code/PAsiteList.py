@@ -179,7 +179,6 @@ import siteHotwifeXXX
 import siteXSinsVR
 import sitePOVR
 import siteSwallowBay
-import networkBangMovies
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -2401,7 +2400,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkR18
 
         # Bang
-        elif siteNum == 813:
+        elif siteNum == 813 or siteNum == 1365:
             provider = networkBang
 
         # Vivid
@@ -2850,9 +2849,5 @@ def getProviderFromSiteNum(siteNum):
         # Swallow Bay
         elif siteNum == 1361:
             provider = siteSwallowBay
-
-        # Bang Movies
-        elif siteNum == 1365:
-            provider = networkBangMovies
 
     return provider
