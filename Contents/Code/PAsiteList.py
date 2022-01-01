@@ -1547,8 +1547,8 @@ searchSites = {
     1362: ('SisSwap', 'https://www.sisswap.com', '/movies'),
     1363: ('IMadePorn', 'https://www.teamskeet.com', '/movies'),
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
-    1365: ('VirtualPorn', 'https://virtualporn.com', '/'),
-}
+    1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
+    1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
 
 abbreviations = (
     ('^18og ', '18OnlyGirls '),
@@ -2401,7 +2401,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkR18
 
         # Bang
-        elif siteNum == 813:
+        elif siteNum == 813 or siteNum == 1365:
             provider = networkBang
 
         # Vivid
@@ -2852,7 +2852,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteSwallowBay
 
         # Virtual Porn
-        elif siteNum == 1365:
+        elif siteNum == 1366:
             provider = siteVirtualPorn
 
     return provider
