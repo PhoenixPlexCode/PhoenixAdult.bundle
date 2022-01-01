@@ -179,6 +179,7 @@ import siteHotwifeXXX
 import siteXSinsVR
 import sitePOVR
 import siteSwallowBay
+import siteVirtualPorn
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1547,6 +1548,7 @@ searchSites = {
     1363: ('IMadePorn', 'https://www.teamskeet.com', '/movies'),
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
     1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
+    1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
 }
 
 abbreviations = (
@@ -2849,5 +2851,9 @@ def getProviderFromSiteNum(siteNum):
         # Swallow Bay
         elif siteNum == 1361:
             provider = siteSwallowBay
+
+        # Virtual Porn
+        elif siteNum == 1366:
+            provider = siteVirtualPorn
 
     return provider
