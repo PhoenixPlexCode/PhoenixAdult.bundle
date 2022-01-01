@@ -1546,6 +1546,7 @@ searchSites = {
     1362: ('SisSwap', 'https://www.sisswap.com', '/movies'),
     1363: ('IMadePorn', 'https://www.teamskeet.com', '/movies'),
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
+    1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
 }
 
 abbreviations = (
@@ -2399,7 +2400,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkR18
 
         # Bang
-        elif siteNum == 813:
+        elif siteNum == 813 or siteNum == 1365:
             provider = networkBang
 
         # Vivid

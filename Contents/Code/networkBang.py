@@ -7,7 +7,7 @@ def getDataFromAPI(url, req_type, query):
         'Authorization': 'Basic YmFuZy1yZWFkOktqVDN0RzJacmQ1TFNRazI=',
         'Content-Type': 'application/json'
     }
-    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}, {'match': {'type': 'movie'}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
+    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
     data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
 
     return data
@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters
-    dvdID = detailsPageElements['dvd']['id']
+    dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
     art = [
         'https://i.bang.com/covers/%d/front.jpg' % dvdID
     ]
