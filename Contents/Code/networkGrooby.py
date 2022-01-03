@@ -61,17 +61,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    dateNode = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]//p[contains(., "Added")] | //div[@class="setdesc"]/*[contains(., "Added")]//following-sibling::text()')
+    dateNode = detailsPageElements.xpath('//div[@class="setdesc"]/*[contains(., "Added")]//following-sibling::text()')
     if dateNode:
-        if hasattr(dateNode[0], 'text_content'):
-            date = dateNode[0].text_content().split('-', 1)[-1].strip()
-        else:
-            date = dateNode[0].split('-', 1)[-1].strip()
+        date = dateNode[0].split('-', 1)[-1].strip()
 
-        date_object = parse(date)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-    # There is probably a better way to set the release date out, but this works in my testing
+        if date:
+            date_object = parse(date)
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year
 
     # Actors
     movieActors.clearActors()
