@@ -304,9 +304,9 @@ def parseTitle(s, siteNum):
     output = ' '.join(final)
 
     # Add space after a punctuation if missing
-    output = re.sub(r'(!|:|\?|\.|,)(?=\w)', lambda m: m.group(0) + ' ', output)
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w\w\w\w)(?!com)', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
-    output = re.sub(r'\b(?:(?<=\S.)\.)$', '', output)
+    output = re.sub(r'\b(?:(?<=\S.)(?<=\w\w)(?:\.))$', '', output)
     # Remove space between word and punctuation
     output = re.sub(r'\s+(?=[.,!\":])', '', output)
     # Override lowercase if word follows a punctuation
@@ -314,7 +314,7 @@ def parseTitle(s, siteNum):
     # Override lowercase if word follows a parenthesis
     output = re.sub(r'(?<=\()(\w)(\W)', lambda m: m.group(1).upper() + m.group(2), output)
     # Override lowercase if last word
-    output = re.sub(r'\b([a-z]+)$', lambda m: m.group(0).capitalize(), output)
+    output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
 
     return output
 
@@ -323,49 +323,17 @@ def parseWord(word, siteNum):
     lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
     upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
     letter_exceptions = ['A', 'V', 'Y']
+    symbolsClean = ['-', '/', '.', '+', '\'']
+    symbolsEsc = ['-', '/', '\.', '\+', '\'']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     pattern = re.compile(r'\W')
     cleanWord = re.sub(pattern, '', word)
 
-    if '-' in word and '--' not in word:
-        word_list = re.split('-', word)
-
-        firstword = parseWord(word_list[0], siteNum)
-        if len(firstword) > 1:
-            firstword = firstword[0].capitalize() + firstword[1:]
-        else:
-            firstword = firstword.capitalize()
-        nhword = firstword + '-'
-
-        for hword in word_list[1:]:
-            if len(hword) > 1:
-                nhword += parseWord(hword, siteNum)
-            else:
-                nhword += hword.upper()
-
-            if hword != word_list[-1]:
-                nhword += '-'
-        word = nhword
-    elif '\'' in word:
-        word_list = re.split('\'', word)
-
-        firstword = parseWord(word_list[0], siteNum)
-        if len(firstword) > 1:
-            firstword = firstword[0].capitalize() + firstword[1:]
-        else:
-            firstword = firstword.upper()
-        nhword = firstword + '\''
-
-        for hword in word_list[1:]:
-            if len(re.sub(pattern, '', hword)) > 2:
-                nhword += parseWord(hword, siteNum)
-            else:
-                nhword += hword
-
-            if hword != word_list[-1]:
-                nhword += '\''
-        word = nhword
+    if any(symbol in word for symbol in symbolsClean):
+        for idx, symbol in enumerate(symbolsClean, 0):
+            if symbol in word:
+                word = parseTitleSymbol(word, siteNum, symbolsEsc[idx])
     elif cleanWord.lower() in upper_exceptions:
         word = word.upper()
     elif cleanWord.isupper() and cleanWord not in letter_exceptions:
@@ -380,6 +348,41 @@ def parseWord(word, siteNum):
     word = manualWordFix(word)
 
     return word
+
+
+def any(s):
+    for v in s:
+        if v:
+            return True
+    return False
+
+
+def parseTitleSymbol(word, siteNum, symbol):
+    pattern = re.compile(r'\W')
+    word_list = re.split(symbol, word)
+    symbols = ['-', '/', '\.', '\+']
+
+    firstword = parseWord(word_list[0], siteNum)
+    if len(firstword) > 1:
+        firstword = firstword[0].capitalize() + firstword[1:]
+    else:
+        firstword = firstword.upper()
+    nhword = firstword + symbol.replace('\\', '')
+
+    for idx, hword in enumerate(word_list[1:], 1):
+        if symbol in symbols:
+            if len(hword) > 1:
+                nhword += parseWord(hword, siteNum)
+            else:
+                nhword += hword.capitalize()
+        elif len(re.sub(pattern, '', hword)) > 2:
+            nhword += parseWord(hword, siteNum)
+        else:
+            nhword += hword
+
+        if idx != len(word_list) - 1:
+            nhword += symbol.replace('\\', '')
+    return nhword
 
 
 def manualWordFix(word):
