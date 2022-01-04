@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
             searchResults.append(movieURL)
             directID = True
 
-    searchData.encoded = searchData.title.replace(' ', '+')
+    searchData.encoded = searchData.title.strip().replace(' ', '+')
     searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'http://www.data18.empirestores.co'})
     searchPageElements = HTML.ElementFromString(req.text)
@@ -28,10 +28,21 @@ def search(results, lang, siteNum, searchData):
         for searchResult in searchPageElements.xpath('//a[@class="boxcover"]'):
             movieURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./@href')[0])
             urlID = searchResult.xpath('./@href')[0].split('/')[1]
-            if movieURL not in searchResults:
+            if 'movies' in movieURL and movieURL not in searchResults:
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./span/span/text()')[0].strip(), siteNum)
+
+                if ', the' in titleNoFormatting.lower():
+                    title = re.split(", the", titleNoFormatting, flags=re.IGNORECASE)
+                    titleNoFormatting = 'The ' + title[0] + title[1]
+                elif ', a' in titleNoFormatting.lower():
+                    title = re.split(", a", titleNoFormatting, flags=re.IGNORECASE)
+                    titleNoFormatting = 'A ' + title[0] + title[1]
+
                 curID = PAutils.Encode(movieURL)
                 siteResults.append(movieURL)
+
+                releaseDate = ''
+                displayDate = ''
 
                 if sceneID == urlID:
                     score = 100
@@ -101,6 +112,14 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', movieURL)
         titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip(), siteNum)
+
+        if ', the' in titleNoFormatting.lower():
+            title = re.split(", the", titleNoFormatting, flags=re.IGNORECASE)
+            titleNoFormatting = 'The ' + title[0] + title[1]
+        elif ', a' in titleNoFormatting.lower():
+            title = re.split(", a", titleNoFormatting, flags=re.IGNORECASE)
+            titleNoFormatting = 'A ' + title[0] + title[1]
+
         curID = PAutils.Encode(movieURL)
 
         date = detailsPageElements.xpath('//div[@class="release-date" and ./span[contains(., "Released:")]]/text()')[0].strip()
@@ -165,13 +184,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         splitScene = True
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0], siteNum).strip()
+    title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0], siteNum).strip()
+    if ', the' in title.lower():
+        titleFormat = re.split(", the", title, flags=re.IGNORECASE)
+        title = 'The ' + titleFormat[0] + titleFormat[1]
+    elif ', a' in title.lower():
+        titleFormat = re.split(", a", title, flags=re.IGNORECASE)
+        title = 'A ' + titleFormat[0] + titleFormat[1]
+    metadata.title = title
     if splitScene:
         metadata.title = '%s [Scene %s]' % (metadata.title, metadata_id[3])
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="synopsis"]')[0].text_content().strip()
-
+    try:
+        if len(detailsPageElements.xpath('//div[@class="synopsis"]//text()')) > 1:
+            summary = ''.join(detailsPageElements.xpath('//div[@class="synopsis"]//text()'))
+        else:
+            summary = detailsPageElements.xpath('//div[@class="synopsis"]')[0].text_content().strip()
+    except:
+        summary = ''
+    metadata.summary = summary
+    
     # Studio
     try:
         studio = detailsPageElements.xpath('//div[@class="studio"]/a/text()')[0].strip()
@@ -183,16 +216,29 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = ''
     try:
         tagline = detailsPageElements.xpath('//p[contains(text(), "A scene from")]/a/text()')[0].strip()
-        metadata.collections.add(tagline)
+        if ', the' in tagline.lower():
+            tagFormat = re.split(", the", tagline, flags=re.IGNORECASE)
+            tagline = 'The ' + tagFormat[0] + tagFormat[1]
+        elif ', a' in tagline.lower():
+            tagFormat = re.split(", a", tagline, flags=re.IGNORECASE)
+            tagline = 'A ' + tagFormat[0] + tagFormat[1]
+        metadata.tagline = tagline
     except:
         try:
             tagline = detailsPageElements.xpath('//a[@data-label="Series List"]/h2/text()')[0].strip().replace('Series:', '').replace('(%s)' % studio, '').strip()
-            metadata.collections.add(tagline)
+            if ', the' in tagline.lower():
+                tagFormat = re.split(", the", tagline, flags=re.IGNORECASE)
+                tagline = 'The ' + tagFormat[0] + tagFormat[1]
+            elif ', a' in tagline.lower():
+                tagFormat = re.split(", a", tagline, flags=re.IGNORECASE)
+                tagline = 'A ' + tagFormat[0] + tagFormat[1]
+            metadata.tagline = tagline
         except:
-            metadata.collections.add(metadata.studio)
+            tagline = metadata.studio
+    
+    metadata.collections.add(tagline)
 
     # Release Date
     if sceneDate:
@@ -216,10 +262,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             actors.append(detailsPageElements.xpath('//div[@class="video-performer"]/a[./img[@title="%s"]]/span/span' % (name))[0])
     else:
         actors = detailsPageElements.xpath('//div[@class="video-performer"]/a/span/span')
+        if not actors:
+            actors = detailsPageElements.xpath('//div[@class="performers"]/a')
 
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
-        actorPhotoURL = detailsPageElements.xpath('//div[@class="video-performer"]/a/img[@title="%s"]/@data-bgsrc' % (actorName))[0].strip()
+        try:
+            actorPhotoURL = detailsPageElements.xpath('//div[@class="video-performer"]/a/img[@title="%s"]/@data-bgsrc' % (actorName))[0].strip()
+        except:
+            actorPhotoURL = ''
+
         if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
 
@@ -235,12 +287,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Posters
     art = []
-    cover = '//div[@id="video-container-details"]/div/section/a/picture/source[1]/@data-srcset'
+    xpaths = [
+        '//div[@id="video-container-details"]/div/section/a/picture/source[1]/@data-srcset',
+        '//div[@id="viewLargeBoxcoverCarousel"]//noscript//@src',
+    ]
+
+    for xpath in xpaths:
+        for img in detailsPageElements.xpath(xpath):
+            art.append(img)
+
     scene = '//div[@class="item-grid item-grid-scene"]/div/a/img/@src'
     gallery = '//div[@id="video-container-details"]/div/section/div[2]/div[2]/a[@data-label="Gallery"]/@href'
     gallery_image = '//div[@class="item-grid item-grid-gallery"]/div[@class="grid-item"]/a/img/@data-src'
     try:
-        art.append(detailsPageElements.xpath(cover)[0])
         gallery = detailsPageElements.xpath(gallery)
         if gallery:
             req = PAutils.HTTPRequest('%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), gallery[0]))
