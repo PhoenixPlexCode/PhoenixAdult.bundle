@@ -306,7 +306,7 @@ def parseTitle(s, siteNum):
     # Add space after a punctuation if missing
     output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
-    output = re.sub(r'\b(?:(?<=\S.)(?<=\w\w)(?:\.))$', '', output)
+    output = re.sub(r'\b(?:(?<=\S.)(?<=\w)(?:\.))$', '', output)
     # Remove space between word and punctuation
     output = re.sub(r'\s+(?=[.,!\":])', '', output)
     # Override lowercase if word follows a punctuation
