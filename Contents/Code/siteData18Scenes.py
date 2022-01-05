@@ -18,8 +18,8 @@ def search(results, lang, siteNum, searchData):
             sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
             searchResults.append(sceneURL)
 
-    searchData.encoded = searchData.title.replace(',', '').replace('& ', '')
-    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    searchData.encoded = searchData.title.replace('\'', '').replace(',', '').replace('& ', '')
+    searchURL = '%s%s&key2=%s&next=1&page=0' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded)
     req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
     searchPageElements = HTML.ElementFromString(req.text)
 
@@ -37,37 +37,41 @@ def search(results, lang, siteNum, searchData):
                 urlID = re.sub(r'.*/', '', sceneURL)
 
                 try:
-                    siteDisplay = searchResult.xpath('.//i')[0].text_content().strip()
+                    siteDisplay = PAutils.parseTitle(searchResult.xpath('.//i')[0].text_content().strip(), siteNum)
                 except:
                     siteDisplay = ''
 
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
                 curID = PAutils.Encode(sceneURL)
-                siteResults.append(sceneURL)
 
-                try:
-                    date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
-                except:
-                    date = ''
-
-                if date and not date == 'unknown':
-                    releaseDate = datetime.strptime(date, "%B %d, %Y").strftime('%Y-%m-%d')
+                if '...' in titleNoFormatting:
+                    searchResults.append(sceneURL)
                 else:
-                    releaseDate = searchData.dateFormat() if searchData.date else ''
-                displayDate = releaseDate if date else ''
+                    siteResults.append(sceneURL)
 
-                if sceneID == urlID:
-                    score = 100
-                elif searchData.date and displayDate:
-                    score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
-                else:
-                    score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                    try:
+                        date = searchResult.xpath('.//span[@class="gen11"]/text()')[0].strip()
+                    except:
+                        date = ''
 
-                if score == 80:
-                    count += 1
-                    temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
-                else:
-                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+                    if date and not date == 'unknown':
+                        releaseDate = datetime.strptime(date, "%B %d, %Y").strftime('%Y-%m-%d')
+                    else:
+                        releaseDate = searchData.dateFormat() if searchData.date else ''
+                    displayDate = releaseDate if date else ''
+
+                    if sceneID == urlID:
+                        score = 100
+                    elif searchData.date and displayDate:
+                        score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                    else:
+                        score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                    if score == 80:
+                        count += 1
+                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
+                    else:
+                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, displayDate), score=score, lang=lang))
 
         if numSearchPages > 1 and not idx + 1 == numSearchPages:
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
@@ -151,9 +155,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="gen12"]/div[contains(., "Story")]')[0].text_content().split('Story -')[-1].strip()
+        summary = detailsPageElements.xpath('//div[@class="gen12"]/div[contains(., "Story")]')[0].text_content().split('Story -')[-1].strip()
     except:
-        pass
+        try:
+            summary = detailsPageElements.xpath('//div[@class="gen12"]/div[contains(., "Description")]')[0].text_content().rsplit('---')[-1].strip()
+        except:
+            summary = ''
+
+    metadata.summary = summary
 
     # Studio
     try:
