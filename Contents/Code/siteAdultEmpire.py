@@ -6,7 +6,7 @@ def getReleaseDateAndDisplayDate(detailsPageElements, searchData=None):
     releaseDate = ''
 
     try:
-        date = detailsPageElements.xpath('//ul[@class="list-unstyled m-b-2"]/li[contains(., "Released:")]/text()')[0].strip()
+        date = detailsPageElements.xpath('//li[contains(., "Released:")]/text()')[0].strip()
     except:
         date = ''
 
