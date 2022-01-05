@@ -237,7 +237,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             metadata.tagline = tagline
         except:
             tagline = metadata.studio
-    
+
     metadata.collections.add(tagline)
 
     # Release Date
