@@ -24,7 +24,7 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
         data = data.json()
         if is_new:
             if '_source' in data['hits']['hits'][0]:
-                return data['hits']['hits']
+                return data['hits']['hits'][0]['_source']
         else:
             return data
 
@@ -55,18 +55,16 @@ def search(results, lang, siteNum, searchData):
             if searchPageElements:
                 break
 
-        for searchResult in searchPageElements:
-            searchResult = searchResult['_source']
-
-            curID = searchResult['id']
-            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
-            siteName = searchResult['site']['name'] if 'site' in searchResult else PAsearchSites.getSearchSiteName(siteNum)
-            if 'publishedDate' in searchResult:
-                releaseDate = parse(searchResult['publishedDate']).strftime('%Y-%m-%d')
+        if searchPageElements:
+            curID = searchPageElements['id']
+            titleNoFormatting = PAutils.parseTitle(searchPageElements['title'], siteNum)
+            siteName = searchPageElements['site']['name'] if 'site' in searchPageElements else PAsearchSites.getSearchSiteName(siteNum)
+            if 'publishedDate' in searchPageElements:
+                releaseDate = parse(searchPageElements['publishedDate']).strftime('%Y-%m-%d')
             else:
                 releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            displayDate = releaseDate if 'publishedDate' in searchResult else ''
+            displayDate = releaseDate if 'publishedDate' in searchPageElements else ''
 
             if searchData.date and displayDate:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
