@@ -1061,7 +1061,7 @@ searchSites = {
     876: ('Bellesa House', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     877: ('Reality Lovers', 'https://realitylovers.com', '/videos/search'),
     878: ('Adult Time', 'https://freetour.adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    879: ('RealJamVR', 'https://www.realjamvr.com', '/virtualreality/scene/id/'),
+    879: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
     880: ('BBC Paradise', 'https://www.bbcparadise.com', '/movies/'),
     881: ('Mylf X CamSoda', 'https://www.mylf.com', '/movies/'),
     882: ('Mylf X Fucking Awesome', 'https://www.mylf.com', '/movies/'),
@@ -1086,8 +1086,8 @@ searchSites = {
     901: ('Xillimite', 'https://www.xillimite.com', '/en/search?type=4&keyword='),
     902: ('VRPFilms', 'https://vrpfilms.com', '/m/'),
     903: ('VR Latina', 'https://vrlatina.com', '/video/'),
-    904: ('VRConk', 'https://www.vrconk.com', '/virtualreality/scene/id/'),
-    905: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
+    904: ('VRConk', 'https://www.vrconk.com', '/api/content/v1/search/'),
+    905: (),
     906: ('Evolved Fights', 'https://www.evolvedfights.com', '/updates/'),
     907: ('Evolved Fights Lesbian Edition', 'https://www.evolvedfightslez.com', '/updates/'),
     908: ('SapphiX', 'https://sapphix.com', '/movies?q='),
@@ -2536,10 +2536,6 @@ def getProviderFromSiteNum(siteNum):
         # VRConk
         elif siteNum == 904:
             provider = siteVRConk
-
-        # RealJamVR
-        elif siteNum == 905:
-            provider = networkHighTechVR
 
         # Evolved Fights Network
         elif siteNum == 906 or siteNum == 907:
