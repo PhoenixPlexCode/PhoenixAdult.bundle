@@ -13,7 +13,7 @@ def getDBURL(url):
 def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     is_new = True
     if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteNum):
-        url = '%s-%s/_doc/%s' % (dbURL, sceneType, sceneName)
+        url = '%s-%s/_search?q=%s' % (dbURL, sceneType, sceneName)
     else:
         is_new = False
         sceneType = sceneType.replace('content', 'Content')
@@ -23,8 +23,8 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     if data.text != 'null':
         data = data.json()
         if is_new:
-            if '_source' in data:
-                return data['_source']
+            if '_source' in data['hits']['hits'][0]:
+                return data['hits']['hits']
         else:
             return data
 
@@ -51,20 +51,22 @@ def search(results, lang, siteNum, searchData):
 
     for sceneName in searchResults:
         for sceneType in ['videoscontent', 'moviescontent']:
-            detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
-            if detailsPageElements:
-                break
+            searchPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
+            if searchPageElements:
+                breakg
 
-        if detailsPageElements:
-            curID = detailsPageElements['id']
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
-            siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
-            if 'publishedDate' in detailsPageElements:
-                releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
+        for searchResult in searchPageElements:
+            searchResult = searchResult['_source']
+
+            curID = searchResult['id']
+            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
+            siteName = searchResult['site']['name'] if 'site' in searchResult else PAsearchSites.getSearchSiteName(siteNum)
+            if 'publishedDate' in searchResult:
+                releaseDate = parse(searchResult['publishedDate']).strftime('%Y-%m-%d')
             else:
                 releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
+            displayDate = releaseDate if 'publishedDate' in searchResult else ''
 
             if searchData.date and displayDate:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
