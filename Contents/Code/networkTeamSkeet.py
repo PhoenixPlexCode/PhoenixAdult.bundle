@@ -53,7 +53,7 @@ def search(results, lang, siteNum, searchData):
         for sceneType in ['videoscontent', 'moviescontent']:
             searchPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
             if searchPageElements:
-                breakg
+                break
 
         for searchResult in searchPageElements:
             searchResult = searchResult['_source']
