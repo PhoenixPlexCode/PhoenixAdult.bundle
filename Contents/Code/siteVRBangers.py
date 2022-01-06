@@ -34,7 +34,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Summary
     try:
         raw = detailsPageElements['description']
-        summary = raw.replace('<a href="/', '').replace('">', '').replace('</a>', '')
+        summary = HTML.ElementFromString(raw).xpath('//p')[0].text_content().strip()
         metadata.summary = summary
     except:
         pass
@@ -56,8 +56,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements['tags']:
-        genreName = genreLink['label']
+    for genreLink in detailsPageElements['categories']:
+        genreName = genreLink['name']
         movieGenres.addGenre(genreName)
 
     # Actors
