@@ -6,8 +6,9 @@ def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.replace(' ', '+').replace('--', '+').lower()
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
+    
     for searchResult in searchResults.xpath('//ul[@class="slides"]/li'):
-        titleNoFormatting = searchResult.xpath('.//h5')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h5')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//@href')[0]
         curID = PAutils.Encode(sceneURL)
 
@@ -29,7 +30,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -40,7 +41,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2')[0].text_content()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content(), siteNum)
 
     # Summary
     try:
@@ -96,8 +97,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genre in detailsPageElements.xpath('//h5[contains(@class, "video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
-        movieGenres.addGenre(genre.strip())
+    for genreLink in detailsPageElements.xpath('//h5[contains(@class, "video_categories")]')[0].text_content().replace('Tags:', '').replace('XXX', '').split(','):
+        genreName = genreLink.strip()
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = []

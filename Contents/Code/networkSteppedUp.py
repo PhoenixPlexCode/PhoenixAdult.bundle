@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -66,7 +66,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     if tagline == 'Swallowed':
         movieGenres.addGenre('Blowjob')
         movieGenres.addGenre('Cum Swallow')
-    elif tagline == "TrueAnal" or "AllAnal":
+    elif tagline in ['TrueAnal', 'AllAnal', 'AnalOnly']:
         movieGenres.addGenre('Anal')
         movieGenres.addGenre('Gaping')
     elif tagline == 'Nympho':
@@ -83,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]/img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
     movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')

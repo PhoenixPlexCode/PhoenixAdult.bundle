@@ -3,10 +3,14 @@ import PAutils
 
 
 def getToken(url):
+    if '//api.' in url:
+        url = url.replace('//api.', '//', 1)
+
     req = PAutils.HTTPRequest(url)
 
     if req:
         return re.search(r'\.access_token=\"(.*?)\"', req.text).group(1)
+
     return None
 
 
@@ -27,6 +31,7 @@ def getDatafromAPI(baseURL, searchData, token, search=True):
         data = req.json()
         if 'data' in data:
             return data['data']
+
     return data
 
 
@@ -46,7 +51,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
@@ -94,7 +99,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Poster
     art = [
-        detailsPageElements['poster_picture'].split('?', 1)[0]
+        detailsPageElements['poster_picture'].split('?', 1)[0],
     ]
 
     for photoLink in detailsPageElements['album']:

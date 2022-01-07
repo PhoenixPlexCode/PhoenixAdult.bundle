@@ -6,8 +6,8 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="update_details"]'):
-        curID = PAutils.Encode(searchResult.xpath('./a[last()]/@href')[0])
-        titleNoFormatting = searchResult.xpath('./a[last()]')[0].text_content().strip()
+        curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
+        titleNoFormatting = searchResult.xpath('.//span[@class="showMobile"]/a')[0].text_content().strip()
         releaseDate = searchResult.xpath('.//div[@class="cell update_date"]')[0].text_content().strip()
         if not releaseDate:
             try:
@@ -29,7 +29,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -140,7 +140,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         photoPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Photos"]')[0].get('href')
         req = PAutils.HTTPRequest(photoPageURL)
         photoPageElements = HTML.ElementFromString(req.text)
-        bigScript = photoPageElements.xpath('//script[contains(text(),"var ptx")]')[0].text_content()
+        bigScript = photoPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
         ptx1600starts = bigScript.find('1600')
         ptx1600ends = bigScript.find('togglestatus', ptx1600starts)
         ptx1600 = bigScript[ptx1600starts:ptx1600ends]
@@ -163,7 +163,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         capsPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Caps"]')[0].get('href')
         req = PAutils.HTTPRequest(capsPageURL)
         capsPageElements = HTML.ElementFromString(req.text)
-        bigScript = capsPageElements.xpath('//script[contains(text(),"var ptx")]')[0].text_content()
+        bigScript = capsPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
         ptxjpgstarts = bigScript.find('ptx["jpg"] = {};')
         ptxjpgends = bigScript.find('togglestatus', ptxjpgstarts)
         ptxjpg = bigScript[ptxjpgstarts:ptxjpgends]

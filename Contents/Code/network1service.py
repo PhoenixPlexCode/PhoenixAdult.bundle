@@ -57,15 +57,19 @@ def search(results, lang, siteNum, searchData):
                     subSite = searchResult['collections'][0]['name']
                 siteDisplay = '%s/%s' % (siteName, subSite) if subSite else siteName
 
+                score = 100
                 if sceneID:
-                    score = 100 - Util.LevenshteinDistance(sceneID, curID)
-                elif searchData.date:
-                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                    score = score - Util.LevenshteinDistance(sceneID, curID)
                 else:
-                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                    if searchData.date:
+                        score = score - 2 * Util.LevenshteinDistance(searchData.date, releaseDate)
+                    score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 if sceneType == 'trailer':
                     titleNoFormatting = '[%s] %s' % (sceneType.capitalize(), titleNoFormatting)
+                    score = score - 10
+
+                if subSite and PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower() != subSite.replace(' ', '').lower():
                     score = score - 10
 
                 results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, sceneType), name='%s [%s] %s' % (titleNoFormatting, siteDisplay, releaseDate), score=score, lang=lang))
@@ -73,7 +77,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     sceneType = metadata_id[2]
@@ -152,7 +156,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actorName = actorData['name']
         actorPhotoURL = ''
         if actorData['images'] and actorData['images']['profile']:
-            actorPhotoURL = actorData['images']['profile'][0]['xs']['url']
+            actorPhotoURL = actorData['images']['profile']['0']['xs']['url']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -161,7 +165,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
     for imageType in ['poster', 'cover']:
         if imageType in detailsPageElements['images']:
             for image in detailsPageElements['images'][imageType]:
-                art.append(image['xx']['url'])
+                if image.isdigit():
+                    art.append(detailsPageElements['images'][imageType][image]['xx']['url'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

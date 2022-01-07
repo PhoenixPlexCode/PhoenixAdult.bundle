@@ -71,7 +71,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     releaseDate = metadata_id[2]
@@ -119,7 +119,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    genres = ["MILF", "Mature"]
+    genres = ['MILF', 'Mature']
 
     if subSite.lower() == 'MylfBoss'.lower():
         for genreName in ['Office', 'Boss']:
@@ -151,8 +151,10 @@ def update(metadata, siteNum, movieGenres, movieActors):
     if (len(actors) > 1) and subSite != 'Mylfed':
         genres.append('Threesome')
 
-    for genre in genres:
-        movieGenres.addGenre(genre)
+    for genreLink in genres:
+        genreName = genreLink
+
+        movieGenres.addGenre(genreName)
 
     # Posters
     art = [

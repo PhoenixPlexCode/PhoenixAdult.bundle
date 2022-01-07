@@ -11,17 +11,53 @@ from requests_response import FakeResponse
 
 import PAsearchSites
 
-
-def getUserAgent():
-    ua = fake_useragent.UserAgent(fallback='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36')
-
-    return ua.random
+UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
 
 
-def bypassCloudflare(url, method, **kwargs):
+def getUserAgent(fixed=False):
+    if fixed:
+        result = UserAgent
+    else:
+        ua = fake_useragent.UserAgent(fallback=UserAgent)
+        result = ua.random
+
+    return result
+
+
+def flareSolverrRequest(url, method, **kwargs):
     headers = kwargs.pop('headers', {})
     cookies = kwargs.pop('cookies', {})
-    proxies = kwargs.pop('proxies', {})
+    params = kwargs.pop('params', {})
+
+    if method not in ['GET', 'POST']:
+        return None
+
+    req_params = {
+        'cmd': 'request.%s' % method.lower(),
+        'url': url,
+        'userAgent': headers['User-Agent'] if 'User-Agent' in headers else getUserAgent(),
+        'maxTimeout': 60000,
+        'headers': json.dumps(headers),
+    }
+
+    if method == 'POST':
+        req_params['postData'] = json.dumps(params)
+
+    req = HTTPRequest('%s/v1' % Prefs['flaresolverr_endpoint'], headers={'Content-Type': 'application/json'}, params=json.dumps(req_params), timeout=60, bypass=False)
+    if req.ok:
+        data = req.json()['solution']
+        headers = data['headers']
+        headers['User-Agent'] = data['userAgent']
+        cookies = {cookie['name']: cookie['value'] for cookie in data['cookies']}
+
+        return FakeResponse(req, url, int(data['headers']['status']), data['response'], headers, cookies)
+
+    return None
+
+
+def cloudScraperRequest(url, method, **kwargs):
+    headers = kwargs.pop('headers', {})
+    cookies = kwargs.pop('cookies', {})
     params = kwargs.pop('params', {})
 
     scraper = cloudscraper.CloudScraper()
@@ -81,6 +117,39 @@ def reqBinRequest(url, method, **kwargs):
     return None
 
 
+def HTTPBypass(url, method='GET', **kwargs):
+    method = method.upper()
+    headers = kwargs.pop('headers', {})
+    cookies = kwargs.pop('cookies', {})
+    params = kwargs.pop('params', {})
+    proxies = kwargs.pop('proxies', {})
+
+    req_bypass = None
+
+    if not req_bypass or not req_bypass.ok:
+        Log('FlareSolverr')
+        try:
+            req_bypass = flareSolverrRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    if not req_bypass or not req_bypass.ok:
+        Log('CloudScraper')
+        try:
+            req_bypass = cloudScraperRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    if not req_bypass or not req_bypass.ok:
+        Log('ReqBin')
+        try:
+            req_bypass = reqBinRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+        except:
+            pass
+
+    return req_bypass
+
+
 def HTTPRequest(url, method='GET', **kwargs):
     url = getClearURL(url)
     method = method.upper()
@@ -88,18 +157,24 @@ def HTTPRequest(url, method='GET', **kwargs):
     cookies = kwargs.pop('cookies', {})
     params = kwargs.pop('params', {})
     bypass = kwargs.pop('bypass', True)
+    timeout = kwargs.pop('timeout', None)
     allow_redirects = kwargs.pop('allow_redirects', True)
+    fixed_useragent = kwargs.pop('fixed_useragent', False)
     proxies = {}
 
     if Prefs['proxy_enable']:
-        proxy = '%s://%s:%s' % (Prefs['proxy_type'], Prefs['proxy_ip'], Prefs['proxy_port'])
+        if Prefs['proxy_authentication_enable']:
+            proxy = '%s://%s:%s@%s:%s' % (Prefs['proxy_type'], Prefs['proxy_user'], Prefs['proxy_password'], Prefs['proxy_ip'], Prefs['proxy_port'])
+        else:
+            proxy = '%s://%s:%s' % (Prefs['proxy_type'], Prefs['proxy_ip'], Prefs['proxy_port'])
+
         proxies = {
             'http': proxy,
             'https': proxy,
         }
 
     if 'User-Agent' not in headers:
-        headers['User-Agent'] = getUserAgent()
+        headers['User-Agent'] = getUserAgent(fixed_useragent)
 
     if params:
         method = 'POST'
@@ -108,22 +183,14 @@ def HTTPRequest(url, method='GET', **kwargs):
 
     req = None
     try:
-        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, verify=False, allow_redirects=allow_redirects)
+        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, timeout=timeout, verify=False, allow_redirects=allow_redirects)
     except:
         req = FakeResponse(None, url, 418, None)
 
     req_bypass = None
     if not req.ok and bypass:
         if req.status_code == 403 or req.status_code == 503:
-            Log('%d: trying to bypass with CloudScraper' % req.status_code)
-            try:
-                req_bypass = bypassCloudflare(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
-                if not req_bypass.ok:
-                    raise Exception(req.status_code)
-            except Exception as e:
-                Log('CloudScraper error: %s' % e)
-                Log('Trying through ReqBIN')
-                req_bypass = reqBinRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
+            req_bypass = HTTPBypass(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
 
     if req_bypass:
         req = req_bypass
@@ -131,7 +198,11 @@ def HTTPRequest(url, method='GET', **kwargs):
     req.encoding = 'UTF-8'
 
     if Prefs['debug_enable']:
-        saveRequest(url, req)
+        try:
+            saveRequest(url, req)
+        except:
+            Log('saveRequest Error')
+            pass
 
     return req
 
@@ -231,61 +302,38 @@ def parseTitle(s, siteNum):
         final.append(parseWord(word, siteNum))
 
     output = ' '.join(final)
-    output = re.sub(r'\b(?:\.)$', '', output)
-    output = re.sub(r'(!|:|\?|\.|,)(?=\w)', lambda m: m.group(0) + ' ', output)
+
+    # Add space after a punctuation if missing
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
+    # Remove single period at end of title
+    output = re.sub(r'\b(?:(?<=\S.)(?<=\w)(?:\.))$', '', output)
+    # Remove space between word and punctuation
     output = re.sub(r'\s+(?=[.,!\":])', '', output)
+    # Override lowercase if word follows a punctuation
     output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    # Override lowercase if word follows a parenthesis
+    output = re.sub(r'(?<=\()(\w)(\W)', lambda m: m.group(1).upper() + m.group(2), output)
+    # Override lowercase if last word
+    output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
 
     return output
 
 
 def parseWord(word, siteNum):
     lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
-    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf']
+    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
     letter_exceptions = ['A', 'V', 'Y']
+    symbolsClean = ['-', '/', '.', '+', '\'']
+    symbolsEsc = ['-', '/', '\.', '\+', '\'']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     pattern = re.compile(r'\W')
     cleanWord = re.sub(pattern, '', word)
 
-    if '-' in word and '--' not in word:
-        word_list = re.split('-', word)
-
-        firstword = parseWord(word_list[0], siteNum)
-        if len(firstword) > 1:
-            firstword = firstword[0].capitalize() + firstword[1:]
-        else:
-            firstword = firstword.capitalize()
-        nhword = firstword + '-'
-
-        for hword in word_list[1:]:
-            if len(hword) > 1:
-                nhword += parseWord(hword, siteNum)
-            else:
-                nhword += hword.upper()
-
-            if hword != word_list[-1]:
-                nhword += '-'
-        word = nhword
-    elif '\'' in word:
-        word_list = re.split('\'', word)
-
-        firstword = parseWord(word_list[0], siteNum)
-        if len(firstword) > 1:
-            firstword = firstword[0].capitalize() + firstword[1:]
-        else:
-            firstword = firstword.upper()
-        nhword = firstword + '\''
-
-        for hword in word_list[1:]:
-            if len(re.sub(pattern, '', hword)) > 2:
-                nhword += parseWord(hword, siteNum)
-            else:
-                nhword += hword
-
-            if hword != word_list[-1]:
-                nhword += '\''
-        word = nhword
+    if any(symbol in word for symbol in symbolsClean):
+        for idx, symbol in enumerate(symbolsClean, 0):
+            if symbol in word:
+                word = parseTitleSymbol(word, siteNum, symbolsEsc[idx])
     elif cleanWord.lower() in upper_exceptions:
         word = word.upper()
     elif cleanWord.isupper() and cleanWord not in letter_exceptions:
@@ -302,6 +350,41 @@ def parseWord(word, siteNum):
     return word
 
 
+def any(s):
+    for v in s:
+        if v:
+            return True
+    return False
+
+
+def parseTitleSymbol(word, siteNum, symbol):
+    pattern = re.compile(r'\W')
+    word_list = re.split(symbol, word)
+    symbols = ['-', '/', '\.', '\+']
+
+    firstword = parseWord(word_list[0], siteNum)
+    if len(firstword) > 1:
+        firstword = firstword[0].capitalize() + firstword[1:]
+    else:
+        firstword = firstword.upper()
+    nhword = firstword + symbol.replace('\\', '')
+
+    for idx, hword in enumerate(word_list[1:], 1):
+        if symbol in symbols:
+            if len(hword) > 1:
+                nhword += parseWord(hword, siteNum)
+            else:
+                nhword += hword.capitalize()
+        elif len(re.sub(pattern, '', hword)) > 2:
+            nhword += parseWord(hword, siteNum)
+        else:
+            nhword += hword
+
+        if idx != len(word_list) - 1:
+            nhword += symbol.replace('\\', '')
+    return nhword
+
+
 def manualWordFix(word):
     exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly']
     corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly']
@@ -312,3 +395,36 @@ def manualWordFix(word):
                 return correction
 
     return word
+
+
+def cleanHTML(text):
+    data = re.sub(r'<.*?>', '', text)
+    data = data.strip()
+
+    return data
+
+
+def getCleanSearchTitle(title):
+    trashTitle = (
+        'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', r'H\d{3}', 'AVC', r'\dK',
+        r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD',
+        'KTR', 'IEVA', 'WRB', 'NBQ', 'ForeverAloneDude', r'X\d{3}', 'SoSuMi',
+    )
+
+    for trash in trashTitle:
+        title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
+
+    title = ' '.join(title.split())
+
+    return title
+
+
+def getSearchTitleStrip(title):
+    if Prefs['strip_enable']:
+        if Prefs['strip_symbol'] and Prefs['strip_symbol'] in title:
+            title = title.split(Prefs['strip_symbol'], 1)[0]
+
+        if Prefs['strip_symbol_reverse'] and Prefs['strip_symbol_reverse'] in title:
+            title = title.rsplit(Prefs['strip_symbol_reverse'], 1)[-1]
+
+    return title.strip()

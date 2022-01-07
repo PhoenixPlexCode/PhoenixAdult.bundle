@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "content-grid-item")]'):
-            titleNoFormatting = searchResult.xpath('.//span[@class= "title"]/a')[0].text_content().strip()
+            titleNoFormatting = searchResult.xpath('.//span[@class="title"]/a')[0].text_content().strip()
             curID = searchResult.xpath('.//span[@class="title"]/a/@href')[0].split('/')[3]
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]')[0]
         titleNoFormatting = detailsPageElements.xpath('//h2')[0].text_content()
         curID = sceneID
-        releaseDate = parse(detailsPageElements.xpath('//span[@class= "date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        releaseDate = parse(detailsPageElements.xpath('//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
         score = 100
 
@@ -37,7 +37,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/watch/' + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
@@ -126,7 +126,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Posters
     art = []
     xpaths = [
-        '//video/@poster'
+        '//video/@poster',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
@@ -135,14 +135,16 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
             art.append(poster)
 
-    galleryURL = 'https://nubiles-porn.com/photo/gallery/' + metadata_id[0]
-    req = PAutils.HTTPRequest(galleryURL)
-    photoPageElements = HTML.ElementFromString(req.text)
-    for poster in photoPageElements.xpath('//div[@class="img-wrapper"]//source[1]/@src'):
-        if not poster.startswith('http'):
-            poster = 'http:' + poster
+    if siteNum != 543:
+        # Fix for HotCrazyMess having no gallery 
+        galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
+        req = PAutils.HTTPRequest(galleryURL)
+        photoPageElements = HTML.ElementFromString(req.text)
+        for poster in photoPageElements.xpath('//div[@class="img-wrapper"]//picture/source[1]/@srcset'):
+            if not poster.startswith('http'):
+                poster = 'http:' + poster
 
-        art.append(poster)
+            art.append(poster)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

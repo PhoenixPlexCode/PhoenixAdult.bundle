@@ -3,6 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    searchData.encoded = urllib.quote('"%s"' % searchData.title)
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="category_listing_wrapper_updates"]'):
@@ -26,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -35,13 +36,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+    title = detailsPageElements.xpath('//h1/text() | //video/@data-video')[0].strip()
     if title[-3:] == ' 4k':
         title = title[:-3].strip()
     metadata.title = title
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//p[@class="description"] | //p[@class="description-scene"] | //h2/following-sibling::p')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Spizoo'
@@ -68,7 +69,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//div[@id="trailer-data"]//div[@class="col-12 col-md-6"]//div[@class="row"]//div[@class="col-12"]//a')
+    genres = detailsPageElements.xpath('//div[@class="categories-holder"]/a')
     if genres:
         for genreLink in genres:
             genreName = genreLink.text_content().lower().strip()
@@ -82,7 +83,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="row line"]/div[@class="col-3"][1]/a | //p[@class="featuring"]/a'):
+    for actorLink in detailsPageElements.xpath('//h3[text()="Pornstars:"]/../a'):
         actorName = actorLink.text_content().replace('.', '').strip()
         actorPhotoURL = ''
 

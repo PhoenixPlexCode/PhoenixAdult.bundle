@@ -13,7 +13,7 @@ def getDBURL(url):
 def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     is_new = True
     if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteNum):
-        url = '%s-%s/_doc/%s' % (dbURL, sceneType, sceneName)
+        url = '%s-%s/_search?q=%s' % (dbURL, sceneType, sceneName)
     else:
         is_new = False
         sceneType = sceneType.replace('content', 'Content')
@@ -23,8 +23,8 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     if data.text != 'null':
         data = data.json()
         if is_new:
-            if '_source' in data:
-                return data['_source']
+            if '_source' in data['hits']['hits'][0]:
+                return data['hits']['hits'][0]['_source']
         else:
             return data
 
@@ -32,7 +32,7 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = searchData.title.replace(' ', '-').lower()
+    directURL = searchData.title.replace(' ', '-').replace('\'', '').lower()
 
     searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
@@ -76,7 +76,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     sceneDate = metadata_id[2]
@@ -107,72 +107,22 @@ def update(metadata, siteNum, movieGenres, movieActors):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
+    movieGenres.clearGenres()
+    genres = []
+
+    for key, value in genresDB.items():
+        if key.lower() == siteName.lower():
+            genres.extend(value)
+            break
+
     if 'tags' in detailsPageElements and detailsPageElements['tags']:
         for genreLink in detailsPageElements['tags']:
             genreName = genreLink.strip()
 
-            movieGenres.addGenre(genreName)
+            genres.append(genreName)
 
-    if siteName == 'Sis Loves Me':
-        movieGenres.addGenre('Step Sister')
-    elif siteName == 'DadCrush' or siteName == 'DaughterSwap':
-        movieGenres.addGenre('Step Dad')
-        movieGenres.addGenre('Step Daughter')
-    elif siteName == 'PervMom':
-        movieGenres.addGenre('Step Mom')
-    elif siteName == 'Family Strokes':
-        movieGenres.addGenre('Taboo Family')
-    elif siteName == 'Foster Tapes':
-        movieGenres.addGenre('Taboo Sex')
-    elif siteName == 'BFFs':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Group Sex')
-    elif siteName == 'Shoplyfter':
-        movieGenres.addGenre('Strip')
-    elif siteName == 'ShoplyfterMylf':
-        movieGenres.addGenre('Strip')
-        movieGenres.addGenre('MILF')
-    elif siteName == 'Exxxtra Small':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Small Tits')
-    elif siteName == 'Little Asians':
-        movieGenres.addGenre('Asian')
-        movieGenres.addGenre('Teen')
-    elif siteName == 'TeenJoi':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('JOI')
-    elif siteName == 'Black Valley Girls':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Ebony')
-    elif siteName == 'Thickumz':
-        movieGenres.addGenre('Thick')
-    elif siteName == 'Dyked':
-        movieGenres.addGenre('Hardcore')
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Lesbian')
-    elif siteName == 'Teens Love Black Cocks':
-        movieGenres.addGenre('Teens')
-        movieGenres.addGenre('BBC')
-    elif siteName == 'Teen Curves':
-        movieGenres.addGenre('Big Ass')
-    elif siteName == 'Titty Attack':
-        movieGenres.addGenre('Big Tits')
-    elif siteName == 'Teeny Black':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Ebony')
-    elif siteName == 'Teens Do Porn':
-        movieGenres.addGenre('Teen')
-    elif siteName == 'Teen Pies':
-        movieGenres.addGenre('Teen')
-        movieGenres.addGenre('Creampie')
-    elif siteName == 'POV Life':
-        movieGenres.addGenre('POV')
-    elif siteName == 'Ginger Patch':
-        movieGenres.addGenre('Redhead')
-    elif siteName == 'Innocent High':
-        movieGenres.addGenre('School Girl')
-    elif siteName == 'Oye Loca':
-        movieGenres.addGenre('Latina')
+    for genreName in genres:
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
@@ -211,3 +161,35 @@ def update(metadata, siteNum, movieGenres, movieActors):
                 pass
 
     return metadata
+
+
+genresDB = {
+    'Anal Mom': ['Anal', 'MILF'],
+    'BFFs': ['Teen', 'Group Sex'],
+    'Black Valley Girls': ['Teen', 'Ebony'],
+    'DadCrush': ['Step Dad', 'Step Daughter'],
+    'DaughterSwap': ['Step Dad', 'Step Daughter'],
+    'Dyked': ['Hardcore', 'Teen', 'Lesbian'],
+    'Exxxtra Small': ['Teen', 'Small Tits'],
+    'Family Strokes': ['Taboo Family'],
+    'Foster Tapes': ['Taboo Sex'],
+    'Freeuse Fantasy': ['Freeuse'],
+    'Ginger Patch': ['Redhead'],
+    'Innocent High': ['School Girl'],
+    'Little Asians': ['Asian', 'Teen'],
+    'Not My Grandpa': ['Older/Younger'],
+    'Oye Loca': ['Latina'],
+    'PervMom': ['Step Mom'],
+    'POV Life': ['POV'],
+    'Shoplyfter': ['Strip'],
+    'ShoplyfterMylf': ['Strip', 'MILF'],
+    'Sis Loves Me': ['Step Sister'],
+    'Teen Curves': ['Big Ass'],
+    'Teen Pies': ['Teen', 'Creampie'],
+    'TeenJoi': ['Teen', 'JOI'],
+    'Teens Do Porn': ['Teen'],
+    'Teens Love Black Cocks': ['Teens', 'BBC'],
+    'Teeny Black': ['Teen', 'Ebony'],
+    'Thickumz': ['Thick'],
+    'Titty Attack': ['Big Tits'],
+}

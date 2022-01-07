@@ -42,7 +42,6 @@ def getSiteNumByFilter(searchFilter):
     if searchResults:
         from operator import itemgetter
 
-        Log('Site found')
         return max(searchResults, key=itemgetter(1))[0]
 
     return None
@@ -72,55 +71,56 @@ def getSearchSettings(mediaTitle):
         Log('^^^^^^^ siteNum: %d' % siteNum)
         Log('^^^^^^^ Shortening Title')
 
-        title = mediaTitle
+        title = mediaTitle.lower()
         site = getSearchSiteName(siteNum).lower()
 
-        title = re.sub(r'[^a-zA-Z0-9#& ]', ' ', title)
+        # \u0410-\u042F == А-Я, \u0430-\u044F == а-я
+        title = re.sub(ur'[^A-Za-z0-9#&, \u0410-\u042F\u0430-\u044F]', ' ', title.decode('UTF-8')).encode('UTF-8')
         site = re.sub(r'\W', '', site)
 
         matched = False
         while(' ' in title):
-            title = title.replace(' ', '', 1)
             if title.lower().startswith(site):
                 matched = True
                 break
+            else:
+                title = title.replace(' ', '', 1)
 
         if matched:
             searchTitle = re.sub(site, '', title, 1, flags=re.IGNORECASE)
             searchTitle = ' '.join(searchTitle.split())
-        else:
-            searchTitle = mediaTitle
 
-        searchTitle = PAutils.parseTitle(searchTitle, siteNum)
+            searchTitle = re.sub(r'\sS\b', '\'s', searchTitle, flags=re.IGNORECASE)
+            searchTitle = PAutils.parseTitle(searchTitle, siteNum)
 
-        Log('Search Title (before date processing): %s' % searchTitle)
+            Log('Search Title (before date processing): %s' % searchTitle)
 
-        # Search Type
-        searchDate = None
-        regex = [
-            (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
-            (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
-        ]
-        date_obj = None
-        for r, dateFormat in regex:
-            date = re.search(r, searchTitle)
-            if date:
-                try:
-                    date_obj = datetime.strptime(date.group(), dateFormat)
-                except:
-                    pass
+            # Search Type
+            searchDate = None
+            regex = [
+                (r'\b\d{4} \d{2} \d{2}\b', '%Y %m %d'),
+                (r'\b\d{2} \d{2} \d{2}\b', '%y %m %d')
+            ]
+            date_obj = None
+            for r, dateFormat in regex:
+                date = re.search(r, searchTitle)
+                if date:
+                    try:
+                        date_obj = datetime.strptime(date.group(), dateFormat)
+                    except:
+                        pass
 
-                if date_obj:
-                    searchDate = date_obj.strftime('%Y-%m-%d')
-                    searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
-                    break
+                    if date_obj:
+                        searchDate = date_obj.strftime('%Y-%m-%d')
+                        searchTitle = ' '.join(re.sub(r, '', searchTitle, 1).split())
+                        break
 
-        searchTitle = searchTitle[0].upper() + searchTitle[1:]
+            searchTitle = searchTitle[0].upper() + searchTitle[1:]
 
-        result['siteNum'] = siteNum
-        result['siteName'] = site
-        result['searchTitle'] = searchTitle
-        result['searchDate'] = searchDate
+            result['siteNum'] = siteNum
+            result['siteName'] = site
+            result['searchTitle'] = searchTitle
+            result['searchDate'] = searchDate
 
     return result
 

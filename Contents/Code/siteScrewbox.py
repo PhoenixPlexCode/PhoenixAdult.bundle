@@ -18,7 +18,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -52,9 +52,9 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Genres
     movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[@class="more-info"]//li[3]//a'):
-        genre = genreLink.text_content().title()
+        genreName = genreLink.text_content().title()
 
-        movieGenres.addGenre(genre)
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()

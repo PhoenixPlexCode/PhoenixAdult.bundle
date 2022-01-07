@@ -7,7 +7,7 @@ def getDataFromAPI(url, req_type, query):
         'Authorization': 'Basic YmFuZy1yZWFkOktqVDN0RzJacmQ1TFNRazI=',
         'Content-Type': 'application/json'
     }
-    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}, {'match': {'type': 'movie'}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
+    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
     data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
 
     return data
@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchData.title)['hits']['hits']
     for searchResult in searchResults:
         searchResult = searchResult['_source']
-        titleNoFormatting = searchResult['name']
+        titleNoFormatting = PAutils.parseTitle(searchResult['name'], siteNum)
         studioScene = searchResult['studio']['name'].title()
         seriesScene = searchResult['series']['name']
         curID = searchResult['identifier']
@@ -33,14 +33,14 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
     detailsPageElements = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'identifier', sceneID)['hits']['hits'][0]['_source']
 
     # Title
-    metadata.title = detailsPageElements['name']
+    metadata.title = PAutils.parseTitle(detailsPageElements['name'], siteNum)
 
     # Summary
     metadata.summary = detailsPageElements['description']
@@ -76,7 +76,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters
-    dvdID = detailsPageElements['dvd']['id']
+    dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
     art = [
         'https://i.bang.com/covers/%d/front.jpg' % dvdID
     ]

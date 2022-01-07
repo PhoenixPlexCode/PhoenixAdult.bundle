@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -86,7 +86,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     # Photos
     art = []
 
-    for photo in detailsPageElements.xpath('//img[contains(@class, "videoClip__Details--galleryItem")]/data-big'):
+    for photo in detailsPageElements.xpath('//img[contains(@class, "videoClip__Details--galleryItem")]/@data-big'):
         photoURLs = photo.split(',')
         photoURL = photoURLs[len(photoURLs) - 1][:-6].replace('https', 'http')
 

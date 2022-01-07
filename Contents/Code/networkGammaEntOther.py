@@ -2,12 +2,31 @@ import PAsearchSites
 import PAutils
 
 
-def getAPIKey(url):
-    data = PAutils.HTTPRequest(url).text
-    match = re.search(r'\"apiKey\":\"(.*?)\"', data)
-    if match:
-        return match.group(1)
-    return None
+def getAPIKey(siteNum):
+    url = PAsearchSites.getSearchBaseURL(siteNum) + '/en/login'
+    token_key = urlparse.urlparse(url).hostname
+
+    token = None
+    if token_key and token_key in Dict:
+        data = Dict[token_key]
+        data = base64.b64decode(data).decode('UTF-8')
+        if 'validUntil=' in data:
+            timestamp = int(data.split('validUntil=')[1].split('&')[0])
+            if timestamp > time.time():
+                token = Dict[token_key]
+
+    if not token:
+        req = PAutils.HTTPRequest(url)
+        match = re.search(r'\"apiKey\":\"(.*?)\"', req.text)
+        if match:
+            token = match.group(1)
+
+    if token_key and token:
+        if token_key not in Dict or Dict[token_key] != token:
+            Dict[token_key] = token
+            Dict.Save()
+
+    return token
 
 
 def getAlgolia(url, indexName, params, referer):
@@ -16,19 +35,21 @@ def getAlgolia(url, indexName, params, referer):
         'Referer': referer
     }
     params = json.dumps({'requests': [{'indexName': indexName, 'params': params}]})
-    data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
+    data = PAutils.HTTPRequest(url, headers=headers, params=params)
+    data = data.json()
 
     return data['results'][0]['hits']
 
 
 def search(results, lang, siteNum, searchData):
+    searchData.title = searchData.encoded.replace('%20', ' ')
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
         searchData.title = searchData.title.replace(sceneID, '', 1).strip()
     else:
         sceneID = None
 
-    apiKEY = getAPIKey(PAsearchSites.getSearchBaseURL(siteNum))
+    apiKEY = getAPIKey(siteNum)
     for sceneType in ['scenes', 'movies']:
         url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=TSMKFA364Q&x-algolia-api-key=' + apiKEY
         if sceneID and not searchData.title:
@@ -64,14 +85,14 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneID = int(metadata_id[0])
     sceneType = metadata_id[2]
     sceneIDName = 'clip_id' if sceneType == 'scenes' else 'movie_id'
     sceneDate = metadata_id[3]
 
-    apiKEY = getAPIKey(PAsearchSites.getSearchBaseURL(siteNum))
+    apiKEY = getAPIKey(siteNum)
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=TSMKFA364Q&x-algolia-api-key=' + apiKEY
     data = getAlgolia(url, 'all_' + sceneType, 'filters=%s=%d' % (sceneIDName, sceneID), PAsearchSites.getSearchBaseURL(siteNum))

@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
 
         for searchResult in searchResults.xpath('//div[@class="thumbsHolder elipsTxt"]/div[1]/div[@class="echThumb"]'):
             if searchResult.xpath('.//a[contains(@href, "/video")]'):
-                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0], siteNum)
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0], siteNum).replace('’', '\'')
                 curID = PAutils.Encode(searchResult.xpath('.//a[contains(@href, "/video")]//@href')[0])
                 subSite = searchResult.xpath('.//span[@class="faTxt"]')[0].text_content().strip()
                 releaseDate = parse(searchResult.xpath('.//span[@class="faTxt"]')[1].text_content().strip()).strftime('%Y-%m-%d')
@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -34,7 +34,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum).replace('’', '\'')
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="vdoDesc"]')[0].text_content().strip()

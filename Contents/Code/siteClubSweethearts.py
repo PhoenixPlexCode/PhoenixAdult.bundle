@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.replace(' ', '_')
+    searchData.encoded = searchData.title.replace(' ', '_').replace('\'', '')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -23,7 +23,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -38,11 +38,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.summary = detailsPageElements.xpath('//p[@class="mt-0 hidden-lg"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'ClubSeventeen'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -73,7 +73,7 @@ def update(metadata, siteNum, movieGenres, movieActors):
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + '/' + actorLink.get("href")
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        img = actorPage.xpath('//img[@class="model-profile-image"]/@src')[0]
+        img = actorPage.xpath('//img[@class="model-profile-image"]/@src')
         if img:
             actorPhotoURL = img[0]
             if 'http' not in actorPhotoURL:

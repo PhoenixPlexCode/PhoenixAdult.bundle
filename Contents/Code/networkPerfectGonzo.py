@@ -10,28 +10,31 @@ def search(results, lang, siteNum, searchData):
         releaseDate = parse(searchResult.xpath('.//span[@class="nm-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
-        subSite = searchResult.xpath('.//img[@class="domain-label"]/@src')[0]
-        if 'allinternal' in subSite:
-            subSite = 'AllInternal'
-        elif 'asstraffic' in subSite:
-            subSite = 'AssTraffic'
-        elif 'givemepink' in subSite:
-            subSite = 'GiveMePink'
-        elif 'primecups' in subSite:
-            subSite = 'PrimeCups'
-        elif 'fistflush' in subSite:
-            subSite = 'FistFlush'
-        elif 'cumforcover' in subSite:
-            subSite = 'CumForCover'
-        elif 'tamedteens' in subSite:
-            subSite = 'TamedTeens'
-        elif 'spermswap' in subSite:
-            subSite = 'SpermSwap'
-        elif 'milfthing' in subSite:
-            subSite = 'MilfThing'
-        elif 'interview' in subSite:
-            subSite = 'Interview'
-        else:
+        subSite = searchResult.xpath('.//img[@class="domain-label"]/@src')
+        if subSite:
+            subSite = subSite[0]
+            if 'allinternal' in subSite:
+                subSite = 'AllInternal'
+            elif 'asstraffic' in subSite:
+                subSite = 'AssTraffic'
+            elif 'givemepink' in subSite:
+                subSite = 'GiveMePink'
+            elif 'primecups' in subSite:
+                subSite = 'PrimeCups'
+            elif 'fistflush' in subSite:
+                subSite = 'FistFlush'
+            elif 'cumforcover' in subSite:
+                subSite = 'CumForCover'
+            elif 'tamedteens' in subSite:
+                subSite = 'TamedTeens'
+            elif 'spermswap' in subSite:
+                subSite = 'SpermSwap'
+            elif 'milfthing' in subSite:
+                subSite = 'MilfThing'
+            elif 'interview' in subSite:
+                subSite = 'Interview'
+
+        if not subSite:
             subSite = PAsearchSites.getSearchSiteName(siteNum)
 
         if searchData.date:
@@ -44,7 +47,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):

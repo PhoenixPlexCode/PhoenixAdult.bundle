@@ -41,7 +41,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneID = 0
@@ -152,6 +152,8 @@ def update(metadata, siteNum, movieGenres, movieActors):
 def photoLookup(sceneID):
     if sceneID == 226:
         scenes = ['cool-colors', 'shes-on-fire', 'heating-up']
+    elif sceneID == 209:
+        scenes = ['amazing-figure']
     elif sceneID == 210:
         scenes = ['supersexy-vixen', 'satin-sensuality', 'outdoor-finale']
     elif sceneID == 130:

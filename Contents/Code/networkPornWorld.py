@@ -22,26 +22,33 @@ def search(results, lang, siteNum, searchData):
         searchData.encoded = searchData.title.replace(' ', '+')
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
         searchResults = HTML.ElementFromString(req.text)
-        for searchResult in searchResults.xpath('//div[@class="thumbnail  thumbnail-premium thumbnail-old"]'):
-            titleNoFormatting = searchResult.xpath('.//div[@class="thumbnail-title gradient"]/a/@title')[0]
-            url = searchResult.xpath('.//div[@class="thumbnail-title gradient"]/a/@href')[0]
 
-            date = searchResult.xpath('./@release')
-            releaseDate = parse(date[0]).strftime('%Y-%m-%d') if date else ''
+        if len(searchResults.xpath('//h1[@class="section__title mb-20"]')) == 0:
+            # if there is only one result returned by the search function it automatically redirects to the video page
+            titleNoFormatting = searchResults.xpath('//h1[@class="watch__title h2 mb-15"]')[0].text_content().strip()
 
+            url = searchResults.xpath('//a[@class="btn btn-black __pagination_button __pagination_button--more"]/@href')[0]
             curID = PAutils.Encode(url)
 
-            if searchData.date and releaseDate:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            return results
+
+        for searchResult in searchResults.xpath('//div[@class="col d-flex"]//div[@class="card-scene__text"]'):
+            titleNoFormatting = searchResult.xpath('./a')[0].text_content().strip()
+
+            url = searchResult.xpath('./a/@href')[0]
+            curID = PAutils.Encode(url)
+
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
 
-def update(metadata, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if 'http' not in sceneURL:
@@ -50,10 +57,13 @@ def update(metadata, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1[@class="watch__title h2 mb-15"]/text()')[0].strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="scene-description__details"]//div[@class="scene-description__row"]//dd')[2].text_content().strip()
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="text-mob-more p-md"]')[0].text_content().strip()
+    except:
+        Log('Failed to extract summary')
 
     # Studio
     metadata.studio = 'DDFProd'
@@ -65,11 +75,11 @@ def update(metadata, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    date_object = parse(detailsPageElements.xpath('//span[@title="Release date"]/a')[0].text_content().strip())
+    date_object = parse(detailsPageElements.xpath('//i[@class="bi bi-calendar3 me-5"]')[0].text_content().strip())
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[@class="scene-description__details"]//div[@class="scene-description__row"][2]//dd/a'):
+    for genreLink in detailsPageElements.xpath('//div[@class="genres-list p-md text-primary"]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -80,18 +90,17 @@ def update(metadata, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actor in detailsPageElements.xpath('//div[@class="scene-description__details"]//div[@class="scene-description__row"][1]//dd/a'):
-        actorName = actor.text_content().strip()
+    for actorLink in detailsPageElements.xpath('//h1[@class="watch__title h2 mb-15"]//a'):
+        actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
-        # actorPhotoURL = 'http:' + actor.get('data-src')
+        # actorPhotoURL = 'http:' + actorLink.get('data-src')
 
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-    artStyle = detailsPageElements.xpath('//div[@id="player"]/@style')[0]
-    artUrl = re.search(r'\((.*?)\)', artStyle).group(1)
-    art.append(artUrl)
+    art = [
+        detailsPageElements.xpath('//video/@data-poster')[0],
+    ]
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
