@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -89,7 +89,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.addActor('Mike Adriano', 'https://imgs1cdn.adultempire.com/actors/470003.jpg')
 
     # Posters
-    art = []
     xpaths = [
         '//div[@id="trailer-player"]/@data-screencap',
         '//video[contains(@id, "ypp-player")]/@poster',

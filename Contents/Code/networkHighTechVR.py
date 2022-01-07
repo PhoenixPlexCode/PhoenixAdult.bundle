@@ -23,7 +23,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
@@ -75,8 +75,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-
     for poster in detailsPageElements.xpath('//div[contains(@class, "video-gallery")]//div//figure//a | //a[@class="u-block u-ratio u-ratio--lightbox u-bgc--back-opt u-z--zero"] | //div[contains(@class, "scene-previews-container")]//a | //div[contains(@class, "dl8-embed-container")] | //div[contains(@class, "grid-x grid-margin-x small-up-2 medium-up-4 tn-photo__container")]/div/a'):
         img = poster.get('href').split('?')[0]
         if img.startswith('http'):

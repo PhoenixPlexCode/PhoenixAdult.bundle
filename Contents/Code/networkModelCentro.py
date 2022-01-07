@@ -49,11 +49,11 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     title = metadata_id[2].strip().title()
-    
+
     apiurl = getAPIURL(PAsearchSites.getSearchBaseURL(siteNum) + '/scene/' + sceneID + '/' + urllib.quote(title))
     apiurl = PAsearchSites.getSearchSearchURL(siteNum) + apiurl
     detailsPageElements = getJSONfromAPI(apiurl + updatequery.format(sceneID))[0]
@@ -140,7 +140,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.addActor(baseactor, '')
 
     # Posters
-    art = []
     artobj = json.loads(PAutils.Decode(metadata_id[3]))
 
     if artobj:

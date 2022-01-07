@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
 
                 titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//p[@class="gen12 bold"]')[0].text_content(), siteNum)
                 curID = PAutils.Encode(movieURL)
-                
+
                 if '...' in titleNoFormatting:
                     searchResults.append(movieURL)
                 else:
@@ -117,7 +117,7 @@ def search(results, lang, siteNum, searchData):
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
             req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
             searchPageElements = HTML.ElementFromString(req.text)
-            
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for movieURL in googleResults:
         movieURL = movieURL.split('-')[0].replace('http:', 'https:')
@@ -195,7 +195,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -204,7 +204,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     if len(metadata_id) > 3:
         Log('Switching to Data18Scenes')
-        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieActors)
+        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieActors, art)
         return metadata
 
     # Title
@@ -282,7 +282,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         pass
 
     # Posters
-    art = []
     photos = []
     xpaths = [
         '//a[@id="enlargecover"]//@href',
@@ -309,7 +308,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             for xpath in xpaths:
                 for img in photoPageElements.xpath(xpath):
                     photos.append(img.replace('/th8', '').replace('-th8', ''))
-        
+
         for x in range(10):
             art.append(photos[random.randint(1, len(photos))])
     except:

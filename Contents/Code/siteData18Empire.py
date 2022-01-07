@@ -171,7 +171,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     splitScene = False
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -204,7 +204,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     except:
         summary = ''
     metadata.summary = summary
-    
+
     # Studio
     try:
         studio = detailsPageElements.xpath('//div[@class="studio"]/a/text()')[0].strip()
@@ -286,7 +286,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         pass
 
     # Posters
-    art = []
     xpaths = [
         '//div[@id="video-container-details"]/div/section/a/picture/source[1]/@data-srcset',
         '//div[@id="viewLargeBoxcoverCarousel"]//noscript//@src',

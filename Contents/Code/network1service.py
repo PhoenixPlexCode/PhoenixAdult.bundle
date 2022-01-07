@@ -77,7 +77,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     sceneType = metadata_id[2]
@@ -161,7 +161,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     for imageType in ['poster', 'cover']:
         if imageType in detailsPageElements['images']:
             for image in detailsPageElements['images'][imageType]:

@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -124,7 +124,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         else:
             if javID.startswith('3DSVR'):
                 javID = javID.replace('3DSVR', 'DSVR')
-                
+
             alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
 
             alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
@@ -165,7 +165,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add('Japan Adult Video')
 
     # Posters
-    art = []
     for photo in dataElements['gallery']:
         photoURL = photo['large']
 

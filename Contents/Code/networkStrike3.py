@@ -44,7 +44,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + update_query % (sceneName, PAsearchSites.getSearchSiteName(siteNum).upper())
@@ -99,8 +99,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-
     for name in ['movie', 'poster']:
         if name in video['carousel'] and video['images'][name]:
             image = video['images'][name][-1]
