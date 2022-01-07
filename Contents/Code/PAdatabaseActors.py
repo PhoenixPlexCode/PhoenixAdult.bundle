@@ -65,6 +65,7 @@ ActorsReplace = {
     'Hannah Hawthorne': ['Hanna Hawthorne'],
     'Henessy': ['Alina Henessy'],
     'Hina Nanase': ['Nanase Hina', 'Hina Nanami (Hina Nanase)'],
+    'Iris Kiss Kiss': ['Iris Kis', 'Iris Kis Kis'],
     'Isabel Stern': ['Isabel Sterov', 'Isabelle Stern'],
     'Isabella De Laa': ['Isabela De Laa', 'Isabella Della'],
     'Jaye Summers': ['Charlotte Lee'],
