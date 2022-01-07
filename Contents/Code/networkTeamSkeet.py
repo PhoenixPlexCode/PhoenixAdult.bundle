@@ -51,20 +51,20 @@ def search(results, lang, siteNum, searchData):
 
     for sceneName in searchResults:
         for sceneType in ['videoscontent', 'moviescontent']:
-            searchPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
-            if searchPageElements:
+            detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
+            if detailsPageElements:
                 break
 
-        if searchPageElements:
-            curID = searchPageElements['id']
-            titleNoFormatting = PAutils.parseTitle(searchPageElements['title'], siteNum)
-            siteName = searchPageElements['site']['name'] if 'site' in searchPageElements else PAsearchSites.getSearchSiteName(siteNum)
-            if 'publishedDate' in searchPageElements:
-                releaseDate = parse(searchPageElements['publishedDate']).strftime('%Y-%m-%d')
+        if detailsPageElements:
+            curID = detailsPageElements['id']
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
+            siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
+            if 'publishedDate' in detailsPageElements:
+                releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
             else:
                 releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            displayDate = releaseDate if 'publishedDate' in searchPageElements else ''
+            displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
 
             if searchData.date and displayDate:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
