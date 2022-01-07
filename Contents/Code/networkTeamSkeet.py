@@ -13,7 +13,7 @@ def getDBURL(url):
 def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     is_new = True
     if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteNum):
-        url = '%s-%s/_doc/%s' % (dbURL, sceneType, sceneName)
+        url = '%s-%s/_search?q=%s' % (dbURL, sceneType, sceneName)
     else:
         is_new = False
         sceneType = sceneType.replace('content', 'Content')
@@ -23,8 +23,8 @@ def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
     if data.text != 'null':
         data = data.json()
         if is_new:
-            if '_source' in data:
-                return data['_source']
+            if '_source' in data['hits']['hits'][0]:
+                return data['hits']['hits'][0]['_source']
         else:
             return data
 
