@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -66,8 +66,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-
     try:
         twitterBG = detailsPageElements.xpath('//div[4]/div/div[2]/div/div/div[1]/div[2]/div/div[1]/img')[0].get('src')
         twitterBG = 'https:' + twitterBG

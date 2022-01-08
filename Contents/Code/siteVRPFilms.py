@@ -19,7 +19,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for genreLink in detailsPageElements.xpath('//div[@class="single__download tags"]')[0].text_content().strip().split(', '):
         movieGenres.addGenre(genreLink)
 
-    art = []
     # Posters/Background
     background = detailsPageElements.xpath('//section[@class="login-banner parallax"]/@style')[0].split('url(')[1].split(')')[0].replace("'", "")
     art.append(background)

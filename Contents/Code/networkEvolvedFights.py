@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -79,7 +79,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.year = metadata.originally_available_at.year
 
     # Posters/Background
-    art = []
     poster = PAsearchSites.getSearchBaseURL(siteNum) + '/' + detailsPageElements.xpath('//span[(contains(@class, "model_update_thumb"))]/img/@src0_4x')[0]
     art.append(poster)
 

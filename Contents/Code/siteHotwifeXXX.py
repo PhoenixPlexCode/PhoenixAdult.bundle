@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -39,7 +39,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    art = []
     metadata.collections.clear()
     movieGenres.clearGenres()
     movieActors.clearActors()
@@ -93,7 +92,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
         '//span[@id="trailer_thumb"]//img/@src',
     ]
@@ -101,7 +99,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             poster = poster.strip()
-            
+
             art.append(poster)
 
     Log('Artwork found: %d' % len(art))
