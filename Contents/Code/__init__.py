@@ -119,6 +119,7 @@ class PhoenixAdultAgent(Agent.Movies):
     def update(self, metadata, media, lang):
         movieGenres = PAgenres.PhoenixGenres()
         movieActors = PAactors.PhoenixActors()
+        valid_images = list()
 
         HTTP.ClearCache()
         metadata.genres.clear()
@@ -134,7 +135,7 @@ class PhoenixAdultAgent(Agent.Movies):
         if provider is not None:
             providerName = getattr(provider, '__name__')
             Log('Provider: %s' % providerName)
-            provider.update(metadata, lang, siteNum, movieGenres, movieActors)
+            provider.update(metadata, lang, siteNum, movieGenres, movieActors, valid_images)
 
         # Cleanup Genres and Add
         Log('Genres')
@@ -156,3 +157,7 @@ class PhoenixAdultAgent(Agent.Movies):
                 'series': ', '.join(set([collection.encode('ascii', 'ignore') for collection in metadata.collections if collection not in metadata.studio])),
             }
             metadata.title = Prefs['custom_title'].format(**data)
+
+        if Prefs['validate_image_keys']:
+            metadata.posters.validate_keys(valid_images)
+            metadata.art.validate_keys(valid_images)
