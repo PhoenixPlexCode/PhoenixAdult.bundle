@@ -44,7 +44,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     dataReq = PAutils.HTTPRequest(dataURL)
     dataElements = json.loads(dataReq.text)['data']
 
-    javID = dataElements['dvd_id']
+    if dataElements['dvd_id']:
+        javID = dataElements['dvd_id']
+    else:
+        javID = scene_id
 
     # Title
     JavTitle = dataElements['title']
@@ -95,7 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    if dataElements['actresses']:
+    if dataElements['actresses'] is not None:
         for actorLink in dataElements['actresses']:
             fullActorName = actorLink['name']
             if fullActorName != '----':
@@ -124,6 +127,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         else:
             if javID.startswith('3DSVR'):
                 javID = javID.replace('3DSVR', 'DSVR')
+            elif javID.startswith('13DSVR'):
+                javID = javID.replace('13DSVR', 'DSVR')
 
             alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
 
@@ -166,9 +171,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     for photo in dataElements['gallery']:
-        photoURL = photo['large']
-
-        art.append(photoURL)
+        if photo['large']:
+            art.append(photo['large'])
+        elif photo['medium']:
+            art.append(photo['medium'])
+        elif photo['small']:
+            art.append(photo['small'])
 
     for poster in dataElements['images']:
         poster_idx = poster.index('jacket_image')

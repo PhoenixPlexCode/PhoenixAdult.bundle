@@ -68,11 +68,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    imgUrl = basePath + detailsPageElements['sliderImage']['permalink']
-    art.append(imgUrl)
+    maybeSlider = detailsPageElements['sliderImage']
+    if maybeSlider:
+        imgUrl = basePath + maybeSlider['permalink']
+        art.append(imgUrl)
 
-    imgUrl = basePath + detailsPageElements['poster']['permalink']
-    art.append(imgUrl)
+    maybePoster = detailsPageElements['poster']
+    if maybePoster:
+        imgUrl = basePath + maybePoster['permalink']
+        art.append(imgUrl)
 
     for imgObj in detailsPageElements['galleryImages']:
         imgUrl = basePath + imgObj['permalink']
