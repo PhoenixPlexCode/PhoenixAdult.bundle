@@ -1,6 +1,31 @@
 import PAsearchSites
 import PAutils
 
+xPathMap = {
+    'SexBabesVR': {
+        'date': '//span[@class="date-display-single"]',
+        'summary': '//div[@class="video-group-bottom"]/p',
+        'actor': '//div[@class="video-actress-name"]//a',
+        'actorPhoto': '//div[contains(@class, "model-img-wrapper")]/figure/a/img',
+        'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
+    },
+    'StasyQ VR': {
+        'date': '//div[@class="video-meta-date"]',
+        'summary': '//div[@class="video-info"]/p',
+        'actor': '//div[@class="model-one-inner js-trigger-lazy-item"]//a',
+        'actorPhoto': '//div[contains(@class, "model-one-inner")]//img',
+        'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
+    },
+    'RealJamVR': {
+        'date': '//div[@class="c-video-item-header-date date"]',
+        'summary': '//div[@class="c-video-item-desc desc"]',
+        'actor': '//div[@class="c-video-item-header-featuring featuring commed"]//a',
+        'actorPhoto': '//div[@class="row actor-info"]//img',
+        'images': '//a[@class="c-video-item-scene-previews-link"]'
+    }
+}
+
+
 def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.lower().replace(' ', '-')
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
@@ -10,14 +35,12 @@ def search(results, lang, siteNum, searchData):
     curID = searchData.encoded
 
     releaseDate = ''
-    sexbabesDateXPath = '//span[@class="date-display-single"]'
-    stacyQDateXPath = '//div[@class="video-meta-date"]'
-    realJamDateXPath = '//div[@class="c-video-item-header-date date"]'
-    dateXPath = '%s | %s | %s' % (sexbabesDateXPath, stacyQDateXPath, realJamDateXPath)
-    date = searchResults.xpath(dateXPath)
-    if date:
-        date = date[0].text_content().strip()
-        releaseDate = parse(date).strftime('%Y-%m-%d')
+    for key in xPathMap.keys():
+        date = searchResults.xpath(xPathMap[key]['date'])
+        if date:
+            date = date[0].text_content().strip()
+            releaseDate = parse(date).strftime('%Y-%m-%d')
+            break
 
     score = 100
 
@@ -26,35 +49,12 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    xPathMap = {
-        'SexBabesVR': {
-            'date': '//span[@class="date-display-single"]',
-            'summary': '//div[@class="video-group-bottom"]/p',
-            'actor': '//div[@class="video-actress-name"]//a',
-            'actorPhoto': '//div[contains(@class, "model-img-wrapper")]/figure/a/img',
-            'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
-        },
-        'StasyQ VR': {
-            'date': '//div[@class="video-meta-date"]',
-            'summary': '//div[@class="video-info"]/p',
-            'actor': '//div[@class="model-one-inner js-trigger-lazy-item"]//a',
-            'actorPhoto': '//div[contains(@class, "model-one-inner")]//img',
-            'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
-        },
-        'RealJamVR': {
-            'date': '//div[@class="c-video-item-header-date date"]',
-            'summary': '//div[@class="c-video-item-desc desc"]',
-            'actor': '//div[@class="c-video-item-header-featuring featuring commed"]//a',
-            'actorPhoto': '//div[@class="row actor-info"]//img',
-            'images': '//a[@class="c-video-item-scene-previews-link"]'
-        }
-    }
     siteName = PAsearchSites.getSearchSiteName(siteNum)
     siteXPath = xPathMap.get(siteName)
 
@@ -62,7 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath(siteXPath.get('summary'))[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath(siteXPath['summary'])[0].text_content().strip()
 
     # Studio
     metadata.studio = siteName
@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add(tagline)
 
     # Release Date
-    maybeDate = detailsPageElements.xpath(siteXPath.get('date'))
+    maybeDate = detailsPageElements.xpath(siteXPath['date'])
     if maybeDate:
         date = maybeDate[0].text_content().strip()
         date_object = parse(date)
@@ -95,19 +95,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath(siteXPath.get('actor')):
+    for actorLink in detailsPageElements.xpath(siteXPath['actor']):
         actorName = actorLink.text_content().strip()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath(siteXPath.get('actorPhoto'))[0].get('src').split('?')[0]
+        actorPhotoURL = actorPage.xpath(siteXPath['actorPhoto'])[0].get('src').split('?')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-
-    for poster in detailsPageElements.xpath(siteXPath.get('images')):
+    for poster in detailsPageElements.xpath(siteXPath['images']):
         img = poster.get('href').split('?')[0]
         if img.startswith('http'):
             art.append(img)
