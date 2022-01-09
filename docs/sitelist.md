@@ -509,6 +509,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Jacquie Et Michel TV | ✅
 + #### JAV (via R18 - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | ✅ - **SceneID (in form of JAVID)**
++ #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JAY's POV | ✅
 + #### Joymii | ✓
 + #### JulesJordan Network | ✅  **Movies Not Supported**
