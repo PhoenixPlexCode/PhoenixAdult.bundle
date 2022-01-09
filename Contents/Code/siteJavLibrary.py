@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
                     searchResult = HTML.ElementFromString(req.text)
                     titleNoFormatting = searchResult.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
                     JAVID = searchResult.xpath('//td[contains(text(), "ID:")]/following-sibling::td')[0].text_content().strip()
-                    curID = PAutils.Encode(searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip().replace('//www', 'www'))
+                    curID = PAutils.Encode(searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip().replace('//www', 'https://www'))
                     score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
 
                     results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting),score=score, lang=lang))
@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
 
     # Studio
     maybeStudio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Release Date
     maybeDate = detailsPageElements.xpath('//td[contains(text(), "Release Date:")]/following-sibling::td')
     if maybeDate:
-        date_object = datetime.strptime(maybeDate[0].text_content().strip(), '%Y-%m-%d %H:%M:%S')
+        date_object = datetime.strptime(maybeDate[0].text_content().strip(), '%Y-%m-%d')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -102,10 +102,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     art.append(posterURL)
 
     # Images
+    urlRegEx = re.compile(r'-([1-9]+).jpg')
     for image in detailsPageElements.xpath('//div[@class="previewthumbs"]/img'):
-        imageURL = image.get('src')
-
-        art.append(imageURL)
+        thumbnailURL = image.get('src')
+        idxSearch = urlRegEx.search(thumbnailURL)
+        if idxSearch:
+            imageURL = thumbnailURL[:idxSearch.start()] + 'jp' + thumbnailURL[idxSearch.start():]
+            art.append(imageURL)
+        else:
+            art.append(thumbnailURL)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
