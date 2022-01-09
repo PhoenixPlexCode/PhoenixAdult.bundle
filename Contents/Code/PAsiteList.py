@@ -180,6 +180,7 @@ import siteXSinsVR
 import sitePOVR
 import siteSwallowBay
 import siteVirtualPorn
+import siteJavLibrary
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1549,6 +1550,7 @@ searchSites = {
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
     1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
     1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
+    1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword=')
 }
 
 abbreviations = (
@@ -2851,5 +2853,9 @@ def getProviderFromSiteNum(siteNum):
         # Virtual Porn
         elif siteNum == 1366:
             provider = siteVirtualPorn
+
+        # JAV Library
+        elif siteNum == 1367:
+            provider = siteJavLibrary
 
     return provider
