@@ -102,9 +102,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     art.append(posterURL)
 
     # Images
+    urlRegEx = re.compile(r'-([1-9]+).jpg')
     for image in detailsPageElements.xpath('//div[@class="previewthumbs"]/img'):
         thumbnailURL = image.get('src')
-        urlRegEx = re.compile(r'-([1-9])+.jpg')
         idxSearch = urlRegEx.search(thumbnailURL)
         if idxSearch:
             imageURL = thumbnailURL[:idxSearch.start()] + 'jp' + thumbnailURL[idxSearch.start():]
