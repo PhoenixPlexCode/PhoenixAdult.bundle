@@ -181,6 +181,7 @@ import sitePOVR
 import siteSwallowBay
 import siteVirtualPorn
 import siteJavLibrary
+import siteKillergram
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1550,7 +1551,8 @@ searchSites = {
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
     1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
     1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
-    1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword=')
+    1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword='),
+    1368: ('Killergram', 'https://killergram.com', '/platinum.asp?page=platinum&id=')
 }
 
 abbreviations = (
@@ -2857,5 +2859,9 @@ def getProviderFromSiteNum(siteNum):
         # JAV Library
         elif siteNum == 1367:
             provider = siteJavLibrary
+
+        # Killergram
+        elif siteNum == 1368:
+            provider = siteKillergram
 
     return provider
