@@ -21,12 +21,12 @@ def search(results, lang, siteNum, searchData):
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
     if sceneID and not searchData.title:
-        searchResults = getAlgolia(url, 'nacms_scenes_production', 'filters=id=' + sceneID)
+        searchResults = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)
     else:
-        searchResults = getAlgolia(url, 'nacms_scenes_production', 'query=' + searchData.title)
+        searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
 
     for searchResult in searchResults:
-        titleNoFormatting = searchResult['title']
+        titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
         curID = searchResult['id']
         releaseDate = datetime.fromtimestamp(searchResult['published_at']).strftime('%Y-%m-%d')
         siteName = searchResult['site']
@@ -48,10 +48,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneID = metadata_id[0]
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
-    detailsPageElements = getAlgolia(url, 'nacms_scenes_production', 'filters=id=' + sceneID)[0]
+    detailsPageElements = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)[0]
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
     metadata.summary = detailsPageElements['synopsis']
