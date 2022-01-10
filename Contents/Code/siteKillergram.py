@@ -48,12 +48,10 @@ def search(results, lang, siteNum, searchData):
     detailsPageElements = fetchPageContent(siteNum, sceneID)
     titleNoFormatting = extractTitle(detailsPageElements)
     releaseDate = parse(extractDate(detailsPageElements)).strftime('%d %B %Y')
-    
-    subSite = "Platinum"
 
     score = 100
 
-    results.Append(MetadataSearchResult(id='%s|%d' % (sceneID, siteNum), name='[Killergram/%s] %s - %s' % (subSite, titleNoFormatting, releaseDate), score=score, lang=lang))
+    results.Append(MetadataSearchResult(id='%s|%d' % (sceneID, siteNum), name='[Killergram] %s - %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 

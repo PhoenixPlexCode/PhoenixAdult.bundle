@@ -1552,7 +1552,8 @@ searchSites = {
     1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
     1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
     1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword='),
-    1368: ('Killergram', 'https://killergram.com', '/platinum.asp?page=platinum&id=')
+    1368: ('Killergram', 'https://killergram.com', '/episodes.asp?page=episodes&id='),
+    1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id=')
 }
 
 abbreviations = (
@@ -2861,7 +2862,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteJavLibrary
 
         # Killergram
-        elif siteNum == 1368:
+        elif (1368 <= siteNum <= 1369):
             provider = siteKillergram
 
     return provider
