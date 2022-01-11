@@ -97,9 +97,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [
-        detailsPageElements.xpath('//video/@poster')[0]
-    ]
+    art.append(detailsPageElements.xpath('//video/@poster')[0])
+
     xpaths = [
         '//ul[@class="bxslider_screenshots"]//img',
     ]

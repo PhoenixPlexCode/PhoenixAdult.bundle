@@ -83,10 +83,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     director.photo = 'https://img.discogs.com/TafxhnwJE2nhLodoB6UktY6m0xM=/fit-in/180x264/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-2236724-1305622884.jpeg.jpg'
 
     # Posters
-    art = [
-        detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0].replace('board-image', 'poster-image').replace('1600x', '640x'),
-        detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0].replace('1600x', '1920x')
-    ]
+    art.append(detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0].replace('board-image', 'poster-image').replace('1600x', '640x'))
+    art.append(detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0].replace('1600x', '1920x'))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

@@ -77,9 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
-    art = [
-        'https://i.bang.com/covers/%d/front.jpg' % dvdID
-    ]
+    art.append('https://i.bang.com/covers/%d/front.jpg' % dvdID)
 
     for img in detailsPageElements['screenshots']:
         art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))

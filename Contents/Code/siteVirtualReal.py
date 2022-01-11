@@ -77,9 +77,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [
-        sceneData['image'],
-    ]
+    art.append(sceneData['image'])
+
     xpaths = [
         '//figure[contains(@itemprop, "associatedMedia")]/a/@href',
     ]

@@ -139,9 +139,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             director.name = directorLink['name']
 
     # Posters
-    art = [
-        detailsPageElements['thumb']['image']
-    ]
+    art.append(detailsPageElements['thumb']['image'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
