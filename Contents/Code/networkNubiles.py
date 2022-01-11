@@ -134,8 +134,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             art.append(poster)
 
-    if siteNum != 543:
-        # Fix for HotCrazyMess having no gallery 
+    try:
         galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
         req = PAutils.HTTPRequest(galleryURL)
         photoPageElements = HTML.ElementFromString(req.text)
@@ -144,6 +143,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 poster = 'http:' + poster
 
             art.append(poster)
+    except:
+        pass
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
