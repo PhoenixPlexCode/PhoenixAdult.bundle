@@ -1,7 +1,6 @@
-import re
-
 import PAsearchSites
 import PAutils
+
 
 def fetchPageContent(siteNum, sceneID):
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
@@ -14,13 +13,16 @@ def extractTitle(detailPageElements):
     titleMatches = re.match(r"https://media.killergram.com/models/(?P<actress>[\w ]+)/(?P=actress)_(?P<title>[\w ]+)/.*", searchResult[0].strip())
     return titleMatches.group('title')
 
+
 def extractDate(detailPageElements):
     searchResult = detailPageElements.xpath('//span[@class="episodeheader" and text()[contains(., "published")]]/parent::node()/text()')
     return searchResult[0].strip()
 
+
 def extractSummary(detailPageElements):
     searchResult = detailPageElements.xpath('//table[@class="episodetext"]//tr[5]/td[2]/text()')
     return searchResult[0].strip()
+
 
 def extractActors(detailPageElements):
     actors = []
@@ -29,60 +31,67 @@ def extractActors(detailPageElements):
         actors.append(actor.strip())
     return actors
 
-def extractImages(detailPageElements):
-    images = []
+
+def extractImages(detailPageElements, art):
     prevImage = 000
     isImage = True
     while isImage:
         currImage = prevImage + 1
         imageResult = detailPageElements.xpath('//img[@id="episode_' + str(currImage).zfill(3) + '"]/@src')
         if len(imageResult) > 0 and len(imageResult[0]) > 0:
-            images.append(imageResult[0].strip())
+            art.append(imageResult[0].strip())
             prevImage = currImage
         else:
             isImage = False
-    return images
+
 
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
     detailsPageElements = fetchPageContent(siteNum, sceneID)
     titleNoFormatting = extractTitle(detailsPageElements)
     releaseDate = parse(extractDate(detailsPageElements)).strftime('%d %B %Y')
-
     score = 100
 
     results.Append(MetadataSearchResult(id='%s|%d' % (sceneID, siteNum), name='[Killergram] %s - %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, valid_images):
+
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     detailsPageElements = fetchPageContent(siteNum, sceneID)
 
     # Title
     metadata.title = extractTitle(detailsPageElements)
+
     # Summary
     metadata.summary = extractSummary(detailsPageElements)
+
     # Studio
     metadata.studio = "Killergram"
+
     # Tagline and Collection(s)
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
+
     # Release Date
     metadata.originally_available_at = datetime.strptime(extractDate(detailsPageElements), '%d %B %Y')
     metadata.year = metadata.originally_available_at.year
+
     # Genres
     movieGenres.clearGenres()
     movieGenres.addGenre('British')
+
     # Actors
     movieActors.clearActors()
     for actor in extractActors(detailsPageElements):
         movieActors.addActor(actor, '')
+
     # Posters
-    art = extractImages(detailsPageElements)
+    extractImages(detailsPageElements, art)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
