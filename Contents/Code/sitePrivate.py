@@ -13,9 +13,9 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(url, headers=headers)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[@class="card"]'):
-        titleNoFormatting = searchResult.xpath('.//div[@class="scene"]//img/@alt')[0].split(':', 1)[-1].strip()
-        curID = PAutils.Encode(searchResult.xpath('.//div[@class="scene"]//div//h3//a/@href')[0])
+    for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[@class="card"]//h3/a'):
+        titleNoFormatting = searchResult.text_content().strip()
+        curID = PAutils.Encode(searchResult.xpath('./@href')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
