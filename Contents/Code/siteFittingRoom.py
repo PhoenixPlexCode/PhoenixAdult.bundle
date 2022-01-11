@@ -98,9 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Fitting Room')
 
     # Posters
-    art = [
-        'https://www.fitting-room.com/contents/videos_screenshots/0/%s/preview.jpg' % sceneID
-    ]
+    art.append('https://www.fitting-room.com/contents/videos_screenshots/0/%s/preview.jpg' % sceneID)
 
     for photoNum in range(2, 6):
         photo = 'https://www.fitting-room.com/contents/videos_screenshots/0/%s/3840x1400/%d.jpg' % (sceneID, photoNum)

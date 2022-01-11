@@ -108,10 +108,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [
-        detailsPageElements['thumb'],
-        basePageElements['file_poster'],
-    ]
+    art.append(detailsPageElements['thumb'])
+    art.append(basePageElements['file_poster'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
