@@ -1553,7 +1553,8 @@ searchSites = {
     1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
     1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword='),
     1368: ('Killergram', 'https://killergram.com', '/episodes.asp?page=episodes&id='),
-    1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id=')
+    1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id='),
+    1370: ('Data18 Movie Scene', 'https://data18.com', '/sys/search.php?index=&key='),
 }
 
 abbreviations = (
@@ -2687,7 +2688,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteJacquieEtMichel
 
         # Data18 Scenes
-        elif siteNum == 1071:
+        elif siteNum == 1071 or siteNum == 1370:
             provider = siteData18Scenes
 
         # Penthouse Gold

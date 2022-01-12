@@ -224,6 +224,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     ]
 
     try:
+        if siteNum == 1073 or siteNum == 1370:
+            cover = '//a[@class="pvideof"]/@href'
+            img = detailsPageElements.xpath(cover)[0]
+            art.append(img)
+    except:
+        pass
+
+    try:
         galleries = detailsPageElements.xpath('//div[@id="galleriesoff"]//div')
         sceneID = re.sub(r'.*/', '', sceneURL)
 
