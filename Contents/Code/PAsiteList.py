@@ -2078,9 +2078,10 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 782:
             provider = siteJulesJordan
 
-        # DDF Network
+        # DDF Network - now handled by networkPornWorld
         elif (440 <= siteNum <= 447):
-            provider = networkDDFNetwork
+            #provider = networkDDFNetwork
+            provider = networkPornWorld
 
         # PerfectGonzo
         elif (448 <= siteNum <= 459) or (908 <= siteNum <= 911):
