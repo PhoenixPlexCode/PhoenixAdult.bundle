@@ -1554,7 +1554,7 @@ searchSites = {
     1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword='),
     1368: ('Killergram', 'https://killergram.com', '/episodes.asp?page=episodes&id='),
     1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id='),
-    1370: ('Data18 Movie Scene', 'https://data18.com', '/sys/search.php?index=&key=')
+    1370: ('Data18 Movie Scene', 'https://data18.com', '/sys/search.php?index=&key='),
 }
 
 abbreviations = (
