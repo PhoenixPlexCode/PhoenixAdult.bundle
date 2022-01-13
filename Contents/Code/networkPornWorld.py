@@ -15,7 +15,7 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
 
         curID = PAutils.Encode(url)
-        titleNoFormatting = detailsPageElements.xpath('//title')[0].text_content().replace(' - PornWorld', '').strip()
+        titleNoFormatting = getTitle(detailsPageElements)
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=100, lang=lang))
     else:
@@ -25,7 +25,7 @@ def search(results, lang, siteNum, searchData):
 
         if not searchResults.xpath('//h1[contains(@class, "section__title")]'):
             # if there is only one result returned by the search function it automatically redirects to the video page
-            titleNoFormatting = searchResults.xpath('//title')[0].text_content().replace(' - PornWorld', '').strip()
+            titleNoFormatting = getTitle(searchResults)
 
             url = searchResults.xpath('//a[contains(@class, "__pagination_button--more")]/@href')[0]
             curID = PAutils.Encode(url)
@@ -57,7 +57,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//title')[0].text_content().replace(' - PornWorld', '').strip()
+    metadata.title = getTitle(detailsPageElements)
 
     # Summary
     description = detailsPageElements.xpath('//div[text()="Description:"]/following-sibling::div')
@@ -65,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'DDFProd'
+    metadata.studio = 'PornWorld'
 
     # Tagline / Collection
     metadata.collections.clear()
@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Release Date
     date = detailsPageElements.xpath('//i[contains(@class, "bi-calendar")]')
     if date:
-        date_object = parse(date[0]).text_content().strip()
+        date_object = parse(date[0].text_content().strip())
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -118,3 +118,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+def getTitle(htmlElements):
+    titleNoFormatting = htmlElements.xpath('//title')[0].text_content().strip()
+
+    return re.sub(r' - PornWorld$', '', titleNoFormatting)
