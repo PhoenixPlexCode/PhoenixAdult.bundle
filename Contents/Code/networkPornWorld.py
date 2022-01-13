@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Release Date
     date = detailsPageElements.xpath('//i[contains(@class, "bi-calendar")]')
     if date:
-        date_object = parse(date[0]).text_content().strip()
+        date_object = parse(date[0].text_content().strip())
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
