@@ -12,7 +12,6 @@ import networkSteppedUp
 import networkGammaEnt
 import networkDogfart
 import siteJulesJordan
-import networkDDFNetwork
 import networkPerfectGonzo
 import networkPornFidelity
 import networkBadoinkVR
@@ -2078,9 +2077,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 782:
             provider = siteJulesJordan
 
-        # DDF Network - now handled by networkPornWorld
+        # DDF Network
         elif (440 <= siteNum <= 447):
-            #provider = networkDDFNetwork
             provider = networkPornWorld
 
         # PerfectGonzo
