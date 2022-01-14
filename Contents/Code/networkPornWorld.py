@@ -119,6 +119,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     return metadata
 
+
 def getTitle(htmlElements):
     titleNoFormatting = htmlElements.xpath('//title')[0].text_content().strip()
 
