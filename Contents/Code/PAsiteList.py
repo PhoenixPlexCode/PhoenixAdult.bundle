@@ -1554,6 +1554,9 @@ searchSites = {
     1368: ('Killergram', 'https://killergram.com', '/episodes.asp?page=episodes&id='),
     1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id='),
     1370: ('Data18 Movie Scene', 'https://data18.com', '/sys/search.php?index=&key='),
+    1371: ('PervTherapy', 'http://pervtherapy.com', '/movies'),
+    1372: ('HijabHookup', 'http://hijabhookup.com', '/movies'),
+    1373: ('KissingSis', 'https://www.teamskeet.com', '/movies'),
 }
 
 abbreviations = (
@@ -1983,7 +1986,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373):
             provider = networkTeamSkeet
 
         # Porndoe Premium
