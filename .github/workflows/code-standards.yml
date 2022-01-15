@@ -20,5 +20,4 @@ jobs:
           github_token: '${{ secrets.GITHUB_TOKEN }}'
           filter_mode: file
           fail_on_error: true
-          workdir: Contents/Code
-          flake8_args: '--ignore E501,E722'
+          flake8_args: '--ignore E501,E722,F,C9,N8 --exclude Contents/Libraries/Shared'
