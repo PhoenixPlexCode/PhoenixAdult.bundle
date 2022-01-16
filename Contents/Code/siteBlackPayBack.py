@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -56,7 +56,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
 
     # Posters
-    art = []
     xpaths = [
         '//div[@class="player"]/script',
     ]

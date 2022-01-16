@@ -28,9 +28,9 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
 
         if ('content' in req.url):
-            titleNoFormatting = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
+            titleNoFormatting = detailsPageElements.xpath('//h2[@class="vidtitle"]')[0].text_content().strip().replace('\"', '')
             curID = PAutils.Encode(sceneURL)
-            date = detailsPageElements.xpath('//div[@class="movie-date"]')[0].text_content().strip()
+            date = detailsPageElements.xpath('//h3[@class="releases"]//preceding-sibling::text()')[0].strip()
 
             if date:
                 releaseDate = parse(date).strftime('%Y-%m-%d')
@@ -48,7 +48,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -56,10 +56,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@id="mve"]/span')[0].text_content().strip().replace('\"', '')
+    metadata.title = detailsPageElements.xpath('//h2[@class="vidtitle"]')[0].text_content().strip().replace('\"', '')
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="movie-desc"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[contains(@class, "vidinfo")]/p')[0].text_content().strip()
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
@@ -85,7 +85,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[@id="pornstar-img"]')
+    actors = detailsPageElements.xpath('//h3[@class="releases"]/a')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -95,13 +95,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieGenres.addGenre('Orgy')
 
         for actorLink in actors:
-            actorName = actorLink.xpath('.//@alt')[0].strip()
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % actorLink.xpath('.//@src')[0].strip()
+            actorName = actorLink.text_content().strip()
+            actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % actorLink.xpath('.//@href')[0].strip()
+
+            req = PAutils.HTTPRequest(actorPageURL)
+            actorPageElements = HTML.ElementFromString(req.text)
+            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/%s' % actorPageElements.xpath('//div[@class="row mainrow"]//img/@src')[0].strip()
 
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
         '//div[@class="movie-trailer"]//@src',
     ]

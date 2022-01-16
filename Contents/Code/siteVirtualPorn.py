@@ -3,25 +3,35 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.replace(' ', '-').lower() + '.html'
+    searchResults = []
+    urlRegEx = re.compile(r'/video[0-9]+/')
 
-    searchResults = [directURL]
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if ('/video/' in sceneURL and sceneURL not in searchResults):
+        if urlRegEx.search(sceneURL):
             searchResults.append(sceneURL)
+
+    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
 
     for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
-        if req.ok:
+        if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
-
+            titleNoFormatting = detailsPageElements.xpath('//h3[@class="player__info__title"]')[0].text_content().strip()
             curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
 
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            releaseDate = ''
+            date = detailsPageElements.xpath('//p[contains(text(), "Released:")]')
+            if date:
+                date_object = parse(date[0].text_content().split(':')[1].strip())
+                releaseDate = date_object.strftime('%Y-%m-%d')
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            if searchData.date and releaseDate:
+                score = 100 - Util.LevenshteinDistance(searchData.dateFormat(), releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -31,61 +41,51 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
+    sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h3[@class="player__info__title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="content-desc"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//p[@class="player__description hide--tablet"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-
-    # Tagline and Collection
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.studio = 'Bang Bros'
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="content-base-info"]//div[@class="info-elem -length"]/span')[0].text_content().strip()
-    if date:
-        date_object = datetime.strptime(date, '%b %d, %Y')
+    if sceneDate:
+        date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[(contains(@class, "content-links -tags"))]/a'):
-        genreName = genreLink.get('title')
+    genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0]
+    for genreLink in genres.split(','):
+        genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[(contains(@class, "content-links -models"))]/a'):
-        actorName = actorLink.get('title')
-
-        actorPageURL = actorLink.get('href')
-        req = PAutils.HTTPRequest(actorPageURL)
+    for actorLink in detailsPageElements.xpath('//p[@class="player__stats__cast"]/a'):
+        actorName = actorLink.text_content().strip()
+        actorPageSlug = actorLink.get('href')
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + actorPageSlug)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[(contains(@class, "model-avatar"))]//img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//img[@class="model__img"]/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Posters/Background
+    # Posters
     xpaths = [
-        '//div//a[@class="video-gallery-item"]/@href',
-        '//meta[@property="og:image"]/@content',
+        '//dl8-video/@poster',
+        '//img[@class="player__thumbs__img"]/@src',
     ]
-
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
-            if not poster.startswith('http'):
-                poster = 'http:' + poster
-
             art.append(poster)
 
     Log('Artwork found: %d' % len(art))
@@ -101,7 +101,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if width > 1:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and idx > 1:
+                if width > 100:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:

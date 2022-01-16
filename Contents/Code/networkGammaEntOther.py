@@ -85,7 +85,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = int(metadata_id[0])
     sceneType = metadata_id[2]
@@ -172,8 +172,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actor[0], actor[1])
 
     # Posters
-    art = []
-
     if not PAsearchSites.getSearchBaseURL(siteNum).endswith(('girlsway.com', 'puretaboo.com')):
         art.append('https://images-fame.gammacdn.com/movies/{0}/{0}_{1}_front_400x625.jpg'.format(detailsPageElements['movie_id'], detailsPageElements['url_title'].lower().replace('-', '_')))
         if 'url_movie_title' in detailsPageElements:

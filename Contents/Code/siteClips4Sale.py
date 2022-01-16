@@ -52,7 +52,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -62,7 +62,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    art = []
     movieGenres.clearGenres()
     movieActors.clearActors()
 
@@ -2992,9 +2991,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genre)
 
     # Posters
-    art = [
-        'http://imagecdn.clips4sale.com/accounts99/%s/clip_images/previewlg_%s.jpg' % (userID, sceneID)
-    ]
+    art.append('http://imagecdn.clips4sale.com/accounts99/%s/clip_images/previewlg_%s.jpg' % (userID, sceneID))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

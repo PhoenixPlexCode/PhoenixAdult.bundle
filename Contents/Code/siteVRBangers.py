@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneId = PAutils.Decode(metadata_id[0])
     basePath = PAsearchSites.getSearchBaseURL(siteNum).replace('www', 'content')
@@ -34,7 +34,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Summary
     try:
         raw = detailsPageElements['description']
-        summary = raw.replace('<a href="/', '').replace('">', '').replace('</a>', '')
+        summary = HTML.ElementFromString(raw).xpath('//p')[0].text_content().strip()
         metadata.summary = summary
     except:
         pass
@@ -56,8 +56,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements['tags']:
-        genreName = genreLink['label']
+    for genreLink in detailsPageElements['categories']:
+        genreName = genreLink['name']
         movieGenres.addGenre(genreName)
 
     # Actors
@@ -68,13 +68,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
+    maybeSlider = detailsPageElements['sliderImage']
+    if maybeSlider:
+        imgUrl = basePath + maybeSlider['permalink']
+        art.append(imgUrl)
 
-    imgUrl = basePath + detailsPageElements['sliderImage']['permalink']
-    art.append(imgUrl)
-
-    imgUrl = basePath + detailsPageElements['poster']['permalink']
-    art.append(imgUrl)
+    maybePoster = detailsPageElements['poster']
+    if maybePoster:
+        imgUrl = basePath + maybePoster['permalink']
+        art.append(imgUrl)
 
     for imgObj in detailsPageElements['galleryImages']:
         imgUrl = basePath + imgObj['permalink']

@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=80, lang=lang))
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -59,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
         '//div[contains(@class, "gallery-image")]/img/@src',
     ]

@@ -7,7 +7,7 @@ def getDataFromAPI(url, req_type, query):
         'Authorization': 'Basic YmFuZy1yZWFkOktqVDN0RzJacmQ1TFNRazI=',
         'Content-Type': 'application/json'
     }
-    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}, {'match': {'type': 'movie'}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
+    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
     data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
 
     return data
@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
@@ -76,10 +76,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters
-    dvdID = detailsPageElements['dvd']['id']
-    art = [
-        'https://i.bang.com/covers/%d/front.jpg' % dvdID
-    ]
+    dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
+    art.append('https://i.bang.com/covers/%d/front.jpg' % dvdID)
 
     for img in detailsPageElements['screenshots']:
         art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))

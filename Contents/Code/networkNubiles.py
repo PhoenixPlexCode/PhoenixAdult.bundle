@@ -37,7 +37,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/watch/' + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
@@ -124,7 +124,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor('Chad White', '')
 
     # Posters
-    art = []
     xpaths = [
         '//video/@poster',
     ]
@@ -135,8 +134,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
             art.append(poster)
 
-    if siteNum != 543:
-        # Fix for HotCrazyMess having no gallery 
+    try:
         galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
         req = PAutils.HTTPRequest(galleryURL)
         photoPageElements = HTML.ElementFromString(req.text)
@@ -145,6 +143,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                 poster = 'http:' + poster
 
             art.append(poster)
+    except:
+        pass
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

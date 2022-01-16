@@ -12,11 +12,17 @@
         "default": "false"
     },
     {
+        "id": "validate_image_keys",
+        "label": "Remove Obsolete Images",
+        "type": "bool",
+        "default": "false"
+    },
+    {
         "id": "metadataapi_enable",
         "label": "Enable using MetadataAPI for unsuccessful search",
         "type": "bool",
         "default": "false"
-    },    
+    },
     {
         "id": "metadataapi_token",
         "label": "MetadataAPI Token",

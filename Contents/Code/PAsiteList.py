@@ -12,7 +12,6 @@ import networkSteppedUp
 import networkGammaEnt
 import networkDogfart
 import siteJulesJordan
-import networkDDFNetwork
 import networkPerfectGonzo
 import networkPornFidelity
 import networkBadoinkVR
@@ -137,7 +136,7 @@ import sitePurgatoryX
 import sitePlumperPass
 import networkFTV
 import siteJacquieEtMichel
-import siteData18Content
+import siteData18Scenes
 import sitePenthouseGold
 import siteData18Movies
 import siteData18Empire
@@ -179,6 +178,9 @@ import siteHotwifeXXX
 import siteXSinsVR
 import sitePOVR
 import siteSwallowBay
+import siteVirtualPorn
+import siteJavLibrary
+import siteKillergram
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1060,7 +1062,7 @@ searchSites = {
     876: ('Bellesa House', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     877: ('Reality Lovers', 'https://realitylovers.com', '/videos/search'),
     878: ('Adult Time', 'https://freetour.adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    879: ('RealJamVR', 'https://www.realjamvr.com', '/virtualreality/scene/id/'),
+    879: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
     880: ('BBC Paradise', 'https://www.bbcparadise.com', '/movies/'),
     881: ('Mylf X CamSoda', 'https://www.mylf.com', '/movies/'),
     882: ('Mylf X Fucking Awesome', 'https://www.mylf.com', '/movies/'),
@@ -1085,8 +1087,8 @@ searchSites = {
     901: ('Xillimite', 'https://www.xillimite.com', '/en/search?type=4&keyword='),
     902: ('VRPFilms', 'https://vrpfilms.com', '/m/'),
     903: ('VR Latina', 'https://vrlatina.com', '/video/'),
-    904: ('VRConk', 'https://www.vrconk.com', '/virtualreality/scene/id/'),
-    905: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
+    904: ('VRConk', 'https://www.vrconk.com', '/api/content/v1/search/'),
+    905: (),
     906: ('Evolved Fights', 'https://www.evolvedfights.com', '/updates/'),
     907: ('Evolved Fights Lesbian Edition', 'https://www.evolvedfightslez.com', '/updates/'),
     908: ('SapphiX', 'https://sapphix.com', '/movies?q='),
@@ -1252,9 +1254,9 @@ searchSites = {
     1068: ('FTVMilfs', 'https://ftvmilfs.com', '/update/s-'),
     1069: ('FTVGirls', 'https://www.ftvgirls.com', '/update/s-'),
     1070: ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', '/en/recherche/'),
-    1071: ('Data18 Content', 'http://www.data18.com', '/search/?k='),
+    1071: ('Data18 Scenes', 'https://www.data18.com', '/sys/search.php?index=&key='),
     1072: ('Penthouse Gold', 'https://penthousegold.com', '/search.php?query='),
-    1073: ('Data18 Movies', 'http://www.data18.com', '/search/?k='),
+    1073: ('Data18 Movies', 'https://www.data18.com', '/sys/search.php?index=&key='),
     1074: ('WakeUpNFuck', 'https://www.wakeupnfuck.com', '/search?query='),
     1075: ('Dillion Nation', 'https://dillionation.com', '/sapi/'),
     1076: ('SexMex', 'https://sexmex.xxx', '/tour/search.php?query='),
@@ -1546,6 +1548,17 @@ searchSites = {
     1362: ('SisSwap', 'https://www.sisswap.com', '/movies'),
     1363: ('IMadePorn', 'https://www.teamskeet.com', '/movies'),
     1364: ('Facials4K', 'https://www.facials4k.com', '/video/'),
+    1365: ('Bang Movies', 'https://www.bang.com', 'https://617fb597b659459bafe6472470d9073a.us-east-1.aws.found.io/dvds/_search'),
+    1366: ('VirtualPorn', 'https://virtualporn.com', '/'),
+    1367: ('JAVLibrary', 'https://www.javlibrary.com', '/en/vl_searchbyid.php?keyword='),
+    1368: ('Killergram', 'https://killergram.com', '/episodes.asp?page=episodes&id='),
+    1369: ('Killergram Platinum', 'https://killergram.com', '/platinum.asp?page=platinum&id='),
+    1370: ('Data18 Movie Scene', 'https://data18.com', '/sys/search.php?index=&key='),
+    1371: ('PervTherapy', 'http://www.pervtherapy.com', '/movies'),
+    1372: ('HijabHookup', 'http://www.hijabhookup.com', '/movies'),
+    1373: ('KissingSis', 'https://www.teamskeet.com', '/movies'),
+    1374: ('Mr Lucky POV', 'https://www.mrluckypov.com', '/search.php?query='),
+    1375: ('Real Sensual', 'https://www.realsensual.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -1975,7 +1988,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2019,7 +2032,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # Spizoo
-        elif siteNum == 293 or (571 <= siteNum <= 577):
+        elif siteNum == 293 or (571 <= siteNum <= 577) or (1374 <= siteNum <= 1375):
             provider = siteSpizoo
 
         # Private
@@ -2072,7 +2085,7 @@ def getProviderFromSiteNum(siteNum):
 
         # DDF Network
         elif (440 <= siteNum <= 447):
-            provider = networkDDFNetwork
+            provider = networkPornWorld
 
         # PerfectGonzo
         elif (448 <= siteNum <= 459) or (908 <= siteNum <= 911):
@@ -2399,7 +2412,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkR18
 
         # Bang
-        elif siteNum == 813:
+        elif siteNum == 813 or siteNum == 1365:
             provider = networkBang
 
         # Vivid
@@ -2533,10 +2546,6 @@ def getProviderFromSiteNum(siteNum):
         # VRConk
         elif siteNum == 904:
             provider = siteVRConk
-
-        # RealJamVR
-        elif siteNum == 905:
-            provider = networkHighTechVR
 
         # Evolved Fights Network
         elif siteNum == 906 or siteNum == 907:
@@ -2682,9 +2691,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1070:
             provider = siteJacquieEtMichel
 
-        # Data18 Content
-        elif siteNum == 1071:
-            provider = siteData18Content
+        # Data18 Scenes
+        elif siteNum == 1071 or siteNum == 1370:
+            provider = siteData18Scenes
 
         # Penthouse Gold
         elif siteNum == 1072:
@@ -2848,5 +2857,17 @@ def getProviderFromSiteNum(siteNum):
         # Swallow Bay
         elif siteNum == 1361:
             provider = siteSwallowBay
+
+        # Virtual Porn
+        elif siteNum == 1366:
+            provider = siteVirtualPorn
+
+        # JAV Library
+        elif siteNum == 1367:
+            provider = siteJavLibrary
+
+        # Killergram
+        elif (1368 <= siteNum <= 1369):
+            provider = siteKillergram
 
     return provider

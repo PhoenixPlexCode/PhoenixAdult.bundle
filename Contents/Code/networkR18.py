@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -44,7 +44,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     dataReq = PAutils.HTTPRequest(dataURL)
     dataElements = json.loads(dataReq.text)['data']
 
-    javID = dataElements['dvd_id']
+    if dataElements['dvd_id']:
+        javID = dataElements['dvd_id']
+    else:
+        javID = scene_id
 
     # Title
     JavTitle = dataElements['title']
@@ -95,7 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Actors
     movieActors.clearActors()
-    if dataElements['actresses']:
+    if dataElements['actresses'] is not None:
         for actorLink in dataElements['actresses']:
             fullActorName = actorLink['name']
             if fullActorName != '----':
@@ -124,7 +127,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         else:
             if javID.startswith('3DSVR'):
                 javID = javID.replace('3DSVR', 'DSVR')
-                
+            elif javID.startswith('13DSVR'):
+                javID = javID.replace('13DSVR', 'DSVR')
+
             alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + javID
 
             alternateSceneReq = PAutils.HTTPRequest(alternateSceneUrl)
@@ -165,11 +170,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add('Japan Adult Video')
 
     # Posters
-    art = []
     for photo in dataElements['gallery']:
-        photoURL = photo['large']
-
-        art.append(photoURL)
+        if photo['large']:
+            art.append(photo['large'])
+        elif photo['medium']:
+            art.append(photo['medium'])
+        elif photo['small']:
+            art.append(photo['small'])
 
     for poster in dataElements['images']:
         poster_idx = poster.index('jacket_image')
