@@ -1056,9 +1056,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - FirstClassPOV
   - IntimateLesbians
   - JessicaJaymesXXX
+  - MrLuckyPOV
   - PornGoesPro
   - PornstarTease
   - RawAttack
+  - RealSensual
   - TheStripperExperience
 + #### Step Secrets | ✅ - **Date Add**
 + #### Straplezz | ❌ - **Direct URL**
