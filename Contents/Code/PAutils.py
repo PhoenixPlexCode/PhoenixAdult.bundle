@@ -324,7 +324,7 @@ def parseWord(word, siteNum):
     upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
     letter_exceptions = ['A', 'V', 'Y']
     symbolsClean = ['-', '/', '.', '+', '\'']
-    symbolsEsc = ['-', '/', '\.', '\+', '\'']
+    symbolsEsc = ['-', '/', r'\.', r'\+', '\'']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     pattern = re.compile(r'\W')
@@ -360,7 +360,7 @@ def any(s):
 def parseTitleSymbol(word, siteNum, symbol):
     pattern = re.compile(r'\W')
     word_list = re.split(symbol, word)
-    symbols = ['-', '/', '\.', '\+']
+    symbols = ['-', '/', r'\.', r'\+']
 
     firstword = parseWord(word_list[0], siteNum)
     if len(firstword) > 1:
