@@ -2,19 +2,22 @@ import PAsearchSites
 import PAutils
 
 
-def getDataFromAPI(url, req_type, query):
+def getDataFromAPI(url, req_type, query, siteNum):
     headers = {
         'Authorization': 'Basic YmFuZy1yZWFkOktqVDN0RzJacmQ1TFNRazI=',
         'Content-Type': 'application/json'
     }
-    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
+    if siteNum == 1365:
+        params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}, 'size': '150'})
+    else:
+        params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
     data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
 
     return data
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchData.title)['hits']['hits']
+    searchResults = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'name', searchData.title, siteNum)['hits']['hits']
     for searchResult in searchResults:
         searchResult = searchResult['_source']
         titleNoFormatting = PAutils.parseTitle(searchResult['name'], siteNum)
@@ -37,7 +40,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
-    detailsPageElements = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'identifier', sceneID)['hits']['hits'][0]['_source']
+    detailsPageElements = getDataFromAPI(PAsearchSites.getSearchSearchURL(siteNum), 'identifier', sceneID, siteNum)['hits']['hits'][0]['_source']
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['name'], siteNum)
@@ -79,8 +82,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
     art.append('https://i.bang.com/covers/%d/front.jpg' % dvdID)
 
-    for img in detailsPageElements['screenshots']:
-        art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))
+    if 'dvd' in detailsPageElements:
+        for img in detailsPageElements['screenshots']:
+            art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
