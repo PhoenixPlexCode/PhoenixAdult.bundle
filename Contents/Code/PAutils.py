@@ -304,7 +304,7 @@ def parseTitle(s, siteNum):
     output = ' '.join(final)
 
     # Add space after a punctuation if missing
-    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b|porn\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
     output = re.sub(r'\b(?:(?<=\S.)(?<=\w)(?:\.))$', '', output)
     # Remove space between word and punctuation

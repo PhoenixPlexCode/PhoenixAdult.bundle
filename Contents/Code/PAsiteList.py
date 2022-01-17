@@ -181,6 +181,7 @@ import siteSwallowBay
 import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
+import networkHugeMedia
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1559,6 +1560,12 @@ searchSites = {
     1373: ('KissingSis', 'https://www.teamskeet.com', '/movies'),
     1374: ('Mr Lucky POV', 'https://www.mrluckypov.com', '/search.php?query='),
     1375: ('Real Sensual', 'https://www.realsensual.com', '/search.php?query='),
+    1376: ('Tutor4k', 'https://tutor4k.com', '/'),
+    1377: ('Daddy4k', 'https://daddy4k.com', '/en/search/'),
+    1378: ('Stuck4k', 'https://stuck4k.com', '/'),
+    1379: ('Old4k', 'https://old4k.com', '/en/search/'),
+    1380: ('Hunt4k', 'https://hunt4k.com', '/en/search/'),
+    1381: ('Sis.Porn', 'https://sis.porn', '/'),
 }
 
 abbreviations = (
@@ -2869,5 +2876,9 @@ def getProviderFromSiteNum(siteNum):
         # Killergram
         elif (1368 <= siteNum <= 1369):
             provider = siteKillergram
+
+        # Huge Media
+        elif (1376 <= siteNum <= 1381):
+            provider = networkHugeMedia
 
     return provider

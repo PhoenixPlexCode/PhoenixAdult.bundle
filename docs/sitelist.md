@@ -494,6 +494,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Holly Randall | ✓
 + #### HotwifeXXX | ✅
 + #### HuCows | ✅
++ #### Huge Media | Site Based
+  - Daddy4k ✅
+  - Hunt4k ✅
+  - Old4k ✅
+  - Sis.Porn ❌ - **SceneID**
+  - Stuck4k ❌ - **SceneID**
+  - Tutor4k ❌ - **SceneID**
 + #### Hustler | ✓ - **Date Add**
 + #### I Kiss Girls | ✅
 + #### Interracial Pass | ✅
@@ -565,7 +572,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - WaterBondage
   - WhippedAss
   - WiredPussy
-+ #### Kinky Spa | ✓  
++ #### Kinky Spa | ✓
 + #### Karups | ✅ - **Actor only**
   - Karups Hometown Amateurs
   - Karups Older Women
