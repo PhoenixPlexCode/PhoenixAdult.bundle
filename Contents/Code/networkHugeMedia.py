@@ -140,16 +140,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 genresDB = {
     'Stuck4k': ['Stuck'],
-    'Tutor4k': ['Tutor'],
+    'Tutor4k': ['Tutor', 'MILF'],
     'Sis.Porn': ['Step Sister'],
+    'Shame4k': ['MILF'],
+    'Mature4k': ['GILF'],
 }
 
 
 summaryDB = {
     'Stuck4k': ['//span[@class="player-info__text-area"]'],
+    'Mature4k': ['//span[@class="player-info__text-area"]'],
     'Daddy4k': ['//div[@class="wrap_post"]/p'],
+    'Black4k': ['//div[@class="desc_frame"]/p'],
     'Hunt4k': ['//div[@class="wrap_player_desc"]/p'],
     'Old4k': ['//div[@class="wrap_player_desc"]/p'],
     'Tutor4k': ['//span[@class="episode-about__text text"]'],
     'Sis.Porn': ['//div[@class="player-item__text"]'],
+    'Shame4k': ['//div[@class="player-info__text"]'],
 }

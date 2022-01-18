@@ -495,10 +495,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### HotwifeXXX | ✅
 + #### HuCows | ✅
 + #### Huge Media | Site Based
+  - Black4k ✅
   - Daddy4k ✅
   - Hunt4k ✅
+  - Mature4k ❌ - **SceneID**
   - Old4k ✅
   - Sis.Porn ❌ - **SceneID**
+  - Shame4k ❌ - **SceneID**
   - Stuck4k ❌ - **SceneID**
   - Tutor4k ❌ - **SceneID**
 + #### Hustler | ✓ - **Date Add**
