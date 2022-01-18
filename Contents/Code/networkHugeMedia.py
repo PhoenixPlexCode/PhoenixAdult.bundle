@@ -107,6 +107,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         '//picture[@class="episode__cover-img"]//source[@type="image/jpeg"]/@data-srcset',
         '//div[@class="player_watch"]//source[@type="image/jpeg"]/@data-srcset',
         '//div[@class="player-item__block"]//source[@type="image/jpeg"]/@data-srcset',
+        '//div[@class="player-item__preview-container"]//source[@type="image/jpeg"]/@data-srcset',
     ]
 
     for xpath in xpaths:
@@ -157,4 +158,6 @@ summaryDB = {
     'Tutor4k': ['//span[@class="episode-about__text text"]'],
     'Sis.Porn': ['//div[@class="player-item__text"]'],
     'Shame4k': ['//div[@class="player-info__text"]'],
+    'Fist4k': ['//div[@class="player-item__text text text--sm"]'],
+    'Rim4k': ['//div[@class="player-item__text text text--sm"]'],
 }
