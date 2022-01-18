@@ -83,6 +83,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
+    actors = []
+    for key, value in actorsDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+            actors = detailsPageElements.xpath(value[0])
+            break
+
+    if ',' in actors[0].text_content():
+        actors = actors[0].text_content().split(',')
+
+    for actorLink in actors:
+        try:
+            actorName = actorLink.strip()
+        except:
+            actorName = actorLink.text_content().strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
     movieGenres.clearGenres()
@@ -160,4 +177,14 @@ summaryDB = {
     'Shame4k': ['//div[@class="player-info__text"]'],
     'Fist4k': ['//div[@class="player-item__text text text--sm"]'],
     'Rim4k': ['//div[@class="player-item__text text text--sm"]'],
+}
+
+
+actorsDB = {
+    'Mature4k': ['//a[contains(@class, "hid2")]/div[@class="item-info__text"]'],
+    'Black4k': ['//div[@class="cat_player"]/a'],
+    'Old4k': ['//div[@class="cat_player"]/a'],
+    'Sis.Porn': ['//div[@class="player-item__row"][./div[contains(., "Name:")]]//span'],
+    'Fist4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
+    'Rim4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
 }
