@@ -96,13 +96,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     for img in detailsPageElements.xpath('//div[contains(@class, "thumbs2 gallery")]//img/@src'):
         art.append(img.split('?')[0])
+        art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL})
+                image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
