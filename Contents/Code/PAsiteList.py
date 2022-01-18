@@ -2,7 +2,7 @@ import siteNaughtyAmerica
 import siteXart
 import networkBangBros
 import sitePorndoePremium
-import siteLegalPorno
+import siteAnalVids
 import siteGloryHoleSecrets
 import siteNewSensations
 import siteSpizoo
@@ -444,7 +444,7 @@ searchSites = {
     257: ('Scambisti Maturi', 'https://amateureuro.com', '/search.en.html?q='),
     258: ('Sextape Germany', 'https://amateureuro.com', '/search.en.html?q='),
     259: ('XXX Omas', 'https://amateureuro.com', '/search.en.html?q='),
-    260: ('LegalPorno', 'https://www.legalporno.com', '/search/?query='),
+    260: ('AnalVids', 'https://www.analvids.com', '/api/autocomplete/search?q='),
     261: ('Mofos', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     262: ('ShareMyBF', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     263: ('Dont Break Me', 'https://www.mofos.com', 'https://site-api.project1service.com'),
@@ -1583,7 +1583,7 @@ abbreviations = (
     ('^agm ', 'AllGirlMassage '),
     ('^am ', 'AssMasterpiece '),
     ('^analb ', 'AnalBeauty '),
-    ('^analvids ', 'LegalPorno '),
+    ('^legalporno ', 'AnalVids '),
     ('^ap ', 'AssParade '),
     ('^aw ', 'AngelaWhite '),
     ('^baebz ', 'Baeb '),
@@ -1614,7 +1614,7 @@ abbreviations = (
     ('^burna ', 'BurningAngel '),
     ('^bwb ', 'BigWetButts '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
-    ('^clip ', 'LegalPorno '),
+    ('^clip ', 'AnalVids '),
     ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
     ('^css ', 'CzechStreets '),
@@ -2002,9 +2002,9 @@ def getProviderFromSiteNum(siteNum):
         elif (216 <= siteNum <= 259):
             provider = sitePorndoePremium
 
-        # Legal Porno
+        # AnalVids
         elif siteNum == 260:
-            provider = siteLegalPorno
+            provider = siteAnalVids
 
         # Mofos
         elif (261 <= siteNum <= 270) or siteNum == 583 or (738 <= siteNum <= 740) or (1059 <= siteNum <= 1064):
