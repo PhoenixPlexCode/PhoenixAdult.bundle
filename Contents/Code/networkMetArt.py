@@ -77,10 +77,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Posters
     siteUUID = detailsPageElements['siteUUID']
     CDNurl = 'https://cdn.metartnetwork.com/' + siteUUID
-    art = [
-        CDNurl + detailsPageElements['coverImagePath'],
-        CDNurl + detailsPageElements['splashImagePath']
-    ]
+    art.append(CDNurl + detailsPageElements['coverImagePath'])
+    art.append(CDNurl + detailsPageElements['splashImagePath'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

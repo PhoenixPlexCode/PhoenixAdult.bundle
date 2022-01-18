@@ -90,9 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Posters
-    art = [
-        scenePoster
-    ]
+    art.append(scenePoster)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
