@@ -3,29 +3,32 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchResults = HTML.ElementFromString(req.text)
-    if 'Search for' in searchResults.xpath('//title/text()')[0]:
-        for searchResult in searchResults.xpath('//div[@class="thumbnails"]/div'):
-            curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
-            titleNoFormatting = searchResult.xpath('.//div[contains(@class, "thumbnail-title")]//a/@title')[0]
-            releaseDate = parse(searchResult.xpath('./@release')[0]).strftime('%Y-%m-%d')
+    sceneID = None
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
-            if searchData.date:
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title)
+    searchResults = req.json()
+
+    for searchResult in searchResults['terms']:
+        if searchResult['type'] == 'scene':
+            titleNoFormatting = PAutils.parseTitle(searchResult['name'], siteNum)
+
+            sceneURL = searchResult['url']
+            curID = PAutils.Encode(sceneURL)
+
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
+            if int(sceneID) == searchResult['source_id']:
+                score = 100
+            elif searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
-    else:
-        sceneURL = req.url
-        curID = PAutils.Encode(sceneURL)
-        titleNoFormatting = searchResults.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
-        releaseDate = parse(searchResults.xpath('//span[@class="scene-description__detail"]//a/text()')[0]).strftime('%Y-%m-%d')
-
-        score = 100
-
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [AnalVids] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -39,10 +42,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip(), siteNum)
 
     # Studio
-    metadata.studio = 'LegalPorno'
+    metadata.studio = 'AnalVids'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -89,19 +92,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Posters/Background
-    art = [
-        detailsPageElements.xpath('//div[@id="player"]/@style')[0].split('url(')[1].split(')')[0]
-    ]
+    art.append(detailsPageElements.xpath('//div[@id="player"]/@style')[0].split('url(')[1].split(')')[0])
 
     for img in detailsPageElements.xpath('//div[contains(@class, "thumbs2 gallery")]//img/@src'):
-        art.append(img)
+        art.append(img.split('?')[0])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl)
+                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': sceneURL})
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
