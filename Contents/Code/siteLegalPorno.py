@@ -89,9 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Posters/Background
-    art = [
-        detailsPageElements.xpath('//div[@id="player"]/@style')[0].split('url(')[1].split(')')[0]
-    ]
+    art.append(detailsPageElements.xpath('//div[@id="player"]/@style')[0].split('url(')[1].split(')')[0])
 
     for img in detailsPageElements.xpath('//div[contains(@class, "thumbs2 gallery")]//img/@src'):
         art.append(img)

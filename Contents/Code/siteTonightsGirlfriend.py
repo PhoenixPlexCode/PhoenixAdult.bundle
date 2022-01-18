@@ -111,9 +111,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Posters/Background
-    art = [
-        'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
-    ]
+    art.append('https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
