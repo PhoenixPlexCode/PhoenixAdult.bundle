@@ -63,10 +63,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, '')
 
     # Photos
-    art = [
-        scenePoster,
-        detailsPageElements.xpath('//img[contains(@class, "image")]/@data-src')[0].split('?', 1)[0]
-    ]
+    art.append(scenePoster)
+    art.append(detailsPageElements.xpath('//img[contains(@class, "image")]/@data-src')[0].split('?', 1)[0])
+
     for img in detailsPageElements.xpath('//section[@class="gallery"]//img[contains(@class, "image")]/@data-src'):
         art.append(img.split('?', 1)[0])
 

@@ -98,9 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     director.name = '%s %s' % (directorLink['name'], directorLink['last_name'])
 
     # Poster
-    art = [
-        detailsPageElements['poster_picture'].split('?', 1)[0],
-    ]
+    art.append(detailsPageElements['poster_picture'].split('?', 1)[0])
 
     for photoLink in detailsPageElements['album']:
         img = photoLink['path'].split('?', 1)[0]
