@@ -494,6 +494,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Holly Randall | ✓
 + #### HotwifeXXX | ✅
 + #### HuCows | ✅
++ #### Huge Media | Site Based
+  - Daddy4k ✅
+  - Hunt4k ✅
+  - Old4k ✅
+  - Sis.Porn ❌ - **SceneID**
+  - Stuck4k ❌ - **SceneID**
+  - Tutor4k ❌ - **SceneID**
 + #### Hustler | ✓ - **Date Add**
 + #### I Kiss Girls | ✅
 + #### Interracial Pass | ✅
@@ -565,12 +572,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - WaterBondage
   - WhippedAss
   - WiredPussy
-+ #### Kinky Spa | ✓  
++ #### Kinky Spa | ✓
 + #### Karups | ✅ - **Actor only**
   - Karups Hometown Amateurs
   - Karups Older Women
   - Karups Private Collection
-+ #### LegalPorno | ✓ - **Title only**
++ #### AnalVids | ✅
 + #### Little Caprice | ✅
 + #### Look At Her Now | ✅
 + #### Love Her Feet | ✅
@@ -1226,19 +1233,19 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Scoreland2
   - XL Girls
 + #### Thick Cash Network | ✅ - **Actor only, Date Add**
- - Ebony Tugs
- - Family Lust
- - Over 40 Handjobs
- - Teen Tugs
+  - Ebony Tugs
+  - Family Lust
+  - Over 40 Handjobs
+  - Teen Tugs
 + #### Tonights Girlfriend | ✓ - **Actor only**
 + #### Top Web Models | ✅
- - 2 Girls 1 Camera
- - Big Gulp Girls
- - Cougar Season
- - Deepthroat Sirens
- - Facials Forever
- - Pounded Petite
- - She's Brand New
+  - 2 Girls 1 Camera
+  - Big Gulp Girls
+  - Cougar Season
+  - Deepthroat Sirens
+  - Facials Forever
+  - Pounded Petite
+  - She's Brand New
 + #### ToughLoveX | ✅ - **Actor only, Date Add**
 + #### TransAngels | ✅
 + #### True Amateurs | ✅

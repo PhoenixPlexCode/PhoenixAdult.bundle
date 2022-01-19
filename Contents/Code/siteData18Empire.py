@@ -303,7 +303,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if gallery:
             req = PAutils.HTTPRequest('%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), gallery[0]))
             galleryPageElement = HTML.ElementFromString(req.text)
-            art = art + galleryPageElement.xpath(gallery_image)
+            art.extend(galleryPageElement.xpath(gallery_image))
         if splitScene:
             art.append(detailsPageElements.xpath(scene)[int(metadata_id[3])])
     except:

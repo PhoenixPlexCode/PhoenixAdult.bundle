@@ -95,9 +95,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [
-        detailsPageElements.xpath('//div[@id="fakeplayer"]//img/@src0_3x')[0]
-    ]
+    art.append(detailsPageElements.xpath('//div[@id="fakeplayer"]//img/@src0_3x')[0])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

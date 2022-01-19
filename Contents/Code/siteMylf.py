@@ -157,9 +157,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Posters
-    art = [
-        detailsPageElements['img']
-    ]
+    art.append(detailsPageElements['img'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

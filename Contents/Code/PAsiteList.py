@@ -2,7 +2,7 @@ import siteNaughtyAmerica
 import siteXart
 import networkBangBros
 import sitePorndoePremium
-import siteLegalPorno
+import siteAnalVids
 import siteGloryHoleSecrets
 import siteNewSensations
 import siteSpizoo
@@ -181,6 +181,7 @@ import siteSwallowBay
 import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
+import networkHugeMedia
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -443,7 +444,7 @@ searchSites = {
     257: ('Scambisti Maturi', 'https://amateureuro.com', '/search.en.html?q='),
     258: ('Sextape Germany', 'https://amateureuro.com', '/search.en.html?q='),
     259: ('XXX Omas', 'https://amateureuro.com', '/search.en.html?q='),
-    260: ('LegalPorno', 'https://www.legalporno.com', '/search/?query='),
+    260: ('AnalVids', 'https://www.analvids.com', '/api/autocomplete/search?q='),
     261: ('Mofos', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     262: ('ShareMyBF', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     263: ('Dont Break Me', 'https://www.mofos.com', 'https://site-api.project1service.com'),
@@ -1559,6 +1560,12 @@ searchSites = {
     1373: ('KissingSis', 'https://www.teamskeet.com', '/movies'),
     1374: ('Mr Lucky POV', 'https://www.mrluckypov.com', '/search.php?query='),
     1375: ('Real Sensual', 'https://www.realsensual.com', '/search.php?query='),
+    1376: ('Tutor4k', 'https://tutor4k.com', '/'),
+    1377: ('Daddy4k', 'https://daddy4k.com', '/en/search/'),
+    1378: ('Stuck4k', 'https://stuck4k.com', '/'),
+    1379: ('Old4k', 'https://old4k.com', '/en/search/'),
+    1380: ('Hunt4k', 'https://hunt4k.com', '/en/search/'),
+    1381: ('Sis.Porn', 'https://sis.porn', '/'),
 }
 
 abbreviations = (
@@ -1576,7 +1583,7 @@ abbreviations = (
     ('^agm ', 'AllGirlMassage '),
     ('^am ', 'AssMasterpiece '),
     ('^analb ', 'AnalBeauty '),
-    ('^analvids ', 'LegalPorno '),
+    ('^legalporno ', 'AnalVids '),
     ('^ap ', 'AssParade '),
     ('^aw ', 'AngelaWhite '),
     ('^baebz ', 'Baeb '),
@@ -1607,7 +1614,7 @@ abbreviations = (
     ('^burna ', 'BurningAngel '),
     ('^bwb ', 'BigWetButts '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
-    ('^clip ', 'LegalPorno '),
+    ('^clip ', 'AnalVids '),
     ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
     ('^css ', 'CzechStreets '),
@@ -1995,9 +2002,9 @@ def getProviderFromSiteNum(siteNum):
         elif (216 <= siteNum <= 259):
             provider = sitePorndoePremium
 
-        # Legal Porno
+        # AnalVids
         elif siteNum == 260:
-            provider = siteLegalPorno
+            provider = siteAnalVids
 
         # Mofos
         elif (261 <= siteNum <= 270) or siteNum == 583 or (738 <= siteNum <= 740) or (1059 <= siteNum <= 1064):
@@ -2869,5 +2876,9 @@ def getProviderFromSiteNum(siteNum):
         # Killergram
         elif (1368 <= siteNum <= 1369):
             provider = siteKillergram
+
+        # Huge Media
+        elif (1376 <= siteNum <= 1381):
+            provider = networkHugeMedia
 
     return provider

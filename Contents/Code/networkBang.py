@@ -7,7 +7,7 @@ def getDataFromAPI(url, req_type, query):
         'Authorization': 'Basic YmFuZy1yZWFkOktqVDN0RzJacmQ1TFNRazI=',
         'Content-Type': 'application/json'
     }
-    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}})
+    params = json.dumps({'query': {'bool': {'must': [{'match': {req_type: query}}], 'must_not': [{'match': {'type': 'trailer'}}]}}, 'size': '25'})
     data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
 
     return data
@@ -79,8 +79,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     dvdID = detailsPageElements['dvd']['id'] if 'dvd' in detailsPageElements else detailsPageElements['identifier']
     art.append('https://i.bang.com/covers/%d/front.jpg' % dvdID)
 
-    for img in detailsPageElements['screenshots']:
-        art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))
+    if 'screenshots' in detailsPageElements:
+        for img in detailsPageElements['screenshots']:
+            art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
