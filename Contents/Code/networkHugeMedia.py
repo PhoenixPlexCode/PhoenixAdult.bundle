@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
     elif 'search' in PAsearchSites.getSearchSearchURL(siteNum):
-        searchURL = '%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
         req = PAutils.HTTPRequest(searchURL)
         searchResults = HTML.ElementFromString(req.text)
 
@@ -58,7 +58,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().replace('’', '\'').split('|')[-1].strip(), siteNum)
+    title = detailsPageElements.xpath('//title')[0].text_content().replace('’', '\'').split('|')[-1].strip()
+    metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
     for key, value in summaryDB.items():
@@ -93,10 +94,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actors = actors[0].text_content().split(',')
 
     for actorLink in actors:
-        try:
-            actorName = actorLink.strip()
-        except:
-            actorName = actorLink.text_content().strip()
+        actorName = actorLink
+        if not isinstance(actorName, str):
+            actorName = actorName.text_content()
+        actorName = actorName.strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
