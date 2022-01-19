@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
     elif 'search' in PAsearchSites.getSearchSearchURL(siteNum):
-        searchURL = '%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
         req = PAutils.HTTPRequest(searchURL)
         searchResults = HTML.ElementFromString(req.text)
 
@@ -58,7 +58,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().replace('’', '\'').split('|')[-1].strip(), siteNum)
+    title = detailsPageElements.xpath('//title')[0].text_content().replace('’', '\'').split('|')[-1].strip()
+    metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
     for key, value in summaryDB.items():
@@ -83,6 +84,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
+    actors = []
+    for key, value in actorsDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+            actors = detailsPageElements.xpath(value[0])
+            break
+
+    if ',' in actors[0].text_content():
+        actors = actors[0].text_content().split(',')
+
+    for actorLink in actors:
+        actorName = actorLink
+        if not isinstance(actorName, str):
+            actorName = actorName.text_content()
+        actorName = actorName.strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
     movieGenres.clearGenres()
@@ -107,6 +125,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         '//picture[@class="episode__cover-img"]//source[@type="image/jpeg"]/@data-srcset',
         '//div[@class="player_watch"]//source[@type="image/jpeg"]/@data-srcset',
         '//div[@class="player-item__block"]//source[@type="image/jpeg"]/@data-srcset',
+        '//div[@class="player-item__preview-container"]//source[@type="image/jpeg"]/@data-srcset',
     ]
 
     for xpath in xpaths:
@@ -140,16 +159,33 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 genresDB = {
     'Stuck4k': ['Stuck'],
-    'Tutor4k': ['Tutor'],
+    'Tutor4k': ['Tutor', 'MILF'],
     'Sis.Porn': ['Step Sister'],
+    'Shame4k': ['MILF'],
+    'Mature4k': ['GILF'],
 }
 
 
 summaryDB = {
     'Stuck4k': ['//span[@class="player-info__text-area"]'],
+    'Mature4k': ['//span[@class="player-info__text-area"]'],
     'Daddy4k': ['//div[@class="wrap_post"]/p'],
+    'Black4k': ['//div[@class="desc_frame"]/p'],
     'Hunt4k': ['//div[@class="wrap_player_desc"]/p'],
     'Old4k': ['//div[@class="wrap_player_desc"]/p'],
     'Tutor4k': ['//span[@class="episode-about__text text"]'],
     'Sis.Porn': ['//div[@class="player-item__text"]'],
+    'Shame4k': ['//div[@class="player-info__text"]'],
+    'Fist4k': ['//div[@class="player-item__text text text--sm"]'],
+    'Rim4k': ['//div[@class="player-item__text text text--sm"]'],
+}
+
+
+actorsDB = {
+    'Mature4k': ['//a[contains(@class, "hid2")]/div[@class="item-info__text"]'],
+    'Black4k': ['//div[@class="cat_player"]/a'],
+    'Old4k': ['//div[@class="cat_player"]/a'],
+    'Sis.Porn': ['//div[@class="player-item__row"][./div[contains(., "Name:")]]//span'],
+    'Fist4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
+    'Rim4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
 }

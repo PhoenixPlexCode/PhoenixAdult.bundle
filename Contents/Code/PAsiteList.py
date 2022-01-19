@@ -1564,8 +1564,15 @@ searchSites = {
     1377: ('Daddy4k', 'https://daddy4k.com', '/en/search/'),
     1378: ('Stuck4k', 'https://stuck4k.com', '/'),
     1379: ('Old4k', 'https://old4k.com', '/en/search/'),
-    1380: ('Hunt4k', 'https://hunt4k.com', '/en/search/'),
+    1380: ('Hunt4k', 'https://hunt4k.com', '/'),
     1381: ('Sis.Porn', 'https://sis.porn', '/'),
+    1382: ('Black4k', 'https://black4k.com', '/en/search/'),
+    1383: ('Loan4k', 'https://loan4k.com', '/'),
+    1384: ('Debt4k', 'https://debt4k.com', '/'),
+    1385: ('Rim4k', 'https://rim4k.com', '/'),
+    1386: ('Fist4k', 'https://fist4k.com', '/'),
+    1387: ('Mature4k', 'https://mature4k.com', '/'),
+    1388: ('Shame4k', 'https://shame4k.com', '/'),
 }
 
 abbreviations = (
@@ -2878,7 +2885,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKillergram
 
         # Huge Media
-        elif (1376 <= siteNum <= 1381):
+        elif (1376 <= siteNum <= 1388):
             provider = networkHugeMedia
 
     return provider
