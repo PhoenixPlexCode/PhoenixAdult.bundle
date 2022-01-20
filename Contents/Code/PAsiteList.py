@@ -467,7 +467,7 @@ searchSites = {
     280: ('New Sensations', 'http://www.newsensations.com', '/tour_ns/'),
     281: ('Pure Taboo', 'https://www.puretaboo.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     282: ('Swallowed', 'https://tour.swallowed.com', '/view/'),
-    283: ('TrueAnal', 'https://tour.trueanal.com', '/view/'),
+    283: ('TrueAnal', 'https://tour.trueanal.com', '/scenes/'),
     284: ('Nympho', 'https://tour.nympho.com', '/view/'),
     285: ('EroticaX', 'https://www.xempire.com', '/en/search/eroticax/'),
     286: ('DarkX', 'https://www.xempire.com', '/en/search/darkx/'),
