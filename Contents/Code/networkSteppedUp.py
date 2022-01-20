@@ -79,8 +79,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     actors = detailsPageElements.xpath('(//h4[@class="models"])[1]//a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
-
         actorPageURL = actorLink.get('href')
+        if tagline == 'TrueAnal':
+            actorPageURL = 'https://tour.trueanal.com' + actorPageURL
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]//img/@src')[0]
