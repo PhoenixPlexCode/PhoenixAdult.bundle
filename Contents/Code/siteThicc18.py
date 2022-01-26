@@ -70,12 +70,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements['talent']:
+        actorPhoto = []
         actorName = actorLink['talent']['name']
 
-        actorsPageURL = '%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorLink['talent']['talentId'])
-        req = PAutils.HTTPRequest(actorsPageURL)
-        actorsPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorsPageElements.xpath('//picture/img/@src')[0]
+        actorPhoto.append('/members/models/%s/profile-sm.jpg' % actorLink['talent']['talentId'])
+        actorPhotoURL = getGraphQL('BatchFindAssetQuery', assetQuery, 'paths', actorPhoto)['asset']['batch']['result'][0]['serve']['uri']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
