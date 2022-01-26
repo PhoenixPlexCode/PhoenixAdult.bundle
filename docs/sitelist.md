@@ -1240,6 +1240,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Scoreland
   - Scoreland2
   - XL Girls
++ #### Thicc18 | ✓ - **Title or Actor Name**
 + #### Thick Cash Network | ✅ - **Actor only, Date Add**
   - Ebony Tugs
   - Family Lust
