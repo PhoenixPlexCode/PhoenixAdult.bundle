@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     images = []
-    for idx in range(1, 70):
+    for idx in range(1, detailsPageElements['galleryCount'] + 1):
         path = '/members/models/%s/scenes/%s/photos/thumbs/thicc18-%s-%d-%d.jpg' % (modelId, scene, modelId, sceneNum, idx)
         images.append(path)
 
