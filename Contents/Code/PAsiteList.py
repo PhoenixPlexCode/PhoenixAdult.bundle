@@ -182,6 +182,7 @@ import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
 import networkHugeMedia
+import siteThicc18
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1573,6 +1574,7 @@ searchSites = {
     1386: ('Fist4k', 'https://fist4k.com', '/'),
     1387: ('Mature4k', 'https://mature4k.com', '/'),
     1388: ('Shame4k', 'https://shame4k.com', '/'),
+    1389: ('Thicc18', 'https://thicc18.com', '/'),
 }
 
 abbreviations = (
@@ -2887,5 +2889,9 @@ def getProviderFromSiteNum(siteNum):
         # Huge Media
         elif (1376 <= siteNum <= 1388):
             provider = networkHugeMedia
+
+        # Thicc18
+        elif siteNum == 1389:
+            provider = siteThicc18
 
     return provider
