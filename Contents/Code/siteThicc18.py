@@ -48,7 +48,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements['description']['long'] + '.'
+    pattern = r'.*(?<=\.)$'
+    summary = detailsPageElements['description']['long'].strip()
+    match = re.match(pattern, summary)
+    if not match:
+        metadata.summary = summary + '.'
+    else:
+        metadata.summary = summary
 
     # Studio
     metadata.studio = 'Thicc18'
