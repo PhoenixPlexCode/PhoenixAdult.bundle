@@ -2,7 +2,7 @@ import PAsearchSites
 import PAutils
 
 
-def getGraphQL(queryType, variable, query):
+def getGraphQL(queryType, variable, query, siteNum):
     params = json.dumps({'query': queryType, 'variables': {variable: query}})
     headers = {
         'argonath-api-key': '0e36c7e9-8cb7-4fa1-9454-adbc2bad15f0',
@@ -15,7 +15,7 @@ def getGraphQL(queryType, variable, query):
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = getGraphQL(searchQuery, 'query', searchData.title)['search']['search']['result']
+    searchResults = getGraphQL(searchQuery, 'query', searchData.title, siteNum)['search']['search']['result']
 
     for searchResult in searchResults:
         if searchResult['type'] == 'VIDEO':
@@ -41,7 +41,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     scene = splitted[-1]
     sceneNum = int(scene.replace('scene', ''))
 
-    detailsPageElements = getGraphQL(findVideoQuery, 'videoId', videoId)['video']['find']['result']
+    detailsPageElements = getGraphQL(findVideoQuery, 'videoId', videoId, siteNum)['video']['find']['result']
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
@@ -77,7 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorName = actorLink['talent']['name']
 
         actorPhoto.append('/members/models/%s/profile-sm.jpg' % actorLink['talent']['talentId'])
-        actorPhotoURL = getGraphQL(assetQuery, 'paths', actorPhoto)['asset']['batch']['result'][0]['serve']['uri']
+        actorPhotoURL = getGraphQL(assetQuery, 'paths', actorPhoto, siteNum)['asset']['batch']['result'][0]['serve']['uri']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         path = '/members/models/%s/scenes/%s/photos/thumbs/thicc18-%s-%d-%d.jpg' % (modelId, scene, modelId, sceneNum, idx)
         images.append(path)
 
-    posters = getGraphQL(assetQuery, 'paths', images)['asset']['batch']['result']
+    posters = getGraphQL(assetQuery, 'paths', images, siteNum)['asset']['batch']['result']
 
     for poster in posters:
         if poster:
