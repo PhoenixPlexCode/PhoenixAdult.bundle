@@ -2,20 +2,20 @@ import PAsearchSites
 import PAutils
 
 
-def getGraphQL(operationName, queryType, variable, query):
-    params = json.dumps({'operationName': operationName, 'query': queryType, 'variables': {variable: query}})
+def getGraphQL(queryType, variable, query):
+    params = json.dumps({'query': queryType, 'variables': {variable: query}})
     headers = {
         'argonath-api-key': '0e36c7e9-8cb7-4fa1-9454-adbc2bad15f0',
         'Content-Type': 'application/json',
-        'Referer': 'https://thicc18.com'
+        'Referer': PAsearchSites.getSearchBaseURL(siteNum),
     }
-    data = PAutils.HTTPRequest('https://thicc18.team18.app/graphql', headers=headers, params=params).json()
+    data = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum), headers=headers, params=params).json()
 
     return data['data']
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = getGraphQL('Search', searchQuery, 'query', searchData.title)['search']['search']['result']
+    searchResults = getGraphQL(searchQuery, 'query', searchData.title)['search']['search']['result']
 
     for searchResult in searchResults:
         if searchResult['type'] == 'VIDEO':
@@ -24,12 +24,9 @@ def search(results, lang, siteNum, searchData):
 
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            if searchData.date:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thicc18] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thicc18]' % titleNoFormatting, score=score, lang=lang))
 
     return results
 
@@ -38,23 +35,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     videoId = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
-    modelId = videoId.split(':')[0]
-    scene = videoId.split(':')[-1]
+
+    splitted = videoId.split(':')
+    modelId = splitted[0]
+    scene = splitted[-1]
     sceneNum = int(scene.replace('scene', ''))
 
-    detailsPageElements = getGraphQL('FindVideo', findVideoQuery, 'videoId', videoId)['video']['find']['result']
+    detailsPageElements = getGraphQL(findVideoQuery, 'videoId', videoId)['video']['find']['result']
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
-    pattern = r'.*(?<=\.)$'
     summary = detailsPageElements['description']['long'].strip()
-    match = re.match(pattern, summary)
-    if not match:
-        metadata.summary = summary + '.'
-    else:
-        metadata.summary = summary
+    if not summary.endswith('.'):
+        summary = summary + '.'
+
+    metadata.summary = summary
 
     # Studio
     metadata.studio = 'Thicc18'
@@ -80,7 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorName = actorLink['talent']['name']
 
         actorPhoto.append('/members/models/%s/profile-sm.jpg' % actorLink['talent']['talentId'])
-        actorPhotoURL = getGraphQL('BatchFindAssetQuery', assetQuery, 'paths', actorPhoto)['asset']['batch']['result'][0]['serve']['uri']
+        actorPhotoURL = getGraphQL(assetQuery, 'paths', actorPhoto)['asset']['batch']['result'][0]['serve']['uri']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -91,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         path = '/members/models/%s/scenes/%s/photos/thumbs/thicc18-%s-%d-%d.jpg' % (modelId, scene, modelId, sceneNum, idx)
         images.append(path)
 
-    posters = getGraphQL('BatchFindAssetQuery', assetQuery, 'paths', images)['asset']['batch']['result']
+    posters = getGraphQL(assetQuery, 'paths', images)['asset']['batch']['result']
 
     for poster in posters:
         if poster:
@@ -118,7 +115,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     return metadata
 
-
-searchQuery = 'query Search($query: String!) {\n  search {\n    search(input: {query: $query}) {\n      result {\n        type\n        itemId\n        name\n        description\n        images\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n'
-findVideoQuery = 'query FindVideo($videoId: ID!) {\n  video {\n    find(input: {videoId: $videoId}) {\n      result {\n        videoId\n        title\n        duration\n        galleryCount\n        description {\n          short\n          long\n          __typename\n        }\n        talent {\n          type\n          talent {\n            talentId\n            name\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n'
-assetQuery = 'query BatchFindAssetQuery($paths: [String!]!) {\n  asset {\n    batch(input: {paths: $paths}) {\n      result {\n        path\n        mime\n        size\n        serve {\n          type\n          uri\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n'
+searchQuery = 'query Search($query: String!) { search { search(input: {query: $query}) { result { type itemId name description images } } } }'
+findVideoQuery = 'query FindVideo($videoId: ID!) { video { find(input: {videoId: $videoId}) { result { videoId title duration galleryCount description { short long } talent { type talent { talentId name } } } } } }'
+assetQuery = 'query BatchFindAssetQuery($paths: [String!]!) { asset { batch(input: {paths: $paths}) { result { path mime size serve { type uri } } } } }'

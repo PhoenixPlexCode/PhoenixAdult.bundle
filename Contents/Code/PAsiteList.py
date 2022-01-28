@@ -1574,7 +1574,7 @@ searchSites = {
     1386: ('Fist4k', 'https://fist4k.com', '/'),
     1387: ('Mature4k', 'https://mature4k.com', '/'),
     1388: ('Shame4k', 'https://shame4k.com', '/'),
-    1389: ('Thicc18', 'https://thicc18.com', '/'),
+    1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
 }
 
 abbreviations = (
