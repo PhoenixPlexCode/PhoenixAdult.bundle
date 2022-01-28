@@ -115,6 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     return metadata
 
+
 searchQuery = 'query Search($query: String!) { search { search(input: {query: $query}) { result { type itemId name description images } } } }'
 findVideoQuery = 'query FindVideo($videoId: ID!) { video { find(input: {videoId: $videoId}) { result { videoId title duration galleryCount description { short long } talent { type talent { talentId name } } } } } }'
 assetQuery = 'query BatchFindAssetQuery($paths: [String!]!) { asset { batch(input: {paths: $paths}) { result { path mime size serve { type uri } } } } }'
