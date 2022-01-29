@@ -35,7 +35,7 @@ def search(results, lang, siteNum, searchData):
             titleNoFormatting = searchResult['title']
             resultID = searchResult['id']
 
-            sceneURLTitle = slugify(titleNoFormatting)
+            sceneURLTitle = slugify(titleNoFormatting, replacements=[('\'', '')])
             sceneURL = '%s/scenes/%s/%s' % (PAsearchSites.getSearchBaseURL(siteNum), resultID, sceneURLTitle)
             curID = PAutils.Encode(sceneURL)
 
