@@ -131,11 +131,10 @@ def posterAlreadyExists(posterUrl, metadata):
         if url.lower() == posterUrl.lower():
             Log('Found %s in posters collection' % posterUrl)
             return True
-        else:
-            pass
 
     for url in metadata.art.keys():
         if url.lower() == posterUrl.lower():
+            Log('Found %s in art collection' % posterUrl)
             return True
 
     return False
