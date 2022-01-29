@@ -167,7 +167,6 @@ import siteJVRPorn
 import networkGrooby
 import siteAdultEmpire
 import siteFamilyTherapy
-import siteFit18
 import siteDarkRoomVR
 import sitePuba
 import siteStasyQ
@@ -182,6 +181,7 @@ import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
 import networkHugeMedia
+import network18
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -467,7 +467,7 @@ searchSites = {
     280: ('New Sensations', 'http://www.newsensations.com', '/tour_ns/'),
     281: ('Pure Taboo', 'https://www.puretaboo.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     282: ('Swallowed', 'https://tour.swallowed.com', '/view/'),
-    283: ('TrueAnal', 'https://tour.trueanal.com', '/view/'),
+    283: ('TrueAnal', 'https://tour.trueanal.com', '/scenes/'),
     284: ('Nympho', 'https://tour.nympho.com', '/view/'),
     285: ('EroticaX', 'https://www.xempire.com', '/en/search/eroticax/'),
     286: ('DarkX', 'https://www.xempire.com', '/en/search/darkx/'),
@@ -1520,7 +1520,7 @@ searchSites = {
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
-    1336: ('Fit 18', 'https://www.fit18.com', '/videos/'),
+    1336: ('Fit18', 'https://www.fit18.com', 'https://fit18.team18.app/graphql'),
     1337: ('SpankMonster', 'https://spankmonster.com', '/MemberSceneSearch?q='),
     1338: ('Femout', 'https://www.femout.xxx', '/tour/trailers/'),
     1339: ('TGirls', 'https://www.tgirls.xxx', '/tour/trailers/'),
@@ -1564,8 +1564,16 @@ searchSites = {
     1377: ('Daddy4k', 'https://daddy4k.com', '/en/search/'),
     1378: ('Stuck4k', 'https://stuck4k.com', '/'),
     1379: ('Old4k', 'https://old4k.com', '/en/search/'),
-    1380: ('Hunt4k', 'https://hunt4k.com', '/en/search/'),
+    1380: ('Hunt4k', 'https://hunt4k.com', '/'),
     1381: ('Sis.Porn', 'https://sis.porn', '/'),
+    1382: ('Black4k', 'https://black4k.com', '/en/search/'),
+    1383: ('Loan4k', 'https://loan4k.com', '/'),
+    1384: ('Debt4k', 'https://debt4k.com', '/'),
+    1385: ('Rim4k', 'https://rim4k.com', '/'),
+    1386: ('Fist4k', 'https://fist4k.com', '/'),
+    1387: ('Mature4k', 'https://mature4k.com', '/'),
+    1388: ('Shame4k', 'https://shame4k.com', '/'),
+    1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
 }
 
 abbreviations = (
@@ -2822,9 +2830,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1335:
             provider = siteFamilyTherapy
 
-        # Fit 18
-        elif siteNum == 1336:
-            provider = siteFit18
+        # Network 18
+        elif siteNum == 1336 or siteNum == 1389:
+            provider = network18
 
         # DarkRoomVR
         elif siteNum == 1346:
@@ -2878,7 +2886,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKillergram
 
         # Huge Media
-        elif (1376 <= siteNum <= 1381):
+        elif (1376 <= siteNum <= 1388):
             provider = networkHugeMedia
 
     return provider

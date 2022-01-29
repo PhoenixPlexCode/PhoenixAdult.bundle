@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchData):
     if searchJAVID:
         searchData.encoded = searchJAVID
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '/')
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//li[contains(@class, "item-list")]'):
         titleNoFormatting = searchResult.xpath('.//dt')[0].text_content().strip()
