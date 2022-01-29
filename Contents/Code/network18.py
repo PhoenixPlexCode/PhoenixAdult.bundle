@@ -94,7 +94,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     images = []
     images.append('/members/models/%s/scenes/%s/videothumb.jpg' % (modelId, scene))
     for idx in range(1, detailsPageElements['galleryCount'] + 1):
-        path = '/members/models/%s/scenes/%s/photos/thumbs/%s-%s-%d-%d.jpg' % (modelId, scene, PAsearchSites.getSearchSiteName(siteNum).lower(),modelId, sceneNum, idx)
+        path = '/members/models/%s/scenes/%s/photos/thumbs/%s-%s-%d-%d.jpg' % (modelId, scene, PAsearchSites.getSearchSiteName(siteNum).lower(), modelId, sceneNum, idx)
         images.append(path)
 
     posters = getGraphQL(assetQuery, 'paths', images, siteNum)['asset']['batch']['result']
