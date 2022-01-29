@@ -167,7 +167,6 @@ import siteJVRPorn
 import networkGrooby
 import siteAdultEmpire
 import siteFamilyTherapy
-import siteFit18
 import siteDarkRoomVR
 import sitePuba
 import siteStasyQ
@@ -182,7 +181,7 @@ import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
 import networkHugeMedia
-import siteThicc18
+import network18
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1521,7 +1520,7 @@ searchSites = {
     1333: ('Grooby Girls', 'https://www.groobygirls.com', '/tour/trailers/'),
     1334: ('Adult Empire', 'https://www.adultempire.com', '/allsearch/search?q='),
     1335: ('Family Therapy', 'https://familytherapyxxx.com/', '/?s='),
-    1336: ('Fit 18', 'https://www.fit18.com', '/videos/'),
+    1336: ('Fit18', 'https://www.fit18.com', 'https://fit18.team18.app/graphql'),
     1337: ('SpankMonster', 'https://spankmonster.com', '/MemberSceneSearch?q='),
     1338: ('Femout', 'https://www.femout.xxx', '/tour/trailers/'),
     1339: ('TGirls', 'https://www.tgirls.xxx', '/tour/trailers/'),
@@ -2831,9 +2830,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1335:
             provider = siteFamilyTherapy
 
-        # Fit 18
-        elif siteNum == 1336:
-            provider = siteFit18
+        # Network 18
+        elif siteNum == 1336 or siteNum == 1389:
+            provider = network18
 
         # DarkRoomVR
         elif siteNum == 1346:
@@ -2889,9 +2888,5 @@ def getProviderFromSiteNum(siteNum):
         # Huge Media
         elif (1376 <= siteNum <= 1388):
             provider = networkHugeMedia
-
-        # Thicc18
-        elif siteNum == 1389:
-            provider = siteThicc18
 
     return provider

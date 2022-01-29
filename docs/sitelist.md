@@ -9,10 +9,10 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 
 # All Supported Networks and Sites
 
-+ #### 5Kporn | ✅
-  - 5Kporn
-  - 5Kteens
 + #### 18OnlyGirls | ✅
++ #### 18 Network | ✓ - **Title or Actor Name**
+  - Fit18
+  - Thicc18
 + #### 21Naturals | ✅
   - 21Naturals
   - 21FootArt
@@ -32,6 +32,9 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Gapeland
   - LezCuties
   - PixandVideo
++ #### 5Kporn | ✅
+  - 5Kporn
+  - 5Kteens
 + #### Abby Winters | ✅
   - Behind the Scenes
   - Best Of
@@ -1240,7 +1243,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Scoreland
   - Scoreland2
   - XL Girls
-+ #### Thicc18 | ✓ - **Title or Actor Name**
 + #### Thick Cash Network | ✅ - **Actor only, Date Add**
   - Ebony Tugs
   - Family Lust

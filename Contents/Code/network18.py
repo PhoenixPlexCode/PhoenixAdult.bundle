@@ -3,9 +3,14 @@ import PAutils
 
 
 def getGraphQL(queryType, variable, query, siteNum):
+    for key, value in apiKeyDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+            apiKey = value[0]
+            break
+
     params = json.dumps({'query': queryType, 'variables': {variable: query}})
     headers = {
-        'argonath-api-key': '0e36c7e9-8cb7-4fa1-9454-adbc2bad15f0',
+        'argonath-api-key': apiKey,
         'Content-Type': 'application/json',
         'Referer': PAsearchSites.getSearchBaseURL(siteNum),
     }
@@ -26,7 +31,7 @@ def search(results, lang, siteNum, searchData):
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thicc18]' % titleNoFormatting, score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -54,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = summary
 
     # Studio
-    metadata.studio = 'Thicc18'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -68,7 +73,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    movieGenres.addGenre('Thicc')
+    for key, value in genresDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+            for genreName in value:
+                movieGenres.addGenre(genreName)
+            break
 
     # Actors
     movieActors.clearActors()
@@ -85,7 +94,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     images = []
     images.append('/members/models/%s/scenes/%s/videothumb.jpg' % (modelId, scene))
     for idx in range(1, detailsPageElements['galleryCount'] + 1):
-        path = '/members/models/%s/scenes/%s/photos/thumbs/thicc18-%s-%d-%d.jpg' % (modelId, scene, modelId, sceneNum, idx)
+        path = '/members/models/%s/scenes/%s/photos/thumbs/%s-%s-%d-%d.jpg' % (modelId, scene, PAsearchSites.getSearchSiteName(siteNum).lower(),modelId, sceneNum, idx)
         images.append(path)
 
     posters = getGraphQL(assetQuery, 'paths', images, siteNum)['asset']['batch']['result']
@@ -119,3 +128,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 searchQuery = 'query Search($query: String!) { search { search(input: {query: $query}) { result { type itemId name description images } } } }'
 findVideoQuery = 'query FindVideo($videoId: ID!) { video { find(input: {videoId: $videoId}) { result { videoId title duration galleryCount description { short long } talent { type talent { talentId name } } } } } }'
 assetQuery = 'query BatchFindAssetQuery($paths: [String!]!) { asset { batch(input: {paths: $paths}) { result { path mime size serve { type uri } } } } }'
+
+
+apiKeyDB = {
+    'fit18': ['77cd9282-9d81-4ba8-8868-ca9125c76991'],
+    'thicc18': ['0e36c7e9-8cb7-4fa1-9454-adbc2bad15f0'],
+}
+
+
+genresDB = {
+    'fit18': ['Young', 'Gym'],
+    'thicc18': ['Thicc'],
+}
