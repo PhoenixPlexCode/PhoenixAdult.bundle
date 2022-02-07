@@ -5,6 +5,7 @@ ActorsReplace = {
     'Addie Juniper': ['Ms Addie Juniper'],
     'Adriana Chechik': ['Adriana Chechick', 'Adrianna Chechik'],
     'AJ Applegate': ['Aj Applegate'],
+    'AJ Applegate': ['A.J. Applegate'],
     'Alex D.': ['Alex D'],
     'Aliz': ['Liz Valery'],
     'Alura Jenson': ['Alura \'Tnt\' Jenson', 'Alura Tnt Jenson'],
