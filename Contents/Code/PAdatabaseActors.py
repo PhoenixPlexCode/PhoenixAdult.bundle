@@ -21,6 +21,7 @@ ActorsReplace = {
     'Anita Bellini Berlusconi': ['Anita Bellini'],
     'Anna De Ville': ['Anna Deville', 'Anna DeVille'],
     'Annika Albrite': ['Anikka Albrite'],
+    'Apolonia Lapiedra': ['Apolonia'. 'Apolonia La Piedra', 'Apolina'],
     'April O\'Neil': ['April O\'neil', 'April ONeil', 'April Oneil'],
     'Ashlee Graham': ['Ashley Graham'],
     'Ashly Anderson': ['Ashley Anderson'],
