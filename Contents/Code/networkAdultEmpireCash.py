@@ -8,8 +8,8 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
         if siteNum == 815 or siteNum == 1337:
             # Modification for JAYs POV and SpankMonster
-            titleNoFormatting = searchResult.xpath('.//a[@class="animated-screen"]/@title')[0]
-            curID = PAutils.Encode(searchResult.xpath('.//a[@class="animated-screen"]/@href')[0])
+            titleNoFormatting = searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0]
+            curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
         else:
             titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]')[0].text_content()
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])

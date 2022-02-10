@@ -14,6 +14,7 @@ from cStringIO import StringIO
 from datetime import datetime
 from dateutil.parser import parse
 from PIL import Image
+from slugify import slugify
 from traceback import format_exc
 import PAactors
 import PAgenres
