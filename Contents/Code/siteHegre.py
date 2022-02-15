@@ -3,7 +3,6 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-
     sceneURL = 'https://www.hegre.com/films/%s' % searchData.title.replace(' ', '-').lower()
     req = PAutils.HTTPRequest(sceneURL)
 
@@ -11,11 +10,12 @@ def search(results, lang, siteNum, searchData):
         searchResult = HTML.ElementFromString(req.text)
         curID = PAutils.Encode(sceneURL)
         titleNoFormatting = searchResult.xpath('//h1')[0].text_content().strip()
-        releaseDate = parse(searchResult.xpath('//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        date = searchResult.xpath('//span[@class="date"]')[0].text_content().strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=100, lang=lang))
     else:
-        searchData.encoded = searchData.encoded + '&year=' + parse(searchData.date).strftime('%Y') if searchData.date else searchData.encoded
+        searchData.encoded = searchData.encoded + ('&year=' + searchData.dateFormat('%Y')) if searchData.date else searchData.encoded
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "item")]'):
@@ -23,7 +23,8 @@ def search(results, lang, siteNum, searchData):
             if '/films/' in sceneURL or '/massage/' in sceneURL:
                 curID = PAutils.Encode(sceneURL)
                 titleNoFormatting = searchResult.xpath('.//img/@alt')[0].strip()
-                releaseDate = parse(searchResult.xpath('.//div[@class="details"]/span[last()]')[0].text_content().strip()).strftime('%Y-%m-%d')
+                date = searchResult.xpath('.//div[@class="details"]/span[last()]')[0].text_content().strip()
+                releaseDate = parse(date).strftime('%Y-%m-%d')
 
                 if searchData.date:
                     score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
