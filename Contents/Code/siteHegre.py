@@ -3,22 +3,35 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.encoded + '&year=' + parse(searchData.date).strftime('%Y') if searchData.date else searchData.encoded
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "item")]'):
-        sceneURL = searchResult.xpath('.//a/@href')[0]
-        if '/films/' in sceneURL or '/massage/' in sceneURL:
-            curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = searchResult.xpath('.//img/@alt')[0].strip()
-            releaseDate = parse(searchResult.xpath('.//div[@class="details"]/span[last()]')[0].text_content().strip()).strftime('%Y-%m-%d')
+    sceneURL = 'https://www.hegre.com/films/%s' % searchData.title.replace(' ', '-').lower()
+    req = PAutils.HTTPRequest(sceneURL)
 
-            if searchData.date:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+    if req.ok:
+        searchResult = HTML.ElementFromString(req.text)
+        curID = PAutils.Encode(sceneURL)
+        titleNoFormatting = searchResult.xpath('//h1')[0].text_content().strip()
+        date = searchResult.xpath('//span[@class="date"]')[0].text_content().strip()
+        releaseDate = parse(date).strftime('%Y-%m-%d')
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=100, lang=lang))
+    else:
+        searchData.encoded = searchData.encoded + ('&year=' + searchData.dateFormat('%Y')) if searchData.date else searchData.encoded
+        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+        searchResults = HTML.ElementFromString(req.text)
+        for searchResult in searchResults.xpath('//div[contains(@class, "item")]'):
+            sceneURL = searchResult.xpath('.//a/@href')[0]
+            if '/films/' in sceneURL or '/massage/' in sceneURL:
+                curID = PAutils.Encode(sceneURL)
+                titleNoFormatting = searchResult.xpath('.//img/@alt')[0].strip()
+                date = searchResult.xpath('.//div[@class="details"]/span[last()]')[0].text_content().strip()
+                releaseDate = parse(date).strftime('%Y-%m-%d')
+
+                if searchData.date:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
