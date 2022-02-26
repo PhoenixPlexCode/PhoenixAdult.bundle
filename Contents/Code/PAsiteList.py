@@ -521,7 +521,7 @@ searchSites = {
     334: ('Dane Jones', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     335: ('Fitness Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     336: ('Girlfriends.xxx', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
-    337: ('Lesbea', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
+    337: ('Lesbea', 'https://www.lesbea.com', 'https://site-api.project1service.com'),
     338: ('Massage Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     339: ('MomXXX', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     340: ('FakeHub', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
