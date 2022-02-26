@@ -514,7 +514,7 @@ searchSites = {
     327: ('SquirtDisgrace', 'https://www.pornpros.com', '/video/'),
     328: ('DigitalPlayground', 'https://www.digitalplayground.com', 'https://site-api.project1service.com'),
     329: ('Throated', 'https://www.blowpass.com', '/en/search/throated/scene/'),
-    330: ('Nuru Massage', 'https://www.fantasymassage.com', '/en/search/'),
+    330: ('Nuru Massage', 'https://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     331: (),
     332: ('DDF Babes', 'https://ddfnetwork.com', '/videos/freeword/'),
     333: ('SexyHub', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
@@ -539,12 +539,12 @@ searchSites = {
     352: ('Only Teen Blowjobs', 'http://www.blowpass.com', '/en/search/onlyteenblowjobs/scene/'),
     353: ('1000 Facials', 'http://www.blowpass.com', '/en/search/1000facials/scene/'),
     354: ('Immoral Live', 'http://www.blowpass.com', '/en/search/immorallive/scene/'),
-    355: ('Fantasy Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    356: ('All Girl Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    357: ('Soapy Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    358: ('Milking Table', 'http://www.fantasymassage.com', '/en/search/'),
-    359: ('Massage Parlor', 'http://www.fantasymassage.com', '/en/search/'),
-    360: ('Tricky Spa', 'http://www.fantasymassage.com', '/en/search/'),
+    355: ('Fantasy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    356: ('All Girl Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    357: ('Soapy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    358: ('Milking Table', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    359: ('Massage Parlor', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    360: ('Tricky Spa', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     361: ('Sweetheart Video', 'https://www.milehighmedia.com', 'https://site-api.project1service.com'),
     362: ('Reality Junkies', 'http://www.milehighmedia.com', 'https://site-api.project1service.com'),
     363: ('SweetSinner', 'https://www.milehighmedia.com', 'https://site-api.project1service.com'),
@@ -934,7 +934,7 @@ searchSites = {
     747: ('Gangbang Creampie', 'https://gangbangcreampie.com', '/tour/search.php?query='),
     749: ('Show My BF', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     748: ('DadCrush', 'https://www.dadcrush.com', '/movies'),
-    750: ('POV Massage', 'http://www.fantasymassage.com', '/en/search/'),
+    750: ('POV Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     751: ('Step Secrets', 'http://www.stepsecrets.com', 'https://www.stepsecrets.com/?query='),
     752: ('VRHush', 'https://www.vrhush.com', '/scenes/'),
     753: ('MetArt', 'https://www.metart.com', '/api'),
@@ -1913,7 +1913,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Fantasy Massage
         elif siteNum == 330 or (355 <= siteNum <= 360) or siteNum == 750:
-            provider = networkGammaEnt
+            provider = networkGammaEntOther
 
         # 21Sextury
         elif (365 <= siteNum <= 372) or siteNum == 466 or siteNum == 692:
