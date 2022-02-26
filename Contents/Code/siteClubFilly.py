@@ -5,16 +5,17 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="boxVidDetail"]'):
-        titleNoFormatting = searchResult.xpath('.//h1/span')[0].text_content().strip()
-        curID = PAutils.Encode(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
-        releaseDate = parse(searchResult.xpath('.//div[@class="fltRight"]')[0].text_content().replace('Release Date :', '').strip()).strftime('%Y-%m-%d')
+    url = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+    req = PAutils.HTTPRequest(url)
+    detailsPageElements = HTML.ElementFromString(req.text)
 
-        score = 100
+    titleNoFormatting = detailsPageElements.xpath('//div[@class="fltWrap"]/h1/span')[0].text_content().strip()
+    curID = PAutils.Encode(url)
+    releaseDate = detailsPageElements.xpath('//div[@class="fltRight"]')[0].text_content().replace('Release Date :', '').strip()
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [ClubFilly] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+    score = 100
+
+    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [ClubFilly] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
