@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="boxVidDetail"]'):
         titleNoFormatting = searchResult.xpath('.//h1/span')[0].text_content().strip()
-        curID = PAutils.Encode(url)
+        curID = PAutils.Encode(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
         releaseDate = parse(searchResult.xpath('.//div[@class="fltRight"]')[0].text_content().replace('Release Date :', '').strip()).strftime('%Y-%m-%d')
 
         score = 100
