@@ -482,11 +482,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Gloryhole Secrets | ✓ - **Title only** (Title includes actress first name)
 + #### Grooby Network | ✅
   - Black TGirls
+  - Bob's TGirls
   - Brazilian Transsexuals
   - Femout.xxx
   - Grooby Girls
   - TGirl Japan
   - TGirl Japan Hardcore
+  - TGirls.porn
   - TGirls.xxx
 + #### Hegre | ✓ - **Title only**
 + #### HentaiPros | ✅
