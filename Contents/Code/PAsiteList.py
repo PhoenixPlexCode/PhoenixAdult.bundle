@@ -1077,7 +1077,7 @@ searchSites = {
     890: ('WetVR', 'https://www.wetvr.com', '/video/'),
     891: ('HoloGirlsVR', 'https://www.hologirlsvr.com', '/Scenes?back=1&search='),
     892: ('LethalHardcoreVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
-    893: ('Gender X', 'https://www.genderx.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    893: ('Gender X', 'https://www.genderxfilms.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     894: ('WhoreCraftVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
     895: ('DefeatedXXX', 'http://xxx.defeated.xxx', '/?s='),
     896: ('Defeated Sex Fight', 'https://defeatedsexfight.com', '/?s='),
@@ -1574,7 +1574,9 @@ searchSites = {
     1387: ('Mature4k', 'https://mature4k.com', '/'),
     1388: ('Shame4k', 'https://shame4k.com', '/'),
     1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
-    1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies')
+    1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies'),
+    1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
+    1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
 }
 
 abbreviations = (
@@ -2820,7 +2822,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteData18Empire
 
         # Grooby Network
-        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343):
+        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343) or (1391 <= siteNum <= 1392):
             provider = networkGrooby
 
         # Adult Empire
