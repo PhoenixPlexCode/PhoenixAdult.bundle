@@ -1576,7 +1576,7 @@ searchSites = {
     1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
     1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies'),
     1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
-    1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/')
+    1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
 }
 
 abbreviations = (

@@ -61,18 +61,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Release Date
-    dateNode = detailsPageElements.xpath('//div[@class="setdesc"]/*[contains(., "Added")]//following-sibling::text()')
-    dateNode2 = detailsPageElements.xpath('//div[@class="trailer_videoinfo"]/*[contains(., "Added")]//following-sibling::text()')
+    dateNode = detailsPageElements.xpath('//div[@class="setdesc"]/*[contains(., "Added")]//following-sibling::text() | //div[@class="trailer_videoinfo"]/*[contains(., "Added")]//following-sibling::text()')
     if dateNode:
         date = dateNode[0].split('-', 1)[-1].strip()
-
-        if date:
-            date_object = parse(date)
-            metadata.originally_available_at = date_object
-            metadata.year = metadata.originally_available_at.year
-
-    elif dateNode2:
-        date = dateNode2[0].split('-', 1)[-1].strip()
 
         if date:
             date_object = parse(date)
@@ -107,7 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     xpaths = [
         '//div[@class="trailerpage_photoblock_fullsize"]//a/@href',
         '//div[@class="trailerposter"]//img/@src0_4x',
-        '//div[@class="player-thumb"]//img/@src0_4x'
+        '//div[@class="player-thumb"]//img/@src0_4x',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
