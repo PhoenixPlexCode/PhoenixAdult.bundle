@@ -24,20 +24,29 @@ def search(results, lang, siteNum, searchData):
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
-    sceneURL = '%s/membersarea/%s' % (PAsearchSites.getSearchBaseURL(siteNum), PAutils.Decode(metadata_id[0]))
+    siteName = PAsearchSites.getSearchSiteName(siteNum).strip()
+    if siteName == 'NewGirlPOV':
+        server_path = '/tour/newgirlpov/'
+    else:
+        server_path = '/membersarea/'
+    sceneURL = '%s%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), server_path, PAutils.Decode(metadata_id[0]))
+    Log('sceneURL: {}'.format(sceneURL))
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+    if siteName == 'NewGirlPOV':
+        metadata.title = detailsPageElements.xpath('//title')[0].text_content().split(' ')[1].strip()
+    else:
+        metadata.title = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
 
     # Studio
     metadata.studio = 'FuelVirtual'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = siteName
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -54,7 +63,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
-    movieGenres.addGenre('18-Year-Old')
+    if siteName != 'NewGirlPOV':
+        movieGenres.addGenre('18-Year-Old')
 
     # Actors
     movieActors.clearActors()
@@ -73,7 +83,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             # Ambiguous actors must be hardcoded by ID
             actorID = int(re.search(r'id=(\d+)', PAutils.Decode(metadata_id[0])).group(1))
-            if tagline == 'FuckedHard18':
+            if siteName == 'FuckedHard18':
                 if False:
                     pass
                 elif actorID == 435 or actorID == 839:
@@ -86,6 +96,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     actorName = 'Alexa Nicole'
                 elif actorID == 445:
                     actorName = 'Alexa Rydell'
+                elif actorID == 469:
+                    actorName = 'Alexis Grace'
+                elif actorID == 470:
+                    actorName = 'Ashley Abott'
                 elif actorID == 474:
                     actorName = 'Ashlyn Molloy'
                 elif actorID == 482:
@@ -136,10 +150,22 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     actorName = 'Lily Carter'
                 elif actorID == 621:
                     actorName = 'Lily Love'
+                elif actorID == 625:
+                    actorName = 'Lola Foxx'
+                elif actorID == 648:
+                    actorName = 'Melissa Mathews'
+                elif actorID == 947:
+                    actorName = 'Melissa May'
                 elif actorID == 652:
                     actorName = 'Mia Gold'
                 elif actorID == 651:
                     actorName = 'Mia Malkova'
+                elif actorID == 662:
+                    actorName = 'Molly Bennett'
+                elif actorID == 661:
+                    actorName = 'Molly Madison'
+                elif actorID == 668:
+                    actorName = 'Naomi West'
                 elif actorID == 686:
                     actorName = 'Rachel Bella'
                 elif actorID == 684:
@@ -170,7 +196,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 elif actorID == 757:
                     actorName = 'Whitney Stevens'
             
-            elif tagline == 'MassageGirls18':
+            elif siteName == 'MassageGirls18':
                 if False:
                     pass
                 elif actorID == 138:
@@ -183,6 +209,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     actorName = 'Alexa Nicole'
                 elif actorID == 148:
                     actorName = 'Alexa Rydell'
+                elif actorID == 170:
+                    actorName = 'Alexis Grace'
+                elif actorID == 169:
+                    actorName = 'Ashley Abott'
                 elif actorID == 178:
                     actorName = 'Ava Sparxxx'
                 elif actorID == 179:
@@ -225,10 +255,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     actorName = 'Lily Carter'
                 elif actorID == 302:
                     actorName = 'Lily Love'
+                elif actorID == 305:
+                    actorName = 'Lola Foxx'
+                elif 134 <= actorID <= 135:
+                    actorName = 'Melissa Mathews'
                 elif actorID == 332:
                     actorName = 'Mia Gold'
                 elif actorID == 333:
                     actorName = 'Mia Malkova'
+                elif actorID == 341:
+                    actorName = 'Molly Bennett'
+                elif actorID == 342:
+                    actorName = 'Molly Madison'
                 elif actorID == 361:
                     actorName = 'Rachel Bella'
                 elif actorID == 362:
@@ -252,15 +290,33 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 elif actorID == 211:
                     movieActors.addActor('Riley Jensen', actorPhotoURL)
             
+            elif siteName == 'NewGirlPOV':
+                if False:
+                    pass
+                elif actorID == 1159:
+                    actorName = 'Ashley Adams'
+                elif actorID == 1178:
+                    actorName = 'Lola Hunter'
+                elif actorID == 1280:
+                    actorName = 'Melissa Moore'
+                elif actorID == 1206:
+                    actorName = 'Molly Manson'
+                elif actorID == 1242:
+                    actorName = 'Naomi Woods'
+            
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
-        '//a[@class="jqModal"]/img/@src'
+        '//a[@class="jqModal"]/img/@src',
+        '//div[@id="overallthumb"]/a/img/@src'
     ]
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
-            img = PAsearchSites.getSearchBaseURL(siteNum) + img
+            if img[0] == '/':
+                img = PAsearchSites.getSearchBaseURL(siteNum) + img
+            else:
+                img = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/newgirlpov/' + img
 
             art.append(img)
 
@@ -271,6 +327,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         img = PAsearchSites.getSearchBaseURL(siteNum) + img
 
         art.append(img)
+
+    for script in detailsPageElements.xpath('//div[@id="mediabox"]/script/text()'):
+        match = re.search(r'image:\s*"(.+)"', script)
+        if match:
+            art.append(PAsearchSites.getSearchBaseURL(siteNum) + match.group(1))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

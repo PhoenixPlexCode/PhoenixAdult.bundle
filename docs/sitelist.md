@@ -455,6 +455,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### FuelVirtual Network | ✅
   - FuckedHard18
   - MassageGirls18
+  - NewGirlPOV
 + #### Full Porn Network | ✓ - **Model Name (will fetch a list of scenes for google-matched model names)**
   - Analized
   - Bad Daddy POV
