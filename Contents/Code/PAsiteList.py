@@ -1578,6 +1578,7 @@ searchSites = {
     1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
     1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
     1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
+    1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
 }
 
 abbreviations = (
@@ -2071,7 +2072,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FullPornNetwork
-        elif (343 <= siteNum <= 350):
+        elif (343 <= siteNum <= 350) or siteNum == 1394:
             provider = networkFullPornNetwork
 
         # DogfartNetwork
