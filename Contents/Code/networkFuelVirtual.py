@@ -25,12 +25,13 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     siteName = PAsearchSites.getSearchSiteName(siteNum).strip()
+    sceneURL = PAutils.Decode(metadata_id[0])
     if siteName == 'NewGirlPOV':
         server_path = '/tour/newgirlpov/'
     else:
         server_path = '/membersarea/'
-    sceneURL = '%s%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), server_path, PAutils.Decode(metadata_id[0]))
-    Log('sceneURL: {}'.format(sceneURL))
+    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + server_path + sceneURL
+
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
@@ -55,7 +56,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
-        Log('{} recycles content, release date may be inaccurate'.format(tagline))
 
     # Genres
     movieGenres.clearGenres()
@@ -81,239 +81,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
-            # Ambiguous actors must be hardcoded by ID
-            actorID = int(re.search(r'id=(\d+)', PAutils.Decode(metadata_id[0])).group(1))
-            if siteName == 'FuckedHard18':
-                if False:
-                    pass
-                elif actorID == 435 or actorID == 839:
-                    actorName = 'Abby Cross'
-                elif actorID == 434:
-                    actorName = 'Abby Lane'
-                elif actorID == 825:
-                    actorName = 'Alexa Grace'
-                elif actorID == 446:
-                    actorName = 'Alexa Nicole'
-                elif actorID == 445:
-                    actorName = 'Alexa Rydell'
-                elif actorID == 469:
-                    actorName = 'Alexis Grace'
-                elif actorID == 470:
-                    actorName = 'Ashley Abott'
-                elif actorID == 474:
-                    actorName = 'Ashlyn Molloy'
-                elif actorID == 482:
-                    actorName = 'Ava Sparxxx'
-                elif actorID == 483:
-                    actorName = 'Ava Taylor'
-                elif actorID == 481:
-                    actorName = 'Ava White'
-                elif actorID == 487:
-                    actorName = 'Bailey Bam'
-                elif actorID == 503:
-                    actorName = 'Callie Calypso'
-                elif actorID == 501:
-                    actorName = 'Callie Cobra'
-                elif actorID == 502:
-                    actorName = 'Callie Cyprus'
-                elif actorID == 695:
-                    actorName = 'Chanel White'
-                elif actorID == 522:
-                    actorName = 'Chloe Addison'
-                elif actorID == 523:
-                    actorName = 'Chloe Brooke'
-                elif actorID == 524:
-                    actorName = 'Chloe Foster'
-                elif actorID == 486:
-                    actorName = 'Dahlia Sky'
-                elif actorID == 553:
-                    actorName = 'Gracie Glam'
-                elif actorID == 554:
-                    actorName = 'Gracie Ivanoe'
-                elif actorID == 559:
-                    actorName = 'Holly Michaels'
-                elif actorID == 558:
-                    actorName = 'Holly Sims'
-                elif actorID == 572:
-                    actorName = 'Jenna Ashley'
-                elif actorID == 573:
-                    actorName = 'Jenna Ross'
-                elif actorID == 591:
-                    actorName = 'Katie Jordin'
-                elif actorID == 592:
-                    actorName = 'Katie Michaels'
-                elif actorID == 612:
-                    actorName = 'Lexi Bloom'
-                elif actorID == 613:
-                    actorName = 'Lexi Swallow'
-                elif actorID == 622:
-                    actorName = 'Lily Carter'
-                elif actorID == 621:
-                    actorName = 'Lily Love'
-                elif actorID == 625:
-                    actorName = 'Lola Foxx'
-                elif actorID == 648:
-                    actorName = 'Melissa Mathews'
-                elif actorID == 947:
-                    actorName = 'Melissa May'
-                elif actorID == 652:
-                    actorName = 'Mia Gold'
-                elif actorID == 651:
-                    actorName = 'Mia Malkova'
-                elif actorID == 662:
-                    actorName = 'Molly Bennett'
-                elif actorID == 661:
-                    actorName = 'Molly Madison'
-                elif actorID == 668:
-                    actorName = 'Naomi West'
-                elif actorID == 686:
-                    actorName = 'Rachel Bella'
-                elif actorID == 684:
-                    actorName = 'Rachel Rogers'
-                elif actorID == 685:
-                    actorName = 'Rachel Roxxx'
-                elif actorID == 693:
-                    actorName = 'Riley Jensen'
-                    movieActors.addActor('Celeste Star', actorPhotoURL)
-                elif actorID == 692:
-                    actorName = 'Riley Ray'
-                elif actorID == 694:
-                    actorName = 'Riley Reid'
-                elif actorID == 703:
-                    actorName = 'Samantha Ryan'
-                elif actorID == 718:
-                    actorName = 'Sophia Striker'
-                elif actorID == 717:
-                    actorName = 'Sophia Sutra'
-                elif actorID == 728:
-                    actorName = 'Taylor Tilden'
-                elif actorID == 729:
-                    actorName = 'Taylor Whyte'
-                elif actorID == 749:
-                    actorName = 'Veronica Radke'
-                elif actorID == 750:
-                    actorName = 'Veronica Rodriguez'
-                elif actorID == 757:
-                    actorName = 'Whitney Stevens'
-            
-            elif siteName == 'MassageGirls18':
-                if False:
-                    pass
-                elif actorID == 138:
-                    actorName = 'Abby Cross'
-                elif actorID == 139:
-                    actorName = 'Abby Lane'
-                elif actorID == 137:
-                    actorName = 'Abby Paradise'
-                elif actorID == 147:
-                    actorName = 'Alexa Nicole'
-                elif actorID == 148:
-                    actorName = 'Alexa Rydell'
-                elif actorID == 170:
-                    actorName = 'Alexis Grace'
-                elif actorID == 169:
-                    actorName = 'Ashley Abott'
-                elif actorID == 178:
-                    actorName = 'Ava Sparxxx'
-                elif actorID == 179:
-                    actorName = 'Ava White'
-                elif actorID == 828:
-                    actorName = 'Bailey Bae'
-                elif actorID == 181:
-                    actorName = 'Bailey Bam'
-                elif actorID == 196:
-                    actorName = 'Callie Calypso'
-                elif actorID == 197:
-                    actorName = 'Callie Cobra'
-                elif actorID == 198:
-                    actorName = 'Callie Cyprus'
-                elif actorID == 368:
-                    actorName = 'Chanel White'
-                elif actorID == 215:
-                    actorName = 'Chloe Brooke'
-                elif actorID == 213:
-                    actorName = 'Chloe Skyy'
-                elif actorID == 183:
-                    actorName = 'Dahlia Sky'
-                elif actorID == 242:
-                    actorName = 'Gracie Glam'
-                elif actorID == 243:
-                    actorName = 'Gracie Ivanoe'
-                elif actorID == 249:
-                    actorName = 'Holly Michaels'
-                elif actorID == 248:
-                    actorName = 'Holly Sims'
-                elif actorID == 262:
-                    actorName = 'Jenna Ross'
-                elif actorID == 276:
-                    actorName = 'Katie Jordin'
-                elif actorID == 277:
-                    actorName = 'Katie Michaels'
-                elif actorID == 278:
-                    actorName = 'Katie Summers'
-                elif actorID == 301:
-                    actorName = 'Lily Carter'
-                elif actorID == 302:
-                    actorName = 'Lily Love'
-                elif actorID == 305:
-                    actorName = 'Lola Foxx'
-                elif 134 <= actorID <= 135:
-                    actorName = 'Melissa Mathews'
-                elif actorID == 332:
-                    actorName = 'Mia Gold'
-                elif actorID == 333:
-                    actorName = 'Mia Malkova'
-                elif actorID == 341:
-                    actorName = 'Molly Bennett'
-                elif actorID == 342:
-                    actorName = 'Molly Madison'
-                elif actorID == 361:
-                    actorName = 'Rachel Bella'
-                elif actorID == 362:
-                    actorName = 'Rachel Roxxx'
-                elif actorID == 367:
-                    actorName = 'Riley Ray'
-                elif actorID == 768:
-                    actorName = 'Samantha Rone'
-                elif actorID == 394:
-                    actorName = 'Sophia Striker'
-                elif actorID == 395:
-                    actorName = 'Sophia Sutra'
-                elif actorID == 404:
-                    actorName = 'Taylor Tilden'
-                elif actorID == 403:
-                    actorName = 'Taylor Whyte'
-                elif actorID == 422:
-                    actorName = 'Veronica Radke'
-                elif actorID == 423:
-                    actorName = 'Veronica Rodriguez'
-                elif actorID == 211:
-                    movieActors.addActor('Riley Jensen', actorPhotoURL)
-            
-            elif siteName == 'NewGirlPOV':
-                if False:
-                    pass
-                elif actorID == 1159:
-                    actorName = 'Ashley Adams'
-                elif actorID == 1178:
-                    actorName = 'Lola Hunter'
-                elif actorID == 1280:
-                    actorName = 'Melissa Moore'
-                elif actorID == 1206:
-                    actorName = 'Molly Manson'
-                elif actorID == 1242:
-                    actorName = 'Naomi Woods'
-            
             movieActors.addActor(actorName, actorPhotoURL)
+
+        # Ambiguous actors must be hardcoded by ID
+        scene_id = re.search(r'id=(\d+)', sceneURL)
+        if scene_id:
+            scene_id = int(scene_id.group(1))
+            if siteName in actor_db and scene_id in actor_db[siteName]:
+                for actors in actor_db[siteName][scene_id]:
+                    for actorName in actors:
+                        actorPhotoURL = ''
+
+                        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
         '//a[@class="jqModal"]/img/@src',
-        '//div[@id="overallthumb"]/a/img/@src'
+        '//div[@id="overallthumb"]/a/img/@src',
     ]
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
-            if img[0] == '/':
+            if img.startswith('/'):
                 img = PAsearchSites.getSearchBaseURL(siteNum) + img
             else:
                 img = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/newgirlpov/' + img
@@ -328,8 +116,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         art.append(img)
 
+    re_img = re.compile(r'image:\s*"(.+)"')
     for script in detailsPageElements.xpath('//div[@id="mediabox"]/script/text()'):
-        match = re.search(r'image:\s*"(.+)"', script)
+        match = re_img.search(script)
         if match:
             art.append(PAsearchSites.getSearchBaseURL(siteNum) + match.group(1))
 
@@ -353,3 +142,119 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+actor_db = {
+    'FuckedHard18': {
+        434: ['Abby Lane'],
+        435: ['Abby Cross'],
+        445: ['Alexa Rydell'],
+        446: ['Alexa Nicole'],
+        469: ['Alexis Grace'],
+        470: ['Ashley Abott'],
+        474: ['Ashlyn Molloy'],
+        481: ['Ava White'],
+        482: ['Ava Sparxxx'],
+        483: ['Ava Taylor'],
+        486: ['Dahlia Sky'],
+        487: ['Bailey Bam'],
+        501: ['Callie Cobra'],
+        502: ['Callie Cyprus'],
+        503: ['Callie Calypso'],
+        522: ['Chloe Addison'],
+        523: ['Chloe Brooke'],
+        524: ['Chloe Foster'],
+        553: ['Gracie Glam'],
+        554: ['Gracie Ivanoe'],
+        558: ['Holly Sims'],
+        559: ['Holly Michaels'],
+        572: ['Jenna Ashley'],
+        573: ['Jenna Ross'],
+        591: ['Katie Jordin'],
+        592: ['Katie Michaels'],
+        612: ['Lexi Bloom'],
+        613: ['Lexi Swallow'],
+        621: ['Lily Love'],
+        622: ['Lily Carter'],
+        625: ['Lola Foxx'],
+        648: ['Melissa Mathews'],
+        651: ['Mia Malkova'],
+        652: ['Mia Gold'],
+        661: ['Molly Madison'],
+        662: ['Molly Bennett'],
+        668: ['Naomi West'],
+        684: ['Rachel Rogers'],
+        685: ['Rachel Roxxx'],
+        686: ['Rachel Bella'],
+        692: ['Riley Ray'],
+        693: ['Riley Jensen', 'Celeste Star'],
+        694: ['Riley Reid'],
+        695: ['Chanel White'],
+        703: ['Samantha Ryan'],
+        717: ['Sophia Sutra'],
+        718: ['Sophia Striker'],
+        728: ['Taylor Tilden'],
+        729: ['Taylor Whyte'],
+        749: ['Veronica Radke'],
+        750: ['Veronica Rodriguez'],
+        757: ['Whitney Stevens'],
+        825: ['Alexa Grace'],
+        839: ['Abby Cross'],
+        947: ['Melissa May'],
+    },
+    'MassageGirls18': {
+        134: ['Melissa Mathews'],
+        135: ['Melissa Mathews'],
+        137: ['Abby Paradise'],
+        138: ['Abby Cross'],
+        139: ['Abby Lane'],
+        147: ['Alexa Nicole'],
+        148: ['Alexa Rydell'],
+        169: ['Ashley Abott'],
+        170: ['Alexis Grace'],
+        178: ['Ava Sparxxx'],
+        179: ['Ava White'],
+        181: ['Bailey Bam'],
+        183: ['Dahlia Sky'],
+        196: ['Callie Calypso'],
+        197: ['Callie Cobra'],
+        198: ['Callie Cyprus'],
+        211: ['Riley Jensen'],
+        213: ['Chloe Skyy'],
+        215: ['Chloe Brooke'],
+        242: ['Gracie Glam'],
+        243: ['Gracie Ivanoe'],
+        248: ['Holly Sims'],
+        249: ['Holly Michaels'],
+        262: ['Jenna Ross'],
+        276: ['Katie Jordin'],
+        277: ['Katie Michaels'],
+        278: ['Katie Summers'],
+        301: ['Lily Carter'],
+        302: ['Lily Love'],
+        305: ['Lola Foxx'],
+        332: ['Mia Gold'],
+        333: ['Mia Malkova'],
+        341: ['Molly Bennett'],
+        342: ['Molly Madison'],
+        361: ['Rachel Bella'],
+        362: ['Rachel Roxxx'],
+        367: ['Riley Ray'],
+        368: ['Chanel White'],
+        394: ['Sophia Striker'],
+        395: ['Sophia Sutra'],
+        403: ['Taylor Whyte'],
+        404: ['Taylor Tilden'],
+        422: ['Veronica Radke'],
+        423: ['Veronica Rodriguez'],
+        768: ['Samantha Rone'],
+        828: ['Bailey Bae'],
+    },
+    'NewGirlPOV': {
+        1159: ['Ashley Adams'],
+        1178: ['Lola Hunter'],
+        1206: ['Molly Manson'],
+        1242: ['Naomi Woods'],
+        1280: ['Melissa Moore'],
+    },
+}
