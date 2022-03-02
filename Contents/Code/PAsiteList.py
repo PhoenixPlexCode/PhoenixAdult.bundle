@@ -1579,6 +1579,7 @@ searchSites = {
     1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
     1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
     1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
+    1395: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall='),
 }
 
 abbreviations = (
@@ -2272,7 +2273,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FuelVirtual
-        elif (546 <= siteNum <= 547):
+        elif (546 <= siteNum <= 547) or siteNum == 1395:
             provider = networkFuelVirtual
 
         # TransAngels
