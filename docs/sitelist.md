@@ -458,6 +458,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Full Porn Network | ✓ - **Model Name (will fetch a list of scenes for google-matched model names)**
   - Analized
   - Bad Daddy POV
+  - Bad Mommy POV
   - DTF Sluts
   - James Deen
   - Only Prince
@@ -949,6 +950,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - FantasyHD
   - Holed
   - Lubed
+  - Mom4k
   - MyVeryFirstTime
   - NannySpy
   - Passion-HD
