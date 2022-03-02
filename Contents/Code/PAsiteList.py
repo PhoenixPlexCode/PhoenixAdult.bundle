@@ -1577,7 +1577,9 @@ searchSites = {
     1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies'),
     1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
     1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
-    1393: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall=')
+    1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
+    1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
+    1395: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall='),
 }
 
 abbreviations = (
@@ -2059,7 +2061,7 @@ def getProviderFromSiteNum(siteNum):
             provider = sitePrivate
 
         # PornPros Network
-        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364:
+        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364 or siteNum == 1393:
             provider = networkPornPros
 
         # DigitalPlayground
@@ -2071,7 +2073,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FullPornNetwork
-        elif (343 <= siteNum <= 350):
+        elif (343 <= siteNum <= 350) or siteNum == 1394:
             provider = networkFullPornNetwork
 
         # DogfartNetwork
@@ -2271,7 +2273,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FuelVirtual
-        elif (546 <= siteNum <= 547) or siteNum == 1393:
+        elif (546 <= siteNum <= 547) or siteNum == 1395:
             provider = networkFuelVirtual
 
         # TransAngels
