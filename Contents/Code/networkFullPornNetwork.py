@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
     for searchResultURL in googleResults:
         if searchResultURL not in searchResultsURLs:
             if '/models/' in searchResultURL:
-               searchResultsURLs.append(searchResultURL)
+                searchResultsURLs.append(searchResultURL)
 
     for modelURL in searchResultsURLs:
         req = PAutils.HTTPRequest(modelURL)
