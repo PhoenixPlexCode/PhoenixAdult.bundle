@@ -2,6 +2,7 @@ import PAsearchSites
 import PAutils
 import siteData18Scenes
 
+
 def search(results, lang, siteNum, searchData):
     searchResults = []
     siteResults = []
@@ -111,7 +112,7 @@ def search(results, lang, siteNum, searchData):
                             count += 1
                             temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
                         else:
-                            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio,  displayDate), score=score, lang=lang))
+                            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
 
         if numSearchPages > 1 and not idx + 1 == numSearchPages:
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
@@ -176,7 +177,7 @@ def search(results, lang, siteNum, searchData):
         else:
             sceneCount = 0
 
-        for sceneNum in range(1,sceneCount + 1):
+        for sceneNum in range(1, sceneCount + 1):
             section = "Scene " + str(sceneNum)
             scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
 
@@ -266,7 +267,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     actors.extend(detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//img[contains(@data-original, "user")]'))
     for actorLink in actors:
         actorName = actorLink.xpath('./@alt')[0].strip()
-        actorPhotoURL = actorLink.xpath('./@data-original')[0].strip()
+        actorPhotoURL = actorLink.xpath('./@data-src')[0].strip()
 
         if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
