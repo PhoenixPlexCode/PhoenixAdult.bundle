@@ -6,10 +6,17 @@ def search(results, lang, siteNum, searchData):
     searchResultsURLs = []
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
 
+    if searchData.title.count(' ') > 1:
+        directSearch = searchData.title.replace(' ', '-').lower()
+    else:
+        directSearch = searchData.title.replace(' ', '')
+
+    searchResultsURLs.append('%s/models/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), directSearch))
+
     for searchResultURL in googleResults:
         if searchResultURL not in searchResultsURLs:
             if '/models/' in searchResultURL:
-               searchResultsURLs.append(searchResultURL)
+                searchResultsURLs.append(searchResultURL)
 
     for modelURL in searchResultsURLs:
         req = PAutils.HTTPRequest(modelURL)
