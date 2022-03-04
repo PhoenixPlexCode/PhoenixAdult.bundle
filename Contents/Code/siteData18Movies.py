@@ -176,7 +176,7 @@ def search(results, lang, siteNum, searchData):
         else:
             sceneCount = 0
 
-        for sceneNum in range(1,sceneCount + 1):
+        for sceneNum in range(1, sceneCount + 1):
             section = "Scene " + str(sceneNum)
             scene = PAutils.Encode(detailsPageElements.xpath('//a[contains(., "%s")]/@href' % (section))[0])
 
