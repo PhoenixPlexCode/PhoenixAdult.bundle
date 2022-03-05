@@ -455,9 +455,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### FuelVirtual Network | ✅
   - FuckedHard18
   - MassageGirls18
+  - NewGirlPOV
 + #### Full Porn Network | ✓ - **Model Name (will fetch a list of scenes for google-matched model names)**
   - Analized
   - Bad Daddy POV
+  - Bad Mommy POV
   - DTF Sluts
   - James Deen
   - Only Prince
@@ -482,11 +484,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Gloryhole Secrets | ✓ - **Title only** (Title includes actress first name)
 + #### Grooby Network | ✅
   - Black TGirls
+  - Bob's TGirls
   - Brazilian Transsexuals
   - Femout.xxx
   - Grooby Girls
   - TGirl Japan
   - TGirl Japan Hardcore
+  - TGirls.porn
   - TGirls.xxx
 + #### Hegre | ✓ - **Title only**
 + #### HentaiPros | ✅
@@ -947,6 +951,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - FantasyHD
   - Holed
   - Lubed
+  - Mom4k
   - MyVeryFirstTime
   - NannySpy
   - Passion-HD
@@ -1158,6 +1163,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - The Real Workout
   - Thickumz
   - This Girl Sucks
+  - Tiny Sis
   - Titty Attack
 + #### TeenCoreClub Network | ❌ - **Scene ID**
   - Anal Checkups

@@ -514,14 +514,14 @@ searchSites = {
     327: ('SquirtDisgrace', 'https://www.pornpros.com', '/video/'),
     328: ('DigitalPlayground', 'https://www.digitalplayground.com', 'https://site-api.project1service.com'),
     329: ('Throated', 'https://www.blowpass.com', '/en/search/throated/scene/'),
-    330: ('Nuru Massage', 'https://www.fantasymassage.com', '/en/search/'),
+    330: ('Nuru Massage', 'https://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     331: (),
     332: ('DDF Babes', 'https://ddfnetwork.com', '/videos/freeword/'),
     333: ('SexyHub', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     334: ('Dane Jones', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     335: ('Fitness Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     336: ('Girlfriends.xxx', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
-    337: ('Lesbea', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
+    337: ('Lesbea', 'https://www.lesbea.com', 'https://site-api.project1service.com'),
     338: ('Massage Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     339: ('MomXXX', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     340: ('FakeHub', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
@@ -539,12 +539,12 @@ searchSites = {
     352: ('Only Teen Blowjobs', 'http://www.blowpass.com', '/en/search/onlyteenblowjobs/scene/'),
     353: ('1000 Facials', 'http://www.blowpass.com', '/en/search/1000facials/scene/'),
     354: ('Immoral Live', 'http://www.blowpass.com', '/en/search/immorallive/scene/'),
-    355: ('Fantasy Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    356: ('All Girl Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    357: ('Soapy Massage', 'http://www.fantasymassage.com', '/en/search/'),
-    358: ('Milking Table', 'http://www.fantasymassage.com', '/en/search/'),
-    359: ('Massage Parlor', 'http://www.fantasymassage.com', '/en/search/'),
-    360: ('Tricky Spa', 'http://www.fantasymassage.com', '/en/search/'),
+    355: ('Fantasy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    356: ('All Girl Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    357: ('Soapy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    358: ('Milking Table', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    359: ('Massage Parlor', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    360: ('Tricky Spa', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     361: ('Sweetheart Video', 'https://www.milehighmedia.com', 'https://site-api.project1service.com'),
     362: ('Reality Junkies', 'http://www.milehighmedia.com', 'https://site-api.project1service.com'),
     363: ('SweetSinner', 'https://www.milehighmedia.com', 'https://site-api.project1service.com'),
@@ -934,7 +934,7 @@ searchSites = {
     747: ('Gangbang Creampie', 'https://gangbangcreampie.com', '/tour/search.php?query='),
     749: ('Show My BF', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     748: ('DadCrush', 'https://www.dadcrush.com', '/movies'),
-    750: ('POV Massage', 'http://www.fantasymassage.com', '/en/search/'),
+    750: ('POV Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     751: ('Step Secrets', 'http://www.stepsecrets.com', 'https://www.stepsecrets.com/?query='),
     752: ('VRHush', 'https://www.vrhush.com', '/scenes/'),
     753: ('MetArt', 'https://www.metart.com', '/api'),
@@ -1077,7 +1077,7 @@ searchSites = {
     890: ('WetVR', 'https://www.wetvr.com', '/video/'),
     891: ('HoloGirlsVR', 'https://www.hologirlsvr.com', '/Scenes?back=1&search='),
     892: ('LethalHardcoreVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
-    893: ('Gender X', 'https://www.genderx.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    893: ('Gender X', 'https://www.genderxfilms.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     894: ('WhoreCraftVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
     895: ('DefeatedXXX', 'http://xxx.defeated.xxx', '/?s='),
     896: ('Defeated Sex Fight', 'https://defeatedsexfight.com', '/?s='),
@@ -1574,6 +1574,12 @@ searchSites = {
     1387: ('Mature4k', 'https://mature4k.com', '/'),
     1388: ('Shame4k', 'https://shame4k.com', '/'),
     1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
+    1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies'),
+    1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
+    1392: ('Ladyboy', 'https://www.ladyboy.xxx', '/tour/trailers/'),
+    1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
+    1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
+    1395: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall='),
 }
 
 abbreviations = (
@@ -1912,7 +1918,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Fantasy Massage
         elif siteNum == 330 or (355 <= siteNum <= 360) or siteNum == 750:
-            provider = networkGammaEnt
+            provider = networkGammaEntOther
 
         # 21Sextury
         elif (365 <= siteNum <= 372) or siteNum == 466 or siteNum == 692:
@@ -2003,7 +2009,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390:
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2055,7 +2061,7 @@ def getProviderFromSiteNum(siteNum):
             provider = sitePrivate
 
         # PornPros Network
-        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364:
+        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364 or siteNum == 1393:
             provider = networkPornPros
 
         # DigitalPlayground
@@ -2067,7 +2073,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FullPornNetwork
-        elif (343 <= siteNum <= 350):
+        elif (343 <= siteNum <= 350) or siteNum == 1394:
             provider = networkFullPornNetwork
 
         # DogfartNetwork
@@ -2267,7 +2273,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FuelVirtual
-        elif (546 <= siteNum <= 547):
+        elif (546 <= siteNum <= 547) or siteNum == 1395:
             provider = networkFuelVirtual
 
         # TransAngels
@@ -2819,7 +2825,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteData18Empire
 
         # Grooby Network
-        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343):
+        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343) or (1391 <= siteNum <= 1392):
             provider = networkGrooby
 
         # Adult Empire
