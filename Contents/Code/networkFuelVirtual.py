@@ -77,22 +77,22 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
 
-        for actorLink in actors:
-            actorName = actorLink.text_content().strip()
-            actorPhotoURL = ''
-
-            movieActors.addActor(actorName, actorPhotoURL)
+        actorPhotoURL = ''
 
         # Ambiguous actors must be hardcoded by ID
+        found_scene_id = False
         scene_id = re.search(r'id=(\d+)', sceneURL)
         if scene_id:
             scene_id = int(scene_id.group(1))
             if siteName in actor_db and scene_id in actor_db[siteName]:
-                for actors in actor_db[siteName][scene_id]:
-                    for actorName in actors:
-                        actorPhotoURL = ''
+                found_scene_id = True
+                for actorName in actor_db[siteName][scene_id]:
+                    movieActors.addActor(actorName, actorPhotoURL)
 
-                        movieActors.addActor(actorName, actorPhotoURL)
+        if not found_scene_id:
+            for actorLink in actors:
+                actorName = actorLink.text_content().strip()
+                movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
@@ -219,7 +219,7 @@ actor_db = {
         196: ['Callie Calypso'],
         197: ['Callie Cobra'],
         198: ['Callie Cyprus'],
-        211: ['Riley Jensen'],
+        211: ['Riley Jensen', 'Celeste Star'],
         213: ['Chloe Skyy'],
         215: ['Chloe Brooke'],
         242: ['Gracie Glam'],
