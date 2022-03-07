@@ -182,6 +182,7 @@ import siteJavLibrary
 import siteKillergram
 import networkHugeMedia
 import network18
+import networkDirtyFlix
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1580,6 +1581,10 @@ searchSites = {
     1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
     1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
     1395: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall='),
+    1396: ('Trick Your GF', 'http://trickyourgf.com', '/detailed/'),
+    1397: ('Make Him Cuckold', 'http://makehimcuckold.com', '/detailed/'),
+    1398: ('She Is Nerdy', 'http://sheisnerdy.com', '/detailed/'),
+    1399: ('Tricky Agent', 'http://trickyagent.com', '/detailed/'),
 }
 
 abbreviations = (
@@ -2902,5 +2907,9 @@ def getProviderFromSiteNum(siteNum):
         # Huge Media
         elif (1376 <= siteNum <= 1388):
             provider = networkHugeMedia
+
+        # Dirty Flix Network
+        elif (1396 <= siteNum <= 1399):
+            provider = networkDirtyFlix
 
     return provider
