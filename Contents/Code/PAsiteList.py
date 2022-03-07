@@ -1584,7 +1584,7 @@ searchSites = {
     1396: ('Trick Your GF', 'http://trickyourgf.com', '/detailed/'),
     1397: ('Make Him Cuckold', 'http://makehimcuckold.com', '/detailed/'),
     1398: ('She Is Nerdy', 'http://sheisnerdy.com', '/detailed/'),
-    1399: ('Tricky Agent', 'http://trickyagent.com', '/detailed/'),
+    1399: ('Tricky Agent', 'http://trickyagent.com', '/detailedTrailer/'),
 }
 
 abbreviations = (

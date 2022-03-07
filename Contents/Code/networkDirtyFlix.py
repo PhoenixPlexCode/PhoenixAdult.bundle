@@ -7,10 +7,18 @@ def search(results, lang, siteNum, searchData):
     searchPage = PAsearchSites.getSearchSearchURL(siteNum)
     req = PAutils.HTTPRequest(searchPage)
     searchResults = HTML.ElementFromString(req.text)
+    siteKey = 0
+    titleXPath = ''
+
+    for key, value in titleDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
+            titleXPath = value
+            break
 
     for key, value in siteDB.items():
         if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            siteKey = value
+            siteKey = value[0]
+            sitePages = value[1]
             break
 
     dirtyFlixTour1 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d' % siteKey
@@ -21,9 +29,9 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(dirtyFlixTour2)
     tourPageElements2 = HTML.ElementFromString(req.text)
 
-    for idx in range (2, 12):
+    for idx in range (2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@class, "title")]')[0].text_content().strip(), siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath(titleXPath)[0].text_content().strip(), siteNum)
 
             movieID = searchResult.xpath('.//li/img/@src')[0]
             m = re.search(r'(?<=tour_thumbs/).*(?=\/)', movieID)
@@ -71,10 +79,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % movieID)[0]
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('.//a[contains(@class, "title")]')[0].text_content().strip(), siteNum)
+    for key, value in titleDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
+            titleXPath = value
+            break
+
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath(titleXPath)[0].text_content().strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('.//div[@class="description"]')[0].text_content().strip()
+    for key, value in summaryDB.items():
+        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
+            summaryXPath = value
+            break
+
+    metadata.summary = detailsPageElements.xpath(summaryXPath)[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Dirty Flix'
@@ -150,11 +168,27 @@ genresDB = {
 }
 
 
+titleDB = {
+    'TrickYourGF': './/a[contains(@class, "link")]',
+    'MakeHimCuckold': './/a[contains(@class, "link")]',
+    'SheIsNerdy': './/a[contains(@class, "title")]',
+    'TrickyAgent': './/h3',
+}
+
+
+summaryDB = {
+    'TrickYourGF': './/div[@class="description"]',
+    'MakeHimCuckold': './/div[@class="description"]',
+    'SheIsNerdy': './/div[@class="description"]',
+    'TrickyAgent': './/div[@class="text"]',
+}
+
+
 siteDB = {
-    'TrickYourGF': 7,
-    'MakeHimCuckold': 9,
-    'SheIsNerdy': 10,
-    'TrickyAgent': 11,
+    'TrickYourGF': [7, 4],
+    'MakeHimCuckold': [9, 5],
+    'SheIsNerdy': [10, 12],
+    'TrickyAgent': [11, 4],
 }
 
 
@@ -167,10 +201,12 @@ sceneActorsDB = {
     'Gisha Forza': ['wrygf1442'],
     'Hanna Rey': ['wnc1550'],
     'Iris Kiss': ['snc165', 'wnc1637'],
+    'Jenny Manson': ['wtag1324'],
     'Kira Stone': ['snc171'],
     'Milka': ['snc214'],
     'Molly Manson': ['crygf013'],
     'Monica Rise': ['crygf011'],
     'Rebecca Rainbow': ['wrygf1201'],
+    'Rita': ['wtag1232'],
     'Veronika Fare': ['wnc1315'],
 }
