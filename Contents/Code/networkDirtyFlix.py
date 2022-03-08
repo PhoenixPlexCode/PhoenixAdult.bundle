@@ -8,18 +8,10 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(searchPage)
     searchResults = HTML.ElementFromString(req.text)
     siteKey = 0
-    titleXPath = ''
 
-    for key, value in titleDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            titleXPath = value
-            break
+    xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
 
-    for key, value in siteDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            siteKey = value[0]
-            sitePages = value[1]
-            break
+    (siteKey, sitePages) = dictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
 
     dirtyFlixTour1 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d' % siteKey
     req = PAutils.HTTPRequest(dirtyFlixTour1)
@@ -31,7 +23,7 @@ def search(results, lang, siteNum, searchData):
 
     for idx in range (2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath(titleXPath)[0].text_content().strip(), siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath(xPath[0])[0].text_content().strip(), siteNum)
 
             movieID = searchResult.xpath('.//li/img/@src')[0]
             m = re.search(r'(?<=tour_thumbs/).*(?=\/)', movieID)
@@ -53,10 +45,10 @@ def search(results, lang, siteNum, searchData):
             else:
                 releaseDate = searchData.dateFormat() if searchData.date else ''
 
+            score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
             if searchData.date:
-                score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                score = score - Util.LevenshteinDistance(searchData.date, releaseDate)
 
             results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, PAutils.Encode(searchPage)), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -81,21 +73,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(searchPageURL)
     detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % movieID)[0]
 
-    # Title
-    for key, value in titleDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            titleXPath = value
-            break
+    xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
 
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath(titleXPath)[0].text_content().strip(), siteNum)
+    # Title
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath(xPath[0])[0].text_content().strip(), siteNum)
 
     # Summary
-    for key, value in summaryDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            summaryXPath = value
-            break
-
-    metadata.summary = detailsPageElements.xpath(summaryXPath)[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath(xPath[1])[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Dirty Flix'
@@ -114,24 +98,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = []
-    for key, value in genresDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).replace(' ', '').lower():
-            genres = value
-            break
-
+    genres = dictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
     for genreName in genres:
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = []
-    for key, value in sceneActorsDB.items():
-        for item in value:
-            if item.lower() == movieID.lower():
-                actors.append(key)
-                break
-
+    actors = dictKeyFromValues(sceneActorsDB, movieID)
     for actor in actors:
         actorName = actor.strip()
         actorPhotoURL = ''
@@ -163,6 +136,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     return metadata
 
 
+def dictValuesFromKey(dictDB, identifier):
+    for k, values in dictDB.items():
+        keys = list(k) if type(k) == tuple else [k]
+        for key in keys:
+            if key.lower() == identifier.replace(' ', '').lower():
+                return values
+    return
+
+
+def dictKeyFromValues(dictDB, identifier):
+    values = []
+    for key, value in dictDB.items():
+        for item in value:
+            if item.lower() == identifier.lower():
+                values.append(key)
+                break
+    return values
+
+
 genresDB = {
     'TrickYourGF': ['Girlfriend', 'Revenge'],
     'MakeHimCuckold': ['Cuckold'],
@@ -171,19 +163,10 @@ genresDB = {
 }
 
 
-titleDB = {
-    'TrickYourGF': './/a[contains(@class, "link")]',
-    'MakeHimCuckold': './/a[contains(@class, "link")]',
-    'SheIsNerdy': './/a[contains(@class, "title")]',
-    'TrickyAgent': './/h3',
-}
-
-
-summaryDB = {
-    'TrickYourGF': './/div[@class="description"]',
-    'MakeHimCuckold': './/div[@class="description"]',
-    'SheIsNerdy': './/div[@class="description"]',
-    'TrickyAgent': './/div[@class="text"]',
+xPathDB = {
+    ('TrickYourGF', 'MakeHimCuckold'): ['.//a[contains(@class, "link")]', './/div[@class="description"]'],
+    'SheIsNerdy': ['.//a[contains(@class, "title")]', './/div[@class="description"]'],
+    'TrickyAgent': ['.//h3', './/div[@class="text"]'],
 }
 
 
