@@ -161,10 +161,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 
 genresDB = {
-    'TrickYourGF': ['Girlfriend'],
+    'TrickYourGF': ['Girlfriend', 'Revenge'],
     'MakeHimCuckold': ['Cuckold'],
     'SheIsNerdy': ['Glasses', 'Nerd'],
-    'TrickyAgent': ['Agent'],
+    'TrickyAgent': ['Agent', 'Casting'],
 }
 
 
@@ -184,6 +184,7 @@ summaryDB = {
 }
 
 
+# [Dirty Flix Tour Number, Number of Active Search Pages]
 siteDB = {
     'TrickYourGF': [7, 4],
     'MakeHimCuckold': [9, 5],
@@ -193,20 +194,55 @@ siteDB = {
 
 
 sceneActorsDB = {
+    'Adina': ['darygf050'],
     'Alaina Dawson': ['crygf009'],
+    'Aggie': ['wrygf726'],
     'Amalia Davis': ['wnc1560'],
+    'Amber Daikiri': ['wrygf508'],
+    'Angie Koks': ['wrygf911'],
+    'Annika Seren': ['wrygf451'],
+    'Aruna Aghora': ['wrygf900'],
     'Carmen Fox': ['wnc833'],
+    'Chloe Blue': ['wrygf526'],
+    'Christi Cats': ['wrygf553'],
     'Darcy Dark': ['wnc1590'],
     'Elin Holm': ['wnc1453'],
+    'Eva': ['wrygf865'],
+    'Evelyn Cage': ['wrygf651'],
+    'Emma': ['wrygf634'],
+    'Gina Gerson': ['wrygf622'],
     'Gisha Forza': ['wrygf1442'],
+    'Gloria Miller': ['wrygf738'],
+    'Glorie': ['darygf052'],
+    'Foxy Di': ['wrygf886', 'wrygf828'],
     'Hanna Rey': ['wnc1550'],
+    'Inga Zolva': ['wrygf747'],
     'Iris Kiss': ['snc165', 'wnc1637'],
-    'Jenny Manson': ['wtag1324'],
+    'Iva Zan': ['wrygf536'],
+    'Jenny Manson': ['wtag1324', 'wfc1302'],
+    'Jessica Malone': ['wrygf1078'],
+    'Jessica Rox': ['prygf138'],
+    'Kendra Cole': ['hrygf002'],
+    'Kiara Knight': ['crygf002'],
     'Kira Stone': ['snc171'],
+    'Kirsten': ['wrygf499'],
+    'Lina Napoli': ['wrygf760'],
+    'Andrea Sun': ['darygf057'],
+    'Lizaveta Kay': ['wrygf733'],
+    'Masha B': ['wrygf485'],
+    'Michelle Can': ['wfc1392'],
     'Milka': ['snc214'],
     'Molly Manson': ['crygf013'],
     'Monica Rise': ['crygf011'],
+    'Liona Levi': ['wrygf663'],
+    'Oliva Grace': ['wrygf991'],
     'Rebecca Rainbow': ['wrygf1201'],
     'Rita': ['wtag1232'],
+    'Rita Jalace': ['wrygf633'],
+    'Rita Milan': ['wrygf870'],
+    'Serpente Edita': ['wrygf930'],
+    'Shrima Malati': ['wrygf993'],
+    'Sonja': ['wrygf648'],
+    'Stacy Snake': ['wrygf427'],
     'Veronika Fare': ['wnc1315'],
 }
