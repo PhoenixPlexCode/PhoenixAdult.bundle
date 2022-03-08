@@ -1432,7 +1432,7 @@ searchSites = {
     1245: ('SlutInspection', 'https://www.slutinspection.com', '/sapi/'),
     1246: ('Hussie Pass', 'https://hussiepass.com', '/trailers/'),
     1247: ('Babe Archives', 'https://www.babearchives.com', '/search.php?query='),
-    1248: ('My Pervy Family', 'https://www.mypervyfamily.com', '/MemberSceneSearch?q='),
+    1248: ('My Pervy Family', 'https://www.mypervyfamily.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1249: ('Foster Tapes', 'https://www.fostertapes.com', '/movies'),
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies'),
@@ -1441,12 +1441,12 @@ searchSites = {
     1254: ('Exposed Whores', 'https://exposedwhores.com/new-tour', '/search.php?query='),
     1255: ('She Seduced Me', 'https://www.sheseducedme.com', '/search.php?query='),
     1256: ('Family Swap', 'https://nubiles-porn.com', '/video/website/52/'),
-    1257: ('Filthy POV', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
-    1258: ('Filthy Massage', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
-    1259: ('Filthy Taboo', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
-    1260: ('Night Creep', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
-    1261: ('Filthy Blowjobs', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
-    1262: ('Filthy Newbies', 'https://www.filthykings.com', '/MemberSceneSearch?q='),
+    1257: ('Filthy POV', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1258: ('Filthy Massage', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1259: ('Filthy Taboo', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1260: ('Night Creep', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1261: ('Filthy Blowjobs', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1262: ('Filthy Newbies', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1263: ('Anal4K', 'https://www.anal4k.com', '/video/'),
     1264: ('House of Fyre', 'https://www.houseofyre.com', '/search.php?query='),
     1265: ('Philavise', 'https://www.philavise.com', '/search.php?query='),
@@ -2441,8 +2441,16 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1248 or (1257 <= siteNum <= 1262) or siteNum == 1337:
+        elif siteNum == 815 or siteNum == 1337:
             provider = networkAdultEmpireCash
+
+        # My Pervy Family
+        elif siteNum == 1248:
+            provider = networkGammaEntOther
+
+        # Filthy Kings sites
+        elif 1257 <= siteNum <= 1262:
+            provider = networkGammaEntOther
 
         # PJGirls
         elif siteNum == 667:
