@@ -21,12 +21,12 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(dirtyFlixTour2)
     tourPageElements2 = HTML.ElementFromString(req.text)
 
-    for idx in range (2, sitePages):
+    for idx in range(2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath(xPath[0])[0].text_content().strip(), siteNum)
 
-            movieID = searchResult.xpath('.//li/img/@src')[0]
-            m = re.search(r'(?<=tour_thumbs/).*(?=\/)', movieID)
+            sceneID = searchResult.xpath('.//li/img/@src')[0]
+            m = re.search(r'(?<=tour_thumbs/).*(?=\/)', sceneID)
             if m:
                 curID = PAutils.Encode(m.group(0))
 
@@ -66,12 +66,12 @@ def search(results, lang, siteNum, searchData):
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
-    movieID = PAutils.Decode(metadata_id[0])
+    sceneID = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
     searchPageURL = PAutils.Decode(metadata_id[3])
 
     req = PAutils.HTTPRequest(searchPageURL)
-    detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % movieID)[0]
+    detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % sceneID)[0]
 
     xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
 
@@ -104,7 +104,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    actors = dictKeyFromValues(sceneActorsDB, movieID)
+    actors = dictKeyFromValues(sceneActorsDB, sceneID)
     for actor in actors:
         actorName = actor.strip()
         actorPhotoURL = ''
