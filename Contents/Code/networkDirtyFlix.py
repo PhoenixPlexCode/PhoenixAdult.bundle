@@ -378,7 +378,7 @@ sceneActorsDB = {
     'Sherry E': ['wtag570'],
     'Shirley Harris': ['wrygf485'],
     'Shrima Malati': ['wrygf993', 'wtag997'],
-    'Sofi Goldfinger': [''],
+    'Sofi Goldfinger': ['wtag1130'],
     'Sofy Soul': ['wtag1252'],
     'Soni': ['wrygf648', 'wtag610'],
     'Sonya Sweet': ['wfc1198', 'wtag1204', 'wnc1196'],
