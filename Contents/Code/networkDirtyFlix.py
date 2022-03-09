@@ -40,10 +40,13 @@ def search(results, lang, siteNum, searchData):
                 except:
                     date = ''
 
-            if date:
-                releaseDate = datetime.strptime(date, '%Y-%m-%d').strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
+            try:
+                if date:
+                    releaseDate = datetime.strptime(date, '%Y-%m-%d').strftime('%Y-%m-%d')
+                else:
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
+            except:
+                releaseDate = ''
 
             score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
