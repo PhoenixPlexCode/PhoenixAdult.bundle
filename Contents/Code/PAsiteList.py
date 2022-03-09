@@ -1580,6 +1580,56 @@ searchSites = {
     1393: ('Mom4K', 'https://www.mom4k.com', '/video/'),
     1394: ('Bad Mommy POV', 'https://badmommypov.com', '/1/search/'),
     1395: ('NewGirlPOV', 'http://pornmastermind.com', '/tour/newgirlpov/search.php?qall='),
+    1396: ('Younger Mommy', 'https://youngermommy.com', '/video/gallery/'),
+    1397: ('Cum Swapping Sis', 'https://cumswappingsis.com', '/video/gallery/'),
+    1398: ('TMWPOV', 'http://tmwpov.com', '/search.php?query='),
+    1399: ('TeamSkeet X Avery Black', 'https://www.teamskeet.com', '/movies'),
+    1400: ('TeamSkeet X BJ Raw', 'https://www.teamskeet.com', '/movies'),
+    1401: ('TeamSkeet X Bang', 'https://www.teamskeet.com', '/movies'),
+    1402: ('TeamSkeet X Bratty Foot Girls', 'https://www.teamskeet.com', '/movies'),
+    1403: ('TeamSkeet X BritStudioXXX', 'https://www.teamskeet.com', '/movies'),
+    1404: ('TeamSkeet X Cum Kitchen', 'https://www.teamskeet.com', '/movies'),
+    1405: ('TeamSkeet X DocTayTay', 'https://www.teamskeet.com', '/movies'),
+    1406: ('TeamSkeet X Erotique TV Live', 'https://www.teamskeet.com', '/movies'),
+    1407: ('TeamSkeet X EvilAngel', 'https://www.teamskeet.com', '/movies'),
+    1408: ('TeamSkeet X GrandDadz', 'https://www.teamskeet.com', '/movies'),
+    1409: ('TeamSkeet X Herb Collins', 'https://www.teamskeet.com', '/movies'),
+    1410: ('TeamSkeet X Impure Desire', 'https://www.teamskeet.com', '/movies'),
+    1411: ('TeamSkeet X JavHub', 'https://www.teamskeet.com', '/movies'),
+    1412: ('TeamSkeet X Luxury Girl', 'https://www.teamskeet.com', '/movies'),
+    1413: ('TeamSkeet X OZ Fellatio Queens', 'https://www.teamskeet.com', '/movies'),
+    1414: ('TeamSkeet X POV Perv', 'https://www.teamskeet.com', '/movies'),
+    1415: ('TeamSkeet X POVGod', 'https://www.teamskeet.com', '/movies'),
+    1416: ('TeamSkeet X PurgatoryX', 'https://www.teamskeet.com', '/movies'),
+    1417: ('TeamSkeet X Riley Cyriis', 'https://www.teamskeet.com', '/movies'),
+    1418: ('TeamSkeet X Screampies', 'https://www.teamskeet.com', '/movies'),
+    1419: ('TeamSkeet X ToughLoveX', 'https://www.teamskeet.com', '/movies'),
+    1420: ('TeamSkeet X YoungBusty', 'https://www.teamskeet.com', '/movies'),
+    1421: ('StayHomePOV', 'https://www.teamskeet.com', '/movies'),
+    1422: ('TeamSkeet Allstars', 'https://www.teamskeet.com', '/movies'),
+    1423: ('TeamSkeet Classics', 'https://www.teamskeet.com', '/movies'),
+    1424: ('TeamSkeet Labs', 'https://www.teamskeet.com', '/movies'),
+    1425: ('TeamSkeet Selects', 'https://www.teamskeet.com', '/movies'),
+    1426: ('Mylf X Bang', 'https://www.mylf.com', '/movies/'),
+    1427: ('Mylf X BJ Raw', 'https://www.mylf.com', '/movies/'),
+    1428: ('Mylf X Chad Alva', 'https://www.mylf.com', '/movies/'),
+    1429: ('Mylf X Dee Siren', 'https://www.mylf.com', '/movies/'),
+    1430: ('Mylf X Elegant Raw', 'https://www.mylf.com', '/movies/'),
+    1431: ('Mylf X EvilAngel', 'https://www.mylf.com', '/movies/'),
+    1432: ('Mylf X Karups Older Women', 'https://www.mylf.com', '/movies/'),
+    1433: ('Mylf X Mandy Flores', 'https://www.mylf.com', '/movies/'),
+    1434: ('Mylf X Marie McCray', 'https://www.mylf.com', '/movies/'),
+    1435: ('Mylf X MariskaX', 'https://www.mylf.com', '/movies/'),
+    1436: ('Mylf X Miss Lexa', 'https://www.mylf.com', '/movies/'),
+    1437: ('Mylf X Paytons Place', 'https://www.mylf.com', '/movies/'),
+    1438: ('Mylf X PurgatoryX', 'https://www.mylf.com', '/movies/'),
+    1439: ('Mylf X SinfulXXX', 'https://www.mylf.com', '/movies/'),
+    1440: ('Mylf X Steve Holmes', 'https://www.mylf.com', '/movies/'),
+    1441: ('Mylf X ToughLoveX', 'https://www.mylf.com', '/movies/'),
+    1442: ('MomShoot', 'https://www.mylf.com', '/movies/'),
+    1443: ('Mylf Classics', 'https://www.mylf.com', '/movies/'),
+    1444: ('Mylf Labs', 'https://www.mylf.com', '/movies/'),
+    1445: ('New Mylfs', 'https://www.mylf.com', '/movies/'),
 }
 
 abbreviations = (
@@ -2009,7 +2059,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390:
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2149,7 +2199,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360:
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397):
             provider = networkNubiles
 
         # BellaPass
@@ -2197,7 +2247,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKarups
 
         # TeenMegaWorld
-        elif (631 <= siteNum <= 666) or siteNum == 930:
+        elif (631 <= siteNum <= 666) or siteNum == 930 or siteNum == 1398:
             provider = networkTeenMegaWorld
 
         # Screwbox
@@ -2221,7 +2271,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329:
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445):
             provider = siteMylf
 
         # Manually Add Actors
