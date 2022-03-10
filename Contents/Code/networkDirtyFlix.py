@@ -49,7 +49,7 @@ def search(results, lang, siteNum, searchData):
                 releaseDate = ''
 
             if sceneID in scenes:
-                score == 100
+                score = 100
             else:
                 score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
