@@ -164,7 +164,7 @@ def dictKeyFromValues(dictDB, identifier):
 genresDB = {
     'Trick Your GF': ['Girlfriend', 'Revenge'],
     'Make Him Cuckold': ['Cuckold'],
-    'SheIsNerdy': ['Glasses', 'Nerd'],
+    'She Is Nerdy': ['Glasses', 'Nerd'],
     'Tricky Agent': ['Agent', 'Casting'],
 }
 
