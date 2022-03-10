@@ -10,7 +10,7 @@ def search(results, lang, siteNum, searchData):
     siteKey = 0
 
     xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
-
+    scenes = dictValuesFromKey(sceneActorsDB, searchData.title)
     (siteKey, sitePages) = dictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
 
     dirtyFlixTour1 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d' % siteKey
@@ -20,6 +20,7 @@ def search(results, lang, siteNum, searchData):
     dirtyFlixTour2 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d/2' % siteKey
     req = PAutils.HTTPRequest(dirtyFlixTour2)
     tourPageElements2 = HTML.ElementFromString(req.text)
+
 
     for idx in range(2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
@@ -48,7 +49,10 @@ def search(results, lang, siteNum, searchData):
             except:
                 releaseDate = ''
 
-            score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            if sceneID in scenes:
+                score == 100
+            else:
+                score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
             if searchData.date:
                 score = score - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -143,9 +147,9 @@ def dictValuesFromKey(dictDB, identifier):
     for k, values in dictDB.items():
         keys = list(k) if type(k) == tuple else [k]
         for key in keys:
-            if key.lower() == identifier.replace(' ', '').lower():
+            if key.lower() == identifier.lower():
                 return values
-    return
+    return []
 
 
 def dictKeyFromValues(dictDB, identifier):
@@ -159,26 +163,26 @@ def dictKeyFromValues(dictDB, identifier):
 
 
 genresDB = {
-    'TrickYourGF': ['Girlfriend', 'Revenge'],
-    'MakeHimCuckold': ['Cuckold'],
+    'Trick Your GF': ['Girlfriend', 'Revenge'],
+    'Make Him Cuckold': ['Cuckold'],
     'SheIsNerdy': ['Glasses', 'Nerd'],
-    'TrickyAgent': ['Agent', 'Casting'],
+    'Tricky Agent': ['Agent', 'Casting'],
 }
 
 
 xPathDB = {
-    ('TrickYourGF', 'MakeHimCuckold'): ['.//a[contains(@class, "link")]', './/div[@class="description"]'],
-    'SheIsNerdy': ['.//a[contains(@class, "title")]', './/div[@class="description"]'],
-    'TrickyAgent': ['.//h3', './/div[@class="text"]'],
+    ('Trick Your GF', 'Make Him Cuckold'): ['.//a[contains(@class, "link")]', './/div[@class="description"]'],
+    'She Is Nerdy': ['.//a[contains(@class, "title")]', './/div[@class="description"]'],
+    'Tricky Agent': ['.//h3', './/div[@class="text"]'],
 }
 
 
 # [Dirty Flix Tour Number, Number of Active Search Pages]
 siteDB = {
-    'TrickYourGF': [7, 4],
-    'MakeHimCuckold': [9, 5],
-    'SheIsNerdy': [10, 12],
-    'TrickyAgent': [11, 4],
+    'Trick Your GF': [7, 4],
+    'Make Him Cuckold': [9, 5],
+    'She Is Nerdy': [10, 12],
+    'Tricky Agent': [11, 4],
 }
 
 
