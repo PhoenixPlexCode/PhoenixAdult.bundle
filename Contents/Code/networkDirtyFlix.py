@@ -21,7 +21,6 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(dirtyFlixTour2)
     tourPageElements2 = HTML.ElementFromString(req.text)
 
-
     for idx in range(2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath(xPath[0])[0].text_content().strip(), siteNum)
