@@ -319,6 +319,7 @@ sceneActorsDB = {
     'Lizaveta Kay': ['wrygf733'],
     'Lizi Smoke': ['snc122'],
     'Lola Shine': ['wnc1173'],
+    'Lorrelai Gold': ['wnc816'],
     'Lottie Magne': ['snc111'],
     'Luna Haze': ['snc187'],
     'Luna Umberlay': ['wnc1651'],
