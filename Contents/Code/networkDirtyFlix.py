@@ -25,10 +25,10 @@ def search(results, lang, siteNum, searchData):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath(xPath[0])[0].text_content().strip(), siteNum)
 
-            sceneID = searchResult.xpath('.//li/img/@src')[0]
-            m = re.search(r'(?<=tour_thumbs/).*(?=\/)', sceneID)
-            if m:
-                curID = PAutils.Encode(m.group(0))
+            sceneURL = searchResult.xpath('.//li/img/@src')[0]
+            sceneID = re.search(r'(?<=tour_thumbs/).*(?=\/)', sceneURL)
+            if sceneID:
+                curID = PAutils.Encode(sceneID.group(0))
 
             try:
                 tourPageElements = tourPageElements1.xpath('//div[@class="thumbs-item"][.//*[contains(@src, "%s")]]' % m.group(0))[0]
