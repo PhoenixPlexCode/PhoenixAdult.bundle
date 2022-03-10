@@ -1,4 +1,3 @@
-import site
 import PAsearchSites
 import PAutils
 
@@ -7,7 +6,6 @@ def search(results, lang, siteNum, searchData):
     searchPage = PAsearchSites.getSearchSearchURL(siteNum)
     req = PAutils.HTTPRequest(searchPage)
     searchResults = HTML.ElementFromString(req.text)
-    siteKey = 0
 
     xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
     scenes = dictValuesFromKey(sceneActorsDB, searchData.title)
@@ -21,11 +19,13 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(dirtyFlixTour2)
     tourPageElements2 = HTML.ElementFromString(req.text)
 
+    re_sceneid = re.compile(r'(?<=tour_thumbs/).*(?=\/)')
     for idx in range(2, sitePages):
         for searchResult in searchResults.xpath('//div[@class="movie-block"]'):
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath(xPath[0])[0].text_content().strip(), siteNum)
 
-            m = re.search(r'(?<=tour_thumbs/).*(?=\/)', searchResult.xpath('.//li/img/@src')[0])
+            sceneID = 0
+            m = re_sceneid.search(searchResult.xpath('.//li/img/@src')[0])
             if m:
                 sceneID = m.group(0)
                 curID = PAutils.Encode(sceneID)
