@@ -788,6 +788,8 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Watch Your Mom
   - Watch Your Wife
   - Wives on Vacation
++ #### NVG Network | ❌ - **SceneID Only, Date Add, Actor Add (Name1 AND Name2)**
+  - Net Video Girls
 + #### NewSensations | ✅ - **Date Add**
 + #### NewSensations Other Sites | ✅
   - Fresh Out of High School
