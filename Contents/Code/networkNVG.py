@@ -151,7 +151,7 @@ def getPageData(siteNum, sceneID):
     headers = {
         'Referer': PAsearchSites.getSearchBaseURL(siteNum),
     }
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/page-data/home/page-data.json', headers=headers)
+    req = PAutils.HTTPRequest('https://netvideogirls.com/page-data/home/page-data.json', headers=headers)
     if req.ok:
         data = req.json()
 
