@@ -280,7 +280,7 @@ def getFromIAFD(actorName, actorEncoded, metadata):
                 if actorName.lower() in actorAlias[idx].text_content().lower():
                     resultScore = resultScore - 1
 
-                if  metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
+                if metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
                     resultScore = 0
 
             if resultScore == score:
