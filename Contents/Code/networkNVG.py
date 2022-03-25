@@ -2,23 +2,8 @@ import PAsearchSites
 import PAutils
 
 
-def getPageData(siteNum, sceneID):
-    headers = {
-        'Referer': PAsearchSites.getSearchSearchURL(siteNum),
-    }
-    try:
-        data = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + '/page-data/home/page-data.json', headers=headers).json()
-    except:
-        return
-
-    for scene in data['result']['data']['allMysqlTourStats']['edges']:
-        if scene['node']['tour_thumbs']['updates']['mysqlId'] == sceneID:
-            return scene['node']['tour_thumbs']
-
-
 def search(results, lang, siteNum, searchData):
     sceneID = None
-    searchResults = []
     parts = searchData.title.split()
     if unicode(parts[0], 'UTF-8').isdigit():
         sceneID = int(parts[0])
@@ -28,10 +13,10 @@ def search(results, lang, siteNum, searchData):
 
     result = getPageData(siteNum, sceneID)
 
+    searchResults = []
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
-    Log('%s' % googleResults)
     for sceneURL in googleResults:
-        if ('/tag/' not in sceneURL and '/category/' not in sceneURL):
+        if '/tag/' not in sceneURL and '/category/' not in sceneURL:
             searchResults.append(sceneURL)
 
     if not searchResults:
@@ -52,39 +37,37 @@ def search(results, lang, siteNum, searchData):
     else:
         re_videoid = re.compile(r'(?=\d).*(?=-)')
         for sceneURL in searchResults:
-            netURL = ''
             req = PAutils.HTTPRequest(sceneURL)
             detailsPageElements = HTML.ElementFromString(req.text)
 
-            id = re_videoid.search(detailsPageElements.xpath('//source/@src')[0])
-            if id:
-                videoID = id.group(0)
+            videoID = None
+            re_id = re_videoid.search(detailsPageElements.xpath('//source/@src')[0])
+            if re_id:
+                videoID = re_id.group(0)
 
+            titleNoFormatting = ''
+            curID = videoID
+            date = None
             if result:
                 if videoID == sceneID:
-                    titleNoFormatting = PAutils.parseTitle(result['updates']['short_title'], siteNum)
+                    titleNoFormatting = result['updates']['short_title']
                     curID = result['updates']['mysqlId']
-                    netURL = PAutils.Encode(sceneURL)
 
                     date = result['updates']['release_date']
-                    if date:
-                        releaseDate = parse(date).strftime('%Y-%m-%d')
-                    else:
-                        releaseDate = searchData.dateFormat() if searchData.date else ''
-
-                    score = 100
             else:
-                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0], siteNum)
-                curID = videoID
-                netURL = PAutils.Encode(sceneURL)
+                titleNoFormatting = detailsPageElements.xpath('//h2')[0]
 
                 date = detailsPageElements.xpath('//meta/@content')[0].strip()
-                if date:
-                    releaseDate = parse(date).strftime('%M-%d-%Y')
-                else:
-                    releaseDate = searchData.dateFormat() if searchData.date else ''
 
-                score = 100
+            titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
+            netURL = PAutils.Encode(sceneURL)
+
+            if date:
+                releaseDate = parse(date).strftime('%M-%d-%Y')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
+
+            score = 100
 
             results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%s' % (curID, siteNum, releaseDate, actorName, netURL), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -100,6 +83,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     detailsPageElements = getPageData(siteNum, sceneID)
 
+    summaryPageElements = None
     if netURL:
         req = PAutils.HTTPRequest(netURL)
         summaryPageElements = HTML.ElementFromString(req.text)
@@ -111,7 +95,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'NVG Network'
 
     # Summary
-    if netURL:
+    if summaryPageElements:
         metadata.summary = summaryPageElements.xpath('//div[@class="the-content"]/p')[0].strip()
 
     # Tagline and Collection(s)
@@ -138,7 +122,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    imageURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), detailsPageElements['localFile']['childImageSharp']['fluid']['src'])
+    imageURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements['localFile']['childImageSharp']['fluid']['src']
     art.append(imageURL)
 
     Log('Artwork found: %d' % len(art))
@@ -161,3 +145,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+def getPageData(siteNum, sceneID):
+    headers = {
+        'Referer': PAsearchSites.getSearchBaseURL(siteNum),
+    }
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + '/page-data/home/page-data.json', headers=headers)
+    if req.ok:
+        data = req.json()
+
+        for scene in data['result']['data']['allMysqlTourStats']['edges']:
+            if scene['node']['tour_thumbs']['updates']['mysqlId'] == sceneID:
+                return scene['node']['tour_thumbs']
