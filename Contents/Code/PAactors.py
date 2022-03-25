@@ -143,6 +143,7 @@ def actorDBfinder(actorName, metadata):
 
     return actorPhotoURL, gender
 
+
 def genderCheck(actorEncoded):
     gender = ''
 
@@ -154,6 +155,7 @@ def genderCheck(actorEncoded):
         gender = 'male' if 'gender=m' in actorPageURL[0] else 'female'
 
     return gender
+
 
 def getFromFreeones(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
