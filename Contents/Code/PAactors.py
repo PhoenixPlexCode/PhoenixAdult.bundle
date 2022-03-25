@@ -266,6 +266,7 @@ def getFromIAFD(actorName, actorEncoded, metadata):
     req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
 
     actorSearch = HTML.ElementFromString(req.text)
+    actorThumbs = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[1]//a')
     actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
     actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
 
@@ -283,15 +284,19 @@ def getFromIAFD(actorName, actorEncoded, metadata):
                 if metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
                     resultScore = 0
 
-            if resultScore == score:
-                results.append(actor)
+            if 'th_iafd_ad' not in actorThumbs[idx].xpath('.//@src')[0]:
+                if resultScore == score:
+                    results.append(actor)
 
-            if resultScore < score:
-                score = resultScore
-                results = [actor]
+                if resultScore < score:
+                    score = resultScore
+                    results = [actor]
 
-        actor = random.choice(results)
-        actorPageURL = actor.xpath('./@href')[0]
+        if results:
+            actor = random.choice(results)
+            actorPageURL = actor.xpath('./@href')[0]
+        else:
+            actorPageURL = ''
     else:
         actorPageURL = ''
 
