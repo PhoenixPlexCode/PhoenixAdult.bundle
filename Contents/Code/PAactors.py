@@ -276,10 +276,10 @@ def getFromIAFD(actorName, actorEncoded, metadata):
         resultScore = Util.LevenshteinDistance(actorName.lower(), actor.text_content().strip().lower())
 
         if resultScore != 0 and actorName.lower() in actorAlias[idx].text_content().lower():
-            resultScore -= 1
+            resultScore = resultScore - 1
 
         if metadata.studio.replace(' ', '').lower() in actorAlias[idx].replace(' ', '').text_content().lower():
-            resultScore -= 1
+            resultScore = resultScore - 1
 
         if resultScore == score:
             results.append(actor)
