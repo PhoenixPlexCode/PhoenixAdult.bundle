@@ -263,34 +263,33 @@ def getFromBabesandStars(actorName, actorEncoded, metadata):
 def getFromIAFD(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
     gender = ''
-    results = []
     req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
 
     actorSearch = HTML.ElementFromString(req.text)
-    actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a')
+    actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
     actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
 
     score = Util.LevenshteinDistance(actorName.lower(), actorResults[0].text_content().strip().lower()) + 1
 
+    results = []
     for idx, actor in enumerate(actorResults, 0):
-        if actor.text_content():
-            resultScore = Util.LevenshteinDistance(actorName.lower(), actor.text_content().strip().lower())
+        resultScore = Util.LevenshteinDistance(actorName.lower(), actor.text_content().strip().lower())
 
-            if resultScore != 0 and actorName.lower() in actorAlias[idx / 2].text_content().lower():
-                resultScore = resultScore - 1
+        if resultScore != 0 and actorName.lower() in actorAlias[idx].text_content().lower():
+            resultScore -= 1
 
-            if metadata.studio.replace(' ', '').lower() in actorAlias[idx / 2].replace(' ', '').text_content().lower():
-                resultScore = resultScore - 1
+        if metadata.studio.replace(' ', '').lower() in actorAlias[idx].replace(' ', '').text_content().lower():
+            resultScore -= 1
 
-            if resultScore == score:
-                results.append(actor.xpath('./@href')[0])
+        if resultScore == score:
+            results.append(actor)
 
-            if resultScore < score:
-                del results[:]
-                score = resultScore
-                results.append(actor.xpath('./@href')[0])
+        if resultScore < score:
+            score = resultScore
+            results = [actor]
 
-    actorPageURL = random.choice(results)
+    actor = random.choice(results)
+    actorPageURL = actor.xpath('./@href')[0]
 
     if actorPageURL:
         actorPageURL = 'http://www.iafd.com' + actorPageURL
