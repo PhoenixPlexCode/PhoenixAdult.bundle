@@ -63,7 +63,7 @@ class PhoenixActors:
                         actorName = newActor.strip()
                         displayActorName = actorName.replace('\xc2\xa0', '').strip()
 
-                        (actorPhoto, gender) = actorDBfinder(displayActorName)
+                        (actorPhoto, gender) = actorDBfinder(displayActorName, metadata)
                         Log('Actor: %s %s' % (displayActorName, actorPhoto))
                         Log('Gender: %s' % gender)
                         if Prefs['gender_enable']:
@@ -80,7 +80,7 @@ class PhoenixActors:
                         req = PAutils.HTTPRequest(actorPhoto, 'HEAD', bypass=False)
 
                     if not req or not req.ok:
-                        (actorPhoto, gender) = actorDBfinder(displayActorName)
+                        (actorPhoto, gender) = actorDBfinder(displayActorName, metadata)
                         Log('Gender: %s' % gender)
                         if Prefs['gender_enable']:
                             if gender == 'male':
@@ -100,7 +100,7 @@ class PhoenixActors:
                     role.photo = actorPhoto
 
 
-def actorDBfinder(actorName):
+def actorDBfinder(actorName, metadata):
     actorEncoded = urllib.quote(actorName)
 
     actorPhotoURL = ''
@@ -126,7 +126,7 @@ def actorDBfinder(actorName):
 
         url = None
         try:
-            (url, gender) = task(actorName, actorEncoded)
+            (url, gender) = task(actorName, actorEncoded, metadata)
         except Exception as e:
             Log.Error(format_exc())
 
@@ -143,6 +143,7 @@ def actorDBfinder(actorName):
 
     return actorPhotoURL, gender
 
+
 def genderCheck(actorEncoded):
     gender = ''
 
@@ -155,7 +156,8 @@ def genderCheck(actorEncoded):
 
     return gender
 
-def getFromFreeones(actorName, actorEncoded):
+
+def getFromFreeones(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     req = PAutils.HTTPRequest('https://www.freeones.com/babes?q=' + actorEncoded)
@@ -197,7 +199,7 @@ def getFromFreeones(actorName, actorEncoded):
     return actorPhotoURL, 'female'
 
 
-def getFromIndexxx(actorName, actorEncoded):
+def getFromIndexxx(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     req = PAutils.HTTPRequest('https://www.indexxx.com/search/?query=' + actorEncoded)
@@ -215,7 +217,7 @@ def getFromIndexxx(actorName, actorEncoded):
     return actorPhotoURL, 'female'
 
 
-def getFromAdultDVDEmpire(actorName, actorEncoded):
+def getFromAdultDVDEmpire(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     req = PAutils.HTTPRequest('https://www.adultdvdempire.com/performer/search?q=' + actorEncoded)
@@ -232,7 +234,7 @@ def getFromAdultDVDEmpire(actorName, actorEncoded):
     return actorPhotoURL, ''
 
 
-def getFromBoobpedia(actorName, actorEncoded):
+def getFromBoobpedia(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     actorPageURL = 'http://www.boobpedia.com/boobs/' + actorName.title().replace(' ', '_')
@@ -245,7 +247,7 @@ def getFromBoobpedia(actorName, actorEncoded):
     return actorPhotoURL, 'female'
 
 
-def getFromBabesandStars(actorName, actorEncoded):
+def getFromBabesandStars(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     actorPageURL = 'http://www.babesandstars.com/' + actorName[0:1].lower() + '/' + actorName.lower().replace(' ', '-').replace('\'', '-') + '/'
@@ -258,14 +260,44 @@ def getFromBabesandStars(actorName, actorEncoded):
     return actorPhotoURL, 'female'
 
 
-def getFromIAFD(actorName, actorEncoded):
+def getFromIAFD(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
     gender = ''
     req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
+
     actorSearch = HTML.ElementFromString(req.text)
-    actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
+    actorThumbs = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[1]//a')
+    actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
+    actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
+
+    actorPageURL = ''
+    if actorResults:
+        score = Util.LevenshteinDistance(actorName.lower(), actorResults[0].text_content().strip().lower()) + 1
+
+        results = []
+        for idx, actor in enumerate(actorResults, 0):
+            resultScore = Util.LevenshteinDistance(actorName.lower(), actor.text_content().strip().lower())
+
+            if resultScore != 0:
+                if actorName.lower() in actorAlias[idx].text_content().lower():
+                    resultScore = resultScore - 1
+
+                if metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
+                    resultScore = 0
+
+            if 'th_iafd_ad' not in actorThumbs[idx].xpath('.//@src')[0]:
+                if resultScore == score:
+                    results.append(actor)
+                elif resultScore < score:
+                    score = resultScore
+                    results = [actor]
+
+        if results:
+            actor = random.choice(results)
+            actorPageURL = actor.xpath('./@href')[0]
+
     if actorPageURL:
-        actorPageURL = 'http://www.iafd.com' + actorPageURL[0]
+        actorPageURL = 'http://www.iafd.com' + actorPageURL
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         img = actorPage.xpath('//div[@id="headshot"]//img/@src')
@@ -277,7 +309,7 @@ def getFromIAFD(actorName, actorEncoded):
     return actorPhotoURL, gender
 
 
-def getFromBabepedia(actorName, actorEncoded):
+def getFromBabepedia(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     img = 'http://www.babepedia.com/pics/%s.jpg' % urllib.quote(actorName.title())
@@ -288,7 +320,7 @@ def getFromBabepedia(actorName, actorEncoded):
     return actorPhotoURL, 'female'
 
 
-def getFromLocalStorage(actorName, actorEncoded):
+def getFromLocalStorage(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     actorsResourcesPath = os.path.join(Core.bundle_path, 'Contents', 'Resources')

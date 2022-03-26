@@ -190,14 +190,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.collections.add(metadata.studio)
 
     # Release Date
-    if sceneDate:
-        date_object = parse(sceneDate)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
-    else:
-        date_object = parse(detailsPageElements.xpath('//@datetime')[0].strip())
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
+    date = sceneDate if sceneDate else detailsPageElements.xpath('//span[contains(., "Release date")]//following-sibling::a/b')[0].text_content().strip()
+    date_object = parse(date)
+    metadata.originally_available_at = date_object
+    metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
@@ -208,7 +204,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "/pornstars/")]//img')
+    actors = detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div//a[contains(@href, "/name/")]/img')
     for actorLink in actors:
         actorName = actorLink.xpath('./@alt')[0].strip()
         actorPhotoURL = actorLink.xpath('./@data-src')[0].strip()
