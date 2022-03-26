@@ -270,6 +270,7 @@ def getFromIAFD(actorName, actorEncoded, metadata):
     actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
     actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
 
+    actorPageURL = ''
     if actorResults:
         score = Util.LevenshteinDistance(actorName.lower(), actorResults[0].text_content().strip().lower()) + 1
 
@@ -287,18 +288,13 @@ def getFromIAFD(actorName, actorEncoded, metadata):
             if 'th_iafd_ad' not in actorThumbs[idx].xpath('.//@src')[0]:
                 if resultScore == score:
                     results.append(actor)
-
-                if resultScore < score:
+                elif resultScore < score:
                     score = resultScore
                     results = [actor]
 
         if results:
             actor = random.choice(results)
             actorPageURL = actor.xpath('./@href')[0]
-        else:
-            actorPageURL = ''
-    else:
-        actorPageURL = ''
 
     if actorPageURL:
         actorPageURL = 'http://www.iafd.com' + actorPageURL
