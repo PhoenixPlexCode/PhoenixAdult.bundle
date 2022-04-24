@@ -82,6 +82,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorPageURL = actorLink.get('href')
         if tagline == 'TrueAnal':
             actorPageURL = 'https://tour.trueanal.com' + actorPageURL
+        elif tagline == 'AllAnal':
+            actorPageURL = 'https://tour.allanal.com' + actorPageURL
+        elif tagline == 'AnalOnly':
+            actorPageURL = 'https://tour.analonly.com' + actorPageURL
+        elif tagline == 'Nympho':
+            actorPageURL = 'https://tour.nympho.com' + actorPageURL
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class, "model")]//img/@src')[0]
