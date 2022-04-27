@@ -215,6 +215,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorName = actorLink.xpath('./@alt')[0].strip()
         actorPhotoURL = ''
 
+        actorPhotoNode = actorLink.xpath('./@data-src')
+        if actorPhotoNode:
+            actorPhotoURL = actorPhotoNode[0].strip()
+
         if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
 
