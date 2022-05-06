@@ -1164,7 +1164,7 @@ searchSites = {
     975: ('Blackmailed', 'https://www.evilangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', '/site/search.php?query='),
     977: ('Black Ambush', 'https://blackambush.com', '/search.php?query='),
-    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', '/site/search.php?query='),
+    978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', '/search.php?query='),
     979: ('Desperate Amateurs', 'https://desperateamateurs.com', '/fintour/search.php?st=advanced&qall='),
     980: ('Bang My Hand', 'http://www.bangmyhand.com', '/tour1/'),
     981: ('Dirty Sluts and Studs', 'http://www.dirtyharddrive.com', '/tour1/'),

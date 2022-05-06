@@ -182,9 +182,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
-        if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
-            # Download image file for analysis
-            try:
+        try:
+            if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
+                # Download image file for analysis
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
@@ -196,7 +196,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if width > 100 and width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-            except:
-                pass
+        except:
+            pass
 
     return metadata
