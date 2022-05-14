@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if 'spankmonster' and '893455' in sceneURL:
         movieActors.addActor('Rhea Radford', '')
-    
+
     # Genres
     movieGenres.clearGenres()
     for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
