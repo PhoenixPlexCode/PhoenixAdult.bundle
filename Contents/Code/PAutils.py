@@ -225,7 +225,7 @@ def getFromGoogleSearch(searchText, site='', **kwargs):
     Log('Using Google Search "%s"' % searchTerm)
 
     try:
-        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent()))
+        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent(true)))
     except:
         Log('Google Search Error')
         pass
