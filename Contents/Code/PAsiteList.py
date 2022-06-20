@@ -1162,7 +1162,7 @@ searchSites = {
     973: ('We Need New Talents', 'https://teencoreclub.com', '/video/'),
     974: ('X Core Club', 'https://teencoreclub.com', '/video/'),
     975: ('Blackmailed', 'https://www.evilangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', '/site/search.php?query='),
+    976: ('Backroom Casting Couch', 'https://backroomcastingcouch.com', '/search.php?query='),
     977: ('Black Ambush', 'https://blackambush.com', '/search.php?query='),
     978: ('Exploited College Girls', 'https://exploitedcollegegirls.com', '/search.php?query='),
     979: ('Desperate Amateurs', 'https://desperateamateurs.com', '/fintour/search.php?st=advanced&qall='),
