@@ -53,7 +53,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Summary
     summary = detailsPageElements['description']['long'].strip()
-    if not summary.endswith('.'):
+    if not re.search(r'.$(?<=(!|\.|\?))', summary):
         summary = summary + '.'
 
     metadata.summary = summary
