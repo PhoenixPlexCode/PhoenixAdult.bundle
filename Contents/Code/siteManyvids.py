@@ -39,20 +39,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Summary
     try:
-        paragraphs = detailsPageElements.xpath('//div[@class="desc-text"]')
-        pNum = 0
-        summary = ""
-        for paragraph in paragraphs:
-            if pNum >= 0 and pNum < (len(paragraphs)):
-                summary = summary + '\n\n' + paragraph.text_content()
-            pNum += 1
+        paragraphs = detailsPageElements.xpath('//div[contains(@class, "desc-text")]')
+        summary = paragraphs[0].text_content().strip()
+        if len(paragraphs) > 1:
+            for paragraph in paragraphs:
+                if summary == '':
+                    summary = paragraph.text_content()
+                else:
+                    summary = summary + '\n\n' + paragraph.text_content()
+        if not re.search(r'.$(?<=(!|\.|\?))', summary.strip()):
+            summary = summary.strip() + '.'
     except:
-        pass
-    if summary == '':
-        try:
-            summary = detailsPageElements.xpath('//div[@class="desc-text"]')[0].text_content().strip()
-        except:
-            pass
+        summary = ''
+
     metadata.summary = summary.strip()
 
     # Studio
