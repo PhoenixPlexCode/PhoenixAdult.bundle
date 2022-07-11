@@ -54,7 +54,11 @@ class PhoenixAdultAgent(Agent.Movies):
     contributes_to = ['com.plexapp.agents.none', 'com.plexapp.agents.stashplexagent', 'com.plexapp.agents.themoviedb', 'com.plexapp.agents.imdb']
     primary_provider = True
 
-    def search(self, results, media, lang):
+    def search(self, results, media, lang, manual):
+        if not manual and Prefs['manual_override']:
+            Log('Skipping Search for Manual Override')
+            return
+
         if not media.name and media.primary_metadata.title:
             media.name = media.primary_metadata.title
 
