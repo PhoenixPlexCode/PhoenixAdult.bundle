@@ -189,15 +189,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     except:
         metadata.collections.add(metadata.studio)
 
-    # Release Date
-    date = detailsPageElements.xpath('//span[contains(., "Release date")]//following-sibling::a/b')
+     # Release Date
+    date = detailsPageElements.xpath('//span[contains(., "Release date")]')
+    Log('date: %s', repr(date))
     if date:
         date = date[0].text_content().strip()
+        Log('date: %s', date)
+        date = date.replace("Release date: ", "")
+        date = date.replace(", more updates...\n[Nav X]", "")
+        date = date.replace("* Movie Release", "")
+        date = date.strip()
+        Log('date: %s', repr(date))
     else:
         date = sceneDate if sceneDate else None
 
     if date:
-        date_object = parse(date)
+        try:
+           date_object = datetime.strptime(date, "%B, %Y")
+        except:
+           date_object = datetime.strptime(date, "%B %d, %Y")
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
