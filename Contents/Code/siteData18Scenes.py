@@ -189,7 +189,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     except:
         metadata.collections.add(metadata.studio)
 
-     # Release Date
+    # Release Date
     date = detailsPageElements.xpath('//span[contains(., "Release date")]')
     Log('date: %s', repr(date))
     if date:
@@ -205,9 +205,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if date:
         try:
-           date_object = datetime.strptime(date, "%B, %Y")
+            date_object = datetime.strptime(date, "%B, %Y")
         except:
-           date_object = datetime.strptime(date, "%B %d, %Y")
+            date_object = datetime.strptime(date, "%B %d, %Y")
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
