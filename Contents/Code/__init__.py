@@ -14,6 +14,7 @@ from cStringIO import StringIO
 from datetime import datetime
 from dateutil.parser import parse
 from PIL import Image
+from slugify import slugify
 from traceback import format_exc
 import PAactors
 import PAgenres
@@ -48,13 +49,21 @@ def ValidatePrefs():
 
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
-    languages = [Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
+    languages = [Locale.Language.NoLanguage, Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
     accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
+    contributes_to = ['com.plexapp.agents.none', 'com.plexapp.agents.stashplexagent', 'com.plexapp.agents.themoviedb', 'com.plexapp.agents.imdb']
     primary_provider = True
 
-    def search(self, results, media, lang):
-        title = getSearchTitleStrip(media.name)
-        title = getSearchTitle(title)
+    def search(self, results, media, lang, manual):
+        if not manual and Prefs['manual_override']:
+            Log('Skipping Search for Manual Override')
+            return
+
+        if not media.name and media.primary_metadata.title:
+            media.name = media.primary_metadata.title
+
+        title = PAutils.getSearchTitleStrip(media.name)
+        title = PAutils.getCleanSearchTitle(title)
 
         Log('***MEDIA TITLE [from media.name]*** %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
@@ -65,13 +74,13 @@ class PhoenixAdultAgent(Agent.Movies):
         if media.filename:
             filepath = urllib.unquote(media.filename)
             filename = str(os.path.splitext(os.path.basename(filepath))[0])
-            filename = getSearchTitleStrip(filename)
+            filename = PAutils.getSearchTitleStrip(filename)
 
         if searchSettings['siteNum'] is None and filepath:
             directory = str(os.path.split(os.path.dirname(filepath))[1])
-            directory = getSearchTitleStrip(directory)
+            directory = PAutils.getSearchTitleStrip(directory)
 
-            newTitle = getSearchTitle(directory)
+            newTitle = PAutils.getCleanSearchTitle(directory)
             Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
             searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
@@ -118,6 +127,7 @@ class PhoenixAdultAgent(Agent.Movies):
     def update(self, metadata, media, lang):
         movieGenres = PAgenres.PhoenixGenres()
         movieActors = PAactors.PhoenixActors()
+        valid_images = list()
 
         HTTP.ClearCache()
         metadata.genres.clear()
@@ -133,7 +143,7 @@ class PhoenixAdultAgent(Agent.Movies):
         if provider is not None:
             providerName = getattr(provider, '__name__')
             Log('Provider: %s' % providerName)
-            provider.update(metadata, lang, siteNum, movieGenres, movieActors)
+            provider.update(metadata, lang, siteNum, movieGenres, movieActors, valid_images)
 
         # Cleanup Genres and Add
         Log('Genres')
@@ -156,28 +166,6 @@ class PhoenixAdultAgent(Agent.Movies):
             }
             metadata.title = Prefs['custom_title'].format(**data)
 
-
-def getSearchTitle(title):
-    trashTitle = (
-        'RARBG', 'COM', r'\d{3,4}x\d{3,4}', 'HEVC', r'H\d{3}', 'AVC', r'\dK',
-        r'\d{3,4}p', 'TOWN.AG_', 'XXX', 'MP4', 'KLEENEX', 'SD', 'HD',
-        'KTR', 'IEVA', 'WRB', 'NBQ', 'ForeverAloneDude', r'X\d{3}', 'SoSuMi',
-    )
-
-    for trash in trashTitle:
-        title = re.sub(r'\b%s\b' % trash, '', title, flags=re.IGNORECASE)
-
-    title = ' '.join(title.split())
-
-    return title
-
-
-def getSearchTitleStrip(title):
-    if Prefs['strip_enable']:
-        if Prefs['strip_symbol'] and Prefs['strip_symbol'] in title:
-            title = title.split(Prefs['strip_symbol'], 1)[0]
-
-        if Prefs['strip_symbol_reverse'] and Prefs['strip_symbol_reverse'] in title:
-            title = title.rsplit(Prefs['strip_symbol_reverse'], 1)[-1]
-
-    return title.strip()
+        if Prefs['validate_image_keys']:
+            metadata.posters.validate_keys(valid_images)
+            metadata.art.validate_keys(valid_images)

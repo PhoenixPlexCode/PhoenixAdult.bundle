@@ -61,7 +61,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
 
     modelString = metadata_id[0]
@@ -111,11 +111,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Posters
     artPrefix = w4bArtUrl() + dateObj.strftime('%Y%m%d')
-    art = [
-        artPrefix + '-issue-cover-1280.jpg',
-        artPrefix + '-issue-video-cover-2560.jpg',
-        artPrefix + '-issue-cover-wide-2560.jpg'
-    ]
+    art.append(artPrefix + '-issue-cover-1280.jpg')
+    art.append(artPrefix + '-issue-video-cover-2560.jpg')
+    art.append(artPrefix + '-issue-cover-wide-2560.jpg')
 
     modelsReq = PAutils.HTTPRequest('%s/%s/models' % (w4bApiUrl('scene'), sceneString))
     if modelsReq and not modelsReq.text == '[]' and not modelsReq.text == '':

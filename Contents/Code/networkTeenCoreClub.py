@@ -24,14 +24,14 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().replace(',', ' and') + 'from ' + PAsearchSites.getSearchSiteName(siteNum).replace(' ', '') + '.com'
+    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip().replace(',', ' and ') + ' from ' + PAsearchSites.getSearchSiteName(siteNum).replace(' ', '') + '.com'
 
     # Summary
     try:
@@ -76,7 +76,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters
-    art = []
     xpaths = [
         '//div[contains(@class, "video-detail")]//img/@src',
     ]

@@ -42,7 +42,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -89,6 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.collections.add('Japan Adult Video')
 
     # Actors
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@class="avatar-box"]'):
         fullActorName = actorLink.text_content().strip()
 
@@ -102,7 +103,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(fullActorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
         '//a[contains(@href, "/cover/")]/@href',
         '//a[@class="sample-box"]/div/img/@src',

@@ -3,10 +3,14 @@ import PAutils
 
 
 def getToken(url):
+    if '//api.' in url:
+        url = url.replace('//api.', '//', 1)
+
     req = PAutils.HTTPRequest(url)
 
     if req:
         return re.search(r'\.access_token=\"(.*?)\"', req.text).group(1)
+
     return None
 
 
@@ -27,6 +31,7 @@ def getDatafromAPI(baseURL, searchData, token, search=True):
         data = req.json()
         if 'data' in data:
             return data['data']
+
     return data
 
 
@@ -46,7 +51,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
@@ -84,7 +89,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.clearActors()
     for actorLink in detailsPageElements['performers']:
         actorName = '%s %s' % (actorLink['name'], actorLink['last_name'])
-        actorPhotoURL = actorLink['poster_image'].split('?', 1)[0]
+        if actorLink['poster_image'] is not None:
+            actorPhotoURL = actorLink['poster_image'].split('?', 1)[0]
+        else:
+            actorPhotoURL = ''
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
@@ -93,9 +101,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     director.name = '%s %s' % (directorLink['name'], directorLink['last_name'])
 
     # Poster
-    art = [
-        detailsPageElements['poster_picture'].split('?', 1)[0]
-    ]
+    art.append(detailsPageElements['poster_picture'].split('?', 1)[0])
 
     for photoLink in detailsPageElements['album']:
         img = photoLink['path'].split('?', 1)[0]

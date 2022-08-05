@@ -6,11 +6,29 @@
         "default": "false"
     },
     {
+        "id": "gender_enable",
+        "label": "Enable Male Actor filter",
+        "type": "bool",
+        "default": "false"
+    },
+    {
+        "id": "validate_image_keys",
+        "label": "Remove Obsolete Images",
+        "type": "bool",
+        "default": "false"
+    },
+    {
+        "id": "manual_override",
+        "label": "Prevent Automatic Matching",
+        "type": "bool",
+        "default": "false"
+    },
+    {
         "id": "metadataapi_enable",
         "label": "Enable using MetadataAPI for unsuccessful search",
         "type": "bool",
         "default": "false"
-    },    
+    },
     {
         "id": "metadataapi_token",
         "label": "MetadataAPI Token",

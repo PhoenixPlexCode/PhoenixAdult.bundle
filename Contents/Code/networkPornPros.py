@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.title.lower().replace(' ', '-').replace('\'', '-')
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + slugify(searchData.title)
     searchResults = [directURL]
 
     if unicode(directURL[-1], 'UTF-8').isdigit() and directURL[-2] == '-':
@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
-        if ('/video/' in sceneURL and sceneURL not in searchResults):
+        if '/video/' in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
@@ -32,12 +32,12 @@ def search(results, lang, siteNum, searchData):
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -99,17 +99,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
                     date = sceneLink.xpath('.//@data-date')
                     if metadata.title == sceneTitle and date:
                         sceneDate = date[0].strip()
+                        break
 
     # Manually Add Actors
     # Add Actor Based on Title
-    if 'Poke Her In The Front' == metadata.title:
-        actorPhotoURL = ''
+    actors = []
+    for key, value in actorsDB.items():
+        if key == metadata.title:
+            actors = value
+            break
 
-        actorName = 'Sara Luvv'
-        movieActors.addActor(actorName, actorPhotoURL)
-
-        actorName = 'Dillion Harper'
-        movieActors.addActor(actorName, actorPhotoURL)
+    for actor in actors:
+        movieActors.addActor(actor, '')
 
     if sceneDate:
         date_object = parse(sceneDate)
@@ -128,7 +129,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieGenres.addGenre(genreName)
 
     # Posters
-    art = []
     xpaths = [
         '//video/@poster',
         '(//img[contains(@src, "handtouched")])[position() < 5]/@src'
@@ -174,6 +174,13 @@ genresDB = {
     'PassionHD': ['Hardcore'],
     'POVD': ['Gonzo', 'POV'],
     'PureMature': ['MILF', 'Mature'],
+}
+
+actorsDB = {
+    'Poke Her In The Front': [
+        'Sara Luvv',
+        'Dillion Harper',
+    ],
 }
 
 plurals = {

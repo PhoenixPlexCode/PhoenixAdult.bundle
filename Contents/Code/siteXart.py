@@ -34,7 +34,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -76,6 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Actors
     movieActors.clearActors()
     actors = detailsPageElements.xpath('//h2//a')
+    actorName = ''
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
@@ -83,6 +84,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieGenres.addGenre('Foursome')
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
+
         for actorLink in actors:
             actorName = actorLink.text_content()
 
@@ -94,11 +96,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
-        '//div[@class="gallery-item"]//img/@src',
-        '//img[contains(@src, "/videos")]/@src',
-        '//section[@id="product-gallery"]//img/@data-src',
         '//img[@alt="thumb"]/@src',
         '//div[contains(@class, "video-tour")]//a/img/@src',
         '//div[@class="gallery-item"]//img/@src',
@@ -115,9 +113,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     for element in elements:
         for xpath in xpaths:
             for poster in element.xpath(xpath):
-                poster.replace(' ', '_')
+                if 'videos' in poster:
+                    art.append(poster)
 
-                art.append(poster)
+                    if poster.endswith('_1.jpg'):
+                        poster = poster.replace('_1.jpg', '_2.jpg')
+                    elif poster.endswith('_1-lrg.jpg'):
+                        poster = poster.replace('_1-lrg.jpg', '_2-lrg.jpg')
+
+                    art.append(poster)
 
     # Extra Posters
     art_ext = []
@@ -326,5 +330,41 @@ manualMatch = {
     'The Rich Girl Part Two': {
         'curID': '/videos/the_rich_girl_-_part_two',
         'name': 'The Rich Girl - Part Two [X-Art]',
+    },
+    'Black & White': {
+        'curID': '/videos/black_&_white',
+        'name': 'Black & White [X-Art]',
+    },
+    'Fashion Models':{
+        'curID': '/videos/fashion_models',
+        'name': 'Fashion Models [X-Art]',
+    },
+    'Francesca Angelic':{
+        'curID': '/videos/angelic',
+        'name': 'Francesca Angelic [X-Art]',
+    },
+    'Green Eyes':{
+        'curID': '/videos/green_eyes',
+        'name': 'Green Eyes [X-Art]',
+    },
+    'Heart & Soul': {
+        'curID': '/videos/heart_&_soul',
+        'name': 'Heart & Soul [X-Art]',
+    },
+    'La Love': {
+        'curID': '/videos/l.a._love',
+        'name': 'L.A. Love [X-Art]',
+    },
+    'Naughty & Nice': {
+        'curID': '/videos/naughty_&_nice',
+        'name': 'Naughty & Nice [X-Art]',
+    },
+    'One & Only Caprice': {
+        'curID': '/videos/one_&_only_caprice',
+        'name': 'One & Only Caprice [X-Art]',
+    },
+    'Young & Hot': {
+        'curID': '/videos/young_&_hot',
+        'name': 'Young & Hot [X-Art]',
     },
 }

@@ -6,12 +6,17 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
-        titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]/text()')[0]
-        curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
+        if siteNum == 815 or siteNum == 1337:
+            # Modification for JAYs POV and SpankMonster
+            titleNoFormatting = searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0]
+            curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
+        else:
+            titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]')[0].text_content()
+            curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         displayTitle = titleNoFormatting
-        if siteNum != 815:
+        if siteNum != 815 or siteNum != 1337:
             date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))
             if date:
                 releaseDate = date[0].strip()
@@ -22,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -71,14 +76,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     if 'filthykings' and '796896' in sceneURL:
         movieActors.addActor('Alice Visby', '')
 
+    if 'spankmonster' and '845218' in sceneURL:
+        movieActors.addActor('Cecilia Taylor', '')
+
+    if 'spankmonster' and '893455' in sceneURL:
+        movieActors.addActor('Rhea Radford', '')
+
     # Genres
     movieGenres.clearGenres()
     for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
         movieGenres.addGenre(genreName)
 
     # Posters
-    art = []
-
     for poster in detailsPageElements.xpath('//div[@id="dv_frames"]//img/@src'):
         img = poster.replace('320', '1280')
         art.append(img)

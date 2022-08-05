@@ -45,14 +45,13 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneTitle = PAutils.Decode(metadata_id[0])
     sceneDescription = PAutils.Decode(metadata_id[2])
     sceneDate = metadata_id[3]
     scenePoster = PAutils.Decode(metadata_id[4])
 
-    art = []
     metadata.collections.clear()
     movieGenres.clearGenres()
     movieActors.clearActors()
@@ -91,9 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     metadata.year = metadata.originally_available_at.year
 
     # Posters
-    art = [
-        scenePoster
-    ]
+    art.append(scenePoster)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

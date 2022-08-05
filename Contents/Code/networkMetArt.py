@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -77,10 +77,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     # Posters
     siteUUID = detailsPageElements['siteUUID']
     CDNurl = 'https://cdn.metartnetwork.com/' + siteUUID
-    art = [
-        CDNurl + detailsPageElements['coverImagePath'],
-        CDNurl + detailsPageElements['splashImagePath']
-    ]
+    art.append(CDNurl + detailsPageElements['coverImagePath'])
+    art.append(CDNurl + detailsPageElements['splashImagePath'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

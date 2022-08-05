@@ -24,10 +24,11 @@ class PhoenixGenres:
                     skip = True
                     break
 
-            for genre in PAdatabaseGenres.GenresPartialSkip:
-                if searchGenreName in genre.lower():
-                    skip = True
-                    break
+            if not skip:
+                for genre in PAdatabaseGenres.GenresPartialSkip:
+                    if genre.lower() in searchGenreName:
+                        skip = True
+                        break
 
             found = False
             if not skip:

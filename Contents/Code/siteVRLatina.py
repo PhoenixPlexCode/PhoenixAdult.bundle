@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchData):
             detailsPageElements = HTML.ElementFromString(req.text)
 
             curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = detailsPageElements.xpath('//h2')[0]
+            titleNoFormatting = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -76,7 +76,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters/Background
-    art = []
     xpaths = [
         '//div//a[@class="video-gallery-item"]/@href',
         '//meta[@property="og:image"]/@content',

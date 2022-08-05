@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
 
     if searchData.date:
         Log('*** date search')
-        parent = detailsPageElements.xpath('//tr[.//span[@class="videodate" and text()=\'Date: %s\']]' % searchData.dateFormat('%B %d, %Y'))
+        parent = detailsPageElements.xpath('//tr[.//span[@class="videodate" and contains(text(), "%s")]]' % searchData.dateFormat('%B %d, %Y'))
     elif searchData.title:
         Log('*** title search')
         m = re.search(r'([a-z0-9\&\; ]+) (masturbation|photoshoot|interview|girl-girl action|pov lapdance)', searchData.title, re.IGNORECASE)
@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
 
     sceneID = metadata_id[0]
@@ -44,7 +44,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
-    parentElement = detailsPageElements.xpath('//tr[.//span[@class="videodate" and text()=\'Date: %s\']]' % dateString)[0]
+    parentElement = detailsPageElements.xpath('//tr[.//span[@class="videodate" and contains(text(), "%s")]]' % dateString)[0]
 
     # Components
     model = re.sub(r'ALSAngels.com - (.+)', r'\1', detailsPageElements.xpath('//title')[0].text_content().strip(), flags=re.IGNORECASE)
@@ -79,7 +79,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.addActor(model, actorPhotoURL)
 
     # Posters/Background
-    art = []
     xpaths = [
         '//td[@class="videothumbnail"]//img/@src',
         '//td[@class="videothumbnail"]//a/@href',

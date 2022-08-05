@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/' + metadata_id[0]
     sceneDate = metadata_id[2]
@@ -39,20 +39,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
 
     # Summary
     try:
-        paragraphs = detailsPageElements.xpath('//div[@class="desc-text"]')
-        pNum = 0
-        summary = ""
-        for paragraph in paragraphs:
-            if pNum >= 0 and pNum < (len(paragraphs)):
-                summary = summary + '\n\n' + paragraph.text_content()
-            pNum += 1
+        paragraphs = detailsPageElements.xpath('//div[contains(@class, "desc-text")]')
+        summary = paragraphs[0].text_content().strip()
+        if len(paragraphs) > 1:
+            for paragraph in paragraphs:
+                if summary == '':
+                    summary = paragraph.text_content()
+                else:
+                    summary = summary + '\n\n' + paragraph.text_content()
+        if not re.search(r'.$(?<=(!|\.|\?))', summary.strip()):
+            summary = summary.strip() + '.'
     except:
-        pass
-    if summary == '':
-        try:
-            summary = detailsPageElements.xpath('//div[@class="desc-text"]')[0].text_content().strip()
-        except:
-            pass
+        summary = ''
+
     metadata.summary = summary.strip()
 
     # Studio
@@ -91,7 +90,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
     movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
     xpaths = [
         '//div[@id="rmpPlayer"]/@data-video-screenshot'
     ]

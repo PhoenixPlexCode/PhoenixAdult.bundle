@@ -23,7 +23,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -83,10 +83,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters/Background
-    art = [
-        'https://tour-cdn.kellymadisonmedia.com/content/episode/poster_image/%s/poster.jpg' % sceneURL.rsplit('/')[-1],
-        'https://tour-cdn.kellymadisonmedia.com/content/episode/episode_thumb_image_1/%s/1.jpg' % sceneURL.rsplit('/')[-1],
-    ]
+    art.append('https://tour-cdn.kellymadisonmedia.com/content/episode/poster_image/%s/poster.jpg' % sceneURL.rsplit('/')[-1])
+    art.append('https://tour-cdn.kellymadisonmedia.com/content/episode/episode_thumb_image_1/%s/1.jpg' % sceneURL.rsplit('/')[-1])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

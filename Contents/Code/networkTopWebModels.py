@@ -35,9 +35,7 @@ def search(results, lang, siteNum, searchData):
             titleNoFormatting = searchResult['title']
             resultID = searchResult['id']
 
-            sceneURLTitle = re.sub(r'(?:\W)+$', '', titleNoFormatting.lower())
-            sceneURLTitle = re.sub(r'^(?:\W)+', '', titleNoFormatting.lower())
-            sceneURLTitle = re.sub(r'\W+', '-', sceneURLTitle)
+            sceneURLTitle = slugify(titleNoFormatting, replacements=[('\'', '')])
             sceneURL = '%s/scenes/%s/%s' % (PAsearchSites.getSearchBaseURL(siteNum), resultID, sceneURLTitle)
             curID = PAutils.Encode(sceneURL)
 
@@ -60,7 +58,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -108,10 +106,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = [
-        detailsPageElements['thumb'],
-        basePageElements['file_poster'],
-    ]
+    art.append(detailsPageElements['thumb'])
+    art.append(basePageElements['file_poster'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

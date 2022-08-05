@@ -21,12 +21,12 @@ def search(results, lang, siteNum, searchData):
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
     if sceneID and not searchData.title:
-        searchResults = getAlgolia(url, 'nacms_scenes_production', 'filters=id=' + sceneID)
+        searchResults = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)
     else:
-        searchResults = getAlgolia(url, 'nacms_scenes_production', 'query=' + searchData.title)
+        searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
 
     for searchResult in searchResults:
-        titleNoFormatting = searchResult['title']
+        titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
         curID = searchResult['id']
         releaseDate = datetime.fromtimestamp(searchResult['published_at']).strftime('%Y-%m-%d')
         siteName = searchResult['site']
@@ -43,15 +43,15 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
-    detailsPageElements = getAlgolia(url, 'nacms_scenes_production', 'filters=id=' + sceneID)[0]
+    detailsPageElements = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)[0]
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
     metadata.summary = detailsPageElements['synopsis']
@@ -92,8 +92,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    art = []
-
     req = PAutils.HTTPRequest('https://www.naughtyamerica.com/scene/0' + sceneID)
     scenePageElements = HTML.ElementFromString(req.text)
     for photo in scenePageElements.xpath('//div[contains(@class, "contain-scene-images") and contains(@class, "desktop-only")]/a/@href'):
