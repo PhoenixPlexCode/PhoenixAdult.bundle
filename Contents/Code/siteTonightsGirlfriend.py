@@ -80,7 +80,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(studio)
 
     # Release Date
-    try: 
+    try:
         sceneDate = metadata_id[2]
         if sceneDate:
             date_Object = parse(sceneDate)
