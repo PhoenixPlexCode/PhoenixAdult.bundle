@@ -197,6 +197,7 @@ ActorsReplace = {
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Skymm': ['Azazia Skymm', 'Zazie Sky', 'Zazie Skimm'],
     'Zoe Bloom': ['Zoey Bloom'],
+    'Gianna Michaels': ['Gianna Rossi']
 }
 
 ActorsReplaceStudios = {
