@@ -1637,7 +1637,8 @@ searchSites = {
     1448: ('She Is Nerdy', 'http://sheisnerdy.com', '/detailed/'),
     1449: ('Tricky Agent', 'http://trickyagent.com', '/detailedTrailer/'),
     1550: ('Net Video Girls', 'https://netvideogirls.net', '/'),
-    1551: ('Moms Family Secrets', 'https://momsfamilysecrets.com', '/video/gallery/')
+    1551: ('Moms Family Secrets', 'https://momsfamilysecrets.com', '/video/gallery/'),
+    1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com')
 }
 
 abbreviations = (
@@ -1900,7 +1901,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Brazzers
-        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690 or siteNum == 1351:
+        elif siteNum == 2 or (54 <= siteNum <= 81) or siteNum == 582 or siteNum == 690 or siteNum == 1351 or siteNum == 1552:
             provider = network1service
 
         # MetadataAPI
