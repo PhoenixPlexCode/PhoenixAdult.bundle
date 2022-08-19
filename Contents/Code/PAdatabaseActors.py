@@ -1010,6 +1010,7 @@ ActorsReplaceStudios = {
         'Casi James': ['Casi J'],
         'Chloe Blue': ['Ema'],
         'Chloe Couture': ['Chloe Cherry'],
+        'Dania Vega': ['Dania Vegax'],
         'Diana Dali': ['Avery'],
         'Dominica Phoenix': ['Petra'],
         'Emma Brown': ['Ariana'],
