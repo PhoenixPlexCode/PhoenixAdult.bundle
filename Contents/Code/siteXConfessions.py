@@ -89,7 +89,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.clearActors()
     for actorLink in detailsPageElements['performers']:
         actorName = '%s %s' % (actorLink['name'], actorLink['last_name'])
-        actorPhotoURL = actorLink['poster_image'].split('?', 1)[0]
+        if actorLink['poster_image'] is not None:
+            actorPhotoURL = actorLink['poster_image'].split('?', 1)[0]
+        else:
+            actorPhotoURL = ''
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director

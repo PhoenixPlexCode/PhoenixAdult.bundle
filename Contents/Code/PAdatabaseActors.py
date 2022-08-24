@@ -199,6 +199,7 @@ ActorsReplace = {
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
     'Zoe Bloom': ['Zoey Bloom'],
+    'Gianna Michaels': ['Gianna Rossi']
 }
 
 ActorsReplaceStudios = {
@@ -1012,6 +1013,7 @@ ActorsReplaceStudios = {
         'Casi James': ['Casi J'],
         'Chloe Blue': ['Ema'],
         'Chloe Couture': ['Chloe Cherry'],
+        'Dania Vega': ['Dania Vegax'],
         'Diana Dali': ['Avery'],
         'Dominica Phoenix': ['Petra'],
         'Emma Brown': ['Ariana'],

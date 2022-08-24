@@ -19,14 +19,14 @@ def search(results, lang, siteNum, searchData):
 
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0].split('?')[0])
 
-            releaseDate = parse(searchResult.xpath('.//span[@class="available-date"]')[0].text_content().strip()).strftime('%m-%d-%y')
+            releaseDate = parse(searchResult.xpath('.//span[@class="scene-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
             if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), firstActor.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Tonight\'s Girlfriend] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Tonight\'s Girlfriend] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
         if len(searchResults) < 9:
             break
@@ -45,9 +45,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     actorList = []
-    actors = detailsPageElements.xpath('//div[@class="scenepage-info"]//a')
+    actors = detailsPageElements.xpath('//p[@class="grey-performers"]//a')
 
-    sceneInfo = detailsPageElements.xpath('//div[@class="scenepage-info"]//p')[0].text_content()
+    sceneInfo = detailsPageElements.xpath('//p[@class="grey-performers"]')[0].text_content()
     for actorLink in actors:
         actorName = actorLink.text_content()
         actorList.append(actorName)
@@ -57,16 +57,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = 'https:' + actorPageElements.xpath('//div[contains(@class, "modelpage-info")]//img/@src')[0]
+        actorPhotoURL = 'https:' + actorPageElements.xpath('//div[contains(@class, "performer-details")]//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Title
-    metadata.title = ', '.join(actorList).replace(', ', ' and ', -1)
+    metadata.title = ', '.join(actorList)
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="scenepage-description"]')[0].text_content().strip()
+        metadata.summary = detailsPageElements.xpath('//p[@class="scene-description"]')[0].text_content().strip()
     except:
         pass
 
@@ -80,14 +80,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(studio)
 
     # Release Date
-    dateRaw = detailsPageElements.xpath('//span[@class="scenepage-date"]')[0].text_content()
-    date = dateRaw.replace('Added:', '').strip()
-    date_object = datetime.strptime(date, '%m-%d-%y')
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    try:
+        sceneDate = metadata_id[2]
+        if sceneDate:
+            date_Object = parse(sceneDate)
+            metadata.originally_available_at = date_Object
+            metadata.year = metadata.originally_available_at.year
+    except:
+        pass
 
     # rest of actors (male actors without pages on the site)
-    sceneInfo = sceneInfo.replace(dateRaw, '')
     maleActors = sceneInfo.split(',')
     for maleActor in maleActors:
         actorName = maleActor.strip()
