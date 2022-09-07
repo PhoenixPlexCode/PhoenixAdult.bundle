@@ -11,6 +11,24 @@ def getAlgolia(url, indexName, params):
 
     return data['results'][0]['hits']
 
+def getNaughtyAmerica(sceneID):
+    req = PAutils.HTTPRequest('https://www.naughtyamerica.com/scene/0' + sceneID)
+    elements = HTML.ElementFromString(req.text)
+    results = {}
+    categories = elements.xpath('//div[contains(@class, "categories") and contains(@class, "grey-text")]/a')
+    results['fantasies'] = [category.text for category in categories]
+    actors = elements.xpath('//div[contains(@class, "performer-list")]/a')
+    results['performers'] = [actor.text for actor in actors]
+    results['title'] = elements.xpath('//div[contains(@class, "scene-info")]//h1/text()')[0]
+    results['synopsis'] = elements.xpath('//div[contains(@class, "synopsis") and contains(@class, "grey-text")]//h2')[0].tail.strip()
+    publishDate = elements.xpath('//div[contains(@class, "date-tags")]//span/text()')[0]
+    results['publish_date'] = publishDate
+    dateobject = datetime.strptime(publishDate, "%b %d, %Y")
+    results['published_at'] = (dateobject - datetime(1970, 1, 1)).total_seconds() + 3600 * 8 #timezone offset of PT
+    results['site'] = elements.xpath('//a[@class="site-title grey-text link"]/text()')[0]
+    results['id'] = int(sceneID)
+    return results
+
 
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
@@ -21,7 +39,10 @@ def search(results, lang, siteNum, searchData):
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
     if sceneID and not searchData.title:
-        searchResults = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)
+        if int(sceneID) < 31400:
+            searchResults = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)
+        else:
+            searchResults = [getNaughtyAmerica(sceneID)]
     else:
         searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
 
@@ -48,7 +69,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneID = metadata_id[0]
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
-    detailsPageElements = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)[0]
+    if int(sceneID) < 31400:
+        detailsPageElements = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)[0]
+    else:
+        detailsPageElements = getNaughtyAmerica(sceneID)
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
