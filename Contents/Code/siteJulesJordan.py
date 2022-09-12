@@ -3,14 +3,17 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    if searchData.title.endswith('Html'):
-        words = searchData.title.lower().split(' ')
-        url = 'https://www.julesjordan.com/trial/scenes/' + '-'.join(words[1:-2]) + '_vids.html'
+    words = searchData.title.lower().split(' ')
+    url = PAsearchSites.getSearchBaseURL(siteNum) + '/trial/scenes/' + '-'.join(words) + '_vids.html'
+    req = PAutils.HTTPRequest(url, 'HEAD')
+    if req and req.ok:
         curID = PAutils.Encode(url)
-        releaseDate = parse(words[0]).strftime('%Y-%m-%d')
+
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (url, PAsearchSites.getSearchSiteName(siteNum)), score=100, lang=lang))
 
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="update_details"]'):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])

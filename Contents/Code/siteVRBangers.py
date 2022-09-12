@@ -60,7 +60,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         genreName = genreLink['name']
         movieGenres.addGenre(genreName)
 
-
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements['models']:
