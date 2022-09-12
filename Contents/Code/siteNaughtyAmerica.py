@@ -12,6 +12,33 @@ def getAlgolia(url, indexName, params):
     return data['results'][0]['hits']
 
 
+def getNaughtyAmerica(sceneID):
+    re_image = re.compile(r'images\d+', re.IGNORECASE)
+
+    req = PAutils.HTTPRequest('https://www.naughtyamerica.com/scene/0' + sceneID)
+    scenePageElements = HTML.ElementFromString(req.text)
+
+    photoElements = scenePageElements.xpath('//div[contains(@class, "contain-scene-images") and contains(@class, "desktop-only")]/a/@href')
+
+    photos = []
+    for photo in photoElements:
+        img = 'https:' + re_image.sub('images1', photo, 1)
+        photos.append(img)
+
+    results = {
+        'id': int(sceneID),
+        'title': scenePageElements.xpath('//div[contains(@class, "scene-info")]//h1/text()')[0],
+        'site': scenePageElements.xpath('//a[@class="site-title grey-text link"]/text()')[0],
+        'published_at': parse(scenePageElements.xpath('//div[contains(@class, "date-tags")]//span/text()')[0]),
+        'fantasies': scenePageElements.xpath('//div[contains(@class, "categories") and contains(@class, "grey-text")]/a/text()'),
+        'performers': scenePageElements.xpath('//div[contains(@class, "performer-list")]/a/text()'),
+        'synopsis': scenePageElements.xpath('//div[contains(@class, "synopsis") and contains(@class, "grey-text")]//h2')[0].tail.strip(),
+        'photos': photos,
+    }
+
+    return results
+
+
 def search(results, lang, siteNum, searchData):
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit():
@@ -21,7 +48,7 @@ def search(results, lang, siteNum, searchData):
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
     if sceneID and not searchData.title:
-        searchResults = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)
+        searchResults = [getNaughtyAmerica(sceneID)]
     else:
         searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
 
@@ -47,8 +74,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
-    detailsPageElements = getAlgolia(url, 'nacms_combined_production', 'filters=id=' + sceneID)[0]
+    # url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
+    detailsPageElements = getNaughtyAmerica(sceneID)
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
@@ -65,9 +92,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(detailsPageElements['site'])
 
     # Release Date
-    date_object = datetime.fromtimestamp(detailsPageElements['published_at'])
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    date_object = detailsPageElements['published_at']
+    if isinstance(date_object, int):
+        date_object = datetime.fromtimestamp(date_object)
+
+    if date_object:
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
@@ -92,10 +123,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    req = PAutils.HTTPRequest('https://www.naughtyamerica.com/scene/0' + sceneID)
-    scenePageElements = HTML.ElementFromString(req.text)
-    for photo in scenePageElements.xpath('//div[contains(@class, "contain-scene-images") and contains(@class, "desktop-only")]/a/@href'):
-        img = 'https:' + re.sub(r'images\d+', 'images1', photo, 1, flags=re.IGNORECASE)
+    for img in detailsPageElements['photos']:
         art.append(img)
 
     Log('Artwork found: %d' % len(art))
