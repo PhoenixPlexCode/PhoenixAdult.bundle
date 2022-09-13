@@ -1,5 +1,6 @@
 import PAsearchSites
 import PAutils
+from re import sub
 
 
 def search(results, lang, siteNum, searchData):
@@ -65,7 +66,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description[0].text_content().strip()
 
     # Studio
-    if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives']:
+    if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives', 'See Him Fuck']:
         metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     else:
         metadata.studio = 'BellaPass'
@@ -96,6 +97,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         for actorLink in actors:
             actorName = actorLink.text_content().strip()
+            actorName = sub(r" *?[^\w\s]+", '', actorName).strip()
 
             actorPageURL = actorLink.get('href')
             if actorPageURL.startswith('//'):
