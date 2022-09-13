@@ -1,6 +1,5 @@
 import PAsearchSites
 import PAutils
-from re import sub
 
 
 def search(results, lang, siteNum, searchData):
@@ -95,9 +94,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
 
+        re_actorName = re.compile(r' *?[^\w\s]+')
         for actorLink in actors:
             actorName = actorLink.text_content().strip()
-            actorName = sub(r" *?[^\w\s]+", '', actorName).strip()
+            actorName = re_actorName.sub('', actorName).strip()
 
             actorPageURL = actorLink.get('href')
             if actorPageURL.startswith('//'):
