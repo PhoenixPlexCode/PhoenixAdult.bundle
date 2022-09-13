@@ -1638,7 +1638,8 @@ searchSites = {
     1449: ('Tricky Agent', 'http://trickyagent.com', '/detailedTrailer/'),
     1550: ('Net Video Girls', 'https://netvideogirls.net', '/'),
     1551: ('Moms Family Secrets', 'https://momsfamilysecrets.com', '/video/gallery/'),
-    1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com')
+    1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com'),
+    1553: ('See Him Fuck', 'https://seehimfuck.com', '/trailers/'),
 }
 
 abbreviations = (
@@ -2213,7 +2214,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkNubiles
 
         # BellaPass
-        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247):
+        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247) or siteNum == 1553:
             provider = networkBellaPass
 
         # AllureMedia

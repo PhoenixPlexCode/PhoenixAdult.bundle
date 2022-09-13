@@ -65,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description[0].text_content().strip()
 
     # Studio
-    if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives']:
+    if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives', 'See Him Fuck']:
         metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     else:
         metadata.studio = 'BellaPass'
@@ -94,8 +94,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if len(actors) > 4:
             movieGenres.addGenre('Orgy')
 
+        re_actorName = re.compile(r' *?[^\w\s]+')
         for actorLink in actors:
             actorName = actorLink.text_content().strip()
+            actorName = re_actorName.sub('', actorName).strip()
 
             actorPageURL = actorLink.get('href')
             if actorPageURL.startswith('//'):
