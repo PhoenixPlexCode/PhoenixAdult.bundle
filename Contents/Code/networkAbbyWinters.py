@@ -5,6 +5,19 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     searchResults = []
 
+    searchData.encoded = searchData.title.replace(' ', '+')
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    modelResults = HTML.ElementFromString(req.text)
+
+    if int(modelResults.xpath('//span[@id="browse-total-count"]')[0].text_content().strip()) != 0:
+        for modelURL in modelResults.xpath('//div[@id="browse-grid"]/main/article//a[@class]/@href'):
+            req = PAutils.HTTPRequest(modelURL)
+            modelPageResults = HTML.ElementFromString(req.text)
+
+            for sceneURL in modelPageResults.xpath('//div[@id="subject-shoots"]//h2//@href'):
+                if '/nude_girl/' not in sceneURL and '/shoots/' not in sceneURL and '/fetish/' not in sceneURL and '/updates/' not in sceneURL and sceneURL not in searchResults:
+                    searchResults.append(sceneURL)
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.replace('/cn/', '/').replace('/de/', '/').replace('/jp/', '/').replace('/ja/', '/').replace('/en/', '/')

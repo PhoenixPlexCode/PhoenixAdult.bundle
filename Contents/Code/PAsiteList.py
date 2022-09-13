@@ -1352,7 +1352,7 @@ searchSites = {
     1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
     1164: ('Up Her Asshole', 'https://www.upherasshole.com', '/'),
     1165: ('Perv City', 'https://www.pervcity.com', '/'),
-    1166: ('Abby Winters', 'https://www.abbywinters.com', '/'),
+    1166: ('Abby Winters', 'https://www.abbywinters.com', '/amateurs/models?filters%5Bkeyword%5D='),
     1167: ('Nude Girls', 'https://www.abbywinters.com', '/'),
     1168: ('Mystery Shoot', 'https://www.abbywinters.com', '/'),
     1169: ('Girl Girl', 'https://www.abbywinters.com', '/'),
