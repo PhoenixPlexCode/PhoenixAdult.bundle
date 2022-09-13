@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     modelResults = HTML.ElementFromString(req.text)
 
-    if not modelResults.xpath('//section[@id="browse-alert-not-found"][@class="section-intro"]'):
+    if int(modelResults.xpath('//span[@id="browse-total-count"]')[0].text_content().strip()) != 0:
         for modelURL in modelResults.xpath('//div[@id="browse-grid"]/main/article//a[@class]/@href'):
             req = PAutils.HTTPRequest(modelURL)
             modelPageResults = HTML.ElementFromString(req.text)
