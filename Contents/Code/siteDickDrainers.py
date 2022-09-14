@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchData):
         sceneURL = searchResult.xpath('.//h4//@href')[0]
         curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('//div[@class="date"]')[0].text_content().strip()
+        date = searchResult.xpath('.//div[@class="date"]')[0].text_content().strip()
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
         else:

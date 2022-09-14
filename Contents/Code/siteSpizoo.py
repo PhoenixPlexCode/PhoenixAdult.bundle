@@ -83,7 +83,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//h3[text()="Pornstars:"]/../a'):
+    if siteNum == 1374:
+        xPath = '//h3[text()="Girls:"]/../a'
+    else:
+        xPath = '//h3[text()="Pornstars:"]/../a'
+
+    for actorLink in detailsPageElements.xpath(xPath):
         actorName = actorLink.text_content().replace('.', '').strip()
         actorPhotoURL = ''
 

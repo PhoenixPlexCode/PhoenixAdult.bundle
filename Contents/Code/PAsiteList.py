@@ -1352,7 +1352,7 @@ searchSites = {
     1163: ('Oral Overdose', 'https://www.oraloverdose.com', '/'),
     1164: ('Up Her Asshole', 'https://www.upherasshole.com', '/'),
     1165: ('Perv City', 'https://www.pervcity.com', '/'),
-    1166: ('Abby Winters', 'https://www.abbywinters.com', '/'),
+    1166: ('Abby Winters', 'https://www.abbywinters.com', '/amateurs/models?filters%5Bkeyword%5D='),
     1167: ('Nude Girls', 'https://www.abbywinters.com', '/'),
     1168: ('Mystery Shoot', 'https://www.abbywinters.com', '/'),
     1169: ('Girl Girl', 'https://www.abbywinters.com', '/'),
@@ -1638,7 +1638,8 @@ searchSites = {
     1449: ('Tricky Agent', 'http://trickyagent.com', '/detailedTrailer/'),
     1550: ('Net Video Girls', 'https://netvideogirls.net', '/'),
     1551: ('Moms Family Secrets', 'https://momsfamilysecrets.com', '/video/gallery/'),
-    1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com')
+    1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com'),
+    1553: ('See Him Fuck', 'https://seehimfuck.com', '/trailers/'),
 }
 
 abbreviations = (
@@ -2213,7 +2214,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkNubiles
 
         # BellaPass
-        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247):
+        elif (548 <= siteNum <= 563) or (1246 <= siteNum <= 1247) or siteNum == 1553:
             provider = networkBellaPass
 
         # AllureMedia
