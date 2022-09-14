@@ -37,11 +37,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = detailsPageElements.xpath('//h1[@class="no-space transform-none"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//meta[@name="description"]/@content')[0].replace('&#039;', '\'')
+    metadata.summary = detailsPageElements.xpath('//div[@class="row sides-xs"]/div[2]')[0].text_content().strip()
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//div[@class="actors"]/h2/a')[0].text_content().strip()
+    tagline = detailsPageElements.xpath('//div[@class="actors"]/h2/span/a')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -81,8 +81,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//picture[@class="poster"]//img/@src',
-        '//div[@id="gallery-thumbs"]/div/a/svg/@data-bg'
+        '//picture[@class="-vcc-picture"]//img/@src',
+        '//div[@class="swiper-wrapper"]/div/a/div/@data-bg'
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
