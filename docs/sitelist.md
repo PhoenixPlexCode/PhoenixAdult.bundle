@@ -1130,7 +1130,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Vixen
 + #### Sunny Lane Live | ✅
 + #### Swallow Bay | ❌ - **Direct URL**
-+ #### Swallowed / TrueAnal / Nymphos / AllAnal / AnalOnly | ❌ - **Direct URL**
++ #### Stepped Up Media | ✅ - **Actor only**
+  - AllAnal
+  - AnalOnly
+  - Nymphos
+  - Swallowed
+  - TrueAnal
 + #### Swallow Salon | ✓
 + #### TeamSkeet Network | ✅ - **Date Add**
   - Badmilfs
