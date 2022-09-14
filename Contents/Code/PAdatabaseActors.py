@@ -8,7 +8,7 @@ ActorsReplace = {
     'Alex D.': ['Alex D'],
     'Aliz': ['Liz Valery'],
     'Alura Jenson': ['Alura \'Tnt\' Jenson', 'Alura Tnt Jenson'],
-    'Amia Miley': ['Amia Moretti'],
+    'Amia Miley': ['Amia Moretti', 'Amia'],
     'Amirah Adara': ['Amirah'],
     'Amy Reid': ['Amy Reed', 'Amy Ried', 'Devin Valencia'],
     'Ana Foxxx': ['Ana Fox', 'Ana Foxx'],
@@ -123,10 +123,12 @@ ActorsReplace = {
     'Maddy O\'Reilly': ['Maddy O\'reilly', 'Maddy OReilly', 'Maddy Oreilly'],
     'Mariana Martinez': ['Mariana Martix'],
     'Marilyn Crystal': ['Marilyn Christal', 'Marylin Crystal', 'Stacey Chrystal', 'Stacy Crystal'],
+    'Marilyn Sugar': ['Marylin Sugar'],
     'Mayara Rodrigues': ['Mayara Rodriguez'],
     'Melena Maria Rya': ['Maria Rya', 'Melena Maria'],
     'Melissa Benz': ['Melisa Benz', 'Melissa Grand'],
     'Mina Medina': ['Mina K', 'Mina'],
+    'Misha Cross': ['Mischa Cross'],
     'Miss Jade Indica': ['Jade Indica'],
     'Moe Johnson': ['Moe The Monster Johnson'],
     'Mya Mason': ['Maya Mason', 'Maya Madison', 'Mya Manson', 'Mya Madison'],
@@ -195,7 +197,7 @@ ActorsReplace = {
     'Violette Pink': ['Violette Pure'],
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
     'Yu Shinoda': ['Shinoda Yuu'],
-    'Zazie Skymm': ['Azazia Skymm', 'Zazie Sky', 'Zazie Skimm'],
+    'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
     'Zoe Bloom': ['Zoey Bloom'],
     'Gianna Michaels': ['Gianna Rossi']
 }
@@ -284,12 +286,13 @@ ActorsReplaceStudios = {
         'Giselle Leon': ['Lexi B'],
         'Haley Cummings': ['Haley'],
         'Hayden Winters': ['Hayden'],
+        'Holly Michaels': ['Holly'],
         'Hope Howell': ['Hope'],
         'Isis Taylor': ['Isis'],
         'Janice Griffith': ['Janice'],
         'Jaslene Jade': ['Jaslene'],
         'Jayden Taylors': ['Jayden'],
-        'Jenna Rose': ['Jenna R'],
+        'Jenna Rose': ['Jenna R', 'Jenna'],
         'Jessica Robbins': ['Jessica'],
         'Jessie Rogers': ['Jessie'],
         'Joseline Kelly': ['Joseline'],
@@ -347,7 +350,7 @@ ActorsReplaceStudios = {
         'Vanessa Cage': ['Vanessa'],
         'Victoria Kennedy': ['Victoria K'],
         'Victoria Lawson': ['Victoria'],
-        'Victoria Rae Black': ['Victoria R'],
+        'Victoria Rae Black': ['Victoria', 'Victoria R'],
         'Victoria White': ['Victoria W'],
         'Whitney Westgate': ['Whitney'],
         'Zarena Summers': ['Zarena'],
@@ -5371,6 +5374,9 @@ ActorsReplaceStudios = {
     53: {  # FakeHub
         'Sharon Saint': ['Steffany'],
     },
+    54: {  # LethalHardcoreVR
+        'Bella Rose': ['Bella Elise Rose'],
+    }
 }
 
 ActorsStudioIndexes = {
@@ -5428,4 +5434,5 @@ ActorsStudioIndexes = {
     51: ['Teen Core Club'],
     52: ['Abby Winters'],
     53: ['FakeHub'],
+    54: ['LethalHardcoreVR'],
 }
