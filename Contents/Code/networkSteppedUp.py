@@ -3,9 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.replace(' ', '-').replace('--', '-').replace('\'', '').lower()
-    if '/' not in searchData.encoded and re.match(r'\d+.*', searchData.encoded):
-        searchData.encoded = searchData.encoded.replace('-', '/', 1)
+    searchData.encoded = searchData.title.split('and')[0].strip().replace(' ', '-').lower()
 
     modelPageURL = '%s/models/%s.json' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
     searchResults = PAutils.HTTPRequest(modelPageURL).json()
