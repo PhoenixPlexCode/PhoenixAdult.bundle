@@ -51,11 +51,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = detailsPageElements.xpath('//h1[@class="shoot-title"]')[0].text_content().strip()[:-1]
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="description"]')[1].text_content().strip().replace('\n', ' ').replace('Description:', '')
+    metadata.summary = detailsPageElements.xpath('//div[@class="description"]/span')[0].text_content().strip().replace('\n', ' ')
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    channel = detailsPageElements.xpath('//div[contains(@class, "shoot-logo")]')[0].text_content().strip()
+    channel = detailsPageElements.xpath('//div[contains(@class, "shoot-logo")]/a/img/@src')[0].strip()
     if 'boundgangbangs' in channel:
         tagline = 'Bound Gangbangs'
     elif 'brutalsessions' in channel:
@@ -195,7 +195,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Posters
     xpaths = [
         '//video/@poster',
-        '//div[@class="player"]//img/@src',
+        '//div[@class="player"]/div/@poster',
         '//div[@id="gallerySlider"]//img/@data-image-file'
     ]
     for xpath in xpaths:
