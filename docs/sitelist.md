@@ -539,7 +539,9 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### JAV (via R18 - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | ✅ - **SceneID (in form of JAVID)**
 + #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
-+ #### JAY's POV | ✅
++ #### Adult Empire Cash | ✅
+  - Jay's POV
+  - SpankMonster
 + #### Joymii | ✓
 + #### JulesJordan Network | ✅  **Movies Not Supported**
 + #### JVRPorn | ✅ - **Date Add**
@@ -1130,7 +1132,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Vixen
 + #### Sunny Lane Live | ✅
 + #### Swallow Bay | ❌ - **Direct URL**
-+ #### Swallowed / TrueAnal / Nymphos / AllAnal / AnalOnly | ❌ - **Direct URL**
++ #### Stepped Up Media | ✅ - **Actor only**
+  - AllAnal
+  - AnalOnly
+  - Nymphos
+  - Swallowed
+  - TrueAnal
 + #### Swallow Salon | ✓
 + #### TeamSkeet Network | ✅ - **Date Add**
   - Badmilfs
