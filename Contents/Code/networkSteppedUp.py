@@ -80,7 +80,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     for imageType in ['extra_thumbnails', 'thumbs']:
         if imageType in detailsPageElements:
             for image in list(detailsPageElements[imageType]):
-                    art.append(image)
+                art.append(image)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
