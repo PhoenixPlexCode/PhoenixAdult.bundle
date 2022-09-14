@@ -43,8 +43,7 @@ def flareSolverrRequest(url, method, **kwargs):
     if method == 'POST':
         req_params['postData'] = json.dumps(params)
 
-    req = HTTPRequest('%s/v1' % Prefs['flaresolverr_endpoint'], headers={'Content-Type': 'application/json'},
-                      params=json.dumps(req_params), timeout=60, bypass=False)
+    req = HTTPRequest('%s/v1' % Prefs['flaresolverr_endpoint'], headers={'Content-Type': 'application/json'}, params=json.dumps(req_params), timeout=60, bypass=False)
     if req.ok:
         data = req.json()['solution']
         headers = data['headers']
@@ -111,8 +110,7 @@ def reqBinRequest(url, method, **kwargs):
             'sessionId': ''
         })
 
-        req = HTTPRequest('https://api.reqbin.com/api/v1/requests', headers={'Content-Type': 'application/json'},
-                          params=req_params, proxies=proxies, bypass=False)
+        req = HTTPRequest('https://api.reqbin.com/api/v1/requests', headers={'Content-Type': 'application/json'}, params=req_params, proxies=proxies, bypass=False)
         if req.ok:
             data = req.json()
             return FakeResponse(req, url, int(data['StatusCode']), data['Content'])
@@ -131,16 +129,14 @@ def HTTPBypass(url, method='GET', **kwargs):
     if not req_bypass or not req_bypass.ok:
         Log('FlareSolverr')
         try:
-            req_bypass = flareSolverrRequest(url, method, proxies=proxies, headers=headers, cookies=cookies,
-                                             params=params)
+            req_bypass = flareSolverrRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
         except:
             pass
 
     if not req_bypass or not req_bypass.ok:
         Log('CloudScraper')
         try:
-            req_bypass = cloudScraperRequest(url, method, proxies=proxies, headers=headers, cookies=cookies,
-                                             params=params)
+            req_bypass = cloudScraperRequest(url, method, proxies=proxies, headers=headers, cookies=cookies, params=params)
         except:
             pass
 
@@ -168,8 +164,7 @@ def HTTPRequest(url, method='GET', **kwargs):
 
     if Prefs['proxy_enable']:
         if Prefs['proxy_authentication_enable']:
-            proxy = '%s://%s:%s@%s:%s' % (
-            Prefs['proxy_type'], Prefs['proxy_user'], Prefs['proxy_password'], Prefs['proxy_ip'], Prefs['proxy_port'])
+            proxy = '%s://%s:%s@%s:%s' % (Prefs['proxy_type'], Prefs['proxy_user'], Prefs['proxy_password'], Prefs['proxy_ip'], Prefs['proxy_port'])
         else:
             proxy = '%s://%s:%s' % (Prefs['proxy_type'], Prefs['proxy_ip'], Prefs['proxy_port'])
 
@@ -188,8 +183,7 @@ def HTTPRequest(url, method='GET', **kwargs):
 
     req = None
     try:
-        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params,
-                               timeout=timeout, verify=False, allow_redirects=allow_redirects)
+        req = requests.request(method, url, proxies=proxies, headers=headers, cookies=cookies, data=params, timeout=timeout, verify=False, allow_redirects=allow_redirects)
     except:
         req = FakeResponse(None, url, 418, None)
 
@@ -231,7 +225,7 @@ def getFromGoogleSearch(searchText, site='', **kwargs):
     Log('Using Google Search "%s"' % searchTerm)
 
     try:
-        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent(True)))
+        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent(true)))
     except:
         Log('Google Search Error')
         pass
@@ -310,8 +304,7 @@ def parseTitle(s, siteNum):
     output = ' '.join(final)
 
     # Add space after a punctuation if missing
-    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b|porn\b))', lambda m: m.group(0) + ' ', output,
-                    flags=re.IGNORECASE)
+    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b|porn\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
     output = re.sub(r'\b(?:(?<=\S.)(?<=\w)(?:\.))$', '', output)
     # Remove space between word and punctuation
@@ -327,10 +320,8 @@ def parseTitle(s, siteNum):
 
 
 def parseWord(word, siteNum):
-    lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with',
-                        'vs', 'in', 'on']
-    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm',
-                        'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
+    lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
+    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
     letter_exceptions = ['A', 'V', 'Y']
     symbolsClean = ['-', '/', '.', '+', '\'']
     symbolsEsc = ['-', '/', r'\.', r'\+', '\'']
@@ -395,11 +386,8 @@ def parseTitleSymbol(word, siteNum, symbol):
 
 
 def manualWordFix(word):
-    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats',
-                  'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly']
-    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t',
-                   'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String',
-                   'MILFs', 'O\'Reilly']
+    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly']
+    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly']
 
     if word.lower() in exceptions:
         for correction in corrections:

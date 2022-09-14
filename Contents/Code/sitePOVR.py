@@ -9,13 +9,11 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = searchResult.xpath('.//div/h6[@class="thumbnail__title"]')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="thumbnail__link"]/@href')[0])
         subSite = searchResult.xpath('.//a[contains(@class, "thumbnail__footer-link")]')[0].text_content()
-        siteScore = 60 - (Util.LevenshteinDistance(subSite.lower().replace('originals', ''),
-                                                   PAsearchSites.getSearchSiteName(siteNum).lower()) * 6 / 10)
+        siteScore = 60 - (Util.LevenshteinDistance(subSite.lower().replace('originals', ''), PAsearchSites.getSearchSiteName(siteNum).lower()) * 6 / 10)
         titleScore = 40 - (Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower()) * 4 / 10)
         score = siteScore + titleScore
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, subSite),
-                                            name='%s [%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, subSite), name='%s [%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
     return results
 
