@@ -18,7 +18,6 @@ import networkBadoinkVR
 import siteVRBangers
 import networkHighTechVR
 import siteMilfVR
-import siteJoymii
 import networkPornPros
 import networkStrike3
 import networkKink
@@ -664,7 +663,7 @@ searchSites = {
     475: ('SexBabesVR', 'https://www.sexbabesvr.com', '/virtualreality/scene/id/'),
     476: ('WankzVR', 'https://www.wankzvr.com', '/search?q='),
     477: ('MilfVR', 'https://www.milfvr.com', '/search?q='),
-    478: ('Joymii', 'https://www.joymii.com', '/search?query='),
+    478: ('Joymii', 'https://www.joymii.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     479: ('POVD', 'https://www.povd.com', '/video/'),
     480: ('Cum4K', 'https://www.cum4k.com', '/video/'),
     481: ('Exotic4k', 'https://www.exotic4k.com', '/video/'),
@@ -1064,7 +1063,7 @@ searchSites = {
     875: ('Anal Mom', 'https://analmom.com', '/movies'),
     876: ('Bellesa House', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     877: ('Reality Lovers', 'https://realitylovers.com', '/videos/search'),
-    878: ('Adult Time', 'https://freetour.adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    878: ('Adult Time', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     879: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
     880: ('BBC Paradise', 'https://www.bbcparadise.com', '/movies/'),
     881: ('Mylf X CamSoda', 'https://www.mylf.com', '/movies/'),
@@ -1640,6 +1639,14 @@ searchSites = {
     1551: ('Moms Family Secrets', 'https://momsfamilysecrets.com', '/video/gallery/'),
     1552: ('Squirted', 'https://squirted.com', 'https://site-api.project1service.com'),
     1553: ('See Him Fuck', 'https://seehimfuck.com', '/trailers/'),
+    1554: ('MommysBoy', 'http://www.mommysboy.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1555: ('PolyFamilyLife', 'http://www.adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1556: ('ModelTime', 'http://www.modeltime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1557: ('OutOfTheFamily', 'http://www.outofthefamily.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1558: ('GiveMeTeens', 'http://www.givemeteens.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1559: ('WhiteGhetto', 'http://www.whiteghetto.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1560: ('SilviaSaint', 'http://www.silviasaint.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1561: ('CumshotOasis', 'http://www.cumshotoasis.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -2201,10 +2208,6 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 477:
             provider = siteMilfVR
 
-        # Joymii
-        elif siteNum == 478:
-            provider = siteJoymii
-
         # Kink
         elif (490 <= siteNum <= 521) or siteNum == 687 or (735 <= siteNum <= 736) or (873 <= siteNum <= 874) or (888 <= siteNum <= 889):
             provider = networkKink
@@ -2574,7 +2577,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteRealityLovers
 
         # Adult Time
-        elif siteNum == 878:
+        elif siteNum == 478 or siteNum == 878 or (1554 <= siteNum <= 1561):
             provider = networkGammaEntOther
 
         # RealJamVR
