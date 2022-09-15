@@ -8,9 +8,9 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    titleNoFormatting = detailsPageElements.xpath('//h3[@class="dvd-title mb-0 mt-0"]/span')[0].text_content().strip()
+    titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
     curID = PAutils.Encode(sceneURL)
-    date = detailsPageElements.xpath('//p[@class="mt-10 letter-space-1"]')[0].text_content().split('DATE ADDED:')[1].split('|', 1)[0].strip()
+    date = detailsPageElements.xpath('//p[@class="update-info-line regular"]/b')[0].text_content().strip()
     releaseDate = parse(date).strftime('%Y-%m-%d')
 
     if searchData.date:
@@ -32,42 +32,41 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h3[@class="dvd-title mb-0 mt-0"]/span')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[@class="mt-0 hidden-lg"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//p[contains(@class, "description-text")]')[0].text_content().strip()
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
-
-    series = detailsPageElements.xpath('//p[@class="mt-10 letter-space-1"]/a')
-    if series:
-        metadata.collections.add(series[0].text_content().strip())
+    try:
+        tagline = detailsPageElements.xpath('//b[contains(., "Series")]//following-sibling::a')[0].text_content().strip()
+        metadata.tagline = tagline
+        metadata.collections.add(tagline)
+    except:
+        pass
 
     # Release Date
-    date = detailsPageElements.xpath('//p[@class="mt-10 letter-space-1"]')[0].text_content().split('DATE ADDED:')[1].split('|', 1)[0].strip()
+    date = detailsPageElements.xpath('//p[@class="update-info-line regular"]/b')[0].text_content().strip()
     if date:
-        date_object = datetime.strptime(date, '%d-%m-%Y')
+        date_object = datetime.strptime(date, '%Y-%m-%d')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[@class="item-tag mt-5"]/a/span'):
-        genreName = genreLink.text_content().strip().lower()
+    for genreLink in detailsPageElements.xpath('//a[@class="underline-text"]'):
+        genreName = PAutils.parseTitle(genreLink.text_content().strip(), siteNum)
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="middle"]/p/a'):
-        actorName = str(actorLink.text_content().strip())
+    for actorLink in detailsPageElements.xpath('//b[contains(., "Performers")]//following-sibling::a'):
+        actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + '/' + actorLink.get("href")
@@ -83,12 +82,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//div[@class="ratio-16-9 video-item static-item progressive-load"]/@data-image'
+        '//div[@class="video-wrapper"][.//a[contains(@href, "%s")]]//@data-image' % sceneURL.split('=')[-1].lower()
     ]
 
-    for xpath in xpaths:
-        for img in detailsPageElements.xpath(xpath):
-            art.append(img)
+    if actorPage:
+        for xpath in xpaths:
+            for img in actorPage.xpath(xpath):
+                art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
