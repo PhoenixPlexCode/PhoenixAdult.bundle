@@ -1667,6 +1667,7 @@ abbreviations = (
     ('^legalporno ', 'AnalVids '),
     ('^ap ', 'AssParade '),
     ('^aw ', 'AngelaWhite '),
+    ('^ba ', 'BBCSurprise '),
     ('^baebz ', 'Baeb '),
     ('^bblib ', 'BigButtsLikeItBig '),
     ('^bcasting ', 'BangCasting '),
