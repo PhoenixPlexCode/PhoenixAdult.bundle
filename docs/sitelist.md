@@ -414,7 +414,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Explicite Art | ✓ - **Actor only**
 + #### ExploitedX | ✅
   - Backroom Casting Couch
-  - Black Ambush
+  - BBC Surprise
   - Exploited College Girls
 + #### FakeHub | ✅
   - Fake Agent
