@@ -1646,7 +1646,7 @@ searchSites = {
     1558: ('GiveMeTeens', 'http://www.givemeteens.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1559: ('WhiteGhetto', 'http://www.whiteghetto.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1560: ('SilviaSaint', 'http://www.silviasaint.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    1560: ('CumshotOasis', 'http://www.cumshotoasis.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1561: ('CumshotOasis', 'http://www.cumshotoasis.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -2577,7 +2577,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteRealityLovers
 
         # Adult Time
-        elif siteNum == 478 or siteNum == 878 or (1554 <= siteNum <= 1560):
+        elif siteNum == 478 or siteNum == 878 or (1554 <= siteNum <= 1561):
             provider = networkGammaEntOther
 
         # RealJamVR
