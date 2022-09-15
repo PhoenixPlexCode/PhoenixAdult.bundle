@@ -813,9 +813,9 @@ searchSites = {
     625: ('Open Family', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     626: ('Family Strokes', 'https://www.familystrokes.com', '/movies'),
     627: ('Tonights Girlfriend', 'https://www.tonightsgirlfriend.com', '/pornstar/'),
-    628: ('Karups Private Collection', 'https://www.karups.com', '/models/search/'),
-    629: ('Karups Hometown Amateurs', 'https://www.karups.com', '/models/search/'),
-    630: ('Karups Older Women', 'https://www.karups.com', '/models/search/'),
+    628: ('KarupsPC', 'https://www.karups.com', '/models/search/'),
+    629: ('KarupsHA', 'https://www.karups.com', '/models/search/'),
+    630: ('KarupsOW', 'https://www.karups.com', '/models/search/'),
     631: ('Teen Mega World', 'http://teenmegaworld.net', '/search.php?query='),
     632: ('18 First Sex', 'http://teenmegaworld.net', '/search.php?query='),
     633: ('ATMovs', 'http://teenmegaworld.net', '/search.php?query='),
@@ -1647,6 +1647,9 @@ searchSites = {
     1559: ('WhiteGhetto', 'http://www.whiteghetto.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1560: ('SilviaSaint', 'http://www.silviasaint.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1561: ('CumshotOasis', 'http://www.cumshotoasis.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1562: ('Daughter JOI', 'https://daughterjoi.com', '/1/search/'),
+    1563: ('HushPass', 'https://hushpass.com', '/t1/search.php?query='),
+    1564: ('Hot Milfs Fuck', 'https://hotmilfsfuck.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -1754,6 +1757,7 @@ abbreviations = (
     ('^houseofyre ', 'House of Fyre '),
     ('^hr ', 'HollyRandall '),
     ('^ht ', 'Hogtied '),
+    ('^hussieauditions', 'HussiePass'),
     ('^hustl3r ', 'Hustler '),
     ('^ihaw ', 'IHaveAWife '),
     ('^iktg ', 'IKnowThatGirl '),
@@ -2145,7 +2149,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # FullPornNetwork
-        elif (343 <= siteNum <= 350) or siteNum == 1394:
+        elif (343 <= siteNum <= 350) or siteNum == 1394 or siteNum == 1562:
             provider = networkFullPornNetwork
 
         # DogfartNetwork
@@ -2541,7 +2545,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkTwoWebMedia
 
         # Interracial Pass / ExploitedX / I Kiss Girls
-        elif siteNum == 840 or (976 <= siteNum <= 978) or siteNum == 1244:
+        elif siteNum == 840 or (976 <= siteNum <= 978) or siteNum == 1244 or (1563 <= siteNum <= 1564):
             provider = siteInterracialPass
 
         # LookAtHerNow
