@@ -50,7 +50,44 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Video Masturbation
   - Video Of Myself at Home
 + #### Adult Empire | ✅
-+ #### Adult Time | ✅
++ #### Adult Empire Cash | ✅
+  - JaysPOV
+  - SpankMonster
++ #### Adult Time Studios | ✅
+  - AdultTime
+  - FameDigital
+    - CumshotOasis
+    - DevilsFilm
+    - GiveMeTeens
+    - OutOfTheFamily
+    - PeterNorth
+    - RoccoSiffredi
+    - SilviaSaint
+    - TeraPatrick
+    - WhiteGhetto
+  - Fantasy Massage
+    - AllGirlMassage
+    - FantasyMassage
+    - MassageParlor
+    - MilkingTable
+    - NuruMassage
+    - POVMassage
+    - SoapyMassage
+    - TrickySpa
+  - Joymii
+  - ModelTime
+  - MommysBoy
+  - PolyFamilyLife
+  - PureTaboo
+  - Girlsway
+    - GirlCore
+    - GirlsTryAnal
+    - GirlswayOriginals
+    - MommysGirl
+    - MomsOnMoms
+    - SextapeLesbians
+    - WebYoung
+    - WeLikeGirls
 + #### AllAnalAllTheTime | ✅
 + #### AllHerLuv | ✓
 + #### ALS Angels | ❌ - **Actress name with subject, Date Add**
@@ -431,21 +468,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Trans FAKings
   - Very Voyeur | Muy Voyeur
   - Virtual Reality | FAKingsVR
-+ #### FameDigital | ✅
-  - DevilsFilm
-  - PeterNorth
-  - RoccoSiffredi
-  - TeraPatrick
 + #### FamilyHookups | ✅
-+ #### FantasyMassage  | ✅
-  - AllGirlMassage
-  - FantasyMassage
-  - MassageParlor
-  - MilkingTable
-  - NuruMassage
-  - POVMassage
-  - SoapyMassage
-  - TrickySpa
 + #### FemdomEmpire / Feminized | ✅
 + #### Femjoy | ✓ - **Model or Title (but not both), Date Add**
 + #### FinishesTheJob | ✅ - **Date Add**
@@ -478,15 +501,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### GirlfriendsFilms | ✅
 + #### GirlsOutWest | ✅
 + #### Girls Rimming | ✅ - **Date Add**
-+ #### Girlsway | ✅
-  - GirlCore
-  - GirlsTryAnal
-  - GirlswayOriginals
-  - MommysGirl
-  - MomsOnMoms
-  - SextapeLesbians
-  - WebYoung
-  - WeLikeGirls
 + #### Gloryhole Secrets | ✓ - **Title only** (Title includes actress first name)
 + #### Grooby Network | ✅
   - Black TGirls
@@ -539,10 +553,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### JAV (via R18 - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | ✅ - **SceneID (in form of JAVID)**
 + #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
-+ #### Adult Empire Cash | ✅
-  - Jay's POV
-  - SpankMonster
-+ #### Joymii | ✓
 + #### JulesJordan Network | ✅  **Movies Not Supported**
 + #### JVRPorn | ✅ - **Date Add**
   - GirlGirl
@@ -1024,7 +1034,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - HeyLittleDick
   - LadyVoyeurs
   - PureCFNM
-+ #### PureTaboo | ✅
 + #### PurgatoryX | ✅
 + #### Putalocura | ✅
 + #### QueenSnake | ❌ - **Exact Title Only**
