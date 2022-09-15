@@ -31,11 +31,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Title
     if siteNum == 977:
-        title = detailsPageElements.xpath('//*[@class="main-article trailer-article"]//h3[@class="section-title"]')[0].text_content().strip()
-    elif siteNum == 978:
-        title = detailsPageElements.xpath('//*[@class="main-article trailer-article"]//h2[@class="section-title"]')[0].text_content().strip()
+        title = detailsPageElements.xpath('//*[@class="video-player"]//h3[@class="section-title"]')[0].text_content().strip()
     else:
-        title = detailsPageElements.xpath('//h2[@class="section-title"]')[0].text_content().strip()
+        title = detailsPageElements.xpath('//*[@class="video-player"]//h2[@class="section-title"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(title, siteNum)
 
     metadata.title = PAutils.parseTitle(title, siteNum)
     # Summary
