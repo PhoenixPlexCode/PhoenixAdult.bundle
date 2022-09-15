@@ -183,6 +183,7 @@ import networkHugeMedia
 import network18
 import networkDirtyFlix
 import networkNVG
+import networkBlurredMedia
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1650,6 +1651,10 @@ searchSites = {
     1562: ('Daughter JOI', 'https://daughterjoi.com', '/1/search/'),
     1563: ('HushPass', 'https://hushpass.com', '/t1/search.php?query='),
     1564: ('Hot Milfs Fuck', 'https://hotmilfsfuck.com', '/search.php?query='),
+    1565: ('Sugar Daddy Porn', 'https://www.sugardaddyporn.com', '/videos/search?s='),
+    1566: ('HotGuysFuck', 'https://www.hotguysfuck.com', '/videos/search?s='),
+    1567: ('BiGuysFuck', 'https://www.biguysfuck.com', '/videos/search?s='),
+    1568: ('GayHoopla', 'https://www.gayhoopla.com', '/videos/search?s='),
 }
 
 abbreviations = (
@@ -1682,6 +1687,7 @@ abbreviations = (
     ('^bex ', 'BrazzersExxtra '),
     ('^bgb ', 'BabyGotBoobs '),
     ('^bgbs ', 'BoundGangbangs '),
+    ('^bgf ', 'BiGuysFuck '),
     ('^bglamkore ', 'BangGlamkore '),
     ('^bgonzo ', 'BangGonzo '),
     ('^bin ', 'BigNaturals '),
@@ -1751,6 +1757,7 @@ abbreviations = (
     ('^hart ', 'Hegre '),
     ('^hcm ', 'HotCrazyMess '),
     ('^hegre-art ', 'Hegre '),
+    ('^hgf ', 'HotGuysFuck '),
     ('^hlaf ', 'Hot Legs and Feet '),
     ('^hoh ', 'HandsOnHardcore '),
     ('^hotab ', 'HouseofTaboo '),
@@ -2982,5 +2989,9 @@ def getProviderFromSiteNum(siteNum):
         # NetVideoGirls
         elif siteNum == 1550:
             provider = networkNVG
+
+        # Blurred Media
+        elif (1565 <= siteNum <= 1568):
+            provider = networkBlurredMedia
 
     return provider
