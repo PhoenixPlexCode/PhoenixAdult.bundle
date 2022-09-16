@@ -196,6 +196,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - See Him Fuck
 + #### Black PayBack | ✓
 + #### Black Valley Girls | ❌ - **SceneID**
++ #### Blurred Media | ✅
+  - Bi Guys Fuck
+  - Gay Hoopla
+  - Hot Guys Fuck
+  - Sugar Daddy Porn
 + #### Blowpass | ✅
   - 1000 Facials
   - ImmoralLive
