@@ -5428,7 +5428,10 @@ ActorsReplaceStudios = {
     },
     59: {  # First Time Video
         'Mabel May': ['Mabel'],
-    }
+    },
+    60: {
+        'Zeynep Rossa': ['Zeyne P'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5492,4 +5495,5 @@ ActorsStudioIndexes = {
     57: ['Desperate Amateurs'],
     58: ['ExploitedX'],
     59: ['First Time Video'],
+    60: ['PornCZ'],
 }

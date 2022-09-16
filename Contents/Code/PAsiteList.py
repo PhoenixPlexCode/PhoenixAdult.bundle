@@ -1873,6 +1873,7 @@ abbreviations = (
     ('^ssc ', 'StepSiblingsCaught '),
     ('^ssn ', 'ShesNew '),
     ('^sts ', 'StrandedTeens '),
+    ('^swm ', 'SexWithMuslims '),
     ('^swsn ', 'SwallowSalon '),
     ('^tdp ', 'TeensDoPorn '),
     ('^tds ', 'TheDickSuckers '),
