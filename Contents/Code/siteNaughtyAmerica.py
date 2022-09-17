@@ -47,7 +47,7 @@ def search(results, lang, siteNum, searchData):
         sceneID = None
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
-    if sceneID and not searchData.title:
+    if sceneID:
         searchResults = [getNaughtyAmerica(sceneID)]
     else:
         searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
@@ -55,7 +55,7 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults:
         titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
         curID = searchResult['id']
-        releaseDate = datetime.fromtimestamp(searchResult['published_at']).strftime('%Y-%m-%d')
+        releaseDate = searchResult['published_at'].strftime('%Y-%m-%d')
         siteName = searchResult['site']
 
         if sceneID:
