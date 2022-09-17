@@ -527,7 +527,7 @@ searchSites = {
     338: ('Massage Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     339: ('MomXXX', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     340: ('FakeHub', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
-    341: ('Thundercock', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    341: ('Big Cock Bully', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     342: ('VirtualRealPorn', 'https://virtualrealporn.com', '/vr-porn-video/'),
     343: ('Analized', 'https://analized.com', '/1/search/'),
     344: ('James Deen', 'https://jamesdeen.com', '/1/search/'),
@@ -1659,6 +1659,7 @@ searchSites = {
     1570: ('Mom\'s Money', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1571: ('College Sugarbabes', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1572: ('Mrs. Creampie', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    1573: ('Thundercock', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -1938,7 +1939,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkMetadataAPI
 
         # Naughty America
-        elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749 or (1569 <= siteNum <= 1572):
+        elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749 or (1569 <= siteNum <= 1573):
             provider = siteNaughtyAmerica
 
         # Vixen
