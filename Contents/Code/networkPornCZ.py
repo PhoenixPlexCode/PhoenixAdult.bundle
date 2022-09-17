@@ -30,7 +30,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="heading-detail"]/p')[1].text_content().strip()
@@ -45,10 +45,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Release Date
-    if sceneDate:
-        date_object = parse(sceneDate)
+    try:
+        date = detailsPageElements.xpath('//meta[@property="video:release_date"]/@content')[0].strip()
+        date_object = datetime.strptime(date, '%d.%m.%Y')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
+    except:
+        if sceneDate:
+            date_object = parse(sceneDate)
+            metadata.originally_available_at = date_object
+            metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
@@ -58,6 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(., "Actors")]/a'):
         actorName = actorLink.text_content()
 
@@ -70,7 +77,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         actorPhotoURL = modelsPageElements.xpath('//div[@class="model-heading-photo"]//@src')[0]
 
-        if 'http' not in actorPhotoURL:
+        if 'blank' in actorPhotoURL:
+            actorPhotoURL = ''
+        elif 'http' not in actorPhotoURL:
             actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         movieActors.addActor(actorName, actorPhotoURL)
