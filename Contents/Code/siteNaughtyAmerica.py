@@ -88,8 +88,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.collections.add(metadata.studio)
-    metadata.collections.add(detailsPageElements['site'])
+    tagline = detailsPageElements['site']
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     date_object = detailsPageElements['published_at']
