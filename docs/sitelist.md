@@ -756,6 +756,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Asian 1 on 1
   - Ass Masterpiece
   - Big Cock Bully
+  - College Sugarbabes
   - Diary of a Milf
   - Diary of a Nanny
   - Dirty Wives Club
@@ -774,6 +775,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Live Naughty Teacher
   - Live Party Girl
   - Milf Sugar Babes Classic
+  - Mom's Money
   - My Dads Hot Girlfriend
   - My Daughters Hot Friend
   - My First Sex Teacher
