@@ -1657,6 +1657,7 @@ searchSites = {
     1568: ('GayHoopla', 'https://www.gayhoopla.com', '/videos/search?s='),
     1569: ('Big Cock Hero', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1570: ('Mom\'s Money', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    1571: ('College Sugarbabes', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
 }
 
 abbreviations = (
