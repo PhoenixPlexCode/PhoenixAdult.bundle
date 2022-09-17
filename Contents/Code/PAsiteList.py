@@ -527,7 +527,7 @@ searchSites = {
     338: ('Massage Rooms', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     339: ('MomXXX', 'https://www.sexyhub.com', 'https://site-api.project1service.com'),
     340: ('FakeHub', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
-    341: ('Big Cock Bully', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    341: ('Thundercock', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     342: ('VirtualRealPorn', 'https://virtualrealporn.com', '/vr-porn-video/'),
     343: ('Analized', 'https://analized.com', '/1/search/'),
     344: ('James Deen', 'https://jamesdeen.com', '/1/search/'),
