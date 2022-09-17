@@ -1656,6 +1656,7 @@ searchSites = {
     1567: ('BiGuysFuck', 'https://www.biguysfuck.com', '/videos/search?s='),
     1568: ('GayHoopla', 'https://www.gayhoopla.com', '/videos/search?s='),
     1569: ('Big Cock Hero', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    1570: ('Mom\'s Money', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -1934,7 +1935,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkMetadataAPI
 
         # Naughty America
-        elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749 or siteNum == 1569:
+        elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749 or (1569 <= siteNum <= 1570):
             provider = siteNaughtyAmerica
 
         # Vixen
