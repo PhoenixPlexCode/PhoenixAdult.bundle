@@ -132,6 +132,10 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', movieURL)
 
+        if not detailsPageElements:
+            Log('Possible IP BAN: Retry on VPN')
+            break
+
         # Studio
         try:
             studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
