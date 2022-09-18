@@ -283,11 +283,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         except:
             break
 
-        if actorName:
-            if 'nopic' not in actorPhotoURL:
-                movieActors.addActor(actorName, actorPhotoURL)
-            else:
-                movieActors.addActor(actorName, '')
+        actorPhotoURL = ''
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
     metadata.directors.clear()
