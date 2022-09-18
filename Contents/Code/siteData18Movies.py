@@ -27,6 +27,8 @@ def search(results, lang, siteNum, searchData):
     searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
     if searchPages:
         numSearchPages = int(searchPages.group(0))
+        if numSearchPages > 10:
+            numSearchPages = 10
     else:
         numSearchPages = 1
 
@@ -202,6 +204,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+
+    if not detailsPageElements:
+        Log('Possible IP BAN: Retry on VPN')
+        return metadata
 
     if len(metadata_id) > 3:
         Log('Switching to Data18Scenes')
