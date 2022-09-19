@@ -26,6 +26,8 @@ def search(results, lang, siteNum, searchData):
     searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
     if searchPages:
         numSearchPages = int(searchPages.group(0))
+        if numSearchPages > 10:
+            numSearchPages = 10
     else:
         numSearchPages = 1
 
@@ -89,6 +91,10 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', sceneURL)
 
+        if not detailsPageElements:
+            Log('Possible IP BAN: Retry on VPN')
+            break
+
         try:
             siteName = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
         except:
@@ -149,6 +155,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+
+    if not detailsPageElements:
+        Log('Possible IP BAN: Retry on VPN')
+        return metadata
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
@@ -220,17 +230,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div//a[contains(@href, "/name/")]/img')
-    for actorLink in actors:
-        actorName = actorLink.xpath('./@alt')[0].strip()
+    actors = detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div[./p[contains(., "No Profile")]]//span[@class]/text()')
+    actors.extend(detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div//a[contains(@href, "/name/")]/img/@alt'))
+    for actor in actors:
+        actorName = actor
         actorPhotoURL = ''
 
-        actorPhotoNode = actorLink.xpath('./@data-src')
-        if actorPhotoNode:
-            actorPhotoURL = actorPhotoNode[0].strip()
-
-        if actorName:
-            movieActors.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
