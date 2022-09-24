@@ -56,12 +56,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.title = sceneActors
 
     # Studio
+    metadata.collections.clear()
     if siteName:
         metadata.studio = siteName
         metadata.collections.add(siteName)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Actors Manually Added'
     metadata.collections.add(tagline)
 
