@@ -5432,6 +5432,15 @@ ActorsReplaceStudios = {
     60: {
         'Zeynep Rossa': ['Zeyne P'],
     },
+    61: {  # Fantasy Massage
+        'Angelina Ash': ['Angelina'],
+        'Stephanie Cane': ['Stephanie'],
+    },
+    62: {  # Amateur Allure
+        'Mia Malkova': ['Mia Malkova (aka Madison Swan)'],
+        'Riley Ray': ['Ashlyn (aka Riley Ray)'],
+        'Risi Simms': ['Risi Simms (Aka Trudy)'],
+    }
 }
 
 ActorsStudioIndexes = {
@@ -5496,4 +5505,6 @@ ActorsStudioIndexes = {
     58: ['ExploitedX'],
     59: ['First Time Video'],
     60: ['PornCZ'],
+    61: ['Fantasy Massage'],
+    62: ['Allure Media'],
 }

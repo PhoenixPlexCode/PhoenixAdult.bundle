@@ -106,6 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     actors = []
     for key, value in actorsDB.items():
         if key == metadata.title:
+            movieActors.clearActors()
             actors = value
             break
 
@@ -181,6 +182,7 @@ actorsDB = {
         'Sara Luvv',
         'Dillion Harper',
     ],
+    'Best Friends With Nice Tits!': ["April O'Neil", 'Victoria Rae Black'],
 }
 
 plurals = {
@@ -188,7 +190,6 @@ plurals = {
     'bros': 'bro-s',
     'sisters': 'sister-s',
     'siss': 'sis-s',
-    'friends': 'friend-s',
     'mothers': 'mother-s',
     'moms': 'mom-s',
     'fathers': 'father-s',
