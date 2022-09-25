@@ -90,13 +90,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actors = detailsPageElements.xpath(value[0])
             break
 
-    if ',' in actors[0].text_content():
+    if actors and ',' in actors[0].text_content():
         actors = actors[0].text_content().split(',')
+
+    match = re.findall(r'[A-Z]\w+\s[A-Z]\w+', metadata.summary)
+    if match:
+        actors.extend(match)
 
     for actorLink in actors:
         actorName = actorLink
         if not isinstance(actorName, str):
-            actorName = actorName.text_content()
+            try:
+                actorName = actorName.text_content()
+            except:
+                pass
         actorName = actorName.strip()
         actorPhotoURL = ''
 
@@ -169,7 +176,7 @@ genresDB = {
 summaryDB = {
     'Stuck4k': ['//span[@class="player-info__text-area"]'],
     'Mature4k': ['//span[@class="player-info__text-area"]'],
-    'Daddy4k': ['//div[@class="wrap_post"]/p'],
+    'Daddy4k': ['//div[@class="video-full__desc"]/p'],
     'Black4k': ['//div[@class="desc_frame"]/p'],
     'Hunt4k': ['//div[@class="wrap_player_desc"]/p'],
     'Old4k': ['//div[@class="wrap_player_desc"]/p'],
@@ -183,6 +190,7 @@ summaryDB = {
 
 actorsDB = {
     'Mature4k': ['//a[contains(@class, "hid2")]/div[@class="item-info__text"]'],
+    'Daddy4k': ['//a[contains(@class, "publisher")]//span[@class="video-info-item__value"]'],
     'Black4k': ['//div[@class="cat_player"]/a'],
     'Old4k': ['//div[@class="cat_player"]/a'],
     'Sis.Porn': ['//div[@class="player-item__row"][./div[contains(., "Name:")]]//span'],
