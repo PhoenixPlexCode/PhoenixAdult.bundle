@@ -83,7 +83,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
-            art.append(poster)
+            if 'http' not in poster:
+                poster = PAsearchSites.getSearchBaseURL(siteNum) + poster
+
+            art.append(poster.replace('-1x', '-4x'))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
