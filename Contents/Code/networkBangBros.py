@@ -82,9 +82,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         for poster in detailsPageElements.xpath(xpath):
             if not poster.startswith('http'):
                 poster = 'http:' + poster
-            if 'big' not in poster:
+            if 'bangbros/big' not in poster and 'big_trailer' not in poster:
                 (poster, filename) = poster.rsplit('/', 1)
-                poster = poster + '/big' + filename
+                poster = '%s/big%s' % (poster, filename)
 
             art.append(poster)
 
