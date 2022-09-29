@@ -10,7 +10,7 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = searchResult.xpath('.//h3')[0].text_content().strip()
         if titleNoFormatting[-3:] == ' 4k':
             titleNoFormatting = titleNoFormatting[:-3].strip()
-        curID = PAutils.Encode(searchResult.xpath('.//a[@class="ampLink"]/@href')[0])
+        curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         try:
             releaseDate = parse(searchResult.xpath('.//div[@class="date-label"]')[0].text_content()[22:].strip()).strftime('%Y-%m-%d')
