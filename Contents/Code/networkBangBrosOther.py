@@ -3,43 +3,23 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = []
+    searchData.encoded = searchData.title.replace(' ', '+')
 
-    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
-    for sceneURL in googleResults:
-        sceneURL = sceneURL.split('?')[0]
-        if ('com/video' in sceneURL or 'com/player' in sceneURL) and 'mobile' not in sceneURL and sceneURL not in searchResults:
-            searchResults.append(sceneURL)
+    searchURL = '%s%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    req = PAutils.HTTPRequest(searchURL)
+    searchPageElements = HTML.ElementFromString(req.text)
 
-    for sceneURL in searchResults:
-        req = PAutils.HTTPRequest(sceneURL)
-        detailsPageElements = HTML.ElementFromString(req.text)
+    for searchResult in searchPageElements.xpath('//div[@class="videos-list"]/article'):
+        sceneURL = searchResult.xpath('.//@href')[0]
 
-        try:
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//span[@class="vdetitle"] | //h1')[0].text_content().strip(), siteNum)
-            curID = PAutils.Encode(sceneURL)
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//@title')[0].split("(")[0].split('–')[-1].strip(), siteNum)
+        curID = PAutils.Encode(sceneURL)
 
-            try:
-                date = detailsPageElements.xpath('//span[@class="vdedate"]')[0].strip()
-            except:
-                date = ''
+        releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            if date:
-                releaseDate = parse(date).strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
-            displayDate = releaseDate if date else ''
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            subSite = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
-
-            if searchData.date:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, displayDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
-        except:
-            pass
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [BangBros]' % (titleNoFormatting), score=score, lang=lang))
 
     return results
 
@@ -52,51 +32,57 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//span[@class="vdetitle"] | //h1')[0].text_content().strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().split('(')[0].split('–')[-1].strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//span[@class="vdtx"] | //p[@class="videoDetail"]')[0].text_content().strip().replace('\n', '')
+    summary = detailsPageElements.xpath('//div[@class="video-description"]//strong[contains(., "Description")]//following-sibling::text()')
+    if summary:
+        metadata.summary = summary[0].strip()
 
     # Studio
-    metadata.studio = 'BangBros'
+    metadata.studio = 'Bang Bros'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('siteName = \'')[-1].split('\'')[0].strip()
+    tagline = detailsPageElements.xpath('//span[@class="fn"]')[0].text_content()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    if sceneDate:
+    date = detailsPageElements.xpath('//div[@class="video-description"]//strong[contains(., "Date")]//following-sibling::text()')
+    if date:
+        date_object = parse(date[0].strip())
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//meta[@http-equiv="keywords"]/@content')[0].split(',')
+    genres = detailsPageElements.xpath('//*[.//@class="fa fa-tag"]/text()')
     for genreLink in genres:
-        if tagline.replace(' ', '').lower() not in genreLink.replace(' ', '').lower():
-            genreName = genreLink.strip()
+        genreName = genreLink.strip()
 
-            movieGenres.addGenre(genreName)
+        movieGenres.addGenre(genreName)
+
+    # Actors
+    movieActors.clearActors()
+    for actorLink in detailsPageElements.xpath('//*[.//@class="fa fa-star"]/text()'):
+        actorName = actorLink.strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
-        '//div[@class="hideWhilePlaying"]/img/@src',
+        '//meta[@itemprop="thumbnailUrl"]/@content',
     ]
-
-    if tagline == 'Mia Khalifa':
-        movieActors.addActor('Mia Khalifa', '')
-        shootId = detailsPageElements.xpath('//script[@type="text/javascript"][contains(., "siteName")]')[0].text_content().split('com/')[-1].split('/')[0].strip()
-
-        art.append('http://images.miakhalifa.com/shoots/%s/members/626x420.jpg' % shootId)
 
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
-            img = re.sub(r'////', 'http://', img)
-            if 'http' not in img:
-                img = 'http:' + img
+            img = img.replace('320x180', '1200x640')
 
             art.append(img)
 
