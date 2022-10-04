@@ -1660,6 +1660,7 @@ searchSites = {
     1571: ('College Sugarbabes', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1572: ('Mrs. Creampie', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1573: ('Thundercock', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
+    1574: ('Conor Coxxx', 'https://conorcoxxx.com', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -1710,6 +1711,7 @@ abbreviations = (
     ('^bts ', 'BoxTruckSex '),
     ('^burna ', 'BurningAngel '),
     ('^bwb ', 'BigWetButts '),
+    ('^ccxxx ', 'Conor Coxxx '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
     ('^clip ', 'AnalVids '),
     ('^clubseventeen ', 'ClubSweethearts '),
@@ -2527,7 +2529,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1337:
+        elif siteNum == 815 or siteNum == 1337 or siteNum == 1574:
             provider = networkAdultEmpireCash
 
         # My Pervy Family
