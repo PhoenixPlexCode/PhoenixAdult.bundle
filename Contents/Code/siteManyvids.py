@@ -34,7 +34,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
     videoURL = 'https://video-player-bff.estore.kiwi.manyvids.com/videos/%s' % metadata_id[0].split('-')[0]
-    videoPageElements = PAutils.HTTPRequest(sceneURL).json()
+    videoPageElements = PAutils.HTTPRequest(videoURL).json()
 
     # Title
     metadata.title = PAutils.parseTitle(videoPageElements['title'].strip(), siteNum)
