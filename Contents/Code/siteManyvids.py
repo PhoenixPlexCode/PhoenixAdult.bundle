@@ -29,17 +29,19 @@ def search(results, lang, siteNum, searchData):
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
-    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/' + metadata_id[0]
     sceneDate = metadata_id[2]
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+    videoURL = 'https://video-player-bff.estore.kiwi.manyvids.com/videos/%s' % metadata_id[0].split('-')[0]
+    videoPageElements = PAutils.HTTPRequest(videoURL).json()
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2[@class="h2 m-0"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(videoPageElements['title'].strip(), siteNum)
 
     # Summary
     try:
-        paragraphs = detailsPageElements.xpath('//div[contains(@class, "desc-text")]')
+        paragraphs = videoPageElements['description']
         summary = paragraphs[0].text_content().strip()
         if len(paragraphs) > 1:
             for paragraph in paragraphs:
@@ -71,9 +73,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//div[@class="tags"]/a')
-    for genreLink in genres:
-        genreName = genreLink.text_content().strip()
+    for genreLink in videoPageElements['tags']:
+        genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
