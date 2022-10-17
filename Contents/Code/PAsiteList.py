@@ -1669,7 +1669,6 @@ searchSites = {
     1580: ('Mom\'s Family Secrets', 'https://momlover.com', '/video'),
     1581: ('Moms Boy Toy', 'https://momlover.com', '/video'),
     1582: ('Mom\'s Tight', 'https://momlover.com', '/video'),
-    1574: ('Conor Coxxx', 'https://conorcoxxx.com', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
