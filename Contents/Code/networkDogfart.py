@@ -9,7 +9,8 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//a[contains(@class, "thumbnail")]'):
         titleNoFormatting = searchResult.xpath('.//h3[@class="scene-title"]')[0].text_content().strip()
-        curID = PAutils.Encode(searchResult.get('href').split('?')[0])
+        sceneURL = searchResult.get('href').split('?')[0]
+        curID = PAutils.Encode(sceneURL)
         releaseDate = searchData.dateFormat() if searchData.date else ''
         fullSubSite = searchResult.xpath('.//div/p[@class="help-block"]')[0].text_content().strip()
 
@@ -21,6 +22,10 @@ def search(results, lang, siteNum, searchData):
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
         else:
             score = 60 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        match = re.search(r'(?<=_)\d(?=\/)', sceneURL)
+        if match:
+            titleNoFormatting = '%s: Scene %s' % (titleNoFormatting, match.group(0))
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Dogfart/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
@@ -52,7 +57,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
 
     # Release Date
-    if sceneDate:
+    date = detailsPageElements.xpath('//meta[@itemprop="uploadDate"]/@content')[0].split('T')[0]
+    if date:
+        date_object = datetime.strptime(date, '%Y-%m-%d')
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
@@ -97,7 +107,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if width > 1:
+                if height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > height and idx > 1:
