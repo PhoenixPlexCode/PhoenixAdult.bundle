@@ -139,6 +139,11 @@ class PhoenixAdultAgent(Agent.Movies):
         siteNum = int(metadata_id[1])
         Log('SiteNum: %d' % siteNum)
 
+        if Prefs['remove_images']:
+            Log('Removing Stored Images')
+            metadata.posters.validate_keys(valid_images)
+            metadata.art.validate_keys(valid_images)
+
         provider = PAsiteList.getProviderFromSiteNum(siteNum)
         if provider is not None:
             providerName = getattr(provider, '__name__')
