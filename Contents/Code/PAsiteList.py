@@ -2245,7 +2245,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551 or (1574 <= siteNum <= 1582):
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551 or (1575 <= siteNum <= 1582):
             provider = networkNubiles
 
         # BellaPass
