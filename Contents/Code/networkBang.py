@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if 'screenshots' in detailsPageElements:
         for img in detailsPageElements['screenshots']:
-            art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, img['screenId']))
+            art.append('https://i.bang.com/screenshots/%d/movie/1/%d.jpg' % (dvdID, int(img['screenId'])))
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
