@@ -162,6 +162,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
                 if width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
