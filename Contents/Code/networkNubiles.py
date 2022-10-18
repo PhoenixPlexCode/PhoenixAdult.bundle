@@ -135,7 +135,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             art.append(poster)
 
     try:
-        galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
+        try:
+            galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
+        except:
+            match = re.search(r'(?<=videos\/).*(?=\/sample)', detailsPageElements.xpath('//video/@poster')[0])
+            if match:
+                sceneID = match.group(0)
+            galleryURL = '%s/galleries/%s/screenshots' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+
         req = PAutils.HTTPRequest(galleryURL)
         photoPageElements = HTML.ElementFromString(req.text)
         for poster in photoPageElements.xpath('//div[@class="img-wrapper"]//picture/source[1]/@srcset'):
