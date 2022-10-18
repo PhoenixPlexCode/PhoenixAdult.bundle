@@ -1661,6 +1661,14 @@ searchSites = {
     1572: ('Mrs. Creampie', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1573: ('Thundercock', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     1574: ('Conor Coxxx', 'https://conorcoxxx.com', '/MemberSceneSearch?q='),
+    1575: ('Mom Lover', 'https://momlover.com', '/video'),
+    1576: ('I\'m Not Your Mommy', 'https://momlover.com', '/video'),
+    1577: ('Mom Swapped', 'https://momlover.com', '/video'),
+    1578: ('Mom Wants to Breed', 'https://momlover.com', '/video'),
+    1579: ('Mom Wants Creampie', 'https://momlover.com', '/video'),
+    1580: ('Mom\'s Family Secrets', 'https://momlover.com', '/video'),
+    1581: ('Moms Boy Toy', 'https://momlover.com', '/video'),
+    1582: ('Mom\'s Tight', 'https://momlover.com', '/video'),
 }
 
 abbreviations = (
@@ -2237,7 +2245,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551:
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551 or (1575 <= siteNum <= 1582):
             provider = networkNubiles
 
         # BellaPass

@@ -44,7 +44,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]//h2')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]//h2')[0].text_content().strip(), siteNum)
 
     # Summary
     description = detailsPageElements.xpath('//div[@class="col-12 content-pane-column"]/div')
@@ -135,7 +135,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             art.append(poster)
 
     try:
-        galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
+        try:
+            galleryURL = PAsearchSites.getSearchBaseURL(siteNum) + detailsPageElements.xpath('//div[contains(@class, "content-pane-related-links")]/a[contains(., "Pic")]/@href')[0]
+        except:
+            match = re.search(r'(?<=videos\/).*(?=\/sample)', detailsPageElements.xpath('//video/@poster')[0])
+            if match:
+                sceneID = match.group(0)
+            galleryURL = '%s/galleries/%s/screenshots' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+
         req = PAutils.HTTPRequest(galleryURL)
         photoPageElements = HTML.ElementFromString(req.text)
         for poster in photoPageElements.xpath('//div[@class="img-wrapper"]//picture/source[1]/@srcset'):
@@ -146,6 +153,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     except:
         pass
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -153,15 +162,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if width > 1 or height > width:
+                if height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and width > height:
+                    posterExists = True
+                if width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 

@@ -18,6 +18,12 @@
         "default": "false"
     },
     {
+        "id": "remove_images",
+        "label": "Remove Stored Images",
+        "type": "bool",
+        "default": "false"
+    },
+    {
         "id": "manual_override",
         "label": "Prevent Automatic Matching",
         "type": "bool",

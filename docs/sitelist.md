@@ -842,9 +842,18 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Step Siblings Caught
   - Teacher Fucks Teens
   - Younger Mommy
+  #### Mom Lover (Nubiles) Sites | ❌ - **SceneID**
+  - Bratty MILF
+  - I'm Not Your Mommmy
+  - Mom Lover
+  - Mom Swapped
+  - Mom Wants Creampie
+  - Mom Wants to Breed
+  - Mom's Family Secrets
+  - Mom's Tight
+  - Moms Boy Toy
 + #### Other Nubiles Sites | ❌ - **SceneID**
   - Anilos
-  - Bratty MILF
   - Bratty Sis
   - Deep Lush
   - Hot Crazy Mess
