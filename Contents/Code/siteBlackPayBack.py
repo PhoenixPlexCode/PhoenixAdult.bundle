@@ -46,7 +46,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         searchTitle = scene.xpath('.//a')[0].text_content().split('(')[0].strip()
         if title.lower() == searchTitle.lower():
             iafdURL = 'https://www.iafd.com%s' % scene.xpath('.//a/@href')[0]
-            Log('%s' % iafdURL)
             break
 
     if iafdURL:
