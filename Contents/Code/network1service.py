@@ -91,7 +91,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = req.json()['result'][0]
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
     description = None
@@ -105,7 +105,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description
 
     # Studio
-    metadata.studio = detailsPageElements['brand'].title()
+    metadata.studio = PAutils.parseTitle(detailsPageElements['brand'], siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -114,6 +114,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if 'collections' in detailsPageElements and detailsPageElements['collections']:
         for collection in detailsPageElements['collections']:
             seriesNames.append(collection['name'])
+
     if 'parent' in detailsPageElements:
         if 'title' in detailsPageElements['parent']:
             seriesNames.append(detailsPageElements['parent']['title'])
