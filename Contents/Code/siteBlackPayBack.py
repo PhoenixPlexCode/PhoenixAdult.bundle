@@ -3,6 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    searchData.title = re.sub(r'\E\d+(?=\s)', '', searchData.title)
     searchData.encoded = searchData.title.lower().replace(' ', '-')
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
 
@@ -21,7 +22,8 @@ def search(results, lang, siteNum, searchData):
 
         score = 100 - Util.LevenshteinDistance(searchData.title, titleNoFormatting)
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        if '404 Error' not in titleNoFormatting:
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -32,9 +34,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+    req = PAutils.HTTPRequest('https://www.iafd.com/studio.rme/studio=9856/blackpayback.com.htm')
+    IAFDStudioElements = HTML.ElementFromString(req.text)
+
+    title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+
+    iafdURL = ''
+    date = ''
+    actors = []
+    for scene in IAFDStudioElements.xpath('//table[@id="studio"]/tbody/tr'):
+        searchTitle = scene.xpath('.//a')[0].text_content().split('(')[0].strip()
+        if title.lower() == searchTitle.lower():
+            iafdURL = 'https://www.iafd.com%s' % scene.xpath('.//a/@href')[0]
+            Log('%s' % iafdURL)
+            break
+
+    if iafdURL:
+        req = req = PAutils.HTTPRequest(iafdURL)
+        IAFDSceneElements = HTML.ElementFromString(req.text)
+
+        date = IAFDSceneElements.xpath('//p[contains(., "Release Date")]//following-sibling::p[@class="biodata"]')[0].text_content().strip()
+        actors = IAFDSceneElements.xpath('//div[@class="castbox"]')
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+    metadata.title = title
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="videoDetails clear"]/p')[0].text_content().strip()
@@ -54,6 +77,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
+    for actorLink in actors:
+        actorName = actorLink.text_content().strip()
+        actorPhotoURL = actorLink.xpath('.//img/@src')[0]
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
+    # Release Date
+    if date:
+        date_object = datetime.strptime(date, '%b %d, %Y')
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Posters
     xpaths = [
