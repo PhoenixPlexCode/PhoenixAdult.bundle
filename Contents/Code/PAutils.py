@@ -225,7 +225,7 @@ def getFromGoogleSearch(searchText, site='', **kwargs):
     Log('Using Google Search "%s"' % searchTerm)
 
     try:
-        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent(true)))
+        googleResults = list(googlesearch.search(searchTerm, stop=stop, lang=lang, user_agent=getUserAgent(True)))
     except:
         Log('Google Search Error')
         pass
@@ -287,59 +287,51 @@ def parseTitle(s, siteNum):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
     s = re.sub(r'\,(?!\s)', ', ', s)
     s = s.replace('_', ' ')
+    s = preParseTitle(s)
     word_list = re.split(' ', s)
 
-    firstword = parseWord(word_list[0], siteNum)
-    if len(firstword) > 1:
-        firstword = manualWordFix(firstword)
-        firstword = firstword[0].capitalize() + firstword[1:]
+    firstWord = parseWord(word_list[0], siteNum)
+    if len(firstWord) > 1:
+        firstWord = firstWord[0].capitalize() + firstWord[1:]
     else:
-        firstword = firstword.capitalize()
+        firstWord = firstWord.capitalize()
 
-    final = [firstword]
+    final = [firstWord]
 
     for word in word_list[1:]:
         final.append(parseWord(word, siteNum))
 
     output = ' '.join(final)
-
-    # Add space after a punctuation if missing
-    output = re.sub(r'(!|:|\?|\.|,)(?=\w)(?!(co\b|net\b|com\b|org\b|porn\b|E\d))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
-    # Remove single period at end of title
-    output = re.sub(r'\b(?:(?<=\S.)(?<=\w)(?:\.))$', '', output)
-    # Remove space between word and punctuation
-    output = re.sub(r'\s+(?=[.,!\":])', '', output)
-    # Override lowercase if word follows a punctuation
-    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
-    # Override lowercase if word follows a parenthesis
-    output = re.sub(r'(?<=\()(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
-    # Override lowercase if last word
-    output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
+    output = postParseTitle(output)
 
     return output
 
 
 def parseWord(word, siteNum):
-    lower_exceptions = ['a', 'v', 'y', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on']
-    upper_exceptions = ['bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai', 'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl']
-    letter_exceptions = ['A', 'V', 'Y']
+    lower_exceptions = ['a', 'v', 'y', 'n', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on', 'com', 'co', 'org']
+    upper_exceptions = (
+        'bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai',
+        'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl', 'usa', 'nsa', 'hr', 'ii', 'iii', 'iv', 'bbq', 'avn', 'xtc', 'atv',
+        'joi', 'rpg', 'wunf'
+    )
     symbolsClean = ['-', '/', '.', '+', '\'']
-    symbolsEsc = ['-', '/', r'\.', r'\+', '\'']
+    symbolsEsc = ['-', '/', r'\.', r'\+', r'\'']
     sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     pattern = re.compile(r'\W')
     cleanWord = re.sub(pattern, '', word)
+    cleanSiteName = re.sub(pattern, '', sitename)
 
-    if any(symbol in word for symbol in symbolsClean):
+    if cleanSiteName.lower() == cleanWord.lower():
+        word = sitename
+    elif any(symbol in word for symbol in symbolsClean):
         for idx, symbol in enumerate(symbolsClean, 0):
             if symbol in word:
                 word = parseTitleSymbol(word, siteNum, symbolsEsc[idx])
     elif cleanWord.lower() in upper_exceptions:
         word = word.upper()
-    elif cleanWord.isupper() and cleanWord not in letter_exceptions:
+    elif cleanWord.isupper() and cleanWord.lower() not in lower_exceptions:
         word = word.upper()
-    elif sitename.lower() == word.lower():
-        word = sitename
     elif not (cleanWord.islower() or cleanWord.isupper() or cleanWord.lower() in lower_exceptions):
         pass
     else:
@@ -358,16 +350,23 @@ def any(s):
 
 
 def parseTitleSymbol(word, siteNum, symbol):
+    symbol_exceptions = ['vs', 'v', 'n']
+    contraction_exceptions = ['re', 't', 's', 'd', 'll', 've', 'm']
     pattern = re.compile(r'\W')
     word_list = re.split(symbol, word)
     symbols = ['-', '/', r'\.', r'\+']
+    clean_word = re.sub(pattern, '', word)
 
-    firstword = parseWord(word_list[0], siteNum)
-    if len(firstword) > 1:
-        firstword = firstword[0].capitalize() + firstword[1:]
+    firstWord = parseWord(word_list[0], siteNum)
+    if clean_word.lower() in symbol_exceptions and symbol == r'\.':
+        firstWord = clean_word.lower()
+    elif re.search(r'^\W', firstWord):
+        firstWord = firstWord[0:2].upper() + firstWord[2:]
+    elif len(firstWord) > 1:
+        firstWord = firstWord[0].capitalize() + firstWord[1:]
     else:
-        firstword = firstword.upper()
-    nhword = firstword + symbol.replace('\\', '')
+        firstWord = firstWord.upper()
+    nhword = firstWord + symbol.replace('\\', '')
 
     for idx, hword in enumerate(word_list[1:], 1):
         if symbol in symbols:
@@ -375,24 +374,66 @@ def parseTitleSymbol(word, siteNum, symbol):
                 nhword += parseWord(hword, siteNum)
             else:
                 nhword += hword.capitalize()
-        elif len(re.sub(pattern, '', hword)) > 2:
-            nhword += parseWord(hword, siteNum)
+        elif hword.lower() in contraction_exceptions:
+            nhword += hword.lower()
         else:
-            nhword += hword
+            nhword += parseWord(hword, siteNum)
 
         if idx != len(word_list) - 1:
             nhword += symbol.replace('\\', '')
     return nhword
 
 
-def manualWordFix(word):
-    exceptions = ['im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt', 'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly', 'wont', 'whos']
-    corrections = ['I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t', 'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly', 'Won\'t', 'Who\'s']
+def postParseTitle(output):
+    replace = [('“', '\"'), ('”', '\"'), ('’', '\''), ('W/', 'w/'), ('Aj', 'AJ')]
 
-    if word.lower() in exceptions:
+    # Add space after a punctuation if missing
+    output = re.sub(r'(?=[\!|\:|\?|\.|\,]\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
+    # Remove single period at end of title
+    output = re.sub(r'(?<=[^\.].)(?<=\w)(?:\.)$', '', output)
+    # Remove space between word and punctuation
+    output = re.sub(r'\s+(?=[.,!:])', '', output)
+    # Override lowercase if word follows a punctuation
+    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    # Override lowercase if word follows a parenthesis
+    output = re.sub(r'(?<=[\(|\&])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
+    # Override lowercase if last word
+    output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
+
+    for value in replace:
+        output = output.replace(value[0], value[1])
+
+    return output
+
+
+def preParseTitle(input):
+    exceptions_pattern = [r't\sshirt', r'j\smac|jmac']
+    corrections = ['tshirt', 'jmac']
+
+    for idx, pattern in enumerate(exceptions_pattern, 0):
+        output = re.sub(pattern, corrections[idx], input, flags=re.IGNORECASE)
+
+    return output
+
+
+def manualWordFix(word):
+    exceptions = (
+        'im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt',
+        'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly', 'vs', 'bangbros', 'bday', 'dms', 'bffs',
+        'ohmy', 'wont', 'whos', 'shouldnt'
+    )
+    corrections = (
+        'I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t',
+        'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly', 'vs.', 'BangBros', 'B-Day', 'DMs', 'BFFs',
+        'OhMy', 'Won\'t', 'Who\'s', 'Shouldn\'t'
+    )
+    pattern = re.compile(r'\W')
+    cleanWord = re.sub(pattern, '', word)
+
+    if cleanWord.lower() in exceptions:
         for correction in corrections:
-            if word.lower() == correction.lower().replace('\'', '').replace('-', '').replace('ñ', 'n'):
-                return correction
+            if cleanWord.lower() == re.sub(pattern, '', correction.replace('ñ', 'n')).lower():
+                return re.sub(re.escape(cleanWord), correction, word)
 
     return word
 

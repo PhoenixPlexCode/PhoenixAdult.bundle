@@ -1,5 +1,6 @@
 
 import PAdatabaseGenres
+import PAutils
 
 
 class PhoenixGenres:
@@ -13,7 +14,7 @@ class PhoenixGenres:
     def clearGenres(self):
         self.genresTable = []
 
-    def processGenres(self, metadata):
+    def processGenres(self, metadata, siteNum):
         for genreLink in self.genresTable:
             skip = False
             genreName = genreLink.replace('"', '').strip()
@@ -39,7 +40,7 @@ class PhoenixGenres:
                         break
 
             if not found:
-                genreName = genreName.title()
+                genreName = PAutils.parseTitle(genreName, siteNum)
 
             if not found and not skip:
                 if len(genreName) > 25:

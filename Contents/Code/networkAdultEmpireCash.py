@@ -8,21 +8,30 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
         if siteNum == 815 or siteNum == 1337:
             # Modification for JAYs POV and SpankMonster
-            titleNoFormatting = searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0]
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0], siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
+            date = searchResult.xpath('//span[@class="date"]')
+            if date:
+                releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
         else:
-            titleNoFormatting = searchResult.xpath('.//a[@class="grid-item-title"]')[0].text_content()
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="grid-item-title"]')[0].text_content(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="grid-item-title"]/@href')[0])
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-        displayTitle = titleNoFormatting
-        if siteNum != 815 or siteNum != 1337:
             date = searchResult.xpath(('.//div[contains(@class, "justify-content-between")]/p[@class="m-0"]/span/text()'))
             if date:
-                releaseDate = date[0].strip()
-                displayTitle = '%s [%s]' % (titleNoFormatting, releaseDate)
+                releaseDate = parse(date[0].strip()).strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=displayTitle, score=score, lang=lang))
+        displayDate = releaseDate if date else ''
+
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -37,15 +46,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip(), siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.add(detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip())
+    metadata.collections.clear()
     if 'filthykings' in sceneURL:
-        metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
+    else:
+        tagline = detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip()
+    metadata.tagline = tagline
+    metadata.collections.add(metadata.tagline)
 
     # Studio
-    metadata.studio = 'AdultEmpireCash'
+    metadata.studio = 'Adult Empire Cash'
 
     # Summary
     summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
@@ -61,9 +74,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="release-date"]/text()')[0].strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
+    if date:
+        date_object = datetime.strptime(date, '%b %d, %Y')
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Actors
     movieActors.clearActors()

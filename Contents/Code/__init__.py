@@ -140,7 +140,6 @@ class PhoenixAdultAgent(Agent.Movies):
         Log('SiteNum: %d' % siteNum)
 
         if Prefs['remove_images']:
-            Log('Removing Stored Images')
             metadata.posters.validate_keys(valid_images)
             metadata.art.validate_keys(valid_images)
 
@@ -152,7 +151,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # Cleanup Genres and Add
         Log('Genres')
-        movieGenres.processGenres(metadata)
+        movieGenres.processGenres(metadata, siteNum)
         metadata.genres = sorted(metadata.genres)
 
         # Cleanup Actors and Add

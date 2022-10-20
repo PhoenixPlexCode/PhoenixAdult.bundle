@@ -3,23 +3,49 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    for searchPageNum in range(1, 3):
-        req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + "/" + str(searchPageNum))
-        searchResults = HTML.ElementFromString(req.text)
+    sceneID = None
+    sceneURL = None
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
 
-        for searchResult in searchResults.xpath('//div[@class="thumbsHolder elipsTxt"]/div[1]/div[@class="echThumb"]'):
-            if searchResult.xpath('.//a[contains(@href, "/video")]'):
-                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0], siteNum).replace('’', '\'')
-                curID = PAutils.Encode(searchResult.xpath('.//a[contains(@href, "/video")]//@href')[0])
-                subSite = searchResult.xpath('.//span[@class="faTxt"]')[0].text_content().strip()
-                releaseDate = parse(searchResult.xpath('.//span[@class="faTxt"]')[1].text_content().strip()).strftime('%Y-%m-%d')
+        if int(sceneID) > 1000:
+            searchData.encoded = searchData.title.replace(sceneID, '', 1).strip().replace(' ', '-').lower()
+            sceneURL = '%s/video%s/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID, searchData.encoded)
 
-                if searchData.date:
-                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-                else:
-                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+    if sceneURL:
+        req = PAutils.HTTPRequest(sceneURL)
+        directPageElements = HTML.ElementFromString(req.text)
+        titleNoFormatting = PAutils.parseTitle(directPageElements.xpath('//h1')[0].text_content(), siteNum)
+        subSite = PAutils.studio(directPageElements.xpath('//a[contains(@href, "/websites")]')[1].text_content().strip(), siteNum)
 
-                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
+        curID = PAutils.Encode(sceneURL)
+        releaseDate = searchData.dateFormat() if searchData.date else ''
+
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [BangBros/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+    else:
+        for searchPageNum in range(1, 3):
+            req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + "/" + str(searchPageNum))
+            searchResults = HTML.ElementFromString(req.text)
+
+            for searchResult in searchResults.xpath('//div[@class="thumbsHolder elipsTxt"]/div[1]/div[@class="echThumb"]'):
+                if searchResult.xpath('.//a[contains(@href, "/video")]'):
+                    titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@href, "/video")]/@title')[0], siteNum).replace('’', '\'')
+                    curID = PAutils.Encode(searchResult.xpath('.//a[contains(@href, "/video")]//@href')[0])
+                    subSite = searchResult.xpath('.//span[@class="faTxt"]')[0].text_content().strip()
+                    releaseDate = parse(searchResult.xpath('.//span[@class="faTxt"]')[1].text_content().strip()).strftime('%Y-%m-%d')
+
+                    if searchData.date:
+                        score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                    else:
+                        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [BangBros/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -34,13 +60,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum).replace('’', '\'')
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="vdoDesc"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'Bang Bros'
+    metadata.studio = 'BangBros'
 
     # Tagline and Collection(s)
     metadata.collections.clear()

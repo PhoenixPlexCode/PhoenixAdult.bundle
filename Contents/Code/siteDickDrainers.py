@@ -8,7 +8,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
 
     for searchResult in searchResults.xpath('//div[@class="item-video hover"]'):
-        titleNoFormatting = searchResult.xpath('.//h4')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h4')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//h4//@href')[0]
         curID = PAutils.Encode(sceneURL)
 
@@ -36,7 +36,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h3')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h3')[0].text_content().strip(), siteNum)
 
     # Summary
     metadata.summary = ' '.join(detailsPageElements.xpath('//div[@class="videoDetails clear"]//p/span//text()')).replace('FULL VIDEO', '')
@@ -62,15 +62,31 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//li[@class="update_models"]'):
+    actors = detailsPageElements.xpath('//li[@class="update_models"]')
+
+    # Manually Add Actors
+    if not actors:
+        match = re.search(r'(?<=s/).*(?=\.html)', sceneURL)
+        if match:
+            for key, value in actorsDB.items():
+                for sceneID in value:
+                    if sceneID.lower() == match.group(0).lower():
+                        movieActors.addActor(key, '')
+                        break
+
+    for actorLink in actors:
         actorName = actorLink.text_content().strip()
 
         modelURL = actorLink.xpath('.//@href')[0]
         req = PAutils.HTTPRequest(modelURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPageElements.xpath('//div[@class="profile-pic"]//@src0_3x')[0]
-        if 'http' not in actorPhotoURL:
-            actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+
+        try:
+            actorPhotoURL = actorPageElements.xpath('//div[@class="profile-pic"]//@src0_3x')[0]
+            if 'http' not in actorPhotoURL:
+                actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
+        except:
+            actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -109,3 +125,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+actorsDB = {
+    'Anna Blaze': ['big-tit-mindfuck'],
+    'Tristan Summers': ['issa-test-on-bbc-today'],
+    'Penny Pax': ['your-husband-isnt-here-but-i-am'],
+    'Mya Blair': ['his-wife-got-some-scary-big-titties']
+}
