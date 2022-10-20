@@ -140,6 +140,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     return metadata
 
 
-actorsDB= {
+actorsDB = {
     '173946': [('La Sirena 69', '38477')],
 }

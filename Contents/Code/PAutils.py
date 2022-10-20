@@ -358,7 +358,7 @@ def parseTitleSymbol(word, siteNum, symbol):
     clean_word = re.sub(pattern, '', word)
 
     firstWord = parseWord(word_list[0], siteNum)
-    if clean_word.lower() in symbol_exceptions and symbol == '\.':
+    if clean_word.lower() in symbol_exceptions and symbol == r'\.':
         firstWord = clean_word.lower()
     elif re.search(r'^\W', firstWord):
         firstWord = firstWord[0:2].upper() + firstWord[2:]
@@ -385,7 +385,7 @@ def parseTitleSymbol(word, siteNum, symbol):
 
 
 def postParseTitle(output):
-    replace = [('“', '\"'), ('”', '\"'), ('’', '\''), ('W/','w/'), ('Aj', 'AJ')]
+    replace = [('“', '\"'), ('”', '\"'), ('’', '\''), ('W/', 'w/'), ('Aj', 'AJ')]
 
     # Add space after a punctuation if missing
     output = re.sub(r'(?=[\!|\:|\?|\.|\,]\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
