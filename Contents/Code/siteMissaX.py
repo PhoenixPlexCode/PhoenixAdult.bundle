@@ -6,9 +6,14 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="updateItem"] | //div[@class="photo-thumb video-thumb"]'):
-        titleNoFormatting = searchResult.xpath('.//h4//a | .//p[@class="thumb-title"]')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h4//a | .//p[@class="thumb-title"]')[0].text_content().strip(), siteNum)
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
-        releaseDate = parse(searchResult.xpath('.//span[@class="update_thumb_date"] | .//span[@class="date"] | .//div[contains(@class, "updateDetails")]/p/span[2]')[0].text_content().strip())
+
+        try:
+            releaseDate = parse(searchResult.xpath('.//span[@class="update_thumb_date"] | .//span[@class="date"] | .//div[contains(@class, "updateDetails")]/p/span[2]')[0].text_content().strip())
+        except:
+            releaseDate = ''
+
         if not siteNum == 1252:
             releaseDate = releaseDate.strftime('%Y-%m-%d')
 
@@ -40,7 +45,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//span[@class="update_title"] | //p[@class="raiting-section__title"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//span[@class="update_title"] | //p[@class="raiting-section__title"]')[0].text_content().strip(), siteNum)
 
     # Summary
     try:
@@ -109,6 +114,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 img = PAsearchSites.getSearchBaseURL(siteNum) + '/' + img
             art.append(img)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -116,15 +123,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if width > 1 and height >= width:
+                if height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and width > height:
+                    posterExists = True
+                if width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
