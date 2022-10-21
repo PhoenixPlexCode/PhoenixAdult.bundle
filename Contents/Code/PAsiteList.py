@@ -1720,6 +1720,7 @@ abbreviations = (
     ('^bts ', 'BoxTruckSex '),
     ('^burna ', 'BurningAngel '),
     ('^bwb ', 'BigWetButts '),
+    ('^cc ', 'Czech Casting '),
     ('^ccxxx ', 'Conor Coxxx '),
     ('^cfnm ', 'ClothedFemaleNudeMale '),
     ('^clip ', 'AnalVids '),
