@@ -298,6 +298,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Czech Bangbus
   - Czech Bitch
   - Czech Cabins
+  - Czech Casting ✅
   - Czech Couples
   - Czech Dungeon
   - Czech Estrogenolit
