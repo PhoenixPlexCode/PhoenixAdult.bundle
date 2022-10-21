@@ -1669,6 +1669,7 @@ searchSites = {
     1580: ('Mom\'s Family Secrets', 'https://momlover.com', '/video'),
     1581: ('Moms Boy Toy', 'https://momlover.com', '/video'),
     1582: ('Mom\'s Tight', 'https://momlover.com', '/video'),
+    1583: ('Czech Casting', 'https://czechcasting.com', '/tour/search/?q='),
 }
 
 abbreviations = (
@@ -2345,7 +2346,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteXConfessions
 
         # CzechAV
-        elif (696 <= siteNum <= 728):
+        elif (696 <= siteNum <= 728) or siteNum == 1583:
             provider = networkCzechAV
 
         # ArchAngel
