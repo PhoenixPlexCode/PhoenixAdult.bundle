@@ -104,7 +104,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     if siteNum == 1583:
-        movieActors.addActor(title, detailsPageElements.xpath('//div[contains(@class, "gallery")]//@href')[0])
+        actorName = '%s %s' % (title, detailsPageElements.xpath('//span[@class="age"]')[0].text_content().strip())
+        movieActors.addActor(actorName, detailsPageElements.xpath('//div[contains(@class, "gallery")]//@href')[0])
 
     # Posters
     xpaths = [
