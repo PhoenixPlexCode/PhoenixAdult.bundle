@@ -95,7 +95,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 for sceneLink in actorPageElements.xpath('//div[@class="row"]//div[contains(@class, "box-shadow")]'):
                     sceneTitle = re.sub(r'\W', '', sceneLink.xpath('.//h5[@class="card-title"]')[0].text_content().strip().replace(' ', '')).lower()
                     date = sceneLink.xpath('.//@data-date')
-                    if re.sub('\W', '', metadata.title.replace(' ', '')).lower() == sceneTitle and date:
+                    if re.sub(r'\W', '', metadata.title.replace(' ', '')).lower() == sceneTitle and date:
                         actorDate = date[0].strip()
                         break
 
