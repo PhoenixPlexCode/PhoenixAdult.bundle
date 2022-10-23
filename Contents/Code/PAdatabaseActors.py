@@ -5444,6 +5444,8 @@ ActorsReplaceStudios = {
     63: {  # PornPros
         'Sydnee Capri': ['Sydnee'],
         'Briella Bounce': ['Breilla'],
+        'Kaylina Rose': ['Kaylina'],
+        'Lacey Duvalle': ['Lacey'],
     }
 }
 
