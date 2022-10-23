@@ -81,7 +81,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            if '&' in actorName:
+                actorNames = actorName.split('&')
+                for name in actorNames:
+                    movieActors.addActor(name.strip(), actorPhotoURL)
+            else:
+                movieActors.addActor(actorName, actorPhotoURL)
 
             if not actorDate:
                 actorURL = actorLink.get('href')
