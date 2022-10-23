@@ -5446,6 +5446,10 @@ ActorsReplaceStudios = {
         'Briella Bounce': ['Breilla'],
         'Kaylina Rose': ['Kaylina'],
         'Lacey Duvalle': ['Lacey'],
+        'Isis Taylor': ['Isis'],
+        'Eve Madison': ['Eve'],
+        'Kapri Styles': ['Capri'],
+        'Stacy Adams': ['Stacy'],
     }
 }
 
