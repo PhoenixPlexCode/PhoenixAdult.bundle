@@ -25,14 +25,14 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(sceneURL)
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
-            titleNoFormatting = detailsPageElements.xpath('//h1')[0].text_content().strip()
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
             curID = PAutils.Encode(sceneURL)
 
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -40,18 +40,16 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
+    sceneDate = metadata_id[2]
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
-
-    sceneDate = None
-    if len(metadata_id) > 2:
-        sceneDate = metadata_id[2]
+    actorDate = None
 
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
 
     # Summary
     try:
@@ -60,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Studio
-    metadata.studio = 'Porn Pros'
+    metadata.studio = 'PornPros'
 
     # Collections / Tagline
     siteName = PAsearchSites.getSearchSiteName(siteNum)
@@ -83,9 +81,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorName = actorLink.text_content().strip()
             actorPhotoURL = ''
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            if '&' in actorName:
+                actorNames = actorName.split('&')
+                for name in actorNames:
+                    movieActors.addActor(name.strip(), actorPhotoURL)
+            else:
+                movieActors.addActor(actorName, actorPhotoURL)
 
-            if not sceneDate:
+            if not actorDate:
                 actorURL = actorLink.get('href')
                 if not actorURL.startswith('http'):
                     actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL
@@ -93,12 +96,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 req = PAutils.HTTPRequest(actorURL)
                 actorPageElements = HTML.ElementFromString(req.text)
 
-                sceneDate = None
+                actorDate = None
                 for sceneLink in actorPageElements.xpath('//div[@class="row"]//div[contains(@class, "box-shadow")]'):
-                    sceneTitle = sceneLink.xpath('.//h5[@class="card-title"]')[0].text_content().strip()
+                    sceneTitle = re.sub(r'\W', '', sceneLink.xpath('.//h5[@class="card-title"]')[0].text_content().strip().replace(' ', '')).lower()
                     date = sceneLink.xpath('.//@data-date')
-                    if metadata.title == sceneTitle and date:
-                        sceneDate = date[0].strip()
+                    if re.sub(r'\W', '', metadata.title.replace(' ', '')).lower() == sceneTitle and date:
+                        actorDate = date[0].strip()
                         break
 
     # Manually Add Actors
@@ -113,7 +116,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     for actor in actors:
         movieActors.addActor(actor, '')
 
-    if sceneDate:
+    # Release Date
+    if actorDate:
+        date_object = datetime.strptime(actorDate, '%B %d, %Y')
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
