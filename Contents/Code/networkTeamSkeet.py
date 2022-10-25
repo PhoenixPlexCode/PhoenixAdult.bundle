@@ -14,15 +14,6 @@ def getJSONfromPage(url):
 
 def search(results, lang, siteNum, searchData):
     directURL = slugify(searchData.title.replace('\'', ''), lowercase=True)
-    if '/' not in directURL:
-        directURL = directURL.replace('-', '/', 1)
-
-    shootID = directURL.split('/', 2)[0]
-    if not unicode(shootID, 'UTF-8').isdigit():
-        shootID = None
-        directURL = directURL.replace('/', '-', 1)
-    else:
-        directURL = directURL.split('/')[1]
 
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + directURL
     searchResultsURLs = [directURL]
