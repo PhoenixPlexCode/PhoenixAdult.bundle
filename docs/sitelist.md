@@ -1237,10 +1237,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - TeamSkeet X James Deen
   - TeamSkeet X JAV Hub
   - TeamSkeet X Joy Bear
+  - TeamSkeet X Kriss Kiss
   - TeamSkeet X Layna Landry
   - TeamSkeet X LunaXJames
   - TeamSkeet X Luxury Girl
   - TeamSkeet X Mickey Mod
+  - TeamSkeet X Molly RedWolf
   - TeamSkeet X OG
   - TeamSkeet X OZ Fellatio Queens
   - TeamSkeet X POV Perv
@@ -1250,6 +1252,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - TeamSkeet X Riley Cyriis
   - TeamSkeet X Screampies
   - TeamSkeet X SpankMonster
+  - TeamSkeet X Sweetie Fox
   - TeamSkeet X ToughLoveX
   - TeamSkeet X YoungBusty
   - Teen Curves
