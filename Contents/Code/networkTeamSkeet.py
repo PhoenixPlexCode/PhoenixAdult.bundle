@@ -13,7 +13,7 @@ def getJSONfromPage(url):
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = slugify(searchData.title, lowercase=True)
+    directURL = slugify(searchData.title.replace('\'', ''), lowercase=True)
     if '/' not in directURL:
         directURL = directURL.replace('-', '/', 1)
 
