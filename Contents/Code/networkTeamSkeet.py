@@ -62,9 +62,9 @@ def search(results, lang, siteNum, searchData):
                 displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
 
                 if searchData.date and displayDate:
-                    score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
                 else:
-                    score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
                 results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, sceneType), name='%s [%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 
