@@ -856,7 +856,7 @@ searchSites = {
     667: ('PJGirls', 'http://www.pjgirls.com', '/en/videos/?fulltext='),
     668: ('Screwbox', 'https://screwbox.com', '/search.php?query='),
     669: ('Dorcel Club', 'https://www.dorcelclub.com', '/en/search?s='),
-    670: ('Tushy RAW', 'https://www.tushyraw.com', '/api'),
+    670: ('TushyRaw', 'https://www.tushyraw.com', '/api'),
     671: ('Deeper', 'https://www.deeper.com', '/api'),
     672: ('MissaX', 'https://missax.com', '/tour/search.php?query='),
     673: ('AllHerLuv', 'https://allherluv.com', '/tour/search.php?query='),
