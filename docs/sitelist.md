@@ -1211,9 +1211,9 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Solo Interviews
   - StayHomePOV
   - StepSiblings
-  - Team Skeet Extras
   - TeamSkeet AllStars
   - TeamSkeet Classics
+  - TeamSkeet Extras
   - TeamSkeet Features
   - TeamSkeet Labs
   - TeamSkeet Selects
