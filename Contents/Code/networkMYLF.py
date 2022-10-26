@@ -13,16 +13,7 @@ def getJSONfromPage(url):
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = searchData.title.replace(' ', '-').lower()
-    if '/' not in directURL:
-        directURL = directURL.replace('-', '/', 1)
-
-    shootID = directURL.split('/', 2)[0]
-    if not unicode(shootID, 'UTF-8').isdigit():
-        shootID = None
-        directURL = directURL.replace('/', '-', 1)
-    else:
-        directURL = directURL.split('/')[1]
+    directURL = slugify(searchData.title.replace('\'', ''), lowercase=True)
 
     directURL = PAsearchSites.getSearchSearchURL(siteNum) + directURL
     searchResultsURLs = [directURL]
@@ -39,17 +30,17 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = getJSONfromPage(sceneURL)
 
         if detailsPageElements:
-            contentName = None
-            for name in ['moviesContent', 'videosContent']:
-                if name in detailsPageElements and detailsPageElements[name]:
-                    contentName = name
+            sceneType = None
+            for type in ['moviesContent', 'videosContent']:
+                if type in detailsPageElements and detailsPageElements[type]:
+                    sceneType = type
                     break
 
-            if contentName:
-                detailsPageElements = detailsPageElements[contentName]
+            if sceneType:
+                detailsPageElements = detailsPageElements[sceneType]
                 curID = detailsPageElements.keys()[0]
                 detailsPageElements = detailsPageElements[curID]
-                titleNoFormatting = detailsPageElements['title']
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
                 if 'site' in detailsPageElements:
                     subSite = detailsPageElements['site']['name']
                 else:
@@ -66,7 +57,7 @@ def search(results, lang, siteNum, searchData):
                 else:
                     score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-                results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, contentName), name='%s [Mylf/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
+                results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, sceneType), name='%s [%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 
     return results
 
@@ -74,19 +65,19 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
-    releaseDate = metadata_id[2]
-    contentName = metadata_id[3]
+    sceneDate = metadata_id[2]
+    sceneType = metadata_id[3]
 
-    detailsPageElements = getJSONfromPage(PAsearchSites.getSearchSearchURL(siteNum) + sceneName)[contentName][sceneName]
+    detailsPageElements = getJSONfromPage(PAsearchSites.getSearchSearchURL(siteNum) + sceneName)[sceneType][sceneName]
 
     # Title
-    metadata.title = detailsPageElements['title']
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
     metadata.summary = detailsPageElements['description']
 
     # Studio
-    metadata.studio = 'Mylf'
+    metadata.studio = 'MYLF'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -98,8 +89,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(subSite)
 
     # Release Date
-    if releaseDate:
-        date_object = parse(releaseDate)
+    if sceneDate:
+        date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -121,35 +112,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.clearGenres()
     genres = ['MILF', 'Mature']
 
-    if subSite.lower() == 'MylfBoss'.lower():
-        for genreName in ['Office', 'Boss']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'MylfBlows'.lower():
-        for genreName in ['Blowjob']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Milfty'.lower():
-        for genreName in ['Cheating']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Mom Drips'.lower():
-        for genreName in ['Creampie']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Milf Body'.lower():
-        for genreName in ['Gym', 'Fitness']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Lone Milf'.lower():
-        for genreName in ['Solo']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Full Of JOI'.lower():
-        for genreName in ['JOI']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Mylfed'.lower():
-        for genreName in ['Lesbian', 'Girl on Girl', 'GG']:
-            movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'MylfDom'.lower():
-        for genreName in ['BDSM']:
-            movieGenres.addGenre(genreName)
+    if 'tags' in detailsPageElements and detailsPageElements['tags']:
+        for genreLink in detailsPageElements['tags']:
+            genreName = genreLink.strip()
+
+            genres.append(genreName)
+
     if (len(actors) > 1) and subSite != 'Mylfed':
         genres.append('Threesome')
+
+    for key, value in genresDB.items():
+        if key.lower() == subSite.lower():
+            genres.extend(value)
+            break
 
     for genreLink in genres:
         genreName = genreLink
@@ -179,3 +154,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+genresDB = {
+    'MylfBoss': ['Office', 'Boss'],
+    'MylfBlows': ['Blowjob'],
+    'Milfty': ['Cheating'],
+    'MomDrips': ['Creampie'],
+    'Milf Body': ['Gym', 'Fitness'],
+    'Lone MILF': ['Solo'],
+    'Full Of JOI': ['JOI'],
+    'Mylfed': ['Lesbian', 'Girl on Girl', 'GG'],
+    'MylfDom': ['BDSM'],
+}

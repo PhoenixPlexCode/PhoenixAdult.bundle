@@ -396,7 +396,7 @@ def postParseTitle(output):
     # Override lowercase if word follows a punctuation
     output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
     # Override lowercase if word follows a parenthesis
-    output = re.sub(r'(?<=[\(|\&])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
+    output = re.sub(r'(?<=[\(|\&|\"])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
     # Override lowercase if last word
     output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
 
@@ -407,8 +407,8 @@ def postParseTitle(output):
 
 
 def preParseTitle(input):
-    exceptions_pattern = [r't\sshirt', r'j\smac|jmac']
-    corrections = ['tshirt', 'jmac']
+    exceptions_pattern = [r't\sshirt', r'j\smac|jmac', r'\bmr\b(?!\.)', r'\bmrs\b(?!\.)', r'\bms\b(?!\.)', r'\bdr\b(?!\.)']
+    corrections = ['tshirt', 'jmac', 'mr.', 'mrs.', 'ms.', 'dr.']
 
     for idx, pattern in enumerate(exceptions_pattern, 0):
         output = re.sub(pattern, corrections[idx], input, flags=re.IGNORECASE)
@@ -420,12 +420,12 @@ def manualWordFix(word):
     exceptions = (
         'im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt',
         'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly', 'vs', 'bangbros', 'bday', 'dms', 'bffs',
-        'ohmy', 'wont', 'whos', 'shouldnt', 'mr', 'mrs', 'ms', 'dr'
+        'ohmy', 'wont', 'whos', 'shouldnt'
     )
     corrections = (
         'I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t',
         'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly', 'vs.', 'BangBros', 'B-Day', 'DMs', 'BFFs',
-        'OhMy', 'Won\'t', 'Who\'s', 'Shouldn\'t', 'Mr.', 'Mrs.', 'Ms.', 'Dr.'
+        'OhMy', 'Won\'t', 'Who\'s', 'Shouldn\'t'
     )
     pattern = re.compile(r'\W')
     cleanWord = re.sub(pattern, '', word)

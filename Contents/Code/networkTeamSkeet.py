@@ -2,76 +2,62 @@ import PAsearchSites
 import PAutils
 
 
-def getDBURL(url):
+def getJSONfromPage(url):
     req = PAutils.HTTPRequest(url)
 
     if req:
-        return re.search(r'\.dbUrl.?=.?\"(.*?)\"', req.text).group(1)
-    return None
-
-
-def getDataFromAPI(dbURL, sceneType, sceneName, siteNum):
-    is_new = True
-    if 'teamskeet.com' in PAsearchSites.getSearchBaseURL(siteNum):
-        url = '%s-%s/_search?q=%s' % (dbURL, sceneType, sceneName)
-    else:
-        is_new = False
-        sceneType = sceneType.replace('content', 'Content')
-        url = '%s/%s/%s.json' % (dbURL, sceneType, sceneName)
-
-    data = PAutils.HTTPRequest(url)
-    if data.text != 'null':
-        data = data.json()
-        if is_new:
-            if '_source' in data['hits']['hits'][0]:
-                return data['hits']['hits'][0]['_source']
-        else:
-            return data
-
+        jsonData = re.search(r'window\.__INITIAL_STATE__ = (.*);', req.text)
+        if jsonData:
+            return json.loads(jsonData.group(1))['content']
     return None
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = searchData.title.replace(' ', '-').replace('\'', '').lower()
+    directURL = slugify(searchData.title.replace('\'', ''), lowercase=True)
 
-    searchResults = [directURL]
+    directURL = PAsearchSites.getSearchSearchURL(siteNum) + directURL
+    searchResultsURLs = [directURL]
+
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
+
     for sceneURL in googleResults:
-        sceneURL = sceneURL.split('?', 1)[0]
-        sceneName = None
-        if ('/movies/' in sceneURL):
-            sceneName = sceneURL.split('/')[-1]
-        elif unicode(sceneURL.split('/')[-3]).isdigit():
-            sceneName = sceneURL.split('/')[-1]
+        sceneURL = sceneURL.rsplit('?', 1)[0]
+        if sceneURL not in searchResultsURLs:
+            if ('/movies/' in sceneURL):
+                searchResultsURLs.append(sceneURL)
 
-        if sceneName and sceneName not in searchResults:
-            searchResults.append(sceneName)
-
-    dbURL = getDBURL(PAsearchSites.getSearchBaseURL(siteNum))
-
-    for sceneName in searchResults:
-        for sceneType in ['videoscontent', 'moviescontent']:
-            detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
-            if detailsPageElements:
-                break
+    for sceneURL in searchResultsURLs:
+        detailsPageElements = getJSONfromPage(sceneURL)
 
         if detailsPageElements:
-            curID = detailsPageElements['id']
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
-            siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
-            if 'publishedDate' in detailsPageElements:
-                releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
-            else:
-                releaseDate = searchData.dateFormat() if searchData.date else ''
+            sceneType = None
+            for type in ['moviesContent', 'videosContent']:
+                if type in detailsPageElements and detailsPageElements[type]:
+                    sceneType = type
+                    break
 
-            displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
+            if sceneType:
+                detailsPageElements = detailsPageElements[sceneType]
+                curID = detailsPageElements.keys()[0]
+                detailsPageElements = detailsPageElements[curID]
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements['title'], siteNum)
+                if 'site' in detailsPageElements:
+                    subSite = detailsPageElements['site']['name']
+                else:
+                    subSite = PAsearchSites.getSearchSiteName(siteNum)
 
-            if searchData.date and displayDate:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+                if 'publishedDate' in detailsPageElements:
+                    releaseDate = parse(detailsPageElements['publishedDate']).strftime('%Y-%m-%d')
+                else:
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
+                displayDate = releaseDate if 'publishedDate' in detailsPageElements else ''
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, sceneType), name='%s [%s] %s' % (titleNoFormatting, siteName, displayDate), score=score, lang=lang))
+                if searchData.date and displayDate:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, releaseDate, sceneType), name='%s [%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
 
     return results
 
@@ -80,10 +66,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     sceneDate = metadata_id[2]
-    sceneType = metadata_id[3]
+    sceneType = metadata_id[3].replace('content', 'Content')
 
-    dbURL = getDBURL(PAsearchSites.getSearchBaseURL(siteNum))
-    detailsPageElements = getDataFromAPI(dbURL, sceneType, sceneName, siteNum)
+    detailsPageElements = getJSONfromPage(PAsearchSites.getSearchSearchURL(siteNum) + sceneName)[sceneType][sceneName]
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
@@ -94,11 +79,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'TeamSkeet'
 
-    # Collections / Tagline
-    siteName = detailsPageElements['site']['name'] if 'site' in detailsPageElements else PAsearchSites.getSearchSiteName(siteNum)
+    # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.tagline = siteName
-    metadata.collections.add(siteName)
+    if 'site' in detailsPageElements:
+        subSite = detailsPageElements['site']['name']
+    else:
+        subSite = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = subSite
+    metadata.collections.add(subSite)
 
     # Release Date
     if sceneDate:
@@ -106,14 +94,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
+    # Actors
+    movieActors.clearActors()
+    actors = detailsPageElements['models']
+    for actorLink in actors:
+        actorID = actorLink['modelId']
+        actorName = actorLink['modelName']
+        actorPhotoURL = ''
+
+        actorData = getJSONfromPage('%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorID))
+        if actorData:
+            actorPhotoURL = actorData['modelsContent'][actorID]['img']
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
     # Genres
     movieGenres.clearGenres()
     genres = []
-
-    for key, value in genresDB.items():
-        if key.lower() == siteName.lower():
-            genres.extend(value)
-            break
 
     if 'tags' in detailsPageElements and detailsPageElements['tags']:
         for genreLink in detailsPageElements['tags']:
@@ -121,20 +118,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             genres.append(genreName)
 
-    for genreName in genres:
+    for key, value in genresDB.items():
+        if key.lower() == subSite.lower():
+            genres.extend(value)
+            break
+
+    for genreLink in genres:
+        genreName = genreLink
+
         movieGenres.addGenre(genreName)
-
-    # Actors
-    movieActors.clearActors()
-    actors = detailsPageElements['models']
-    for actorLink in actors:
-        actorData = getDataFromAPI(dbURL, 'modelscontent', actorLink['modelId'], siteNum)
-
-        if actorData:
-            actorName = actorData['name']
-            actorPhotoURL = actorData['img']
-
-            movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art.append(detailsPageElements['img'])
