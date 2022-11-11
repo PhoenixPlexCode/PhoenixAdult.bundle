@@ -19,7 +19,7 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
         videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/ld+json"]')[0].text_content().replace('\n', '').strip())
 
-        titleNoFormatting = PAutils.parseTitle(videoPageElements['name'], siteNum)
+        titleNoFormatting = PAutils.parseTitle(PAutils.cleanHTML(videoPageElements['name']), siteNum)
         curID = PAutils.Encode(searchURL)
 
         date = videoPageElements['datePublished']
@@ -75,10 +75,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/ld+json"]')[0].text_content().replace('\n', '').strip())
 
     # Title
-    metadata.title = PAutils.parseTitle(videoPageElements['name'], siteNum)
+    metadata.title = PAutils.parseTitle(PAutils.cleanHTML(videoPageElements['name']), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//p[contains(@class, "clear-both")]')[0].text_content()
+    metadata.summary = PAutils.cleanHTML(videoPageElements['description'])
 
     # Studio
     metadata.studio = re.sub(r'bang(?=(\s|$))(?!\!)', 'Bang!', PAutils.parseTitle(videoPageElements['productionCompany']['name'].strip(), siteNum), flags=re.IGNORECASE)
