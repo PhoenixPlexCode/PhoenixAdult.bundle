@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     tagline = ""
     dvdTitle = ""
     try:
-        tagline = PAutils.parseTitle(re.sub(r'bang(?=(\s|$))(?!\!)', 'Bang!', detailsPageElements.xpath('//p[contains(., "eries:")]/a[contains(@href, "video")]')[0].text_content().strip(), flags=re.IGNORECASE), siteNum)
+        tagline = re.sub(r'bang(?=(\s|$))(?!\!)', 'Bang!', PAutils.parseTitle(detailsPageElements.xpath('//p[contains(., "eries:")]/a[contains(@href, "video")]')[0].text_content().strip(), siteNum), flags=re.IGNORECASE)
     except:
         pass
 
