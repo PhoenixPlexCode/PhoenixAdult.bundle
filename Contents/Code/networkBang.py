@@ -103,7 +103,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     except:
         pass
 
-    if dvdTitle:
+    if dvdTitle and siteNum == 1365:
         metadata.collections.add(dvdTitle)
 
     # Release Date
