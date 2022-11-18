@@ -1676,6 +1676,7 @@ searchSites = {
     1587: ('TeamSkeet x Sweetie Fox', 'https://www.teamskeet.com', '/movies/'),
     1588: ('TeamSkeet Features', 'https://www.teamskeet.com', '/movies/'),
     1589: ('PervPrincipal', 'https://www.pervprincipal.com', '/movies/'),
+    1590: ('LPI', 'https://www.mofos.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -2129,7 +2130,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteAnalVids
 
         # Mofos
-        elif (261 <= siteNum <= 270) or siteNum == 583 or (738 <= siteNum <= 740) or (1059 <= siteNum <= 1064):
+        elif (261 <= siteNum <= 270) or siteNum == 583 or (738 <= siteNum <= 740) or (1059 <= siteNum <= 1064) or siteNum == 1590:
             provider = network1service
 
         # Babes
