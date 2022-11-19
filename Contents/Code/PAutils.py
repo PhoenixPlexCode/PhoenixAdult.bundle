@@ -8,6 +8,7 @@ import cloudscraper
 import requests
 from requests_toolbelt.utils import dump
 from requests_response import FakeResponse
+from HTMLParser import HTMLParser
 
 import PAsearchSites
 
@@ -388,7 +389,7 @@ def postParseTitle(output):
     replace = [('“', '\"'), ('”', '\"'), ('’', '\''), ('W/', 'w/'), ('Aj', 'AJ')]
 
     # Add space after a punctuation if missing
-    output = re.sub(r'(?=[\!|\:|\?|\.|\,]\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
+    output = re.sub(r'(?=[\!|\:|\?|\.|\,](?=(\w{2,}))\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
     output = re.sub(r'(?<=[^\.].)(?<=\w)(?:\.)$', '', output)
     # Remove space between word and punctuation
@@ -440,6 +441,7 @@ def manualWordFix(word):
 
 def cleanHTML(text):
     data = re.sub(r'<.*?>', '', text)
+    data = HTMLParser().unescape(data)
     data = data.strip()
 
     return data
