@@ -176,6 +176,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Bang! | ✓ - **Title only**
 + #### Bang! Movies | ✓ - **Title only**
 + #### BBC Paradise | ✅
++ #### Bel Ami Online | ❌ - **SceneID**
 + #### BellaPass | ✓ - **Title only**
   - AleahJasmine
   - AlexisMonroe

@@ -184,6 +184,7 @@ import network18
 import networkDirtyFlix
 import networkNVG
 import networkBlurredMedia
+import siteBelAmi
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1677,6 +1678,7 @@ searchSites = {
     1588: ('TeamSkeet Features', 'https://www.teamskeet.com', '/movies/'),
     1589: ('PervPrincipal', 'https://www.pervprincipal.com', '/movies/'),
     1590: ('LPI', 'https://www.mofos.com', 'https://site-api.project1service.com'),
+    1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?')
 }
 
 abbreviations = (
@@ -3019,5 +3021,8 @@ def getProviderFromSiteNum(siteNum):
         # Blurred Media
         elif (1565 <= siteNum <= 1568):
             provider = networkBlurredMedia
+        
+        elif siteNum == 1591:
+            provider = siteBelAmi
 
     return provider
