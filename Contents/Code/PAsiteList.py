@@ -3021,7 +3021,7 @@ def getProviderFromSiteNum(siteNum):
         # Blurred Media
         elif (1565 <= siteNum <= 1568):
             provider = networkBlurredMedia
-        
+
         elif siteNum == 1591:
             provider = siteBelAmi
 

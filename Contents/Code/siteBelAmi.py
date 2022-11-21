@@ -18,6 +18,7 @@ def search(results, lang, siteNum, searchData):
 
     return results
 
+
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     siteNum = int(metadata_id[1])
@@ -97,8 +98,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     return metadata
 
+
 def getReleaseDate(pageElements):
     return pageElements.xpath('//div[contains(@class, "video_detail")]//span[contains(@id, "ContentPlaceHolder1_LabelReleased")]')[0].text_content()
+
 
 def getTitle(pageElements):
     return pageElements.xpath('//div[contains(@class, "video_detail")]//span[contains(@id, "ContentPlaceHolder1_LabelTitle")]')[0].text_content().strip()
