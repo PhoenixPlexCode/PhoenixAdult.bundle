@@ -103,7 +103,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     for poster in detailsPageElements.xpath('//div[@id="dv_frames"]//img/@src'):
-        img = poster.replace('320', '1280')
+        img = poster.replace('/320/', '/1280/')
         art.append(img)
 
     Log('Artwork found: %d' % len(art))
