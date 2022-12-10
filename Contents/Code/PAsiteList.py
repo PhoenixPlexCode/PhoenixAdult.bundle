@@ -185,6 +185,7 @@ import networkDirtyFlix
 import networkNVG
 import networkBlurredMedia
 import siteBelAmi
+import siteMomComesFirst
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1678,7 +1679,8 @@ searchSites = {
     1588: ('TeamSkeet Features', 'https://www.teamskeet.com', '/movies/'),
     1589: ('PervPrincipal', 'https://www.pervprincipal.com', '/movies/'),
     1590: ('LPI', 'https://www.mofos.com', 'https://site-api.project1service.com'),
-    1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?')
+    1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?'),
+    1592: ('Mom Comes First', 'https://momcomesfirst.com', '/?s='),
 }
 
 abbreviations = (
@@ -3022,7 +3024,12 @@ def getProviderFromSiteNum(siteNum):
         elif (1565 <= siteNum <= 1568):
             provider = networkBlurredMedia
 
+        # Bel Ami Online
         elif siteNum == 1591:
             provider = siteBelAmi
+
+        # Mom Comes First
+        elif siteNum == 1592:
+            provider = siteMomComesFirst
 
     return provider
