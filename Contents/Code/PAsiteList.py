@@ -1681,6 +1681,7 @@ searchSites = {
     1590: ('LPI', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?'),
     1592: ('Mom Comes First', 'https://momcomesfirst.com', '/?s='),
+    1593: ('GF Leaks', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -2106,7 +2107,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Reality Kings
-        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828):
+        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593:
             provider = network1service
 
         # PornFidelity
