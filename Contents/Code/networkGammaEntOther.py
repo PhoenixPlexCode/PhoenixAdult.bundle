@@ -118,7 +118,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements['description'].replace('</br>', '\n').replace('<br>', '\n')
 
     # Studio
-    metadata.studio = detailsPageElements['network_name']
+    if not detailsPageElements['network_name']:
+        metadata.studio = detailsPageElements['studio_name']
+    else:
+        metadata.studio = detailsPageElements['network_name']
 
     # Tagline and Collection(s)
     metadata.collections.clear()

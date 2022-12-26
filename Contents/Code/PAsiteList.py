@@ -55,7 +55,6 @@ import siteWowGirls
 import siteVIPissy
 import siteGirlsOutWest
 import siteGirlsRimming
-import siteGangbangCreampie
 import siteStepSecrets
 import siteVRHush
 import networkMetArt
@@ -935,7 +934,7 @@ searchSites = {
     744: ('VIPissy', 'https://www.vipissy.com', '/updates?search='),
     745: ('GirlsOutWest', 'https://tour.girlsoutwest.com', '/trailers/'),
     746: ('Girls Rimming', 'https://www.girlsrimming.com', '/tour/trailers/'),
-    747: ('Gangbang Creampie', 'https://gangbangcreampie.com', '/tour/search.php?query='),
+    747: ('Gangbang Creampie', 'https://www.gangbangcreampie.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     749: ('Show My BF', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     748: ('DadCrush', 'https://www.dadcrush.com', '/movies/'),
     750: ('POV Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
@@ -2416,7 +2415,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Gangbang Creampie
         elif siteNum == 747:
-            provider = siteGangbangCreampie
+            provider = networkGammaEntOther
 
         # StepSecrets
         elif siteNum == 751:
