@@ -119,9 +119,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Studio
     if not detailsPageElements['network_name']:
-        metadata.studio = PAutils.studio(detailsPageElements['studio_name'], siteNum)
+        metadata.studio = detailsPageElements['studio_name']
     else:
-        metadata.studio = PAutils.studio(detailsPageElements['network_name'], siteNum)
+        metadata.studio = detailsPageElements['network_name']
 
     # Tagline and Collection(s)
     metadata.collections.clear()
