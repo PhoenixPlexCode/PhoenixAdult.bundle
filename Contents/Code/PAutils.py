@@ -309,22 +309,21 @@ def parseTitle(s, siteNum):
 
 
 def parseWord(word, siteNum):
-    lower_exceptions = ['a', 'v', 'y', 'n', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on', 'com', 'co', 'org']
+    lower_exceptions = ['a', 'y', 'n', 'an', 'of', 'the', 'and', 'for', 'to', 'onto', 'but', 'or', 'nor', 'at', 'with', 'vs', 'in', 'on', 'com', 'co', 'org']
     upper_exceptions = (
         'bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai',
         'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl', 'usa', 'nsa', 'hr', 'ii', 'iii', 'iv', 'bbq', 'avn', 'xtc', 'atv',
-        'joi', 'rpg', 'wunf'
+        'joi', 'rpg', 'wunf', 'uk', 'asap'
     )
     symbolsClean = ['-', '/', '.', '+', '\'']
     symbolsEsc = ['-', '/', r'\.', r'\+', r'\'']
-    sitename = PAsearchSites.getSearchSiteName(siteNum).replace(' ', '')
 
     pattern = re.compile(r'\W')
     cleanWord = re.sub(pattern, '', word)
-    cleanSiteName = re.sub(pattern, '', sitename)
+    cleanSiteName = re.sub(pattern, '', PAsearchSites.getSearchSiteName(siteNum).replace(' ', ''))
 
     if cleanSiteName.lower() == cleanWord.lower():
-        word = sitename
+        word = PAsearchSites.getSearchSiteName(siteNum)
     elif any(symbol in word for symbol in symbolsClean):
         for idx, symbol in enumerate(symbolsClean, 0):
             if symbol in word:
@@ -351,31 +350,30 @@ def any(s):
 
 
 def parseTitleSymbol(word, siteNum, symbol):
-    symbol_exceptions = ['vs', 'v', 'n']
+    lower_exceptions = ['vs']
     contraction_exceptions = ['re', 't', 's', 'd', 'll', 've', 'm']
-    pattern = re.compile(r'\W')
     word_list = re.split(symbol, word)
     symbols = ['-', '/', r'\.', r'\+']
-    clean_word = re.sub(pattern, '', word)
+    pattern = re.compile(r'\W')
 
     firstWord = parseWord(word_list[0], siteNum)
-    if clean_word.lower() in symbol_exceptions and symbol == r'\.':
-        firstWord = clean_word.lower()
-    elif re.search(r'^\W', firstWord):
-        firstWord = firstWord[0:2].upper() + firstWord[2:]
-    elif len(firstWord) > 1:
-        firstWord = firstWord[0].capitalize() + firstWord[1:]
-    else:
-        firstWord = firstWord.upper()
+    if firstWord not in lower_exceptions:
+        if re.search(r'^\W', firstWord):
+            firstWord = firstWord[0:2].upper() + firstWord[2:]
+        elif len(firstWord) > 1:
+            firstWord = firstWord[0].capitalize() + firstWord[1:]
+        else:
+            firstWord = firstWord.upper()
     nhword = firstWord + symbol.replace('\\', '')
 
     for idx, hword in enumerate(word_list[1:], 1):
+        cleanWord = re.sub(pattern, '', hword)
         if symbol in symbols:
             if len(hword) > 1:
                 nhword += parseWord(hword, siteNum)
             else:
                 nhword += hword.capitalize()
-        elif hword.lower() in contraction_exceptions:
+        elif cleanWord.lower() in contraction_exceptions:
             nhword += hword.lower()
         else:
             nhword += parseWord(hword, siteNum)
@@ -408,11 +406,15 @@ def postParseTitle(output):
 
 
 def preParseTitle(input):
-    exceptions_pattern = [r't\sshirt', r'j\smac|jmac', r'\bmr\b(?!\.)', r'\bmrs\b(?!\.)', r'\bms\b(?!\.)', r'\bdr\b(?!\.)']
-    corrections = ['tshirt', 'jmac', 'mr.', 'mrs.', 'ms.', 'dr.']
+    exceptions_corrections = {
+        (r't\sshirt', 'tshirt'), (r'j\smac|jmac', 'jmac'), (r'\bmr(?=\s)', 'mr.'), (r'\bmrs(?=\s)', 'mrs.'),
+        (r'\bms(?=\s)', 'ms.'), (r'\bdr(?=\s)', 'dr.'), (r'\bvs(?=\s)', 'vs.'), (r'\bst(?=\s)', 'st.'), (r'\s\s+', ' ')
+    }
 
-    for idx, pattern in enumerate(exceptions_pattern, 0):
-        output = re.sub(pattern, corrections[idx], input, flags=re.IGNORECASE)
+    output = input.replace('\xc2\xa0', ' ')
+
+    for value in exceptions_corrections:
+        output = re.sub(value[0], value[1], output, flags=re.IGNORECASE)
 
     return output
 
@@ -420,12 +422,12 @@ def preParseTitle(input):
 def manualWordFix(word):
     exceptions = (
         'im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt',
-        'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly', 'vs', 'bangbros', 'bday', 'dms', 'bffs',
+        'isnt', 'senor', 'senorita', 'thats', 'gstring', 'milfs', 'oreilly', 'bangbros', 'bday', 'dms', 'bffs',
         'ohmy', 'wont', 'whos', 'shouldnt'
     )
     corrections = (
         'I\'m', 'They\'ll', 'Can\'t', 'I\'ve', 'She\'s', 'They\'re', 'T-Shirt', 'Don\'t', 'Wasn\'t', 'You\'re', 'I\'ll', 'What\'s', 'Didn\'t',
-        'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly', 'vs.', 'BangBros', 'B-Day', 'DMs', 'BFFs',
+        'Isn\'t', 'Señor', 'Señorita', 'That\'s', 'G-String', 'MILFs', 'O\'Reilly', 'BangBros', 'B-Day', 'DMs', 'BFFs',
         'OhMy', 'Won\'t', 'Who\'s', 'Shouldn\'t'
     )
     pattern = re.compile(r'\W')
