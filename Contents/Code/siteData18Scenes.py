@@ -282,7 +282,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
-                image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://i.dt18.com'})
+                try:
+                    image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'http://i.dt18.com'})
+                except:
+                    image = PAutils.HTTPRequest(posterUrl, headers={'Referer': 'https://www.data18.com'})
                 images.append(image)
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
