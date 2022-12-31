@@ -358,8 +358,8 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Hot Legs & Feet
   - House of Taboo
   - Only Blowjob
-+ #### DefeatedXXX | ✅
-+ #### DefeatedSexFight | ✅
++ #### DefeatedXXX | ✓
++ #### DefeatedSexFight | ✓
 + #### Deviant Hardcore | ✓
 + #### Deviante | ✅
   - Erotic Spice

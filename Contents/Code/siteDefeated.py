@@ -5,26 +5,18 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//section[@role="main"]/article'):
-        titleNoFormatting = searchResult.xpath('.//h2[@itemprop="name"]')[0].text_content().strip()
-        sceneURL = searchResult.xpath('./a/@href')[0]
+    for searchResult in searchResults.xpath('//div[@class="half"]'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h2')[0].text_content().strip(), siteNum)
+        sceneURL = searchResult.xpath('.//a/@href')[0]
         if not sceneURL.startswith('http'):
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('.//td/h2[not(@class)]')[0].text_content().replace('PUBLISHED:', '').replace('&nbsp', ' ').strip()
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = searchData.dateFormat() if searchData.date else ''
-        displayDate = releaseDate if date else ''
+        releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        if searchData.date and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
