@@ -95,7 +95,7 @@ import networkGammaEntOther
 import siteRealityLovers
 import siteHoloGirlsVR
 import siteLethalHardcoreVR
-import siteDefeated
+import networkRomero
 import siteXVirtual
 import siteLustReality
 import siteSexLikeReal
@@ -2652,9 +2652,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 894:
             provider = siteLethalHardcoreVR
 
-        # Defeated
+        # Romero Multimedia
         elif (895 <= siteNum <= 896) or (1594 <= siteNum <= 1596):
-            provider = siteDefeated
+            provider = networkRomero
 
         # XVirtual
         elif siteNum == 897:
