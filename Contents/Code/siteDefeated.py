@@ -57,6 +57,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
+    for actorLink in detailsPageElements.xpath('//div[@class="tagsmodels singletag"]/a'):
+        actorName = actorLink.text_content().strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [
