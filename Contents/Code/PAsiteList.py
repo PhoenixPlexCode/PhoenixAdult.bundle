@@ -1681,8 +1681,8 @@ searchSites = {
     1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?'),
     1592: ('Mom Comes First', 'https://momcomesfirst.com', '/?s='),
     1593: ('GF Leaks', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
-    1594: ('Hentaied', 'https://hentaied.com/', '/?s='),
-    1595: ('Parasited', 'https://parasited.com/', '/?s='),
+    1594: ('Hentaied', 'https://hentaied.com', '/?s='),
+    1595: ('Parasited', 'https://parasited.com', '/?s='),
     1596: ('Futanari XXX', 'https://futanari.xxx', '/?s='),
 }
 
