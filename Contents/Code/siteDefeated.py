@@ -5,7 +5,7 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="half"]'):
+    for searchResult in searchResults.xpath('//div[contains(@class,"half")]'):
         titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h2')[0].text_content().strip(), siteNum)
         sceneURL = searchResult.xpath('.//a/@href')[0]
         if not sceneURL.startswith('http'):

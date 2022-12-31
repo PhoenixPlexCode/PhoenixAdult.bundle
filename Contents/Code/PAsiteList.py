@@ -1082,7 +1082,7 @@ searchSites = {
     892: ('LethalHardcoreVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
     893: ('Gender X', 'https://www.genderxfilms.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     894: ('WhoreCraftVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
-    895: ('DefeatedXXX', 'http://xxx.defeated.xxx', '/?s='),
+    895: ('Defeated XXX', 'http://xxx.defeated.xxx', '/?s='),
     896: ('Defeated Sex Fight', 'https://defeatedsexfight.com', '/?s='),
     897: ('XVirtual', 'https://xvirtual.com', '/tour/search/?q='),
     898: ('Lust Reality', 'https://www.lustreality.com', '/virtualreality/scene/id/'),
@@ -1681,6 +1681,9 @@ searchSites = {
     1591: ('Bel Ami Online', 'https://newtour.belamionline.com', '/playvideo.aspx?'),
     1592: ('Mom Comes First', 'https://momcomesfirst.com', '/?s='),
     1593: ('GF Leaks', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
+    1594: ('Hentaied', 'https://hentaied.com/', '/?s='),
+    1595: ('Parasited', 'https://parasited.com/', '/?s='),
+    1596: ('Futanari XXX', 'https://futanari.xxx', '/?s='),
 }
 
 abbreviations = (
@@ -2650,7 +2653,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteLethalHardcoreVR
 
         # Defeated
-        elif siteNum == 895 or siteNum == 896:
+        elif (895 <= siteNum <= 896) or (1594 <= siteNum <= 1596):
             provider = siteDefeated
 
         # XVirtual
