@@ -5,26 +5,18 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//section[@role="main"]/article'):
-        titleNoFormatting = searchResult.xpath('.//h2[@itemprop="name"]')[0].text_content().strip()
-        sceneURL = searchResult.xpath('./a/@href')[0]
+    for searchResult in searchResults.xpath('//div[contains(@class,"half")]'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h2')[0].text_content().strip(), siteNum)
+        sceneURL = searchResult.xpath('.//a/@href')[0]
         if not sceneURL.startswith('http'):
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('.//td/h2[not(@class)]')[0].text_content().replace('PUBLISHED:', '').replace('&nbsp', ' ').strip()
-        if date:
-            releaseDate = parse(date).strftime('%Y-%m-%d')
-        else:
-            releaseDate = searchData.dateFormat() if searchData.date else ''
-        displayDate = releaseDate if date else ''
+        releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        if searchData.date and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -38,20 +30,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
-    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].split('|')[0].strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].split('|')[0].strip(), siteNum)
 
     # Summary
-    description = detailsPageElements.xpath('//meta[@property="og:description"]/@content')[0].replace('&quot;', '').strip() + '...'
-    metadata.summary = description
+    metadata.summary = detailsPageElements.xpath('//meta[@property="og:description"]/@content')[0].replace('&quot;', '').strip() + '...'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = metadata.studio
+    metadata.studio = 'Romero Multimedia'
+    metadata.tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -64,12 +52,29 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Posters/Background
+    # Genres
+    movieGenres.clearGenres()
+    for genreLink in detailsPageElements.xpath('//div[@class="Cats"]//a'):
+        genreName = genreLink.text_content().strip()
+
+        movieGenres.addGenre(genreName)
+
+    # Actors
+    movieActors.clearActors()
+    for actorLink in detailsPageElements.xpath('//div[@class="tagsmodels singletag"]/a'):
+        actorName = actorLink.text_content().strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
+    # Posters
     xpaths = [
         '//img[(contains(@class, "alignnone") and contains(@class, "size-full") or contains(@class, "size-medium")) and (not(contains(@class, "wp-image-4512") or contains(@class, "wp-image-492")))]/@src',
         '//div[@class="iehand"]/a/@href',
         '//a[contains(@class, "colorbox-cats")]/@href',
+        '//div[@class="gallery"]//a/@href',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             o = urlparse.urlparse(poster, 'http')

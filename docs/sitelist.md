@@ -358,8 +358,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Hot Legs & Feet
   - House of Taboo
   - Only Blowjob
-+ #### DefeatedXXX | ✅
-+ #### DefeatedSexFight | ✅
 + #### Deviant Hardcore | ✓
 + #### Deviante | ✅
   - Erotic Spice
@@ -1123,6 +1121,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Lil Humpers
 + #### RealJamVR | ✅
 + #### ReidMyLips | ❌ - **Direct URL**
++ #### Romero Multimedia Network | ✓
+  - Deafeated XXX
+  - Defeated Sex Fight
+  - Futanari XXX
+  - Hentaied
+  - Parasited
 + #### SapphiX Network | Matching type: ✅
   - Sapphic Erotica
   - Give Me Pink
