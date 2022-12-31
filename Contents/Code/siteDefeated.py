@@ -30,15 +30,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].split('|')[0].strip()
 
     # Summary
-    description = detailsPageElements.xpath('//meta[@property="og:description"]/@content')[0].replace('&quot;', '').strip() + '...'
-    metadata.summary = description
+    metadata.summary = detailsPageElements.xpath('//meta[@property="og:description"]/@content')[0].replace('&quot;', '').strip() + '...'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
@@ -56,12 +52,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Posters/Background
+    # Genres
+    movieGenres.clearGenres()
+
+    # Actors
+    movieActors.clearActors()
+
+    # Posters
     xpaths = [
         '//img[(contains(@class, "alignnone") and contains(@class, "size-full") or contains(@class, "size-medium")) and (not(contains(@class, "wp-image-4512") or contains(@class, "wp-image-492")))]/@src',
         '//div[@class="iehand"]/a/@href',
         '//a[contains(@class, "colorbox-cats")]/@href',
+        '//div[@class="gallery"]//a/@href',
     ]
+
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
             o = urlparse.urlparse(poster, 'http')
