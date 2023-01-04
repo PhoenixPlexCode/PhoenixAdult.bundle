@@ -1,26 +1,27 @@
+import re
 import PAsearchSites
 import PAgenres
 def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchAll,searchSiteID):
-    searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + encodedTitle)
+    print(encodedTitle)
+    print(title)
+    print(searchTitle)
+    squery = searchTitle.replace(' ', '+').replace('_', '+')    
+    searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + squery)
     if "Search for" in searchResults.xpath('//title')[0].text_content():
         for searchResult in searchResults.xpath('//div[@class="thumbnails"]//div[contains(@class,"thumbnail ")]'):
             
             #Log(searchResult.text_content())
             titleNoFormatting = searchResult.xpath('.//div[@class="thumbnail-title gradient"]//a[contains(@href,"/watch/")]')[0].get("title")
-            curID = searchResult.xpath('.//a')[0].get("href")[27:]
+            curID = searchResult.xpath('.//a')[0].get("href")
             curID = curID.replace('/','+')
             Log("ID: " + curID)
-            releasedDate = searchResult.xpath('.//div[@class="thumbnail-description gradient"]//div[@class="col-xs-7"]')[0].text_content().replace("\n","")[14:-1]
-            releasedDate = datetime.strptime(releasedDate, '%b %d, %Y').strftime('%Y-%m-%d')
-            Log(releasedDate)
-            Log(str(curID))
             lowerResultTitle = str(titleNoFormatting).lower()
             if searchByDateActor != True:
                 score = 102 - Util.LevenshteinDistance(searchTitle.lower(), titleNoFormatting.lower())
             else:
                 searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%Y-%m-%d')
                 score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
-            titleNoFormatting = "[" + releasedDate + "] " + titleNoFormatting + " [" + PAsearchSites.searchSites[siteNum][1] + "]"
+            titleNoFormatting = titleNoFormatting + " [" + PAsearchSites.searchSites[siteNum][1] + "]"
             results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
 
     else:
@@ -47,7 +48,7 @@ def update(metadata,siteID,movieGenres):
     Log('******UPDATE CALLED*******')
     temp = str(metadata.id).split("|")[0].replace('+','/')
 
-    url = PAsearchSites.getSearchBaseURL(siteID) + temp
+    url = temp
     detailsPageElements = HTML.ElementFromURL(url)
 
     # Summary
@@ -74,7 +75,7 @@ def update(metadata,siteID,movieGenres):
     
     # Actors
     metadata.roles.clear()
-    actors = detailsPageElements.xpath('//dd/a[contains(@href,"model/")]')
+    actors = detailsPageElements.xpath('//dd/a[contains(@href,"model/") and not(@target)]')
     if len(actors) > 0:
         for actorLink in actors:
             role = metadata.roles.new()
@@ -90,8 +91,9 @@ def update(metadata,siteID,movieGenres):
     metadata.posters.validate_keys(valid_names)
     metadata.art.validate_keys(valid_names)
 
-    background = detailsPageElements.xpath('//div[contains(@id,"player")]')[0].get("style").replace("&amp;","&")[21:-1]
     try:
+        background = detailsPageElements.xpath('//div[contains(@id,"player")]')[0].get("style").replace("&amp;","&")
+        background = re.match(r'.*url\("([^"]*)"\).*', background).group(1)
         metadata.art[background] = Proxy.Preview(HTTP.Request(background).content, sort_order = 1)
     except:
         pass
