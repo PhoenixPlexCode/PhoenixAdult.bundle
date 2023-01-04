@@ -51,6 +51,7 @@ class PhoenixAdultAgent(Agent.Movies):
         searchDate = None
         searchSiteID = None
         searchSettings = PAsearchSites.getSearchSettings(title)
+        print(searchSettings)
         if searchSettings[0] == 9999:
             searchAll = True
         else:
@@ -191,6 +192,29 @@ class PhoenixAdultAgent(Agent.Movies):
             if siteNum == 260:
                 if searchAll or searchSiteID == 260:
                     results = PAsearchSites.siteLegalPorno.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+
+            ###############
+            ## VIPissy
+            ###############
+            if siteNum == 261:
+                if searchAll or searchSiteID == 261:
+                    results = PAsearchSites.siteVipissy.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+
+
+            ###############
+            ## WetAndPissy
+            ###############
+            if siteNum == 262:
+                if searchAll or searchSiteID == 262:
+                    results = PAsearchSites.siteWetAndPissy.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+
+            ###############
+            ## PeeOnHer
+            ###############
+            if siteNum == 263:
+                if searchAll or searchSiteID == 263:
+                    results = PAsearchSites.sitePeeOnHer.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+
 
             siteNum += 1 
         
@@ -345,10 +369,31 @@ class PhoenixAdultAgent(Agent.Movies):
             metadata = PAsearchSites.siteLegalPorno.update(metadata,siteID,movieGenres)
 
 
+        ##############################################################
+        ##                                                          ##
+        ##   Vipissy                                                ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 261:
+            metadata = PAsearchSites.siteVipissy.update(metadata,siteID,movieGenres)
 
 
+        ##############################################################
+        ##                                                          ##
+        ##   WetAndPissy                                            ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 262:
+            metadata = PAsearchSites.siteWetAndPissy.update(metadata,siteID,movieGenres)
 
 
+        ##############################################################
+        ##                                                          ##
+        ##   PeeOnHer                                               ##
+        ##                                                          ##
+        ##############################################################
+        if siteID == 263:
+            metadata = PAsearchSites.sitePeeOnHer.update(metadata,siteID,movieGenres)
 
 
 
