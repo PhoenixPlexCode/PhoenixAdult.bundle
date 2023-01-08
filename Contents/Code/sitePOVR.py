@@ -39,7 +39,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = metadata_id[2]
 
     # Release Date
-    date = scene_data['datePublished']
+    date = scene_data['uploadDate']
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
