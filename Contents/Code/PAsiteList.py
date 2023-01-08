@@ -185,6 +185,7 @@ import networkNVG
 import networkBlurredMedia
 import siteBelAmi
 import siteMomComesFirst
+import siteVRAllure
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1684,6 +1685,7 @@ searchSites = {
     1594: ('Hentaied', 'https://hentaied.com', '/?s='),
     1595: ('Parasited', 'https://parasited.com', '/?s='),
     1596: ('Futanari XXX', 'https://futanari.xxx', '/?s='),
+    1597: ('VRAllure', 'https://www.vrallure.com', '/scenes/')
 }
 
 abbreviations = (
@@ -3034,5 +3036,9 @@ def getProviderFromSiteNum(siteNum):
         # Mom Comes First
         elif siteNum == 1592:
             provider = siteMomComesFirst
+            
+         # VRAllure
+        elif siteNum == 1597:
+            provider = siteVRAllure
 
     return provider
