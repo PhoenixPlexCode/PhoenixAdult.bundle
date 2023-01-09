@@ -9,7 +9,7 @@ def search(results, lang, siteNum, searchData):
 
     titleNoFormatting = detailsPageElements.xpath('//h1[@class="latest-scene-title"]')[0].text_content().strip()
     curID = PAutils.Encode(detailsPageElements.xpath('//link[@rel="canonical"]/@href')[0])
-    releaseDate =     parse(detailsPageElements.xpath('//p[@class = "publish-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+    releaseDate = parse(detailsPageElements.xpath('//p[@class = "publish-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
     if searchData.date:
         score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
