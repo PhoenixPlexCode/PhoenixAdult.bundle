@@ -5,18 +5,29 @@ import PAutils
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class,"half")]'):
+    for searchResult in searchResults.xpath('//div[contains(@class, "half")]|//article[contains(@class, "post")]'):
         titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h2')[0].text_content().strip(), siteNum)
+
         sceneURL = searchResult.xpath('.//a/@href')[0]
         if not sceneURL.startswith('http'):
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+        try:
+            date = searchResult.xpath('.//h2')[1].text_content().strip().split('&nbsp')[-1]
+        except:
+            date = ''
+
+        if date:
+            releaseDate = parse(date).strftime('%Y-%m-%d')
+        else:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
+        displayDate = releaseDate if date else ''
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -31,16 +42,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].split('|')[0].strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//meta[@itemprop="name"]/@content|//h1/text()')[0].split('|')[0].strip(), siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//meta[@property="og:description"]/@content')[0].replace('&quot;', '').strip() + '...'
+    summary = ''
+    paragraphs = detailsPageElements.xpath('//div[@class="cont"]/p|//div[@class="cont"]//div[@id="fullstory"]/p|//div[@class="zapdesc"]//div[not(contains(., "Including"))][.//br]')
+    for paragraph in paragraphs:
+        text = paragraph.text_content().strip()
+        if text and not text == '\xc2\xa0':
+            summary = summary + text + '\n'
+
+    metadata.summary = summary.strip()
+
+    # Director
+    directorElement = detailsPageElements.xpath('//div[contains(@class, "director")]/a/text()')
+    if directorElement:
+        director = metadata.directors.new()
+        directorName = directorElement[0].strip()
+        director.name = directorName
 
     # Tagline and Collection(s)
     metadata.collections.clear()
     metadata.studio = 'Romero Multimedia'
     metadata.tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.collections.add(metadata.studio)
+    metadata.collections.add(metadata.tagline)
 
     # Release Date
     date = detailsPageElements.xpath('//meta[@property="article:published_time"]/@content')[0].split('T')[0].strip()
@@ -54,14 +79,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[@class="Cats"]//a'):
-        genreName = genreLink.text_content().strip()
+    for genreLink in detailsPageElements.xpath('//div[@class="Cats"]//a/text()|//div[@class="zapdesc"]/div/div/div[contains(., "Including:")]/text()'):
+        genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[@class="tagsmodels singletag"]/a'):
+    for actorLink in detailsPageElements.xpath('//div[contains(@class, "inner")]//div[contains(@class, "tagsmodels")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
