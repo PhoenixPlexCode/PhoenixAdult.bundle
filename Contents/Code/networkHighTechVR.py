@@ -3,8 +3,8 @@ import PAutils
 
 xPathMap = {
     'SexBabesVR': {
-        'date': '//span[@class="date-display-single"]',
-        'summary': '//div[@class="video-group-bottom"]/p',
+        'date': '//div[contains(@class, "video-additional")]/div/span[@property="dc:date"]',
+        'summary': '//div[contains(@class, "video-group-bottom")]/p',
         'actor': '//div[@class="video-actress-name"]//a',
         'actorPhoto': '//div[contains(@class, "model-img-wrapper")]/figure/a/img',
         'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
