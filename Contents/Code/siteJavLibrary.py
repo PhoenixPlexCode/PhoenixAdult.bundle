@@ -18,11 +18,15 @@ def search(results, lang, siteNum, searchData):
         searchData.encoded = searchJAVID
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    if req.status_code == 302:
+    if 'https://www.javlibrary.com/en/?v=' in req.url:
         searchResult = HTML.ElementFromString(req.text)
         titleNoFormatting = searchResult.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
         JAVID = searchResult.xpath('//td[contains(text(), "ID:")]/following-sibling::td')[0].text_content().strip()
-        curID = PAutils.Encode(searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip())
+        curUrl = searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip()
+        if curUrl.startswith('//'):
+            curUrl = curUrl[2:]
+        curID = PAutils.Encode('https://' + curUrl)
+
         score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
@@ -46,7 +50,7 @@ def search(results, lang, siteNum, searchData):
                     curID = PAutils.Encode(searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip().replace('//www', 'https://www'))
                     score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
 
-                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting),score=score, lang=lang))
+                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
                 except:
                     pass
 
@@ -60,7 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
 
     # Studio
     maybeStudio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
