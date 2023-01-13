@@ -185,6 +185,7 @@ import networkNVG
 import networkBlurredMedia
 import siteBelAmi
 import siteMomComesFirst
+import siteCaribbeancom
 import siteVRAllure
 
 searchSites = {
@@ -1685,7 +1686,8 @@ searchSites = {
     1594: ('Hentaied', 'https://hentaied.com', '/?s='),
     1595: ('Parasited', 'https://parasited.com', '/?s='),
     1596: ('Futanari XXX', 'https://futanari.xxx', '/?s='),
-    1597: ('VRAllure', 'https://www.vrallure.com', '/scenes/')
+    1597: ('Caribbeancom', 'https://en.caribbeancom.com', '/eng/moviepages/'),
+    1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/')
 }
 
 abbreviations = (
@@ -3040,5 +3042,9 @@ def getProviderFromSiteNum(siteNum):
          # VRAllure
         elif siteNum == 1597:
             provider = siteVRAllure
+
+        # Caribbeancom
+        elif siteNum == 1597:
+            provider = siteCaribbeancom
 
     return provider
