@@ -64,7 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.clearActors()
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['title']
-        actorPhotoURL = basePath + actorLink['featuredImage']['permalink']
+        actorPhotoURL = basePath + '/model/' + actorLink['slug']
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
