@@ -244,6 +244,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Teens Like It Black
   - ZZ Series
 + #### BurningAngel | ✅
++ #### Caribbeancom | ❌ - **SceneID**
 + #### CherryPimps Network | ✅
   - BCM.XXX
   - Britney Amber
@@ -560,7 +561,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Topgrl
 + #### InTheCrack | ✓ - **actress name**
 + #### Jacquie Et Michel TV | ✅
-+ #### JAV (via R18 - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | ✅ - **SceneID (in form of JAVID)**
 + #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JulesJordan Network | ✅  **Movies Not Supported**
