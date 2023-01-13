@@ -72,12 +72,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         art.append(actorPhotoURL)
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Posters and artwork    
+    # Posters and artwork
     try:
         art.insert(0, 'https:' + detailsPageElements.xpath('//meta[@property="og:image"]/@content')[0])
     except:
         pass
-        
+
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):

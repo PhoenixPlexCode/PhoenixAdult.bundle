@@ -3038,13 +3038,13 @@ def getProviderFromSiteNum(siteNum):
         # Mom Comes First
         elif siteNum == 1592:
             provider = siteMomComesFirst
-            
-         # VRAllure
-        elif siteNum == 1597:
-            provider = siteVRAllure
 
         # Caribbeancom
         elif siteNum == 1597:
             provider = siteCaribbeancom
+
+        # VRAllure
+        elif siteNum == 1598:
+            provider = siteVRAllure
 
     return provider
