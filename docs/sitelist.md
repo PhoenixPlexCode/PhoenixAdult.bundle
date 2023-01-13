@@ -1439,6 +1439,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - VNA Live
   - Women By Julia Ann
 + #### VogoV | ✓ - **Title only**
++ #### VRAllure | ❌ - Direct URL
 + #### VRBangers | ✅
 + #### VRConk | ✅
 + #### VRHush | ❌ - **Direct URL**
