@@ -17,6 +17,11 @@ def getAPIKey(siteNum):
 
     if not token:
         req = PAutils.HTTPRequest(url)
+
+        if not req.ok:
+            url = PAsearchSites.getSearchBaseURL(siteNum) + '/en'
+            req = PAutils.HTTPRequest(url)
+
         match = re.search(r'\"apiKey\":\"(.*?)\"', req.text)
         if match:
             token = match.group(1)
