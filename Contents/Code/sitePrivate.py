@@ -13,14 +13,24 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(url, headers=headers)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[@class="card"]//h3/a'):
-        titleNoFormatting = PAutils.parseTitle(searchResult.text_content().strip(), siteNum)
-        curID = PAutils.Encode(searchResult.xpath('./@href')[0])
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+    for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[@class="card"]'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h3/a')[0].text_content().strip(), siteNum)
+        curID = PAutils.Encode(searchResult.xpath('.//h3/a/@href')[0])
 
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        date = searchResult.xpath('.//span[@class="scene-date"]')
+        if date:
+            releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
+        else:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Private]' % titleNoFormatting, score=score, lang=lang))
+        displayDate = releaseDate if date else ''
+
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Private] %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
 
     return results
 
