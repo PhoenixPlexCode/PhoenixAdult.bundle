@@ -108,7 +108,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     backgrounds = detailsPageElements.xpath('//meta[@itemprop="contentURL"]/@content')[0]
     j = backgrounds.rfind('upload/')
     k = backgrounds.rfind('trailers/')
-    sceneID = backgrounds[j + 7:k - 1]
+    sceneID = backgrounds[j + 7:k - 1].split('/')[-1]
     backgrounds = backgrounds[:k] + 'Fullwatermarked/'
     for i in range(1, 10):
         img = backgrounds + sceneID.lower() + '_' + '{0:0=3d}'.format(i * 5) + '.jpg'
