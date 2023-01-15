@@ -79,9 +79,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorPage in detailsPageElements.xpath('//ul[@id="featured_pornstars"]//li[@class="card"]'):
-        actorName = actorPage.xpath('.//div[@class="model"]//a/@title')[0]
-        actorPhotoURL = actorPage.xpath('.//div[@class="model"]//a//picture//img/@src')[0]
+    for actorPage in detailsPageElements.xpath('//ul[@class="scene-models-list"]//a'):
+        actorName = actorPage.text_content()
+
+        modelURL = actorPage.xpath('./@href')[0]
+        req = PAutils.HTTPRequest(modelURL)
+        modelPageElements = HTML.ElementFromString(req.text)
+
+        actorPhotoURL = modelPageElements.xpath('//img/@srcset')[0].split(',')[-1].split(' ')[1].strip()
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -111,6 +116,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         art.append(img)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -118,15 +125,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
