@@ -14,7 +14,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(url, headers=headers)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//ul[@id="search_results"]//li[@class="card"]//h3/a'):
-        titleNoFormatting = searchResult.text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.text_content().strip(), siteNum)
         curID = PAutils.Encode(searchResult.xpath('./@href')[0])
         releaseDate = searchData.dateFormat() if searchData.date else ''
 
@@ -40,7 +40,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//meta[@itemprop="description"]/@content')[0]
