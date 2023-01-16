@@ -12,10 +12,10 @@
 
 ## Prevent Automatic Matching
  - Enable/Disable manual override of automatic matching when running the "Scan Library" Operation
- - Large library additions may result in some scrapers to IP BAN (e.i. Data18)
+ - Large library additions may result in some scrapers to IP BAN (i.e. Data18)
 
 ## MetadataAPI
- - Enable/Disable fallback to https://metadataapi.net/ for matching metadata
+ - Enable/Disable fallback to https://metadataapi.net/ for matching
 
 ## MetadataAPI Token
  - API Token for MetadataAPI https://metadataapi.net/user/api-tokens
@@ -85,7 +85,7 @@
  - Some sites employ anti-scrape technoligies which can block matches. These services and tools can be used to bypass some restrictions.
  - FlareSolverr Endpoint URL (self hosted)
    - FlareSolverr is a proxy server to bypass Cloudflare and DDoS-GUARD protection.
-   - For more information and how to set up https://github.com/FlareSolverr/FlareSolverr
+   - For more information and how to set up see https://github.com/FlareSolverr/FlareSolverr
  - Enable Captcha Based Solvers
    - Enable/Disable automated captcha solver
    - Requires Paid Service
@@ -97,4 +97,4 @@
      - 9kw - http://www.9kw.eu/
    - Default: 9kw
  - Captcha API Key
-   - API Key Provided by Captcha Service
+   - API Key Provided by the set Captcha Service
