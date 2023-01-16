@@ -85,3 +85,8 @@ Supported Networks
 
 To view the full list of supported sites, [check out the sitelist doc](./docs/sitelist.md).
 If your favorite site isn't supported, head over to [Issue #1](https://github.com/PAhelper/PhoenixAdult.bundle/issues/1) to add your request to the list, or vote on the current requests.
+
+Preferences
+------------------
+
+To view the full list of supported preferences, [check out the prefeences doc](./docs/preferences.md).
