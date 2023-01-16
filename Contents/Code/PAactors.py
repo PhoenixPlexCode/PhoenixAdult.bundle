@@ -324,20 +324,17 @@ def getFromBabepedia(actorName, actorEncoded, metadata):
 def getFromJAVBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
-    hepburnSearchPairs = {
-        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu'), ('Lily Heart', 'Ririi haato'), ('Washio Mei', 'Wasio mei')
-    }
-
-    for value in hepburnSearchPairs:
-        if value[0].lower() == actorName.lower():
-            actorEncoded = urllib.quote(value[1])
+    for actorSeachName, names in PAdatabaseActors.actorsReplaceJavBusSearch.items():
+        if actorName.lower() in map(str.lower, names):
+            actorEncoded = urllib.quote(actorSeachName)
+            break
 
     req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
     img = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
     if img:
         if 'nowprinting' not in img[0]:
-            actorPhotoURL = 'https://www.javbus.com/' + img[0]
+            actorPhotoURL = 'https://www.javbus.com' + img[0]
 
     return actorPhotoURL, 'female'
 

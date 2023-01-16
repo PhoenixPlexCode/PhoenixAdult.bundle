@@ -5555,3 +5555,16 @@ ActorsStudioIndexes = {
     62: ['Allure Media'],
     63: ['PornPros'],
 }
+
+
+actorsReplaceJavBusSearch = {
+    'Zyuun rabuzyoi': ['June Lovejoy'],
+    'Merodei hiina makusu': ['Melody Marks'],
+    'Ririi haato': ['Lily Heart'],
+    'Wasio mei': ['Washio Mei'],
+    'Nanzyou itika': ['Nanjou Ichika'],
+    'Nana Matsumoto': ['Matsumoto Nanami'],
+    'Huzisawa reo': ['Fujisawa Rio'],
+    'Mizuho Nagayama': ['Eiyama Mizuho'],
+    'Nagata riu': ['Nagata Reiame'],
+}
