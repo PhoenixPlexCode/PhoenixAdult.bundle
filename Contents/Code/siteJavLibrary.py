@@ -30,6 +30,7 @@ def search(results, lang, siteNum, searchData):
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
     else:
         searchResultsURLs = []
+        searchResultsURLs.append(req.url)
         googleResults = PAutils.getFromGoogleSearch('%s %s' % (splitSearchTitle[0], splitSearchTitle[1]), siteNum)
         for sceneURL in googleResults:
             if sceneURL not in searchResultsURLs:
