@@ -335,7 +335,7 @@ def getFromJAVBus(actorName, actorEncoded, metadata):
     req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
     actorPhotoURL = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
-    if actorPhotoURL:
+    if actorPhotoURL and 'nowprinting' not in actorPhotoURL:
         actorPhotoURL = 'https://www.javbus.com/' + actorPhotoURL[0]
 
     return actorPhotoURL, 'female'
