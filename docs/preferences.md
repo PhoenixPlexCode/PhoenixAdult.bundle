@@ -1,17 +1,17 @@
 # Preferences Definitions
 
 ## Male Actor Filter
- - Skips adding Male Actors
+ - Enable/Disable the adding of Male Actors
 
 ## Remove Obsolete Images
- - Enable/Disable removal of images no longer found in scrape from metadata when running "Refresh Metadata" Operation
+ - Enable/Disable removal of images no longer found in scrape from metadata when running the "Refresh Metadata" Operation
 
 ## Remove Stored Images
- - Enable/Disable removal of all stored images from metadata when running "Refresh Metadata" Operation
+ - Enable/Disable removal of all stored images from metadata when running the "Refresh Metadata" Operation
  - Can be used to address images persisting after a mismatch
 
 ## Prevent Automatic Matching
- - Enable/Disable manual override of automatic matching when running "Scan Library" Operation
+ - Enable/Disable manual override of automatic matching when running the "Scan Library" Operation
  - Large library additions may result in some scrapers to IP BAN (e.i. Data18)
 
 ## MetadataAPI
