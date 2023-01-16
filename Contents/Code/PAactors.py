@@ -324,6 +324,14 @@ def getFromBabepedia(actorName, actorEncoded, metadata):
 def getFromJAVBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
+    hepburnSearchPairs = {
+        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu')
+    }
+
+    for value in hepburnSearchPairs:
+        if value[0].lower() == actorName.lower():
+            actorEncoded = urllib.quote(value[1])
+
     req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
     actorPhotoURL = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
