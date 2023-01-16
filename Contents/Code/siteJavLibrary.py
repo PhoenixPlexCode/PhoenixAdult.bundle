@@ -18,19 +18,16 @@ def search(results, lang, siteNum, searchData):
         searchData.encoded = searchJAVID
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    if 'https://www.javlibrary.com/en/?v=' in req.url:
-        searchResult = HTML.ElementFromString(req.text)
-        titleNoFormatting = searchResult.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
-        JAVID = searchResult.xpath('//td[contains(text(), "ID:")]/following-sibling::td')[0].text_content().strip()
-        curUrl = searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip()
-        if curUrl.startswith('//'):
-            curUrl = curUrl[2:]
-        curID = PAutils.Encode('https://' + curUrl)
+    searchPageElements = HTML.ElementFromString(req.text)
+    for searchResult in searchPageElements.xpath('//div[@class="video"]'):
+        titleNoFormatting = searchResult.xpath('./a/@title')[0].strip()
+        JAVID = titleNoFormatting.split(' ')[0]
+        sceneURL = '%s/en/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./a/@href')[0].split('.')[-1].strip())
+        curID = PAutils.Encode(sceneURL)
 
         score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
-
     else:
         searchResultsURLs = []
         googleResults = PAutils.getFromGoogleSearch('%s %s' % (splitSearchTitle[0], splitSearchTitle[1]), siteNum)
@@ -64,7 +61,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
+    javID = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[0]
+    title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[-1].replace(' - JAVLibrary', '')
+    metadata.title = '%s %s' % (javID, PAutils.parseTitle(title, siteNum))
 
     # Studio
     maybeStudio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
@@ -102,6 +101,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Poster
     posterURL = detailsPageElements.xpath('//img[@id="video_jacket_img"]/@src')[0]
+    if 'https' not in posterURL:
+        posterURL = 'https:' + posterURL
 
     art.append(posterURL)
 
@@ -116,6 +117,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         else:
             art.append(thumbnailURL)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -123,15 +126,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and idx > 1:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
