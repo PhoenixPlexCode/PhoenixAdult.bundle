@@ -169,5 +169,4 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             except:
                 pass
 
-
     return metadata
