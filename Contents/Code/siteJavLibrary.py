@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchData):
 
     if len(splitSearchTitle) > 1:
         if unicode(splitSearchTitle[1], 'UTF-8').isdigit():
-            searchJAVID = '%s%%2B%s' % (splitSearchTitle[0], splitSearchTitle[1])
+            searchJAVID = '%s-%s' % (splitSearchTitle[0], splitSearchTitle[1])
 
     if searchJAVID:
         searchData.encoded = searchJAVID

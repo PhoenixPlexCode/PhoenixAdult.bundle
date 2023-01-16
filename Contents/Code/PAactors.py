@@ -325,7 +325,7 @@ def getFromJAVBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     hepburnSearchPairs = {
-        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu')
+        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu'), ('Lily Heart', 'Ririi haato')
     }
 
     for value in hepburnSearchPairs:
