@@ -114,10 +114,11 @@ def actorDBfinder(actorName, metadata):
         'Boobpedia': getFromBoobpedia,
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
+        'JAVBus': getFromJAVBus,
         'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
+    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JAVBus']
     if Prefs['order_enable']:
         searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName.strip() in searchResults]
 
@@ -316,6 +317,18 @@ def getFromBabepedia(actorName, actorEncoded, metadata):
     req = PAutils.HTTPRequest(img, 'HEAD', bypass=False)
     if req.ok:
         actorPhotoURL = img
+
+    return actorPhotoURL, 'female'
+
+
+def getFromJAVBus(actorName, actorEncoded, metadata):
+    actorPhotoURL = ''
+
+    req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
+    actorSearch = HTML.ElementFromString(req.text)
+    actorPhotoURL = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
+    if actorPhotoURL:
+        actorPhotoURL = 'https://www.javbus.com/' + actorPhotoURL[0]
 
     return actorPhotoURL, 'female'
 
