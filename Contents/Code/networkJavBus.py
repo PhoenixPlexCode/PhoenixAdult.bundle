@@ -68,7 +68,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if directorName:
         director.name = directorName[0].text_content().strip()
 
-    # Tagline
+    #  Tagline and Collection(s)
+    metadata.collections.clear()
     data = {}
 
     label = detailsPageElements.xpath('//p/a[contains(@href, "/label/")]')
@@ -80,6 +81,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         data['Series'] = series[0].text_content().strip()
 
     metadata.tagline = ', '.join(['%s: %s' % (key, value) for key, value in data.items()])
+    if label:
+        metadata.tagline = label[0].text_content().strip()
+        metadata.collections.add(metadata.tagline)
+    else:
+        metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="col-md-3 info"]/p[2]')[0].text_content().strip().replace('Release Date: ', '')
@@ -92,8 +98,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     for genreLink in detailsPageElements.xpath('//span[@class="genre"]//a[contains(@href, "/genre/")]'):
         genreName = genreLink.text_content().lower().strip()
         movieGenres.addGenre(genreName)
-
-    metadata.collections.add('Japan Adult Video')
 
     # Actors
     movieActors.clearActors()
