@@ -52,15 +52,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
     JAVID = sceneURL.rsplit('/', 1)[1]
 
-    # Studio
-    javStudio = detailsPageElements.xpath('//p/a[contains(@href, "/studio/")]')[0].text_content().strip()
-    metadata.studio = javStudio
-
     # Title
     javTitle = detailsPageElements.xpath('//head/title')[0].text_content().strip().replace(' - JavBus', '')
     if JAVID.replace('-', '').replace('_', '').replace(' ', '').isdigit():
         javTitle = javStudio + ' ' + javTitle
     metadata.title = javTitle
+
+    # Studio
+    javStudio = detailsPageElements.xpath('//p/a[contains(@href, "/studio/")]')[0].text_content().strip()
+    metadata.studio = javStudio
+
+    # Director
+    director = metadata.directors.new()
+    directorName = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
+    if directorName:
+        director.name = directorName[0].text_content().strip()
 
     # Tagline
     data = {}
@@ -82,7 +88,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genreLink in detailsPageElements.xpath('//span[@class="genre"]/a[contains(@href, "/genre/")]'):
+    movieGenres.clearGenres()
+    for genreLink in detailsPageElements.xpath('//span[@class="genre"]//a[contains(@href, "/genre/")]'):
         genreName = genreLink.text_content().lower().strip()
         movieGenres.addGenre(genreName)
 
@@ -105,7 +112,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Posters
     xpaths = [
         '//a[contains(@href, "/cover/")]/@href',
-        '//a[@class="sample-box"]/div/img/@src',
+        '//a[@class="sample-box"]/@href',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
@@ -126,6 +133,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     art.append(coverImage)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -133,16 +142,32 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and idx > 1:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
+
 
     return metadata
