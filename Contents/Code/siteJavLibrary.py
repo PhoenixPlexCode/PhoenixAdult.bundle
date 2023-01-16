@@ -65,21 +65,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[-1].replace(' - JAVLibrary', '')
     metadata.title = '%s %s' % (javID, PAutils.parseTitle(title, siteNum))
 
-    # Studio
-    maybeStudio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
-    if maybeStudio:
-        metadata.studio = maybeStudio[0].text_content().strip()
+
+    # Studio, Tagline and Collection(s)
+    metadata.collections.clear()
+    studio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
+    if studio:
+        metadata.studio = studio[0].text_content().strip()
+        metadata.collections.add(metadata.studio)
+    metadata.collections.add('Japan Adult Video')
 
     # Director
     director = metadata.directors.new()
-    maybeDirectorName = detailsPageElements.xpath('//td[contains(text(), "Director:")]/following-sibling::td/span/a')
-    if maybeDirectorName:
-        director.name = maybeDirectorName[0].text_content().strip()
+    directorName = detailsPageElements.xpath('//td[contains(text(), "Director:")]/following-sibling::td/span/a')
+    if directorName:
+        director.name = directorName[0].text_content().strip()
 
     # Release Date
-    maybeDate = detailsPageElements.xpath('//td[contains(text(), "Release Date:")]/following-sibling::td')
-    if maybeDate:
-        date_object = datetime.strptime(maybeDate[0].text_content().strip(), '%Y-%m-%d')
+    date = detailsPageElements.xpath('//td[contains(text(), "Release Date:")]/following-sibling::td')
+    if date:
+        date_object = datetime.strptime(date[0].text_content().strip(), '%Y-%m-%d')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -96,8 +100,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
-
-    metadata.collections.add('Japan Adult Video')
 
     # Poster
     posterURL = detailsPageElements.xpath('//img[@id="video_jacket_img"]/@src')[0]
