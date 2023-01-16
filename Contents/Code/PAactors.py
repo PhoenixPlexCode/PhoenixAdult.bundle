@@ -325,7 +325,7 @@ def getFromJAVBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
 
     hepburnSearchPairs = {
-        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu'), ('Lily Heart', 'Ririi haato')
+        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu'), ('Lily Heart', 'Ririi haato'), ('Washio Mei', 'Wasio mei')
     }
 
     for value in hepburnSearchPairs:
@@ -334,9 +334,10 @@ def getFromJAVBus(actorName, actorEncoded, metadata):
 
     req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
     actorSearch = HTML.ElementFromString(req.text)
-    actorPhotoURL = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
-    if actorPhotoURL and 'nowprinting' not in actorPhotoURL:
-        actorPhotoURL = 'https://www.javbus.com/' + actorPhotoURL[0]
+    img = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
+    if img:
+        if 'nowprinting' not in img[0]:
+            actorPhotoURL = 'https://www.javbus.com/' + img[0]
 
     return actorPhotoURL, 'female'
 
