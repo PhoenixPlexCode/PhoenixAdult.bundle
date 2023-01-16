@@ -114,10 +114,11 @@ def actorDBfinder(actorName, metadata):
         'Boobpedia': getFromBoobpedia,
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
+        'JAVBus': getFromJAVBus,
         'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia']
+    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JAVBus']
     if Prefs['order_enable']:
         searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName.strip() in searchResults]
 
@@ -316,6 +317,27 @@ def getFromBabepedia(actorName, actorEncoded, metadata):
     req = PAutils.HTTPRequest(img, 'HEAD', bypass=False)
     if req.ok:
         actorPhotoURL = img
+
+    return actorPhotoURL, 'female'
+
+
+def getFromJAVBus(actorName, actorEncoded, metadata):
+    actorPhotoURL = ''
+
+    hepburnSearchPairs = {
+        ('June Lovejoy', 'Zyuun rabuzyoi'), ('Melody Marks', 'Merodei hiina makusu'), ('Lily Heart', 'Ririi haato'), ('Washio Mei', 'Wasio mei')
+    }
+
+    for value in hepburnSearchPairs:
+        if value[0].lower() == actorName.lower():
+            actorEncoded = urllib.quote(value[1])
+
+    req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
+    actorSearch = HTML.ElementFromString(req.text)
+    img = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
+    if img:
+        if 'nowprinting' not in img[0]:
+            actorPhotoURL = 'https://www.javbus.com/' + img[0]
 
     return actorPhotoURL, 'female'
 

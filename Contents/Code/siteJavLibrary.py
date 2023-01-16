@@ -12,27 +12,25 @@ def search(results, lang, siteNum, searchData):
 
     if len(splitSearchTitle) > 1:
         if unicode(splitSearchTitle[1], 'UTF-8').isdigit():
-            searchJAVID = '%s%%2B%s' % (splitSearchTitle[0], splitSearchTitle[1])
+            searchJAVID = '%s-%s' % (splitSearchTitle[0], splitSearchTitle[1])
 
     if searchJAVID:
         searchData.encoded = searchJAVID
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    if 'https://www.javlibrary.com/en/?v=' in req.url:
-        searchResult = HTML.ElementFromString(req.text)
-        titleNoFormatting = searchResult.xpath('//h3[@class="post-title text"]/a')[0].text_content().strip()
-        JAVID = searchResult.xpath('//td[contains(text(), "ID:")]/following-sibling::td')[0].text_content().strip()
-        curUrl = searchResult.xpath('//meta[@property="og:url"]/@content')[0].strip()
-        if curUrl.startswith('//'):
-            curUrl = curUrl[2:]
-        curID = PAutils.Encode('https://' + curUrl)
+    searchPageElements = HTML.ElementFromString(req.text)
+    for searchResult in searchPageElements.xpath('//div[@class="video"]'):
+        titleNoFormatting = searchResult.xpath('./a/@title')[0].strip()
+        JAVID = titleNoFormatting.split(' ')[0]
+        sceneURL = '%s/en/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('./a/@href')[0].split('.')[-1].strip())
+        curID = PAutils.Encode(sceneURL)
 
         score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s' % (JAVID, titleNoFormatting), score=score, lang=lang))
-
     else:
         searchResultsURLs = []
+        searchResultsURLs.append(req.url)
         googleResults = PAutils.getFromGoogleSearch('%s %s' % (splitSearchTitle[0], splitSearchTitle[1]), siteNum)
         for sceneURL in googleResults:
             if sceneURL not in searchResultsURLs:
@@ -64,23 +62,36 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip()
+    javID = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[0]
+    title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[-1].replace(' - JAVLibrary', '')
+    metadata.title = '[%s] %s' % (javID, PAutils.parseTitle(title, siteNum))
 
     # Studio
-    maybeStudio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
-    if maybeStudio:
-        metadata.studio = maybeStudio[0].text_content().strip()
+    studio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
+    if studio:
+        metadata.studio = studio[0].text_content().strip()
+
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    tagline = detailsPageElements.xpath('//td[contains(text(), "Label:")]/following-sibling::td/span/a')
+    if tagline:
+        metadata.tagline = tagline[0].text_content().strip()
+        metadata.collections.add(metadata.tagline)
+    elif studio:
+        metadata.collections.add(metadata.studio)
+    else:
+        metadata.collections.add('Japan Adult Video')
 
     # Director
     director = metadata.directors.new()
-    maybeDirectorName = detailsPageElements.xpath('//td[contains(text(), "Director:")]/following-sibling::td/span/a')
-    if maybeDirectorName:
-        director.name = maybeDirectorName[0].text_content().strip()
+    directorName = detailsPageElements.xpath('//td[contains(text(), "Director:")]/following-sibling::td/span/a')
+    if directorName:
+        director.name = directorName[0].text_content().strip()
 
     # Release Date
-    maybeDate = detailsPageElements.xpath('//td[contains(text(), "Release Date:")]/following-sibling::td')
-    if maybeDate:
-        date_object = datetime.strptime(maybeDate[0].text_content().strip(), '%Y-%m-%d')
+    date = detailsPageElements.xpath('//td[contains(text(), "Release Date:")]/following-sibling::td')
+    if date:
+        date_object = datetime.strptime(date[0].text_content().strip(), '%Y-%m-%d')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
@@ -98,10 +109,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieGenres.addGenre(genreName)
 
-    metadata.collections.add('Japan Adult Video')
-
     # Poster
     posterURL = detailsPageElements.xpath('//img[@id="video_jacket_img"]/@src')[0]
+    if 'https' not in posterURL:
+        posterURL = 'https:' + posterURL
 
     art.append(posterURL)
 
@@ -116,6 +127,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         else:
             art.append(thumbnailURL)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -123,15 +136,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and idx > 1:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
