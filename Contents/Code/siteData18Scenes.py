@@ -259,7 +259,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         for gallery in galleries:
             galleryID = gallery.xpath('./@id')[0].replace('gallery', '')
-            photoViewerURL = ("%s/sys/media_photos.php?s=1&scene=%s&pic=%s" % (PAsearchSites.getSearchBaseURL(siteNum), sceneID[1:], galleryID))
+            photoViewerURL = ("%s/sys/media_photos.php?s=%s&scene=%s&pic=%s" % (PAsearchSites.getSearchBaseURL(siteNum), sceneID[0], sceneID[1:], galleryID))
             req = PAutils.HTTPRequest(photoViewerURL)
             photoPageElements = HTML.ElementFromString(req.text)
 
