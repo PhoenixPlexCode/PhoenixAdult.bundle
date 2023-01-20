@@ -5486,7 +5486,7 @@ ActorsReplaceStudios = {
         'Kapri Styles': ['Capri'],
         'Stacy Adams': ['Stacy'],
     },
-    64: { # JAVLibrary & JavBus
+    64: {  # JAVLibrary & JavBus
         'Miduki Angelia': ['Angelia'],
         'Aoi Kururigi': ['Wooden Floor Pl'],
         'Asuna Koharu': ['Koharu'],
