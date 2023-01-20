@@ -1,5 +1,6 @@
 import PAutils
 import PAdatabaseActors
+import PAsearchSites
 
 
 class PhoenixActors:
@@ -18,7 +19,7 @@ class PhoenixActors:
     def clearActors(self):
         self.actorsTable = []
 
-    def processActors(self, metadata):
+    def processActors(self, metadata, siteNum):
         for actorLink in self.actorsTable:
             skip = False
             # Save the potential new Actor or Actress to a new variable, replace &nbsp; with a true space, and strip off any surrounding whitespace
@@ -38,7 +39,7 @@ class PhoenixActors:
             if not skip:
                 searchStudioIndex = None
                 for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
-                    if metadata.studio in studioList:
+                    if metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
                         searchStudioIndex = studioIndex
                         break
 
@@ -114,11 +115,11 @@ def actorDBfinder(actorName, metadata):
         'Boobpedia': getFromBoobpedia,
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
-        'JAVBus': getFromJAVBus,
+        'JavBus': getFromJavBus,
         'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JAVBus']
+    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JavBus']
     if Prefs['order_enable']:
         searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName.strip() in searchResults]
 
@@ -321,20 +322,38 @@ def getFromBabepedia(actorName, actorEncoded, metadata):
     return actorPhotoURL, 'female'
 
 
-def getFromJAVBus(actorName, actorEncoded, metadata):
+def getFromJavBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
+    actorID = ''
 
-    for actorSeachName, names in PAdatabaseActors.actorsReplaceJavBusSearch.items():
+    for id, names in PAdatabaseActors.actorsReplaceJavBusSearch.items():
         if actorName.lower() in map(str.lower, names):
-            actorEncoded = urllib.quote(actorSeachName)
+            actorID = id
             break
 
-    req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
+    if actorID:
+        req = PAutils.HTTPRequest('https://www.javbus.com/en/star/' + actorID)
+    else:
+        req = PAutils.HTTPRequest('https://www.javbus.com/en/searchstar/' + actorEncoded)
+
     actorSearch = HTML.ElementFromString(req.text)
-    img = actorSearch.xpath('//div[@class="photo-frame"]//img/@src')
-    if img:
-        if 'nowprinting' not in img[0]:
-            actorPhotoURL = 'https://www.javbus.com' + img[0]
+    results = actorSearch.xpath('//div[@class="photo-frame"]//img')
+    score = 100
+    for actor in results:
+        img = actor.xpath('./@src')[0]
+        actorSeachName = actor.xpath('./@title')[0].strip()
+
+        if actorID:
+            actorPhotoURL = 'https://www.javbus.com' + img
+            break
+        elif Util.LevenshteinDistance(actorName, actorSeachName) < int(score):
+            score = Util.LevenshteinDistance(actorName, actorSeachName)
+
+            if 'nowprinting' not in img and 'dmm' not in img:
+                actorPhotoURL = 'https://www.javbus.com' + img
+
+                if int(score) == 0:
+                    break
 
     return actorPhotoURL, 'female'
 
