@@ -579,6 +579,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - PornFidelity
   - TeenFidelity
 + #### Killergram | ❌ - **SceneID**
++ #### Kin8tengoku | ✅
 + #### Kink Network | ✅
   - 30MinutesofTorment
   - BoundGangBangs

@@ -187,6 +187,7 @@ import siteBelAmi
 import siteMomComesFirst
 import siteCaribbeancom
 import siteVRAllure
+import siteKin8tengoku
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1687,7 +1688,8 @@ searchSites = {
     1595: ('Parasited', 'https://parasited.com', '/?s='),
     1596: ('Futanari XXX', 'https://futanari.xxx', '/?s='),
     1597: ('Caribbeancom', 'https://en.caribbeancom.com', '/eng/moviepages/'),
-    1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/')
+    1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/'),
+    1599: ('Kin8tengoku', 'https://en.kin8tengoku.com', '/gateway/entry.phpgw?en=1&provider_id=4034&action=list&q='),
 }
 
 abbreviations = (
@@ -3046,5 +3048,9 @@ def getProviderFromSiteNum(siteNum):
         # VRAllure
         elif siteNum == 1598:
             provider = siteVRAllure
+
+        # VRAllure
+        elif siteNum == 1599:
+            provider = siteKin8tengoku
 
     return provider
