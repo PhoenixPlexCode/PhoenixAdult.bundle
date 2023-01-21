@@ -115,7 +115,7 @@ def actorDBfinder(actorName, metadata):
         'Boobpedia': getFromBoobpedia,
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
-        'JavBus': getFromJavBus,
+        'JAVBus': getFromJavBus,
         'Local Storage': getFromLocalStorage,
     }
 
