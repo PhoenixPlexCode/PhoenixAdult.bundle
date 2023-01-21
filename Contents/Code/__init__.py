@@ -156,7 +156,7 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # Cleanup Actors and Add
         Log('Actors')
-        movieActors.processActors(metadata)
+        movieActors.processActors(metadata, siteNum)
 
         # Add Content Rating
         metadata.content_rating = 'XXX'
