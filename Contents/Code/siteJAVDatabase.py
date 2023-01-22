@@ -131,9 +131,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     javbusPageElements = HTML.ElementFromString(req.text)
 
     if '404 Page' in req.text and date:
-            javBusURL = '%s_%s' % (javBusURL, date_object.strftime('%Y-%m-%d'))
-            req = PAutils.HTTPRequest(javBusURL)
-            javbusPageElements = HTML.ElementFromString(req.text)
+        javBusURL = '%s_%s' % (javBusURL, date_object.strftime('%Y-%m-%d'))
+        req = PAutils.HTTPRequest(javBusURL)
+        javbusPageElements = HTML.ElementFromString(req.text)
 
     if '404 Page' not in req.text:
         xpaths = [
