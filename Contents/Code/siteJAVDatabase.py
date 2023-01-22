@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
         sceneURL = searchResult.xpath('.//h2//@href')[0].strip()
         curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('//div[@class="mt-auto"]/text()')
+        date = searchResult.xpath('.//div[@class="mt-auto"]/text()')
         if date:
             releaseDate = parse(date[0].strip()).strftime('%Y-%m-%d')
         else:
@@ -58,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if len(title) > 93:
         metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum)[:83].strip() + '…')
-        metadata.summary = title
+        metadata.summary = PAutils.parseTitle(title, siteNum)
     else:
         metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
 
