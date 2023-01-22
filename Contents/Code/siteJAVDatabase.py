@@ -54,7 +54,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Title
     javID = detailsPageElements.xpath('//tr[./td[contains(., "DVD")]]//td[@class="tablevalue"]')[0].text_content().strip()
-    title = detailsPageElements.xpath('//tr[./td[contains(., "Translated")]]//td[@class="tablevalue"]')[0].text_content().strip()
+    title = detailsPageElements.xpath('//tr[./td[contains(., "Translated")]]//td[@class="tablevalue"]')[0].text_content().replace(javID, '').strip()
 
     if len(title) > 93:
         metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum)[:83].strip() + '…')
@@ -102,7 +102,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]'):
         actorName = actor.xpath('./div')[0].text_content().strip()
-        actorPhotoURL = actor.xpath('.//img/@src')[0]
+        actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
+
+        req = PAutils.HTTPRequest(actorPhotoURL)
+        if 'unknown.' in req.url:
+            actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -146,7 +150,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if not poster.startswith('http'):
                     poster = PAsearchSites.getSearchBaseURL(912) + poster
 
-                if 'nowprinting' not in poster:
+                if 'nowprinting' not in poster and poster not in art:
                     art.append(poster)
 
         coverImage = javbusPageElements.xpath('//a[contains(@href, "/cover/")]/@href|//img[contains(@src, "/sample/")]/@src')
@@ -205,8 +209,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 
 actorsDB = {
+    'Darcia Lee': ['CRDD-004'],
+    'Gabbie Carter': ['CRDD-001', 'CRDD-013'],
+    'Jillian Janson': ['CRDD-004', 'CRDD-013'],
+    'June Lovejoy': ['DVDMS-553'],
     'Lily Glee': ['ANCI-038'],
     'Lana Sharapova': ['ANCI-038'],
     'Madi Collins': ['KTKL-112'],
+    'Megan Marx': ['CRDD-001'],
+    'Tiffany Tatum': ['CRDD-004'],
     'Tsubomi': ['WA-192'],
+    'Vanna Bardot': ['CRDD-001'],
 }
