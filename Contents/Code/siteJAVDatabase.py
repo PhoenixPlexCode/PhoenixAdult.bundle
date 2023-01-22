@@ -117,7 +117,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//tr[@class="moviecovertb"]//img/@src'
+        '//tr[@class="moviecovertb"]//img/@src',
         '//div/div[./h2[contains(., "Images")]]/a/@href'
     ]
 
