@@ -5692,4 +5692,9 @@ actorsReplaceJavBusSearch = {
     '76b': ['Himeno Mirai'],
     '85q': ['Ayashiro Yurina'],
     'mg9': ['Aoba Yuuka'],
+    '9qk': ['Aiki Yuu'],
+    '9cy': ['Asakura Jeshika'],
+    'om5': ['Fujimoto Shion'],
+    'quu': ['Fukada Eimi'],
+    'wgg': ['Takarada Arisa'],
 }
