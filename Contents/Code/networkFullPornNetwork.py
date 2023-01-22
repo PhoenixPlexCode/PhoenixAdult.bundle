@@ -47,7 +47,6 @@ def search(results, lang, siteNum, searchData):
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FPN/%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
-
     for modelURL in modelResultsURLs:
         req = PAutils.HTTPRequest(modelURL)
         modelPageElements = HTML.ElementFromString(req.text)
