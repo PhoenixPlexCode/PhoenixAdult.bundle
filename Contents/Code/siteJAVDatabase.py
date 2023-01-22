@@ -28,18 +28,18 @@ def search(results, lang, siteNum, searchData):
 
         date = searchResult.xpath('.//div[@class="mt-auto"]/text()')
         if date:
-            releaseDate = parse(date[0].strip()).strftime('%Y-%m-%d')
+            releaseDate = parse(date[1].strip()).strftime('%Y-%m-%d')
         else:
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
         displayDate = releaseDate if date else ''
 
         if searchJAVID:
-            score = 80 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
+            score = 100 - Util.LevenshteinDistance(searchJAVID.lower(), JAVID.lower())
         elif searchData.date and displayDate:
-            score = 80 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
-            score = 80 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='[%s] %s %s' % (JAVID, displayDate, titleNoFormatting), score=score, lang=lang))
 
