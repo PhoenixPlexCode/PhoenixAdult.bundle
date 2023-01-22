@@ -3,6 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    modelResultsURLs = []
     searchResultsURLs = []
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
 
@@ -11,26 +12,68 @@ def search(results, lang, siteNum, searchData):
     else:
         directSearch = searchData.title.replace(' ', '')
 
-    searchResultsURLs.append('%s/models/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), directSearch))
+    modelResultsURLs.append('%s/models/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), directSearch))
+
+    for modelResultsURL in googleResults:
+        if modelResultsURL not in modelResultsURLs:
+            if '/models/' in modelResultsURL and 'models_' not in modelResultsURL and 'join' not in modelResultsURL:
+                modelResultsURLs.append(modelResultsURL)
 
     for searchResultURL in googleResults:
         if searchResultURL not in searchResultsURLs:
-            if '/models/' in searchResultURL:
+            if '/trailers/' in searchResultURL:
                 searchResultsURLs.append(searchResultURL)
 
-    for modelURL in searchResultsURLs:
-        req = PAutils.HTTPRequest(modelURL)
-        pageElements = HTML.ElementFromString(req.text)
-        for sceneResult in pageElements.xpath('//div[contains(@class, "latest-updates")]//div[@data-setid]'):
-            titleNoFormatting = PAutils.parseTitle(sceneResult.text_content().split(':', 1)[-1].strip(), siteNum)
-            sceneLink = sceneResult.xpath('.//a[@class="updateimg"]/@href')[0]
+    for sceneLink in searchResultsURLs:
+        req = PAutils.HTTPRequest(sceneLink)
+        detailsPageElements = HTML.ElementFromString(req.text)
+
+        if req.ok:
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[contains(@class, "title_bar")]')[0].text_content().split(':', 1)[-1].strip(), siteNum)
             curID = PAutils.Encode(sceneLink)
 
-            releaseDate = searchData.dateFormat() if searchData.date else ''
+            date = detailsPageElements.xpath('//div[@class="video-info"]//p')
+            if date:
+                releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            displayDate = releaseDate if date else ''
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FPN/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FPN/%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+
+    for modelURL in modelResultsURLs:
+        req = PAutils.HTTPRequest(modelURL)
+        modelPageElements = HTML.ElementFromString(req.text)
+
+        if modelPageElements.xpath('//a[contains(@class, "pagenav")]'):
+            pages = 3
+        else:
+            pages = 2
+
+        for idx in range(1, pages):
+            if idx == 2:
+                nextPage = modelPageElements.xpath('//a[contains(@class, "pagenav")]/@href')[0]
+                req = PAutils.HTTPRequest(nextPage)
+                modelPageElements = HTML.ElementFromString(req.text)
+
+            for sceneResult in modelPageElements.xpath('//div[contains(@class, "latest-updates")]//div[@data-setid]'):
+                sceneLink = sceneResult.xpath('.//a[@class="updateimg"]/@href')[0]
+
+                if sceneLink not in searchResultsURLs:
+                    titleNoFormatting = PAutils.parseTitle(sceneResult.text_content().split(':', 1)[-1].strip(), siteNum)
+                    curID = PAutils.Encode(sceneLink)
+
+                    releaseDate = searchData.dateFormat() if searchData.date else ''
+
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [FPN/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -56,8 +99,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    for seriesName in [metadata.studio, PAsearchSites.getSearchSiteName(siteNum)]:
-        metadata.collections.add(seriesName)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="video-info"]//p')
