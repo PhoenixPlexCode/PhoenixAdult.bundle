@@ -100,8 +100,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]'):
-        actorName = actor.xpath('./div')[0].text_content().strip()
+    for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
+        actorName = actor.xpath('.//@alt')[0].strip()
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
 
         req = PAutils.HTTPRequest(actorPhotoURL)
