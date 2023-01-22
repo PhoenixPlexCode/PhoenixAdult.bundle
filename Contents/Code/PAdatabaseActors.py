@@ -5486,12 +5486,14 @@ ActorsReplaceStudios = {
         'Kapri Styles': ['Capri'],
         'Stacy Adams': ['Stacy'],
     },
-    64: {  # JAVLibrary & JavBus
+    64: {  # JAVLibrary, JAV Database & JavBus
         'Miduki Angelia': ['Angelia'],
         'Aoi Kururigi': ['Wooden Floor Pl'],
         'Asuna Koharu': ['Koharu'],
         'Yuizuki Koharu': ['Yuiduki Koharu'],
         'Kawakawita Meisa': ['めいさ'],
+        'Ruka Inaba': ['Inaba Ruka'],
+        'Shiori Tsukada': ['Tsukada Shiori'],
     }
 }
 
@@ -5560,7 +5562,7 @@ ActorsStudioIndexes = {
     61: ['Fantasy Massage'],
     62: ['Allure Media'],
     63: ['PornPros'],
-    64: ['JavBus', 'JAVLibrary'],
+    64: ['JavBus', 'JAVLibrary', 'JAVDatabase'],
 }
 
 

@@ -562,6 +562,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### InTheCrack | ✓ - **actress name**
 + #### Jacquie Et Michel TV | ✅
 + #### JavBus (via JavBus - Censored & Uncensored JAV) | ✅ - **SceneID (in form of JAVID)**
++ #### JavDatabase (via JavDatabase) | ✅ - **SceneID (in form of JAVID)**
 + #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JulesJordan Network | ✅  **Movies Not Supported**
 + #### JVRPorn | ✅ - **Date Add**
