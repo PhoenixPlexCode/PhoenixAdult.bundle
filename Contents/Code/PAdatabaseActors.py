@@ -5488,13 +5488,14 @@ ActorsReplaceStudios = {
         'Stacy Adams': ['Stacy'],
     },
     64: {  # JAVLibrary, JAVDatabase & JavBus
-        'Miduki Angelia': ['Angelia'],
         'Aoi Kururigi': ['Wooden Floor Pl'],
         'Asuna Koharu': ['Koharu'],
-        'Yuizuki Koharu': ['Yuiduki Koharu'],
+        'Hana Haruna': ['Haruna Hana'],
         'Kawakawita Meisa': ['めいさ'],
+        'Miduki Angelia': ['Angelia'],
         'Ruka Inaba': ['Inaba Ruka'],
         'Shiori Tsukada': ['Tsukada Shiori'],
+        'Yuizuki Koharu': ['Yuiduki Koharu'],
     }
 }
 

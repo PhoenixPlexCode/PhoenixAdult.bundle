@@ -56,8 +56,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     javID = detailsPageElements.xpath('//tr[./td[contains(., "DVD")]]//td[@class="tablevalue"]')[0].text_content().strip()
     title = detailsPageElements.xpath('//tr[./td[contains(., "Translated")]]//td[@class="tablevalue"]')[0].text_content().replace(javID, '').strip()
 
-    if len(title) > 93:
-        metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum)[:83].strip() + '…')
+    for word, correction in censoredWordsDB.items():
+        if word in title:
+            title = title.replace(word, correction)
+
+    if len(title) > 80:
+        metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
         metadata.summary = PAutils.parseTitle(title, siteNum)
     else:
         metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
@@ -220,4 +224,11 @@ actorsDB = {
     'Tiffany Tatum': ['CRDD-004'],
     'Tsubomi': ['WA-192'],
     'Vanna Bardot': ['CRDD-001'],
+}
+
+
+censoredWordsDB = {
+    'G*******g': 'Gangbang',
+    'S***e': 'Slave',
+    'R**e': 'Rape',
 }
