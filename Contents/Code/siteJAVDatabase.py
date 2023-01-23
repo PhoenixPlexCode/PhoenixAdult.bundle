@@ -229,6 +229,10 @@ actorsDB = {
 
 censoredWordsDB = {
     'G*******g': 'Gangbang',
-    'S***e': 'Slave',
+    'I****t': 'Incest',
     'R**e': 'Rape',
+    'R**ed': 'Raped',
+    'S***e': 'Slave',
+    'T*****e': 'Torture',
+    'V*****ed': 'Violated',
 }
