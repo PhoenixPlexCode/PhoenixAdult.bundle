@@ -1691,7 +1691,7 @@ searchSites = {
     1597: ('Caribbeancom', 'https://en.caribbeancom.com', '/eng/moviepages/'),
     1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/'),
     1599: ('Kin8tengoku', 'https://en.kin8tengoku.com', '/gateway/entry.phpgw?en=1&provider_id=4034&action=list&q='),
-    1600: ('JAVDatabase', 'https://www.javdatabase.com/', '/?wpessid=391487&s='),
+    1600: ('JAVDatabase', 'https://www.javdatabase.com', '/?wpessid=391487&s='),
 }
 
 abbreviations = (
