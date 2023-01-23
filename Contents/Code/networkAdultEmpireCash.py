@@ -8,8 +8,8 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
         if siteNum == 815:
             # Modification for JAYs POV
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@class, "scene-title")]/h6/text()')[0], siteNum)
-            curID = PAutils.Encode(searchResult.xpath('.//a[contains(@class, "scene-title")]/@href')[0])
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0], siteNum)
+            curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
             date = searchResult.xpath('.//span[@class="date"]')
             if date:
                 releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
