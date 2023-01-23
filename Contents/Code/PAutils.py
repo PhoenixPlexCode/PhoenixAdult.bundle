@@ -286,7 +286,7 @@ def saveRequest(url, req):
 
 def parseTitle(s, siteNum):
     s = re.sub(r'w\/(?!\s)', 'w/ ', s, flags=re.IGNORECASE)
-    s = re.sub(r'\,(?!\s)', ', ', s)
+    s = re.sub(r'\,(?![\s|\d])', ', ', s)
     s = s.replace('_', ' ')
     s = preParseTitle(s)
     word_list = re.split(' ', s)
@@ -387,13 +387,13 @@ def postParseTitle(output):
     replace = [('“', '\"'), ('”', '\"'), ('’', '\''), ('W/', 'w/'), ('Aj', 'AJ')]
 
     # Add space after a punctuation if missing
-    output = re.sub(r'(?=[\!|\:|\?|\.|\,](?=(\w{2,}))\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
+    output = re.sub(r'(?=[\!|\:|\?|\.](?=(\w{2,}))\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
     output = re.sub(r'(?<=[^\.].)(?<=\w)(?:\.)$', '', output)
     # Remove space between word and punctuation
-    output = re.sub(r'\s+(?=[.,!:])', '', output)
-    # Remove space between hashtag and word
-    output = re.sub(r'(?<=[#])\s+', '', output)
+    output = re.sub(r'\s+(?=[.,!:\'\)])', '', output)
+    # Remove space between punctuation and word
+    output = re.sub(r'(?<=[#\(])\s+', '', output)
     # Override lowercase if word follows a punctuation
     output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
     # Override lowercase if word follows a parenthesis

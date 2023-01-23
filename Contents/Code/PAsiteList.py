@@ -188,6 +188,7 @@ import siteMomComesFirst
 import siteCaribbeancom
 import siteVRAllure
 import siteKin8tengoku
+import siteJAVDatabase
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -1690,6 +1691,7 @@ searchSites = {
     1597: ('Caribbeancom', 'https://en.caribbeancom.com', '/eng/moviepages/'),
     1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/'),
     1599: ('Kin8tengoku', 'https://en.kin8tengoku.com', '/gateway/entry.phpgw?en=1&provider_id=4034&action=list&q='),
+    1600: ('JAVDatabase', 'https://www.javdatabase.com', '/?wpessid=391487&s='),
 }
 
 abbreviations = (
@@ -3049,8 +3051,12 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1598:
             provider = siteVRAllure
 
-        # VRAllure
+        # Kin8tengoku
         elif siteNum == 1599:
             provider = siteKin8tengoku
+
+        # JAV Database
+        elif siteNum == 1600:
+            provider = siteJAVDatabase
 
     return provider
