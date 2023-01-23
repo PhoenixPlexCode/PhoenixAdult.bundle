@@ -105,7 +105,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
-        actorName = actor.xpath('.//@alt')[0].strip()
+        actorName = actor.xpath('.//@alt')[0].strip().split('(')[0]
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
 
         req = PAutils.HTTPRequest(actorPhotoURL)
@@ -213,7 +213,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 
 actorsDB = {
+    'Chigusa Hara': ['SAIT-004'],
     'Darcia Lee': ['CRDD-004'],
+    'Eimi Fukada': ['MIAA-448'],
     'Gabbie Carter': ['CRDD-001', 'CRDD-013'],
     'Jillian Janson': ['CRDD-004', 'CRDD-013'],
     'June Lovejoy': ['DVDMS-553'],
@@ -228,11 +230,14 @@ actorsDB = {
 
 
 censoredWordsDB = {
+    'D***kest': 'Drunkest',
+    'D***king': 'Drinking',
+    'D******e': 'Disgrace',
     'G*******g': 'Gangbang',
     'I****t': 'Incest',
     'R**e': 'Rape',
-    'R**ed': 'Raped',
     'S***e': 'Slave',
+    'T******e': 'Tentacle',
     'T*****e': 'Torture',
-    'V*****ed': 'Violated',
+    'V*****e': 'Violate',
 }
