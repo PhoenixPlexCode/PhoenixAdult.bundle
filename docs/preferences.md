@@ -46,7 +46,7 @@
 
 ## Custom Order for Actor Matching
  - Allows for ranking perferred actor metadata source
- - Default: Local Storage, Freeones, IAFD, Indexxx, AdultDVDEmpire, Boobpedia, Babes and Stars, Babepedia
+ - Default: Local Storage, Freeones, IAFD, Indexxx, AdultDVDEmpire, Boobpedia, Babes and Stars, Babepedia, JavBus, JAVDatabase
 
 ## Proxy Preferences
 

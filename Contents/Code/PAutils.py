@@ -369,7 +369,9 @@ def parseTitleSymbol(word, siteNum, symbol):
     for idx, hword in enumerate(word_list[1:], 1):
         cleanWord = re.sub(pattern, '', hword)
         if symbol in symbols:
-            if len(hword) > 1:
+            if idx == 1 and not firstWord:
+                nhword += hword.capitalize()
+            elif len(hword) > 1:
                 nhword += parseWord(hword, siteNum)
             else:
                 nhword += hword.capitalize()
@@ -397,7 +399,9 @@ def postParseTitle(output):
     # Override lowercase if word follows a punctuation
     output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
     # Override lowercase if word follows a parenthesis
-    output = re.sub(r'(?<=[\(|\&|\"|\[|\*])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
+    output = re.sub(r'(?<=[\(|\&|\"|\[|\*|\~])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
+    # Override lowercase if last word in section
+    output = re.sub(r'\S+[\]\)\"\~\:]', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
     # Override lowercase if last word
     output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
 

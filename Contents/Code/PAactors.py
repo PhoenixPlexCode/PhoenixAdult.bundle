@@ -116,10 +116,11 @@ def actorDBfinder(actorName, metadata):
         'Babes and Stars': getFromBabesandStars,
         'Babepedia': getFromBabepedia,
         'JAVBus': getFromJavBus,
+        'JAVDatabase': getFromJAVDatabase,
         'Local Storage': getFromLocalStorage,
     }
 
-    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JAVBus']
+    searchOrder = ['Local Storage', 'Freeones', 'IAFD', 'Indexxx', 'AdultDVDEmpire', 'Boobpedia', 'Babes and Stars', 'Babepedia', 'JAVBus', 'JAVDatabase']
     if Prefs['order_enable']:
         searchOrder = [sourceName.strip() for sourceName in Prefs['order_list'].split(',') if sourceName.strip() in searchResults]
 
@@ -350,10 +351,41 @@ def getFromJavBus(actorName, actorEncoded, metadata):
             score = Util.LevenshteinDistance(actorName, actorSeachName)
 
             if 'nowprinting' not in img and 'dmm' not in img:
-                actorPhotoURL = 'https://www.javbus.com' + img
+                if 'http' not in img:
+                    actorPhotoURL = 'https://www.javbus.com' + img
+                else:
+                    actorPhotoURL = img
 
                 if int(score) == 0:
                     break
+
+    return actorPhotoURL, 'female'
+
+
+def getFromJAVDatabase(actorName, actorEncoded, metadata):
+    actorPhotoURL = ''
+    actorEncoded = actorName.replace(' ', '+')
+
+    req = PAutils.HTTPRequest('https://www.javdatabase.com/?wpessid=391488&s=' + actorEncoded)
+
+    actorSearch = HTML.ElementFromString(req.text)
+    results = actorSearch.xpath('//div[@id="content"]//div[@class="row"]/div')
+    lastScore = 100
+    for actor in results:
+        actorSeachName = actor.xpath('.//h2/a')[0].text_content().strip().split('(')[0]
+
+        score = Util.LevenshteinDistance(actorName, actorSeachName)
+
+        if score < lastScore or not actorPhotoURL:
+            lastScore = score
+            actorPhotoURL = actor.xpath('.//@src')[0]
+
+            req = PAutils.HTTPRequest(actorPhotoURL)
+            if 'unknown.' in req.url:
+                actorPhotoURL = ''
+
+        if actorPhotoURL and int(score) == 0:
+            break
 
     return actorPhotoURL, 'female'
 

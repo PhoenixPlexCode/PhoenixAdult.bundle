@@ -69,8 +69,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Title
     javID = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[0]
-    title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[-1].replace(' - JAVLibrary', '')
-    metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
+    title = detailsPageElements.xpath('//meta[@property="og:title"]/@content')[0].strip().split(' ', 1)[-1].replace(' - JAVLibrary', '').replace(javID, '').strip()
+
+    if len(title) > 80:
+        metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
+        metadata.summary = PAutils.parseTitle(title, siteNum)
+    else:
+        metadata.title = '[%s] %s' % (javID.upper(), PAutils.parseTitle(title, siteNum))
 
     # Studio
     studio = detailsPageElements.xpath('//td[contains(text(), "Maker:")]/following-sibling::td/span/a')
@@ -151,7 +156,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             # Download image file for analysis
             try:
                 image = PAutils.HTTPRequest(posterUrl)
-                if 'now_printing' not in image.url:
+                if 'now_printing' not in image.url and '/removed.png' not in image.url:
                     im = StringIO(image.content)
                     images.append(image)
                     resized_image = Image.open(im)
