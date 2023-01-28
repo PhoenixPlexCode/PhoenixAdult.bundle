@@ -9,11 +9,13 @@ jobs:
     name: Lint
     steps:
       - name: Check out source repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: Set up Python environment
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 2.x
+
       - name: flake8 Lint
         uses: reviewdog/action-flake8@v3
         with:
