@@ -129,7 +129,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if javID.lower() == javCorrectionID.lower() and actorName.lower() in map(str.lower, actors):
                     movieActors.addActor(actorName, actorPhotoURL)
 
-
     # Manually Add Actors By JAV ID
     actors = []
     for actorName, scenes in actorsDB.items():
