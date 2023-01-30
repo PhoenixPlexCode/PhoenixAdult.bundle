@@ -36,7 +36,7 @@ GenresReplace = {
     'Bukkake': ['bukakke'],
     'Butt Plug': ['anal plug', 'buttplug'],
     'Camel Toe': ['camel toe pussy'],
-    'Caucasian': ['while', 'white', 'white girl', 'white girls'],
+    'Caucasian': ['while', 'white', 'white girl', 'white girls', 'caucasian actress', 'white actress'],
     'CBT': ['death defying cbt'],
     'Chastity Play': ['chastity'],
     'Coeds': ['coed', 'college', 'university'],
