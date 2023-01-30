@@ -3,30 +3,37 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    searchResults = []
     searchData.encoded = searchData.title.replace(' ', '+')
     req = PAutils.HTTPRequest('%svideo&q=%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded))
     searchPageElements = HTML.ElementFromString(req.text)
 
-    for searchResult in searchPageElements.xpath('//ul[@id="studio-videos-container"]/li'):
-        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//span[contains(@class, "title")]')[0].text_content().strip(), siteNum)
-        galleryID = searchResult.xpath('.//a/@href')[0].split('=')[-1]
-        sceneURL = '%s/studios/video/%s' % (PAsearchSites.getSearchBaseURL(siteNum), galleryID)
-        curID = PAutils.Encode(sceneURL)
+    for idx in range(2):
+        for searchResult in searchPageElements.xpath('//ul[@id="studio-videos-container"]/li'):
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//span[contains(@class, "title")]')[0].text_content().strip(), siteNum)
+            galleryID = searchResult.xpath('.//a/@href')[0].split('=')[-1]
+            sceneURL = '%s/studios/video/%s' % (PAsearchSites.getSearchBaseURL(siteNum), galleryID)
+            curID = PAutils.Encode(sceneURL)
 
-        date = searchResult.xpath('.//span[contains(@class, "releasedate")]')
-        if date:
-            releaseDate = datetime.strptime(date[0].text_content().strip(), '%b %d, %Y').strftime('%Y-%m-%d')
-        else:
-            releaseDate = searchData.dateFormat() if searchData.date else ''
+            date = searchResult.xpath('.//span[contains(@class, "releasedate")]')
+            if date:
+                releaseDate = datetime.strptime(date[0].text_content().strip(), '%b %d, %Y').strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        displayDate = releaseDate if date else ''
+            displayDate = releaseDate if date else ''
 
-        if searchData.date and displayDate:
-            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            if searchData.date and displayDate:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Adult Prime/%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
+            if sceneURL not in searchResults:
+                searchResults.append(sceneURL)
+                results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Adult Prime] %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+
+        req = PAutils.HTTPRequest('%sperformer&q=%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded))
+        searchPageElements = HTML.ElementFromString(req.text)
 
     return results
 
