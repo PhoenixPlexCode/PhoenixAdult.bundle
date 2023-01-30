@@ -70,7 +70,6 @@ import siteClubFilly
 import networkIntersec
 import networkCherryPimps
 import site18OnlyGirls
-import siteClubSweethearts
 import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
@@ -189,6 +188,7 @@ import siteCaribbeancom
 import siteVRAllure
 import siteKin8tengoku
 import siteJAVDatabase
+import networkAdultPrime
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/api'),
@@ -991,7 +991,7 @@ searchSites = {
     797: ('We Like Girls', 'https://www.girlsway.com', '/en/video/1/1/'),
     798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
-    800: ('ClubSweethearts', 'https://www.clubsweethearts.com', '/video.php?slug='),
+    800: ('ClubSweethearts', 'https://adultprime.com', '/studios/search?type='),
     801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/updates/'),
@@ -1692,6 +1692,78 @@ searchSites = {
     1598: ('VRAllure', 'https://www.vrallure.com', '/scenes/'),
     1599: ('Kin8tengoku', 'https://en.kin8tengoku.com', '/gateway/entry.phpgw?en=1&provider_id=4034&action=list&q='),
     1600: ('JAVDatabase', 'https://www.javdatabase.com', '/?wpessid=391487&s='),
+    1601: ('Adult Prime', 'https://adultprime.com', '/studios/search?q='),
+    1602: ('Beauty and the Senior', 'https://adultprime.com', '/studios/search?q='),
+    1603: ('4K CFNM', 'https://adultprime.com', '/studios/search?type='),
+    1604: ('Adult Prime Originals', 'https://adultprime.com', '/studios/search?type='),
+    1605: ('BBvideo', 'https://adultprime.com', '/studios/search?type='),
+    1606: ('Bondagettes', 'https://adultprime.com', '/studios/search?type='),
+    1607: ('Bound Men Wanked', 'https://adultprime.com', '/studios/search?type='),
+    1608: ('BrasilBimbos', 'https://adultprime.com', '/studios/search?type='),
+    1609: ('Breed Bus', 'https://adultprime.com', '/studios/search?type='),
+    1610: ('Club Bang Boys', 'https://adultprime.com', '/studios/search?type='),
+    1611: ('Club Castings', 'https://adultprime.com', '/studios/search?type='),
+    1612: ('Cockin', 'https://adultprime.com', '/studios/search?type='),
+    1613: ('Color Climax', 'https://adultprime.com', '/studios/search?type='),
+    1614: ('CuckOldest', 'https://adultprime.com', '/studios/search?type='),
+    1615: ('DaringSex HD', 'https://adultprime.com', '/studios/search?type='),
+    1616: ('Digital Desire', 'https://adultprime.com', '/studios/search?type='),
+    1617: ('Dirty Gunther', 'https://adultprime.com', '/studios/search?type='),
+    1618: ('Dirty Hospital', 'https://adultprime.com', '/studios/search?type='),
+    1619: ('Distorded', 'https://adultprime.com', '/studios/search?type='),
+    1620: ('Elegant Raw', 'https://adultprime.com', '/studios/search?type='),
+    1621: ('Evil Playgrounds', 'https://adultprime.com', '/studios/search?type='),
+    1622: ('Family Screw', 'https://adultprime.com', '/studios/search?type='),
+    1623: ('Fixxxion', 'https://adultprime.com', '/studios/search?type='),
+    1624: ('Fresh POV', 'https://adultprime.com', '/studios/search?type='),
+    1625: ('Fucking Skinny', 'https://adultprime.com', '/studios/search?type='),
+    1626: ('Gonzo 2000', 'https://adultprime.com', '/studios/search?type='),
+    1627: ('Granddadz', 'https://adultprime.com', '/studios/search?type='),
+    1628: ('GrandMams', 'https://adultprime.com', '/studios/search?type='),
+    1629: ('GrandParentsX', 'https://adultprime.com', '/studios/search?type='),
+    1630: ('Group Banged', 'https://adultprime.com', '/studios/search?type='),
+    1631: ('Group Mams', 'https://adultprime.com', '/studios/search?type='),
+    1632: ('Group Sex Games', 'https://adultprime.com', '/studios/search?type='),
+    1633: ('Hollandsche Passie', 'https://adultprime.com', '/studios/search?type='),
+    1634: ('Interraced', 'https://adultprime.com', '/studios/search?type='),
+    1635: ('Jim Slip', 'https://adultprime.com', '/studios/search?type='),
+    1636: ('Laras Playground', 'https://adultprime.com', '/studios/search?type='),
+    1637: ('Lets Go Bi', 'https://adultprime.com', '/studios/search?type='),
+    1638: ('Mams Casting', 'https://adultprime.com', '/studios/search?type='),
+    1639: ('Manalized', 'https://adultprime.com', '/studios/search?type='),
+    1640: ('Manko 88', 'https://adultprime.com', '/studios/search?type='),
+    1641: ('Massage Sins', 'https://adultprime.com', '/studios/search?type='),
+    1642: ('Mature Van', 'https://adultprime.com', '/studios/search?type='),
+    1643: ('My MILFz', 'https://adultprime.com', '/studios/search?type='),
+    1644: ('My Sexy Kittens', 'https://adultprime.com', '/studios/search?type='),
+    1645: ('OldieX', 'https://adultprime.com', '/studios/search?type='),
+    1646: ('Peep Leek', 'https://adultprime.com', '/studios/search?type='),
+    1647: ('Perfect 18', 'https://adultprime.com', '/studios/search?type='),
+    1648: ('Plumperd', 'https://adultprime.com', '/studios/search?type='),
+    1649: ('Pornstar Classics', 'https://adultprime.com', '/studios/search?type='),
+    1650: ('Pornstars Live', 'https://adultprime.com', '/studios/search?type='),
+    1651: ('Prime Lesbian', 'https://adultprime.com', '/studios/search?type='),
+    1652: ('Raw Euro', 'https://adultprime.com', '/studios/search?type='),
+    1653: ('Red Light Sex Trips', 'https://adultprime.com', '/studios/search?type='),
+    1654: ('Retro Raw', 'https://adultprime.com', '/studios/search?type='),
+    1655: ('Rodox', 'https://adultprime.com', '/studios/search?type='),
+    1656: ('Salsa XXX', 'https://adultprime.com', '/studios/search?type='),
+    1657: ('Sensual Heat', 'https://adultprime.com', '/studios/search?type='),
+    1658: ('Shadow Slaves', 'https://adultprime.com', '/studios/search?type='),
+    1659: ('Sinful Raw', 'https://adultprime.com', '/studios/search?type='),
+    1660: ('Sinful Soft', 'https://adultprime.com', '/studios/search?type='),
+    1661: ('Sinful XXX', 'https://adultprime.com', '/studios/search?type='),
+    1662: ('Southern Sins', 'https://adultprime.com', '/studios/search?type='),
+    1663: ('Submissed', 'https://adultprime.com', '/studios/search?type='),
+    1664: ('Summer Sinners', 'https://adultprime.com', '/studios/search?type='),
+    1665: ('Swhores', 'https://adultprime.com', '/studios/search?type='),
+    1666: ('Teenrs', 'https://adultprime.com', '/studios/search?type='),
+    1667: ('The Pain Files', 'https://adultprime.com', '/studios/search?type='),
+    1668: ('Tranny Bizarre', 'https://adultprime.com', '/studios/search?type='),
+    1669: ('UK Flashers', 'https://adultprime.com', '/studios/search?type='),
+    1670: ('Vintage Classic Porn', 'https://adultprime.com', '/studios/search?type='),
+    1671: ('VR Teens', 'https://adultprime.com', '/studios/search?type='),
+    1672: ('Young Busty', 'https://adultprime.com', '/studios/search?type='),
 }
 
 abbreviations = (
@@ -1714,6 +1786,7 @@ abbreviations = (
     ('^aw ', 'AngelaWhite '),
     ('^ba ', 'BBCSurprise '),
     ('^baebz ', 'Baeb '),
+    ('^bandts ', 'BeautyandtheSenior '),
     ('^bblib ', 'BigButtsLikeItBig '),
     ('^bcasting ', 'BangCasting '),
     ('^bcb ', 'BigCockBully '),
@@ -2504,9 +2577,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 799 or siteNum == 876:
             provider = network1service
 
-        # ClubSeventeen / ClubSweethearts
-        elif siteNum == 800:
-            provider = siteClubSweethearts
+        # Adult Prime
+        elif siteNum == 800 or (1601 <= siteNum <= 1672):
+            provider = networkAdultPrime
 
         # Elegant Angel
         elif siteNum == 801:

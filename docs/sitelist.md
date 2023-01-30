@@ -54,6 +54,80 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Conor Coxxx
   - JaysPOV
   - SpankMonster
++ #### Adult Prime Studios | ✅
+  - 4K CFNM
+  - Adult Prime
+  - Adult Prime Originals
+  - BBvideo
+  - Beauty and the Senior
+  - Bondagettes
+  - Bound Men Wanked
+  - BrasilBimbos
+  - Breed Bus
+  - Club Bang Boys
+  - Club Castings
+  - Club SweetHearts/Seventeen
+  - Cockin
+  - Color Climax
+  - CuckOldest
+  - DaringSex HD
+  - Digital Desire
+  - Dirty Gunther
+  - Dirty Hospital
+  - Distorded
+  - Elegant Raw
+  - Evil Playgrounds
+  - Family Screw
+  - Fixxxion
+  - Fresh POV
+  - Fucking Skinny
+  - Gonzo 2000
+  - Granddadz
+  - GrandMams
+  - GrandParentsX
+  - Group Banged
+  - Group Mams
+  - Group Sex Games
+  - Hollandsche Passie
+  - Interraced
+  - Jim Slip
+  - Laras Playground
+  - Lets Go Bi
+  - Mams Casting
+  - Manalized
+  - Manko 88
+  - Massage Sins
+  - Mature Van
+  - My MILFz
+  - My Sexy Kittens
+  - OldieX
+  - Peep Leek
+  - Perfect 18
+  - Plumperd
+  - Pornstar Classics
+  - Pornstars Live
+  - Prime Lesbian
+  - Raw Euro
+  - Red Light Sex Trips
+  - Retro Raw
+  - Rodox
+  - Salsa XXX
+  - Sensual Heat
+  - Shadow Slaves
+  - Sinful Raw
+  - Sinful Soft
+  - Sinful XXX
+  - Southern Sins
+  - Submissed
+  - Summer Sinners
+  - Swhores
+  - Teenrs
+  - The Pain Files
+  - Tranny Bizarre
+  - UK Flashers
+  - Vintage Classic Porn
+  - VR Teens
+  - Young Busty
 + #### Adult Time Studios | ✅
   - AdultTime
   - FameDigital
@@ -262,7 +336,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Wild on Cam
 + #### Clips4Sale | ❌ - **StudioID with Title Search**
 + #### ClubFilly | ❌ - **SceneID, DVDs not supported**
-+ #### ClubSeventeen | ❌ - **Direct URL**
 + #### Couple Fantasies | ✅ - **Date Add**
   - Common Sensual
   - Foxhouse Films
