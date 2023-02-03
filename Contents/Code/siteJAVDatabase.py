@@ -528,7 +528,7 @@ actorsDB = {
     'Reon Otowa': ['SCOP-012', 'SCOP-146', 'SCOP-152'],
     'Ribon Yumesaki': ['RTP-015'],
     'Rie Matsuo': ['JUTA-132'],
-    'Riko Honda': ['MBM-029' ,'SW-323', 'SW-322'],
+    'Riko Honda': ['MBM-029', 'SW-323', 'SW-322'],
     'Rin Aoki': ['DISM-003'],
     'Rin Sukehana': ['VANDR-051'],
     'Rin Yuzunoki': ['SCOP-168'],
