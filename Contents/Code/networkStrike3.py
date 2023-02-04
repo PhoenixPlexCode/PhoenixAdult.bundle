@@ -2,55 +2,50 @@ import PAsearchSites
 import PAutils
 
 
-def getDatafromAPI(url):
-    req = PAutils.HTTPRequest(url)
-
-    if req:
-        return req.json()['data']
-    return req
-
-
 def search(results, lang, siteNum, searchData):
-    if searchData.encoded.isdigit():
-        url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_id_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
-        searchResult = getDatafromAPI(url)
-        if searchResult:
-            titleNoFormatting = PAutils.parseTitle(searchResult['findOneVideo']['title'], siteNum)
-            releaseDate = parse(searchResult['findOneVideo']['releaseDate']).strftime('%Y-%m-%d')
-            curID = PAutils.Encode(searchResult['findOneVideo']['slug'])
+    sceneId = None
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneId = parts[0]
 
-            if searchData.date:
+        if int(sceneId) > 10000:
+            searchData.title = searchData.title.replace(sceneId, '', 1).strip()
+
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
+    searchPageElements = HTML.ElementFromString(req.text)
+
+    searchResults = json.loads(searchPageElements.xpath('//script[@type="application/json"]')[0].text_content())
+
+    if searchResults:
+        for searchResult in searchResults['props']['pageProps']['videos']:
+            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
+            releaseDate = parse(searchResult['releaseDate']).strftime('%Y-%m-%d')
+            sceneURL = '%s/videos/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult['id'].split(':')[-1])
+            videoId = searchResult['videoId']
+            curID = PAutils.Encode(sceneURL)
+
+            if sceneId and int(sceneId) == int(videoId):
+                score == 100
+            elif searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
-    else:
-        url = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + search_query % (searchData.encoded, PAsearchSites.getSearchSiteName(siteNum).upper())
-        searchResults = getDatafromAPI(url)
-        if searchResults:
-            for searchResult in searchResults['searchVideos']['edges']:
-                titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
-                releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
-                curID = PAutils.Encode(searchResult['node']['slug'])
-
-                if searchData.date:
-                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-                else:
-                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
-
-                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
-    sceneName = PAutils.Decode(metadata_id[0])
-    sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/graphql?query=' + update_query % (sceneName, PAsearchSites.getSearchSiteName(siteNum).upper())
+    sceneURL = PAutils.Decode(metadata_id[0])
 
-    detailsPageElements = getDatafromAPI(sceneURL)
-    video = detailsPageElements['findOneVideo']
+    req = PAutils.HTTPRequest(sceneURL)
+    detailsPageElements = HTML.ElementFromString(req.text)
+
+    videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/json"]')[0].text_content())
+
+    video = videoPageElements['props']['pageProps']['video']
     pictureset = video['carousel']
 
     # Title
@@ -81,20 +76,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if metadata.studio == 'Tushy' or metadata.studio == 'TushyRaw':
         movieGenres.addGenre('Anal')
 
-    if video['categories']:
+    try:
         for tag in video['categories']:
             genreName = tag['name']
 
             movieGenres.addGenre(genreName)
+    except:
+        pass
 
     # Actors
     movieActors.clearActors()
-    actors = video['models']
+    actors = video['modelsSlugged']
     for actor in actors:
         actorName = actor['name']
         actorPhotoURL = ''
-        if actor['images']:
-            actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
+
+        modelURL = '%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actor['slugged'])
+        req = PAutils.HTTPRequest(modelURL)
+        modelPageElements = HTML.ElementFromString(req.text)
+        model = json.loads(modelPageElements.xpath('//script[@type="application/json"]')[0].text_content())
+        actorPhotoURL = model['props']['pageProps']['hero']['sources'][0]['src']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -103,16 +104,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if name in video['carousel'] and video['images'][name]:
             image = video['images'][name][-1]
             if 'highdpi' in image:
-                art.append(image['highdpi']['3x'])
+                art.append(image['highdpi']['double'])
             else:
                 art.append(image['src'])
             break
 
     for image in pictureset:
-        img = image['listing'][0]['highdpi']['triple']
+        img = image['listing'][0]['src']
 
         art.append(img)
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -120,21 +123,31 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             try:
                 image = PAutils.HTTPRequest(posterUrl)
                 im = StringIO(image.content)
+                images.append(image)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if width > 1 or height > width:
+                if height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100 and width > height and idx > 1:
+                    posterExists = True
+                if width > height:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
     return metadata
-
-
-search_query = '{searchVideos(input:{query:\"%s\",site:%s,first:10}){edges{node{videoId,title,releaseDate,slug}}}}'
-update_query = '{findOneVideo(input:{slug:\"%s\",site:%s}){videoId,title,description,releaseDate,models{name,slug,images{listing{highdpi{double}}}},directors{name},categories{name},carousel{listing{highdpi{triple}}}}}'
-search_id_query = '{findOneVideo(input:{videoId:\"%s\",site:%s}){videoId,title,releaseDate,slug}}'
