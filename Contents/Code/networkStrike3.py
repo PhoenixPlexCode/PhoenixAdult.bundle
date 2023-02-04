@@ -76,13 +76,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if metadata.studio == 'Tushy' or metadata.studio == 'TushyRaw':
         movieGenres.addGenre('Anal')
 
-    try:
-        for tag in video['categories']:
-            genreName = tag['name']
+    for genreLink in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
+        genreName = genreLink.strip()
 
-            movieGenres.addGenre(genreName)
-    except:
-        pass
+        movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
