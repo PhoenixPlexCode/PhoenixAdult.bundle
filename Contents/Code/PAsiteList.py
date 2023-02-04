@@ -1548,7 +1548,7 @@ searchSites = {
     1354: ('PervDoctor', 'http://pervdoctor.com', '/movies/'),
     1355: ('MomSwap', 'http://momswap.com', '/movies/'),
     1356: ('FreeuseMILF', 'http://freeusemilf.com', '/movies/'),
-    1357: ('Slayed', 'https://www.slayed.com', '/api'),
+    1357: ('Slayed', 'https://www.slayed.com', '/search?q='),
     1358: ('White Teens Black Cocks', 'https://teencoreclub.com', '/video/'),
     1359: ('POVR', 'https://povr.com', '/search?q='),
     1360: ('Bratty MILF', 'https://brattymilf.com', '/video/gallery/'),
