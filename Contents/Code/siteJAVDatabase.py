@@ -125,15 +125,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if javID not in (actorsCorrectionDB.keys()):
             movieActors.addActor(actorName, actorPhotoURL)
         else:
-            for javCorrectionID, actors in actorsDB.items():
-                if javID.lower() == javCorrectionID.lower() and actorName.lower() in map(str.lower, actors):
-                    movieActors.addActor(actorName, actorPhotoURL)
+            if actorName.lower() in map(str.lower, PAutils.dictValuesFromKey(actorsCorrectionDB, javID)):
+                movieActors.addActor(actorName, actorPhotoURL)
 
     # Manually Add Actors By JAV ID
-    actors = []
-    for actorName, scenes in actorsDB.items():
-        if javID.lower() in map(str.lower, scenes):
-            actors.append(actorName)
+    actors = PAutils.dictKeyFromValues(sceneActorsDB, javID)
 
     for actor in actors:
         movieActors.addActor(actor, '')
@@ -238,7 +234,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     return metadata
 
 
-actorsDB = {
+sceneActorsDB = {
     'Ageha Kinoshita': ['VSPDS-597'],
     'Ai Kawana': ['HUNTB-035'],
     'Ai Makise': ['SVDVD-455', 'RDT-214'],
@@ -258,7 +254,7 @@ actorsDB = {
     'Aki Mizuhara': ['ULT-067'],
     'Aki Yoshimi': ['ULT-067'],
     'Akubi Asakara': ['SERO-0307'],
-    'Alice Otsu': ['HJMO-472', 'HUNTB-035', 'SDDE-375'],
+    'Alice Otsu': ['HJMO-472', 'HUNTB-035', 'SDDE-375', 'HAWA-288'],
     'Alicia Williams': ['CRDD-007'],
     'Ameri Miyazawa': ['TDSS-011'],
     'Ami Kashiwagi': ['ANZD-056'],
@@ -458,6 +454,7 @@ actorsDB = {
     'Mio Morishita': ['DANDY-593'],
     'Mio Shiracchi': ['TDSS-011'],
     'Mio Takahashi': ['NGD-065'],
+    'Mio Ueshiro': ['DOA-033'],
     'Mion Hazuki': ['KATU-085', 'JYMA-004', 'SERO-0307'],
     'Mira Hasegawa': ['YRH-072'],
     'Mire Omori': ['SCOP-149'],
@@ -603,7 +600,7 @@ actorsDB = {
     'Tia': ['SCOP-045', 'SCOP-037'],
     'Tiffany Tatum': ['CRDD-004'],
     'Tomoka Hamada': ['TMEM-052'],
-    'Tomoko Kamisaka': ['HJMO-494'],
+    'Tomoko Kamisaka': ['HJMO-494', 'MMND-205'],
     'Tsubaki Kato': ['SDDE-303'],
     'Tsubasa Ayumi': ['SDDE-375'],
     'Tsubomi': ['WA-192', 'HUNT-436'],
