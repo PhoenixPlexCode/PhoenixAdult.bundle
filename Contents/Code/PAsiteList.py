@@ -1764,6 +1764,7 @@ searchSites = {
     1670: ('Vintage Classic Porn', 'https://adultprime.com', '/studios/search?type='),
     1671: ('VR Teens', 'https://adultprime.com', '/studios/search?type='),
     1672: ('Young Busty', 'https://adultprime.com', '/studios/search?type='),
+    1673: ('Abuse Me', 'http://bangbrosportal.com', '/?s='),
 }
 
 abbreviations = (
@@ -2951,7 +2952,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkFAKings
 
         # Other BangBros Sites
-        elif (1153 <= siteNum <= 1154) or (1156 <= siteNum <= 1158):
+        elif (1153 <= siteNum <= 1154) or (1156 <= siteNum <= 1158) or siteNum == 1673:
             provider = networkBangBrosOther
 
         # Putalocura
