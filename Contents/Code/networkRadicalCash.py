@@ -9,7 +9,12 @@ def search(results, lang, siteNum, searchData):
         sceneId = parts[0]
         searchData.title = searchData.title.replace(sceneId, '', 1).strip()
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded.lower())
+    if PAsearchSites.getSearchSiteName(siteNum) == 'ComeInside':
+        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + slugify(searchData.title.lower())
+    else:
+        searchURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded.lower()
+
+    req = PAutils.HTTPRequest(searchURL)
     searchPageElements = HTML.ElementFromString(req.text)
 
     searchResults = json.loads(searchPageElements.xpath('//script[@type="application/json"]')[0].text_content())
