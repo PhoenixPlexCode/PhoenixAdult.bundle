@@ -189,6 +189,7 @@ import siteVRAllure
 import siteKin8tengoku
 import siteJAVDatabase
 import networkAdultPrime
+import networkRadicalCash
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/search?q='),
@@ -955,7 +956,7 @@ searchSites = {
     761: ('VogoV', 'https://vogov.com', '/search/?q='),
     762: ('Ultrafilms', 'https://www.ultrafilms.xxx', '/?s='),
     763: ('FuckingAwesome', 'https://fuckingawesome.com', '/search/videos/'),
-    764: ('ToughLoveX', 'https://tour.toughlovex.com', '/models?letter='),
+    764: ('ToughLoveX', 'https://tour.toughlovex.com', '/search/'),
     765: ('CumLouder', 'https://www.cumlouder.com', '/search?q='),
     766: ('Deep Lush', 'https://deeplush.com', '/video/'),
     767: ('AllAnal', 'https://tour.allanal.com', '/_next/data/'),
@@ -1766,6 +1767,17 @@ searchSites = {
     1672: ('Young Busty', 'https://adultprime.com', '/studios/search?type='),
     1673: ('Abuse Me', 'http://bangbrosportal.com', '/?s='),
     1674: ('DirtyAuditions', 'https://dirtyauditions.com', '/_next/data/'),
+    1675: ('Sexy Modern Bull', 'https://sexymodernbull.com', '/search/'),
+    1676: ('GotFilled', 'https://gotfilled.com', '/search/'),
+    1677: ('ComeInside', 'https://comeinside.com', '/models/'),
+    1678: ('Benefit Monkey', 'https://benefitmonkey.com', '/search/'),
+    1679: ('Ricky\'s Room', 'https://rickysroom.com', '/search/'),
+    1680: ('Inserted', 'https://inserted.com', '/search/'),
+    1681: ('BJRAW', 'https://bjraw.com', '/search/'),
+    1682: ('AltErotic', 'https://alterotic.com', '/search/'),
+    1683: ('Lezkey', 'https://lezkey.com', '/search/'),
+    1684: ('Side Chick', 'https://sidechick.com', '/search/'),
+    1685: ('JAV888', 'https://jav888.com', '/search/'),
 }
 
 abbreviations = (
@@ -3122,5 +3134,9 @@ def getProviderFromSiteNum(siteNum):
         # JAV Database
         elif siteNum == 1600:
             provider = siteJAVDatabase
+
+        # Radical Cash
+        elif (1675 <= siteNum <= 1685):
+            provider = networkRadicalCash
 
     return provider
