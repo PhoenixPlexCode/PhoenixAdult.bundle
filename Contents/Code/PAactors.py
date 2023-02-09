@@ -39,7 +39,7 @@ class PhoenixActors:
             if not skip:
                 searchStudioIndex = None
                 for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
-                    if metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
+                    if not siteNum == 684 and metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
                         searchStudioIndex = studioIndex
                         break
 
