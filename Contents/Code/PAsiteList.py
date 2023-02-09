@@ -473,9 +473,9 @@ searchSites = {
     279: ('GloryHoleSecrets', 'http://www.gloryholesecrets.com', '/tour/search.php?query='),
     280: ('New Sensations', 'http://www.newsensations.com', '/tour_ns/'),
     281: ('Pure Taboo', 'https://www.puretaboo.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    282: ('Swallowed', 'https://tour.swallowed.com', '/_next/data/zSa9PjrkeiA_j31BvBeJJ'),
-    283: ('TrueAnal', 'https://tour.trueanal.com', '/_next/data/au9lKNswhRdPW1e09tLqQ'),
-    284: ('Nympho', 'https://tour.nympho.com', '/_next/data/bLxjuvclPAIKbQV5obznW'),
+    282: ('Swallowed', 'https://tour.swallowed.com', '/_next/data/'),
+    283: ('TrueAnal', 'https://tour.trueanal.com', '/_next/data/'),
+    284: ('Nympho', 'https://tour.nympho.com', '/_next/data/'),
     285: ('EroticaX', 'https://www.xempire.com', '/en/search/eroticax/'),
     286: ('DarkX', 'https://www.xempire.com', '/en/search/darkx/'),
     287: ('LesbianX', 'http://www.xempire.com', '/en/search/lesbianx/'),
@@ -958,7 +958,7 @@ searchSites = {
     764: ('ToughLoveX', 'https://tour.toughlovex.com', '/models?letter='),
     765: ('CumLouder', 'https://www.cumlouder.com', '/search?q='),
     766: ('Deep Lush', 'https://deeplush.com', '/video/'),
-    767: ('AllAnal', 'https://tour.allanal.com', '/_next/data/kUgHoOUp_o0wQBOur_sHM'),
+    767: ('AllAnal', 'https://tour.allanal.com', '/_next/data/'),
     768: ('TurningTwistys', 'https://www.twistys.com', 'https://site-api.project1service.com'),
     769: ('GirlCum', 'https://www.girlcum.com', '/video/'),
     770: ('ZeroTolerance', 'http://www.ztod.com', '/videos?query='),
@@ -1444,7 +1444,7 @@ searchSites = {
     1250: ('Freeuse Fantasy', 'https://www.freeusefantasy.com', '/movies/'),
     1251: ('Not My Grandpa', 'https://www.notmygrandpa.com', '/movies/'),
     1252: ('AmateurBoxxx', 'https://tour.amateurboxxx.com', '/search.php?query='),
-    1253: ('AnalOnly', 'https://tour.analonly.com', '/_next/data/9Cv4-c_cXhIiD3Y9JvRDL'),
+    1253: ('AnalOnly', 'https://tour.analonly.com', '/_next/data/'),
     1254: ('Exposed Whores', 'https://exposedwhores.com/new-tour', '/search.php?query='),
     1255: ('She Seduced Me', 'https://www.sheseducedme.com', '/search.php?query='),
     1256: ('Family Swap', 'https://nubiles-porn.com', '/video/website/52/'),
@@ -1765,6 +1765,7 @@ searchSites = {
     1671: ('VR Teens', 'https://adultprime.com', '/studios/search?type='),
     1672: ('Young Busty', 'https://adultprime.com', '/studios/search?type='),
     1673: ('Abuse Me', 'http://bangbrosportal.com', '/?s='),
+    1674: ('DirtyAuditions', 'https://dirtyauditions.com', '/_next/data/'),
 }
 
 abbreviations = (
@@ -2235,16 +2236,8 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 280 or siteNum == 1266:
             provider = siteNewSensations
 
-        # Swallowed
-        elif siteNum == 282:
-            provider = networkSteppedUp
-
-        # TrueAnal
-        elif siteNum == 283:
-            provider = networkSteppedUp
-
-        # Nympho
-        elif siteNum == 284:
+        # SteppedUp
+        elif (282 <= siteNum <= 284) or siteNum == 767 or siteNum == 1253 or siteNum == 1674:
             provider = networkSteppedUp
 
         # Twistys
@@ -2542,10 +2535,6 @@ def getProviderFromSiteNum(siteNum):
         # cumlouder.com
         elif siteNum == 765:
             provider = siteCumLouder
-
-        # AllAnal / AnalOnly
-        elif siteNum == 767 or siteNum == 1253:
-            provider = networkSteppedUp
 
         # ZeroTolerance
         elif siteNum == 770:

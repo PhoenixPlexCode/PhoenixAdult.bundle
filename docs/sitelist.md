@@ -1239,6 +1239,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Stepped Up Media | ✅ - **Actor only**
   - AllAnal
   - AnalOnly
+  - DirtyAuditions
   - Nymphos
   - Swallowed
   - TrueAnal
