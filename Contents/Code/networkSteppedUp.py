@@ -2,10 +2,20 @@ import PAsearchSites
 import PAutils
 
 
+def getBuildId(URL):
+    req = PAutils.HTTPRequest(URL)
+    modelPageElements = HTML.ElementFromString(req.text)
+
+    data = json.loads(modelPageElements.xpath('//script[@type="application/json"]')[0].text_content())
+
+    return data['buildId']
+
+
 def search(results, lang, siteNum, searchData):
     searchData.encoded = searchData.title.split('and')[0].strip().replace(' ', '-').lower()
 
-    modelPageURL = '%s/models/%s.json' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded)
+    modelPageURL = '%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchData.encoded)
+    modelPageURL = '%s/%s/models/%s.json' % (PAsearchSites.getSearchSearchURL(siteNum), getBuildId(modelPageURL), searchData.encoded)
     searchResults = PAutils.HTTPRequest(modelPageURL).json()
 
     for searchResult in searchResults['pageProps']['model_contents']:
@@ -34,7 +44,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     slug = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
 
-    sceneURL = '%s/scenes/%s.json' % (PAsearchSites.getSearchSearchURL(siteNum), slug)
+    sceneURL = '%s/scenes/%s' % (PAsearchSites.getSearchBaseURL(siteNum), slug)
+    sceneURL = '%s/%s/scenes/%s.json' % (PAsearchSites.getSearchSearchURL(siteNum), getBuildId(sceneURL), slug)
     detailsPageElements = PAutils.HTTPRequest(sceneURL).json()['pageProps']['content']
 
     # Title
