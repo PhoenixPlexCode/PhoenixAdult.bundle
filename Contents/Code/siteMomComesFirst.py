@@ -78,10 +78,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.clearActors()
     try:
         actorSubtitle = detailsPageElements.xpath('//div[@class="entry-content"]/p')[-1]
-        if 'starring' in actors.text_content().lower():
+        if 'starring' in actorSubtitle.text_content().lower():
             actors.extend(actorSubtitle.text_content().split('Starring')[-1].split('*')[0].split('&'))
     except:
         pass
+
     for actorLink in actors:
         actorName = actorLink.strip()
         actorPhotoURL = ''
@@ -97,5 +98,5 @@ actorsDB = {
     'cory chase', 'abby somers', 'bailey base', 'kiki klout', 'victoria june', 'kendra heart', 'archie stone', 'jaime vine',
     'casca akashova', 'katie monroe', 'eve rebel', 'dakota burns', 'nikita reznikova', 'taylor blake', 'tricia oaks', 'artemisia love',
     'kyla keys', 'brianna rose', 'jordan max', 'jadan snow', 'kaylynn keys', 'lucy sunflower', 'jackie hoff', 'kenzie foxx',
-    'mirabella amore', 'heather vahn'
+    'mirabella amore', 'heather vahn', 'natasha nice'
 }

@@ -30,6 +30,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
+    sceneID = detailsPageElements.xpath('//article/@id')[0].split('-')[-1]
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().split('(')[0].split('–')[-1].strip(), siteNum)
@@ -75,6 +76,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieActors.addActor(actorName, actorPhotoURL)
 
+    actors = PAutils.dictKeyFromValues(sceneActorsDB, sceneID)
+    for actor in actors:
+        actorName = actor.strip()
+        actorPhotoURL = ''
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
     # Posters
     xpaths = [
         '//meta[@itemprop="thumbnailUrl"]/@content',
@@ -82,7 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
-            img = img.replace('320x180', '1200x640')
+            img = img.replace('-320x180', '')
 
             art.append(img)
 
@@ -106,3 +114,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+sceneActorsDB = {
+    'Peter Green': ['102939'],
+    'Violet Gems': ['102939'],
+}

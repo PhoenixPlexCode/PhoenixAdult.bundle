@@ -313,7 +313,7 @@ def parseWord(word, siteNum):
     upper_exceptions = (
         'bbc', 'xxx', 'bbw', 'bf', 'bff', 'bts', 'pov', 'dp', 'gf', 'bj', 'wtf', 'cfnm', 'bwc', 'fm', 'tv', 'ai',
         'hd', 'milf', 'gilf', 'dilf', 'dtf', 'zz', 'xxxl', 'usa', 'nsa', 'hr', 'ii', 'iii', 'iv', 'bbq', 'avn', 'xtc', 'atv',
-        'joi', 'rpg', 'wunf', 'uk', 'asap'
+        'joi', 'rpg', 'wunf', 'uk', 'asap', 'sss', 'nf'
     )
     symbolsClean = ['-', '/', '.', '+', '\'']
     symbolsEsc = ['-', '/', r'\.', r'\+', r'\'']
@@ -480,3 +480,22 @@ def getSearchTitleStrip(title):
             title = title.rsplit(Prefs['strip_symbol_reverse'], 1)[-1]
 
     return title.strip()
+
+
+def dictValuesFromKey(dictDB, identifier):
+    for k, values in dictDB.items():
+        keys = list(k) if type(k) == tuple else [k]
+        for key in keys:
+            if key.lower() == identifier.lower():
+                return values
+    return []
+
+
+def dictKeyFromValues(dictDB, identifier):
+    values = []
+    for key, value in dictDB.items():
+        for item in value:
+            if item.lower() == identifier.lower():
+                values.append(key)
+                break
+    return values

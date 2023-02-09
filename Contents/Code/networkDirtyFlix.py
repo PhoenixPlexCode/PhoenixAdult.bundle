@@ -7,9 +7,9 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(searchPage)
     searchResults = HTML.ElementFromString(req.text)
 
-    xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
-    scenes = dictValuesFromKey(sceneActorsDB, searchData.title)
-    (siteKey, sitePages) = dictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
+    xPath = PAutils.dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
+    scenes = PAutils.dictValuesFromKey(sceneActorsDB, searchData.title)
+    (siteKey, sitePages) = PAutils.dictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
 
     dirtyFlixTour1 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d' % siteKey
     req = PAutils.HTTPRequest(dirtyFlixTour1)
@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(searchPageURL)
     detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % sceneID)[0]
 
-    xPath = dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
+    xPath = PAutils.dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath(xPath[0])[0].text_content().strip(), siteNum)
@@ -104,13 +104,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = dictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
+    genres = PAutils.dictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
     for genreName in genres:
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = dictKeyFromValues(sceneActorsDB, sceneID)
+    actors = PAutils.dictKeyFromValues(sceneActorsDB, sceneID)
     for actor in actors:
         actorName = actor.strip()
         actorPhotoURL = ''
@@ -140,25 +140,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
-
-
-def dictValuesFromKey(dictDB, identifier):
-    for k, values in dictDB.items():
-        keys = list(k) if type(k) == tuple else [k]
-        for key in keys:
-            if key.lower() == identifier.lower():
-                return values
-    return []
-
-
-def dictKeyFromValues(dictDB, identifier):
-    values = []
-    for key, value in dictDB.items():
-        for item in value:
-            if item.lower() == identifier.lower():
-                values.append(key)
-                break
-    return values
 
 
 genresDB = {
