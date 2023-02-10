@@ -1778,6 +1778,7 @@ searchSites = {
     1683: ('Lezkey', 'https://lezkey.com', '/search/'),
     1684: ('Side Chick', 'https://sidechick.com', '/search/'),
     1685: ('JAV888', 'https://jav888.com', '/search/'),
+    1686: ('Smashed', 'https://nubiles-porn.com', '/video/website/68/'),
 }
 
 abbreviations = (
@@ -2349,7 +2350,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKink
 
         # Nubiles
-        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551 or (1575 <= siteNum <= 1582):
+        elif (525 <= siteNum <= 545) or (755 <= siteNum <= 756) or siteNum == 766 or (995 <= siteNum <= 996) or siteNum == 1256 or siteNum == 1360 or (1396 <= siteNum <= 1397) or siteNum == 1551 or (1575 <= siteNum <= 1582) or siteNum == 1686:
             provider = networkNubiles
 
         # BellaPass
