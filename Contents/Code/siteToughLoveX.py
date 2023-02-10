@@ -3,24 +3,31 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.replace(' ', '-').lower()
-
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title[:1])
-    actorResults = HTML.ElementFromString(req.text)
-
-    actorPage = actorResults.xpath('//a[contains(@href, "%s")]/@href' % searchData.encoded)[0]
-    req = PAutils.HTTPRequest(actorPage)
+    searchData.encoded = searchData.title.replace(' ', '_').lower()
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="content-box"]'):
-        titleNoFormatting = searchResult.xpath('.//h2//span')[0].text_content().strip()
+
+    for searchResult in searchResults.xpath('//div[@class="col-sm-3"]'):
+        titleNoFormatting = searchResult.xpath('.//h5')[0].text_content().strip()
         sceneURL = searchResult.xpath('.//a/@href')[0]
         curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+        date = searchResult.xpath('.//div[@class="pull-right"][./i[@class="fa fa-calendar"]]')
+        if date:
+            parseDate = date[0].text_content().strip()
+            parseDate = re.sub(r'(st|nd|rd|th)', '', parseDate)
+            releaseDate = datetime.strptime(parseDate, '%d %b %Y').strftime('%Y-%m-%d')
+        else:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        displayDate = releaseDate if date else ''
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -41,7 +48,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="description"]//p')[0].text_content().strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.studio = 'Radical Cash'
 
     # Collections / Tagline
     metadata.collections.clear()
