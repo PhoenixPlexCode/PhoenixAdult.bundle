@@ -17,10 +17,10 @@ xPathMap = {
         'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
     },
     'RealJamVR': {
-        'date': '//div[@class="c-video-item-header-date date"]',
-        'summary': '//div[@class="c-video-item-desc desc"]',
-        'actor': '//div[@class="c-video-item-header-featuring featuring commed"]//a',
-        'actorPhoto': '//div[@class="row actor-info"]//img',
+        'date': '//div[@class="bi bi-calendar3 me-2"]',
+        'summary': '//div[@class="opacity-75 my-2"]',
+        'actor': '//div[@class="col-12 col-md-4 text-sm-start text-md-end"]//a',
+        'actorPhoto': '//div[@class="col-12 col-lg-4 pe-lg-0"]//img',
         'images': '//a[@class="c-video-item-scene-previews-link"]'
     }
 }
@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[contains(@class, "tags")]//a'):
+    for genreLink in detailsPageElements.xpath('//div[contains(@class, "my-2 lh-lg")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)

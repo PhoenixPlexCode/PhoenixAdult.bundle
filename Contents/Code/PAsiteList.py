@@ -1071,7 +1071,7 @@ searchSites = {
     876: ('Bellesa House', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     877: ('Reality Lovers', 'https://realitylovers.com', '/videos/search'),
     878: ('Adult Time', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    879: ('RealJamVR', 'https://realjamvr.com', '/virtualreality/scene/id/'),
+    879: ('RealJamVR', 'https://realjamvr.com', '/scene/'),
     880: ('BBC Paradise', 'https://www.bbcparadise.com', '/movies/'),
     881: ('Mylf X CamSoda', 'https://www.mylf.com', '/movies/'),
     882: ('Mylf X Fucking Awesome', 'https://www.mylf.com', '/movies/'),
