@@ -121,10 +121,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if (len(actors) > 1) and subSite != 'Mylfed':
         genres.append('Threesome')
 
-    for key, value in genresDB.items():
-        if key.lower() == subSite.lower():
-            genres.extend(value)
-            break
+    genres.extend(PAutils.getDictValuesFromKey(genresDB, subSite))
 
     for genreLink in genres:
         genreName = genreLink

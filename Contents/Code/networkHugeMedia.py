@@ -62,7 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
-    summaryXpath = PAutils.dictKeyFromValues(summaryXpathDB, PAsearchSites.getSearchSiteName(siteNum))
+    summaryXpath = PAutils.getDictKeyFromValues(summaryXpathDB, PAsearchSites.getSearchSiteName(siteNum))
     if summaryXpath:
         metadata.summary = detailsPageElements.xpath(summaryXpath[0])[0].text_content().strip()
 
@@ -84,7 +84,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     actors = []
-    actorXpath = PAutils.dictKeyFromValues(actorXpathDB, PAsearchSites.getSearchSiteName(siteNum))
+    actorXpath = PAutils.getDictKeyFromValues(actorXpathDB, PAsearchSites.getSearchSiteName(siteNum))
     if actorXpath:
         actors = detailsPageElements.xpath(actorXpath[0])
 
@@ -109,7 +109,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = PAutils.dictValuesFromKey(genresDB, tagline)
+    genres = PAutils.getDictValuesFromKey(genresDB, tagline)
     for genreLink in detailsPageElements.xpath('//a[@class="item_tag"]'):
         genreName = genreLink.text_content().replace('#', '').strip()
 

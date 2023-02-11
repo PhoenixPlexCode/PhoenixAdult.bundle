@@ -68,11 +68,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if not actors:
         match = re.search(r'(?<=s/).*(?=\.html)', sceneURL)
         if match:
-            for key, value in actorsDB.items():
-                for sceneID in value:
-                    if sceneID.lower() == match.group(0).lower():
-                        movieActors.addActor(key, '')
-                        break
+            for actor in PAutils.getDictKeyFromValues(actorsDB, match.group(0).lower()):
+                movieActors.addActor(actor, '')
 
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
