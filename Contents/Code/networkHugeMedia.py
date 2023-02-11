@@ -58,14 +58,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = detailsPageElements.xpath('//title')[0].text_content().replace('’', '\'').split('|')[-1].strip()
+    title = re.split(r'\||-', detailsPageElements.xpath('//title')[0].text_content().replace('’', '\''))[-1].strip()
     metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
-    for key, value in summaryDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
-            metadata.summary = detailsPageElements.xpath(value[0])[0].text_content().strip()
-            break
+    summaryXpath = PAutils.dictKeyFromValues(summaryXpathDB, PAsearchSites.getSearchSiteName(siteNum))
+    if summaryXpath:
+        metadata.summary = detailsPageElements.xpath(summaryXpath[0])[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Huge Media'
@@ -85,16 +84,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     actors = []
-    for key, value in actorsDB.items():
-        if key.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
-            actors = detailsPageElements.xpath(value[0])
-            break
+    actorXpath = PAutils.dictKeyFromValues(actorXpathDB, PAsearchSites.getSearchSiteName(siteNum))
+    if actorXpath:
+        actors = detailsPageElements.xpath(actorXpath[0])
 
     if actors and ',' in actors[0].text_content():
         actors = actors[0].text_content().split(',')
 
     match = re.findall(r'[A-Z]\w+\s[A-Z]\w+', metadata.summary)
-    if match:
+    if match and not PAsearchSites.getSearchSiteName(siteNum) == 'Pie4k':
         actors.extend(match)
 
     for actorLink in actors:
@@ -111,13 +109,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = []
-
-    for key, value in genresDB.items():
-        if key.lower() == tagline.lower():
-            genres.extend(value)
-            break
-
+    genres = PAutils.dictValuesFromKey(genresDB, tagline)
     for genreLink in detailsPageElements.xpath('//a[@class="item_tag"]'):
         genreName = genreLink.text_content().replace('#', '').strip()
 
@@ -127,7 +119,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Posters
-
     xpaths = [
         '//picture[@class="episode__cover-img"]//source[@type="image/jpeg"]/@data-srcset',
         '//div[@class="player_watch"]//source[@type="image/jpeg"]/@data-srcset',
@@ -170,30 +161,28 @@ genresDB = {
     'Sis.Porn': ['Step Sister'],
     'Shame4k': ['MILF'],
     'Mature4k': ['GILF'],
+    'Pie4K': ['Creampie'],
 }
 
 
-summaryDB = {
-    'Stuck4k': ['//span[@class="player-info__text-area"]'],
-    'Mature4k': ['//span[@class="player-info__text-area"]'],
-    'Daddy4k': ['//div[@class="video-full__desc"]/p'],
-    'Black4k': ['//div[@class="desc_frame"]/p'],
-    'Hunt4k': ['//div[@class="wrap_player_desc"]/p'],
-    'Old4k': ['//div[@class="wrap_player_desc"]/p'],
-    'Tutor4k': ['//span[@class="episode-about__text text"]'],
-    'Sis.Porn': ['//div[@class="player-item__text"]'],
-    'Shame4k': ['//div[@class="player-info__text"]'],
-    'Fist4k': ['//div[@class="player-item__text text text--sm"]'],
-    'Rim4k': ['//div[@class="player-item__text text text--sm"]'],
+summaryXpathDB = {
+    '//span[@class="player-info__text-area"]': ['Stuck4k', 'Mature4k'],
+    '//div[@class="video-full__desc"]/p': ['Daddy4k'],
+    '//div[@class="desc_frame"]/p': ['Black4k'],
+    '//div[@class="wrap_player_desc"]/p': ['Hunt4k'],
+    '//div[@class="player-info__wrap"]/div': ['Old4k'],
+    '//span[@class="episode-about__text text"]': ['Tutor4k'],
+    '//div[@class="player-item__text"]': ['Sis.Porn'],
+    '//div[@class="player-info__text"]': ['Shame4k', 'Pie4k'],
+    '//div[@class="player-item__text text text--sm"]': ['Fist4k, Rim4k'],
 }
 
 
-actorsDB = {
-    'Mature4k': ['//a[contains(@class, "hid2")]/div[@class="item-info__text"]'],
-    'Daddy4k': ['//a[contains(@class, "publisher")]//span[@class="video-info-item__value"]'],
-    'Black4k': ['//div[@class="cat_player"]/a'],
-    'Old4k': ['//div[@class="cat_player"]/a'],
-    'Sis.Porn': ['//div[@class="player-item__row"][./div[contains(., "Name:")]]//span'],
-    'Fist4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
-    'Rim4k': ['//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]'],
+actorXpathDB = {
+    '//a[contains(@class, "hid2")]/div[@class="item-info__text"]': ['Mature4k'],
+    '//a[contains(@class, "publisher")]//span[@class="video-info-item__value"]': ['Daddy4k'],
+    '//div[@class="cat_player"]/a': ['Black4k'],
+    '//div[@class="player-item"]//li[@class="item-info__item item-info__item--star"]': ['Old4k', 'Pie4k'],
+    '//div[@class="player-item__row"][./div[contains(., "Name:")]]//span': ['Sis.Porn'],
+    '//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]': ['Fist4k, Rim4k'],
 }
