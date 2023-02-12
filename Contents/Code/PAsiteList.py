@@ -190,6 +190,7 @@ import siteKin8tengoku
 import siteJAVDatabase
 import networkAdultPrime
 import networkRadicalCash
+import networkPornProsOther
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/search?q='),
@@ -1780,6 +1781,11 @@ searchSites = {
     1685: ('JAV888', 'https://jav888.com', '/search/'),
     1686: ('Smashed', 'https://nubiles-porn.com', '/video/website/68/'),
     1687: ('Pie4k', 'https://pie4k.com', '/'),
+    1688: ('Shower 4K', 'https://shower4k.org', '/'),
+    1689: ('Kinky Sluts 4K', 'https://kinkysluts4k.org', '/'),
+    1690: ('Property Exploits', 'https://propertyexploits.org', '/'),
+    1691: ('Asians Exploited', 'https://asiansexploited.org', '/'),
+    1692: ('Strip Club Tryouts', 'https://stripclubtryouts.org', '/'),
 }
 
 abbreviations = (
@@ -3140,5 +3146,9 @@ def getProviderFromSiteNum(siteNum):
         # Radical Cash
         elif (1675 <= siteNum <= 1685):
             provider = networkRadicalCash
+
+        # Porn Pros Other
+        elif (1688 <= siteNum <= 1692):
+            provider = networkPornProsOther
 
     return provider
