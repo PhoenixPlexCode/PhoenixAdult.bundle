@@ -482,20 +482,22 @@ def getSearchTitleStrip(title):
     return title.strip()
 
 
-def dictValuesFromKey(dictDB, identifier):
-    for k, values in dictDB.items():
-        keys = list(k) if type(k) == tuple else [k]
+def getDictValuesFromKey(dictDB, identifier):
+    for key, values in dictDB.items():
+        keys = list(key) if type(key) == tuple else [key]
         for key in keys:
             if key.lower() == identifier.lower():
                 return values
+
     return []
 
 
-def dictKeyFromValues(dictDB, identifier):
-    values = []
-    for key, value in dictDB.items():
-        for item in value:
+def getDictKeyFromValues(dictDB, identifier):
+    keys = []
+    for key, values in dictDB.items():
+        for item in values:
             if item.lower() == identifier.lower():
-                values.append(key)
+                keys.append(key)
                 break
-    return values
+
+    return keys

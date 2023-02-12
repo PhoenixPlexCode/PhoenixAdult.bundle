@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    actors = PAutils.dictKeyFromValues(sceneActorsDB, sceneID)
+    actors = PAutils.getDictKeyFromValues(sceneActorsDB, sceneID)
     for actor in actors:
         actorName = actor.strip()
         actorPhotoURL = ''

@@ -7,9 +7,9 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(searchPage)
     searchResults = HTML.ElementFromString(req.text)
 
-    xPath = PAutils.dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
-    scenes = PAutils.dictValuesFromKey(sceneActorsDB, searchData.title)
-    (siteKey, sitePages) = PAutils.dictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
+    xPath = PAutils.getDictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
+    scenes = PAutils.getDictValuesFromKey(sceneActorsDB, searchData.title)
+    (siteKey, sitePages) = PAutils.getDictValuesFromKey(siteDB, PAsearchSites.getSearchSiteName(siteNum))
 
     dirtyFlixTour1 = 'http://dirtyflix.com/index.php/main/show_one_tour/%d' % siteKey
     req = PAutils.HTTPRequest(dirtyFlixTour1)
@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(searchPageURL)
     detailsPageElements = HTML.ElementFromString(req.text).xpath('//div[@class="movie-block"][.//*[contains(@src, "%s")]]' % sceneID)[0]
 
-    xPath = PAutils.dictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
+    xPath = PAutils.getDictValuesFromKey(xPathDB, PAsearchSites.getSearchSiteName(siteNum))
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath(xPath[0])[0].text_content().strip(), siteNum)
@@ -104,13 +104,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = PAutils.dictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
+    genres = PAutils.getDictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
     for genreName in genres:
         movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = PAutils.dictKeyFromValues(sceneActorsDB, sceneID)
+    actors = PAutils.getDictKeyFromValues(sceneActorsDB, sceneID)
     for actor in actors:
         actorName = actor.strip()
         actorPhotoURL = ''

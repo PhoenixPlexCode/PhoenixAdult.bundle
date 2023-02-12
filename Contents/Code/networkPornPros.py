@@ -106,13 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Manually Add Actors
     # Add Actor Based on Title
-    actors = []
-    for key, value in actorsDB.items():
-        if key == metadata.title:
-            movieActors.clearActors()
-            actors = value
-            break
-
+    actors = PAutils.getDictValuesFromKey(actorsDB, metadata.title)
     for actor in actors:
         movieActors.addActor(actor, '')
 
@@ -128,13 +122,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    genres = []
-    for key, value in genresDB.items():
-        if key.lower() == siteName.lower():
-            genres = value
-            break
+    genres = PAutils.getDictValuesFromKey(genresDB, siteName)
+    for genreLink in genres:
+        genreName = genreLink.strip()
 
-    for genreName in genres:
         movieGenres.addGenre(genreName)
 
     # Posters
@@ -186,11 +177,8 @@ genresDB = {
 }
 
 actorsDB = {
-    'Poke Her In The Front': [
-        'Sara Luvv',
-        'Dillion Harper',
-    ],
-    'Best Friends With Nice Tits!': ["April O'Neil", 'Victoria Rae Black'],
+    'Poke Her In The Front': ['Sara Luvv', 'Dillion Harper'],
+    'Best Friends With Nice Tits!': ['April O\'Neil', 'Victoria Rae Black'],
 }
 
 plurals = {

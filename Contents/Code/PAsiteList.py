@@ -1779,6 +1779,7 @@ searchSites = {
     1684: ('Side Chick', 'https://sidechick.com', '/search/'),
     1685: ('JAV888', 'https://jav888.com', '/search/'),
     1686: ('Smashed', 'https://nubiles-porn.com', '/video/website/68/'),
+    1687: ('Pie4k', 'https://pie4k.com', '/'),
 }
 
 abbreviations = (
@@ -3097,7 +3098,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKillergram
 
         # Huge Media
-        elif (1376 <= siteNum <= 1388):
+        elif (1376 <= siteNum <= 1388) or siteNum == 1687:
             provider = networkHugeMedia
 
         # Dirty Flix Network

@@ -118,10 +118,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             genres.append(genreName)
 
-    for key, value in genresDB.items():
-        if key.lower() == subSite.lower():
-            genres.extend(value)
-            break
+    genres.extend(PAutils.getDictValuesFromKey(genresDB, subSite))
 
     for genreLink in genres:
         genreName = genreLink

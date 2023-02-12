@@ -125,11 +125,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if javID not in (actorsCorrectionDB.keys()):
             movieActors.addActor(actorName, actorPhotoURL)
         else:
-            if actorName.lower() in map(str.lower, PAutils.dictValuesFromKey(actorsCorrectionDB, javID)):
+            if actorName.lower() in map(str.lower, PAutils.getDictValuesFromKey(actorsCorrectionDB, javID)):
                 movieActors.addActor(actorName, actorPhotoURL)
 
     # Manually Add Actors By JAV ID
-    actors = PAutils.dictKeyFromValues(sceneActorsDB, javID)
+    actors = PAutils.getDictKeyFromValues(sceneActorsDB, javID)
 
     for actor in actors:
         movieActors.addActor(actor, '')
