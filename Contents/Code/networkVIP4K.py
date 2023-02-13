@@ -18,23 +18,42 @@ def search(results, lang, siteNum, searchData):
         directPageElements = HTML.ElementFromString(req.text)
         titleNoFormatting = PAutils.parseTitle(directPageElements.xpath('//title')[0].text_content().split('|')[-1].strip(), siteNum)
 
+        siteName = directPageElements.xpath('//a[@class="player-additional__site ph_register"]')
+        if siteName:
+            subSite = siteName[0].text_content().strip()
+        else:
+            subSite = PAsearchSites.getSearchSiteName(siteNum)
+
         curID = PAutils.Encode(sceneURL)
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+
+        date = directPageElements.xpath('//span[@class="player-additional__text"]')
+        if date:
+            releaseDate = parse(date[0].text_content().strip()).strftime('%Y-%m-%d')
+        else:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
+        displayDate = releaseDate if date else ''
 
         if searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [VIP4K/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
     elif 'search' in PAsearchSites.getSearchSearchURL(siteNum):
         searchURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
         req = PAutils.HTTPRequest(searchURL)
         searchResults = HTML.ElementFromString(req.text)
 
-        for searchResult in searchResults.xpath('//div[@class="thumb"]'):
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('//span[@class="desc"]')[0].text_content(), siteNum)
-            sceneURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a/@href')[0])
+        for searchResult in searchResults.xpath('//div[@class="item__description"]'):
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="item__title"]')[0].text_content(), siteNum)
+            sceneURL = '%s%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult.xpath('.//a[@class="item__title"]/@href')[0])
+
+            siteName = searchResult.xpath('.//a[@class="item__site"]')
+            if siteName:
+                subSite = siteName[0].text_content().strip
+            else:
+                subSite = PAsearchSites.getSearchSiteName(siteNum)
 
             curID = PAutils.Encode(sceneURL)
             releaseDate = searchData.dateFormat() if searchData.date else ''
@@ -44,7 +63,7 @@ def search(results, lang, siteNum, searchData):
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Huge Media/%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [VIP4K/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -58,51 +77,36 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    title = re.split(r'\||-|:', detailsPageElements.xpath('//title')[0].text_content().replace('’', '\''))[-1].strip()
+    title = PAutils.parseTitle(detailsPageElements.xpath('//title')[0].text_content().split('|')[-1].strip(), siteNum)
     metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
-    summaryXpath = PAutils.getDictKeyFromValues(summaryXpathDB, PAsearchSites.getSearchSiteName(siteNum))
-    if summaryXpath:
-        metadata.summary = detailsPageElements.xpath(summaryXpath[0])[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="player-description__text"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'Huge Media'
+    metadata.studio = 'VIP4K'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    tagline = detailsPageElements.xpath('//a[@class="player-additional__site ph_register"]')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    if sceneDate:
+    date = detailsPageElements.xpath('//span[@class="player-additional__text"]')
+    if date:
+        date_object = parse(date[0].text_content().strip())
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Actors
     movieActors.clearActors()
-    actors = []
-    actorXpath = PAutils.getDictKeyFromValues(actorXpathDB, PAsearchSites.getSearchSiteName(siteNum))
-    if actorXpath:
-        actors = detailsPageElements.xpath(actorXpath[0])
-
-    if actors and ',' in actors[0].text_content():
-        actors = actors[0].text_content().split(',')
-
-    match = re.findall(r'[A-Z]\w+\s[A-Z]\w+', metadata.summary)
-    if match and not PAsearchSites.getSearchSiteName(siteNum) == 'Pie4k':
-        actors.extend(match)
-
-    for actorLink in actors:
-        actorName = actorLink
-        if not isinstance(actorName, str):
-            try:
-                actorName = actorName.text_content()
-            except:
-                pass
-        actorName = actorName.strip()
+    for actorLink in detailsPageElements.xpath('//a[@class="player-description__model model ph_register"]'):
+        actorName = actorLink.xpath('.//div[@class="model__name"]')[0].text_content().strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
@@ -110,7 +114,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Genres
     movieGenres.clearGenres()
     genres = PAutils.getDictValuesFromKey(genresDB, tagline)
-    for genreLink in detailsPageElements.xpath('//a[@class="item_tag"]'):
+    for genreLink in detailsPageElements.xpath('//div[@class="tags"]/a'):
         genreName = genreLink.text_content().replace('#', '').strip()
 
         genres.append(genreName)
@@ -120,10 +124,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//picture[@class="episode__cover-img"]//source[@type="image/jpeg"]/@data-srcset',
-        '//div[@class="player_watch"]//source[@type="image/jpeg"]/@data-srcset',
-        '//div[@class="player-item__block"]//source[@type="image/jpeg"]/@data-srcset',
-        '//div[@class="player-item__preview-container"]//source[@type="image/jpeg"]/@data-srcset',
+        '//div[@class="player-item__block"]//img/@data-src',
     ]
 
     for xpath in xpaths:
@@ -156,33 +157,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 
 genresDB = {
-    'Stuck4k': ['Stuck'],
-    'Tutor4k': ['Tutor', 'MILF'],
-    'Sis.Porn': ['Step Sister'],
-    'Shame4k': ['MILF'],
-    'Mature4k': ['GILF'],
-    'Pie4K': ['Creampie'],
-}
-
-
-summaryXpathDB = {
-    '//span[@class="player-info__text-area"]': ['Stuck4k', 'Mature4k'],
-    '//div[@class="video-full__desc"]/p': ['Daddy4k'],
-    '//div[@class="desc_frame"]/p': ['Black4k'],
-    '//div[@class="wrap_player_desc"]/p': ['Hunt4k'],
-    '//div[@class="player-info__wrap"]/div': ['Old4k'],
-    '//span[@class="episode-about__text text"]': ['Tutor4k'],
-    '//div[@class="player-item__text"]': ['Sis.Porn'],
-    '//div[@class="player-info__text"]': ['Shame4k', 'Pie4k'],
-    '//div[@class="player-item__text text text--sm"]': ['Fist4k, Rim4k'],
-}
-
-
-actorXpathDB = {
-    '//a[contains(@class, "hid2")]/div[@class="item-info__text"]': ['Mature4k'],
-    '//a[contains(@class, "publisher")]//span[@class="video-info-item__value"]': ['Daddy4k'],
-    '//div[@class="cat_player"]/a': ['Black4k'],
-    '//div[@class="player-item"]//li[@class="item-info__item item-info__item--star"]': ['Old4k', 'Pie4k'],
-    '//div[@class="player-item__row"][./div[contains(., "Name:")]]//span': ['Sis.Porn'],
-    '//div[@class="player-item__about"]//li[.//svg[@class="ico ico--star"]]/div[@class="item-info__text"]': ['Fist4k, Rim4k'],
+    'Stuck 4k': ['Stuck'],
+    'Tutor 4k': ['Tutor'],
+    'Sis': ['Step Sister'],
+    'Shame 4k': ['MILF'],
+    'Mature 4k': ['GILF'],
+    'Pie 4K': ['Creampie'],
 }

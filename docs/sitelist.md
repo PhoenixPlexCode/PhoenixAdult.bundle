@@ -605,21 +605,21 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Holly Randall | ✓
 + #### HotwifeXXX | ✅
 + #### HuCows | ✅
-+ #### Huge Media | Site Based
-  - Black4k ✅
-  - Daddy4k ✅
-  - Debt4k ❌ - **SceneID**
-  - Fist4k ❌ - **SceneID**
-  - Hunt4k ✅
-  - Loan4k ✅
-  - Mature4k ❌ - **SceneID**
-  - Old4k ✅
-  - Pie4k ❌ - **SceneID**
-  - Rim4k ❌ - **SceneID**
-  - Shame4k ❌ - **SceneID**
-  - Sis.Porn ❌ - **SceneID**
-  - Stuck4k ❌ - **SceneID**
-  - Tutor4k ❌ - **SceneID**
++ #### VIP4K | ✅
+  - Black 4k
+  - Daddy 4k
+  - Debt 4k
+  - Fist 4k
+  - Hunt 4k
+  - Loan 4k
+  - Mature 4k
+  - Old 4k
+  - Pie 4k
+  - Rim 4k
+  - Shame 4k
+  - Sis
+  - Stuck 4k
+  - Tutor 4k
 + #### Hush Pass | ✅
 + #### Hustler | ✓ - **Date Add**
 + #### I Kiss Girls | ✅
