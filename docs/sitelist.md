@@ -1092,11 +1092,17 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Asians Exploited
   - Baeb
   - BBCPie
+  - BBC POVD
+  - Caged Sex
   - CastingCouch-X
+  - Creepy Pa
   - Cum4K
   - Exotic4k
+  - Exploited Cheerleaders
   - Facials4k
   - FantasyHD
+  - Girl Scout Sex
+  - GloryHole 4K
   - Holed
   - Kinky Sluts 4K
   - Lubed
@@ -1105,9 +1111,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - MyVeryFirstTime
   - NannySpy
   - Passion-HD
+  - PornPlus
   - POVD
   - Property Exploits
   - PureMature
+  - School of Cock
   - Shower 4K
   - SpyFam
   - Tiny4k
