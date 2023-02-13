@@ -177,7 +177,7 @@ import siteSwallowBay
 import siteVirtualPorn
 import siteJavLibrary
 import siteKillergram
-import networkHugeMedia
+import networkVIP4K
 import network18
 import networkDirtyFlix
 import networkNVG
@@ -1569,19 +1569,19 @@ searchSites = {
     1373: ('KissingSis', 'https://www.teamskeet.com', '/movies/'),
     1374: ('Mr Lucky POV', 'https://www.mrluckypov.com', '/search.php?query='),
     1375: ('Real Sensual', 'https://www.realsensual.com', '/search.php?query='),
-    1376: ('Tutor4k', 'https://tutor4k.com', '/'),
-    1377: ('Daddy4k', 'https://daddy4k.com', '/en/search/'),
-    1378: ('Stuck4k', 'https://stuck4k.com', '/'),
-    1379: ('Old4k', 'https://old4k.com', '/en/search/'),
-    1380: ('Hunt4k', 'https://hunt4k.com', '/'),
-    1381: ('Sis.Porn', 'https://sis.porn', '/'),
-    1382: ('Black4k', 'https://black4k.com', '/en/search/'),
-    1383: ('Loan4k', 'https://loan4k.com', '/'),
-    1384: ('Debt4k', 'https://debt4k.com', '/'),
-    1385: ('Rim4k', 'https://rim4k.com', '/'),
-    1386: ('Fist4k', 'https://fist4k.com', '/'),
-    1387: ('Mature4k', 'https://mature4k.com', '/'),
-    1388: ('Shame4k', 'https://shame4k.com', '/'),
+    1376: ('Tutor 4k', 'https://vip4k.com', '/en/search/'),
+    1377: ('Daddy 4k', 'https://vip4k.com', '/en/search/'),
+    1378: ('Stuck 4k', 'https://vip4k.com', '/en/search/'),
+    1379: ('Old 4k', 'https://vip4k.com', '/en/search/'),
+    1380: ('Hunt 4k', 'https://vip4k.com', '/en/search/'),
+    1381: ('Sis', 'https://vip4k.com', '/en/search/'),
+    1382: ('Black 4k', 'https://vip4k.com', '/en/search/'),
+    1383: ('Loan 4k', 'https://vip4k.com', '/en/search/'),
+    1384: ('Debt 4k', 'https://vip4k.com', '/en/search/'),
+    1385: ('Rim 4k', 'https://vip4k.com', '/en/search/'),
+    1386: ('Fist 4k', 'https://vip4k.com', '/en/search/'),
+    1387: ('Mature 4k', 'https://vip4k.com', '/en/search/'),
+    1388: ('Shame 4k', 'https://vip4k.com', '/en/search/'),
     1389: ('Thicc18', 'https://thicc18.com', 'https://thicc18.team18.app/graphql'),
     1390: ('Tiny Sis', 'https://www.tinysis.com', '/movies/'),
     1391: ('Bobs TGirls', 'https://www.bobstgirls.com', '/tour/trailers/'),
@@ -1780,13 +1780,14 @@ searchSites = {
     1684: ('Side Chick', 'https://sidechick.com', '/search/'),
     1685: ('JAV888', 'https://jav888.com', '/search/'),
     1686: ('Smashed', 'https://nubiles-porn.com', '/video/website/68/'),
-    1687: ('Pie4k', 'https://pie4k.com', '/'),
+    1687: ('Pie 4k', 'https://vip4k.com', '/en/search/'),
     1688: ('Shower 4K', 'https://shower4k.org', '/'),
     1689: ('Kinky Sluts 4K', 'https://kinkysluts4k.org', '/'),
     1690: ('Property Exploits', 'https://propertyexploits.org', '/'),
     1691: ('Asians Exploited', 'https://asiansexploited.org', '/'),
     1692: ('Strip Club Tryouts', 'https://stripclubtryouts.org', '/'),
     1693: ('MomCum', 'https://momcum.com', '/video/'),
+    1694: ('VIP4K', 'https://vip4k.com', '/en/search/'),
 }
 
 abbreviations = (
@@ -3104,9 +3105,9 @@ def getProviderFromSiteNum(siteNum):
         elif (1368 <= siteNum <= 1369):
             provider = siteKillergram
 
-        # Huge Media
-        elif (1376 <= siteNum <= 1388) or siteNum == 1687:
-            provider = networkHugeMedia
+        # VIP4K
+        elif (1376 <= siteNum <= 1388) or siteNum == 1687 or siteNum == 1694:
+            provider = networkVIP4K
 
         # Dirty Flix Network
         elif (1446 <= siteNum <= 1449):
