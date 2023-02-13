@@ -25,14 +25,21 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(sceneURL)
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
-            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+
+            if 'pornplus' in sceneURL:
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content().strip(), siteNum)
+                subSite = detailsPageElements.xpath('//img[@class="object-cover object-center"]/@alt')[0].strip()
+            else:
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+                subSite = PAsearchSites.getSearchSiteName(siteNum)
+
             curID = PAutils.Encode(sceneURL)
 
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
     return results
 
@@ -49,26 +56,42 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+    if 'pornplus' in sceneURL:
+        title = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content().strip(), siteNum)
+    else:
+        title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+
+    metadata.title = title
 
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[contains(@id, "description")]')[0].text_content().strip()
+        if 'pornplus' in sceneURL:
+            summary = detailsPageElements.xpath('//p[@class="text-white"]')[0].text_content().strip()
+        else:
+            summary = detailsPageElements.xpath('//div[contains(@id, "description")]')[0].text_content().strip()
     except:
-        pass
+        summary = ''
+
+    metadata.summary = summary
 
     # Studio
     metadata.studio = 'PornPros'
 
     # Collections / Tagline
-    siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.clear()
+    if 'pornplus' in sceneURL:
+        siteName = detailsPageElements.xpath('//img[@class="object-cover object-center"]/@alt')[0].strip()
+    else:
+        siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = siteName
     metadata.collections.add(siteName)
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//div[@id="t2019-sinfo"]//a[contains(@href, "/girls/")]')
+    if 'pornplus' in sceneURL:
+        actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-2")]//a[@class="text-xs text-white"]')
+    else:
+        actors = detailsPageElements.xpath('//div[@id="t2019-sinfo"]//a[contains(@href, "/girls/")]')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
