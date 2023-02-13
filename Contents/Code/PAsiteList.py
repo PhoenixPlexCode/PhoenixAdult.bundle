@@ -190,6 +190,7 @@ import siteKin8tengoku
 import siteJAVDatabase
 import networkAdultPrime
 import networkRadicalCash
+import networkPornProsOther
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/search?q='),
@@ -1780,6 +1781,12 @@ searchSites = {
     1685: ('JAV888', 'https://jav888.com', '/search/'),
     1686: ('Smashed', 'https://nubiles-porn.com', '/video/website/68/'),
     1687: ('Pie4k', 'https://pie4k.com', '/'),
+    1688: ('Shower 4K', 'https://shower4k.org', '/'),
+    1689: ('Kinky Sluts 4K', 'https://kinkysluts4k.org', '/'),
+    1690: ('Property Exploits', 'https://propertyexploits.org', '/'),
+    1691: ('Asians Exploited', 'https://asiansexploited.org', '/'),
+    1692: ('Strip Club Tryouts', 'https://stripclubtryouts.org', '/'),
+    1693: ('MomCum', 'https://momcum.com', '/video/'),
 }
 
 abbreviations = (
@@ -2267,7 +2274,7 @@ def getProviderFromSiteNum(siteNum):
             provider = sitePrivate
 
         # PornPros Network
-        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364 or siteNum == 1393:
+        elif (306 <= siteNum <= 327) or (479 <= siteNum <= 489) or siteNum == 624 or siteNum == 769 or siteNum == 844 or siteNum == 890 or siteNum == 1263 or siteNum == 1364 or siteNum == 1393 or siteNum == 1693:
             provider = networkPornPros
 
         # DigitalPlayground
@@ -3140,5 +3147,9 @@ def getProviderFromSiteNum(siteNum):
         # Radical Cash
         elif (1675 <= siteNum <= 1685):
             provider = networkRadicalCash
+
+        # Porn Pros Other
+        elif (1688 <= siteNum <= 1692):
+            provider = networkPornProsOther
 
     return provider

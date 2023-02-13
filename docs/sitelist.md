@@ -1089,6 +1089,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - SquirtDisgrace
   - TeenBFF
 + #### PornPros Other Sites | ✅
+  - Asians Exploited
   - Baeb
   - BBCPie
   - CastingCouch-X
@@ -1097,13 +1098,17 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Facials4k
   - FantasyHD
   - Holed
+  - Kinky Sluts 4K
   - Lubed
   - Mom4k
+  - MomCum
   - MyVeryFirstTime
   - NannySpy
   - Passion-HD
   - POVD
+  - Property Exploits
   - PureMature
+  - Shower 4K
   - SpyFam
   - Tiny4k
 + #### PornstarPlatinum | ✅
