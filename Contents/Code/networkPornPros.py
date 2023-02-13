@@ -106,8 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Manually Add Actors
     # Add Actor Based on Title
-    actors = PAutils.getDictValuesFromKey(actorsDB, metadata.title)
-    for actor in actors:
+    for actor in PAutils.getDictValuesFromKey(actorsDB, metadata.title):
         movieActors.addActor(actor, '')
 
     # Release Date
