@@ -51,7 +51,7 @@ def search(results, lang, siteNum, searchData):
 
             siteName = searchResult.xpath('.//a[@class="item__site"]')
             if siteName:
-                subSite = siteName[0].text_content().strip
+                subSite = siteName[0].text_content().strip()
             else:
                 subSite = PAsearchSites.getSearchSiteName(siteNum)
 
