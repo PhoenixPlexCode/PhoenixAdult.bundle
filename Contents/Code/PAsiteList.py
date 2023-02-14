@@ -190,6 +190,7 @@ import siteKin8tengoku
 import siteJAVDatabase
 import networkAdultPrime
 import networkRadicalCash
+import siteTeenyTaboo
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/search?q='),
@@ -1795,6 +1796,7 @@ searchSites = {
     1700: ('GloryHole 4K', 'https://pornplus.com', '/video/'),
     1701: ('Creepy Pa', 'https://pornplus.com', '/video/'),
     1702: ('Caged Sex', 'https://pornplus.com', '/video/'),
+    1703: ('Teeny Taboo', 'https://teenytaboo.com', '/videos/'),
 }
 
 abbreviations = (
@@ -3156,5 +3158,9 @@ def getProviderFromSiteNum(siteNum):
         # Radical Cash
         elif (1675 <= siteNum <= 1685):
             provider = networkRadicalCash
+
+        # Teeny Taboo
+        elif siteNum == 1703:
+            provider = siteTeenyTaboo
 
     return provider
