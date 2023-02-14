@@ -27,7 +27,7 @@ ActorsReplace = {
     'April O\'Neil': ['April O\'neil', 'April ONeil', 'April Oneil'],
     'Ashlee Graham': ['Ashley Graham'],
     'Ashly Anderson': ['Ashley Anderson'],
-    'Aspen ora': ['Haveen Ora', 'Natasha Griffin', 'Navee Nora', 'Naveen Ora'],
+    'Aspen Ora': ['Haveen Ora', 'Natasha Griffin', 'Navee Nora', 'Naveen Ora'],
     'Austyn Summers': ['Austyn Summer'],
     'Ava Maxim': ['Ava', 'Ava Maxime', 'Becky (NVG Network)'],
     'Baby Kxtten': ['Baby Kitten', 'Bxby Kitten'],
