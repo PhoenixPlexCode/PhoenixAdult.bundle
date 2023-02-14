@@ -1794,7 +1794,7 @@ searchSites = {
     1699: ('School of Cock', 'https://pornplus.com', '/video/'),
     1700: ('GloryHole 4K', 'https://pornplus.com', '/video/'),
     1701: ('Creepy Pa', 'https://pornplus.com', '/video/'),
-    1702: ('Cage Sex', 'https://pornplus.com', '/video/'),
+    1702: ('Caged Sex', 'https://pornplus.com', '/video/'),
 }
 
 abbreviations = (
