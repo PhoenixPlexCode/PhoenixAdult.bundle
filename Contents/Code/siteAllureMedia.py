@@ -120,7 +120,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         'Devon Green',
         'Emily Grey',
         'Emma Hix',
-        'Emma Wilson',
         'Evangeline',
         'Faith',
         'Hadley',
