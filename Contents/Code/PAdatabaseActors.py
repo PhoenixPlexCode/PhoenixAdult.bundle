@@ -2,6 +2,7 @@ ActorsReplace = {
     'Abbey Rain': ['Abby Rains', 'Julie Snow'],
     'Abby Lee Brazil': ['Abby Lee'],
     'Abella Danger': ['Bella Danger'],
+    'Adalind Gray': ['Adalind Grey'],
     'Addie Juniper': ['Ms Addie Juniper'],
     'Addison Lee': ['Addi Lee'],
     'Adriana Chechik': ['Adriana Chechick', 'Adrianna Chechik'],
@@ -225,6 +226,7 @@ ActorsReplace = {
     'Victoria Tiffani': ['Victoria Tiffany'],
     'Viola Bailey': ['Viola Bailey', 'Viola O'],
     'Violette Pink': ['Violette Pure'],
+    'Xxlayna Marie': ['Xxylayna Marie'],
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
@@ -5837,7 +5839,11 @@ ActorsReplaceStudios = {
         'Yuria Kiritani': ['Kiritani Yuria'],
         'Yuria Satomi': ['Satomi Yuria'],
         'Yuzu Ogura': ['Ogura Yuzu'],
-    }
+    },
+    65: {  # Teeny Taboo
+        'Adalind Gray': ['Adalind'],
+        'Celestina Blooms': ['Celestina'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -5906,6 +5912,7 @@ ActorsStudioIndexes = {
     62: ['Allure Media'],
     63: ['PornPros'],
     64: ['JavBus', 'JAVLibrary', 'JAVDatabase'],
+    65: ['Teeny Taboo'],
 }
 
 
