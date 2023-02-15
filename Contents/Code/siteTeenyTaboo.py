@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
             detailsPageElements = HTML.ElementFromString(req.text)
 
             if not detailsPageElements.xpath('//h2')[0].text_content() == 'Latest Videos':
-                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="customhcolor"]')[0].text_content().strip(), siteNum)
+                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="customhcolor"]')[0].text_content().replace('-', ' ').strip(), siteNum)
                 curID = PAutils.Encode(sceneURL)
                 match = re.search(r'(?<=videos\/).*((?=\/)|\d)', sceneURL)
                 if match:
@@ -58,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="customhcolor"]')[0].text_content().strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="customhcolor"]')[0].text_content().replace('-', ' ').strip(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//h2[@class="customhcolor2"]')[0].text_content().strip()
@@ -85,9 +85,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//h3')[0].text_content().split(',')
+    actors = re.split(r',|\sand\s', detailsPageElements.xpath('//h3')[0].text_content())
     for actorLink in actors:
-        actorName = re.sub(r'\d', '', actorLink).strip()
+        actorName = re.sub(r'\d', '', actorLink).strip().replace('&nbsp', '')
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
