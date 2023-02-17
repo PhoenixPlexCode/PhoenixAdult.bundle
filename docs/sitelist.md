@@ -1119,6 +1119,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Shower 4K
   - SpyFam
   - Tiny4k
+  - WetVR
 + #### PornstarPlatinum | ✅
 + #### POVR | ✓
 + #### PrettyDirty | ✅
