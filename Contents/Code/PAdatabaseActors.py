@@ -180,6 +180,7 @@ ActorsReplace = {
     'Rahyndee James': ['Rahyndee'],
     'Rebeca Linares': ['Rebecca Linares'],
     'Rebecca Black': ['Lindsay Sharon', 'Lindsey Sheron', 'Rebeca Black', 'Rebecca Sharon', 'Rebeka Black'],
+    'Rebecca Vanguard': ['Sailor Luna', 'Rebecca Vangaurd'],
     'Rebel Lynn': ['Rebel Lynn (Contract Star)'],
     'Remy LaCroix': ['Remy La Croix'],
     'Renata Fox': ['Elnara Cat'],
