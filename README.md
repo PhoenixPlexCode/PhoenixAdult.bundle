@@ -89,4 +89,4 @@ If your favorite site isn't supported, head over to [Issue #1](https://github.co
 Preferences
 ------------------
 
-To view the full list of supported preferences, [check out the prefeences doc](./docs/preferences.md).
+To view the full list of supported preferences, [check out the preferences doc](./docs/preferences.md).

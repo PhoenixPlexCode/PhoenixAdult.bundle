@@ -471,16 +471,16 @@ searchSites = {
     275: ('Office Obsession', 'https://www.babes.com', 'https://site-api.project1service.com'),
     276: ('Stepmom Lessons', 'https://www.babes.com', 'https://site-api.project1service.com'),
     277: ('Evil Angel', 'https://www.evilangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    278: ('HardX', 'https://www.xempire.com', '/en/search/hardx/'),
+    278: ('HardX', 'https://www.xempire.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     279: ('GloryHoleSecrets', 'http://www.gloryholesecrets.com', '/tour/search.php?query='),
     280: ('New Sensations', 'http://www.newsensations.com', '/tour_ns/'),
     281: ('Pure Taboo', 'https://www.puretaboo.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     282: ('Swallowed', 'https://tour.swallowed.com', '/_next/data/'),
     283: ('TrueAnal', 'https://tour.trueanal.com', '/_next/data/'),
     284: ('Nympho', 'https://tour.nympho.com', '/_next/data/'),
-    285: ('EroticaX', 'https://www.xempire.com', '/en/search/eroticax/'),
-    286: ('DarkX', 'https://www.xempire.com', '/en/search/darkx/'),
-    287: ('LesbianX', 'http://www.xempire.com', '/en/search/lesbianx/'),
+    285: ('EroticaX', 'https://www.xempire.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    286: ('DarkX', 'https://www.xempire.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    287: ('LesbianX', 'http://www.xempire.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     288: ('Twistys', 'https://www.twistys.com', 'https://site-api.project1service.com'),
     289: ('WhenGirlsPlay', 'https://www.twistys.com', 'https://site-api.project1service.com'),
     290: ('MomKnowsBest', 'https://www.twistys.com', 'https://site-api.project1service.com'),
@@ -1036,7 +1036,7 @@ searchSites = {
     840: ('Interracial Pass', 'https://www.interracialpass.com', '/t1/search.php?query='),
     841: ('LookAtHerNow', 'https://www.lookathernow.com', 'https://site-api.project1service.com'),
     842: ('Mylfwood', 'https://www.mylf.com', '/movies/'),
-    843: ('AllBlackX', 'https://www.xempire.com', '/en/search/allblackx/'),
+    843: ('AllBlackX', 'https://www.xempire.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     844: ('BBCPie', 'https://bbcpie.com', '/video/'),
     845: ('Foster Tapes', 'https://www.fostertapes.com', '/movies/'),
     846: ('BFFs', 'https://www.bffs.com', '/movies/'),
@@ -2103,21 +2103,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 277 or siteNum == 975:
             provider = networkGammaEntOther
 
-        # XEmpire / Hardx
-        elif siteNum == 278:
-            provider = networkGammaEnt
-
-        # XEmpire / Eroticax
-        elif siteNum == 285:
-            provider = networkGammaEnt
-
-        # XEmpire / Darkx
-        elif siteNum == 286:
-            provider = networkGammaEnt
-
-        # XEmpire / Lesbianx
-        elif siteNum == 287:
-            provider = networkGammaEnt
+        # XEmpire
+        elif siteNum == 278 or (285 <= siteNum <= 287) or siteNum == 843:
+            provider = networkGammaEntOther
 
         # Pure Taboo
         elif siteNum == 281:
@@ -2698,10 +2686,6 @@ def getProviderFromSiteNum(siteNum):
         # LookAtHerNow
         elif siteNum == 841:
             provider = network1service
-
-        # XEmpire / AllBlackX
-        elif siteNum == 843:
-            provider = networkGammaEnt
 
         # Deviant Hardcore
         elif siteNum == 859:
