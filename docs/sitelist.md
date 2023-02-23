@@ -1597,7 +1597,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### WowGirls | ✓ - **Date Add**
 + #### X-Art | ✅
 + #### XConfessions | ✓
-+ #### Xempire | ✅
++ #### XEmpire | ✅
   - AllBlackX
   - Darkx
   - Eroticax
