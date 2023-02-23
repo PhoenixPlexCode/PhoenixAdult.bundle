@@ -701,7 +701,10 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Kinky Spa | ✓
 + #### Little Caprice | ✅
 + #### Look At Her Now | ✅
-+ #### Love Her Feet | ✅
++ #### LoveHerFilms | ✅
+  - LoveHerBoobs
+  - LoveHerFeet
+  - SheLovesBlack
 + #### Lustomic | ❌ - **SceneID, Date Add**
 + #### LustReality | ✅
 + #### ManyVids | ❌ - **SceneID, Date Add**

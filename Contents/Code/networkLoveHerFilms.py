@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="item-video-overlay"]'):
-        titleNoFormatting = searchResult.xpath('./a')[0].get('title').strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a')[0].get('title').strip(), siteNum)
         curID = PAutils.Encode(searchResult.xpath('./a/@href')[0])
         releaseDate = parse(searchResult.xpath('.//p[@class="video-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
@@ -32,17 +32,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.clearActors()
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="main-info-left"]/h1')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="main-info-left"]/h1')[0].text_content().strip(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//p[@class="description"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'Love Her Feet'
+    metadata.studio = 'LoveHerFilms'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
