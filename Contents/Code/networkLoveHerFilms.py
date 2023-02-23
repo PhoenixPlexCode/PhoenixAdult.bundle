@@ -38,11 +38,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//p[@class="description"]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'Love Her Feet'
+    metadata.studio = 'LoveHerFilms'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 

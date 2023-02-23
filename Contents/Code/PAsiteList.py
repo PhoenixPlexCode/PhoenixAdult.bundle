@@ -46,7 +46,7 @@ import siteXConfessions
 import networkCzechAV
 import siteArchAngel
 import siteWeAreHairy
-import siteLoveHerFeet
+import networkLoveHerFilms
 import siteMomPOV
 import networkFuelVirtual
 import siteStraplezz
@@ -1798,6 +1798,9 @@ searchSites = {
     1702: ('Caged Sex', 'https://pornplus.com', '/video/'),
     1703: ('Teeny Taboo', 'https://teenytaboo.com', '/videos/'),
     1704: ('WetVR', 'https://www.wetvr.com', '/video/'),
+    1705: ('LoveHerFilms', 'https://www.loveherfilms.com', '/tour/search.php?query='),
+    1706: ('LoveHerBoobs', 'https://www.loveherboobs.com', '/tour/search.php?query='),
+    1707: ('SheLovesBlack', 'https://www.shelovesblack.com', '/tour/search.php?query='),
 }
 
 abbreviations = (
@@ -2471,9 +2474,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 730:
             provider = siteWeAreHairy
 
-        # Love Her Feet
-        elif siteNum == 731:
-            provider = siteLoveHerFeet
+        # Love Her Films
+        elif siteNum == 731 or (1705 <= siteNum <= 1707):
+            provider = networkLoveHerFilms
 
         # MomPOV
         elif siteNum == 732:
