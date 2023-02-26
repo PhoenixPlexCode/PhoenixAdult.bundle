@@ -2,50 +2,65 @@ import PAsearchSites
 import PAutils
 
 
+def getDatafromAPI(url, query, variables, referer):
+    headers = {
+        'Content-Type': 'application/json',
+        'Referer': referer
+    }
+    params = json.dumps({'query': query, 'variables': json.loads(variables)})
+    req = PAutils.HTTPRequest(url, params=params, headers=headers)
+
+    if req:
+        return req.json()['data']
+
+    return req
+
+
 def search(results, lang, siteNum, searchData):
-    sceneId = None
-    parts = searchData.title.split()
-    if unicode(parts[0], 'UTF-8').isdigit():
-        sceneId = parts[0]
+    sceneID = searchData.title.split(' ', 1)[0]
 
-        if int(sceneId) > 10000:
-            searchData.title = searchData.title.replace(sceneId, '', 1).strip()
+    if unicode(sceneID, 'UTF-8').isdigit() and len(sceneID) > 4:
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchPageElements = HTML.ElementFromString(req.text)
+        search_variables = json.dumps({'videoId': sceneID, 'site': PAsearchSites.getSearchSiteName(siteNum).upper()})
+        searchResult = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), search_id_query, search_variables, PAsearchSites.getSearchBaseURL(siteNum))
+        if searchResult:
+            titleNoFormatting = PAutils.parseTitle(searchResult['findOneVideo']['title'], siteNum)
+            releaseDate = parse(searchResult['findOneVideo']['releaseDate']).strftime('%Y-%m-%d')
+            curID = PAutils.Encode(searchResult['findOneVideo']['slug'])
 
-    searchResults = json.loads(searchPageElements.xpath('//script[@type="application/json"]')[0].text_content())
-
-    if searchResults:
-        for searchResult in searchResults['props']['pageProps']['videos']:
-            titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
-            releaseDate = parse(searchResult['releaseDate']).strftime('%Y-%m-%d')
-            sceneURL = '%s/videos/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult['id'].split(':')[-1])
-            videoId = searchResult['videoId']
-            curID = PAutils.Encode(sceneURL)
-
-            if sceneId and int(sceneId) == int(videoId):
-                score == 100
-            elif searchData.date:
+            if searchData.date:
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+    else:
+        search_variables = json.dumps({'query': searchData.title, 'site': PAsearchSites.getSearchSiteName(siteNum).upper(), 'first': 10, 'skip': 0})
+        searchResults = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), search_query, search_variables, PAsearchSites.getSearchBaseURL(siteNum))
+        if searchResults:
+            for searchResult in searchResults['searchVideos']['edges']:
+                titleNoFormatting = PAutils.parseTitle(searchResult['node']['title'], siteNum)
+                releaseDate = parse(searchResult['node']['releaseDate']).strftime('%Y-%m-%d')
+                curID = PAutils.Encode(searchResult['node']['slug'])
+
+                if searchData.date:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
 
     return results
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
-    sceneURL = PAutils.Decode(metadata_id[0])
+    sceneName = PAutils.Decode(metadata_id[0])
 
-    req = PAutils.HTTPRequest(sceneURL)
-    detailsPageElements = HTML.ElementFromString(req.text)
-
-    videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/json"]')[0].text_content())
-
-    video = videoPageElements['props']['pageProps']['video']
+    update_variables = json.dumps({'slug': sceneName, 'site': PAsearchSites.getSearchSiteName(siteNum).upper()})
+    detailsPageElements = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), update_query, update_variables, PAsearchSites.getSearchBaseURL(siteNum))
+    video = detailsPageElements['findOneVideo']
     pictureset = video['carousel']
 
     # Title
@@ -76,40 +91,35 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if metadata.studio == 'Tushy' or metadata.studio == 'TushyRaw':
         movieGenres.addGenre('Anal')
 
-    for genreLink in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
-        genreName = genreLink.strip()
+    if video['categories']:
+        for tag in video['categories']:
+            genreName = tag['name']
 
-        movieGenres.addGenre(genreName)
+            movieGenres.addGenre(genreName)
 
     # Actors
     movieActors.clearActors()
-    actors = video['modelsSlugged']
+    actors = video['models']
     for actor in actors:
         actorName = actor['name']
         actorPhotoURL = ''
-
-        modelURL = '%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actor['slugged'])
-        req = PAutils.HTTPRequest(modelURL)
-        modelPageElements = HTML.ElementFromString(req.text)
-        model = json.loads(modelPageElements.xpath('//script[@type="application/json"]')[0].text_content())
-        actorPhotoURL = model['props']['pageProps']['hero']['sources'][0]['src']
+        if actor['images']:
+            actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
 
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    for name in ['mainPortrait', 'mainLandscape']:
-        if name == 'mainPortrait':
-            image = video['images']['poster'][0]
-        else:
-            image = video['images']['poster'][-1]
-
-        if 'highdpi' in image:
-            art.append(image['highdpi']['double'])
-        else:
-            art.append(image['src'])
+    for name in ['movie', 'poster']:
+        if name in video['carousel'] and video['images'][name]:
+            image = video['images'][name][-1]
+            if 'highdpi' in image:
+                art.append(image['highdpi']['3x'])
+            else:
+                art.append(image['src'])
+            break
 
     for image in pictureset:
-        img = image['main'][0]['src']
+        img = image['listing'][0]['highdpi']['triple']
 
         art.append(img)
 
@@ -123,13 +133,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
-                if height > 1:
+                if width > 1 or height > width:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > height:
+                if width > 100 and width > height and idx > 1:
                     # Item is an art item
                     metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
     return metadata
+
+
+search_query = 'query getSearchResults($query:String!,$site:Site!,$first:Int,$skip:Int){searchVideos(input:{query:$query,site:$site,first:$first,skip:$skip}){edges{node{videoId title releaseDate slug images{listing{src}}}}}}'
+update_query = 'query getSearchResults($slug:String!,$site:Site!){findOneVideo(input:{slug:$slug,site:$site}){videoId title description releaseDate models{name slug images{listing{highdpi{double}}}}directors{name}categories{name}carousel{listing{highdpi{triple}}}}}'
+search_id_query = 'query getSearchResults($videoId:ID!,$site:Site!){findOneVideo(input:{videoId:$videoId,site:$site}){videoId title releaseDate slug}}'
