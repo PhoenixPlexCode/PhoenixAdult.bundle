@@ -17,8 +17,12 @@ def getDatafromAPI(url, query, variables, referer):
 
 
 def search(results, lang, siteNum, searchData):
-    if searchData.encoded.isdigit():
-        search_variables = json.dumps({'videoId': searchData.encoded, 'site': PAsearchSites.getSearchSiteName(siteNum).upper()})
+    sceneID = searchData.title.split(' ', 1)[0]
+
+    if unicode(sceneID, 'UTF-8').isdigit() and len(sceneID) > 4:
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
+
+        search_variables = json.dumps({'videoId': sceneID, 'site': PAsearchSites.getSearchSiteName(siteNum).upper()})
         searchResult = getDatafromAPI(PAsearchSites.getSearchSearchURL(siteNum), search_id_query, search_variables, PAsearchSites.getSearchBaseURL(siteNum))
         if searchResult:
             titleNoFormatting = PAutils.parseTitle(searchResult['findOneVideo']['title'], siteNum)
