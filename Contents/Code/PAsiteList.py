@@ -245,7 +245,7 @@ searchSites = {
     49: ('Live Naughty Teacher', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     50: ('Live Naughty Milf', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
     51: ('Live Naughty Nurse', 'https://tour.naughtyamerica.com', 'https://i6p9q9r18e-3.algolianet.com/1/indexes/*/queries'),
-    52: ('Vixen', 'http://www.vixen.com', '/graphql'),
+    52: ('Vixen', 'https://www.vixen.com', '/graphql'),
     53: ('Girlsway', 'https://www.girlsway.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     54: ('Moms in Control', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
     55: ('Pornstars Like It Big', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
