@@ -1260,7 +1260,7 @@ searchSites = {
     1064: ('Pornstar Vote', 'https://www.mofos.com', 'https://site-api.project1service.com'),
     1065: ('Mormon Girlz', 'https://mormongirlz.com', '/?s='),
     1066: ('PurgatoryX', 'https://www.purgatoryx.com', 'https://tour.purgatoryx.com/search/'),
-    1067: ('Plumper Pass', 'https://plumperpass.com', '/tour/search.php?q='),
+    1067: ('PlumperPass', 'https://plumperpass.com', '/tour/search.php?q='),
     1068: ('FTVMilfs', 'https://ftvmilfs.com', '/update/s-'),
     1069: ('FTVGirls', 'https://www.ftvgirls.com', '/update/s-'),
     1070: ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', '/en/recherche/'),
@@ -2914,7 +2914,7 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1066:
             provider = sitePurgatoryX
 
-        # Plumper Pass
+        # PlumperPass
         elif siteNum == 1067:
             provider = sitePlumperPass
 
