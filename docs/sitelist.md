@@ -701,7 +701,10 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Kinky Spa | ✓
 + #### Little Caprice | ✅
 + #### Look At Her Now | ✅
-+ #### Love Her Feet | ✅
++ #### LoveHerFilms | ✅
+  - LoveHerBoobs
+  - LoveHerFeet
+  - SheLovesBlack
 + #### Lustomic | ❌ - **SceneID, Date Add**
 + #### LustReality | ✅
 + #### ManyVids | ❌ - **SceneID, Date Add**
@@ -1119,6 +1122,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Shower 4K
   - SpyFam
   - Tiny4k
+  - WetVR
 + #### PornstarPlatinum | ✅
 + #### POVR | ✓
 + #### PrettyDirty | ✅
@@ -1596,7 +1600,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### WowGirls | ✓ - **Date Add**
 + #### X-Art | ✅
 + #### XConfessions | ✓
-+ #### Xempire | ✅
++ #### XEmpire | ✅
   - AllBlackX
   - Darkx
   - Eroticax
