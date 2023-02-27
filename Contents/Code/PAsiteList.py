@@ -51,7 +51,6 @@ import siteMomPOV
 import networkFuelVirtual
 import siteStraplezz
 import siteLittleCaprice
-import siteWowGirls
 import siteVIPissy
 import siteGirlsOutWest
 import siteGirlsRimming
@@ -69,7 +68,6 @@ import siteZTOD
 import siteClubFilly
 import networkIntersec
 import networkCherryPimps
-import site18OnlyGirls
 import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
@@ -191,6 +189,7 @@ import siteJAVDatabase
 import networkAdultPrime
 import networkRadicalCash
 import siteTeenyTaboo
+import networkWowNetwork
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/search?q='),
@@ -1797,6 +1796,7 @@ searchSites = {
     1701: ('Creepy Pa', 'https://pornplus.com', '/video/'),
     1702: ('Caged Sex', 'https://pornplus.com', '/video/'),
     1703: ('Teeny Taboo', 'https://teenytaboo.com', '/videos/'),
+    1705: ('WowPorn', 'https://www.wowpornblog.com', '/?s='),
 }
 
 abbreviations = (
@@ -1811,7 +1811,9 @@ abbreviations = (
     ('^aa ', 'AmateurAllure '),
     ('^ad ', 'AmericanDaydreams '),
     ('^add ', 'ManualAddActors '),
+    ('^afg ','18OnlyGirls '),
     ('^agm ', 'AllGirlMassage '),
+    ('^AllFineGirls ','18OnlyGirls '),
     ('^am ', 'AssMasterpiece '),
     ('^analb ', 'AnalBeauty '),
     ('^legalporno ', 'AnalVids '),
@@ -2018,7 +2020,9 @@ abbreviations = (
     ('^sins ', 'SinsLife '),
     ('^sislove ', 'SisLovesMe '),
     ('^smb ', 'ShareMyBF '),
+    ('^SuperSkinnyGirls ', '18OnlyGirls '),
     ('^ssc ', 'StepSiblingsCaught '),
+    ('^ssg ', '18OnlyGirls '),
     ('^ssn ', 'ShesNew '),
     ('^sts ', 'StrandedTeens '),
     ('^swm ', 'SexWithMuslims '),
@@ -2053,8 +2057,11 @@ abbreviations = (
     ('^woc ', 'WildOnCam '),
     ('^wov ', 'WivesOnVacation '),
     ('^wowg ', 'WowGirls '),
+    ('^wowp ', 'WowPorn '),
     ('^wunf', 'WakeUpNFuck'),
     ('^wy ', 'WebYoung '),
+    ('^ylp ', '18OnlyGirls '),
+    ('^YoungLegalPorn ', '18OnlyGirls '),
     ('^ztod ', 'ZeroTolerance '),
     ('^zzs ', 'ZZseries '),
 )
@@ -2508,10 +2515,6 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 742:
             provider = siteLittleCaprice
 
-        # WowGirls
-        elif siteNum == 743:
-            provider = siteWowGirls
-
         # VIPissy
         elif siteNum == 744:
             provider = siteVIPissy
@@ -2587,10 +2590,6 @@ def getProviderFromSiteNum(siteNum):
         # Wicked
         elif siteNum == 793:
             provider = networkGammaEntOther
-
-        # 18OnlyGirls
-        elif siteNum == 794:
-            provider = site18OnlyGirls
 
         # LilHumpers
         elif siteNum == 798:
@@ -3162,5 +3161,9 @@ def getProviderFromSiteNum(siteNum):
         # Teeny Taboo
         elif siteNum == 1703:
             provider = siteTeenyTaboo
+
+        # WowNetwork
+        elif siteNum == 743 or siteNum == 794  or siteNum == 1705:
+            provider = networkWowNetwork
 
     return provider

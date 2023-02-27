@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.studio = 'WowNetwork'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
