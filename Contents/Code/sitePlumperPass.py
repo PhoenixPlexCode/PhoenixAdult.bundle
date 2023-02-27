@@ -4,13 +4,12 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     searchResults = []
+    sceneID = searchData.title.split(' ', 1)[0]
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '&sid=587'
-    req = PAutils.HTTPRequest(url)
-    siteSearchResults = HTML.ElementFromString(req.text)
-    for searchResult in siteSearchResults.xpath('//div[@class="itemm"]'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/tour/%s' % searchResult.xpath('.//@href')[0]
+    if unicode(sceneID, 'UTF-8').isdigit() and len(sceneID) > 4:
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
         searchResults.append(sceneURL)
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
@@ -30,12 +29,13 @@ def search(results, lang, siteNum, searchData):
         if ('content' in req.url):
             titleNoFormatting = detailsPageElements.xpath('//h2[@class="vidtitle"]')[0].text_content().strip().replace('\"', '')
             curID = PAutils.Encode(sceneURL)
-            date = detailsPageElements.xpath('//h3[@class="releases"]//preceding-sibling::text()')[0].strip()
 
+            date = detailsPageElements.xpath('//h3[@class="releases"]//br/preceding-sibling::text()')
             if date:
-                releaseDate = parse(date).strftime('%Y-%m-%d')
+                releaseDate = datetime.strptime(date[0].strip(), '%B %d, %Y').strftime('%Y-%m-%d')
             else:
                 releaseDate = searchData.dateFormat() if searchData.date else ''
+
             displayDate = releaseDate if date else ''
 
             if searchData.date and displayDate:
@@ -67,7 +67,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Tagline and Collection(s)
     metadata.collections.clear()
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Release Date

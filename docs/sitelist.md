@@ -974,7 +974,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Up Her Asshole
 + #### PJGirls | ✅
 + #### Playboy Plus | ✅
-+ #### Plumper Pass | ✅
++ #### PlumperPass | ✅
 + #### PornCZ | ✓ - **Title or Actor**
   - Amateri Premium
   - Amateur From Bohemia
