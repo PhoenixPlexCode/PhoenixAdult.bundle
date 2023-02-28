@@ -34,26 +34,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Porndoe Premium'
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@class="no-space transform-none"]')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1[@class="-mvd-heading"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="row sides-xs"]/div[2]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="-mvd-description"]')[0].text_content().strip()
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//div[@class="actors"]/h2/span/a')[0].text_content().strip()
+    tagline = detailsPageElements.xpath('//div[@class="-mvd-grid-actors"]/span/a')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//a[@class="inline-links"]'):
+    for genreLink in detailsPageElements.xpath('//span[@class="-mvd-list-item"]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="h5 h5-published nowrap color-rgba255-06"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//div[@class="-mvd-grid-stats"]')[0].text_content().strip()
     if date:
         date = date.split('•')[-1].strip()
         date_object = parse(date)
@@ -62,7 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//span[@class="group inline"]/a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="-mvd-grid-actors"]/span/a[@title]'):
         actorName = ''
         actorPhotoURL = ''
 
@@ -71,7 +71,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorPage = HTML.ElementFromString(req.text)
         actorName = actorPage.xpath('//div[@class="-aph-heading"]//h1')[0].text_content().strip()
         try:
-            actorPhotoURL = actorPage.xpath('//div[@class="-api-poster-item"]//img/@data-src')[0]
+            actorPhotoURL = actorPage.xpath('//div[@class="-api-poster-item"]//img/@src')[0]
             if 'http' not in actorPhotoURL:
                 actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
         except:
