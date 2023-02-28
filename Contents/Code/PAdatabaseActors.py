@@ -263,6 +263,7 @@ ActorsReplaceStudios = {
     3: {  # ClubSeventeen
         'Katy Rose': ['Katy E'],
         'Scarlet Domingo': ['Scarlet'],
+        'Teena Dolly': ['Dolly D'],
     },
     4: {  # CumLouder
         'Apolonia Lapiedra': ['Apolonia'],
