@@ -47,7 +47,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//span[@class="-mvd-list-item"]'):
+    for genreLink in detailsPageElements.xpath('//span[@class="-mvd-list-item"]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
