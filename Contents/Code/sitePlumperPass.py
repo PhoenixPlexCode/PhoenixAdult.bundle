@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = []
     sceneID = searchData.title.split(' ', 1)[0]
 
-    if unicode(sceneID, 'UTF-8').isdigit() and len(sceneID) > 4:
+    if unicode(sceneID, 'UTF-8').isdigit():
         searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
@@ -14,9 +14,9 @@ def search(results, lang, siteNum, searchData):
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for result in googleResults:
-        pattern = re.search(r'(?<=\dpp\/).*(?=\/)', result)
-        if pattern:
-            sceneID = pattern.group(0)
+        match = re.search(r'((?<=\dpp\/)|(?<=\dbbwd\/)|(?<=\dhsp\/)|(?<=\dbbbj\/)|(?<=\dpatp\/)|(?<=\dftf\/)|(?<=\dbgb\/))\d+(?=\/)', result)
+        if match:
+            sceneID = match.group(0)
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/t1/refstat.php?lid=%s&sid=584' % sceneID
 
             if ('content' in result) and sceneURL not in searchResults:
@@ -56,18 +56,37 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h2[@class="vidtitle"]')[0].text_content().strip().replace('\"', '')
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h2[@class="vidtitle"]')[0].text_content().strip().replace('\"', ''), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[contains(@class, "vidinfo")]/p')[0].text_content().strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.studio = 'PlumperPass'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.collections.add(metadata.studio)
+    if 'bbwd/' in req.url:
+        tagline = 'BBW Dreams'
+        metadata.tagline = tagline
+    elif 'bbbj/' in req.url:
+        tagline = 'Big Babe Blowjobs'
+        metadata.tagline = tagline
+    elif 'hsp/' in req.url:
+        tagline = 'Hot Sexy Plumpers'
+        metadata.tagline = tagline
+    elif 'patp/' in req.url:
+        tagline = 'Plumpers At Play'
+        metadata.tagline = tagline
+    elif 'ftf/' in req.url:
+        tagline = 'First Time Fatties'
+        metadata.tagline = tagline
+    elif 'bgb/' in req.url:
+        tagline = 'BBWs Gone Black'
+        metadata.tagline = tagline
+    else:
+        tagline = metadata.studio
+    metadata.collections.add(tagline)
 
     # Release Date
     if sceneDate:
@@ -77,7 +96,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
+    if detailsPageElements.xpath('//p[@class="tags clearfix"]/a/text()'):
+        genres = detailsPageElements.xpath('//p[@class="tags clearfix"]/a/text()')
+    else:
+        genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(',')
+    for genreLink in genres:
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
