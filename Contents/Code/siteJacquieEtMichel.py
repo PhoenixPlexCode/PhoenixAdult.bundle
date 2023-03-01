@@ -8,13 +8,13 @@ def search(results, lang, siteNum, searchData):
     if unicode(parts[0], 'UTF-8').isdigit():
         sceneID = parts[0]
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded + '.html'
+    url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "video-item") and @data-get-thumbs-url]'):
-        titleNoFormatting = searchResult.xpath('.//p[@class="title-video"]')[0].text_content().strip()
-        curID = PAutils.Encode(searchResult.xpath('./a/@href')[0])
-        date = searchResult.xpath('.//div[@class="infos-video"]/p')[0].text_content().replace('Added on', '').strip()
+    for searchResult in searchResults.xpath('//a[@class="content-card content-card--video"]'):
+        titleNoFormatting = searchResult.xpath('.//h2[@class="content-card__title"]')[0].text_content().strip()
+        curID = PAutils.Encode(searchResult.xpath('./@href')[0])
+        date = searchResult.xpath('.//div[@class="content-card__date"]')[0].text_content().replace('Added on', '').strip()
         releaseDate = parse(date).strftime('%Y-%m-%d')
 
         if searchData.date:
@@ -26,11 +26,11 @@ def search(results, lang, siteNum, searchData):
 
     # SceneId search
     if sceneID:
-        url = PAsearchSites.getSearchBaseURL(siteNum) + '/en/videos/show/' + sceneID
+        url = PAsearchSites.getSearchBaseURL(siteNum) + '/en/content/' + sceneID
         req = PAutils.HTTPRequest(url)
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = detailsPageElements.xpath('//div[@class="video-player"]/h1')[0].text_content().strip()
+        titleNoFormatting = detailsPageElements.xpath('//h1[@class="content-detail__title"]')[0].text_content().strip()
         curID = PAutils.Encode(url)
 
         score = 100
@@ -49,10 +49,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="video-player"]/h1')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//h1[@class="content-detail__title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="video-description"]/p')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="content-detail__description"]')[0].text_content().strip()
 
     # Studio
     metadata.studio = 'Jacquie Et Michel TV'
@@ -65,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//span[@class="categories"]//strong'):
+    for genreLink in detailsPageElements.xpath('//div[@class="content-detail__row"]//li[@class="content-detail__tag"]'):
         genreName = genreLink.text_content().replace(',', '').strip()
         if genreName == 'Sodomy':
             genreName = 'Anal'
@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('French porn')
 
     # Release Date
-    date = detailsPageElements.xpath('//span[@class="publication"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//div[@class="content-detail__infos__row"]//p[@class="content-detail__description content-detail__description--link"]')[1].text_content().strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
@@ -89,16 +89,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Poster
-    xpaths = [
-        '//img[@id="video-player-poster"]/@data-src',
-    ]
-
-    for xpath in xpaths:
-        for img in detailsPageElements.xpath(xpath):
-            if ',' in img:
-                img = img.split(',')[-1].split()[0]
-
-            art.append(img)
+    img = detailsPageElements.xpath('//video/@poster')[0]
+    art.append(img)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
