@@ -1263,7 +1263,7 @@ searchSites = {
     1067: ('PlumperPass', 'https://plumperpass.com', '/tour/search.php?q='),
     1068: ('FTVMilfs', 'https://ftvmilfs.com', '/update/s-'),
     1069: ('FTVGirls', 'https://www.ftvgirls.com', '/update/s-'),
-    1070: ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', '/en/recherche/'),
+    1070: ('Jacquie Et Michel TV', 'https://www.jacquieetmicheltv.net', '/en/content/list?search='),
     1071: ('Data18 Scenes', 'https://www.data18.com', '/sys/live.php?index=&key='),
     1072: ('Penthouse Gold', 'https://penthousegold.com', '/search.php?query='),
     1073: ('Data18 Movies', 'https://www.data18.com', '/sys/live.php?index=&key='),

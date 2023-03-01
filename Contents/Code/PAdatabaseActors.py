@@ -39,6 +39,7 @@ ActorsReplace = {
     'Britney Beth': ['Bibi Jones', 'Bibi Jones™'],
     'Brooke Lee Adams': ['Zeba'],
     'Bunny Colby': ['Nadya Nabakova', 'Nadya Nabokova'],
+    'Candie Luciani': ['Candice Luciani', 'Candie Toydoll'],
     'Capri Cavanni': ['Capri Cavalli'],
     'Carry Cherry': ['Carrie Cherry', 'Carry Cherri', 'Corry Cherry', 'Dormiona', 'Kerry Cherry'],
     'Casey Norhman': ['Casey Nice', 'Eyla Moore'],
@@ -397,7 +398,7 @@ ActorsReplaceStudios = {
     },
     9: {  # LegalPorno
         'Bella Gray': ['Bella Grey'],
-        'Candie Toydoll': ['Candie'],
+        'Candie Luciani': ['Candie'],
         'Foxy Di': ['Foxy D'],
         'Krystal Boyd': ['Abby'],
         'Sophia Traxler': ['Olivia'],
