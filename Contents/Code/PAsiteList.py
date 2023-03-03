@@ -1801,6 +1801,8 @@ searchSites = {
     1705: ('LoveHerFilms', 'https://www.loveherfilms.com', '/tour/search.php?query='),
     1706: ('LoveHerBoobs', 'https://www.loveherboobs.com', '/tour/search.php?query='),
     1707: ('SheLovesBlack', 'https://www.shelovesblack.com', '/tour/search.php?query='),
+    1708: ('Try Teens', 'https://teencoreclub.com', '/video/'),
+    1709: ('Young Throats', 'https://teencoreclub.com', '/video/'),
 }
 
 abbreviations = (
@@ -2839,7 +2841,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network5Kporn
 
         # Teen Core Club
-        elif (943 <= siteNum <= 974 or siteNum == 1358):
+        elif (943 <= siteNum <= 974 or siteNum == 1358 or 1708 <= siteNum <= 1709):
             provider = networkTeenCoreClub
 
         # Desperate Amateurs

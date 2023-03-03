@@ -1418,9 +1418,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Teens Go Porn
   - Teens Natural Way
   - Teens Try Black
+  - Try Teens
   - We Need New Talents
   - White Teens Black Cocks
   - X Core Club
+  - Young Throats
 + #### TeenMegaWorld Network | ✅
   - 18 First Sex
   - About Girls Love

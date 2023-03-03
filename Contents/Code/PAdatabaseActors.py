@@ -864,6 +864,7 @@ ActorsReplaceStudios = {
         'Little Caprice': ['Caprice', 'Lolashut'],
         'Little Rita': ['Natalya'],
         'Liz Honey': ['Britney'],
+        'Liza Shay': ['Stasya'],
         'Lola Chic': ['Lilit'],
         'Lolly Gartner': ['Lolly'],
         'Lora Craft': ['Lora'],
@@ -1435,6 +1436,7 @@ ActorsReplaceStudios = {
     24: {  # Private
         'Apolonia Lapiedra': ['Apolonia'],
         'Bambi Dee': ['Td Bambi'],
+        'Camilla Krabbe': ['Camilla'],
         'Lola Taylor': ['Lolita Taylor'],
         'Scarlet Domingo': ['Scarlet'],
     },
@@ -5289,6 +5291,7 @@ ActorsReplaceStudios = {
         'Eva Zan': ['Eva'],
         'Joleyn Burst': ['Jolene'],
         'Katrin Tequila': ['Janett'],
+        'Liza Shay': ['Brooklyn'],
         'Susan Ayn': ['Susan'],
         'Violette Pink': ['Violette'],
     },
