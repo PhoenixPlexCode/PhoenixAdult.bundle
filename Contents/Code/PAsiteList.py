@@ -1803,6 +1803,7 @@ searchSites = {
     1707: ('SheLovesBlack', 'https://www.shelovesblack.com', '/tour/search.php?query='),
     1708: ('Try Teens', 'https://teencoreclub.com', '/video/'),
     1709: ('Young Throats', 'https://teencoreclub.com', '/video/'),
+    1710: ('Bride 4K', 'https://vip4k.com', '/en/search/'),
 }
 
 abbreviations = (
@@ -3108,7 +3109,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKillergram
 
         # VIP4K
-        elif (1376 <= siteNum <= 1388) or siteNum == 1687 or siteNum == 1694:
+        elif (1376 <= siteNum <= 1388) or siteNum == 1687 or siteNum == 1694 or siteNum == 1710:
             provider = networkVIP4K
 
         # Dirty Flix Network
