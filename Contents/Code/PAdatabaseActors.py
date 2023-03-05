@@ -241,6 +241,7 @@ ActorsReplaceStudios = {
         'Henessy': ['Henna Ssy'],
         'Jessy Nikea': ['Nikea'],
         'Katarina Muti': ['Ariel Temple'],
+        'Kate Shira': ['Shira'],
         'Krystal Boyd': ['Abbie'],
         'Lina Arian Joy': ['Arian'],
         'Mishelle Klein': ['Molly A'],
