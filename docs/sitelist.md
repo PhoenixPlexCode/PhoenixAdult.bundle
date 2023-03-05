@@ -703,6 +703,14 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - WiredPussy
 + #### Kinky Spa | ✓
 + #### Little Caprice | ✅
+  - Buttmuse
+  - Caprice Divas
+  - NasstyX
+  - POVDreams
+  - Streetfuck
+  - SuperprivateX
+  - Wecumtoyou
+  - Xpervo
 + #### Look At Her Now | ✅
 + #### LoveHerFilms | ✅
   - LoveHerBoobs

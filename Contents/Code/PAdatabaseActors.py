@@ -238,9 +238,11 @@ ActorsReplace = {
 
 ActorsReplaceStudios = {
     0: {  # 21 Sextury, 21Sextury, Footsie Babes
+        'Eva Smolina': ['Una'],
         'Henessy': ['Henna Ssy'],
         'Jessy Nikea': ['Nikea'],
         'Katarina Muti': ['Ariel Temple'],
+        'Kate Shira': ['Shira'],
         'Krystal Boyd': ['Abbie'],
         'Lina Arian Joy': ['Arian'],
         'Mishelle Klein': ['Molly A'],
