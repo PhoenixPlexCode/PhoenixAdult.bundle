@@ -607,10 +607,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### HuCows | ✅
 + #### VIP4K | ✅
   - Black 4k
+  - Bride 4k
   - Daddy 4k
   - Debt 4k
+  - Dyke 4k
   - Fist 4k
   - Hunt 4k
+  - Ignore 4k
   - Loan 4k
   - Mature 4k
   - Old 4k
