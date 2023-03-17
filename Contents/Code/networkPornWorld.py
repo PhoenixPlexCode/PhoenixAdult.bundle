@@ -18,7 +18,7 @@ def search(results, lang, siteNum, searchData):
         delta = date.today() - searchDateObj
         searchPage = math.ceil(float(delta.days) / 99)
 
-        # Log('PWDebug: Scene date: %s, Days delta: %d, Page: %d' % (searchData.date, delta.days, searchPage))
+        # Log('Scene date: %s, Days delta: %d, Page: %d' % (searchData.date, delta.days, searchPage))
 
         searchUrl = 'https://www.pornworld.com/new-videos/%d'
         dateNotFound = True
@@ -117,8 +117,10 @@ def search(results, lang, siteNum, searchData):
 
     return results
 
+
 def dateFromIso(dateString):
     return datetime.strptime(dateString, '%Y-%m-%d').date()
+
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
