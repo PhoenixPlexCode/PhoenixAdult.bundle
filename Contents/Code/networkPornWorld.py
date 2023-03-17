@@ -54,7 +54,6 @@ def search(results, lang, siteNum, searchData):
 
                 # let's allow scenes +/- two days of the target date as sometimes scenes get re-dated on the site
                 if daysDiff < 3:
-                    Log('Scene: %s %s' % (sceneDate, titleNoFormatting))
 
                     url = searchResult.xpath('.//a/@href')[0]
                     curID = PAutils.Encode(url)
@@ -63,9 +62,11 @@ def search(results, lang, siteNum, searchData):
                     score = 100 - daysDiff * 10
 
                     # try to match the first word/name in the title
-                    if not searchName in titleNoFormatting.lower():
+                    if searchName not in titleNoFormatting.lower():
                         # take off some points if we don't match the title search params
                         score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                    Log('Scene: %s %s (%s%%)' % (sceneDate, titleNoFormatting, score))
 
                     # scene names can be obscure so output the date too
                     name = '%s %s' % (sceneDate, titleNoFormatting)
