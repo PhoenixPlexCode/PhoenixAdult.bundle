@@ -18,6 +18,9 @@ def search(results, lang, siteNum, searchData):
         delta = date.today() - searchDateObj
         searchPage = math.ceil(float(delta.days) / 99)
 
+        # the first word in the title is usually a name
+        searchName = searchData.title.lower().split()[0]
+
         # Log('Scene date: %s, Days delta: %d, Page: %d' % (searchData.date, delta.days, searchPage))
 
         searchUrl = 'https://www.pornworld.com/new-videos/%d'
@@ -59,11 +62,12 @@ def search(results, lang, siteNum, searchData):
                     # take off some points if the date is not a precise match
                     score = 100 - daysDiff * 10
 
-                    # take off some points if we don't match the title search params
-                    if not searchData.title.lower() in titleNoFormatting.lower():
+                    # try to match the first word/name in the title
+                    if not searchName in titleNoFormatting.lower():
+                        # take off some points if we don't match the title search params
                         score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-                    # names can be obscure so output the date too
+                    # scene names can be obscure so output the date too
                     name = '%s %s' % (sceneDate, titleNoFormatting)
 
                     results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=name, score=score, lang=lang))
