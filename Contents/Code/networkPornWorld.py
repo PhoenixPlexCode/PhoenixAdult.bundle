@@ -1,8 +1,76 @@
 import PAsearchSites
 import PAutils
+from datetime import datetime
+from datetime import date
+import math
 
 
 def search(results, lang, siteNum, searchData):
+
+    # if we have a scene date, we can use the 'Newest scenes' pages to get a match
+    if searchData.date:
+
+        # there are 99 scenes per page starting with today on page 1,
+        # so let's try to determine the page on which we will find a match
+        # though this can be a bit random with older scenes
+
+        searchDateObj = dateFromIso(searchData.date)
+        delta = date.today() - searchDateObj
+        searchPage = math.ceil(float(delta.days) / 99)
+
+        # Log('PWDebug: Scene date: %s, Days delta: %d, Page: %d' % (searchData.date, delta.days, searchPage))
+
+        searchUrl = 'https://www.pornworld.com/new-videos/%d'
+        dateNotFound = True
+
+        while dateNotFound:
+            req = PAutils.HTTPRequest(searchUrl % searchPage)
+            searchResults = HTML.ElementFromString(req.text)
+
+            dateResults = searchResults.xpath("//div[@class='card-scene__time']/div[@class='label label--time'][2]")
+
+            firstDateObj = dateFromIso(dateResults[0].text_content().strip())
+            if searchDateObj > firstDateObj:
+                searchPage = searchPage - 1
+                continue
+
+            lastDateObj = dateFromIso(dateResults[-1].text_content().strip())
+            if searchDateObj < lastDateObj:
+                searchPage = searchPage + 1
+                continue
+
+            dateNotFound = False
+            for searchResult in searchResults.xpath("//div[contains(concat(' ',normalize-space(@class),' '),' card-scene ')]"):
+
+                titleNoFormatting = searchResult.xpath(".//div[@class='card-scene__text']/a")[0].text_content().strip()
+                sceneDate = searchResult.xpath('.//div[@class="label label--time"]')[1].text_content().strip()
+                sceneDateObj = dateFromIso(sceneDate)
+
+                # get the difference in days between the search target and the current scene
+                daysDiff = abs((searchDateObj - sceneDateObj).days)
+
+                # let's allow scenes +/- two days of the target date as sometimes scenes get re-dated on the site
+                if daysDiff < 3:
+                    Log('Scene: %s %s' % (sceneDate, titleNoFormatting))
+
+                    url = searchResult.xpath('.//a/@href')[0]
+                    curID = PAutils.Encode(url)
+
+                    # take off some points if the date is not a precise match
+                    score = 100 - daysDiff * 10
+
+                    # take off some points if we don't match the title search params
+                    if not searchData.title.lower() in titleNoFormatting.lower():
+                        score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                    # names can be obscure so output the date too
+                    name = '%s %s' % (sceneDate, titleNoFormatting)
+
+                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=name, score=score, lang=lang))
+
+        # if we have a date, there's a far better chance of a decent match than the title search, so get out now
+        return results
+
     sceneID = searchData.title.split(' ', 1)[0]
     if unicode(sceneID, 'UTF-8').isdigit() and len(sceneID) > 3:  # don't match things like '2 girls do something...'
         searchData.title = searchData.title.replace(sceneID, '', 1).strip()
@@ -18,6 +86,8 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = getTitle(detailsPageElements)
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=100, lang=lang))
+
+    # if we get to here, results can be extremely sketchy...
     else:
         searchData.encoded = searchData.title.replace(' ', '+')
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
@@ -47,6 +117,8 @@ def search(results, lang, siteNum, searchData):
 
     return results
 
+def dateFromIso(dateString):
+    return datetime.strptime(dateString, '%Y-%m-%d').date()
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
