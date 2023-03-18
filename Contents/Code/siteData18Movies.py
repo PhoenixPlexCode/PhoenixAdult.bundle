@@ -131,8 +131,6 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(movieURL, cookies={'data_user_captcha': '1'})
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', movieURL)
-        Log('============================================')
-        Log(req.text)
 
         if not detailsPageElements:
             Log('Possible IP BAN: Retry on VPN')
