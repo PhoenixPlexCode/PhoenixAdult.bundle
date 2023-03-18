@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
 
     searchData.encoded = searchData.title.replace('\'', '').replace(',', '').replace('& ', '')
     searchURL = '%s%s&key2=%s&next=1&page=0' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded)
-    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'}, cookies={'data_user_captcha': '1'})
     searchPageElements = HTML.ElementFromString(req.text)
 
     searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
@@ -77,7 +77,7 @@ def search(results, lang, siteNum, searchData):
 
         if numSearchPages > 1 and not idx + 1 == numSearchPages:
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
-            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'}, cookies={'data_user_captcha': '1'})
             searchPageElements = HTML.ElementFromString(req.text)
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
@@ -87,7 +87,7 @@ def search(results, lang, siteNum, searchData):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
-        req = PAutils.HTTPRequest(sceneURL)
+        req = PAutils.HTTPRequest(sceneURL, cookies={'data_user_captcha': '1'})
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', sceneURL)
 
@@ -153,7 +153,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
-    req = PAutils.HTTPRequest(sceneURL)
+    req = PAutils.HTTPRequest(sceneURL, cookies={'data_user_captcha': '1'})
     detailsPageElements = HTML.ElementFromString(req.text)
 
     if not detailsPageElements:
