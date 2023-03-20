@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
 
         searchDateObj = dateFromIso(searchData.date)
         delta = date.today() - searchDateObj
-        searchPage = math.ceil(float(delta.days) / 99)
+        searchPage = max(math.ceil(float(delta.days) / 99), 1)
 
         # the first word in the title is usually a name
         searchName = searchData.title.lower().split()[0]
@@ -28,12 +28,17 @@ def search(results, lang, siteNum, searchData):
 
         while dateNotFound:
             req = PAutils.HTTPRequest(searchUrl % searchPage)
+
+            if req.status_code != 200:
+                Log('Page %d bad request' % searchPage)
+                break
+
             searchResults = HTML.ElementFromString(req.text)
 
             dateResults = searchResults.xpath("//div[@class='card-scene__time']/div[@class='label label--time'][2]")
 
             firstDateObj = dateFromIso(dateResults[0].text_content().strip())
-            if searchDateObj > firstDateObj:
+            if searchDateObj > firstDateObj and searchPage > 1:
                 searchPage = searchPage - 1
                 continue
 
