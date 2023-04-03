@@ -7,21 +7,20 @@ def search(results, lang, siteNum, searchData):
         url = PAsearchSites.getSearchSearchURL(siteNum) + '%s&page=%d' % (searchData.encoded, searchPageNum)
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
-        for searchResult in searchResults.xpath('//article'):
-            if searchResult.xpath('//article'):
-                titleNoFormatting = searchResult.xpath('.//h1')[0].text_content().strip()
-                titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
+        for searchResult in searchResults.xpath('//li[@class="video_card"]'):
+            titleNoFormatting = searchResult.xpath('.//a[@class="video_card__info__name"]')[0].text_content().strip()
+            titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
 
-                curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
-                releaseDate = parse(searchResult.xpath('.//time')[0].text_content()).strftime('%Y-%m-%d')
-                subSite = searchResult.xpath('.//div[@class="site"]/a')[0].text_content().replace('.com', '').strip()
+            curID = PAutils.Encode(searchResult.xpath('.//a[@class="video_card__info__name"]/@href')[0])
+            releaseDate = parse(searchResult.xpath('.//time')[0].text_content()).strftime('%Y-%m-%d')
+            subSite = searchResult.xpath('.//a[@class="video_card__info__site_link"]')[0].text_content().replace('.com', '').strip()
 
-                if searchData.date:
-                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-                else:
-                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            if searchData.date:
+                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+            else:
+                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-                results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [TMW/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [TMW/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -78,8 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//dl8-video/@poster',
-        '//deo-video/@cover-image',
+        '//video/@poster',
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):

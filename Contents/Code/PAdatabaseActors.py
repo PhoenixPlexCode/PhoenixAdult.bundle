@@ -5470,6 +5470,7 @@ ActorsReplaceStudios = {
         'Ariel Darling': ['Ariel'],
         'Avril Hall': ['April'],
         'Cierra Bell': ['Cierra'],
+        'Ellie Eilish': ['Aria'],
         'Febby Twigs': ['Elena (Febby Twigs)'],
         'Fiona Frost': ['Fiona'],
         'Gracie Gates': ['Gracie'],
