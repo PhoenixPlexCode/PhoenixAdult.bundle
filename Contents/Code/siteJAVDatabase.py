@@ -351,7 +351,7 @@ sceneActorsDB = {
     'Iroha Suzumura': ['NNPJ-140'],
     'Itsuki Maino': ['NNPJ-136'],
     'Jillian Janson': ['CRDD-004', 'CRDD-007', 'CRDD-013'],
-    'Julia Yoshine': ['DVDMS-623', 'HJMO-439', 'MIMK-078', 'HUNTB-084'],
+    'Julia Yoshine': ['DVDMS-623', 'HJMO-439', 'MIMK-078', 'HUNTB-084', 'MIMK-104'],
     'June Lovejoy': ['DVDMS-553'],
     'Kaede Horiuchi': ['SW-140'],
     'Kaede Niyama': ['NHDTA-609'],
