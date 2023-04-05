@@ -397,7 +397,7 @@ def postParseTitle(output):
     # Remove space between punctuation and word
     output = re.sub(r'(?<=[#\(])\s+', '', output)
     # Override lowercase if word follows a punctuation
-    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    output = re.sub(ur'(?<=!|:|\?|\.|-|\u2013)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
     # Override lowercase if word follows a parenthesis
     output = re.sub(r'(?<=[\(|\&|\"|\[|\*|\~])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
     # Override lowercase if last word in section

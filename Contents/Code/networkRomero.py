@@ -16,7 +16,10 @@ def search(results, lang, siteNum, searchData):
         try:
             date = searchResult.xpath('.//h2')[1].text_content().strip().split('&nbsp')[-1]
         except:
-            date = ''
+            try:
+                date = searchResult.xpath('.//div[@class="entry-date"]')[0].text_content().strip()
+            except:
+                date = ''
 
         if date:
             releaseDate = parse(date).strftime('%Y-%m-%d')
@@ -25,7 +28,10 @@ def search(results, lang, siteNum, searchData):
 
         displayDate = releaseDate if date else ''
 
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        if searchData.date and displayDate:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
