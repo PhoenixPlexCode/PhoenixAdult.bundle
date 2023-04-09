@@ -35,6 +35,7 @@ ActorsReplace = {
     'Baby Kxtten': ['Baby Kitten', 'Bxby Kitten'],
     'Billie Star': ['Billy Star', 'Katia', 'Petra'],
     'Black Angelika': ['Angelika Black', 'Black Angelica'],
+    'Bonny Bon': ['Bonni Bone', 'Bonnie Bond', 'Bonny Bo', 'Bony Bo', 'Bonnie Bon', 'Bonny Bone', 'Bonnie Bunny'],
     'Brianna Rose': ['Jessa', 'Jessa Brianna', 'Jessa Brianne', 'Jessa Rose', 'SexyNerdBri'],
     'Bridgette B': ['Bridgette B.'],
     'Britney Beth': ['Bibi Jones', 'Bibi Jones™'],
