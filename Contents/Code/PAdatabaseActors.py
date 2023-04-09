@@ -2395,7 +2395,6 @@ ActorsReplaceStudios = {
         'Yvonne': ['Ira', 'Veronika'],
         'Zara Lick': ['Little Eliss'],
         'Zaria': ['Nelly'],
-        'Zazie Sky': ['Zazie Skymm'],
         'Zlata': ['Daria'],
         'Zoe Doll': ['Doll'],
         'Zoya': ['Annette'],
@@ -5231,6 +5230,7 @@ ActorsReplaceStudios = {
         'Lilu Moon': ['Lilu'],
         'Lola Shine': ['Lolla'],
         'Melanie Taylor': ['Melanie'],
+        'Zazie Skymm': ['Zazie']
     },
     48: {  # Reality Lovers
         'Samantha Jolie': ['Holly'],
