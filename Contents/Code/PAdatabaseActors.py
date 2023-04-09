@@ -26,6 +26,7 @@ ActorsReplace = {
     'Annika Albrite': ['Anikka Albrite'],
     'Apolonia Lapiedra': ['Apolonia', 'Apolonia La Piedra', 'Apolina'],
     'April O\'Neil': ['April O\'neil', 'April ONeil', 'April Oneil'],
+    'Ariadna Moon': ['Adriana Moon', 'Alina Moon', 'Irina Pavlova'],
     'Ashlee Graham': ['Ashley Graham'],
     'Ashly Anderson': ['Ashley Anderson'],
     'Aspen Ora': ['Haveen Ora', 'Natasha Griffin', 'Navee Nora', 'Naveen Ora'],
@@ -34,6 +35,7 @@ ActorsReplace = {
     'Baby Kxtten': ['Baby Kitten', 'Bxby Kitten'],
     'Billie Star': ['Billy Star', 'Katia', 'Petra'],
     'Black Angelika': ['Angelika Black', 'Black Angelica'],
+    'Bonny Bon': ['Bonni Bone', 'Bonnie Bond', 'Bonny Bo', 'Bony Bo', 'Bonnie Bon', 'Bonny Bone', 'Bonnie Bunny'],
     'Brianna Rose': ['Jessa', 'Jessa Brianna', 'Jessa Brianne', 'Jessa Rose', 'SexyNerdBri'],
     'Bridgette B': ['Bridgette B.'],
     'Britney Beth': ['Bibi Jones', 'Bibi Jones™'],
@@ -402,7 +404,8 @@ ActorsReplaceStudios = {
     8: {  # Holed
         'Scarlet Domingo': ['Scarlett'],
     },
-    9: {  # LegalPorno
+    9: {  # AnalVids
+        'Ariadna Moon': ['Alice Ariadna'],
         'Bella Gray': ['Bella Grey'],
         'Candie Luciani': ['Candie'],
         'Foxy Di': ['Foxy D'],
@@ -2392,7 +2395,6 @@ ActorsReplaceStudios = {
         'Yvonne': ['Ira', 'Veronika'],
         'Zara Lick': ['Little Eliss'],
         'Zaria': ['Nelly'],
-        'Zazie Sky': ['Zazie Skymm'],
         'Zlata': ['Daria'],
         'Zoe Doll': ['Doll'],
         'Zoya': ['Annette'],
@@ -5224,9 +5226,11 @@ ActorsReplaceStudios = {
     },
     47: {  # Perfect Gonzo, Sapphic Erotica
         'Aliz': ['Liz'],
+        'Ariadna Moon': ['Ariadna'],
         'Lilu Moon': ['Lilu'],
         'Lola Shine': ['Lolla'],
         'Melanie Taylor': ['Melanie'],
+        'Zazie Skymm': ['Zazie']
     },
     48: {  # Reality Lovers
         'Samantha Jolie': ['Holly'],
@@ -5870,7 +5874,7 @@ ActorsStudioIndexes = {
     6: ['Evilangel'],
     7: ['FuelVirtual'],
     8: ['Holed'],
-    9: ['LegalPorno'],
+    9: ['AnalVids'],
     10: ['Joymii'],
     11: ['Jules Jordan'],
     12: ['Kink'],

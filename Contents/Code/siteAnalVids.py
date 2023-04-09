@@ -9,6 +9,23 @@ def search(results, lang, siteNum, searchData):
         sceneID = parts[0]
         searchData.title = searchData.title.replace(sceneID, '', 1).strip()
 
+        try:
+            sceneURL = '%s/watch/%s' % (PAsearchSites.getSearchBaseURL(siteNum), sceneID)
+            curID = PAutils.Encode(sceneURL)
+
+            req = PAutils.HTTPRequest(sceneURL)
+            scenePageElements = HTML.ElementFromString(req.text)
+            titleNoFormatting = scenePageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
+            Log('Title: %s' % titleNoFormatting)
+            releaseDate = ''
+            Log('Scene found: %s | %s | %s' % (curID, titleNoFormatting, releaseDate))
+            score = 100
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate),
+                                                name='%s [AnalVids] %s' % (titleNoFormatting, releaseDate), score=score,
+                                                lang=lang))
+        except:
+            pass
+
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title)
     searchResults = req.json()
 
@@ -43,6 +60,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip(), siteNum)
+
+    # Summary
+    try:
+        metadata.summary = detailsPageElements.xpath('//div[@class="scene-description__row"]/dt[contains(., "Description")]/../dd')[0].text_content()
+    except:
+        pass
 
     # Studio
     metadata.studio = 'AnalVids'
