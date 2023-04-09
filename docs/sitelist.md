@@ -130,6 +130,14 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Young Busty
 + #### Adult Time Studios | ✅
   - AdultTime
+    - Accidental Gangbang
+    - Caught Fapping
+    - Couple Swapping
+    - Dare We Share
+    - Kiss Me Fuck Me
+    - Modern Day Sins
+    - Oopsie
+    - Teen Sneaks
   - FameDigital
     - AllGirlMassage
     - CumshotOasis

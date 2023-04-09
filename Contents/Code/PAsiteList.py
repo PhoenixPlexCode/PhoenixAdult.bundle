@@ -1815,6 +1815,14 @@ searchSites = {
     1719: ('Wecumtoyou', 'https://www.littlecaprice-dreams.com', '/?s='),
     1720: ('Xpervo', 'https://www.littlecaprice-dreams.com', '/?s='),
     1721: ('Cuck 4K', 'https://vip4k.com', '/en/search/'),
+    1722: ('Oopsie', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1723: ('Caught Fapping', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1724: ('Couple Swapping', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1725: ('Kiss Me Fuck Me', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1726: ('Dare We Share', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1727: ('Teen Sneaks', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1728: ('Modern Day Sins', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1729: ('Accidental Gangbang', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -2733,7 +2741,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteRealityLovers
 
         # Adult Time
-        elif siteNum == 478 or siteNum == 878 or (1554 <= siteNum <= 1561):
+        elif siteNum == 478 or siteNum == 878 or (1554 <= siteNum <= 1561) or (1722 <= siteNum <= 1729):
             provider = networkGammaEntOther
 
         # RealJamVR
