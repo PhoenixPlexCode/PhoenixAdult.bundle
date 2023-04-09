@@ -26,6 +26,7 @@ ActorsReplace = {
     'Annika Albrite': ['Anikka Albrite'],
     'Apolonia Lapiedra': ['Apolonia', 'Apolonia La Piedra', 'Apolina'],
     'April O\'Neil': ['April O\'neil', 'April ONeil', 'April Oneil'],
+    'Ariadna Moon': ['Adriana Moon', 'Alina Moon', 'Irina Pavlova'],
     'Ashlee Graham': ['Ashley Graham'],
     'Ashly Anderson': ['Ashley Anderson'],
     'Aspen Ora': ['Haveen Ora', 'Natasha Griffin', 'Navee Nora', 'Naveen Ora'],
@@ -402,7 +403,8 @@ ActorsReplaceStudios = {
     8: {  # Holed
         'Scarlet Domingo': ['Scarlett'],
     },
-    9: {  # LegalPorno
+    9: {  # AnalVids
+        'Ariadna Moon': ['Alice Ariadna'],
         'Bella Gray': ['Bella Grey'],
         'Candie Luciani': ['Candie'],
         'Foxy Di': ['Foxy D'],
@@ -5224,6 +5226,7 @@ ActorsReplaceStudios = {
     },
     47: {  # Perfect Gonzo, Sapphic Erotica
         'Aliz': ['Liz'],
+        'Ariadna Moon': ['Ariadna'],
         'Lilu Moon': ['Lilu'],
         'Lola Shine': ['Lolla'],
         'Melanie Taylor': ['Melanie'],
@@ -5870,7 +5873,7 @@ ActorsStudioIndexes = {
     6: ['Evilangel'],
     7: ['FuelVirtual'],
     8: ['Holed'],
-    9: ['LegalPorno'],
+    9: ['AnalVids'],
     10: ['Joymii'],
     11: ['Jules Jordan'],
     12: ['Kink'],
