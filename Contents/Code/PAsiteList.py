@@ -523,7 +523,7 @@ searchSites = {
     326: ('PimpParade', 'https://www.pornpros.com', '/video/'),
     327: ('SquirtDisgrace', 'https://www.pornpros.com', '/video/'),
     328: ('DigitalPlayground', 'https://www.digitalplayground.com', 'https://site-api.project1service.com'),
-    329: ('Throated', 'https://www.blowpass.com', '/en/search/throated/scene/'),
+    329: ('Throated', 'https://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     330: ('Nuru Massage', 'https://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     331: (),
     332: ('DDF Babes', 'https://ddfnetwork.com', '/videos/freeword/'),
@@ -545,10 +545,10 @@ searchSites = {
     348: ('POV Perverts', 'https://povperverts.net', '/1/search/'),
     349: ('Pervert Gallery', 'https://pervertgallery.com', '/1/search/'),
     350: ('DTF Sluts', 'https://dtfsluts.com', '/1/search/'),
-    351: ('Mommy Blows Best', 'http://www.blowpass.com', '/en/search/mommyblowsbest/scene/'),
-    352: ('Only Teen Blowjobs', 'http://www.blowpass.com', '/en/search/onlyteenblowjobs/scene/'),
-    353: ('1000 Facials', 'http://www.blowpass.com', '/en/search/1000facials/scene/'),
-    354: ('Immoral Live', 'http://www.blowpass.com', '/en/search/immorallive/scene/'),
+    351: ('Mommy Blows Best', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    352: ('Only Teen Blowjobs', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    353: ('1000 Facials', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    354: ('Immoral Live', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     355: ('Fantasy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     356: ('All Girl Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     357: ('Soapy Massage', 'http://www.fantasymassage.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
@@ -576,9 +576,9 @@ searchSites = {
     379: ('Girlsway Originals', 'http://www.girlsway.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     380: ('Girlfriends Films', 'http://www.girlfriendsfilms.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     381: ('Burning Angel', 'http://www.burningangel.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    382: ('Pretty Dirty', 'http://www.prettydirty.com', '/en/search/'),
+    382: ('Pretty Dirty', 'http://www.prettydirty.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     383: ('Devils Film', 'http://www.devilsfilm.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    384: ('Peter North', 'http://www.peternorth.com', '/en/search/'),
+    384: ('Peter North', 'http://www.peternorth.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     385: ('Rocco Siffredi', 'http://www.roccosiffredi.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     386: ('Tera Patrick', 'http://www.terapatrick.com', '/en/search/'),
     387: ('Sunny Leone', 'http://www.sunnyleone.com', '/en/search/scene/'),
@@ -1055,7 +1055,7 @@ searchSites = {
     858: ('Mylf x Lady Fyre', 'https://www.mylf.com', '/movies/'),
     859: ('Deviant Hardcore', 'https://www.devianthardcore.com', 'https://site-api.project1service.com'),
     860: ('She Will Cheat', 'https://www.shewillcheat.com', 'https://site-api.project1service.com'),
-    861: ('My XXX Pass', 'http://www.blowpass.com', '/en/search/blowpass/scene/'),
+    861: ('My XXX Pass', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     862: ('SinsLife', 'https://sinslife.com', '/tour/search.php?query='),
     863: ('Wet and Pissy', 'https://www.puffynetwork.com', '/videos?search='),
     864: ('Pissing In Action', 'https://www.sinx.com', '/videos/all?sexualOrientation=0&searchWord='),
@@ -2142,29 +2142,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 281:
             provider = networkGammaEntOther
 
-        # Blowpass / Throated
-        elif siteNum == 329:
-            provider = networkGammaEnt
-
-        # Blowpass / Mommy Blows Best
-        elif siteNum == 351:
-            provider = networkGammaEnt
-
-        # Blowpass / Only Teen Blowjobs
-        elif siteNum == 352:
-            provider = networkGammaEnt
-
-        # Blowpass / 1000 Facials
-        elif siteNum == 353:
-            provider = networkGammaEnt
-
-        # Blowpass / Immoral Live
-        elif siteNum == 354:
-            provider = networkGammaEnt
-
-        # Blowpass / My XXX Pass
-        elif siteNum == 861:
-            provider = networkGammaEnt
+        # Blowpass
+        elif siteNum == 329 or (351 <= siteNum <= 355) or siteNum == 861:
+            provider = networkGammaEntOther
 
         # Mile High Media
         elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915) or siteNum == 1328:
@@ -2188,7 +2168,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Pretty Dirty
         elif siteNum == 382:
-            provider = networkGammaEnt
+            provider = networkGammaEntOther
 
         # Devil's Film
         elif siteNum == 383:
@@ -2196,7 +2176,7 @@ def getProviderFromSiteNum(siteNum):
 
         # Peter North
         elif siteNum == 384:
-            provider = networkGammaEnt
+            provider = networkGammaEntOther
 
         # Rocco Siffredi
         elif siteNum == 385:
