@@ -86,36 +86,4 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Posters
-    xpaths = [
-    ]
-
-    for xpath in xpaths:
-        for img in detailsPageElements.xpath(xpath):
-            search = re.search(r'(?<=src0_3x=").*?(?=")', img)
-            if search:
-                img = search.group(0)
-            if 'http' not in img:
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img
-            art.append(img)
-
-    Log('Artwork found: %d' % len(art))
-    for idx, posterUrl in enumerate(art, 1):
-        if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
-            # Download image file for analysis
-            try:
-                image = PAutils.HTTPRequest(posterUrl)
-                im = StringIO(image.content)
-                resized_image = Image.open(im)
-                width, height = resized_image.size
-                # Add the image proxy items to the collection
-                if height > 1:
-                    # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-            except:
-                pass
-
     return metadata
