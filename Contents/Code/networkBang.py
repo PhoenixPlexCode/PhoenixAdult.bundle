@@ -12,7 +12,7 @@ def search(results, lang, siteNum, searchData):
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         sceneURL = sceneURL.split('?')[0]
-        if '/video/' in sceneURL and 'index.php/' not in sceneURL not in searchResults:
+        if 'com/video/' in sceneURL and 'index.php/' not in sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
     for searchURL in searchResults:

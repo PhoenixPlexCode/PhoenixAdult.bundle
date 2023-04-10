@@ -52,7 +52,7 @@ def getSearchSettings(mediaTitle):
 
     for abbreviation, full in PAsiteList.abbreviations:
         r = re.compile(abbreviation, flags=re.IGNORECASE)
-        if r.match(mediaTitle):
+        if r.match(mediaTitle) and not mediaTitle.lower().startswith(full.lower()):
             mediaTitle = r.sub(full, mediaTitle, 1)
             break
 

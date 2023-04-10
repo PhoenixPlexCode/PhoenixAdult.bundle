@@ -15,7 +15,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneInfo['modelID'], cookies=cookies)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="movie-wrap-index img-polaroid left"]'):
-        titleNoFormatting = searchResult.xpath('.//h1[@class="video-title-model"]')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//h1[@class="video-title-model"]')[0].text_content().strip(), siteNum)
         titleNoFormattingID = PAutils.Encode(titleNoFormatting)
 
         try:
@@ -209,6 +209,7 @@ def getSceneInfo(searchTitle):
         'Breezy Bri': 'bre050',
         'Britt Blair': 'bri073',
         'Brooke Johnson': 'bro063',
+        'Brooke Wylde': 'bro048',
         'Cecelia Taylor': 'cec016',
         'Celestina Blooms': 'cel024',
         'Chloe Foster': 'chl033',
