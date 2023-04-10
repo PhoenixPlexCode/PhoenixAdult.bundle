@@ -191,6 +191,7 @@ import siteJAVDatabase
 import networkAdultPrime
 import networkRadicalCash
 import siteTeenyTaboo
+import networkAuntJudys
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1823,6 +1824,8 @@ searchSites = {
     1727: ('Teen Sneaks', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1728: ('Modern Day Sins', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1729: ('Accidental Gangbang', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1730: ('Aunt Judys XXX', 'https://auntjudysxxx.com', '/tour/search.php?query='),
+    1731: ('Aunt Judys', 'https://auntjudys.com', '/tour/search.php?query='),
 }
 
 abbreviations = (
@@ -3174,5 +3177,9 @@ def getProviderFromSiteNum(siteNum):
         # Teeny Taboo
         elif siteNum == 1703:
             provider = siteTeenyTaboo
+
+        # Aunt Judys
+        elif (1730 <= siteNum <= 1731):
+            provider = networkAuntJudys
 
     return provider

@@ -181,6 +181,9 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### ArchAngel | ✓
 + #### ATK Network | ❌ - **ActressID with Title Search, Date Add**
   - ATKGirlfriends
++ #### Aunt Judys | ✅
+  - Aunt Judy's
+  - Aunt Judy's XXX
 + #### Aussie Ass | ✅
 + #### Babes Network | ✅
   - Babes
