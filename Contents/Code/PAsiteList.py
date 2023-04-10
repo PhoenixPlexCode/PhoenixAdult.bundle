@@ -1826,6 +1826,7 @@ searchSites = {
     1729: ('Accidental Gangbang', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1730: ('Aunt Judys XXX', 'https://auntjudysxxx.com', '/tour/search.php?query='),
     1731: ('Aunt Judys', 'https://auntjudys.com', '/tour/search.php?query='),
+    1732: ('Gilfed', 'https://gilfed.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -1927,6 +1928,7 @@ abbreviations = (
     ('^ftx ', 'FakeTaxi '),
     ('^gbcp ', 'GangbangCreampie '),
     ('^gft ', 'GrandpasFuckTeens '),
+    ('^glf ', 'Gilfed '),
     ('^gta ', 'GirlsTryAnal '),
     ('^gw ', 'GirlsWay '),
     ('^h1o1 ', 'Housewife1on1 '),
@@ -2147,7 +2149,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkGammaEntOther
 
         # Mile High Media
-        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915) or siteNum == 1328:
+        elif (361 <= siteNum <= 364) or siteNum == 852 or (914 <= siteNum <= 915) or siteNum == 1328 or siteNum == 1732:
             provider = network1service
 
         # Fantasy Massage
