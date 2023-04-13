@@ -371,7 +371,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor('Princess Natalya', '')
         #  Genre list match
         if 'princess natalya' in genreList:
-            movieActors.addActor('Princess Natalya', '')
             genreList.remove('princess natalya')
 
     #  Brat Princess POV
@@ -401,6 +400,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Bratty Bunny
     elif '35587' in userID:
         movieActors.addActor('Bratty Bunny', '')
+        # Clean the title to remove "Bratty Bunny - " and keep everything else
         metadata.title = re.sub(r'^.*-\s*(.*)$', r'\1', metadata.title)
 
     #  Bratty Foot Girls
@@ -1167,8 +1167,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     #  Harley LaVey
     elif '119180' in userID:
-        movieActors.addActor('Harley LaVey', '')
+        # Manually fix tagline and collection
         metadata.tagline = 'Harley LaVey'
+        metadata.collections.clear()
+        metadata.collections.add(metadata.tagline)
+
+        movieActors.addActor('Harley LaVey', '')
+        
 
     #  HollyDomme
     elif '36138' in userID:
