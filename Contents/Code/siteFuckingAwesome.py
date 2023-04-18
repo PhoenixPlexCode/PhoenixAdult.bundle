@@ -7,7 +7,7 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="gallery"]/div'):
         titleNoFormatting = searchResult.xpath('.//div[@class="video-title truncate"]/a')[0].text_content().strip()
-        curID = PAutils.Encode(PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//div[@class="video-title truncate"]/a/@href')[0])
+        curID = PAutils.Encode(PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//div[@class="video-title truncate"]/a/@href')[0].strip())
         releaseDate = parse(searchResult.xpath('.//span[@class="small date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
         firstActor = searchResult.xpath('.//span[@class="subtitle small"]/a')[0].text_content().strip()
 
