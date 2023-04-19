@@ -104,15 +104,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             if not actorDate:
                 actorURL = actorLink.get('href')
                 if not actorURL.startswith('http'):
-                    actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL
+                    actorURL = PAsearchSites.getSearchBaseURL(siteNum) + actorURL.replace('girls?page=', '')
 
                 req = PAutils.HTTPRequest(actorURL)
                 actorPageElements = HTML.ElementFromString(req.text)
 
                 actorDate = None
-                for sceneLink in actorPageElements.xpath('//div[@class="row"]//div[contains(@class, "box-shadow")]'):
-                    sceneTitle = re.sub(r'\W', '', sceneLink.xpath('.//h5[@class="card-title"]')[0].text_content().strip().replace(' ', '')).lower()
-                    date = sceneLink.xpath('.//@data-date')
+                if 'pornplus' in sceneURL:
+                    sceneLinkxPath = '//div[contains(@class, "video-thumbnail flex")]'
+                    sceneTitlexPath = './/a[contains(@class, "dropshadow")]'
+                    sceneDatexpath = './/span[contains(@class, "font-extra-light")]/text()'
+                    dateFormat = '%m/%d/%Y'
+                else:
+                    sceneLinkxPath = '//div[@class="row"]//div[contains(@class, "box-shadow")]'
+                    sceneTitlexPath = './/h5[@class="card-title"]'
+                    sceneDatexpath = './/@data-date'
+                    dateFormat = '%B %d, %Y'
+
+                for sceneLink in actorPageElements.xpath(sceneLinkxPath):
+                    sceneTitle = re.sub(r'\W', '', sceneLink.xpath(sceneTitlexPath)[0].text_content().strip().replace(' ', '')).lower()
+                    date = sceneLink.xpath(sceneDatexpath)
                     if re.sub(r'\W', '', metadata.title.replace(' ', '')).lower() == sceneTitle and date:
                         actorDate = date[0].strip()
                         break
@@ -124,7 +135,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Release Date
     if actorDate:
-        date_object = datetime.strptime(actorDate, '%B %d, %Y')
+        date_object = datetime.strptime(actorDate, dateFormat)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
     elif sceneDate:
