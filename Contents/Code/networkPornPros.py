@@ -26,12 +26,8 @@ def search(results, lang, siteNum, searchData):
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
 
-            if 'pornplus' in sceneURL:
-                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content().strip(), siteNum)
-                subSite = detailsPageElements.xpath('//img[@class="object-cover object-center"]/@alt')[0].strip()
-            else:
-                titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
-                subSite = PAsearchSites.getSearchSiteName(siteNum)
+            titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+            subSite = PAsearchSites.getSearchSiteName(siteNum)
 
             curID = PAutils.Encode(sceneURL)
 
@@ -56,17 +52,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    if 'pornplus' in sceneURL:
-        title = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content().strip(), siteNum)
-    else:
-        title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
+    title = PAutils.parseTitle(detailsPageElements.xpath('//h1')[0].text_content().strip(), siteNum)
 
     metadata.title = title
 
     # Summary
     try:
         if 'pornplus' in sceneURL:
-            summary = detailsPageElements.xpath('//p[@class="text-white"]')[0].text_content().strip()
+            summary = detailsPageElements.xpath('//div[contains(@class, "space-x-4 items-start")]//span')[0].text_content().strip()
         else:
             summary = detailsPageElements.xpath('//div[contains(@id, "description")]')[0].text_content().strip()
     except:
@@ -79,17 +72,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Collections / Tagline
     metadata.collections.clear()
-    if 'pornplus' in sceneURL:
-        siteName = detailsPageElements.xpath('//img[@class="object-cover object-center"]/@alt')[0].strip()
-    else:
-        siteName = PAsearchSites.getSearchSiteName(siteNum)
+    siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = siteName
     metadata.collections.add(siteName)
 
     # Actors
     movieActors.clearActors()
     if 'pornplus' in sceneURL:
-        actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-2")]//a[@class="text-xs text-white"]')
+        actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-4")]//a[contains(@href, "/girls?")]')
     else:
         actors = detailsPageElements.xpath('//div[@id="t2019-sinfo"]//a[contains(@href, "/girls/")]')
     if actors:
