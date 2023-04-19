@@ -115,7 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Posters/Background
     posterUrl = 'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
     art.append(posterUrl)
-    art.append(posterUrl.split('scene/image')[0] + 'scene/vertical/390x590cdynamic.jpg')
+    art.append(posterUrl.split('scene/image')[0].split('scene/horizontal')[0] + 'scene/vertical/390x590cdynamic.jpg')
 
     images = []
     posterExists = False
