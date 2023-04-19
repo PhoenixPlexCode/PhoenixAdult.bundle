@@ -63,7 +63,7 @@ def search(results, lang, siteNum, searchData):
             if match:
                 pagination = int(match.group(0)) + 2
         except:
-            pagination = 1
+            pagination = 3
 
         if 'pornstar' in req.url:
             searchxPath = '//div[@class="scene-item"]'
