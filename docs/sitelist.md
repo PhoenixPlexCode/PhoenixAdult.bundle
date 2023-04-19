@@ -923,6 +923,8 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Watch Your Mom
   - Watch Your Wife
   - Wives on Vacation
++ #### Naughty America Other Sites | ✓ - **Actor only**
+  - Tonights Girlfriend
 + #### NewSensations | ✅ - **Date Add**
 + #### NewSensations Other Sites | ✅
   - Fresh Out of High School
@@ -1505,7 +1507,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Family Lust
   - Over 40 Handjobs
   - Teen Tugs
-+ #### Tonights Girlfriend | ✓ - **Actor only**
 + #### Top Web Models | ✅
   - 2 Girls 1 Camera
   - Big Gulp Girls
