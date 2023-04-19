@@ -214,7 +214,6 @@ ActorsReplace = {
     'Shalina Devine': ['Shalina Divine', 'Shelina Devine', 'Cosmina', 'Shalina Divine', 'Chalina Devine', 'Shalina Levine'],
     'Shannya Tweeks': ['Shannya Tweaks', 'Shannya Tweens', 'Shannya T'],
     'Shelley Bliss': ['Mia Ferrari'],
-    'Siri': ['Siri Dahl'],
     'Skylar Vox': ['Dylan Vox', 'Dylann Vox'],
     'Sofi Smile': ['Sofi Smail', 'Sonia Smile', 'Sony Smile'],
     'Sofia Habibi': ['SofíA Habibi'],
@@ -5306,6 +5305,7 @@ ActorsReplaceStudios = {
     },
     50: {  # Naughty America
         'Dakota Skye': ['Dakota'],
+        'Siri Dahl': ['Siri'],
     },
     51: {  # Teen Core Club
         'Amanda': ['Kimberly'],
