@@ -1828,6 +1828,9 @@ searchSites = {
     1731: ('Aunt Judys', 'https://auntjudys.com', '/tour/search.php?query='),
     1732: ('Gilfed', 'https://gilfed.com', 'https://site-api.project1service.com'),
     1733: ('Dilfed', 'https://dilfed.com', 'https://site-api.project1service.com'),
+    1734: ('Mylf After Dark', 'https://www.mylf.com', '/movies/'),
+    1735: ('HijabMylfs', 'https://www.hijabmylfs.com', '/movies/'),
+    1736: ('PervDriver', 'https://www.teamskeet.com', '/movies/'),
 }
 
 abbreviations = (
@@ -2246,7 +2249,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkPornFidelity
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588):
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736:
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2446,7 +2449,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589:
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589 or (1734 <= siteNum <= 1735):
             provider = networkMYLF
 
         # Manually Add Actors
