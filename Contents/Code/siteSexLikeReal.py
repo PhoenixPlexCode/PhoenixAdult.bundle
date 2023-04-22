@@ -71,7 +71,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[contains(@class, "c-meta-poster")]//img/@data-src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class, "c-meta-model-poster")]//img/@data-src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
