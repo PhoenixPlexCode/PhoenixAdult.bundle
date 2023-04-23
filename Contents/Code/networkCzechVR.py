@@ -45,10 +45,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    if siteNum == 578:
-        metadata.title = detailsPageElements.xpath('//div[@class="nazev detail"]//h1')[0].text_content().replace('Czech VR Fetish', '').replace('Czech VR Casting', '').replace('Czech VR', '').strip()
-    elif siteNum == 579 or siteNum == 580:
-        metadata.title = detailsPageElements.xpath('//div[@class="nazev"]//h2')[0].text_content().replace('Czech VR Fetish', '').replace('Czech VR Casting', '').replace('Czech VR', '').strip()
+    metadata.title = detailsPageElements.xpath('//div[contains(@class, "nazev")]//*[name()="h1" or name()="h2"]')[0].text_content().replace('Czech VR Fetish', '').replace('Czech VR Casting', '').replace('Czech VR', '').strip()
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="textDetail"]')[0].text_content().strip()
@@ -63,10 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Release Date
-    if siteNum == 578:
-        date = detailsPageElements.xpath('//div[@class="nazev detail"]//div[@class="datum"]')[0].text_content().strip()
-    elif siteNum == 579 or siteNum == 580:
-        date = detailsPageElements.xpath('//div[@class="nazev"]//div[@class="datum"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//div[contains(@class, "nazev")]//div[@class="datum"]')[0].text_content().strip()
     if date:
         date_object = datetime.strptime(date, '%b %d, %Y')
         metadata.originally_available_at = date_object
@@ -81,11 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    if siteNum == 578:
-        actorPath = detailsPageElements.xpath('(//div[@class="nazev detail"])[1]//div[@class="featuring"]//a')
-    elif siteNum == 579 or siteNum == 580:
-        actorPath = detailsPageElements.xpath('(//div[@class="nazev"])[1]//div[@class="featuring"]//a')
-    for actorLink in actorPath:
+    for actorLink in detailsPageElements.xpath('(//div[contains(@class, "nazev")])[1]//div[@class="featuring"]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
