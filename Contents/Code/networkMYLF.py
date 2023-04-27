@@ -74,7 +74,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
-    metadata.summary = detailsPageElements['description']
+    metadata.summary = PAutils.strip_tags(detailsPageElements['description'])
 
     # Studio
     metadata.studio = 'MYLF'

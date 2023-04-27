@@ -501,3 +501,21 @@ def getDictKeyFromValues(dictDB, identifier):
                 break
 
     return keys
+
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.text = StringIO()
+
+    def handle_data(self, d):
+        self.text.write(d)
+
+    def get_data(self):
+        return self.text.getvalue()
+
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
