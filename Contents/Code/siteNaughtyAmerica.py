@@ -2,16 +2,6 @@ import PAsearchSites
 import PAutils
 
 
-def getAlgolia(url, indexName, params):
-    params = json.dumps({'requests': [{'indexName': indexName, 'params': params + '&hitsPerPage=100'}]})
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    data = PAutils.HTTPRequest(url, headers=headers, params=params).json()
-
-    return data['results'][0]['hits']
-
-
 def getNaughtyAmerica(sceneID):
     re_image = re.compile(r'images\d+', re.IGNORECASE)
 
@@ -46,17 +36,13 @@ def search(results, lang, siteNum, searchData):
     else:
         sceneID = None
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
+    searchURL = PAsearchSites.getSearchSearchURL(siteNum) + slugify(searchData.title, separator='+')
     if sceneID:
-        searchResults = [getNaughtyAmerica(sceneID)]
-    else:
-        searchResults = getAlgolia(url, 'nacms_combined_production', 'query=' + searchData.title)
-
-    for searchResult in searchResults:
-        titleNoFormatting = PAutils.parseTitle(searchResult['title'], siteNum)
-        curID = searchResult['id']
-        releaseDate = searchResult['published_at'].strftime('%Y-%m-%d')
-        siteName = searchResult['site']
+        scenePageElements = getNaughtyAmerica(sceneID)
+        titleNoFormatting = PAutils.parseTitle(scenePageElements['title'], siteNum)
+        curID = scenePageElements['id']
+        releaseDate = scenePageElements['published_at'].strftime('%Y-%m-%d')
+        siteName = scenePageElements['site']
 
         if sceneID:
             score = 100 - Util.LevenshteinDistance(sceneID, curID)
@@ -66,6 +52,46 @@ def search(results, lang, siteNum, searchData):
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%d|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, siteName, releaseDate), score=score, lang=lang))
+    else:
+        req = PAutils.HTTPRequest(searchURL)
+        searchResults = HTML.ElementFromString(req.text)
+
+        try:
+            lastPage = searchResults.xpath('//li/a[./i[contains(@class, "double")]]/@href')[0]
+
+            match = re.search(r'\d+(?=#)', lastPage)
+            if match:
+                pagination = int(match.group(0)) + 2
+        except:
+            pagination = 3
+
+        if 'pornstar' in req.url:
+            searchxPath = '//div[@class="scene-item"]'
+        else:
+            searchxPath = '//div[@class="scene-grid-item"]'
+
+        for idx in range(2, pagination):
+            for searchResult in searchResults.xpath(searchxPath):
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a//@title')[0].strip(), siteNum)
+                curID = int(searchResult.xpath('./a/@data-scene-id')[0])
+                releaseDate = parse(searchResult.xpath('./p[@class="entry-date"]/text()')[0]).strftime('%Y-%m-%d')
+                siteName = searchResult.xpath('./a[@class="site-title"]')[0].text_content()
+
+                if searchData.date:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                results.Append(MetadataSearchResult(id='%d|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, siteName, releaseDate), score=score, lang=lang))
+
+            if pagination > 1 and not pagination == idx + 1:
+                if 'pornstar' in req.url:
+                    searchURL = '%s/pornstar/%s?related_page=%d' % (PAsearchSites.getSearchBaseURL(siteNum), slugify(searchData.title), idx)
+                else:
+                    searchURL = '%s%s&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), slugify(searchData.title, separator='+'), idx)
+
+                req = PAutils.HTTPRequest(searchURL)
+                searchResults = HTML.ElementFromString(req.text)
 
     return results
 
@@ -74,7 +100,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
-    # url = PAsearchSites.getSearchSearchURL(siteNum) + '?x-algolia-application-id=I6P9Q9R18E&x-algolia-api-key=08396b1791d619478a55687b4deb48b4'
     detailsPageElements = getNaughtyAmerica(sceneID)
 
     # Title

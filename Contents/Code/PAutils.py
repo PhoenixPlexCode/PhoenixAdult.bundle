@@ -397,7 +397,7 @@ def postParseTitle(output):
     # Remove space between punctuation and word
     output = re.sub(r'(?<=[#\(])\s+', '', output)
     # Override lowercase if word follows a punctuation
-    output = re.sub(r'(?<=!|:|\?|\.|-)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
+    output = re.sub(ur'(?<=!|:|\?|\.|-|\u2013)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
     # Override lowercase if word follows a parenthesis
     output = re.sub(r'(?<=[\(|\&|\"|\[|\*|\~])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:], output)
     # Override lowercase if last word in section
@@ -413,7 +413,7 @@ def postParseTitle(output):
 
 def preParseTitle(input):
     exceptions_corrections = {
-        (r't\sshirt', 'tshirt'), (r'j\smac|jmac', 'jmac'), (r'\bmr(?=\s)', 'mr.'), (r'\bmrs(?=\s)', 'mrs.'),
+        (r'(?<!\S)t\sshirt', 'tshirt'), (r'j\smac|jmac', 'jmac'), (r'\bmr(?=\s)', 'mr.'), (r'\bmrs(?=\s)', 'mrs.'),
         (r'\bms(?=\s)', 'ms.'), (r'\bdr(?=\s)', 'dr.'), (r'\bvs(?=\s)', 'vs.'), (r'\bst(?=\s)', 'st.'), (r'\s\s+', ' ')
     }
 
@@ -501,3 +501,21 @@ def getDictKeyFromValues(dictDB, identifier):
                 break
 
     return keys
+
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.text = StringIO()
+
+    def handle_data(self, d):
+        self.text.write(d)
+
+    def get_data(self):
+        return self.text.getvalue()
+
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()

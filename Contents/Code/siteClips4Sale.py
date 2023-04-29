@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[1].split('|')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -103,12 +103,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Add Actors
 
     #  CherryCrush
-    if 'My cherry crush' in tagline:
+    if '57445' in userID:
         genreList.remove('cherry')
         genreList.remove('cherrycrush')
 
     #  Klixen
-    elif 'KLIXEN' in tagline:
+    elif '7373' in userID:
         actors = detailsPageElements.xpath('//span[contains(., "Keywords:")]/following-sibling::span//a')
         for actorLink in actors:
             actorName = actorLink.text_content().strip()
@@ -118,22 +118,22 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     #  AAA wicked
-    elif 'AAA wicked' in tagline:
+    elif '40156' in userID:
         if 'mistress candide' in genreList:
             movieActors.addActor('Mistress Candice', '')
             genreList.remove('mistress candice')
 
     #  Aballs and cock crushing sexbomb
-    elif 'Aballs and cock crushing sexbomb' in tagline:
+    elif '14662' in userID:
         if 'Alina' in metadata.title or 'Alina' in metadata.summary:
             movieActors.addActor('Mistress Alina', '')
 
     #  Adrienne Adora
-    elif 'Adrienne Adora' in tagline:
+    elif '62839' in userID:
         movieActors.addActor('Adrienne Adora', '')
 
     #  Amazon Goddess Harley
-    elif 'Amazon Goddess Harley' in tagline:
+    elif '101989' in userID:
         if 'goddess harley' in genreList:
             movieActors.addActor('Goddess Harley', '')
             genreList.remove('goddess harley')
@@ -142,7 +142,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('amazon goddess harley')
 
     #  AnikaFall
-    elif 'AnikaFall' in tagline:
+    elif '123317' in userID:
         movieActors.addActor('Anika Fall', '')
         if 'anikafall' in genreList:
             movieActors.addActor('Anika Fall', '')
@@ -155,13 +155,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess anika fall')
 
     #  Ashley Albans Fetish Fun
-    elif 'Ashley Albans Fetish Fun' in tagline:
+    elif '71774' in userID:
         if 'ashley alban' in genreList:
             movieActors.addActor('Ashley Alban', '')
             genreList.remove('ashley alban')
 
     #  AstroDomina
-    elif 'AstroDomina' in tagline:
+    elif '56587' in userID:
         if 'astrodomina' in genreList:
             movieActors.addActor('Astro Domina', '')
             genreList.remove('astrodomina')
@@ -182,7 +182,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Stellar Loving', '')
 
     #  Ball Busting Chicks
-    elif 'Ball Busting Chicks' in tagline:
+    elif '8565' in userID:
         if 'hera' in genreList:
             movieActors.addActor('Domina Hera', '')
             genreList.remove('hera')
@@ -191,12 +191,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('amy')
 
     #  Ballbusting World PPV
-    elif 'Ballbusting World PPV' in tagline:
+    elif '87149' in userID:
         if 'Tasha Holz' in metadata.summary or 'Tasha' in metadata.summary:
             movieActors.addActor('Tasha Holz', '')
 
     #  Bare Back Studios
-    elif 'Bare Back Studios' in tagline:
+    elif '35625' in userID:
         #  Genre list match
         if 'cory chase' in genreList:
             movieActors.addActor('Cory Chase', '')
@@ -292,7 +292,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Skylar Vox', '')
 
     #  Best Latin ASS on the WEB!
-    elif 'Best Latin ASS on the WEB!' in tagline:
+    elif '27570!' in userID:
         if 'goddess sandra' in genreList:
             movieActors.addActor('Sandra Latina', '')
             genreList.remove('goddess sandra')
@@ -313,17 +313,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('hotwife sandra')
 
     #  Bikini Blackmail Ballbust Lyne
-    elif 'Bikini Blackmail Ballbust Lyne' in tagline:
+    elif '14404' in userID:
         if 'princess lyne' in genreList.summary:
             movieActors.addActor('Princess Lyne', '')
             genreList.remove('princess lyne')
 
     #  Brat Doll Amanda Powers
-    elif 'Brat Doll Amanda Powers' in tagline:
+    elif '69131' in userID:
         movieActors.addActor('Amanda Powers', '')
 
     #  Brat Princess 2
-    elif 'Brat Princess 2' in tagline:
+    elif '21233' in userID:
         #  Genre list match
         if 'natalya vega' in genreList:
             movieActors.addActor('Natalya Vega', '')
@@ -367,15 +367,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Jade Indica', '')
 
     #  Brat Princess Natalya
-    elif 'Brat Princess Natalya' in tagline:
+    elif '116956' in userID:
         movieActors.addActor('Princess Natalya', '')
         #  Genre list match
         if 'princess natalya' in genreList:
-            movieActors.addActor('Princess Natalya', '')
             genreList.remove('princess natalya')
 
     #  Brat Princess POV
-    elif 'Brat Princess POV' in tagline:
+    elif '5590' in userID:
         #  Genre list match
         if 'brandi' in genreList:
             movieActors.addActor('Princess Brandi', '')
@@ -395,24 +394,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mia', '')
 
     #  Bratty Ashley Sinclair and Friends
-    elif 'Bratty Ashley Sinclair and Friends' in tagline:
+    elif '62843' in userID:
         movieActors.addActor('Ashley Sinclair', '')
 
     # Bratty Bunny
-    elif 'Bratty Bunny' in tagline:
+    elif '35587' in userID:
         movieActors.addActor('Bratty Bunny', '')
+        # Clean the title to remove "Bratty Bunny - " and keep everything else
+        metadata.title = re.sub(r'^.*-\s*(.*)$', r'\1', metadata.title)
+
     #  Bratty Foot Girls
-    elif 'Bratty Foot Girls' in tagline:
+    elif '40537' in userID:
         #  metadata match
         if 'Sasha Foxxx' in metadata.summary:
             movieActors.addActor('Sasha Foxxx', '')
 
     #  Bratty Jamie Productions
-    elif 'Bratty Jamie Productions' in tagline:
+    elif '29810' in userID:
         movieActors.addActor('Bratty Jamie', '')
 
     #  Bratty Princess Lisa
-    elif 'Bratty Princess Lisa' in tagline:
+    elif '34346' in userID:
         if 'bratty princess lisa' in genreList:
             movieActors.addActor('Lisa Jordan', '')
             genreList.remove('bratty princess lisa')
@@ -431,7 +433,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('larkin love')
 
     #  British Bratz
-    elif 'British Bratz' in tagline:
+    elif '73287' in userID:
         #  Genre list match
         if 'lizzie murphy' in genreList:
             movieActors.addActor('Lizzie Murphy', '')
@@ -487,20 +489,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Vicky Narni', '')
 
     #  Brittany Marie
-    elif 'Brittany Marie' in tagline:
+    elif '91727' in userID:
+        movieActors.addActor('Brittany Marie', '')
         if 'brittany marie' in genreList:
-            movieActors.addActor('Brittany Marie', '')
             genreList.remove('brittany marie')
 
     #  Brooke Marie's Fantasies
-    elif 'Brooke Marie\'s Fantasies' in tagline:
+    elif '55685' in userID:
         movieActors.addActor('Brooke Marie', '')
         if 'brooke marie' in genreList:
             movieActors.addActor('Brooke Marie', '')
             genreList.remove('brooke marie')
 
     #  Butt3rflyforU Fantasies
-    elif 'Butt3rflyforU Fantasies' in tagline:
+    elif '95917' in userID:
         if 'rae knight' in genreList:
             movieActors.addActor('Rae Knight', '')
             genreList.remove('rae knight')
@@ -508,7 +510,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('butt3rflyforu')
 
     #  Candy Glitter
-    elif 'Candy Glitter' in tagline:
+    elif '89733' in userID:
         if 'candyglitter' in genreList:
             movieActors.addActor('Candy Glitter', '')
             genreList.remove('candyglitter')
@@ -517,11 +519,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('candy glitter')
 
     #  Carlie
-    elif 'Carlie' in tagline:
+    elif '120440' in userID:
         movieActors.addActor('Carlie', '')
 
     #  Ceara Lynch Humiliatrix
-    elif 'Ceara Lynch Humiliatrix' in tagline:
+    elif '16312' in userID:
         movieActors.addActor('Ceara Lynch', '')
         if 'ceara' in genreList:
             movieActors.addActor('Ceara Lynch', '')
@@ -537,7 +539,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('bratty bunny')
 
     #  Charlotte Stokely
-    elif 'Charlotte Stokely' in tagline:
+    elif '61269' in userID:
         if 'goddess charlotte stokely' in genreList:
             movieActors.addActor('Charlotte Stokely', '')
             genreList.remove('goddess charlotte stokely')
@@ -548,11 +550,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mistress Sophia', '')
 
     #  Christy Berrie
-    elif 'Christy Berrie' in tagline:
+    elif '94447' in userID:
         movieActors.addActor('Christy Berrie', '')
 
     #  Club Stiletto Femdom
-    elif 'Club Stiletto FemDom' in tagline:
+    elif '896' in userID:
         #  Genre list match
         if 'mistress kandy kink' in genreList:
             movieActors.addActor('Mistress Kandy Kink', '')
@@ -572,24 +574,24 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Princess Jemma', '')
 
     #  Countess Crystal Knight
-    elif 'Countess Crystal Knight' in tagline:
+    elif '96651' in userID:
         if 'crystal knight' in genreList:
             movieActors.addActor('Crystal Knight', '')
             genreList.remove('crystal knight')
 
     #  Cruel City
-    elif 'Cruel City' in tagline:
+    elif '111474' in userID:
         if 'Mistress Julia' in metadata.summary:
             movieActors.addActor('Mistress Julia', '')
 
     #  Cruel Girlfriend
-    elif 'Cruel Girlfriend' in tagline:
+    elif '34982' in userID:
         if 'jessie jensen' in genreList:
             movieActors.addActor('Jessie Jensen', '')
             genreList.remove('jessie jensen')
 
     #  CRUEL MISTRESSES
-    elif 'CRUEL MISTRESSES' in tagline:
+    elif '39213' in userID:
         if 'Lady Ann' in metadata.summary:
             movieActors.addActor('Lady Ann', '')
         if 'Mistress Anette' in metadata.summary:
@@ -602,11 +604,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mistress Kittina', '')
 
     #  Cruel Seductress
-    elif 'Cruel Seductress' in tagline:
+    elif '66097' in userID:
         movieActors.addActor('Goddess Victoria', '')
 
     #  Cruel  Unusual FemDom
-    elif 'Cruel  Unusual FemDom' in tagline:
+    elif '5751' in userID:
         #  Genre List
         if 'kiki klout' in genreList:
             movieActors.addActor('Kiki Klout', '')
@@ -752,12 +754,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mistress Bella', '')
 
     #  CUCKOLD BRAZIL
-    elif 'CUCKOLD BRAZIL' in tagline:
+    elif '89785' in userID:
         if 'Mistress Megan' in metadata.summary:
             movieActors.addActor('Mistress Megan', '')
 
     #  Cuckoldress Cameron and Friends
-    elif 'Cuckoldress Cameron and Friends' in tagline:
+    elif '80009' in userID:
         #  Genre list match
         if 'cali carter' in genreList:
             movieActors.addActor('Cali Carter', '')
@@ -770,13 +772,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('vienna')
 
     #  DANGEROUS TEMPTATION
-    elif 'DANGEROUS TEMPTATION' in tagline:
+    elif '34502' in userID:
         if 'goddess celine' in genreList:
             movieActors.addActor('Goddess Celine', '')
             genreList.remove('goddess celine')
 
     #  DANIELLE MAYE XXX
-    elif 'DANIELLE MAYE XXX' in tagline:
+    elif '58355' in userID:
         if 'dani' in genreList:
             movieActors.addActor('Danielle Maye', '')
             genreList.remove('dani')
@@ -791,14 +793,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('danielle maye')
 
     #  Darias Fetish KingDom
-    elif 'Darias Fetish KingDom' in tagline:
+    elif '16582' in userID:
         movieActors.addActor('Goddess Daria', '')
         if 'goddess daria' in genreList:
             movieActors.addActor('Goddess Daria', '')
             genreList.remove('goddess daria')
 
     #  Diane Andrews
-    elif 'Diane Andrews' in tagline:
+    elif '47036' in userID:
         movieActors.addActor('Diane Andrews', '')
         if 'milf diane' in genreList:
             genreList.remove('milf diane')
@@ -808,29 +810,29 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('diane andrews')
 
     #  Divine Goddess Jessica
-    elif 'Divine Goddess Jessica' in tagline:
+    elif '55619' in userID:
         movieActors.addActor('Goddess Jessica', '')
 
     #  DomNation
-    elif 'DomNation' in tagline:
+    elif '69281' in userID:
         if 'snow mercy' in genreList:
             movieActors.addActor('Snow Mercy', '')
             genreList.remove('snow mercy')
 
     #  Empress Elle
-    elif 'Empress Elle' in tagline:
+    elif '125477' in userID:
         movieActors.addActor('Empress Elle', '')
 
     #  EMPRESS JENNIFER
-    elif 'EMPRESS JENNIFER' in tagline:
+    elif '78787' in userID:
         movieActors.addActor('Empress Jennifer', '')
 
     #  Eva de Vil
-    elif 'Eva de Vil' in tagline:
+    elif '122965' in userID:
         movieActors.addActor('Eva de Vil', '')
 
     #  Explore With Ivy Starshyne
-    elif 'Explore With Ivy Starshyne' in tagline:
+    elif '71434' in userID:
         movieActors.addActor('Ivy Starshyne', '')
         if 'ivy starshyne' in genreList:
             genreList.remove('ivy starshyne')
@@ -845,27 +847,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('bianca baker')
 
     #  Exquisite Goddess
-    elif 'Exquisite Goddess' in tagline:
+    elif '81245' in userID:
         movieActors.addActor('Exquisite Goddess', '')
 
     # Family Therapy
-    elif 'Family Therapy' in tagline:
+    elif '81593' in userID:
         if genreList:
             del genreList[0]
 
     #  femdomuncut Store
-    elif 'femdomuncut Store' in tagline:
+    elif '9824' in userID:
         if 'Princess Nikki' in metadata.summary or 'Nikki' in metadata.summary:
             movieActors.addActor('Princess Nikki', '')
         if 'Zazie' in metadata.summary:
             movieActors.addActor('Zazie Skymm', '')
 
     #  Fetish By LucySkye
-    elif 'Fetish By LucySkye' in tagline:
+    elif '47257' in userID:
         movieActors.addActor('Lucy Skye', '')
 
     #  Fetish Princess Kristi
-    elif 'Fetish Princess Kristi' in tagline:
+    elif '58257' in userID:
         movieActors.addActor('Princess Kristi', '')
         if 'princess kristi' in genreList:
             genreList.remove('princess kristi')
@@ -894,11 +896,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('barbary rose')
 
     #  Galactic Goddess
-    elif 'Galactic Goddess' in tagline:
+    elif '73481' in userID:
         movieActors.addActor('Galactic Goddess', '')
 
     #  Glam Worship
-    elif 'Glam Worship' in tagline:
+    elif '43868' in userID:
         if 'mikaela witt' in genreList:
             movieActors.addActor('Mikaela Witt', '')
             genreList.remove('mikaela witt')
@@ -961,11 +963,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('nina')
 
     #  Goddess Alexandra Snow
-    elif 'Goddess Alexandra Snow' in tagline:
+    elif '38007' in userID:
         movieActors.addActor('Alexandra Snow', '')
 
     #  Goddess Bs Slave Training 101
-    elif 'Goddess Bs Slave Training 101' in tagline:
+    elif '20178' in userID:
         movieActors.addActor('Brandon Areana', '')
         if 'brandon areana' in genreList:
             genreList.remove('brandon areana')
@@ -973,7 +975,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess brandon')
 
     #  Goddess Cheyenne
-    elif 'Goddess Cheyenne' in tagline:
+    elif '34631' in userID:
         if 'goddess cheyenne' in genreList:
             movieActors.addActor('Goddess Cheyenne', '')
             genreList.remove('goddess cheyenne')
@@ -988,7 +990,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('jean bardot')
 
     #  Goddess Christina
-    elif 'Goddess Christina' in tagline:
+    elif '89556' in userID:
         movieActors.addActor('Goddess Cristina', '')
         if 'goddess christina' in genreList:
             genreList.remove('goddess christina')
@@ -1000,18 +1002,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('erotic goddess')
 
     #  Goddess Ella Kross
-    elif 'Goddess Ella Kross' in tagline:
+    elif '71734' in userID:
         movieActors.addActor('Ella Kross', '')
 
     #  Goddess Eris Temple
-    elif 'Goddess Eris Temple' in tagline:
+    elif '127409' in userID:
         movieActors.addActor('Eris Temple', '')
         #  Metadata match
         if 'Nikki Nyx' in metadata.title or 'Nikki Nyx' in metadata.summary:
             movieActors.addActor('Nikki Nyx', '')
 
     #  Goddess Femdom
-    elif 'Goddess Femdom' in tagline:
+    elif '47562' in userID:
         movieActors.addActor('Madame Amiee', '')
         if 'madame amiee' in genreList:
             genreList.remove('madame amiee')
@@ -1020,7 +1022,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('johnny rifle')
 
     #  Goddess Foot Domination
-    elif 'Goddess Foot Domination' in tagline:
+    elif '38347' in userID:
         if 'goddess brianna' in genreList:
             movieActors.addActor('Goddess Brianna', '')
             genreList.remove('goddess brianna')
@@ -1032,15 +1034,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('nicki blake')
 
     #  Goddess Gemma
-    elif 'Goddess Gemma' in tagline:
+    elif '80587' in userID:
         movieActors.addActor('Goddess Gemma', '')
 
     #  Goddess Gwen the Princess Boss
-    elif 'Goddess Gwen the Princess Boss' in tagline:
+    elif '92683' in userID:
         movieActors.addActor('Goddess Gwen', '')
 
     #  Goddess Idelsy
-    elif 'Goddess Idelsy' in tagline:
+    elif '51155' in userID:
         movieActors.addActor('Idelsy Love', '')
         if 'idelsy love' in genreList:
             genreList.remove('idelsy love')
@@ -1048,7 +1050,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess idelsy')
 
     #  Goddess JessiBelle
-    elif 'Goddess JessiBelle' in tagline:
+    elif '55033' in userID:
         movieActors.addActor('Jessi Belle', '')
         if 'jessibelle' in genreList:
             genreList.remove('jessibelle')
@@ -1056,39 +1058,39 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('jessi belle')
 
     #  Goddess Kendall
-    elif 'Goddess Kendall' in tagline:
+    elif '47396' in userID:
         movieActors.addActor('Kendall Olsen', '')
 
     #  Goddess Kims Fantasies
-    elif 'Goddess Kims Fantasies' in tagline:
+    elif '135383' in userID:
         movieActors.addActor('Young Goddess Kim', '')
         if 'young goddess kim' in genreList:
             genreList.remove('young goddess kim')
 
     #  Goddess Kittys Findom Fuckery
-    elif 'Goddess Kittys Findom Fuckery' in tagline:
+    elif '119550' in userID:
         movieActors.addActor('Goddess Kitty', '')
         if 'goddess blonde kitty' in genreList:
             genreList.remove('goddess blonde kitty')
 
     #  Goddess Madam Violet
-    elif 'Goddess Madam Violet' in tagline:
+    elif '87549' in userID:
         movieActors.addActor('Madam Violet', '')
         if 'madam violet' in genreList:
             genreList.remove('madam violet')
 
     #  Goddess Mira
-    elif 'Goddess Mira' in tagline:
+    elif '90731' in userID:
         movieActors.addActor('Goddess Mira', '')
 
     #  Goddess Misha Mystique
-    elif 'Goddess Misha Mystique' in tagline:
+    elif '74723' in userID:
         movieActors.addActor('Misha Mystique', '')
         if 'misha mystique' in genreList:
             genreList.remove('misha mystique')
 
     #  Goddess Nikki
-    elif 'Goddess Nikki' in tagline:
+    elif '7817' in userID:
         movieActors.addActor('Nikki Ashton', '')
         if 'nikki ashton' in genreList:
             genreList.remove('nikki ashton')
@@ -1100,7 +1102,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('eroticnikki')
 
     #  Goddess Paige
-    elif 'Goddess Paige' in tagline:
+    elif '144585' in userID:
         movieActors.addActor('Paige Orion', '')
         if 'paige orion' in genreList:
             genreList.remove('paige orion')
@@ -1110,7 +1112,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess paige orion')
 
     #  Goddess Saffron
-    elif 'Goddess Saffron' in tagline:
+    elif '51793' in userID:
         movieActors.addActor('Goddess Saffron', '')
         if 'goddess saffron' in genreList:
             genreList.remove('goddess saffron')
@@ -1120,11 +1122,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('saffmas')
 
     #  Goddess Stella Sol
-    elif 'Goddess Stella Sol' in tagline:
+    elif '119947' in userID:
         movieActors.addActor('Stella Sol', '')
 
     #  Goddess Tangent World of Femdom
-    elif 'Goddess Tangent World of Femdom' in tagline:
+    elif '115000' in userID:
         movieActors.addActor('Goddess Tangent', '')
         if 'tangent' in genreList:
             genreList.remove('tangent')
@@ -1132,13 +1134,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess tangent')
 
     #  Goddess Valora
-    elif 'Goddess Valora' in tagline:
+    elif '104604' in userID:
         movieActors.addActor('Goddess Valora', '')
         if 'goddess valora' in genreList:
             genreList.remove('goddess valora')
 
     #  Goddess Venus
-    elif 'Goddess Venus' in tagline:
+    elif '106900' in userID:
         movieActors.addActor('Goddess Venus', '')
         if 'goddess venus' in genreList:
             genreList.remove('goddess venus')
@@ -1146,17 +1148,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('venus')
 
     #  Goddess Vivian Leigh
-    elif 'Goddess Vivian Leigh' in tagline:
+    elif '81053' in userID:
         movieActors.addActor('Vivian Leigh', '')
         if 'goddess vivian leigh' in genreList:
             genreList.remove('goddess vivian leigh')
 
     #  Goddess Zenova Controls Your Mind
-    elif 'Goddess Zenova Controls Your Mind' in tagline:
+    elif '75409' in userID:
         movieActors.addActor('Goddess Zenova', '')
 
     #  Goddess Zephy
-    elif 'Goddess Zephy' in tagline:
+    elif '134471' in userID:
         movieActors.addActor('Goddess Zephy', '')
         if 'zephy' in genreList:
             genreList.remove('Zephy')
@@ -1164,11 +1166,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('zephianna')
 
     #  Harley LaVey
-    elif 'Harley LaVey' in tagline:
+    elif '119180' in userID:
+        # Manually fix tagline and collection
+        metadata.tagline = 'Harley LaVey'
+        metadata.collections.clear()
+        metadata.collections.add(metadata.tagline)
+
         movieActors.addActor('Harley LaVey', '')
 
     #  HollyDomme
-    elif 'HollyDomme' in tagline:
+    elif '36138' in userID:
         movieActors.addActor('Holly Webster', '')
         if 'hollydomme' in genreList:
             genreList.remove('hollydomme')
@@ -1176,7 +1183,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('hollywebster')
 
     #  HomSmother
-    elif 'HomSmother' in tagline:
+    elif '17488' in userID:
         if 'liana' in genreList:
             movieActors.addActor('Liana', '')
             genreList.remove('Liana')
@@ -1218,7 +1225,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('felicitas')
 
     #  Hot Juls Fetishes
-    elif 'Hot Juls Fetishes' in tagline:
+    elif '102725' in userID:
         movieActors.addActor('Goddess Juls', '')
         if 'goddess juls' in genreList:
             genreList.remove('goddess juls')
@@ -1228,7 +1235,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('juls')
 
     #  Humiliation Brat Girls
-    elif 'Humiliation Brat Girls' in tagline:
+    elif '72067' in userID:
         if 'Jolene' in metadata.summary:
             movieActors.addActor('Jolene', '')
         if 'Bobbi Dylan' in metadata.summary:
@@ -1237,7 +1244,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Cydel', '')
 
     #  Humiliation POV
-    elif 'Humiliation POV' in tagline:
+    elif '16417' in userID:
         if 'Goddess Carissa' in metadata.summary or 'Carissa Montgomery' in metadata.summary:
             movieActors.addActor('Carissa Montgomery', '')
         if 'Princess Ellie' in metadata.summary:
@@ -1270,7 +1277,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('London Lix', '')
 
     #  Humiliation Princess Rene's Clips!
-    elif 'Humiliation Princess Rene\'s Clips!' in tagline:
+    elif '26992!' in userID:
         movieActors.addActor('Princess Rene', '')
         if 'princess rene' in genreList:
             genreList.remove('princess rene')
@@ -1282,7 +1289,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('rene')
 
     #  HUMILIATRIX CLIPSTORE
-    elif 'HUMILIATRIX CLIPSTORE' in tagline:
+    elif '17070' in userID:
         #  Genre list match
         if 'princess selena' in genreList:
             movieActors.addActor('Princess Selana', '')
@@ -1327,17 +1334,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Pimpstress Sari', '')
 
     #  Italian Empress Daria
-    elif 'Italian Empress Daria' in tagline:
+    elif '56791' in userID:
         movieActors.addActor('Empress Daria', '')
         if 'daria' in genreList:
             genreList.remove('daria')
 
     #  Jasmine Mendez  LatinAss Locas
-    elif 'Jasmine Mendez  LatinAss Locas' in tagline:
+    elif '54509' in userID:
         movieActors.addActor('Jasmine Mendez', '')
 
     #  Jerk Off Instructions
-    elif 'Jerk Off Instructions' in tagline:
+    elif '4102' in userID:
         #  Genre list match
         if 'amai liu' in genreList:
             movieActors.addActor('Amai Liu', '')
@@ -1396,7 +1403,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Anna Graham', '')
 
     #  Jerk4PrincessUK
-    elif 'Jerk4PrincessUK' in tagline:
+    elif '36426' in userID:
         if 'axa jay' in genreList:
             movieActors.addActor('Axa Jay', '')
             genreList.remove('axa jay')
@@ -1438,7 +1445,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('setina rose')
 
     #  Jerky Wives
-    elif 'Jerky Wives' in tagline:
+    elif '28671' in userID:
         #  Genre list match
         if 'cory chase' in genreList:
             movieActors.addActor('Cory Chase', '')
@@ -1534,7 +1541,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Skylar Vox', '')
 
     #  KEBRANOZES BRAZILIAN BALLBUSTING
-    elif 'KEBRANOZES BRAZILIAN BALLBUSTING' in tagline:
+    elif '60749' in userID:
         #  Genre list match
         if 'barbara inked' in genreList:
             movieActors.addActor('Barbara Inked', '')
@@ -1568,13 +1575,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Leona', '')
 
     #  Kerri King's Naughty Pleasures
-    elif 'Kerri King\'s Naughty Pleasures' in tagline:
+    elif '67401' in userID:
         movieActors.addActor('Kerri King', '')
         if 'kerri king' in genreList:
             genreList.remove('kerri king')
 
     #  KIMBERLY KANES KANEARMY
-    elif 'KIMBERLY KANES KANEARMY' in tagline:
+    elif '48773' in userID:
         movieActors.addActor('Kimberly Kane', '')
         if 'kimberly kane' in genreList:
             genreList.remove('kimberly kane')
@@ -1592,11 +1599,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('mandy mitchell')
 
     #  Kitzis Clown Fetish
-    elif 'Kitzis Clown Fetish' in tagline:
+    elif '54167' in userID:
         movieActors.addActor('Kitzi Klown', '')
 
     #  Kyaa's Empire
-    elif 'Kyaa\'s Empire' in tagline:
+    elif '23738' in userID:
         movieActors.addActor('Kyaa Chimera', '')
         if 'goddess kyaa' in genreList:
             genreList.remove('goddess kyaa')
@@ -1617,7 +1624,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('jessica doll')
 
     #  Lady Bellatrix
-    elif 'Lady Bellatrix' in tagline:
+    elif '58975' in userID:
         movieActors.addActor('Lady Bellatrix', '')
         if 'lady bellatrix' in genreList:
             genreList.remove('lady bellatrix')
@@ -1641,7 +1648,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('miss tiffany naylor')
 
     #  Lady Fyre Femdom
-    elif 'Lady Fyre Femdom' in tagline:
+    elif '60555' in userID:
         #  Genre list match
         if 'lady fyre' in genreList:
             movieActors.addActor('Lady Fyre', '')
@@ -1675,13 +1682,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Cali Carter', '')
 
     #  Lady Karame
-    elif 'Lady Karame' in tagline:
+    elif '81851' in userID:
         movieActors.addActor('Lady Karame', '')
         if 'lady karame' in genreList:
             genreList.remove('lady karame')
 
     #  Lady Nina Leighs Royal Domination
-    elif 'Lady Nina Leighs Royal Domination' in tagline:
+    elif '53735' in userID:
         movieActors.addActor('Nina Leigh', '')
         if 'ladyninaleigh' in genreList:
             genreList.remove('ladyninaleigh')
@@ -1691,7 +1698,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('lady nina leigh')
 
     #  Latex Barbie Land
-    elif 'Latex Barbie Land' in tagline:
+    elif '103769' in userID:
         movieActors.addActor('Latex Barbie', '')
         if 'latexbarbie' in genreList:
             genreList.remove('latexbarbie')
@@ -1703,7 +1710,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('latex')
 
     #  Lelu Love
-    elif 'Lelu Love' in tagline:
+    elif '44611' in userID:
         movieActors.addActor('Lelu Love', '')
         if 'lelu' in genreList:
             genreList.remove('lelu')
@@ -1713,11 +1720,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('lelu love')
 
     #  Lindsey Leigh Addiction
-    elif 'Lindsey Leigh Addiction' in tagline:
+    elif '37081' in userID:
         movieActors.addActor('Lindsey Leigh', '')
 
     #  Luna Sapphire
-    elif 'Luna Sapphire' in tagline:
+    elif '97183' in userID:
         movieActors.addActor('Luna Sapphire', '')
         if 'luna sapphire' in genreList:
             genreList.remove('luna sapphire')
@@ -1731,7 +1738,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('ellie boulder')
 
     #  Majesty Natalie
-    elif 'Majesty Natalie' in tagline:
+    elif '128701' in userID:
         movieActors.addActor('Majesty Natalie', '')
         if 'majesty natalie' in genreList:
             genreList.remove('majesty natalie')
@@ -1739,11 +1746,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('majestynatalie')
 
     #  Makayla Divine Busty Latina Goddess
-    elif 'Makayla Divine Busty Latina Goddess' in tagline:
+    elif '62421' in userID:
         movieActors.addActor('Makayla Divine', '')
 
     #  Mandy Flores
-    elif 'Mandy Flores' in tagline:
+    elif '33729' in userID:
         movieActors.addActor('Mandy Flores', '')
         if 'mandy flores' in genreList:
             genreList.remove('mandy flores')
@@ -1753,7 +1760,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('mymandygirl')
 
     #  MARKS HEAD BOBBERS  HAND JOBBERS
-    elif 'MARKS HEAD BOBBERS  HAND JOBBERS' in tagline:
+    elif '47321' in userID:
         movieActors.addActor('Mark Rockwell', '')
         #  Genre list match
         if 'mark rockwell' in genreList:
@@ -1812,7 +1819,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mandy Haze', '')
 
     #  Maternal Seductions
-    elif 'Maternal Seductions' in tagline:
+    elif '32590' in userID:
         #  Genre list match
         if 'cory chase' in genreList:
             movieActors.addActor('Cory Chase', '')
@@ -1908,7 +1915,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Skylar Vox', '')
 
     #  Meana Wolf
-    elif 'Meana Wolf' in tagline:
+    elif '81629' in userID:
         movieActors.addActor('Meana Wolf', '')
         #  Genre list match
         if 'meana wolf' in genreList:
@@ -1921,7 +1928,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Liv Revamped')
 
     #  MeanBitches POV Slave Orders
-    elif 'MeanBitches POV Slave Orders' in tagline:
+    elif '15571' in userID:
         #  Genre list match
         if 'valentina jewels' in genreList:
             movieActors.addActor('Valentina Jewels', '')
@@ -1968,7 +1975,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Bree Olson', '')
 
     #  Meggerz
-    elif 'Meggerz' in tagline:
+    elif '12252' in userID:
         movieActors.addActor('Meggerz', '')
         #  Genre list match
         if 'meggerz' in genreList:
@@ -1990,7 +1997,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mz Devious', '')
 
     #  Men Are Slaves
-    elif 'Men Are Slaves' in tagline:
+    elif '29646' in userID:
         #  Genre list match
         if 'cadence st. john' in genreList:
             movieActors.addActor('Cadence St. John', '')
@@ -2025,7 +2032,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Kendall Faye', '')
 
     #  Merciless Dominas
-    elif 'Merciless Dominas' in tagline:
+    elif '76999' in userID:
         #  Genre list match
         if 'lady tiger' in genreList:
             movieActors.addActor('Lady Tiger', '')
@@ -2053,13 +2060,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('miss jessica wood')
 
     #  Miss Jade
-    elif 'Miss Jade' in tagline:
+    elif '61593' in userID:
         movieActors.addActor('Macey Jade', '')
         if 'miss jade' in genreList:
             genreList.remove('miss jade')
 
     #  Miss Kelle Martina
-    elif 'Miss Kelle Martina' in tagline:
+    elif '34531' in userID:
         movieActors.addActor('Kelle Martina', '')
         if 'kelle martina' in genreList:
             genreList.remove('kelle martina')
@@ -2069,28 +2076,28 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('miss kelle')
 
     #  Miss Kira Star
-    elif 'Miss Kira Star' in tagline:
+    elif '26860' in userID:
         movieActors.addActor('Kira Star', '')
         if 'kira star' in genreList:
             genreList.remove('kira star')
 
     #  Miss London Lix Femdom and Fetish
-    elif 'Miss London Lix Femdom and Fetish' in tagline:
+    elif '71286' in userID:
         movieActors.addActor('London Lix', '')
         #  Metadata match
         if 'Bratty Bunny' in metadata.title or 'Bratty Bunny' in metadata.summary:
             movieActors.addActor('Bratty Bunny', '')
 
     #  Miss Melissa
-    elif 'Miss Melissa' in tagline:
+    elif '58397' in userID:
         movieActors.addActor('Miss Melissa', '')
 
     #  Miss Noel Knight
-    elif 'Miss Noel Knight' in tagline:
+    elif '38006' in userID:
         movieActors.addActor('Noel Knight', '')
 
     #  Miss Roper
-    elif 'Miss Roper' in tagline:
+    elif '100723' in userID:
         movieActors.addActor('Raquel Roper', '')
         if 'miss roper' in genreList:
             genreList.remove('miss roper')
@@ -2116,7 +2123,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('carmen valentina')
 
     #  Miss Suzanna Maxwell
-    elif 'Miss Suzanna Maxwell' in tagline:
+    elif '129207' in userID:
         movieActors.addActor('Suzanna Maxwell', '')
         #  Genre list match
         if 'suzanna' in genreList:
@@ -2158,7 +2165,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Ruby Marks', '')
 
     #  Miss Untamed FemDom Fetish Clips
-    elif 'Miss Untamed FemDom Fetish Clips' in tagline:
+    elif '31243' in userID:
         movieActors.addActor('Andrea Untamed', '')
         if 'miss untamed' in genreList:
             genreList.remove('miss untamed')
@@ -2182,7 +2189,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('astrodomina')
 
     #  Mistress Ayn
-    elif 'Mistress Ayn' in tagline:
+    elif '74153' in userID:
         movieActors.addActor('Mistress Ayn', '')
         #  Genre list match
         if 'mistress ayn' in genreList:
@@ -2194,11 +2201,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Kellie Bardot', '')
 
     #  Mistress Chantel
-    elif 'Mistress Chantel' in tagline:
+    elif '15185' in userID:
         movieActors.addActor('Mistress Chantel', '')
 
     # Mistress Ezada Sinn
-    elif 'Mistress Ezada Sinn' in tagline:
+    elif '62191' in userID:
         movieActors.addActor('Ezada Sinn', '')
         if 'ezada' in genreList:
             genreList.remove('ezada')
@@ -2219,15 +2226,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('eris martinet')
 
     #  Mistress Harley Studio
-    elif 'Mistress Harley Studio' in tagline:
+    elif '85619' in userID:
         movieActors.addActor('Mistress Harley', '')
 
     #  Mistress Jessica Starling
-    elif 'Mistress Jessica Starling' in tagline:
+    elif '146727' in userID:
         movieActors.addActor('Jessica Starling', '')
 
     #  Mistress Kawaii
-    elif 'Mistress Kawaii' in tagline:
+    elif '108110' in userID:
         movieActors.addActor('Mistress Kawaii', '')
         if 'mistress kawaii' in genreList:
             genreList.remove('mistress kawaii')
@@ -2236,7 +2243,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('jasmine mendez')
 
     #  Mistress Lady Renee
-    elif 'Mistress Lady Renee' in tagline:
+    elif '108228' in userID:
         movieActors.addActor('Lady Renee', '')
         if 'mistress lady renee' in genreList:
             genreList.remove('mistress lady renee')
@@ -2252,13 +2259,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('fetish liza')
 
     #  Mistress Lola Ruin FemDom Fetish
-    elif 'Mistress Lola Ruin FemDom Fetish' in tagline:
+    elif '60551' in userID:
         movieActors.addActor('Lola Ruin', '')
         if 'lola' in genreList:
             genreList.remove('lola')
 
     #  Mistress Nikki Whiplash
-    elif 'Mistress Nikki Whiplash' in tagline:
+    elif '96987' in userID:
         movieActors.addActor('Nikki Whiplash', '')
         #  Genre list match
         if 'chloe lovette' in genreList:
@@ -2280,7 +2287,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Mistress Jessica', '')
 
     #  Mistress Petra Hunter
-    elif 'Mistress Petra Hunter' in tagline:
+    elif '119596' in userID:
         movieActors.addActor('Petra Hunter', '')
         #  Genre list match
         if 'mistress petra hunter' in genreList:
@@ -2292,13 +2299,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Elan Kane', '')
 
     #  Mistress Salem
-    elif 'Mistress Salem' in tagline:
+    elif '98077' in userID:
         movieActors.addActor('Mistress Salem', '')
         if 'mistress salem' in genreList:
             genreList.remove('mistress salem')
 
     #  MistressVictoria
-    elif 'MistressVictoria' in tagline:
+    elif '75307' in userID:
         movieActors.addActor('Vikki Lynn', '')
         if 'mistressvictoria' in genreList:
             genreList.remove('mistressvictoria')
@@ -2330,7 +2337,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('jaycee starr')
 
     #  My Fetish Addictions
-    elif 'My Fetish Addictions' in tagline:
+    elif '40470' in userID:
         movieActors.addActor('Maya Sintress', '')
         if 'miss maya sintress' in genreList:
             genreList.remove('miss maya Sintress')
@@ -2356,7 +2363,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('queen paris')
 
     #  Mz Devious Fetish Clips
-    elif 'Mz Devious Fetish Clips' in tagline:
+    elif '22493' in userID:
         movieActors.addActor('Mz Devious', '')
         if 'mz devious' in genreList:
             genreList.remove('mz devious')
@@ -2364,7 +2371,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('princess danni')
 
     #  Natashas Bedroom
-    elif 'Natashas Bedroom' in tagline:
+    elif "72779" in userID:
         movieActors.addActor('Goddess Natasha', '')
         if 'natasha' in genreList:
             genreList.remove('natasha')
@@ -2374,11 +2381,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess natasha')
 
     #  Obey Miss Tiffany
-    elif 'Obey Miss Tiffany' in tagline:
+    elif '100823' in userID:
         movieActors.addActor('Miss Tiffany', '')
 
     #  Play With Amai
-    elif 'Play With Amai' in tagline:
+    elif '47204' in userID:
         movieActors.addActor('Amai Liu', '')
         if 'amai' in genreList:
             genreList.remove('amai')
@@ -2388,7 +2395,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('amai liu')
 
     #  Princess Alexa Findom and Fetish
-    elif 'Princess Alexa Findom and Fetish' in tagline:
+    elif '108870' in userID:
         movieActors.addActor('Princess Alexa', '')
         if 'alexa' in genreList:
             genreList.remove('alexa')
@@ -2396,35 +2403,35 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('alexaholic')
 
     #  Princess Amy Latina
-    elif 'Princess Amy Latina' in tagline:
+    elif '80717' in userID:
         movieActors.addActor('Amy Latina', '')
 
     #  Princess Ashley's Clip Store
-    elif 'Princess Ashley\'s Clip Store' in tagline:
+    elif '80339' in userID:
         movieActors.addActor('Princess Ashley', '')
         if 'princess ashley' in genreList:
             genreList.remove('princess ashley')
 
     #  Princess Beverly
-    elif 'Princess Beverly' in tagline:
+    elif '111744' in userID:
         movieActors.addActor('Princess Beverly', '')
 
     #  PRINCESS BREANNA'S STORE FOR LOSERS
-    elif 'PRINCESS BREANNA\'S STORE FOR LOSERS' in tagline:
+    elif '52369' in userID:
         movieActors.addActor('Princess Breanna', '')
         if 'princess breanna' in genreList:
             genreList.remove('princess breanna')
 
     #  Princess Brook Humiliatrix
-    elif 'Princess Brook Humiliatrix' in tagline:
+    elif '49727' in userID:
         movieActors.addActor('Princess Brook', '')
 
     #  Princess Camryn
-    elif 'Princess Camryn' in tagline:
+    elif '117722' in userID:
         movieActors.addActor('Princess Camryn', '')
 
     #  Princess Ellie Idol
-    elif 'Princess Ellie Idol' in tagline:
+    elif '44689' in userID:
         movieActors.addActor('Ellie Idol', '')
         if 'princess ellie idol' in genreList:
             genreList.remove('princess ellie idol')
@@ -2432,15 +2439,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('London Lix', '')
 
     #  Princess Fierce
-    elif 'Princess Fierce' in tagline:
+    elif '2683' in userID:
         movieActors.addActor('Princess Fierce', '')
 
     #  Princess Jessy Belle
-    elif 'Princess Jessy Belle' in tagline:
+    elif '72533' in userID:
         movieActors.addActor('Jessy Belle', '')
 
     #  Princess Kimber Lee
-    elif 'Princess Kimber Lee' in tagline:
+    elif '82669' in userID:
         movieActors.addActor('Kimber Lee', '')
         if 'kimber lee' in genreList:
             genreList.remove('kimber lee')
@@ -2460,29 +2467,29 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('princess larkin')
 
     #  Princess Lexie's Clip Store
-    elif 'Princess Lexie\'s Clip Store' in tagline:
+    elif '18754' in userID:
         movieActors.addActor('Princess Lexie', '')
 
     #  Princess Lucy
-    elif 'Princess Lucy' in tagline:
+    elif '79807' in userID:
         movieActors.addActor('Princess Lucy', '')
 
     #  Princess Mackaylas Sinpire
-    elif 'Princess Mackaylas Sinpire' in tagline:
+    elif '35918' in userID:
         movieActors.addActor('Princess Mackayla', '')
         if 'princess mackayla' in genreList:
             genreList.remove('princess mackayla')
 
     #  Princess Samantha
-    elif 'Princess Samantha' in tagline:
+    elif '43948' in userID:
         movieActors.addActor('Princess Samantha', '')
 
     #  Princess Shaye
-    elif 'Princess Shaye' in tagline:
+    elif '121305' in userID:
         movieActors.addActor('Princess Shay', '')
 
     #  Princess Tammie
-    elif 'Princess Tammie' in tagline:
+    elif '101081' in userID:
         movieActors.addActor('Tammie Madison', '')
         if 'princess tammie' in genreList:
             genreList.remove('princess tammie')
@@ -2498,7 +2505,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess eliza')
 
     #  Queen Amber Mae
-    elif 'Queen Amber Mae' in tagline:
+    elif '97281' in userID:
         movieActors.addActor('Amber Mae', '')
         if 'amber mae' in genreList:
             genreList.remove('amber mae')
@@ -2506,17 +2513,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('goddess amber mae')
 
     #  Queen Brea
-    elif 'Queen Brea' in tagline:
+    elif '135591' in userID:
         movieActors.addActor('Queen Brea', '')
+        movieActors.addActor('Vanessa Zaleska', '')
 
     #  QUEEN JENNIFER MARIE
-    elif 'QUEEN JENNIFER MARIE' in tagline:
+    elif '119056' in userID:
         movieActors.addActor('Jennifer Marie', '')
         if 'queenjennifermarie' in genreList:
             genreList.remove('queenjennifermarie')
 
     #  Raptures Fetish Playground
-    elif 'Raptures Fetish Playground' in tagline:
+    elif '77159' in userID:
         #  Genre list match
         if 'bella ink' in genreList:
             movieActors.addActor('Bella Ink', '')
@@ -2531,11 +2539,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Lilith', '')
 
     #  reiinapop
-    elif 'reiinapop' in tagline:
+    elif '97977' in userID:
         movieActors.addActor('Reiinapop', '')
 
     #  Ruby Rousson
-    elif 'Ruby Rousson' in tagline:
+    elif '78481' in userID:
         movieActors.addActor('Ruby Rousson', '')
         if 'ruby rousson' in genreList:
             genreList.remove('ruby rousson')
@@ -2543,7 +2551,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('mistress rousson')
 
     #  Sadurnus New Moon
-    elif 'Sadurnus New Moon' in tagline:
+    elif '109570' in userID:
         #  Metadata match
         if 'Mistress Tatjana' in metadata.title or 'Mistress Tatjana' in metadata.summary or 'Tatjana' in metadata.title or 'Tatjana' in metadata.summary:
             movieActors.addActor('Mistress Tatjana', '')
@@ -2551,7 +2559,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Darcia Lee', '')
 
     #  Sarah DiAvola
-    elif 'Sarah DiAvola' in tagline:
+    elif '14248' in userID:
         movieActors.addActor('Sarah DiAvola', '')
         if 'brat princess sarah' in genreList:
             genreList.remove('brat princess sarah')
@@ -2565,7 +2573,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('maria marley')
 
     #  Savannahs Fetish Fantasies
-    elif 'Savannahs Fetish Fantasies' in tagline:
+    elif '95249' in userID:
         movieActors.addActor('Savannah Fox', '')
         if 'skylar renee' in genreList:
             movieActors.addActor('Skylar Renee', '')
@@ -2605,7 +2613,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('cali logan')
 
     #  She Owns Your Manhood
-    elif 'She Owns Your Manhood' in tagline:
+    elif '46144' in userID:
         #  Genre list match
         if 'lily lane' in genreList:
             movieActors.addActor('Lily Lane', '')
@@ -2627,7 +2635,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Vivienne Lamour', '')
 
     #  Siren Thorn Inked Asian Goddess
-    elif 'Siren Thorn Inked Asian Goddess' in tagline:
+    elif '43580' in userID:
         movieActors.addActor('Siren Thorn', '')
         #  Genre list match
         if 'siren thorn' in genreList:
@@ -2643,7 +2651,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Miss Xi', '')
 
     #  Slutty Magic
-    elif 'Slutty Magic' in tagline:
+    elif '117288' in userID:
         if 'chanel santini' in genreList:
             movieActors.addActor('Chanel Santini', '')
             genreList.remove('chanel santini')
@@ -2678,11 +2686,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('nikki hearts')
 
     #  SparklyHots hot clips
-    elif 'SparklyHots hot clips' in tagline:
+    elif '64639' in userID:
         movieActors.addActor('SparklyHot', '')
 
     #  SpittingBitches
-    elif 'SpittingBitches' in tagline:
+    elif '26262' in userID:
         if 'serena' in genreList:
             movieActors.addActor('Serena Ice', '')
             genreList.remove('serena')
@@ -2700,7 +2708,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('amber')
 
     #  Stella Liberty
-    elif 'Stella Liberty' in tagline:
+    elif '101957' in userID:
         movieActors.addActor('Stella Liberty', '')
         if 'stella liberty' in genreList:
             genreList.remove('stella liberty')
@@ -2722,7 +2730,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Tiffany Brookes', '')
 
     #  Tammie Madison
-    elif 'Tammie Madison' in tagline:
+    elif '95015' in userID:
         movieActors.addActor('Tammie Madison', '')
         if 'tammie madison' in genreList:
             genreList.remove('tammie madison')
@@ -2730,7 +2738,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('tammie_')
 
     #  Tara Tainton
-    elif 'Tara Tainton' in tagline:
+    elif '21571' in userID:
         movieActors.addActor('Tara Tainton', '')
         if 'tara tainton' in genreList:
             genreList.remove('tara tainton')
@@ -2738,7 +2746,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('the real tara tainton')
 
     #  The AnnabelFatalecom store
-    elif 'The AnnabelFatalecom store' in tagline:
+    elif '65455' in userID:
         movieActors.addActor('Annabel Fatale', '')
         if 'annabellefatale' in genreList:
             genreList.remove('annabellefatale')
@@ -2746,7 +2754,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('annabelle')
 
     #  THE MEAN GIRLS
-    elif 'THE MEAN GIRLS' in tagline:
+    elif '32364' in userID:
         #  Genre list match
         if 'goddess harley' in genreList:
             movieActors.addActor('Goddess Harley', '')
@@ -2863,11 +2871,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor('Queen Kasey', '')
 
     #  The Mistress B
-    elif 'The Mistress B' in tagline:
+    elif '47623' in userID:
         movieActors.addActor('Mistress B', '')
 
     #  The Princess Miki
-    elif 'The Princess Miki' in tagline:
+    elif '132509' in userID:
         movieActors.addActor('Princess Miki', '')
         if 'princess miki' in genreList:
             genreList.remove('princess miki')
@@ -2875,31 +2883,31 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('miki')
 
     #  Trixie Miss
-    elif 'Trixie Miss' in tagline:
+    elif '36476' in userID:
         movieActors.addActor('Trixis Miss', '')
         if 'trixie miss' in genreList:
             genreList.remove('trixie miss')
 
     #  Tsarina Baltic
-    elif 'Tsarina Baltic' in tagline:
+    elif '116628' in userID:
         movieActors.addActor('Tsarina Baltic', '')
 
     #  valeriesins
-    elif 'valeriesins' in tagline:
+    elif '218883' in userID:
         movieActors.addActor('Valerie Sins', '')
         if 'valeriesins' in genreList:
             genreList.remove('valeriesins')
 
     #  Verbal Humiliatrix Princess Lacey
-    elif 'Verbal Humiliatrix Princess Lacey' in tagline:
+    elif '20051' in userID:
         movieActors.addActor('Princess Lacey', '')
 
     #  Vixen Palace
-    elif 'Vixen Palace' in tagline:
+    elif '133311' in userID:
         movieActors.addActor('Miss Vixen', '')
 
     #  Welcome to Smutty Vallie
-    elif 'Welcome to Smutty Vallie' in tagline:
+    elif '75215' in userID:
         movieActors.addActor('Vallie Beuys', '')
         if 'vallie beuys' in genreList:
             genreList.remove('vallie beuys')
@@ -2911,11 +2919,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('miss vallie')
 
     #  Worship Amanda
-    elif 'Worship Amanda' in tagline:
+    elif '75883' in userID:
         movieActors.addActor('Goddess Amanda', '')
 
     #  Worship Goddess Jasmine
-    elif 'Worship Goddess Jasmine' in tagline:
+    elif '40399' in userID:
         movieActors.addActor('Jasmine Jones', '')
         if 'jasmine jones' in genreList:
             genreList.remove('jasmine jones')
@@ -2929,7 +2937,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('danni maye')
 
     #  WORSHIP Princess NINA
-    elif 'WORSHIP Princess NINA' in tagline:
+    elif '96967' in userID:
         movieActors.addActor('Princess Nina', '')
         if 'worship princess nina' in genreList:
             genreList.remove('worship princess nina')
@@ -2937,7 +2945,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('bratty princess nina')
 
     #  Worship The Wolfe
-    elif 'Worship The Wolfe' in tagline:
+    elif '103711' in userID:
         movieActors.addActor('Janira Wolfe', '')
         if 'janira wolfe' in genreList:
             genreList.remove('janira wolfe')
@@ -2951,7 +2959,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             genreList.remove('rick fantana')
 
     #  Worship Violet Doll
-    elif 'Worship Violet Doll' in tagline:
+    elif '52729' in userID:
         movieActors.addActor('Violet Doll', '')
         if 'violet doll' in genreList:
             genreList.remove('violet doll')
@@ -2965,7 +2973,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor('Russian Beauty', '')
 
     #  Young Goddess Kim
-    elif 'Young Goddess Kim' in tagline:
+    elif '107054' in userID:
         movieActors.addActor('Young Goddess Kim', '')
         if 'young goddess kim' in genreList:
             genreList.remove('young goddess kim')
@@ -2974,12 +2982,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     elif 'Larkin Love' in tagline:
         movieActors.addActor('Larkin Love', '')
 
-    #  Lovely Lilith
-    elif 'Lovely Liliths Lusty Lair' in tagline:
+    #  Lovely Liliths Lusty Lair
+    elif '63727' in userID:
         movieActors.addActor('Lovely Lilith', '')
 
-    #  Siri
-    elif 'PORN STAR Siri: Fetish/Custom Clips' in tagline:
+    #  PORN STAR Siri: Fetish/Custom Clips
+    elif '56567' in userID:
         movieActors.addActor('Siri', '')
 
     else:

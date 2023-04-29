@@ -21,7 +21,7 @@ def search(results, lang, siteNum, searchData):
 
     searchData.encoded = searchData.title.replace('\'', '').replace(',', '').replace('& ', '').replace('#', '')
     searchURL = '%s%s&key2=%s' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded)
-    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+    req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'}, cookies={'data_user_captcha': '1'})
     searchPageElements = HTML.ElementFromString(req.text)
 
     searchPages = re.search(r'(?<=pages:\s).*(?=])', req.text)
@@ -72,7 +72,7 @@ def search(results, lang, siteNum, searchData):
 
                     if score > 70:
                         sceneURL = PAutils.Decode(curID)
-                        req = PAutils.HTTPRequest(sceneURL)
+                        req = PAutils.HTTPRequest(sceneURL, cookies={'data_user_captcha': '1'})
                         detailsPageElements = HTML.ElementFromString(req.text)
 
                         # Studio
@@ -118,7 +118,7 @@ def search(results, lang, siteNum, searchData):
 
         if numSearchPages > 1 and not idx + 1 == numSearchPages:
             searchURL = '%s%s&key2=%s&next=1&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), searchData.encoded, searchData.encoded, idx + 1)
-            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'})
+            req = PAutils.HTTPRequest(searchURL, headers={'Referer': 'https://www.data18.com'}, cookies={'data_user_captcha': '1'})
             searchPageElements = HTML.ElementFromString(req.text)
 
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
@@ -128,7 +128,7 @@ def search(results, lang, siteNum, searchData):
             searchResults.append(movieURL)
 
     for movieURL in searchResults:
-        req = PAutils.HTTPRequest(movieURL)
+        req = PAutils.HTTPRequest(movieURL, cookies={'data_user_captcha': '1'})
         detailsPageElements = HTML.ElementFromString(req.text)
         urlID = re.sub(r'.*/', '', movieURL)
 
@@ -138,10 +138,10 @@ def search(results, lang, siteNum, searchData):
 
         # Studio
         try:
-            studio = detailsPageElements.xpath('//b[contains(., "Network")]//following-sibling::b')[0].text_content().strip()
+            studio = detailsPageElements.xpath('//b[contains(., "Studio") or contains(., "Network")]//following-sibling::a')[0].text_content().strip()
         except:
             try:
-                studio = detailsPageElements.xpath('//b[contains(., "Studio")]//following-sibling::b')[0].text_content().strip()
+                studio = detailsPageElements.xpath('//b[contains(., "Studio") or contains(., "Network")]//following-sibling::b')[0].text_content().strip()
             except:
                 try:
                     studio = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()
@@ -206,7 +206,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
-    req = PAutils.HTTPRequest(sceneURL)
+    req = PAutils.HTTPRequest(sceneURL, cookies={'data_user_captcha': '1'})
     detailsPageElements = HTML.ElementFromString(req.text)
 
     if not detailsPageElements:

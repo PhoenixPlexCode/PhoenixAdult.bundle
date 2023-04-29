@@ -45,7 +45,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="nazev detail"]//h1')[0].text_content().replace('Czech VR Fetish', '').replace('Czech VR Casting', '').replace('Czech VR', '').strip()
+    metadata.title = detailsPageElements.xpath('//div[contains(@class, "nazev")]//*[name()="h1" or name()="h2"]')[0].text_content().replace('Czech VR Fetish', '').replace('Czech VR Casting', '').replace('Czech VR', '').strip()
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="textDetail"]')[0].text_content().strip()
@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@class="nazev detail"]//div[@class="datum"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//div[contains(@class, "nazev")]//div[@class="datum"]')[0].text_content().strip()
     if date:
         date_object = datetime.strptime(date, '%b %d, %Y')
         metadata.originally_available_at = date_object
@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('(//div[@class="nazev detail"])[1]//div[@class="featuring"]//a'):
+    for actorLink in detailsPageElements.xpath('(//div[contains(@class, "nazev")])[1]//div[@class="featuring"]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 

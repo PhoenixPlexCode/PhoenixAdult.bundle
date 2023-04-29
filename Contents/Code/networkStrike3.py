@@ -125,7 +125,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
-        if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
+        cleanUrl = posterUrl.split('?')[0]
+        art[idx - 1] = cleanUrl
+        if not PAsearchSites.posterAlreadyExists(cleanUrl, metadata):
             # Download image file for analysis
             try:
                 image = PAutils.HTTPRequest(posterUrl)
@@ -135,10 +137,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 # Add the image proxy items to the collection
                 if width > 1 or height > width:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[cleanUrl] = Proxy.Media(image.content, sort_order=idx)
                 if width > 100 and width > height and idx > 1:
                     # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.art[cleanUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 

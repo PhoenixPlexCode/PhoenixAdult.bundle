@@ -8,14 +8,16 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
         for searchResult in searchResults.xpath('//div[contains(@class, "content-grid-item")]'):
-            titleNoFormatting = searchResult.xpath('.//span[@class="title"]/a')[0].text_content().strip()
+            title = searchResult.xpath('.//span[@class="title"]/a')[0].text_content().split('-')
+            if len(title) > 1:
+                titleNoFormatting = '%s - %s' % (PAutils.parseTitle(title[0].strip(), siteNum), title[1])
+            else:
+                titleNoFormatting = PAutils.parseTitle(title[0].strip(), siteNum)
+
             curID = searchResult.xpath('.//span[@class="title"]/a/@href')[0].split('/')[3]
             releaseDate = parse(searchResult.xpath('.//span[@class="date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
 
-            if searchData.date:
-                score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(titleNoActors.lower(), titleNoFormatting.lower().rsplit('-')[0])
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
@@ -44,7 +46,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]//h2')[0].text_content().strip(), siteNum)
+    title = detailsPageElements.xpath('//div[contains(@class, "content-pane-title")]//h2')[0].text_content().split('-')
+    if len(title) > 1:
+        metadata.title = '%s - %s' % (PAutils.parseTitle(title[0].strip(), siteNum), title[1])
+    else:
+        metadata.title = PAutils.parseTitle(title[0].strip(), siteNum)
 
     # Summary
     description = detailsPageElements.xpath('//div[@class="col-12 content-pane-column"]/div')

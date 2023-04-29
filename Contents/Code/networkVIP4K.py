@@ -39,6 +39,9 @@ def search(results, lang, siteNum, searchData):
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
+        if not subSite.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+            score = score - 1
+
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [VIP4K/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
     elif 'search' in PAsearchSites.getSearchSearchURL(siteNum):
         searchURL = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
@@ -62,6 +65,9 @@ def search(results, lang, siteNum, searchData):
                 score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
             else:
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            if not subSite.lower() == PAsearchSites.getSearchSiteName(siteNum).lower():
+                score = score - 1
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [VIP4K/%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 

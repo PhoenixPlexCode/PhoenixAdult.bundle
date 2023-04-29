@@ -71,13 +71,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Studio
-    studio = 'Tonight\'s Girlfriend'
-    metadata.studio = studio
+    metadata.studio = 'Naughty America'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.tagline = studio
-    metadata.collections.add(studio)
+    tagline = 'Tonight\'s Girlfriend'
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     try:
@@ -113,24 +113,57 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Posters/Background
-    art.append('https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0])
+    posterUrl = 'https:' + detailsPageElements.xpath('//img[@class="playcard"]/@src')[0]
+    art.append(posterUrl)
+    art.append(posterUrl.split('scene/image')[0].split('scene/horizontal')[0] + 'scene/vertical/390x590cdynamic.jpg')
 
+    images = []
+    posterExists = False
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
             # Download image file for analysis
             try:
                 image = PAutils.HTTPRequest(posterUrl)
+                images.append(image)
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    posterExists = True
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
                 im = StringIO(image.content)
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
-                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if width > 100:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
