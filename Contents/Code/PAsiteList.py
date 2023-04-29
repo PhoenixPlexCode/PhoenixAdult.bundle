@@ -1831,6 +1831,7 @@ searchSites = {
     1734: ('Mylf After Dark', 'https://www.mylf.com', '/movies/'),
     1735: ('HijabMylfs', 'https://www.hijabmylfs.com', '/movies/'),
     1736: ('PervDriver', 'https://www.teamskeet.com', '/movies/'),
+    1737: ('Hot Girls Game', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -2233,7 +2234,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Reality Kings
-        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593:
+        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593 or siteNum == 1737:
             provider = network1service
 
         # PornFidelity
