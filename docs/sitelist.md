@@ -9,7 +9,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 
 # All Supported Networks and Sites
 
-+ #### 18OnlyGirls | ✅
 + #### 18 Network | ✓ - **Title or Actor Name**
   - Fit18
   - Thicc18
@@ -1625,7 +1624,10 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Why Not Bi | ✅
 + #### Wicked | ✅
 + #### WoodmanCastingX | ✓ - **actress**
-+ #### WowGirls | ✓ - **Date Add**
++ #### WowNetwork | ✅
+  - 18OnlyGirls
+  - WowGirls
+  - WowPorn
 + #### X-Art | ✅
 + #### XConfessions | ✓
 + #### XEmpire | ✅
