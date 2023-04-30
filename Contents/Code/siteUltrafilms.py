@@ -9,9 +9,9 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//main//article[contains(@class,"thumb-block")]'):
+    for searchResult in searchResults.xpath('//main//article[@data-video-uid]'):
         titleNoFormatting = searchResult.xpath('.//a/@title')[0].strip()
-        image = PAutils.Encode(searchResult.xpath('.//img/@src')[0])
+        image = PAutils.Encode(searchResult.xpath('.//img/@data-src')[0])
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
@@ -25,9 +25,9 @@ def search(results, lang, siteNum, searchData):
         url = PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded
         req = PAutils.HTTPRequest(url)
         searchResults = HTML.ElementFromString(req.text)
-        for searchResult in searchResults.xpath('//main//article[contains(@class,"thumb-block")]'):
+        for searchResult in searchResults.xpath('//main//article[@data-video-uid]'):
             titleNoFormatting = searchResult.xpath('.//a/@title')[0].strip()
-            image = PAutils.Encode(searchResult.xpath('.//img/@src')[0])
+            image = PAutils.Encode(searchResult.xpath('.//img/@data-src')[0])
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
