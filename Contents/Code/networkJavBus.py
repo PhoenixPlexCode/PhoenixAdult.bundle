@@ -5,6 +5,7 @@ cookies = {
     'existmag': 'all',
 }
 
+
 def search(results, lang, siteNum, searchData):
     searchJAVID = None
     splitSearchTitle = searchData.title.split()
@@ -49,7 +50,7 @@ def search(results, lang, siteNum, searchData):
         searchResult = HTML.ElementFromString(req.text)
         javTitle = searchResult.xpath('//head/title')[0].text_content().strip().replace(' - JavBus', '')
         if directJAVID.replace('-', '').replace('_', '').replace(' ', '').isdigit():
-            javTitle = javStudio + ' ' + javTitle      
+            javTitle = javStudio + ' ' + javTitle
         curID = PAutils.Encode(sceneURL)
         score = 100
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[Direct][%s] %s' % (directJAVID, javTitle), score=score, lang=lang))

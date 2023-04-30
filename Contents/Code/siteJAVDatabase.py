@@ -309,7 +309,7 @@ sceneActorsDB = {
     'Ena Koume': ['USAG-027'],
     'Eri Hosaka': ['SDMU-007'],
     'Eri Makino': ['VANDR-051'],
-    'Eri Takigawa': ['YRZ-055','KAM-098','MVSD-480','SDMT-201','VOSS-169'],
+    'Eri Takigawa': ['YRZ-055', 'KAM-098', 'MVSD-480', 'SDMT-201', 'VOSS-169'],
     'Erika Kitagawa': ['OYC-029', 'SCOP-045', 'SCOP-037'],
     'Erika Kurisu': ['KCDA-073', 'SCOP-092'],
     'Erika Mikami': ['DANDY-593'],
