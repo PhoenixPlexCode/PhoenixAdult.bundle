@@ -1832,6 +1832,7 @@ searchSites = {
     1736: ('PervDriver', 'https://www.teamskeet.com', '/movies/'),
     1737: ('Hot Girls Game', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     1738: ('WowPorn', 'https://www.wowpornblog.com', '/?s='),
+    1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
 }
 
 abbreviations = (
@@ -3053,7 +3054,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteData18Empire
 
         # Grooby Network
-        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343) or (1391 <= siteNum <= 1392):
+        elif (1331 <= siteNum <= 1333) or (1338 <= siteNum <= 1343) or (1391 <= siteNum <= 1392) or siteNum == 1739:
             provider = networkGrooby
 
         # Adult Empire
@@ -3168,7 +3169,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteTeenyTaboo
 
         # WowNetwork
-        elif siteNum == 743 or siteNum == 794  or siteNum == 1738:
+        elif siteNum == 743 or siteNum == 794 or siteNum == 1738:
             provider = networkWowNetwork
 
         # Aunt Judys
