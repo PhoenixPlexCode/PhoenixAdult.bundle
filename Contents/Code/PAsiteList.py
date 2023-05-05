@@ -1833,6 +1833,7 @@ searchSites = {
     1737: ('Hot Girls Game', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     1738: ('WowPorn', 'https://www.wowpornblog.com', '/?s='),
     1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
+    1740: ('Mommy 4K', 'https://vip4k.com', '/en/search/'),
 }
 
 abbreviations = (
@@ -3121,7 +3122,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteKillergram
 
         # VIP4K
-        elif (1376 <= siteNum <= 1388) or siteNum == 1687 or siteNum == 1694 or (1710 <= siteNum <= 1712) or siteNum == 1721:
+        elif (1376 <= siteNum <= 1388) or siteNum == 1687 or siteNum == 1694 or (1710 <= siteNum <= 1712) or siteNum == 1721 or siteNum == 1740:
             provider = networkVIP4K
 
         # Dirty Flix Network
