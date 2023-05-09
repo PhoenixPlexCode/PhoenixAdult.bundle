@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Tagline and Collection(s)
     metadata.collections.clear()
     try:
-        tagline = detailsPageElements.xpath('//span[@class="title-site"]')[0].text_content()
+        tagline = detailsPageElements.xpath('//li[@class="tag-sites"]//a')[0].text_content()
     except:
         tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
@@ -69,8 +69,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//ul[contains(@class, "scene-tags")]//li'):
-        genreName = genreLink.xpath('.//a')[0].text_content().lower()
+    for genreLink in detailsPageElements.xpath('//li[@class="tag-tags"]//a'):
+        genreName = genreLink.text_content().lower()
 
         movieGenres.addGenre(genreName)
 
@@ -89,7 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorPage in detailsPageElements.xpath('//ul[@class="scene-models-list"]//a'):
+    for actorPage in detailsPageElements.xpath('//li[@class="tag-models"]//a'):
         actorName = actorPage.text_content()
 
         modelURL = actorPage.xpath('./@href')[0]
