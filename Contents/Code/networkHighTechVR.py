@@ -17,11 +17,11 @@ xPathMap = {
         'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
     },
     'RealJamVR': {
-        'date': '//div[@class="bi bi-calendar3 me-2"]',
+        'date': '//div[@class="ms-4 text-nowrap"]/strong"]',
         'summary': '//div[@class="opacity-75 my-2"]',
-        'actor': '//div[@class="col-12 col-md-4 text-sm-start text-md-end"]//a',
+        'actor': '//div[@class="scene-view mx-auto"]/a',
         'actorPhoto': '//div[@class="col-12 col-lg-4 pe-lg-0"]//img',
-        'images': '//a[@class="c-video-item-scene-previews-link"]'
+        'images': '//img[@class="img-thumb"]'
     }
 }
 
@@ -44,7 +44,8 @@ def search(results, lang, siteNum, searchData):
 
     score = 100
 
-    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (
+        titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
@@ -62,7 +63,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath(siteXPath['summary'])[0].text_content().strip()
+    maybeSummary = detailsPageElements.xpath(siteXPath['summary'])
+    if maybeSummary:
+        metadata.summary = maybeSummary[0].text_content().strip()
 
     # Studio
     metadata.studio = siteName
