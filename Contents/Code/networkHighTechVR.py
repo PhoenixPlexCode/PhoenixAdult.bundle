@@ -3,31 +3,38 @@ import PAutils
 
 xPathMap = {
     'SexBabesVR': {
-        'date': '//div[contains(@class, "video-additional")]/div/span[@property="dc:date"]',
-        'summary': '//div[contains(@class, "video-group-bottom")]/p',
-        'actor': '//div[@class="video-actress-name"]//a',
-        'actorPhoto': '//div[contains(@class, "model-img-wrapper")]/figure/a/img',
-        'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
+        'date': '//div[contains(@class, "video-detail__description--container")]/div[last()]',
+        'summary': '//div[contains(@class, "video-detail")]/div/p',
+        'tags': '//a[contains(@class, "tag")]',
+        'actor': '//div[@class="video-detail__description--author"]//a',
+        'actorPhoto': '//img[contains(@class, "cover-picture")]',
+        'images': '//a[contains(@data-fancybox, "gallery")]//img/@src',
+        'poster': '//dl8-video'
     },
     'StasyQ VR': {
         'date': '//div[@class="video-meta-date"]',
         'summary': '//div[@class="video-info"]/p',
+        'tags': '//div[contains(@class, "my-2 lh-lg")]//a',
         'actor': '//div[@class="model-one-inner js-trigger-lazy-item"]//a',
         'actorPhoto': '//div[contains(@class, "model-one-inner")]//img',
-        'images': '//div[contains(@class, "video-gallery")]//div//figure//a'
+        'images': '//div[contains(@class, "video-gallery")]//div//figure//a/@href',
+        'poster': '//div[@class="splash-screen fullscreen-message is-visible"] | //dl8-video'
     },
     'RealJamVR': {
-        'date': '//div[@class="ms-4 text-nowrap"]/strong"]',
+        'date': '//div[@class="ms-4 text-nowrap"]',
         'summary': '//div[@class="opacity-75 my-2"]',
+        'tags': '//div[contains(@class, "my-2 lh-lg")]//a',
         'actor': '//div[@class="scene-view mx-auto"]/a',
         'actorPhoto': '//div[@class="col-12 col-lg-4 pe-lg-0"]//img',
-        'images': '//img[@class="img-thumb"]'
+        'images': '//img[@class="img-thumb"]/@src',
+        'poster': '//div[@class="splash-screen fullscreen-message is-visible"] | //dl8-video'
     }
 }
 
 
 def search(results, lang, siteNum, searchData):
-    searchData.encoded = searchData.title.lower().replace(' ', '-')
+    siteName = PAsearchSites.getSearchSiteName(siteNum).lower() + '-'
+    searchData.encoded = searchData.filename.lower().replace(' ', '-').replace('_', ' ').replace(siteName, '')
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
 
@@ -72,11 +79,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection
     metadata.collections.clear()
-    rawtagline = detailsPageElements.xpath('//title')[0].text_content().strip()
-    if '|' in rawtagline:
-        tagline = rawtagline.split('|')[1].strip()
-    elif '-' in rawtagline:
-        tagline = rawtagline.split('-')[0].strip()
+    tagline = detailsPageElements.xpath('//title')[0].text_content().strip()
+    if '|' in tagline:
+        tagline = tagline.split('|')[1].strip()
+    elif '-' in tagline:
+        tagline = tagline.split('-')[0].strip()
 
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -91,7 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//div[contains(@class, "my-2 lh-lg")]//a'):
+    for genreLink in detailsPageElements.xpath(siteXPath['tags']):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
@@ -103,17 +110,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath(siteXPath['actorPhoto'])[0].get('src').split('?')[0]
+        actorPhotoURL = ""
+        maybeActorPhoto = actorPage.xpath(siteXPath['actorPhoto'])
+        if maybeActorPhoto:
+            actorPhotoURL = maybeActorPhoto[0].get('src').split('?')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     for poster in detailsPageElements.xpath(siteXPath['images']):
-        img = poster.get('href').split('?')[0]
+        img = poster.split('?')[0]
         if img.startswith('http'):
             art.append(img)
 
-    poster = detailsPageElements.xpath('//div[@class="splash-screen fullscreen-message is-visible"] | //dl8-video')[0]
+    poster = detailsPageElements.xpath(siteXPath['poster'])[0]
     img = poster.get('poster')
     if not img:
         img = poster.get('style').split('url(')[1].split(')')[0]
