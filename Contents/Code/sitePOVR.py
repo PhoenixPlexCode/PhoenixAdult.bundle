@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="thumbnail-wrap"]/div'):
-        titleNoFormatting = searchResult.xpath('.//div/h6[@class="thumbnail__title"]')[0].text_content()
+        titleNoFormatting = searchResult.xpath('.//div//h6[@class="thumbnail__title"]')[0].text_content()
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="thumbnail__link"]/@href')[0])
         subSite = searchResult.xpath('.//a[contains(@class, "thumbnail__footer-link")]')[0].text_content()
         siteScore = 60 - (Util.LevenshteinDistance(subSite.lower().replace('originals', ''), PAsearchSites.getSearchSiteName(siteNum).lower()) * 6 / 10)
