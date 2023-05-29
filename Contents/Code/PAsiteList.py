@@ -191,6 +191,7 @@ import networkRadicalCash
 import siteTeenyTaboo
 import networkWowNetwork
 import networkAuntJudys
+import siteColette
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1834,6 +1835,7 @@ searchSites = {
     1738: ('WowPorn', 'https://www.wowpornblog.com', '/?s='),
     1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
     1740: ('Mommy 4K', 'https://vip4k.com', '/en/search/'),
+    1741: ('Colette', 'https://www.colette.com', '/videos/'),
 }
 
 abbreviations = (
@@ -3176,5 +3178,9 @@ def getProviderFromSiteNum(siteNum):
         # Aunt Judys
         elif (1730 <= siteNum <= 1731):
             provider = networkAuntJudys
+
+        # Colette
+        elif siteNum == 1741:
+            provider = siteColette
 
     return provider

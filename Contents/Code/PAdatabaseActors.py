@@ -340,6 +340,7 @@ ActorsReplaceStudios = {
         'Giselle Leon': ['Lexi B'],
         'Haley Cummings': ['Haley'],
         'Hayden Winters': ['Hayden'],
+        'Heather Night': ['Selena'],
         'Holly Michaels': ['Holly'],
         'Hope Howell': ['Hope'],
         'Isis Taylor': ['Isis'],
