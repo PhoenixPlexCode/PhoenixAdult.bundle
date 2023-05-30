@@ -346,6 +346,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Wild on Cam
 + #### Clips4Sale | ❌ - **StudioID with Title Search**
 + #### ClubFilly | ❌ - **SceneID, DVDs not supported**
++ #### Colette | ✅
 + #### Couple Fantasies | ✅ - **Date Add**
   - Common Sensual
   - Foxhouse Films
