@@ -40,12 +40,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[contains(@class, "info")]/p')[1].text_content().strip()
 
+    # Studio
+    metadata.studio = 'Colette'
+
     # Tagline and Collection
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
-    movieGenres.clearGenres()
 
     # Release date
     date = parse(metadata_id[2]) or parse(detailsPageElements.xpath('//h2')[0].text_content().strip()).strftime('%Y-%m-%d')
@@ -54,21 +56,51 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    for actorLink in detailsPageElements.xpath('//div[contains(@class, "info")]/h2/a')[0]:
+    actors = detailsPageElements.xpath('//div[contains(@class, "info")]/h2/a')
+    for actorLink in actors:
         actorName = actorLink.text_content().strip()
-        actorPhotoURL = ''
+        actorPageURL = actorLink.get('href')
+        req = PAutils.HTTPRequest(actorPageURL, cookies={"_warning": "True"})
+        actorPage = HTML.ElementFromString(req.text)
+        actorPhotoInterchange = actorPage.xpath('//img[@class="info-img"]/@data-interchange')[0]
+        actorPhotoURL = actorPhotoInterchange.replace("[", "").replace("]", "").replace(", (small)", "").replace(", (medium)", "").replace(", (large)", "").split(",")[2].strip()
         movieActors.addActor(actorName, actorPhotoURL)
+
+    # Genre
+    movieGenres.clearGenres()
+    if actors:
+        if len(actors) == 3:
+            movieGenres.addGenre('Threesome')
+        if len(actors) == 4:
+            movieGenres.addGenre('Foursome')
+        if len(actors) > 4:
+            movieGenres.addGenre('Orgy')
 
     # Posters
     xpaths = [
-        '//div[@class="gallery-item"]/a/img/@src',
-        '//div[contains(@class, "video-tour")]/div/a/img/@src',
+        '//div[contains(@class, "gallery-item")]/a/img/@src',
+        '//div[contains(@class, "video-tour")]//a/img/@src',
     ]
-    for xpath in xpaths:
-        for img in detailsPageElements.xpath(xpath):
-            if not img.startswith('http'):
-                img = PAsearchSites.getSearchBaseURL(siteNum) + img
-            art.append(img)
+    interchangeXpaths = [
+        '//div[contains(@class, "widescreen")]//img/@data-interchange',
+        '//div[contains(@class, "columns")]/img/@data-interchange',
+    ]
+    elements = [detailsPageElements]
+    ID = sceneURL.replace('https://www.colette.com/videos/', '')
+    galleryURL = sceneURL.replace('/videos/', '/galleries/')
+    if ID in galleryFix:
+        galleryURL = galleryURL.replace(ID, galleryFix[ID])
+    req = PAutils.HTTPRequest(galleryURL, cookies={"_warning": "True"})
+    galleryPageElements = HTML.ElementFromString(req.text)
+    elements.insert(0, galleryPageElements)
+    for element in elements:
+        for xpath in xpaths:
+            for img in element.xpath(xpath):
+                art.append(img)
+        for xpath in interchangeXpaths:
+            for img in element.xpath(xpath):
+                interchangeIMG = img.replace("[", "").replace("]", "").replace(", (small)", "").replace(", (medium)", "").replace(", (large)", "").split(",")[2].strip()
+                art.append(interchangeIMG)
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
         if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
@@ -89,3 +121,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
+
+galleryFix = {
+    'The_Perfect_Threesome': 'The_Perfect_Threesome_or_Pussy_Galore',
+}
