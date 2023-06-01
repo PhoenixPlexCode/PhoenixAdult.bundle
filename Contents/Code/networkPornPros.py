@@ -15,13 +15,16 @@ def search(results, lang, siteNum, searchData):
         if '/video/' in sceneURL and sceneURL not in searchResults:
             searchResults.append(sceneURL)
 
-    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in searchResults]))
-
+    pluralResults = list(searchResults)
     for sceneURL in searchResults:
         if sceneURL == directURL.replace('www.', '', 1):
             for original, new in plurals.items():
                 sceneURL = sceneURL.replace(original, new)
+            pluralResults.append(sceneURL)
 
+    searchResults = list(dict.fromkeys([sceneURL.replace('www.', '', 1) for sceneURL in pluralResults]))
+
+    for sceneURL in searchResults:
         req = PAutils.HTTPRequest(sceneURL)
         if 'signup.' not in req.url:
             detailsPageElements = HTML.ElementFromString(req.text)
