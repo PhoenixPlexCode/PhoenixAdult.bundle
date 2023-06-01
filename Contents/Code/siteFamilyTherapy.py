@@ -124,9 +124,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actors
     movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="entry-content"]/p[contains(text(),"starring") or contains(text(), "Starring")]/text()'):
-        actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*', actorLink).group()
+        actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*(\s&\s\w*\s\w*)*', actorLink).group()
         actorPhotoURL = ''
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        if '&' in actorName:
+            actorNames = actorName.split('&')
+            for name in actorNames:
+                movieActors.addActor(name.strip(), actorPhotoURL)
+        else:
+            movieActors.addActor(actorName, actorPhotoURL)
 
     return metadata
