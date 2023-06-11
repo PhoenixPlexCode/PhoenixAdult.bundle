@@ -37,9 +37,9 @@ def search(results, lang, siteNum, searchData):
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
-    for searchResult in searchPageElements.xpath('//ul[contains(@class, "grid")]//li[contains(@class, "relative")]'):
-        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[contains(@class, "block")] | .//span[contains(@class, "block")]')[0].text_content().strip(), siteNum)
-        sceneURL = searchResult.xpath('.//a/@href')[0]
+    for searchResult in searchPageElements.xpath('//div[contains(@class, "video_container")]'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="relative video_inner_container group"]/span')[0].text_content().strip(), siteNum)
+        sceneURL = searchResult.xpath('.//a[@class="relative video_inner_container group"]/@href')[0]
         if 'http' not in sceneURL:
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
@@ -123,7 +123,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if siteNum == 1365:
         actorXPATH = '//div[contains(@class, "clear-both")]//a[contains(@href, "pornstar")]'
     else:
-        actorXPATH = '//div[contains(@class, "video-actors")]'
+        actorXPATH = '//div[contains(@class,"overflow-hidden")]//a[contains(@href, "pornstar") and not(@aria-label)]'
 
     for actorLink in detailsPageElements.xpath(actorXPATH):
         if siteNum == 1365:
