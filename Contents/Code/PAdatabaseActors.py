@@ -237,6 +237,7 @@ ActorsReplace = {
     'Stephanie Renee': ['Sedona', 'Stefanie Renee'],
     'Steven St. Croix': ['Steven St.Croix'],
     'Sultana': ['Franzisca', 'Olivia Sweet', 'Sasha C.', 'Vallery'],
+    'Summer Vixen': ['Summer Jones'],
     'Susy Gala': ['Susi Gala'],
     'Sybil A Kailena': ['Sybil', 'Sybil A', 'Sybil Kailena', 'Sybil A.'],
     'Taissia Shanti': ['Taisha', 'Taisia', 'Taisia Shanti', 'Taissia', 'Taissia Shanty'],
