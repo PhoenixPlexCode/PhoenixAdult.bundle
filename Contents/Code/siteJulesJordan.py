@@ -17,7 +17,18 @@ def search(results, lang, siteNum, searchData):
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="update_details"]'):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
-        titleNoFormatting = searchResult.xpath('.//span[@class="showMobile"]/a')[0].text_content().strip()
+
+        try:
+            titleNoFormatting = searchResult.xpath('.//span[@class="showMobile"]/a')[0].text_content().strip()
+        except:
+            titleElement = searchResult.xpath('./a')
+            if len(titleElement) >= 2:
+                titleNoFormatting = titleElement[1].text_content().strip()
+            elif len(titleElement) == 1:
+                titleNoFormatting = titleElement[0].text_content().strip()
+            else:
+                continue
+
         releaseDate = searchResult.xpath('.//div[@class="cell update_date"]')[0].text_content().strip()
         if not releaseDate:
             try:
@@ -64,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     try:
-        dvdName = detailsPageElements.xpath('//span[@class="update_dvds"]')[0].text_content().replace('Movie:', '').strip()
+        dvdName = detailsPageElements.xpath('//span[@class="update_dvds"]')[0].text_content().replace('Movie:', '').replace('Feature: ', '').strip()
         metadata.collections.add(dvdName)
     except:
         pass

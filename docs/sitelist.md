@@ -655,12 +655,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### JavDatabase (via JavDatabase) | ✅ - **SceneID (in form of JAVID)**
 + #### JavLibrary (via JavLibrary - Censored JAV Only) | ✅ - **SceneID (in form of JAVID)**
 + #### JulesJordan Network | ✅  **Movies Not Supported**
-+ #### JVRPorn | ✅ - **Date Add**
   - GirlGirl
   - JulesJordan
   - ManuelFerrara
   - SpermSwallowers
   - TheAssFactory
++ #### JVRPorn | ✅ - **Date Add**
 + #### Karups | ✅ - **Actor only**
   - Karups Hometown Amateurs
   - Karups Older Women
