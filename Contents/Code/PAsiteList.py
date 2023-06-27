@@ -669,7 +669,7 @@ searchSites = {
     472: ('KinkVR', 'http://www.kinkvr.com', '/bdsm-vr-videos/search/'),
     473: ('VRCosplayX', 'https://www.vrcosplayx.com', '/cosplaypornvideos/search/'),
     474: ('VRBangers', 'https://www.vrbangers.com', '/api/content/v1/search/'),
-    475: ('SexBabesVR', 'https://www.sexbabesvr.com', '/virtualreality/scene/id/'),
+    475: ('SexBabesVR', 'https://www.sexbabesvr.com', '/video/'),
     476: ('WankzVR', 'https://www.wankzvr.com', '/search?q='),
     477: ('MilfVR', 'https://www.milfvr.com', '/search?q='),
     478: ('Joymii', 'https://www.joymii.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),

@@ -482,7 +482,7 @@ searchSites[471] = ("18VR", "18VR", "https://www.18vr.com", "https://18vr.com/vr
 searchSites[472] = ("KinkVR", "KinkVR", "http://www.kinkvr.com", "https://kinkvr.com/bdsm-vr-videos/search/")
 searchSites[473] = ("VRCosplayX", "VRCosplayX", "https://www.vrcosplayx.com", "https://vrcosplayx.com/cosplaypornvideos/search/")
 searchSites[474] = ("VRBangers", "VRBangers", "https://www.vrbangers.com", "https://vrbangers.com/?post_type=video&s=")
-searchSites[475] = ("SexBabesVR", "SexBabesVR", "https://www.sexbabesvr.com", "https://sexbabesvr.com/virtualreality/scene/id/")
+searchSites[475] = ("SexBabesVR", "SexBabesVR", "https://www.sexbabesvr.com", "https://sexbabesvr.com/video/")
 searchSites[476] = ("WankzVR", "WankzVR", "https://www.wankzvr.com", "https://www.wankzvr.com/search?q=")
 searchSites[477] = ("MilfVR", "MilfVR", "https://www.milfvr.com", "https://www.milfvr.com/search?q=")
 searchSites[478] = ("Joymii", "Joymii", "https://www.joymii.com", "https://www.joymii.com/search?query=")
@@ -1027,7 +1027,7 @@ def getSearchSiteIDByFilter(searchFilter):
     if searchResults:
         from operator import itemgetter
 
-        ##print('Site found with method #3')
+        # print('Site found with method #3')
         return max(searchResults, key=itemgetter(1))[0]
 
     # Method #2
@@ -1038,7 +1038,7 @@ def getSearchSiteIDByFilter(searchFilter):
             siteNameF = sites[0].lower().replace(" ", "").replace("'", "")
 
             if searchFilterF == siteNameF:
-                ##print('Site found with method #2')
+                # print('Site found with method #2')
                 return searchID
         except:
             pass
@@ -1059,7 +1059,7 @@ def getSearchSiteIDByFilter(searchFilter):
             siteNameF = sites[0].lower().replace(" ", "").replace("'", "")
 
             if siteNameF in searchFilterF[0] or siteNameF in searchFilterF[1]:
-                ##print('Site found with method #1')
+                # print('Site found with method #1')
                 return searchID
         except:
             pass
