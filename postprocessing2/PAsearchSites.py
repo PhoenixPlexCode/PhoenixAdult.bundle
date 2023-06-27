@@ -1027,6 +1027,7 @@ def getSearchSiteIDByFilter(searchFilter):
     if searchResults:
         from operator import itemgetter
 
+        # print('Site found with method #3')
         return max(searchResults, key=itemgetter(1))[0]
 
     # Method #2
@@ -1037,6 +1038,7 @@ def getSearchSiteIDByFilter(searchFilter):
             siteNameF = sites[0].lower().replace(" ", "").replace("'", "")
 
             if searchFilterF == siteNameF:
+                # print('Site found with method #2')
                 return searchID
         except:
             pass
@@ -1057,6 +1059,7 @@ def getSearchSiteIDByFilter(searchFilter):
             siteNameF = sites[0].lower().replace(" ", "").replace("'", "")
 
             if siteNameF in searchFilterF[0] or siteNameF in searchFilterF[1]:
+                # print('Site found with method #1')
                 return searchID
         except:
             pass
