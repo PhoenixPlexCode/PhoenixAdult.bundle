@@ -11,11 +11,12 @@ ActorsReplace = {
     'Alex D.': ['Alex D'],
     'Alex Kane': ['Sabrina Snow'],
     'Alex Mason': ['Alex Mac', 'Alex Mack', 'Alex Moreno'],
+    'Alexia Branson': ['Alexiya', 'Anna Sanglante],
     'Aliz': ['Liz Valery'],
     'Allie Addison': ['Allie Addison Facial'],
     'Alura Jenson': ['Alura \'Tnt\' Jenson', 'Alura Tnt Jenson'],
     'Amia Miley': ['Amia Moretti', 'Amia'],
-    'Amirah Adara': ['Amirah'],
+    'Amirah Adara': ['Amirah', 'Amira Adara'],
     'Amy Reid': ['Amy Reed', 'Amy Ried', 'Devin Valencia'],
     'Ana Foxxx': ['Ana Fox', 'Ana Foxx'],
     'Anastasia Morna': ['Anna Morna'],
@@ -37,6 +38,7 @@ ActorsReplace = {
     'Ava Maxim': ['Ava Maxime', 'Becky (NVG Network)'],
     'Avril Sun': ['Avril May', 'Candy Love'],
     'Baby Kxtten': ['Baby Kitten', 'Bxby Kitten'],
+    'Barra Brass': ['Barra'],
     'Billie Star': ['Billy Star', 'Katia', 'Petra'],
     'Black Angelika': ['Angelika Black', 'Black Angelica'],
     'Bonny Bon': ['Bonni Bone', 'Bonnie Bond', 'Bonny Bo', 'Bony Bo', 'Bonnie Bon', 'Bonny Bone', 'Bonnie Bunny'],
@@ -44,6 +46,7 @@ ActorsReplace = {
     'Big Dick Fred': ['Mandingo', 'Curtis', 'Fred Dingo', 'Fred Foolish'],
     'Brickzilla': ['Brickzilla 📏➕☝🏾'],
     'Bridgette B': ['Bridgette B.'],
+    'Britney Angel': ['Brytnie'],
     'Britney Beth': ['Bibi Jones', 'Bibi Jones™'],
     'Brooke Lee Adams': ['Zeba'],
     'Bunny Colby': ['Nadya Nabakova', 'Nadya Nabokova'],
@@ -123,6 +126,7 @@ ActorsReplace = {
     'Josephine Jackson': ['Josephina Jackson'],
     'Josh Jo': ['Josh', 'Jo Josh', 'John Syx', 'Joohn Syx', 'Josc Admiral', 'Josh Admiral', 'Josh Dean'],
     'Juicy Leila': ['Sowanna', 'Victoria Skye'],
+    'Justanicecock': ['Justa Nicecock', 'Just A Nice Cock'],
     'Kagney Linn Karter': ['Kagney Lynn Karter'],
     'Kari Sweets': ['Kari Sweet'],
     'Karina O\'Reilley': ['Karina Oreilley', 'Karina O Reilley', 'Karina O Reilly', 'Carina Roman', 'Carina Romann', 'Katrina O\'Reilly', 'Karina Roman'],
@@ -284,7 +288,7 @@ ActorsReplace = {
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon', 'Leon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Yuriy Sergeev': ['Alexander', 'Boris', 'Krokodil', 'Mr Henderson', 'Mr. Anderson', 'Rocket', 'Sam', 'Sergei', 'Yuri', 'Yury'],
-    'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm'],
+    'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm', 'Azazai', 'Zazie Sky'],
     'Zoe Bloom': ['Zoey Bloom'],
 }
 
@@ -5273,9 +5277,12 @@ ActorsReplaceStudios = {
         'Isabella Obregon': ['Luchy'],
         'Johanna Gonzalez': ['Celeste'],
         'Katherine Ibarra': ['Fergie', 'Fergi'],
+        'Katherine Oliveros': ['Angie'],
     },
     45: {  # FAKings
+        'Ainara Reina': ['Ainara'],
         'Ana Dufermont': ['Ana'],
+        'Ayesa': ['Ariesa'],
         'Mar Punch': ['Mar'],
         'Melany Kiss': ['Melani'],
     },
@@ -5299,6 +5306,7 @@ ActorsReplaceStudios = {
         'Alita Angel': ['Leah Maus'],
         'Allegra': ['Alegra'],
         'Ally Breelsen': ['Ally'],
+        'Anabelle Evans': ['Anabelle'],
         'Apolonia Lapiedra': ['Apolonia'],
         'Astrid Herrara': ['Astrid'],
         'Bambi Joli': ['Anna Jolie'],
@@ -5522,6 +5530,7 @@ ActorsReplaceStudios = {
         'Zarina Masood': ['Zarina'],
     },
     53: {  # FakeHub
+        'Luna Silver': ['Aaeysha'],
         'Sharon Saint': ['Steffany'],
     },
     54: {  # LethalHardcoreVR
@@ -5968,6 +5977,9 @@ ActorsReplaceStudios = {
         'Allie Addison': ['Allie Addison Facial'],
         'Celestina Blooms': ['Celestina'],
     },
+    66: {  # SexMex
+        'Analia Lipha': ['Analia']
+    },
 }
 
 ActorsStudioIndexes = {
@@ -6037,6 +6049,7 @@ ActorsStudioIndexes = {
     63: ['PornPros'],
     64: ['JavBus', 'JAVLibrary', 'JAVDatabase'],
     65: ['Teeny Taboo'],
+    66: ['SexMex'],
 }
 
 
