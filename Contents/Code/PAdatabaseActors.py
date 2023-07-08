@@ -11,7 +11,7 @@ ActorsReplace = {
     'Alex D.': ['Alex D'],
     'Alex Kane': ['Sabrina Snow'],
     'Alex Mason': ['Alex Mac', 'Alex Mack', 'Alex Moreno'],
-    'Alexia Branson': ['Alexiya', 'Anna Sanglante],
+    'Alexia Branson': ['Alexiya', 'Anna Sanglante'],
     'Aliz': ['Liz Valery'],
     'Allie Addison': ['Allie Addison Facial'],
     'Alura Jenson': ['Alura \'Tnt\' Jenson', 'Alura Tnt Jenson'],
