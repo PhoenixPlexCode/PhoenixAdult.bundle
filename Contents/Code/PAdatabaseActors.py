@@ -62,6 +62,7 @@ ActorsReplace = {
     'Charlie Red': ['Charli Red'],
     'Chase Hart': ['Summer Skyy'],
     'Chris Strokes': ['Criss Strokes'],
+    'CJ Miles': ['Cj Miles', 'C.J. Miles'],
     'Clea Gaultier': ['CléA Gaultier'],
     'Clockwork Victoria': ['Clockwork Viktoria', 'Viktoria Clockwork', 'Victory Clockwork'],
     'Connie Carter': ['Connie', 'Conny', 'Conny Carter', 'Josephine'],
@@ -70,6 +71,8 @@ ActorsReplace = {
     'Dahlia Sky': ['Amber Rose', 'Bailey Blue', 'Dahlia Skye'],
     'Dana Sofia': ['Dana SofíA'],
     'Darcie Belle': ['Darcie Bell'],
+    'Darlene Amaro': ['Delanie', 'Darlene', 'Yorkine'],
+    'Devin Striker': ['Devin', 'Devon'],
     'Dillion Harper': ['Dillon Harper'],
     'Dolce Vita': ['Sunny Alika', 'Tera Gold'],
     'Eden Nox': ['Eaton', 'Eden 36DD', 'Eden 38DD', 'Eden 38 DD', 'Eden 38 Dd'],
@@ -79,8 +82,10 @@ ActorsReplace = {
     'Emil Graae': ['Emil', 'Emilio Grey', 'Grey XXX'],
     'Emma Fantasy': ['Emma Fantazy'],
     'Emma Hix': ['Crissy Kay', 'Emma Hicks', 'Emma Hixx'],
+    'Emma Indica': ['Em Indica'],
     'Emmanuelle London': ['Emmanuel London', 'London Jolie'],
     'Empera': ['Jessi Empera'],
+    'Erika Eden': ['Erika E', 'Erika E.', 'Erika Lewis'],
     'Erika Korti': ['Erika Korni', 'Erika Kortni', 'Mari Moore'],
     'Escaped Bride': ['Runaway Bride'],
     'Esluna Love': ['Esluna'],
@@ -88,6 +93,7 @@ ActorsReplace = {
     'Eve Laurence': ['Eve Lawrence'],
     'Fernanda Santori': ['Fernandasw', 'FernandaSW'],
     'Foxy Di': ['Foxi Di'],
+    'Foxies Gold': ['Foxies'],
     'Francesca DiCaprio': ['Francesca Di Caprio', 'Francesca Dicaprio'],
     'Freddy Salvador': ['Fredau Montes', 'Fredduy Salvador'],
     'Gabbie Carter': ['Gabby Carter'],
@@ -107,9 +113,11 @@ ActorsReplace = {
     'Isabel Stern': ['Isabel Sterov', 'Isabelle Stern'],
     'Isabella Clark': ['Isabel Clark', 'Izobella Clark'],
     'Isabella De Laa': ['Isabela De Laa', 'Isabella Della'],
+    'Ivi Rein': ['Ivy Rein'],
     'Jasmine Waterfall': ['Naty Devo'],
     'Jasmine Wolff': ['Jasmine W', 'Shay Bennett', 'Shaye Bennett'],
     'Jaye Summers': ['Charlotte Lee'],
+    'JC Wilds': ['Jc Wilds'],
     'Jean Hollywood': ['Ella Hollywood'],
     'Jenna Clove': ['Clove'],
     'Jenna Ross': ['Jenna J Ross', 'Jenna J. Ross'],
@@ -193,6 +201,7 @@ ActorsReplace = {
     'Misha Cross': ['Mischa Cross'],
     'Miss Jade Indica': ['Jade Indica'],
     'Moe Johnson': ['Moe The Monster Johnson'],
+    'Monica Sweet': ['Jo', 'Monica Naggy', 'Monika Sweet'],
     'Monty Memphis': ['Monty', 'Monty Cash', 'Monty Manthis', 'Monty Mathis'],
     'Murgur': ['Mogur', 'Mugor', 'Mugur Porn', 'Mugur'],
     'Mya Mason': ['Maya Mason', 'Maya Madison', 'Mya Manson', 'Mya Madison'],
@@ -258,6 +267,7 @@ ActorsReplace = {
     'Sofia Habibi': ['SofíA Habibi'],
     'Sofy Soul': ['Sofy Torn'],
     'Sola Zola': ['SolaZola'],
+    'Sonia Garcia': ['Elida'],
     'Sonia Sweet': ['Soniy Sweet', 'Sonya Sweet'],
     'Spencer Bradley': ['Bradley Spencer'],
     'Stasia Si': ['Stacia Si', 'Stacy Si'],
@@ -288,7 +298,7 @@ ActorsReplace = {
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon', 'Leon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Yuriy Sergeev': ['Alexander', 'Boris', 'Krokodil', 'Mr Henderson', 'Mr. Anderson', 'Rocket', 'Sam', 'Sergei', 'Yuri', 'Yury'],
-    'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm', 'Azazai', 'Zazie Sky'],
+    'Zazie Skymm': ['Azazia Skymm', 'Zazie Skymm', 'Zazie Skimm', 'Azazai', 'Zazie Sky', 'Zazie'],
     'Zoe Bloom': ['Zoey Bloom'],
 }
 
@@ -1082,7 +1092,6 @@ ActorsReplaceStudios = {
         'Whitney Conroy': ['Whitney'],
         'Yasmine Gold': ['Rachel'],
         'Yulia Bright': ['Angie'],
-        'Zazie Sky': ['Zazie'],
         'Zeina Heart': ['Zeina'],
         'Zena Little': ['Xenia'],
         'Zuzana Z': ['Jujana'],
@@ -5978,7 +5987,10 @@ ActorsReplaceStudios = {
         'Celestina Blooms': ['Celestina'],
     },
     66: {  # SexMex
-        'Analia Lipha': ['Analia']
+        'Analia Lipha': ['Analia'],
+    },
+    67: {  # Data18
+        'Anabelle Evans': ['Anabelle'],
     },
 }
 
@@ -6050,6 +6062,7 @@ ActorsStudioIndexes = {
     64: ['JavBus', 'JAVLibrary', 'JAVDatabase'],
     65: ['Teeny Taboo'],
     66: ['SexMex'],
+    67: ['Data18']
 }
 
 
