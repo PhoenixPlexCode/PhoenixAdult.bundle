@@ -165,7 +165,7 @@ ActorsReplace = {
     'La Sirena 69': ['La Sirena69', 'LaSirena69', 'Antonella', 'Antonella La Sirena', 'Antonella LaSirena', 'Sirena69', 'Lasirena 69', 'LaSirena 69'],
     'Lacey Channing': ['Lacie Channing', 'Lacy Channing', 'Jade Symz', 'Jayde Symz'],
     'Lana Rhoades': ['Lana Rhodes'],
-    'Laura Monroy: ['Jesica Dulce', 'Mis Monroy', 'Ms Monroy', 'Msmonroy'],
+    'Laura Monroy': ['Jesica Dulce', 'Mis Monroy', 'Ms Monroy', 'Msmonroy'],
     'Lea Lexis': ['Lea Lexus', 'Lea Lush', 'Leah Lush', 'Lee Lexus', 'Lea Lixus'],
     'Leana Lovings': ['Leanna Lovings'],
     'Lexi Anne Garza': ['Lexi Aaane', 'Lexi Anne'],
