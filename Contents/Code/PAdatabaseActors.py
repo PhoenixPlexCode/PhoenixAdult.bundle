@@ -311,7 +311,7 @@ ActorsReplace = {
     'Violette Pink': ['Violette Pure'],
     'Voodoo Child': ['Lex', 'Voo Do', 'Voo Doo', 'Voodoo', 'Voodoo Pornstar'],
     'Xxlayna Marie': ['Xxylayna Marie', 'Layna Marie'],
-    'Yenny Contreras': ['Siarilis],
+    'Yenny Contreras': ['Siarilis'],
     'Yiny Leon': ['Yini Leon', 'YiniLeon', 'YInyleon', 'YinyLeon', 'Leon'],
     'Yu Shinoda': ['Shinoda Yuu'],
     'Yuriy Sergeev': ['Alexander', 'Boris', 'Krokodil', 'Mr Henderson', 'Mr. Anderson', 'Rocket', 'Sam', 'Sergei', 'Yuri', 'Yury'],
