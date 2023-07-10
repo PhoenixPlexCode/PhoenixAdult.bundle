@@ -1,5 +1,4 @@
 """googlesearch is a Python library for searching Google, easily."""
-# Modified to support Python V2 from googlesearch-python
 
 from time import sleep
 try:
@@ -41,7 +40,7 @@ class SearchResult:
         self.description = description
 
     def __repr__(self):
-        return 'SearchResult(url={url}, title={title}, description={description})'.format(url=self.url, title=self.title, description=self.description)
+        return 'SearchResult(url={url})'.format(url=self.url)
 
 
 def search(searchQuery, site, num_results=10, lang='en', tbs='', proxy=None, sleep_interval=0, timeout=5):
@@ -74,7 +73,7 @@ def search(searchQuery, site, num_results=10, lang='en', tbs='', proxy=None, sle
             start += 1
 
         for result in result_block:
-            # Find link, title, description
+            # Find link
             link = result.find('a', href=True)
             if link:
                 start += 1
