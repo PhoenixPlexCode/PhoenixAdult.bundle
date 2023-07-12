@@ -48,7 +48,7 @@ def search(results, lang, siteNum, searchData):
         if req:
             searchResults = req.json()['result']
             for searchResult in searchResults:
-                titleNoFormatting = searchResult['title']
+                titleNoFormatting = searchResult['title'].replace('ï¿½', '\'')
                 releaseDate = parse(searchResult['dateReleased']).strftime('%Y-%m-%d')
                 curID = searchResult['id']
                 siteName = searchResult['brand'].title()
@@ -91,7 +91,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = req.json()['result'][0]
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum).replace('ï¿½', '\'')
 
     # Summary
     description = None
