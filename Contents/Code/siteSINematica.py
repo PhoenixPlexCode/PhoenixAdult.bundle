@@ -15,6 +15,7 @@ def search(results, lang, siteNum, searchData):
 
     return results
 
+
 # trying to remove malformed parts from page to make sure xpath works
 def fix_xml(text):
     text = re.sub(r'<head>.*?</head>', '', text, flags=re.DOTALL)
@@ -23,6 +24,7 @@ def fix_xml(text):
     text = re.sub(r'<video.*?</video>', '', text, flags=re.DOTALL)
     text = re.sub(r'<option.*?</option>', '', text, flags=re.DOTALL)
     return text.replace('&nbsp;', '')
+
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
