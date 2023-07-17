@@ -4,16 +4,25 @@ import PAutils
 
 def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="item-grid item-grid-list-view"]/div[@class="grid-item"]'):
-        titleNoFormatting = searchResult.xpath('.//h5/a')[0].text_content().strip()
-        curID = PAutils.Encode(searchResult.xpath('.//h5/a@href')[0])
+    searchResults = HTML.ElementFromString(fix_xml(req.text))
+
+    for searchResult in searchResults.xpath('//div[@class="scene-primary-details"]'):
+        titleNoFormatting = searchResult.xpath('.//h6')[0].text_content().strip()
+        curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
+# trying to remove malformed parts from page to make sure xpath works
+def fix_xml(text):
+    text = re.sub(r'<head>.*?</head>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<footer.*?</footer>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<script.*?</script>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<video.*?</video>', '', text, flags=re.DOTALL)
+    text = re.sub(r'<option.*?</option>', '', text, flags=re.DOTALL)
+    return text.replace('&nbsp;', '')
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
