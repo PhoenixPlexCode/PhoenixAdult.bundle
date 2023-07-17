@@ -27,8 +27,8 @@ def fix_xml(text):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
-    req = PAutils.HTTPRequest(sceneURL)
-    detailsPageElements = HTML.ElementFromString(req.text)
+    req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + sceneURL)
+    detailsPageElements = HTML.ElementFromString(fix_xml(req.text))
 
     # Title
     metadata.title = detailsPageElements.xpath('//h1[@class="description"]')[0].text_content().strip()
@@ -63,22 +63,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, '')
 
     # Release Date
-    if 'porn-movie' not in sceneURL:
-        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
-    else:
-        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
+    date = detailsPageElements.xpath('//div[@class="release-date"]')[0].text_content().replace('Released:', '').strip()
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
-
-    # Director
-    director = metadata.directors.new()
-    try:
-        movieDirector = detailsPageElements.xpath('//span[@class="director"]')[0].text_content().replace(
-            'Director :', '').strip()
-        director.name = movieDirector
-    except:
-        pass
 
     # Poster
     xpaths = [
