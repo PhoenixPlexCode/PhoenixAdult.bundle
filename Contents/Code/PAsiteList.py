@@ -191,6 +191,7 @@ import siteTeenyTaboo
 import networkWowNetwork
 import networkAuntJudys
 import siteColette
+import siteSINematica
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1835,6 +1836,7 @@ searchSites = {
     1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
     1740: ('Mommy 4K', 'https://vip4k.com', '/en/search/'),
     1741: ('Colette', 'https://www.colette.com', '/videos/'),
+    1742: ('SINematica', 'https://sinematica.com', '/Scene/MemberSearch?q=')
 }
 
 abbreviations = (
@@ -3181,5 +3183,9 @@ def getProviderFromSiteNum(siteNum):
         # Colette
         elif siteNum == 1741:
             provider = siteColette
+
+        # SINematica
+        elif siteNum == 1742:
+            provider = siteSINematica
 
     return provider

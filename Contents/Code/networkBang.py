@@ -123,7 +123,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if siteNum == 1365:
         actorXPATH = '//div[contains(@class, "clear-both")]//a[contains(@href, "pornstar")]'
     else:
-        actorXPATH = '//div[contains(@class,"overflow-hidden")]//a[contains(@href, "pornstar") and not(@aria-label)]'
+        actorXPATH = '//div[contains(@class,"overflow-hidden")]//div[contains(@class, "name")]/a[contains(@href, "pornstar") and not(@aria-label)]'
 
     for actorLink in detailsPageElements.xpath(actorXPATH):
         if siteNum == 1365:
@@ -138,7 +138,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = modelPageElements['image'].split('?')[0].strip()
         else:
             actorName = actorLink.xpath('.//span')[0].text_content()
-            actorPhotoURL = actorLink.xpath('.//img/@src')[0].split('?')[0]
+            actorPhotoURL = actorLink.xpath('../..//img/@src')[0].split('?')[0]
 
         if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
