@@ -1836,7 +1836,8 @@ searchSites = {
     1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
     1740: ('Mommy 4K', 'https://vip4k.com', '/en/search/'),
     1741: ('Colette', 'https://www.colette.com', '/videos/'),
-    1742: ('SINematica', 'https://sinematica.com', '/Scene/MemberSearch?q=')
+    1742: ('SINematica', 'https://sinematica.com', '/Scene/MemberSearch?q='),
+    1743: ('Work Me Harder', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
 }
 
 abbreviations = (
@@ -2246,7 +2247,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkStrike3
 
         # Reality Kings
-        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593 or siteNum == 1737:
+        elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593 or siteNum == 1737 or siteNum == 1743:
             provider = network1service
 
         # PornFidelity
