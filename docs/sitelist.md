@@ -1416,7 +1416,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - This Girl Sucks
   - Tiny Sis
   - Titty Attack
-+ #### TeenCoreClub Network | ❌ - **Scene ID**
++ #### TeenCoreClub Network | ✅
   - Anal Checkups
   - Analyzed Girls
   - Ass Teen Mouth
