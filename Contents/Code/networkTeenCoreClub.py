@@ -1,6 +1,7 @@
 import PAsearchSites
 import PAutils
 
+
 def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + 'videos/browse/search/' + searchData.encoded + '?page=1&sg=false&sort=release&video_type=scene&lang=en&site_id=10&genre=0&dach=false'
     data = PAutils.HTTPRequest(url)
@@ -24,6 +25,7 @@ def search(results, lang, siteNum, searchData):
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s (%s) [%s] %s' % (titleNoFormatting, actorsList, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
+
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
