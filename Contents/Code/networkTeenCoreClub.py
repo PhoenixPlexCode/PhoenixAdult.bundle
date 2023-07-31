@@ -3,16 +3,25 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    sceneID = None
+    parts = searchData.title.split()
+    if unicode(parts[0], 'UTF-8').isdigit():
+        sceneID = parts[0]
+        searchData.encoded = urllib.quote(searchData.title.replace(sceneID, '', 1).strip())
+
     url = PAsearchSites.getSearchSearchURL(siteNum) + 'videos/browse/search/' + searchData.encoded + '?page=1&sg=false&sort=release&video_type=scene&lang=en&site_id=10&genre=0&dach=false'
     data = PAutils.HTTPRequest(url)
     data = data.json()
 
     for searchResult in data['videos']['data']:
-        curID = PAutils.Encode(PAsearchSites.getSearchSearchURL(siteNum) + '/videodetail/' + str(searchResult['id']))
         titleNoFormatting = searchResult['title']['en']
         releaseDate = parse(searchResult['publication_date']).strftime('%Y-%m-%d')
+        searchID = searchResult['id']
+        curID = PAutils.Encode(PAsearchSites.getSearchSearchURL(siteNum) + '/videodetail/' + str(searchID))
 
-        if searchData.date:
+        if sceneID and int(sceneID) == searchID:
+            score = 100
+        elif searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -51,19 +60,27 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
+    actors = []
     for actorData in data['video']['actors']:
         actorName = actorData['name']
+        actors.append(actorName)
+
         movieActors.addActor(actorName, '')
 
-    # Date
-    try:
-        date = data['video']['publication_date']
-        date_object = parse(date).strftime('%Y-%m-%d')
+    if actors and metadata.title.lower().startswith('bic_'):
+        if len(actors) == 1:
+            metadata.title = actors[0]
+        elif len(actors) == 2:
+            metadata.title = ' & '.join(actors)
+        else:
+            metadata.title = ', '.join(actors)
 
+    # Date
+    date = data['video']['publication_date']
+    if date:
+        date_object = parse(date)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
-    except:
-        pass
 
     # Genres
     movieGenres.clearGenres()
