@@ -48,6 +48,7 @@ def search(results, lang, siteNum, searchData):
         searchPageElements = HTML.ElementFromString(req.text)
 
         for searchResult in searchPageElements.xpath('//small[not(contains(., "Sex Toy"))]//parent::div'):
+            resultType = searchResult.xpath('.//@href')[0].rsplit('-')[-1].replace('.html', '').replace('ray', 'Blu-Ray').title()
             urlID = searchResult.xpath('.//@href')[0].split('/')[1]
             movieURL = '%s/%s' % (PAsearchSites.getSearchBaseURL(siteNum), urlID)
 
@@ -88,9 +89,9 @@ def search(results, lang, siteNum, searchData):
 
                     if score == 80:
                         count += 1
-                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] [%s] %s' % (titleNoFormatting, studio, resultType, displayDate), score=score, lang=lang))
                     else:
-                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, studio, displayDate), score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] [%s] %s' % (titleNoFormatting, studio, resultType, displayDate), score=score, lang=lang))
 
                     # Split Scenes
                     scenes = []
@@ -116,17 +117,17 @@ def search(results, lang, siteNum, searchData):
 
                             if score == 80:
                                 count += 1
-                                temp.append(MetadataSearchResult(id='%s|%d|%s|%d|%d' % (curID, siteNum, releaseDate, sceneNum, photoIdx), name='%s/#%d[%s][%s] %s' % (titleNoFormatting, sceneNum, actorNames, studio, displayDate), score=score, lang=lang))
+                                temp.append(MetadataSearchResult(id='%s|%d|%s|%d|%d' % (curID, siteNum, releaseDate, sceneNum, photoIdx), name='%s[%s]/#%d[%s][%s] %s' % (titleNoFormatting, resultType, sceneNum, actorNames, studio, displayDate), score=score, lang=lang))
                             else:
-                                results.Append(MetadataSearchResult(id='%s|%d|%s|%d|%d' % (curID, siteNum, releaseDate, sceneNum, photoIdx), name='%s/#%d[%s][%s] %s' % (titleNoFormatting, sceneNum, actorNames, studio, displayDate), score=score, lang=lang))
+                                results.Append(MetadataSearchResult(id='%s|%d|%s|%d|%d' % (curID, siteNum, releaseDate, sceneNum, photoIdx), name='%s[%s]/#%d[%s][%s] %s' % (titleNoFormatting, resultType, sceneNum, actorNames, studio, displayDate), score=score, lang=lang))
                     except:
                         pass
                 else:
                     if score == 80:
                         count += 1
-                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+                        temp.append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, resultType, displayDate), score=score, lang=lang))
                     else:
-                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
+                        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, resultType, displayDate), score=score, lang=lang))
 
         googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
         for movieURL in googleResults:
@@ -217,7 +218,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         splitScene = True
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1/text()')[0], siteNum).strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1/text()')[0].strip(), siteNum)
     if splitScene:
         metadata.title = '%s [Scene %d]' % (metadata.title, sceneNum)
 
@@ -231,6 +232,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         summary = ''
     metadata.summary = summary
 
+    # Director(s)
+    directorElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
+    for directorName in directorElement:
+        director = metadata.directors.new()
+        name = directorName.strip()
+        director.name = name
+
+    # Producer(s)
+    producerElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
+    for producerName in producerElement:
+        producer = metadata.producers.new()
+        name = producerName.strip()
+        producer.name = name
+
     # Studio
     try:
         studio = detailsPageElements.xpath('//li[contains(., "Studio:")]/a/text()')[0].strip()
@@ -241,11 +256,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
+    metadata.collections.add(studio)
     try:
         tagline = re.sub(r'\(.*\)', '', detailsPageElements.xpath('//h2/a[@label="Series"]/text()')[0].strip().split('"')[1]).strip()
+        tagline = PAutils.parseTitle(tagline, siteNum)
+
         metadata.tagline = tagline
         metadata.collections.add(tagline)
-        metadata.collections.add(studio)
     except:
         if splitScene:
             metadata.collections.add(PAutils.parseTitle(detailsPageElements.xpath('//h1/text()')[0], siteNum).strip())
@@ -277,9 +294,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         # Fallback
         if not actors:
-            actors = detailsPageElements.xpath('//div[contains(., "Starring")]/a')
+            actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
     else:
-        actors = detailsPageElements.xpath('//div[contains(., "Starring")]/a')
+        actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
 
     for actorLink in actors:
         actorName = actorLink.text_content().split('(')[0].strip()
@@ -293,16 +310,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//div[@class="boxcover-container"]/a/img/@src'
+        '//div[@class="boxcover-container"]/a/img/@src',
+        '//div[@class="boxcover-container"]/a/@href'
     ]
 
     try:
         for xpath in xpaths:
             art.append(detailsPageElements.xpath(xpath)[0])
+    except:
+        pass
 
+    try:
         if splitScene:
             splitScenes = '//div[@class="row"][.//div[@class="row"]][.//a[@rel="scenescreenshots"]][%d]//a/@href' % (sceneIndex + 1)
             art.extend(detailsPageElements.xpath(splitScenes))
+        else:
+            scenes = '//div[@class="row"][.//div[@class="row"]][.//a[@rel="scenescreenshots"]]//div[@class="row"]//a/@href'
+            art.extend(detailsPageElements.xpath(scenes))
     except:
         pass
 
