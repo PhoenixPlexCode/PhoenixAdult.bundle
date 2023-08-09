@@ -87,7 +87,7 @@ class PhoenixActors:
                             if gender == 'male':
                                 continue
                     elif Prefs['gender_enable']:
-                        gender = genderCheck(actorName, metadata)
+                        gender = genderCheck(actorName)
                         Log('Gender: %s' % gender)
                         if gender == 'male':
                             continue
@@ -147,7 +147,7 @@ def actorDBfinder(actorName, metadata):
     return actorPhotoURL, gender
 
 
-def genderCheck(actorName, metadata):
+def genderCheck(actorName):
     actorEncoded = urllib.quote(actorName)
     gender = ''
 
@@ -157,7 +157,6 @@ def genderCheck(actorName, metadata):
     actorSearch = HTML.ElementFromString(req.text)
     actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
     actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
-    # actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
 
     if actorResults:
         score = Util.LevenshteinDistance(actorName.lower(), actorResults[0].text_content().strip().lower()) + 1
@@ -169,9 +168,6 @@ def genderCheck(actorName, metadata):
             if resultScore != 0:
                 if actorName.lower() in actorAlias[idx].text_content().lower():
                     resultScore = resultScore - 1
-
-                if metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
-                    resultScore = 0
 
             if resultScore == score:
                 results.append(actor)
