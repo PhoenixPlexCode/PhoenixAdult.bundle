@@ -87,7 +87,7 @@ class PhoenixActors:
                             if gender == 'male':
                                 continue
                     elif Prefs['gender_enable']:
-                        gender = genderCheck(actorName, metadata)
+                        gender = genderCheck(actorName)
                         Log('Gender: %s' % gender)
                         if gender == 'male':
                             continue
@@ -102,7 +102,7 @@ class PhoenixActors:
 
 
 def actorDBfinder(actorName, metadata):
-    actorEncoded = urllib.quote(actorName)
+    actorEncoded = urllib.quote(re.sub(r'(?<=\w)\.\s(?=\w\.)', '', actorName).replace('.', ''))
 
     actorPhotoURL = ''
     databaseName = ''
@@ -147,8 +147,8 @@ def actorDBfinder(actorName, metadata):
     return actorPhotoURL, gender
 
 
-def genderCheck(actorName, metadata):
-    actorEncoded = urllib.quote(actorName)
+def genderCheck(actorName):
+    actorEncoded = urllib.quote(re.sub(r'(?<=\w)\.\s(?=\w\.)', '', actorName).replace('.', ''))
     gender = ''
 
     url = 'http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded
@@ -290,7 +290,7 @@ def getFromBabesandStars(actorName, actorEncoded, metadata):
 def getFromIAFD(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
     gender = ''
-    req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded)
+    req = PAutils.HTTPRequest('http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded.replace('.', ''))
 
     actorSearch = HTML.ElementFromString(req.text)
     actorThumbs = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[1]//a')
