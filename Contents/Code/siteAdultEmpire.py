@@ -231,6 +231,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         summary = ''
     metadata.summary = summary
 
+    # Director(s)
+    directorElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
+    for directorName in directorElement:
+        director = metadata.directors.new()
+        name = directorName.strip()
+        director.name = name
+
+    # Producer(s)
+    producerElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
+    for producerName in producerElement:
+        producer = metadata.producers.new()
+        name = producerName.strip()
+        producer.name = name
+
     # Studio
     try:
         studio = detailsPageElements.xpath('//li[contains(., "Studio:")]/a/text()')[0].strip()
@@ -241,11 +255,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
+    metadata.collections.add(studio)
     try:
         tagline = re.sub(r'\(.*\)', '', detailsPageElements.xpath('//h2/a[@label="Series"]/text()')[0].strip().split('"')[1]).strip()
+        tagline = PAutils.parseTitle(tagline, siteNum)
+
         metadata.tagline = tagline
         metadata.collections.add(tagline)
-        metadata.collections.add(studio)
     except:
         if splitScene:
             metadata.collections.add(PAutils.parseTitle(detailsPageElements.xpath('//h1/text()')[0], siteNum).strip())
@@ -293,16 +309,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//div[@class="boxcover-container"]/a/img/@src'
+        '//div[@class="boxcover-container"]/a/img/@src',
+        '//div[@class="boxcover-container"]/a/@href'
     ]
 
     try:
         for xpath in xpaths:
             art.append(detailsPageElements.xpath(xpath)[0])
+    except:
+        pass
 
+    try:
         if splitScene:
             splitScenes = '//div[@class="row"][.//div[@class="row"]][.//a[@rel="scenescreenshots"]][%d]//a/@href' % (sceneIndex + 1)
             art.extend(detailsPageElements.xpath(splitScenes))
+        else:
+            scenes = '//div[@class="row"][.//div[@class="row"]][.//a[@rel="scenescreenshots"]]//div[@class="row"]//a/@href'
+            art.extend(detailsPageElements.xpath(scenes))
     except:
         pass
 
