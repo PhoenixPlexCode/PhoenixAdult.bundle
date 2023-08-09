@@ -405,6 +405,16 @@ def postParseTitle(output):
     # Override lowercase if last word
     output = re.sub(r'\S+$', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
 
+    if re.search(r'(,\sthe)(?=:|\s\()', output, re.IGNORECASE):
+        output = re.sub(r'(,\sthe)(?=:|\s\()', '', output, flags=re.IGNORECASE)
+        output = 'The ' + output
+    elif re.search(r'(,\sthe)$', output, re.IGNORECASE):
+        output = re.sub(r'(,\sthe)$', '', output, flags=re.IGNORECASE)
+        output = 'The ' + output
+    elif re.search(r'(,\sA)$', output, re.IGNORECASE):
+        output = re.sub(r'(,\sA)$', '', output, flags=re.IGNORECASE)
+        output = 'A ' + output
+
     for value in replace:
         output = output.replace(value[0], value[1])
 
