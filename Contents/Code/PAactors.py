@@ -87,7 +87,7 @@ class PhoenixActors:
                             if gender == 'male':
                                 continue
                     elif Prefs['gender_enable']:
-                        gender = genderCheck(urllib.quote(actorName))
+                        gender = genderCheck(actorName, metadata)
                         Log('Gender: %s' % gender)
                         if gender == 'male':
                             continue
@@ -147,15 +147,43 @@ def actorDBfinder(actorName, metadata):
     return actorPhotoURL, gender
 
 
-def genderCheck(actorEncoded):
+def genderCheck(actorName, metadata):
+    actorEncoded = urllib.quote(actorName)
     gender = ''
 
     url = 'http://www.iafd.com/results.asp?searchtype=comprehensive&searchstring=' + actorEncoded
     req = PAutils.HTTPRequest(url)
+
     actorSearch = HTML.ElementFromString(req.text)
-    actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
-    if actorPageURL:
-        gender = 'male' if 'gender=m' in actorPageURL[0] else 'female'
+    actorResults = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[2]//a')
+    actorAlias = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//td[@class="text-left"]')
+    # actorPageURL = actorSearch.xpath('//table[@id="tblFem" or @id="tblMal"]//tbody//a/@href')
+
+    if actorResults:
+        score = Util.LevenshteinDistance(actorName.lower(), actorResults[0].text_content().strip().lower()) + 1
+
+        results = []
+        for idx, actor in enumerate(actorResults, 0):
+            resultScore = Util.LevenshteinDistance(actorName.lower(), actor.text_content().strip().lower())
+
+            if resultScore != 0:
+                if actorName.lower() in actorAlias[idx].text_content().lower():
+                    resultScore = resultScore - 1
+
+                if metadata.studio.replace(' ', '').lower() in actorAlias[idx].text_content().replace(' ', '').lower():
+                    resultScore = 0
+
+            if resultScore == score:
+                results.append(actor)
+            elif resultScore < score:
+                score = resultScore
+                results = [actor]
+
+        if results:
+            actor = random.choice(results)
+            actorPageURL = actor.xpath('./@href')[0]
+
+        gender = 'male' if 'gender=m' in actorPageURL else 'female'
 
     return gender
 
