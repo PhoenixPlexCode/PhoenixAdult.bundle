@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[@class="list-page-grid-container"]//div[@class="grid-item"]'):
-        titleNoFormatting = searchResult.xpath('.//span[@class="overlay-inner"]')[0].text_content().strip()
+        titleNoFormatting = PAutils.parseTitle(searchResult.text_content().strip(), siteNum)
         curID = PAutils.Encode(searchResult.xpath('.//a[@class="boxcover"]/@href')[0])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
@@ -25,7 +25,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//h1[@class="description"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]')[0].text_content().strip(), siteNum)
 
     # Summary
     try:
