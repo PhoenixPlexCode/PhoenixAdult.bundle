@@ -131,6 +131,7 @@ ActorsReplace = {
     'Jenna Ross': ['Jenna J Ross', 'Jenna J. Ross'],
     'Jennifer Bliss': ['Jenni Bliss', 'Jennifer Matthews'],
     'Jenny Fer': ['Jenny Ferri'],
+    'Jerry Kovacs': ['Jerry Kovak'],
     'Jessi Gold': ['Jaggie Gold', 'Jassie Gold'],
     'Jessica Foxx': ['Jessica Blue', 'Jessica Cute'],
     'Jewel De\'Nyle': ['Jewel De Nyle', 'Jewel DeNyle', 'Jewel Denyle'],
