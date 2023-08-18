@@ -15,7 +15,7 @@ def search(results, lang, siteNum, searchData):
 
             req = PAutils.HTTPRequest(sceneURL)
             scenePageElements = HTML.ElementFromString(req.text)
-            titleNoFormatting = scenePageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip()
+            titleNoFormatting = scenePageElements.xpath('//h1[contains(@class,"watch__title")]')[0].text_content().strip()
             Log('Title: %s' % titleNoFormatting)
             releaseDate = ''
             Log('Scene found: %s | %s | %s' % (curID, titleNoFormatting, releaseDate))
@@ -59,11 +59,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="watchpage-title"]')[0].text_content().strip(), siteNum)
-
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[contains(@class,"watch__title")]')[0].text_content().strip().split('featuring')[0], siteNum)
     # Summary
     try:
-        metadata.summary = detailsPageElements.xpath('//div[@class="scene-description__row"]/dt[contains(., "Description")]/../dd')[0].text_content()
+        metadata.summary = detailsPageElements.xpath('//div[contains(@class,"text-mob-more")]')[0].text_content()
     except:
         pass
 
@@ -72,19 +71,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = detailsPageElements.xpath('//a[@class="watchpage-studioname"]/text()')[0].strip()
+    tagline = detailsPageElements.xpath('//div[contains(@class,"genres-list")]/a/text()')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    releaseDate = detailsPageElements.xpath('//span[@class="scene-description__detail"]//a/text()')[0]
+    releaseDate = detailsPageElements.xpath('//i[contains(@class,"bi-calendar3")]/text()')[0]
     date_object = parse(releaseDate)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//dd/a[contains(@href, "/niche/")]')
+    genres = detailsPageElements.xpath('//div[contains(@class, "genres-list")]/a[contains(@href, "/genre/")]')
 
     for genreLink in genres:
         genreName = genreLink.text_content().title()
@@ -92,14 +91,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actors
     movieActors.clearActors()
-    actors = detailsPageElements.xpath('//dd/a[contains(@href, "model") and not(contains(@href, "forum"))]')
+    actors = detailsPageElements.xpath('//a[contains(@href, "/model/") and not(contains(@href, "forum"))]')
     for actorLink in actors:
         actorName = actorLink.text_content()
-
         actorPageURL = actorLink.get('href')
         req = PAutils.HTTPRequest(actorPageURL)
         actorPage = HTML.ElementFromString(req.text)
-        actorPhotoURL = actorPage.xpath('//div[@class="model--avatar"]//img/@src')[0]
+        actorPhotoURL = actorPage.xpath('//div[contains(@class,"model")]//img//@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
@@ -115,11 +113,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Posters/Background
-    art.append(detailsPageElements.xpath('//div[@id="player"]/@style')[0].split('url(')[1].split(')')[0])
-
-    for img in detailsPageElements.xpath('//div[contains(@class, "thumbs2 gallery")]//img/@src'):
-        art.append(img.split('?')[0])
-        art.append(img)
+    art.append(detailsPageElements.xpath('//div[contains(@class,"watch__video")]//video/@data-poster')[0])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
