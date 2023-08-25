@@ -8,37 +8,19 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(url, 'HEAD')
     if req and req.ok:
         curID = PAutils.Encode(url)
-
         releaseDate = searchData.dateFormat() if searchData.date else ''
-
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s]' % (url, PAsearchSites.getSearchSiteName(siteNum)), score=100, lang=lang))
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="update_details"]'):
+    for searchResult in searchResults.xpath('//div[@class="grid-item"]'):
+        releaseDate = titleNoFormatting = ''
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         try:
-            titleNoFormatting = searchResult.xpath('.//span[@class="showMobile"]/a')[0].text_content().strip()
+            titleNoFormatting = searchResult.xpath('./a/img/@alt')[0].strip()
         except:
-            titleElement = searchResult.xpath('./a')
-            if len(titleElement) >= 2:
-                titleNoFormatting = titleElement[1].text_content().strip()
-            elif len(titleElement) == 1:
-                titleNoFormatting = titleElement[0].text_content().strip()
-            else:
-                continue
-
-        releaseDate = searchResult.xpath('.//div[@class="cell update_date"]')[0].text_content().strip()
-        if not releaseDate:
-            try:
-                releaseDate = str(searchResult.xpath('.//div[@class="cell update_date"]/comment()')[0]).strip()
-                releaseDate = releaseDate[releaseDate.find('OFF') + 4:releaseDate.find('D', releaseDate.find('OFF') + 4)].strip()
-            except:
-                pass
-
-        if releaseDate:
-            releaseDate = parse(releaseDate).strftime('%Y-%m-%d')
+            Log("Error fetching title")
 
         if searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
@@ -60,10 +42,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//span[@class="title_bar_hilite"]')[0].text_content().strip()
+    metadata.title = detailsPageElements.xpath('//div[@class="movie_title"]')[0].text_content().strip()
 
     # Summary
-    metadata.summary = detailsPageElements.xpath('//span[@class="update_description"]')[0].text_content().strip()
+    metadata.summary = detailsPageElements.xpath('//div[@class="player-scene-description"]/span[contains(text(), "Description:")]/..')[0].text_content().replace('Description: ', '').strip()
 
     # Studio
     metadata.studio = 'Jules Jordan'
@@ -75,7 +57,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     try:
-        dvdName = detailsPageElements.xpath('//span[@class="update_dvds"]')[0].text_content().replace('Movie:', '').replace('Feature: ', '').strip()
+        dvdName = detailsPageElements.xpath('//div[@class="player-scene-description"]//span[contains(text(), "Movie:")]/..')[0].text_content().replace('Movie:', '').replace('Feature: ', '').strip()
         metadata.collections.add(dvdName)
     except:
         pass
@@ -83,12 +65,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Release Date
     if sceneDate:
         date_object = parse(sceneDate)
-        metadata.originally_available_at = date_object
-        metadata.year = metadata.originally_available_at.year
+    else:
+        try:
+            date_object = parse(detailsPageElements.xpath('//div[@class="player-scene-description"]//span[contains(text(), "Date:")]/..')[0].text_content().replace('Date: ', '').strip())
+        except:
+            date_object = None
+            Log("No date found")
+    metadata.originally_available_at = date_object
+    metadata.year = metadata.originally_available_at.year
 
     # Genres
     movieGenres.clearGenres()
-    for genreLink in detailsPageElements.xpath('//span[@class="update_tags"]/a'):
+    for genreLink in detailsPageElements.xpath('//span[contains(text(), "Categories")]/a'):
         genreName = genreLink.text_content().strip().lower()
 
         movieGenres.addGenre(genreName)
@@ -98,7 +86,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if PAsearchSites.getSearchSiteName(siteNum) == "GirlGirl":
         actors = detailsPageElements.xpath('//div[@class="item"]/span/div/a')
     else:
-        actors = detailsPageElements.xpath('//div[@class="backgroundcolor_info"]/span[@class="update_models"]/a')
+        actors = detailsPageElements.xpath('//div[@class="player-scene-description"]/span[contains(text(), "Starring:")]/..//a')
 
     if actors:
         for actorLink in actors:
@@ -119,87 +107,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     try:
-        bigScript = detailsPageElements.xpath('//script[contains(text(), "df_movie")]')[0].text_content()
-        alpha = bigScript.find('useimage = "') + 12
-        omega = bigScript.find('";', alpha)
-        background = bigScript[alpha:omega]
-        if 'http' not in background:
-            background = PAsearchSites.getSearchBaseURL(siteNum) + background
-        art.append(background)
+        videoPoster = detailsPageElements.xpath('//video[@id="video-player"]/@poster')[0]
+        art.append(videoPoster)
     except:
-        pass
+        Log("No in-page poster found")
 
     # Slideshow of images from the Search page
     try:
-        bigScript = detailsPageElements.xpath('//script[contains(text(), "df_movie")]')[0].text_content()
-        alpha = bigScript.find('setid:"') + 7
-        omega = bigScript.find('",', alpha)
-        setID = bigScript[alpha:omega]
-
         req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + urllib.quote(metadata.title))
         searchPageElements = HTML.ElementFromString(req.text)
-        posterUrl = searchPageElements.xpath('//img[@id="set-target-%s"]/@src' % setID)[0]
-        if 'http' not in posterUrl:
-            posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
-
-        art.append(posterUrl)
         for i in range(0, 7):
             try:
-                posterUrl = searchPageElements.xpath('//img[@id="set-target-%s"]/@src%d_1x' % (setID, i))[0]
+                posterUrl = searchPageElements.xpath('//img[contains(@id,"set-target")]/@src%d_1x' % i)[0]
                 if 'http' not in posterUrl:
                     posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
 
                 art.append(posterUrl)
             except:
-                pass
+                Log("Error fetching photo from Slideshow")
     except:
-        pass
-
-    # Photos page
-    try:
-        photoPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Photos"]')[0].get('href')
-        req = PAutils.HTTPRequest(photoPageURL)
-        photoPageElements = HTML.ElementFromString(req.text)
-        bigScript = photoPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
-        ptx1600starts = bigScript.find('1600')
-        ptx1600ends = bigScript.find('togglestatus', ptx1600starts)
-        ptx1600 = bigScript[ptx1600starts:ptx1600ends]
-        photos = []
-        imageCount = ptx1600.count('ptx["1600"][')
-        for i in range(1, imageCount + 1):
-            alpha = ptx1600.find('{src: "', omega) + 7
-            omega = ptx1600.find('"', alpha)
-            posterUrl = ptx1600[alpha:omega]
-            if 'http' not in posterUrl:
-                posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
-            photos.append(posterUrl)
-        for x in range(10):
-            art.append(photos[random.randint(1, imageCount)])
-    except:
-        pass
-
-    # Vidcaps page
-    try:
-        capsPageURL = detailsPageElements.xpath('//div[@class="cell content_tab"]/a[text()="Caps"]')[0].get('href')
-        req = PAutils.HTTPRequest(capsPageURL)
-        capsPageElements = HTML.ElementFromString(req.text)
-        bigScript = capsPageElements.xpath('//script[contains(text(), "var ptx")]')[0].text_content()
-        ptxjpgstarts = bigScript.find('ptx["jpg"] = {};')
-        ptxjpgends = bigScript.find('togglestatus', ptxjpgstarts)
-        ptxjpg = bigScript[ptxjpgstarts:ptxjpgends]
-        vidcaps = []
-        imageCount = ptxjpg.count('ptx["jpg"][')
-        for i in range(1, imageCount + 1):
-            alpha = ptxjpg.find('{src: "', omega) + 7
-            omega = ptxjpg.find('"', alpha)
-            posterUrl = ptxjpg[alpha:omega]
-            if 'http' not in posterUrl:
-                posterUrl = PAsearchSites.getSearchBaseURL(siteNum) + posterUrl
-            vidcaps.append(posterUrl)
-        for x in range(10):
-            art.append(vidcaps[random.randint(1, imageCount)])
-    except:
-        pass
+        Log("Error fetching photo from Slideshow")
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
