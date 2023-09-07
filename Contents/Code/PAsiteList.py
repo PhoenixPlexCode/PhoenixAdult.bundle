@@ -9,7 +9,6 @@ import sitePrivate
 import networkFullPornNetwork
 import networkSteppedUp
 import networkGammaEnt
-import networkDogfart
 import siteJulesJordan
 import networkPerfectGonzo
 import networkPornFidelity
@@ -602,30 +601,30 @@ searchSites = {
     405: ('Female Fake Taxi', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
     406: ('Fake Driving School', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
     407: ('Fake Hostel', 'https://www.fakehub.com', 'https://site-api.project1service.com'),
-    408: ('Dogfart', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    409: ('BlacksOnBlondes', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    410: ('CuckoldSessions', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    411: ('GloryHole', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    412: ('BlacksOnCougars', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    413: ('WeFuckBlackGirls', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    414: ('WatchingMyMomGoBlack', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    415: ('InterracialBlowbang', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    416: ('CumBang', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    417: ('InterracialPickups', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    418: ('WatchingMyDaughterGoBlack', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    419: ('ZebraGirls', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    420: ('GloryHoleInitiations', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    421: ('DogfartBehindTheScenes', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    422: ('BlackMeatWhiteFeet', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    423: ('SpringThomas', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    424: ('KatieThomas', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    425: ('RuthBlackwell', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    426: ('CandyMonroe', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    427: ('WifeWriting', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    428: ('BarbCummings', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    429: ('TheMinion', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    430: ('BlacksOnBoys', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
-    431: ('GloryholesAndHandjobs', 'https://www.dogfartnetwork.com', '/tour/search.php?search='),
+    408: ('Dogfart', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    409: ('BlacksOnBlondes', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    410: ('CuckoldSessions', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    411: ('GloryHole', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    412: ('BlacksOnCougars', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    413: ('WeFuckBlackGirls', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    414: ('WatchingMyMomGoBlack', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    415: ('InterracialBlowbang', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    416: ('CumBang', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    417: ('InterracialPickups', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    418: ('WatchingMyDaughterGoBlack', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    419: ('ZebraGirls', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    420: ('GloryHoleInitiations', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    421: ('DogfartBehindTheScenes', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    422: ('BlackMeatWhiteFeet', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    423: ('SpringThomas', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    424: ('KatieThomas', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    425: ('RuthBlackwell', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    426: ('CandyMonroe', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    427: ('WifeWriting', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    428: ('BarbCummings', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    429: ('TheMinion', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    430: ('BlacksOnBoys', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    431: ('GloryholesAndHandjobs', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     432: ('Jules Jordan', 'https://www.julesjordan.com', '/trial/search.php?query='),
     433: ('DDFNetwork', 'https://ddfnetwork.com', '/videos/freeword/'),
     434: ('Sandys Fantasies', 'https://ddfnetwork.com', '/videos/freeword/'),
@@ -2324,7 +2323,7 @@ def getProviderFromSiteNum(siteNum):
 
         # DogfartNetwork
         elif (408 <= siteNum <= 431):
-            provider = networkDogfart
+            provider = networkGammaEntOther
 
         # FakeHub
         elif siteNum == 340 or (397 <= siteNum <= 407):

@@ -109,7 +109,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Title
     title = None
-    if sceneType == 'scenes' and len(scenesPagesElements) > 1:
+    if 'dogfart' in PAsearchSites.getSearchBaseURL(siteNum).lower():
+        title = '%s from %s.com' % (PAutils.parseTitle(detailsPageElements['title'], siteNum), detailsPageElements['serie_name'])
+    elif sceneType == 'scenes' and len(scenesPagesElements) > 1:
         for idx, scene in scenesPagesElements:
             if scene['clip_id'] == sceneID:
                 title = '%s, Scene %d' % (detailsPageElements['title'], idx)
