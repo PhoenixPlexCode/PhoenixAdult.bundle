@@ -1491,7 +1491,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - WOW Orgasms
   - X Angels
 + #### Teeny Taboo | ✅
-+ #### The Score Group | ❌ - **Direct URL**
++ #### The Score Group | ✅
   - 18 Eighteen
   - 50 Plus MILFS
   - 60 Plus MILFS
