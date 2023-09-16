@@ -50,7 +50,7 @@ def search(results, lang, siteNum, searchData):
             dateNotFound = False
             for searchResult in searchResults.xpath("//div[contains(concat(' ',normalize-space(@class),' '),' card-scene ')]"):
 
-                titleNoFormatting = searchResult.xpath(".//div[@class='card-scene__text']/a")[0].text_content().strip()
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath(".//div[@class='card-scene__text']/a")[0].text_content().strip(), siteNum)
                 sceneDate = searchResult.xpath('.//div[@class="label label--time"]')[1].text_content().strip()
                 sceneDateObj = dateFromIso(sceneDate)
 
@@ -71,12 +71,9 @@ def search(results, lang, siteNum, searchData):
                         # take off some points if we don't match the title search params
                         score = score - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-                    Log('Scene: %s %s (%s%%)' % (sceneDate, titleNoFormatting, score))
+                    # Log('Scene: %s %s (%s%%)' % (sceneDate, titleNoFormatting, score))
 
-                    # scene names can be obscure so output the date too
-                    name = '%s %s' % (sceneDate, titleNoFormatting)
-
-                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=name, score=score, lang=lang))
+                    results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), sceneDate), score=score, lang=lang))
 
         # if we have a date, there's a far better chance of a decent match than the title search, so get out now
         return results
@@ -93,7 +90,7 @@ def search(results, lang, siteNum, searchData):
         detailsPageElements = HTML.ElementFromString(req.text)
 
         curID = PAutils.Encode(url)
-        titleNoFormatting = getTitle(detailsPageElements)
+        titleNoFormatting = getTitle(detailsPageElements, siteNum)
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name=titleNoFormatting, score=100, lang=lang))
 
@@ -105,7 +102,7 @@ def search(results, lang, siteNum, searchData):
 
         if not searchResults.xpath('//h1[contains(@class, "section__title")]'):
             # if there is only one result returned by the search function it automatically redirects to the video page
-            titleNoFormatting = getTitle(searchResults)
+            titleNoFormatting = getTitle(searchResults, siteNum)
 
             url = searchResults.xpath('//a[contains(@class, "__pagination_button--more")]/@href')[0]
             curID = PAutils.Encode(url)
@@ -141,7 +138,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = getTitle(detailsPageElements)
+    metadata.title = getTitle(detailsPageElements, siteNum)
 
     # Summary
     description = detailsPageElements.xpath('//div[text()="Description:"]/following-sibling::div')
@@ -204,7 +201,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     return metadata
 
 
-def getTitle(htmlElements):
-    titleNoFormatting = htmlElements.xpath('//title')[0].text_content().strip()
+def getTitle(htmlElements, siteNum):
+    titleNoFormatting = PAutils.parseTitle(htmlElements.xpath('//title')[0].text_content().strip(), siteNum)
 
     return re.sub(r' - PornWorld$', '', titleNoFormatting)

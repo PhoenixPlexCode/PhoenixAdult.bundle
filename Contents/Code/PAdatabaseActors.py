@@ -5587,8 +5587,13 @@ ActorsReplaceStudios = {
         'Rose Winters': ['Rose'],
     },
     56: {  # Score Group
+        'Bess Breast': ['Bess'],
+        'Gracie Gates': ['Gracie'],
+        'Leana Lovings': ['Leana'],
         'Luna Fae': ['Luna'],
         'Mella Megan': ['Mella'],
+        'Reese Robbins': ['Reese'],
+        'Siri Dahl': ['Siri'],
     },
     57: {  # Desperate Amateurs
         'Stephie Staar': ['Stephie'],
