@@ -1534,6 +1534,7 @@ ActorsReplaceStudios = {
         'Jennifer Stone': ['Jeniffer Stone'],
         'Mishelle Klein': ['Molly'],
         'Sapphire Blue': ['Sapphire'],
+        'Siri Dahl': ['Siri'],
     },
     22: {  # Reality Kings
         'Agness Miller': ['Agness'],
