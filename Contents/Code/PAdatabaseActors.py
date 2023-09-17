@@ -1534,6 +1534,7 @@ ActorsReplaceStudios = {
         'Jennifer Stone': ['Jeniffer Stone'],
         'Mishelle Klein': ['Molly'],
         'Sapphire Blue': ['Sapphire'],
+        'Siri Dahl': ['Siri'],
     },
     22: {  # Reality Kings
         'Agness Miller': ['Agness'],
@@ -5587,8 +5588,13 @@ ActorsReplaceStudios = {
         'Rose Winters': ['Rose'],
     },
     56: {  # Score Group
+        'Bess Breast': ['Bess'],
+        'Gracie Gates': ['Gracie'],
+        'Leana Lovings': ['Leana'],
         'Luna Fae': ['Luna'],
         'Mella Megan': ['Mella'],
+        'Reese Robbins': ['Reese'],
+        'Siri Dahl': ['Siri'],
     },
     57: {  # Desperate Amateurs
         'Stephie Staar': ['Stephie'],

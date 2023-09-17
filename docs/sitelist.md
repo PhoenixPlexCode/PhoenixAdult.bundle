@@ -333,6 +333,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - BCM.XXX
   - Britney Amber
   - Busted
+  - Bush
   - Cheese.XXX
   - Cherry Pimps
   - Cherry Spot
@@ -341,6 +342,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Drilled.XXX
   - Femme
   - Fresh
+  - Ginger
   - Petite.XXX
   - Taboo (formerly Family.XXX)
   - Wild on Cam
@@ -424,7 +426,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Scenes
   - Movies
   - Movie Scene
-+ #### DDFNetwork | ✅
++ #### PornWorld | ✅
   - Cherry Jul
   - DDF Babes
   - DDF Hardcore
@@ -432,9 +434,10 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - DDF Xtreme
   - Eve Angel Official
   - Hairy Twatter
+  - PornWorld
   - Sandy's Fantasies
   - Sex Video Casting
-+ #### DDFNetwork Other Sites | ✅
++ #### PornWorld Other Sites | ✅
   - 1By-Day
   - DDF Busty
   - Euro Girls on Girls
@@ -1189,6 +1192,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Benefit Monkey
   - BJRAW
   - ComeInside - **Actor Name Only**
+  - Divine-DD
   - GotFilled
   - Inserted
   - JAV888
@@ -1503,6 +1507,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Porn Mega Load
   - Scoreland
   - Scoreland2
+  - ScoreVideos
   - XL Girls
 + #### Thick Cash Network | ✅ - **Actor only, Date Add**
   - Ebony Tugs

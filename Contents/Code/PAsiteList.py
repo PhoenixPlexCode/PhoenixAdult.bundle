@@ -1837,6 +1837,10 @@ searchSites = {
     1741: ('Colette', 'https://www.colette.com', '/videos/'),
     1742: ('SINematica', 'https://sinematica.com', '/Scene/MemberSearch?q='),
     1743: ('Work Me Harder', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
+    1744: ('ScoreVideos', 'https://www.scorevideos.com', '/porn-videos/'),
+    1745: ('Bush', 'https://www.cherrypimps.com', '/search.php?query='),
+    1746: ('Ginger', 'https://www.cherrypimps.com', '/search.php?query='),
+    1747: ('Divine-DD', 'https://www.divine-dd.com', '/search/'),
 }
 
 abbreviations = (
@@ -1899,6 +1903,15 @@ abbreviations = (
     ('^clip ', 'AnalVids '),
     ('^clubseventeen ', 'ClubSweethearts '),
     ('^cps ', 'CherryPimps '),
+    ('^cpbush ', 'Bush '),
+    ('^cpbusted ', 'Busted '),
+    ('^cpcheese ', 'Cheese.XXX '),
+    ('^cpconfessions ', 'Confessions.XXX '),
+    ('^cpcucked ', 'Cucked.XXX '),
+    ('^cpfresh ', 'Fresh '),
+    ('^cpginger ', 'Ginger '),
+    ('^cppetite ', 'Petite.XXX '),
+    ('^cptaboo ', 'Taboo '),
     ('^css ', 'CzechStreets '),
     ('^cuf ', 'CumFiesta '),
     ('^cws ', 'CzechWifeSwap '),
@@ -1912,6 +1925,7 @@ abbreviations = (
     ('^dm ', 'DirtyMasseur '),
     ('^dnj ', 'DaneJones '),
     ('^dpg ', 'DigitalPlayground '),
+    ('^drilled ', 'Drilled.XXX '),
     ('^ds ', 'ScrewMeToo '),
     ('^dsw ', 'DaughterSwap '),
     ('^dwc ', 'DirtyWivesClub '),
@@ -2600,7 +2614,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkIntersec
 
         # Cherry Pimps
-        elif (783 <= siteNum <= 792) or (1052 <= siteNum <= 1056):
+        elif (783 <= siteNum <= 792) or (1052 <= siteNum <= 1056) or (1745 <= siteNum <= 1746):
             provider = networkCherryPimps
 
         # Wicked
@@ -2900,7 +2914,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteWoodmanCastingX
 
         # ScoreGroup
-        elif (1012 <= siteNum <= 1021) or (1344 <= siteNum <= 1345):
+        elif (1012 <= siteNum <= 1021) or (1344 <= siteNum <= 1345) or siteNum == 1744:
             provider = networkScoreGroup
 
         # TwoTGirls
@@ -3167,7 +3181,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteJAVDatabase
 
         # Radical Cash
-        elif (1675 <= siteNum <= 1685):
+        elif (1675 <= siteNum <= 1685) or siteNum == 1747:
             provider = networkRadicalCash
 
         # Teeny Taboo
