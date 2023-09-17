@@ -48,7 +48,7 @@ def search(results, lang, siteNum, searchData):
         if req:
             searchResults = req.json()['result']
             for searchResult in searchResults:
-                titleNoFormatting = searchResult['title'].replace('ï¿½', '\'')
+                titleNoFormatting = PAutils.parseTitle(searchResult['title'].replace('ï¿½', '\''), siteNum)
                 releaseDate = parse(searchResult['dateReleased']).strftime('%Y-%m-%d')
                 curID = searchResult['id']
                 siteName = searchResult['brand'].title()
