@@ -1840,6 +1840,7 @@ searchSites = {
     1744: ('ScoreVideos', 'https://www.scorevideos.com', '/porn-videos/'),
     1745: ('Bush', 'https://www.cherrypimps.com', '/search.php?query='),
     1746: ('Ginger', 'https://www.cherrypimps.com', '/search.php?query='),
+    1747: ('Divine-DD', 'https://www.divine-dd.com', '/search/'),
 }
 
 abbreviations = (
@@ -3180,7 +3181,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteJAVDatabase
 
         # Radical Cash
-        elif (1675 <= siteNum <= 1685):
+        elif (1675 <= siteNum <= 1685) or siteNum == 1747:
             provider = networkRadicalCash
 
         # Teeny Taboo
