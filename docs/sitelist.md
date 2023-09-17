@@ -637,6 +637,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Rim 4k
   - Shame 4k
   - Sis
+  - Serve 4k
   - Stuck 4k
   - Tutor 4k
 + #### Hush Pass | ✅
