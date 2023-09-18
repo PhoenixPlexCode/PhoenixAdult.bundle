@@ -6033,7 +6033,7 @@ ActorsReplaceStudios = {
     67: {  # Data18
         'Anabelle Evans': ['Anabelle'],
     },
-    68: { # Mofos
+    68: {  # Mofos
         'Krystal Banks': ['Krystal'],
     },
 }
