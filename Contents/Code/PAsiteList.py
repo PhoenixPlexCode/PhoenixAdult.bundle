@@ -191,6 +191,7 @@ import networkWowNetwork
 import networkAuntJudys
 import siteColette
 import siteSINematica
+import networkThickCashOther
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1847,6 +1848,9 @@ searchSites = {
     1751: ('Hot Girls Raw', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1752: ('Its Anal', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1753: ('FK BTS', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1754: ('MilfAF', 'https://www.milfaf.com', '/models/'),
+    1755: ('Shady Spa', 'https://www.shadyspa.com', '/models/'),
+    1756: ('Breed Me', 'https://www.breedme.com', '/models/'),
 }
 
 abbreviations = (
@@ -3209,5 +3213,9 @@ def getProviderFromSiteNum(siteNum):
         # SINematica
         elif siteNum == 1742:
             provider = siteSINematica
+
+        # Thick Cash Other
+        elif (1754 <= siteNum <= 1756):
+            provider = networkThickCashOther
 
     return provider

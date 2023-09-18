@@ -1522,10 +1522,13 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Scoreland2
   - ScoreVideos
   - XL Girls
-+ #### Thick Cash Network | ✅ - **Actor only, Date Add**
++ #### Thick Cash Network | ✓ - **Actor only, Date Add**
+  - Breed Me
   - Ebony Tugs
   - Family Lust
+  - MilfAF
   - Over 40 Handjobs
+  - Shady Spa
   - Teen Tugs
 + #### Top Web Models | ✅
   - 2 Girls 1 Camera
