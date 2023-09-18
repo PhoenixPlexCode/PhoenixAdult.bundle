@@ -955,7 +955,7 @@ searchSites = {
     759: ('FamilyHookups', 'https://www.familyhookups.com', 'https://site-api.project1service.com'),
     760: ('Clips4Sale', 'https://www.clips4sale.com', '/studio/'),
     761: ('VogoV', 'https://vogov.com', '/search/?q='),
-    762: ('Ultrafilms', 'https://www.ultrafilms.xxx', '/?s='),
+    762: ('UltraFilms', 'https://www.ultrafilms.xxx', '/?s='),
     763: ('FuckingAwesome', 'https://fuckingawesome.com', '/search/videos/'),
     764: ('ToughLoveX', 'https://tour.toughlovex.com', '/search/'),
     765: ('CumLouder', 'https://www.cumlouder.com', '/search?q='),
@@ -2591,7 +2591,7 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 761:
             provider = siteVogoV
 
-        # Ultrafilms
+        # UltraFilms
         elif siteNum == 762:
             provider = siteUltrafilms
 
