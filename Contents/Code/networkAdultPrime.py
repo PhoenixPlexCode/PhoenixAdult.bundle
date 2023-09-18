@@ -127,13 +127,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//div[@class="video-wrapper update-video-wrapper"]//div/@style'
+        '//video[@id]/@poster'
     ]
 
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             if not img.startswith('http'):
-                img = img.split('(')[-1].replace(')', '')
+                img = img.split('(')[-1].split(')')[0]
 
             art.append(img)
 
@@ -190,4 +190,5 @@ skipGeneric = {
     'From couples having some passionate fun to hardcore threesomes',
     'Jim Slip follows the life of the luckiest man on Earth',
     'All the videos featured on YoungBusty',
+    'You can meet actual adult film stars on the streets of Prague',
 }
