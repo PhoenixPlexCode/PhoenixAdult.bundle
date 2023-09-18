@@ -1843,6 +1843,10 @@ searchSites = {
     1747: ('Divine-DD', 'https://www.divine-dd.com', '/search/'),
     1748: ('Serve 4K', 'https://vip4k.com', '/en/search/'),
     1749: ('Fan Fuckers', 'https://adultprime.com', '/studios/search?type='),
+    1750: ('Fill Up My Mom', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1751: ('Hot Girls Raw', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1752: ('Its Anal', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1753: ('FK BTS', 'https://www.filthykings.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -2696,7 +2700,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkGammaEntOther
 
         # Filthy Kings sites
-        elif 1257 <= siteNum <= 1262:
+        elif (1257 <= siteNum <= 1262) or (1750 <= siteNum <= 1753):
             provider = networkGammaEntOther
 
         # PJGirls
