@@ -1127,9 +1127,8 @@ ActorsReplaceStudios = {
         'Zena Little': ['Xenia'],
         'Zuzana Z': ['Jujana'],
     },
-    16: {  # Porn Pros
-        'Bailey Brooke': ['Bailey Brookes'],
-        'Scarlet Domingo': ['Scarlet'],
+    16: {  # BangBros
+        'Krystal Banks': ['Krystal'],
     },
     17: {  # Porndoe Premium
         'Scarlet Domingo': ['Scarlett D'],
@@ -5731,6 +5730,8 @@ ActorsReplaceStudios = {
         'Victoria Rae Black': ['Victoria Rae Black (aka Hadley)'],
     },
     63: {  # PornPros
+        'Bailey Brooke': ['Bailey Brookes'],
+        'Scarlet Domingo': ['Scarlet', 'Mia Scarlett'],
         'Sydnee Capri': ['Sydnee'],
         'Briella Bounce': ['Breilla'],
         'Kaylina Rose': ['Kaylina'],
@@ -6032,6 +6033,9 @@ ActorsReplaceStudios = {
     67: {  # Data18
         'Anabelle Evans': ['Anabelle'],
     },
+    68: {  # Mofos
+        'Krystal Banks': ['Krystal'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -6051,7 +6055,7 @@ ActorsStudioIndexes = {
     13: ['ManyVids'],
     14: ['Mylf'],
     15: ['Nubiles'],
-    16: ['Porn Pros'],
+    16: ['BangBros'],
     17: ['Porndoe Premium'],
     18: ['TeamSkeet'],
     19: ['Twistys'],
@@ -6103,6 +6107,7 @@ ActorsStudioIndexes = {
     65: ['Teeny Taboo'],
     66: ['SexMex'],
     67: ['Data18'],
+    68: ['Mofos'],
 }
 
 
