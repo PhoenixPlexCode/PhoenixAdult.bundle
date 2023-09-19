@@ -30,9 +30,11 @@ def search(results, lang, siteNum, searchData):
             image = PAutils.Encode(searchResult.xpath('.//img/@data-src')[0])
             curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, image), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s|%s' % (curID, siteNum, image, releaseDate), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 
@@ -40,6 +42,7 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
+    sceneDate = metadata_id[3]
     if not sceneURL.startswith('http'):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     req = PAutils.HTTPRequest(sceneURL)
@@ -51,13 +54,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     except:
         pass
 
+    # Summary
+    summary = detailsPageElements.xpath('//div[@class="video-description"]//div[@class="desc "]/p')
+    if summary:
+        metadata.summary = summary[0].text_content().strip()
+
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Collections / Tagline
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
@@ -67,10 +74,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Release Date
-    date = detailsPageElements.xpath('//div[@id="video-date"]')[0].text_content().strip()
+    date = detailsPageElements.xpath('//meta[@property="article:published_time"]/@content')
     if date:
-        date = date.replace('Date:', '').strip()
-        date_object = parse(date)
+        date_object = parse(date[0].strip())
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
+        date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
