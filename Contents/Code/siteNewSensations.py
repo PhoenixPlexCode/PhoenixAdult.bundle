@@ -14,7 +14,7 @@ def search(results, lang, siteNum, searchData):
     googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
     for sceneURL in googleResults:
         if sceneURL not in searchResultsURLs:
-            if (('/updates/' in sceneURL or '/dvds/' in sceneURL or '/scenes/' in sceneURL) and '/tour_ns/' in sceneURL) and sceneURL not in searchResultsURLs:
+            if ('/updates/' in sceneURL or '/dvds/' in sceneURL or '/scenes/' in sceneURL) and ('/tour_ns/' in sceneURL or '/tour_famxxx/' in sceneURL) and sceneURL not in searchResultsURLs:
                 searchResultsURLs.append(sceneURL)
 
     for sceneURL in searchResultsURLs:
@@ -23,7 +23,7 @@ def search(results, lang, siteNum, searchData):
             try:
                 searchResult = HTML.ElementFromString(req.text)
 
-                titleNoFormatting = searchResult.xpath('(//div[@class="indScene"] | //div[@class="indSceneDVD"])/h1')[0].text_content().strip()
+                titleNoFormatting = searchResult.xpath('(//div[@class="indScene"]/h1 | //div[@class="indSceneDVD"]/h1) | (//div[@class="indScene"]/h2 | //div[@class="indSceneDVD"]/h2)')[0].text_content().strip()
                 curID = PAutils.Encode(sceneURL)
 
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
@@ -59,10 +59,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if sceneType == 'Scene':
         # Title
-        metadata.title = detailsPageElements.xpath('//div[@class="indScene"]/h1')[0].text_content().strip()
+        metadata.title = detailsPageElements.xpath('//div[@class="indScene"]/h1 | //div[@class="indScene"]/h2')[0].text_content().strip()
 
         # Summary
-        metadata.summary = detailsPageElements.xpath('//div[@class="description"]/h2')[0].text_content().replace('Description:', '').strip()
+        metadata.summary = detailsPageElements.xpath('//div[@class="description"]/h2/text() | //div[@class="description"]//span/following-sibling::text()')[0].replace('Description:', '').strip()
 
         # Tagline and Collection(s)
         metadata.collections.add(PAsearchSites.getSearchSiteName(siteNum))
