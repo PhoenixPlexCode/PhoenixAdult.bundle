@@ -393,16 +393,16 @@ def getFromJAVDatabase(actorName, actorEncoded, metadata):
     req = PAutils.HTTPRequest('https://www.javdatabase.com/?wpessid=391488&s=' + actorEncoded)
 
     actorSearch = HTML.ElementFromString(req.text)
-    results = actorSearch.xpath('//div[@id="content"]//div[@class="row"]/div')
+    results = actorSearch.xpath('//div[@class="idol-thumb"]//img[@class]')
     lastScore = 100
     for actor in results:
-        actorSeachName = actor.xpath('.//h2/a')[0].text_content().strip().split('(')[0]
+        actorSeachName = actor.xpath('./@alt')[0].strip()
 
         score = Util.LevenshteinDistance(actorName, actorSeachName)
 
         if score < lastScore or not actorPhotoURL:
             lastScore = score
-            actorPhotoURL = actor.xpath('.//@src')[0]
+            actorPhotoURL = actor.xpath('./@data-src')[0]
 
             req = PAutils.HTTPRequest(actorPhotoURL)
             if 'unknown.' in req.url:
