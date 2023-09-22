@@ -10,19 +10,19 @@ def search(results, lang, siteNum, searchData):
         sceneTitle = ''
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[@class="video-details"]'):
-        titleNoFormatting = searchResult.xpath('//h2[@class="h2 m-0"]')[0].text_content()
-        curID = searchData.title.lower().replace(' ', '-')
-        subSite = searchResult.xpath('//a[@class="username "]')[0].text_content().strip()
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+    searchResult = HTML.ElementFromString(req.text)
 
-        if sceneTitle:
-            score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
-        else:
-            score = 90
+    titleNoFormatting = searchResult.xpath('//h1[contains(@class, "title")]')[0].text_content()
+    curID = searchData.title.lower().replace(' ', '-')
+    subSite = searchResult.xpath('//a[@aria-label="model-profile"]')[0].text_content().strip()
+    releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [ManyVids/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+    if sceneTitle:
+        score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
+    else:
+        score = 90
+
+    results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [ManyVids/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
     return results
 
