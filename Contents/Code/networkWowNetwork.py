@@ -35,6 +35,15 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Title
     metadata.title = detailsPageElements.xpath('//h1[@class="entry-title"]')[-1].text_content().strip()
 
+    # Studio
+    metadata.studio = 'WowNetwork'
+
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
+
     # Release date
     date = detailsPageElements.xpath('//div[@id="video-date"]')[0].text_content().strip()
     if date:
@@ -51,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@id="video-actors"]//a')
     for actorLink in actors:
@@ -59,15 +68,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorPhotoURL = ''
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
-
-    # Studio
-    metadata.studio = 'WowNetwork'
-
-    # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
 
     # Posters
     image = PAutils.Decode(metadata_id[2])

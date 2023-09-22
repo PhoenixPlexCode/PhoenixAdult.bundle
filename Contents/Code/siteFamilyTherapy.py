@@ -121,7 +121,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="entry-content"]/p[contains(text(),"starring") or contains(text(), "Starring")]/text()'):
         actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*(\s&\s\w*\s\w*)*', actorLink).group()

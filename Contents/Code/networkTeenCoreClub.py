@@ -58,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = []
     for actorData in data['video']['actors']:

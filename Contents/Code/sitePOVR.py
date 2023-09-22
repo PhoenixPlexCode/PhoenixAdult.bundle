@@ -38,13 +38,17 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = metadata_id[2]
 
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    metadata.collections.add(metadata.studio)
+
     # Release Date
     date = scene_data['uploadDate']
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actor_link in scene_data['actor']:
         actor_name = actor_link['name']

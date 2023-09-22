@@ -40,9 +40,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//time[@class="video__date"]/@datetime')[0].strip()
@@ -58,7 +56,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//section[@name="modelsBio"]/article/figure'):
         actorName = actorLink.xpath('.//p/a')[0].text_content().strip()

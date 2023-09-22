@@ -48,11 +48,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
-    # Tagline and Collection
+    # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = sceneData['datePublished']
@@ -68,7 +66,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in sceneData['actors']:
         actorName = actorLink['name']

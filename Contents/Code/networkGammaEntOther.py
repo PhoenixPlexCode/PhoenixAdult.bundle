@@ -163,7 +163,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 if genreName:
                     movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     female = []
     male = []

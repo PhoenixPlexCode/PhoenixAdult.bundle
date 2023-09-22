@@ -63,7 +63,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//span[@class="update_models"]/a'):
         actorName = actorLink.text_content().strip()

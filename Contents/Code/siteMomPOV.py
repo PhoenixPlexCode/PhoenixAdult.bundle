@@ -62,7 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.clearGenres()
     movieGenres.addGenre('MILF')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
 
     # Posters

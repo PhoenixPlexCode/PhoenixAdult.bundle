@@ -39,7 +39,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Hairy Girls')
     movieGenres.addGenre('Hairy Pussy')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="meet"]/a/img'):
         actorName = actorLink.get('alt').replace('WeAreHairy.com', '').strip()
@@ -68,7 +68,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
 
-    # Director
+    # Director(s)
     movieCastCrew.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//div[@class="desc"]/div[2]/p')

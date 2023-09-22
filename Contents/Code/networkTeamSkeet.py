@@ -82,11 +82,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Tagline and Collection(s)
     metadata.collections.clear()
     if 'site' in detailsPageElements:
-        subSite = detailsPageElements['site']['name']
+        tagline = detailsPageElements['site']['name']
     else:
-        subSite = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = subSite
-    metadata.collections.add(subSite)
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     if sceneDate:
@@ -94,7 +94,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements['models']
     for actorLink in actors:

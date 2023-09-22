@@ -46,13 +46,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.title = Title.title()
 
     # Studio
-    metadata.studio = 'HuCows.com'
+    metadata.studio = 'HuCows'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = 'HuCows'
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//div[@itemprop="datePublished"]')[0].text_content().strip().replace('Release Date: ', '')
@@ -81,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@rel="tag"]'):
         actorName = actorLink.text_content().strip()

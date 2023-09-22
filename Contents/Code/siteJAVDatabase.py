@@ -92,14 +92,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     else:
         metadata.collections.add('Japan Adult Video')
 
-    # Director
-    movieCastCrew.clearDirectors()
-    directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
-    if directorLink:
-        directorName = directorLink[0].text_content().strip()
-
-        movieCastCrew.addDirector(directorName, '')
-
     # Release Date
     date = detailsPageElements.xpath('//tr[./td[contains(., "Release Date")]]//td[@class="tablevalue"]')
     if date:
@@ -114,7 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
@@ -129,6 +121,14 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         else:
             if actorName.lower() in map(str.lower, PAutils.getDictValuesFromKey(actorsCorrectionDB, javID)):
                 movieCastCrew.addActor(actorName, actorPhotoURL)
+
+    # Director
+    movieCastCrew.clearDirectors()
+    directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
+    if directorLink:
+        directorName = directorLink[0].text_content().strip()
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Manually Add Actors By JAV ID
     actors = PAutils.getDictKeyFromValues(sceneActorsDB, javID)

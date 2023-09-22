@@ -252,7 +252,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
 
     actors = []

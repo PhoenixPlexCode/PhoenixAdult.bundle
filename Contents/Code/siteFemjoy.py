@@ -87,7 +87,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Tagline and Collection(s)
     metadata.collections.clear()
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Release date
@@ -104,7 +103,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if 'actors' in detailsPageElements:
         actors = detailsPageElements['actors']

@@ -68,8 +68,8 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Femdom Empire'
 
     # Tagline and Collection(s)
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
     metadata.collections.clear()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     movieGenres.addGenre('Femdom')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "featuring")][1]/ul/li'):
         actorName = actorLink.text_content().strip().replace('Featuring:', '')

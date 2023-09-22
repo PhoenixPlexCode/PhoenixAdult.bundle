@@ -30,13 +30,17 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'caribbeancom'
 
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    metadata.collections.add(metadata.studio)
+
     # Release Date
     str_date = detailsPageElements.xpath('//span[@itemprop="uploadDate"]')[0].text_content()
     date_object = datetime.strptime(str_date, '%Y/%m/%d')
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     section = detailsPageElements.xpath('//a[@itemprop="actor"]')
     for actor_section in section:

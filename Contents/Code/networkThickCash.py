@@ -52,10 +52,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     sceneDate = metadata_id[3]
     scenePoster = PAutils.Decode(metadata_id[4])
 
-    metadata.collections.clear()
-    movieGenres.clearGenres()
-    movieCastCrew.clearActors()
-
     # Title
     metadata.title = sceneTitle
 
@@ -66,11 +62,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Thick Cash'
 
     # Tagline and Collection(s)
-    subSite = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = subSite
-    metadata.collections.add(subSite)
+    metadata.collections.clear()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Genres
+    movieGenres.clearGenres()
     if subSite.lower() == 'Family Lust'.lower():
         for genreName in ['Family Roleplay']:
             movieGenres.addGenre(genreName)
@@ -88,6 +86,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     date_object = parse(sceneDate)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
+
+    # Actors
+    movieCastCrew.clearActors()
 
     # Posters
     art.append(scenePoster)

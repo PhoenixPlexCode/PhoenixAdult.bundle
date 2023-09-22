@@ -80,7 +80,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in getJMTVActors(sceneURL):
         actorName = actorLink
@@ -115,7 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
 
 def getJMTVActors(url):
-    # actors for scenes must be manually specified using a URL fragment:
+    # Actor(s) for scenes must be manually specified using a URL fragment:
     scenes = {
         '4554/ibiza-1-crumb-in-the-mouth': [
             'Alexis Crystal',

@@ -38,7 +38,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -56,7 +56,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         for label in labels:
             movieGenres.addGenre(label.text_content())
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     # Use div class="right" because the actors are actually listed twice on the page
     actors = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//div[contains(@class, "right")]//div[contains(@class, "actors_list")]//div[contains(@class, "actor")]//a')

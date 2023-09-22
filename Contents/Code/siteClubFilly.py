@@ -54,7 +54,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.clearGenres()
     movieGenres.addGenre('Lesbian')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actorText = detailsPageElements.xpath('//p[@class="starring"]')[0].text_content().replace('Starring:', '').strip()
     actors = actorText.split(',')

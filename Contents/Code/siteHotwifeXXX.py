@@ -39,10 +39,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    metadata.collections.clear()
-    movieGenres.clearGenres()
-    movieCastCrew.clearActors()
-
     # Studio
     metadata.studio = 'HotwifeXXX'
 
@@ -54,11 +50,12 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # No genres for scenes
+    # Genres
+    movieGenres.clearGenres()
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="trailerInfo"]/div[@class="released2 trailerStarr"]')[0].text_content().strip().split(',')[0]
@@ -67,7 +64,8 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="trailerMInfo"]//span[@class="tour_update_models"]/a')
     if actors:
         if len(actors) == 3:

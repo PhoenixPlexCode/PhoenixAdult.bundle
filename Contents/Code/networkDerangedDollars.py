@@ -70,7 +70,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="lch"]/span')[0].text_content().rsplit(',', 2)[0]
     if ':' in actors:

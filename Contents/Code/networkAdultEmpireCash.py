@@ -57,6 +57,14 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip(), siteNum)
 
+    # Summary
+    summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
+    if summary:
+        metadata.summary = summary[0].strip()
+
+    # Studio
+    metadata.studio = 'Adult Empire Cash'
+
     # Tagline and Collection(s)
     metadata.collections.clear()
     if 'filthykings' in sceneURL:
@@ -66,22 +74,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.tagline = tagline
     metadata.collections.add(metadata.tagline)
 
-    # Studio
-    metadata.studio = 'Adult Empire Cash'
-
-    # Summary
-    summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
-    if summary:
-        metadata.summary = summary[0].strip()
-
-    # Director
-    movieCastCrew.clearDirectors()
-    directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
-    if directorElement:
-        directorName = directorElement[0].strip()
-
-        movieCastCrew.addDirector(directorName, '')
-
     # Release Date
     date = detailsPageElements.xpath('//div[@class="release-date"]/text()')[0].strip()
     if date:
@@ -89,7 +81,12 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Genres
+    movieGenres.clearGenres()
+    for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
+        movieGenres.addGenre(genreName)
+
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]//img'):
         actorName = actorLink.get('title')
@@ -106,10 +103,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     if 'spankmonster' and '893455' in sceneURL:
         movieCastCrew.addActor('Rhea Radford', '')
 
-    # Genres
-    movieGenres.clearGenres()
-    for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
-        movieGenres.addGenre(genreName)
+    # Director
+    movieCastCrew.clearDirectors()
+    directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
+    if directorElement:
+        directorName = directorElement[0].strip()
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Posters
     for poster in detailsPageElements.xpath('//div[@id="dv_frames"]//img/@src'):

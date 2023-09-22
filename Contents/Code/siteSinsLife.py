@@ -48,7 +48,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[4]/div/div[2]/div/div/div[2]/div[3]/ul/li/a/..')
     if actors:

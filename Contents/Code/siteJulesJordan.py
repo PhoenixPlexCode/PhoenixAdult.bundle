@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if PAsearchSites.getSearchSiteName(siteNum) == "GirlGirl":
         actors = detailsPageElements.xpath('//div[@class="item"]/span/div/a')

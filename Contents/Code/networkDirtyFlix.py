@@ -90,7 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'Dirty Flix'
 
-    # Collections / Tagline
+    # Tagline and Collection(s)
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
@@ -108,7 +108,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     for genreName in genres:
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = PAutils.getDictKeyFromValues(sceneActorsDB, sceneID)
     for actor in actors:

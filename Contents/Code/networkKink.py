@@ -163,7 +163,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//p[@class="starring"]//a')
     if actors:
@@ -183,7 +183,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
             movieCastCrew.addActor(actorName, actorPhotoURL)
 
-    # Director
+    # Director(s)
     movieCastCrew.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//span[@class="director-name"]/a')

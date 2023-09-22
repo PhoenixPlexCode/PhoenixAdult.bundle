@@ -48,9 +48,8 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'Evolved Fights Network'
 
-    # Studio/Tagline/Collection
+    # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Genres
@@ -60,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[(contains(@class, "update_block_info model_update_block_info"))]/span[(contains(@class, "tour_update_models"))]/a'):
         actorName = actorLink.text_content().strip()

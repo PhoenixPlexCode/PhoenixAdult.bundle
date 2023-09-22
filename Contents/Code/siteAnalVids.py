@@ -89,7 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         genreName = genreLink.text_content().title()
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//a[contains(@href, "/model/") and not(contains(@href, "forum"))]')
     for actorLink in actors:
@@ -101,7 +101,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
 
-    # Director
+    # Director(s)
     movieCastCrew.clearDirectors()
     if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
         directorName = 'Giorgio Grandi'

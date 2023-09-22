@@ -64,7 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         if 'cumshots' not in genreName:
             movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video_details mb mt0"]/h5[1]/a'):
         actorName = actorLink.text_content().strip()

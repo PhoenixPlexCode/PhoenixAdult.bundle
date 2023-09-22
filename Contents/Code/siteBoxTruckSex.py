@@ -49,13 +49,14 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     except:
         pass
 
+    # Studio
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
-    # Actors
+    # Actor(s)
     actors = detailsPageElements.xpath('//h5/a[contains(@href, "models")]')
     actorPhotoURL = ''
 

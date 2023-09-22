@@ -42,7 +42,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'VR Conk'
 
-    # Tagline and Collection
+    # Tagline and Collection(s)
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         genreName = genreLink['name']
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['title']

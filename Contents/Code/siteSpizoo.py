@@ -78,7 +78,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
             movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if siteNum == 1374:
         xPath = '//div[./h3[contains(., "Girls")]]/a'

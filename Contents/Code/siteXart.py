@@ -53,13 +53,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = summary.strip()
 
     # Studio
-    metadata.studio = 'X-Art'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//h2')[2].text_content()[:-1]
@@ -73,7 +71,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Artistic')
     movieGenres.addGenre('Glamorous')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//h2//a')
     actorName = ''

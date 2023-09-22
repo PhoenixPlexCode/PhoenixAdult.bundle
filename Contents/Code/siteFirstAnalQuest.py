@@ -38,9 +38,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'Pioneer'
 
-    # Tagline
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    # Tagline and Collection(s)
     metadata.collections.clear()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -57,7 +57,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//ul[contains(text(), "Models:")]/li/a')
     if len(actors) > 0:

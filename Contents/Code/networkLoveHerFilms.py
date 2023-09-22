@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
     movieGenres.addGenre('Foot Sex')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="featured"]/a')
     if actors:

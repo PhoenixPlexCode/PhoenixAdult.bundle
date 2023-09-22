@@ -51,7 +51,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Genres
     movieGenres.clearGenres()
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//h5[contains(., "Starring")]/a')
     for actorLink in actors:

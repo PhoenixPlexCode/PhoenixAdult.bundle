@@ -66,7 +66,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     if siteName != 'NewGirlPOV':
         movieGenres.addGenre('18-Year-Old')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@id="description"]//td[@align="left"]/a')
     if actors:

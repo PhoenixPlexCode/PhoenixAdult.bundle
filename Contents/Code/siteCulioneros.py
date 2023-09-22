@@ -68,7 +68,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Genre List
     genres = detailsPageElements.xpath('//meta[@http-equiv="keywords"]/@content')[0].replace(', pornditos', '').replace(', pornstar', '').replace(', porn', '').replace(tagline, '').replace('prono', 'porno')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//p[contains(string(), "Cast")]/a'):
         actorName = actorLink.text_content().strip()

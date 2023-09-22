@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Genres
     movieGenres.clearGenres()
 
-    # Actors
+    # Actor(s)
     date = ''
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//h3/span/a')

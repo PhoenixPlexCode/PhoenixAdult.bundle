@@ -84,13 +84,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = dataElements['maker']['name']
 
-    # Director
-    movieCastCrew.clearDirectors()
-    directorLink = dataElements['director']
-    if directorLink != '----':
-        directorName = directorLink
-
-        movieCastCrew.addDirectors(directorLink, '')
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    metadata.collections.add('Japan Adult Video')
 
     # Release Date
     date = dataElements['release_date']
@@ -98,7 +94,33 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Genres
+    movieGenres.clearGenres()
+    for genreLink in dataElements['categories']:
+        genreName = genreLink['name']
+
+        if '**' in genreName:
+            genreName = genreName.replace('r**e', 'rape')
+            genreName = genreName.replace('s********l', 'schoolgirl')
+            genreName = genreName.replace('s***e', 'slave')
+            genreName = genreName.replace('m****ter', 'molester')
+            genreName = genreName.replace('g*******g', 'gang bang')
+            genreName = genreName.replace('g******g', 'gangbang')
+            genreName = genreName.replace('k*d', 'descendant')
+            genreName = genreName.replace('c***d', 'descendant')
+            genreName = genreName.replace('f***e', 'force')
+            genreName = genreName.replace('t*****e', 'torture')
+            genreName = genreName.replace('t******e', 'tentacle')
+            genreName = genreName.replace('d**g', 'drug')
+            genreName = genreName.replace('p****h', 'punish')
+            genreName = genreName.replace('s*****t', 'student')
+            genreName = genreName.replace('v*****e', 'violate')
+            genreName = genreName.replace('v*****t', 'violent')
+            genreName = genreName.replace('b***d', 'blood')
+
+        movieGenres.addGenre(genreName)
+
+    # Actor(s)
     movieCastCrew.clearActors()
     if dataElements['actresses'] is not None:
         for actorLink in dataElements['actresses']:
@@ -142,34 +164,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
                     movieCastCrew.addActor(actorName, '')
 
-    # Genres
-    movieGenres.clearGenres()
+    # Director
+    movieCastCrew.clearDirectors()
+    directorLink = dataElements['director']
+    if directorLink != '----':
+        directorName = directorLink
 
-    for genreLink in dataElements['categories']:
-        genreName = genreLink['name']
-
-        if '**' in genreName:
-            genreName = genreName.replace('r**e', 'rape')
-            genreName = genreName.replace('s********l', 'schoolgirl')
-            genreName = genreName.replace('s***e', 'slave')
-            genreName = genreName.replace('m****ter', 'molester')
-            genreName = genreName.replace('g*******g', 'gang bang')
-            genreName = genreName.replace('g******g', 'gangbang')
-            genreName = genreName.replace('k*d', 'descendant')
-            genreName = genreName.replace('c***d', 'descendant')
-            genreName = genreName.replace('f***e', 'force')
-            genreName = genreName.replace('t*****e', 'torture')
-            genreName = genreName.replace('t******e', 'tentacle')
-            genreName = genreName.replace('d**g', 'drug')
-            genreName = genreName.replace('p****h', 'punish')
-            genreName = genreName.replace('s*****t', 'student')
-            genreName = genreName.replace('v*****e', 'violate')
-            genreName = genreName.replace('v*****t', 'violent')
-            genreName = genreName.replace('b***d', 'blood')
-
-        movieGenres.addGenre(genreName)
-
-    metadata.collections.add('Japan Adult Video')
+        movieCastCrew.addDirectors(directorName, '')
 
     # Posters
     for photo in dataElements['gallery']:

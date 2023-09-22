@@ -33,6 +33,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'Swallow Bay'
 
+    # Tagline and Collection(s)
+    metadata.collections.clear()
+    metadata.collections.add(metadata.studio)
+
     # Release Date
     str_date = detailsPageElements.xpath('//div//div[@class="content-date"]')[0].text_content().strip().replace('Date: ', '')
     date = re.sub(r'(\d)(st|nd|rd|th)', r'\1', str_date)
@@ -41,7 +45,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     section = detailsPageElements.xpath('//div[@class="content-models"]/a')
     for actor_section in section:

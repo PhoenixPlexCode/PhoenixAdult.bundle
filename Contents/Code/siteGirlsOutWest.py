@@ -64,7 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Amateur')
     movieGenres.addGenre('Australian')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="trailer topSpace"]/div[2]/p/a')
     if actors:

@@ -50,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -66,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//a[contains(@href, "/pornstars/model/")]'):
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')

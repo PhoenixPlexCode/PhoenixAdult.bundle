@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
     movieGenres.addGenre('Glamorous')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['name']
@@ -69,7 +69,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
 
-    # Director
+    # Director(s)
     movieCastCrew.clearDirectors()
     for directorLink in detailsPageElements['photographers']:
         directorName = directorLink['name']

@@ -101,7 +101,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if siteNum == 1583:
         actorName = '%s %s' % (title, detailsPageElements.xpath('//span[@class="age"]')[0].text_content().strip())

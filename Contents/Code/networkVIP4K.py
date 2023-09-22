@@ -109,7 +109,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@class="player-description__model model ph_register"]'):
         actorName = actorLink.xpath('.//div[@class="model__name"]')[0].text_content().strip()

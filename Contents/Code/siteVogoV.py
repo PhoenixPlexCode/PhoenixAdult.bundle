@@ -35,15 +35,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="info-video-description"]//p')[0].text_content().strip()
 
-    # Director
-    movieCastCrew.clearDirectors()
-    directorName = 'Markus Dupree'
-    movieCastCrew.addDirector(directorName, '')
-
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
-    # Tagline and Collection
+    # Tagline and Collection(s)
     metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
@@ -63,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="info-video-models"]//a')
     for actorLink in actors:
@@ -75,6 +70,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorPhotoURL = detailsActorPage.xpath('//div[@class="m-images"]//img/@src')[0]
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
+
+    # Director
+    movieCastCrew.clearDirectors()
+    directorName = 'Markus Dupree'
+    movieCastCrew.addDirector(directorName, '')
 
     # Posters/Background
     xpaths = [

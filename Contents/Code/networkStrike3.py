@@ -69,13 +69,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Summary
     metadata.summary = video['description']
 
-    # Director
-    movieCastCrew.clearDirectors()
-    if video['directors']:
-        directorName = video['directors'][0]['name']
-
-        movieCastCrew.addDirector(directorName, '')
-
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum).title()
 
@@ -99,7 +92,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
             movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = video['models']
     for actor in actors:
@@ -109,6 +102,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
+
+    # Director
+    movieCastCrew.clearDirectors()
+    if video['directors']:
+        directorName = video['directors'][0]['name']
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Posters
     for name in ['movie', 'poster']:

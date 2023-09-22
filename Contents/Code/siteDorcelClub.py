@@ -63,6 +63,15 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
+    # Release Date
+    if 'porn-movie' not in sceneURL:
+        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
+    else:
+        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
+    date_object = parse(date)
+    metadata.originally_available_at = date_object
+    metadata.year = metadata.originally_available_at.year
+
     # Genres
     movieGenres.clearGenres()
     movieGenres.addGenre('French porn')
@@ -72,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.collections.add(movieName[0].text_content().strip())
     movieGenres.addGenre('Blockbuster Movie')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if 'porn-movie' not in sceneURL:
         actors = detailsPageElements.xpath('//div[@class="actress"]/a')
@@ -93,15 +102,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             actorPhotoURL = ''
 
             movieCastCrew.addActor(actorName, actorPhotoURL)
-
-    # Release Date
-    if 'porn-movie' not in sceneURL:
-        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
-    else:
-        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
 
     # Director
     movieCastCrew.clearDirectors()

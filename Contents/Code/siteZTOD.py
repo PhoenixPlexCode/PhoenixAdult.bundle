@@ -36,13 +36,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = detailsPageElements.xpath('//div[contains(@class, "synopsis")]/p')[0].text_content().strip()
 
     # Studio
-    metadata.studio = 'Zero Tolerance'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//div[contains(@class, "player-desc")]/div/ul[contains(@class, "desclist")]/li[1]')[0].text_content().replace('Released on', '').strip()
@@ -58,7 +56,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[contains(@class, "video-title-section")]/div/p[@class="text-white"]/a')
     if actors:

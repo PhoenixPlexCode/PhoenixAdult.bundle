@@ -299,9 +299,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 except:
                     paragraph = ''
     metadata.summary = paragraph.replace('</br>', '\n').replace('<br>', '\n').replace('<br/>', '\n').strip()
-    metadata.collections.clear()
 
-    # Tagline
+    # Tagline and Collection(s)
+    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//div[@class="studioLink"]')[0].text_content().strip()
     except:
@@ -331,16 +331,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 metadata.collections.add(dvdTitle.replace('#0', '').replace('#', ''))
             except:
                 dvdTitle = 'This is some damn nonsense that should never match the scene title'
-
-    # Director
-    try:
-        directors = detailsPageElements.xpath('//div[@class="sceneCol sceneColDirectors"]//a | //ul[@class="directedBy"]/li/a')
-        for directorLink in directors:
-            directorName = directorLink.text_content().strip()
-
-            movieCastCrew.addDirector(directorName, '')
-    except:
-        pass
 
     # Genres
     movieGenres.clearGenres()
@@ -378,7 +368,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             except:
                 pass
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="sceneCol sceneColActors"]//a | //div[@class="sceneCol sceneActors"]//a | //div[@class="pornstarNameBox"]/a[@class="pornstarName"] | //div[@id="slick_DVDInfoActorCarousel"]//a | //div[@id="slick_sceneInfoPlayerActorCarousel"]//a')
     if metadata.title == 'Kennedy Leigh' and metadata.tagline == 'Only Teen Blowjobs':
@@ -426,6 +416,16 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 i += 1
         except:
             pass
+
+    # Director
+    try:
+        directors = detailsPageElements.xpath('//div[@class="sceneCol sceneColDirectors"]//a | //ul[@class="directedBy"]/li/a')
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieCastCrew.addDirector(directorName, '')
+    except:
+        pass
 
     # Title
     try:

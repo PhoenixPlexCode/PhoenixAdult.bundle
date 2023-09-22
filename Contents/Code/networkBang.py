@@ -118,7 +118,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if siteNum == 1365:
         actorXPATH = '//div[contains(@class, "clear-both")]//a[contains(@href, "pornstar")]'

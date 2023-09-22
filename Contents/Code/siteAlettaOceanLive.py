@@ -65,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Genres
     movieGenres.clearGenres()
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     movieCastCrew.addActor('Aletta Ocean', '')
 

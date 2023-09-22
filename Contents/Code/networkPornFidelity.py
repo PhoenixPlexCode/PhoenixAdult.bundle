@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Hardcore')
     movieGenres.addGenre('Heterosexual')
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//a[@class="is-underlined"]')
     if actors:

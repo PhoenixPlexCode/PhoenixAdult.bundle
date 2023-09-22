@@ -42,7 +42,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actorList = []
     actors = detailsPageElements.xpath('//p[@class="grey-performers"]//a')

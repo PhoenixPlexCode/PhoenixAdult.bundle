@@ -105,7 +105,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                     else:
                         movieGenres.addGenre(genre)
 
-    # Actors
+    # Actor(s)
     actors = getJSONfromAPI(apiurl + modelquery + sceneID)
 
     if not isinstance(actors, list):

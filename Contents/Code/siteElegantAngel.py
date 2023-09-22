@@ -38,7 +38,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -56,7 +56,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="scene-cast-list"]/a | //div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
@@ -73,7 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieCastCrew.addActor(actorName, actorPhotoURL)
 
-    # Director
+    # Director(s)
     movieCastCrew.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//div[@class="director"]/a')

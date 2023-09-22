@@ -73,13 +73,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = 'PornPros'
 
-    # Collections / Tagline
+    # Tagline and Collection(s)
     metadata.collections.clear()
     siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = siteName
     metadata.collections.add(siteName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     if 'pornplus' in sceneURL:
         actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-4")]//a[contains(@href, "/models/")]')

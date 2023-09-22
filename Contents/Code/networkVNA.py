@@ -59,13 +59,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.summary = metadata.summary.split('Don\'t forget to join me')[0]
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.studio = 'VNA Network'
 
     # Tagline and Collection(s)
     metadata.collections.clear()
-    metadata.tagline = metadata.studio
-    metadata.collections.add('VNA Network')
-    metadata.collections.add(metadata.studio)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     date = detailsPageElements.xpath('//*[@class="date"]')[0].text_content().strip()
@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//h3[@class="customhcolor"]')[0].text_content().strip()
 

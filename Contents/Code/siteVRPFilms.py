@@ -36,13 +36,11 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
-    # Tagline and Collection
+    # Tagline and Collection(s)
     metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
-    # Actors
+    # Actor(s)
     movieCastCrew.clearActors()
     for actor in detailsPageElements.xpath('//a[@class="starring_contain"]'):
         actorName = actor.xpath('//div[@class="col-xs-12 video-star-title"]/h3')[0].text_content().strip()
