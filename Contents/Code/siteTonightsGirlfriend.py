@@ -74,7 +74,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Naughty America'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Tonight\'s Girlfriend'
     metadata.tagline = tagline
     metadata.collections.add(tagline)

@@ -39,7 +39,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'VRAllure'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)

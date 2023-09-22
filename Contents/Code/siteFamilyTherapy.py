@@ -103,7 +103,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Family Therapy'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Family Therapy'
     metadata.tagline = tagline
     metadata.collections.add(tagline)

@@ -70,7 +70,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'AnalVids'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//div[contains(@class,"genres-list")]/a/text()')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

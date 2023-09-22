@@ -44,7 +44,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Bang Bros'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//span[@class="fn"]')[0].text_content()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

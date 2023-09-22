@@ -93,7 +93,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'VIP4K'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//a[@class="player-additional__site ph_register"]')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

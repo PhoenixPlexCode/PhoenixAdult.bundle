@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Culioneros'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = info[1].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

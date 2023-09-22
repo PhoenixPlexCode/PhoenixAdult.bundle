@@ -45,7 +45,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="panel-content"]/p')[0].text_content().strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)

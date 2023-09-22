@@ -59,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Private'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//li[@class="tag-sites"]//a')[0].text_content()
     except:

@@ -32,7 +32,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.title = detailsPageElements.xpath('//div[@class="block"]//h2')[0].text_content().strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Genres

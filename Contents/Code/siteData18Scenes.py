@@ -190,7 +190,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 metadata.studio = ''
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         try:
             tagline = detailsPageElements.xpath('//p[contains(., "Site:")]//following-sibling::a[@class="bold"]')[0].text_content().strip()

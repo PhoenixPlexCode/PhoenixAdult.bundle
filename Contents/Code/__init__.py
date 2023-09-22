@@ -130,6 +130,7 @@ class PhoenixAdultAgent(Agent.Movies):
         valid_images = list()
 
         HTTP.ClearCache()
+        metadata.collections.clear()
         metadata.genres.clear()
         metadata.roles.clear()
         metadata.directors.clear()

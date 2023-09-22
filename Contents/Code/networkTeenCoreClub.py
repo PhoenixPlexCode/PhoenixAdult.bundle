@@ -53,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Teen Core Club'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = data['video']['labels'][0]['name'].replace('.com', '').strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

@@ -52,7 +52,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Deranged Dollars'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//title')[0].text_content().split('|')[1].strip().replace('.com', '')
     metadata.tagline = tagline
     metadata.collections.add(metadata.tagline)

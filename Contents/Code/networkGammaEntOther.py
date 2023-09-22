@@ -134,7 +134,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.studio = detailsPageElements['network_name']
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'filthykings' in PAsearchSites.getSearchBaseURL(siteNum):
         metadata.tagline = detailsPageElements['serie_name']
     for collectionName in ['studio_name', 'serie_name']:

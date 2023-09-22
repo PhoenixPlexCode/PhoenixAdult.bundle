@@ -80,7 +80,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'TeamSkeet'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'site' in detailsPageElements:
         tagline = detailsPageElements['site']['name']
     else:

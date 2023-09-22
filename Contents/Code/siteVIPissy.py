@@ -25,7 +25,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-
     # Title
     metadata.title = detailsPageElements.xpath('//section[@class="downloads"]/strong')[0].text_content().strip()
 
@@ -40,7 +39,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'VIPissy'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)

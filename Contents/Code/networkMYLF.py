@@ -80,7 +80,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'MYLF'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'site' in detailsPageElements:
         subSite = detailsPageElements['site']['name']
     else:

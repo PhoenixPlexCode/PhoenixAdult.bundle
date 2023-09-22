@@ -43,7 +43,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.year = metadata.originally_available_at.year
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)

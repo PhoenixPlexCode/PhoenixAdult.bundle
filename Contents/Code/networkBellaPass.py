@@ -70,7 +70,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.summary = description[0].text_content().strip()
 
     # Studio, Tagline and Collection(s)
-    metadata.collections.clear()
     if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives', 'See Him Fuck']:
         tagline = PAsearchSites.getSearchSiteName(siteNum)
         metadata.studio = tagline

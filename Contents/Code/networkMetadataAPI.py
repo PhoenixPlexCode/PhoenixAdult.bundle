@@ -59,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = detailsPageElements['description']
 
     # Studio, Tagline and Collection(s)
-    metadata.collections.clear()
     if 'site' in detailsPageElements and detailsPageElements['site']:
         studio_name = detailsPageElements['site']['name']
         collections = [studio_name]

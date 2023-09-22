@@ -52,7 +52,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     attributes = detailsPageElements.xpath('//div[@id="main-project-content"]/@class')[0].strip().split()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     if 'category_buttmuse' in attributes:

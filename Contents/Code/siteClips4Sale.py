@@ -78,7 +78,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Clips4Sale'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[1].split('|')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

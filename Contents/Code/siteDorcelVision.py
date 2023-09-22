@@ -45,7 +45,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = paragraph.replace('</br>', '\n').replace('<br>', '\n').strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Dorcel Vision'
     studioNode = detailsPageElements.xpath('//div[@class="entries"]//strong[contains(., "Studio")]/following-sibling::a')
     if studioNode:

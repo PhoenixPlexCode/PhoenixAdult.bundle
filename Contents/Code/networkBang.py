@@ -85,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = re.sub(r'bang(?=(\s|$))(?!\!)', 'Bang!', PAutils.parseTitle(videoPageElements['productionCompany']['name'].strip(), siteNum), flags=re.IGNORECASE)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = ""
     dvdTitle = ""
     try:

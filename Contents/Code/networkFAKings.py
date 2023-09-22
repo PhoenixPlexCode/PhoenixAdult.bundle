@@ -77,7 +77,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'FAKings'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAutils.parseTitle(detailsPageElements.xpath('//strong[contains(., "Serie")]//following-sibling::a')[0].text_content().strip(), siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)

@@ -50,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Spizoo'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//i[@id="site"]/@value')[0].strip()
     except:

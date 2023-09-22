@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="description"]/span')[0].text_content().strip().replace('\n', ' ')
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     channel = detailsPageElements.xpath('//div[contains(@class, "shoot-logo")]/a/img/@src')[0].strip()
     if 'boundgangbangs' in channel:
         tagline = 'Bound Gangbangs'

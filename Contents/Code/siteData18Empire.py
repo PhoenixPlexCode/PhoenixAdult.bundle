@@ -215,7 +215,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.studio = studio
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//p[contains(text(), "A scene from")]/a/text()')[0].strip()
         if ', the' in tagline.lower():

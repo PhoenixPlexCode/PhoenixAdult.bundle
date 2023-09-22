@@ -52,7 +52,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'StasyQ'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add('StasyQ')
 
     # Release Date

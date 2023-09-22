@@ -85,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = re.sub(r'<.*?>', '', detailsPageElements['long_description']).strip()  # must strip HTML tags
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.add(metadata.studio)
 

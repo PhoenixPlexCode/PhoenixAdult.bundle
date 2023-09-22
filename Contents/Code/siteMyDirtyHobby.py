@@ -59,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'MyDirtyHobby'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//div[@class="info-wrapper"]//a')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

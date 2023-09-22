@@ -73,7 +73,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Radical Cash'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = '%s: %s' % (PAsearchSites.getSearchSiteName(siteNum), detailsPageElements.xpath('//p[@class="series"]')[0].text_content().strip())
     metadata.tagline = tagline
     metadata.collections.add(tagline)

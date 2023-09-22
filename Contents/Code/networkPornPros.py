@@ -74,7 +74,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'PornPros'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     siteName = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = siteName
     metadata.collections.add(siteName)

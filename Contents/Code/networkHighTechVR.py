@@ -78,7 +78,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = siteName
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//title')[0].text_content().strip()
     if '|' in tagline:
         tagline = tagline.split('|')[1].strip()

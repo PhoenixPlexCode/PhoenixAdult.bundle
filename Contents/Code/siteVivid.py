@@ -47,7 +47,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Vivid Entertainment'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 

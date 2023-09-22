@@ -48,7 +48,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     else:
         sceneType = 'Scene'
 
-    metadata.collections.clear()
     movieGenres.clearGenres()
     movieCastCrew.clearActors()
 

@@ -56,7 +56,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -333,15 +332,15 @@ manualMatch = {
         'curID': '/videos/black_&_white',
         'name': 'Black & White [X-Art]',
     },
-    'Fashion Models':{
+    'Fashion Models': {
         'curID': '/videos/fashion_models',
         'name': 'Fashion Models [X-Art]',
     },
-    'Francesca Angelic':{
+    'Francesca Angelic': {
         'curID': '/videos/angelic',
         'name': 'Francesca Angelic [X-Art]',
     },
-    'Green Eyes':{
+    'Green Eyes': {
         'curID': '/videos/green_eyes',
         'name': 'Green Eyes [X-Art]',
     },

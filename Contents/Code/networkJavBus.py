@@ -79,7 +79,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = javStudio
 
     #  Tagline and Collection(s)
-    metadata.collections.clear()
     data = {}
 
     label = detailsPageElements.xpath('//p/a[contains(@href, "/label/")]')

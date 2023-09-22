@@ -75,7 +75,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Top Web Models'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'sites' in detailsPageElements:
         tagline = re.sub(r"(\w)([A-Z])", r"\1 \2", json.loads(json.dumps(detailsPageElements['sites'][0]))['name'])
     else:

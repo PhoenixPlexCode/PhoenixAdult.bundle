@@ -45,7 +45,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Teen Mega World'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//div[@class="site"]/a')[0].text_content().replace('.com', '').strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

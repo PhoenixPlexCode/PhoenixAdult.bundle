@@ -66,7 +66,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Adult Empire Cash'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'filthykings' in sceneURL:
         tagline = PAsearchSites.getSearchSiteName(siteNum)
     else:

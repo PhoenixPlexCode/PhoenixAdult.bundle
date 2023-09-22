@@ -7,7 +7,6 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
 
-
     for searchResult in searchResults.xpath('//div[@class="tn-video tn-video--horizontal"]'):
         titleNoFormatting = searchResult.xpath('.//div/a[@class="tn-video-name"]')[0].text_content().strip()
         sceneURL = searchResult.xpath('.//a[@class="tn-video-media"]')[0].get('href')
@@ -24,7 +23,6 @@ def search(results, lang, siteNum, searchData):
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] with %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), actors), score=score, lang=lang))
 
     return results
-
 
 
 def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
@@ -46,7 +44,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Release Date

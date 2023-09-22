@@ -38,7 +38,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Intersec Interactive'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     taglineText = detailsPageElements.xpath('//div[contains(@class, "has-text-white-ter")][1]//a[contains(@class, "is-dark")][last()]/text()')[0]
     if 'sexuallybroken' in taglineText:
         tagline = 'Sexually Broken'

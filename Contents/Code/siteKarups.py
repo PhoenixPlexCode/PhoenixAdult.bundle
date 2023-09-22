@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Karups'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//h1//span[@class="sup-title"]//span')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)

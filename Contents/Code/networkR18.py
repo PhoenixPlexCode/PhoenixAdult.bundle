@@ -85,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = dataElements['maker']['name']
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add('Japan Adult Video')
 
     # Release Date

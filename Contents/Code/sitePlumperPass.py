@@ -65,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'PlumperPass'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'bbwd/' in req.url:
         tagline = 'BBW Dreams'
         metadata.tagline = tagline

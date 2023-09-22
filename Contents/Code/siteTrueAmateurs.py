@@ -34,7 +34,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    metadata.collections.clear()
     movieGenres.clearGenres()
     movieCastCrew.clearActors()
 

@@ -108,7 +108,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = PAutils.parseTitle(detailsPageElements['brand'], siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     seriesNames = []
 
     if 'collections' in detailsPageElements and detailsPageElements['collections']:

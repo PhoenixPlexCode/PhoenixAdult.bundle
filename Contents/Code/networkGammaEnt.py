@@ -301,7 +301,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = paragraph.replace('</br>', '\n').replace('<br>', '\n').replace('<br/>', '\n').strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//div[@class="studioLink"]')[0].text_content().strip()
     except:

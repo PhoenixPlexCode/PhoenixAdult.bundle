@@ -77,7 +77,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.studio = studioClean
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//tr[./td[contains(., "Label")]]//td[@class="tablevalue"]')
     if tagline and tagline[0].text_content().strip():
         taglineClean = tagline[0].text_content().strip()

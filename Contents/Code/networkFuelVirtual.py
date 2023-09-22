@@ -46,7 +46,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'FuelVirtual'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = siteName
     metadata.tagline = tagline
     metadata.collections.add(tagline)

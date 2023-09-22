@@ -110,7 +110,6 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         pass
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.add(metadata.studio)
 
