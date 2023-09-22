@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -69,7 +69,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     genres = detailsPageElements.xpath('//meta[@http-equiv="keywords"]/@content')[0].replace(', pornditos', '').replace(', pornstar', '').replace(', porn', '').replace(tagline, '').replace('prono', 'porno')
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//p[contains(string(), "Cast")]/a'):
         actorName = actorLink.text_content().strip()
 
@@ -89,7 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             except:
                 pass
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Genres
     movieGenres.clearGenres()

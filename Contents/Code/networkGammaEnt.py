@@ -246,7 +246,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -254,12 +254,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    metadata.directors.clear()
-    director = metadata.directors.new()
+    movieCastCrew.clearDirectors()
 
     if siteNum == 278 or (siteNum >= 285 and siteNum <= 287) or siteNum == 843:
         metadata.studio = 'XEmpire'
-        director.name = 'Mason'
+        movieCastCrew.addDirector('Mason', '')
     elif siteNum == 329 or (siteNum >= 351 and siteNum <= 354) or siteNum == 861:
         metadata.studio = 'Blowpass'
     elif siteNum == 331 or (siteNum >= 355 and siteNum <= 360) or siteNum == 750:
@@ -336,8 +335,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Director
     try:
         directors = detailsPageElements.xpath('//div[@class="sceneCol sceneColDirectors"]//a | //ul[@class="directedBy"]/li/a')
-        for dirname in directors:
-            director.name = dirname.text_content().strip()
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieCastCrew.addDirector(directorName, '')
     except:
         pass
 
@@ -378,10 +379,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@class="sceneCol sceneColActors"]//a | //div[@class="sceneCol sceneActors"]//a | //div[@class="pornstarNameBox"]/a[@class="pornstarName"] | //div[@id="slick_DVDInfoActorCarousel"]//a | //div[@id="slick_sceneInfoPlayerActorCarousel"]//a')
     if metadata.title == 'Kennedy Leigh' and metadata.tagline == 'Only Teen Blowjobs':
-        movieActors.addActor('Kennedy Leigh', 'https://imgs1cdn.adultempire.com/actors/649607h.jpg')
+        movieCastCrew.addActor('Kennedy Leigh', 'https://imgs1cdn.adultempire.com/actors/649607h.jpg')
 
     if not actors:  # Try pulling the mobile site
         try:
@@ -401,7 +402,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPage = HTML.ElementFromString(req.text)
             actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"]/@src | //span[@class="removeAvatarParent"]/img/@src')[0]
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
     else:
         try:
             dataLayer = detailsPageElements.xpath('//script[contains(text(), "dataLayer")]')[0].text_content()
@@ -421,7 +422,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 req = PAutils.HTTPRequest((PAsearchSites.getSearchBaseURL(siteNum) + actorPageURL))
                 actorPage = HTML.ElementFromString(req.text)
                 actorPhotoURL = actorPage.xpath('//img[@class="actorPicture"]/@src | //span[@class="removeAvatarParent"]/img/@src')[0]
-                movieActors.addActor(actorName, actorPhotoURL)
+                movieCastCrew.addActor(actorName, actorPhotoURL)
                 i += 1
         except:
             pass

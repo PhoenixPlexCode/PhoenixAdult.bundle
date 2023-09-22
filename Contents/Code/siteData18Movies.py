@@ -202,7 +202,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -215,7 +215,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if len(metadata_id) > 3:
         Log('Switching to Data18Scenes')
-        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieActors, art)
+        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieCastCrew, art)
         return metadata
 
     # Title
@@ -272,7 +272,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "/pornstars/")]//img')
     actors.extend(detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//img[contains(@data-original, "user")]'))
     actors.extend(detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div[@style]//img'))
@@ -284,17 +284,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             break
 
         actorPhotoURL = ''
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Director
-    metadata.directors.clear()
-    director = metadata.directors.new()
-    try:
-        directorName = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')[0].text_content().split(':')[-1].split('-')[0].strip()
-        if not directorName == 'Unknown':
-            director.name = directorName
-    except:
-        pass
+    movieCastCrew.clearDirectors()
+    director = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')
+    if director:
+        directorLink = director[0].text_content().split(':')[-1].split('-')[0].strip()
+        if not directorLink == 'Unknown':
+            directorName = directorLink
+
+            movieCastCrew.addDirector(directorName, '')
 
     # Posters
     photos = []

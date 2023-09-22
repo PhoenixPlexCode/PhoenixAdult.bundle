@@ -77,7 +77,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     sceneType = metadata_id[2]
@@ -146,7 +146,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements['actors']
     for actorLink in actors:
         actorPageURL = PAsearchSites.getSearchSearchURL(siteNum) + '/v1/actors?id=%d' % actorLink['id']
@@ -159,7 +159,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if actorData['images'] and actorData['images']['profile']:
             actorPhotoURL = actorData['images']['profile']['0']['xs']['url']
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     for imageType in ['poster', 'cover']:

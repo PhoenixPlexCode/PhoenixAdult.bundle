@@ -46,7 +46,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(sceneURL)
@@ -93,10 +93,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.collections.add('Japan Adult Video')
 
     # Director
-    director = metadata.directors.new()
-    directorName = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
-    if directorName:
-        director.name = directorName[0].text_content().strip()
+    movieCastCrew.clearDirectors()
+    directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
+    if directorLink:
+        directorName = directorLink[0].text_content().strip()
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Release Date
     date = detailsPageElements.xpath('//tr[./td[contains(., "Release Date")]]//td[@class="tablevalue"]')
@@ -113,7 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
@@ -123,16 +125,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = ''
 
         if javID not in (actorsCorrectionDB.keys()):
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
         else:
             if actorName.lower() in map(str.lower, PAutils.getDictValuesFromKey(actorsCorrectionDB, javID)):
-                movieActors.addActor(actorName, actorPhotoURL)
+                movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Manually Add Actors By JAV ID
     actors = PAutils.getDictKeyFromValues(sceneActorsDB, javID)
 
     for actor in actors:
-        movieActors.addActor(actor, '')
+        movieCastCrew.addActor(actor, '')
 
     # Posters
     xpaths = [

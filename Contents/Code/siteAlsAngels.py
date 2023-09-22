@@ -27,7 +27,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
 
     sceneID = metadata_id[0]
@@ -74,9 +74,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre(subject)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actorPhotoURL = detailsPageElements.xpath('.//div[@id="modelbioheadshot"]/img/@src')[0].replace('..', searchBaseUrl)
-    movieActors.addActor(model, actorPhotoURL)
+    movieCastCrew.addActor(model, actorPhotoURL)
 
     # Posters/Background
     xpaths = [

@@ -203,7 +203,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     splitScene = False
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -233,18 +233,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = summary
 
     # Director(s)
-    directorElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
-    for directorName in directorElement:
-        director = metadata.directors.new()
-        name = directorName.strip()
-        director.name = name
+    movieCastCrew.clearDirectors()
+    directors = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
+    for directorLink in directors:
+        directorName = directorLink.strip()
+
+        try:
+            directorPhotoURL = detailsPageElements.xpath('//div[contains(., "Starring")]//img[contains(@title, "%s")]/@src' % directorName)[0]
+        except:
+            directorPhotoURL = ''
+
+        movieCastCrew.addDirector(directorName, directorPhotoURL)
 
     # Producer(s)
-    producerElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
-    for producerName in producerElement:
-        producer = metadata.producers.new()
-        name = producerName.strip()
-        producer.name = name
+    movieCastCrew.clearProducers()
+    producers = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
+    for producerLink in producers:
+        producerName = producerLink.strip()
+
+        try:
+            producerPhotoURL = detailsPageElements.xpath('//div[contains(., "Starring")]//img[contains(@title, "%s")]/@src' % producerName)[0]
+        except:
+            producerPhotoURL = ''
+
+        movieCastCrew.addProducer(producerName, producerPhotoURL)
 
     # Studio
     try:
@@ -286,7 +298,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = []
     if splitScene:
         scenes = detailsPageElements.xpath('//div[@class="row"][.//h3]')[sceneIndex]
@@ -294,9 +306,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         # Fallback
         if not actors:
-            actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
+            actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a[contains(@href, "pornstars")]')
     else:
-        actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
+        actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a[contains(@href, "pornstars")]')
 
     for actorLink in actors:
         actorName = actorLink.text_content().split('(')[0].strip()
@@ -306,7 +318,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = ''
 
         if actorName:
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

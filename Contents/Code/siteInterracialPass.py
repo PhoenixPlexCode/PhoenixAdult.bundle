@@ -21,7 +21,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -67,7 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "models-list-thumbs")]//li'):
         actorName = actorLink.xpath('.//span/text()')[0]
         actorPhotoURL = actorLink.xpath('.//img//@src0_3x')[0]
@@ -75,10 +75,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
         if siteNum == 977 and actorName == 'Twins':
-            movieActors.addActor('Joey White', actorPhotoURL)
-            movieActors.addActor('Sami White', actorPhotoURL)
+            movieCastCrew.addActor('Joey White', actorPhotoURL)
+            movieCastCrew.addActor('Sami White', actorPhotoURL)
         else:
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

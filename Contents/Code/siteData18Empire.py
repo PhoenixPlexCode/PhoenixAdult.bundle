@@ -171,7 +171,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     splitScene = False
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -253,7 +253,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
 
     actors = []
     if splitScene:
@@ -273,17 +273,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = ''
 
         if actorName:
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Director
-    metadata.directors.clear()
-    director = metadata.directors.new()
-    try:
-        directorName = detailsPageElements.xpath('//div[@class="director"]/a/text()')[0].text_content().split(':')[2].strip()
-        if not directorName == 'Unknown':
-            director.name = directorName
-    except:
-        pass
+    movieCastCrew.clearDirectors()
+    director = detailsPageElements.xpath('//div[@class="director"]/a/text()')
+    if director:
+        directorLink = director[0].text_content().split(':')[2].strip()
+        if not directorLink == 'Unknown':
+            directorName = directorLink
+
+            movieCastCrew.addDirector(directorName, '')
 
     # Posters
     xpaths = [

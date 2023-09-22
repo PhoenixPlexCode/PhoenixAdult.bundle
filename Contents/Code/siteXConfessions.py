@@ -51,7 +51,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
 
@@ -86,19 +86,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements['performers']:
         actorName = '%s %s' % (actorLink['name'], actorLink['last_name'])
         if actorLink['poster_image'] is not None:
             actorPhotoURL = actorLink['poster_image'].split('?', 1)[0]
         else:
             actorPhotoURL = ''
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Director
-    director = metadata.directors.new()
+    movieCastCrew.clearDirectors()
     directorLink = detailsPageElements['director']
-    director.name = '%s %s' % (directorLink['name'], directorLink['last_name'])
+    directorName = '%s %s' % (directorLink['name'], directorLink['last_name'])
+    movieCastCrew.addDirector(directorName, '')
 
     # Poster
     art.append(detailsPageElements['poster_picture'].split('?', 1)[0])

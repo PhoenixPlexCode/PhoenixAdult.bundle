@@ -22,7 +22,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     siteName = PAsearchSites.getSearchSiteName(siteNum).strip()
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -67,7 +67,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre('18-Year-Old')
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[@id="description"]//td[@align="left"]/a')
     if actors:
         if len(actors) == 3:
@@ -87,12 +87,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             if siteName in actor_db and scene_id in actor_db[siteName]:
                 found_scene_id = True
                 for actorName in actor_db[siteName][scene_id]:
-                    movieActors.addActor(actorName, actorPhotoURL)
+                    movieCastCrew.addActor(actorName, actorPhotoURL)
 
         if not found_scene_id:
             for actorLink in actors:
                 actorName = actorLink.text_content().strip()
-                movieActors.addActor(actorName, actorPhotoURL)
+                movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

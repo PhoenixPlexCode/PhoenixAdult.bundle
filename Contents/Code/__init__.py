@@ -16,7 +16,7 @@ from dateutil.parser import parse
 from PIL import Image
 from slugify import slugify
 from traceback import format_exc
-import PAactors
+import PAcastCrew
 import PAgenres
 import PAsearchSites
 import PAsiteList
@@ -126,12 +126,14 @@ class PhoenixAdultAgent(Agent.Movies):
 
     def update(self, metadata, media, lang):
         movieGenres = PAgenres.PhoenixGenres()
-        movieActors = PAactors.PhoenixActors()
+        movieCastCrew = PAcastCrew.PhoenixCastCrew()
         valid_images = list()
 
         HTTP.ClearCache()
         metadata.genres.clear()
         metadata.roles.clear()
+        metadata.directors.clear()
+        metadata.producers.clear()
 
         Log('******UPDATE CALLED*******')
 
@@ -147,7 +149,7 @@ class PhoenixAdultAgent(Agent.Movies):
         if provider is not None:
             providerName = getattr(provider, '__name__')
             Log('Provider: %s' % providerName)
-            provider.update(metadata, lang, siteNum, movieGenres, movieActors, valid_images)
+            provider.update(metadata, lang, siteNum, movieGenres, movieCastCrew, valid_images)
 
         # Cleanup Genres and Add
         Log('Genres')
@@ -156,7 +158,15 @@ class PhoenixAdultAgent(Agent.Movies):
 
         # Cleanup Actors and Add
         Log('Actors')
-        movieActors.processActors(metadata, siteNum)
+        movieCastCrew.processActors(metadata, siteNum)
+
+        # Cleanup Directors and Add
+        Log('Directors')
+        movieCastCrew.processDirectors(metadata, siteNum)
+
+        # Cleanup Producers and Add
+        Log('Producers')
+        movieCastCrew.processProducers(metadata, siteNum)
 
         # Add Content Rating
         metadata.content_rating = 'XXX'

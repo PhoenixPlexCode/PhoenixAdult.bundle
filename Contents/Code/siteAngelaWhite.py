@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -60,7 +60,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actorstr = metadata.title.replace('BTS', '')
     actorstr = (''.join(i for i in list(actorstr) if not i.isdigit())).strip()
     actors = actorstr.split(' X ')
@@ -68,7 +68,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorName = actorLink.strip().lower()
         actorPhotoURL = ''
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

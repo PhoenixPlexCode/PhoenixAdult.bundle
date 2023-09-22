@@ -51,14 +51,14 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     siteNum = metadata_id[1]
     mode = int(metadata_id[2])
     if mode == 1:
         # Using Clips4Sale
-        metadata = siteClips4Sale.update(metadata, lang, 760, movieGenres, movieActors)
+        metadata = siteClips4Sale.update(metadata, lang, 760, movieGenres, movieCastCrew)
         if not sceneURL.startswith('http'):
             sceneURL = PAsearchSites.getSearchBaseURL(760) + sceneURL
         req = PAutils.HTTPRequest(sceneURL)
@@ -71,11 +71,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorPhotoURL = ''
         try:
             actorName = detailsPageElements.xpath('//div[@class="[ mt-1-5 ] clip_details"]/div[3]/span[2]/span[1]/a/text()')[0]
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
         except:
             summary = detailsPageElements.xpath('//div[@class="individualClipDescription"]/p/text()')[0]
             actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*', summary).group()
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
             pass
 
         # Studio
@@ -122,7 +122,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="entry-content"]/p[contains(text(),"starring") or contains(text(), "Starring")]/text()'):
         actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*(\s&\s\w*\s\w*)*', actorLink).group()
         actorPhotoURL = ''
@@ -130,8 +130,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if '&' in actorName:
             actorNames = actorName.split('&')
             for name in actorNames:
-                movieActors.addActor(name.strip(), actorPhotoURL)
+                movieCastCrew.addActor(name.strip(), actorPhotoURL)
         else:
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     return metadata

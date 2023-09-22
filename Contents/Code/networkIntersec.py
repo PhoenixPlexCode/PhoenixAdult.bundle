@@ -21,7 +21,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = '%s/iod/%s' % (PAsearchSites.getSearchBaseURL(siteNum), PAutils.Decode(metadata_id[0]))
     scenePoster = PAutils.Decode(metadata_id[2])
@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('BDSM')
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//div[contains(@class, "has-text-white-ter")][1]//a[contains(@class, "is-dark")][position() < last()]/text()')
     if actors:
         if len(actors) == 3:
@@ -86,7 +86,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieGenres.addGenre('Orgy')
 
         for actorName in actors:
-            movieActors.addActor(actorName, '')
+            movieCastCrew.addActor(actorName, '')
 
     # Posters
     art.append(scenePoster)

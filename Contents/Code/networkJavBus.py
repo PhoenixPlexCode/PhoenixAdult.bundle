@@ -58,7 +58,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -79,10 +79,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = javStudio
 
     # Director
-    director = metadata.directors.new()
-    directorName = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
-    if directorName:
-        director.name = directorName[0].text_content().strip()
+    movieCastCrew.clearDirectors()
+    directorLink = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
+    if directorLink:
+        directorName = directorLink[0].text_content().strip()
+
+        movieCastCrew.addDirector(directorName, '')
 
     #  Tagline and Collection(s)
     metadata.collections.clear()
@@ -117,7 +119,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@class="avatar-box"]'):
         fullActorName = actorLink.xpath('./div/img/@title')[0]
         actorPhotoURL = detailsPageElements.xpath('//a[@class="avatar-box"]/div[@class="photo-frame"]/img[contains(@title, "%s")]/@src' % (fullActorName))[0]
@@ -127,7 +129,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if actorPhotoURL.rsplit('/', 1)[1] == 'nowprinting.gif':
             actorPhotoURL = ''
 
-        movieActors.addActor(fullActorName, actorPhotoURL)
+        movieCastCrew.addActor(fullActorName, actorPhotoURL)
 
     # Posters
     xpaths = [

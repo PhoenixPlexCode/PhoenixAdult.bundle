@@ -30,7 +30,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -38,7 +38,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     movieGenres.clearGenres()
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
 
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h2')[0].text_content(), siteNum)
@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if 'http' not in actorPhotoURL:
                     actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Release Date
     date = detailsPageElements.xpath('//p[@class="mb0"]')[0].text_content().replace('Date Added: ', '').strip()

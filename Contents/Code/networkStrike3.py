@@ -54,7 +54,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneName = PAutils.Decode(metadata_id[0])
 
@@ -70,9 +70,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = video['description']
 
     # Director
+    movieCastCrew.clearDirectors()
     if video['directors']:
-        director = metadata.directors.new()
-        director.name = video['directors'][0]['name']
+        directorName = video['directors'][0]['name']
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum).title()
@@ -98,7 +100,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = video['models']
     for actor in actors:
         actorName = actor['name']
@@ -106,7 +108,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if actor['images']:
             actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     for name in ['movie', 'poster']:

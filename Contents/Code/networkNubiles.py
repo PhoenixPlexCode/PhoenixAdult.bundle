@@ -39,7 +39,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + '/video/watch/' + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
@@ -87,7 +87,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "content-pane-performer")]/a'):
         actorName = actorLink.text_content().strip()
 
@@ -96,38 +96,38 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = 'http:' + actorPage.xpath('//div[contains(@class, "model-profile")]//img/@src')[0]
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     if 'Logan Long' in metadata.summary:
-        movieActors.addActor('Logan Long', '')
+        movieCastCrew.addActor('Logan Long', '')
     elif 'Patrick Delphia' in metadata.summary:
-        movieActors.addActor('Patrick Delphia', '')
+        movieCastCrew.addActor('Patrick Delphia', '')
     elif 'Seth Gamble' in metadata.summary:
-        movieActors.addActor('Seth Gamble', '')
+        movieCastCrew.addActor('Seth Gamble', '')
     elif 'Alex D.' in metadata.summary:
-        movieActors.addActor('Alex D.', '')
+        movieCastCrew.addActor('Alex D.', '')
     elif 'Lucas Frost' in metadata.summary:
-        movieActors.addActor('Lucas Frost', '')
+        movieCastCrew.addActor('Lucas Frost', '')
     elif 'Van Wylde' in metadata.summary:
-        movieActors.addActor('Van Wylde', '')
+        movieCastCrew.addActor('Van Wylde', '')
     elif 'Tyler Nixon' in metadata.summary:
-        movieActors.addActor('Tyler Nixon', '')
+        movieCastCrew.addActor('Tyler Nixon', '')
     elif 'Logan Pierce' in metadata.summary:
-        movieActors.addActor('Logan Pierce', '')
+        movieCastCrew.addActor('Logan Pierce', '')
     elif 'Johnny Castle' in metadata.summary:
-        movieActors.addActor('Johnny Castle', '')
+        movieCastCrew.addActor('Johnny Castle', '')
     elif 'Damon Dice' in metadata.summary:
-        movieActors.addActor('Damon Dice', '')
+        movieCastCrew.addActor('Damon Dice', '')
     elif 'Scott Carousel' in metadata.summary:
-        movieActors.addActor('Scott Carousel', '')
+        movieCastCrew.addActor('Scott Carousel', '')
     elif 'Dylan Snow' in metadata.summary:
-        movieActors.addActor('Dylan Snow', '')
+        movieCastCrew.addActor('Dylan Snow', '')
     elif 'Michael Vegas' in metadata.summary:
-        movieActors.addActor('Michael Vegas', '')
+        movieCastCrew.addActor('Michael Vegas', '')
     elif 'Xander Corvus' in metadata.summary:
-        movieActors.addActor('Xander Corvus', '')
+        movieCastCrew.addActor('Xander Corvus', '')
     elif 'Chad White' in metadata.summary:
-        movieActors.addActor('Chad White', '')
+        movieCastCrew.addActor('Chad White', '')
 
     # Posters
     xpaths = [

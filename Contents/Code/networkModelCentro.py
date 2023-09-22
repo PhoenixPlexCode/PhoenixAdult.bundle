@@ -59,7 +59,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     title = metadata_id[2].strip().title()
@@ -89,7 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Genres
     movieGenres.clearGenres()
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
 
     if 'tags' in detailsPageElements:
         genres = detailsPageElements['tags']['collection']
@@ -101,7 +101,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if genre:
                     if siteNum == 1027:
                         genre = genre.replace('-', ' ')
-                        movieActors.addActor(genre, '')
+                        movieCastCrew.addActor(genre, '')
                     else:
                         movieGenres.addGenre(genre)
 
@@ -116,7 +116,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 actorName = val['stageName']
 
                 if actorName:
-                    movieActors.addActor(actorName, '')
+                    movieCastCrew.addActor(actorName, '')
 
     if siteNum == 1024:
         baseactor = 'Aletta Ocean'
@@ -147,7 +147,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         baseactor = ''
 
-    movieActors.addActor(baseactor, '')
+    movieCastCrew.addActor(baseactor, '')
 
     # Posters
     artobj = json.loads(PAutils.Decode(metadata_id[3]))

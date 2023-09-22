@@ -129,7 +129,7 @@ def dateFromIso(dateString):
     return datetime.strptime(dateString, '%Y-%m-%d').date()
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if 'http' not in sceneURL:
@@ -169,13 +169,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//h1[contains(@class, "watch__title")]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
         # actorPhotoURL = 'http:' + actorLink.get('data-src')
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     art.append(detailsPageElements.xpath('//video/@data-poster')[0])

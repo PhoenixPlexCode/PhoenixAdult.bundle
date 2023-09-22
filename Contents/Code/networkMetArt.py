@@ -24,7 +24,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -62,17 +62,19 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Glamorous')
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['name']
         actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink['headshotImagePath']
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Director
-    director = metadata.directors.new()
-    for dirname in detailsPageElements['photographers']:
-        director.name = dirname['name']
+    movieCastCrew.clearDirectors()
+    for directorLink in detailsPageElements['photographers']:
+        directorName = directorLink['name']
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Posters
     siteUUID = detailsPageElements['siteUUID']

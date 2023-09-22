@@ -35,7 +35,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -50,7 +50,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     metadata.collections.clear()
     movieGenres.clearGenres()
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
 
     # Studio
     metadata.studio = 'New Sensations'
@@ -144,7 +144,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         except:
             pass
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

@@ -28,7 +28,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -61,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//li[@class="update_models"]')
 
     # Manually Add Actors
@@ -69,7 +69,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         match = re.search(r'(?<=s/).*(?=\.html)', sceneURL)
         if match:
             for actor in PAutils.getDictKeyFromValues(actorsDB, match.group(0).lower()):
-                movieActors.addActor(actor, '')
+                movieCastCrew.addActor(actor, '')
 
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
@@ -85,7 +85,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         except:
             actorPhotoURL = ''
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

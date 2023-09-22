@@ -45,7 +45,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -75,11 +75,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = summary[0].strip()
 
     # Director
+    movieCastCrew.clearDirectors()
     directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
     if directorElement:
-        director = metadata.directors.new()
         directorName = directorElement[0].strip()
-        director.name = directorName
+
+        movieCastCrew.addDirector(directorName, '')
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="release-date"]/text()')[0].strip()
@@ -89,21 +90,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]//img'):
         actorName = actorLink.get('title')
         actorPhotoURL = actorLink.get('data-bgsrc')
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     if 'filthykings' and '796896' in sceneURL:
-        movieActors.addActor('Alice Visby', '')
+        movieCastCrew.addActor('Alice Visby', '')
 
     if 'spankmonster' and '845218' in sceneURL:
-        movieActors.addActor('Cecilia Taylor', '')
+        movieCastCrew.addActor('Cecilia Taylor', '')
 
     if 'spankmonster' and '893455' in sceneURL:
-        movieActors.addActor('Rhea Radford', '')
+        movieCastCrew.addActor('Rhea Radford', '')
 
     # Genres
     movieGenres.clearGenres()

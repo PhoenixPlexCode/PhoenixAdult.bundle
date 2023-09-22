@@ -19,7 +19,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     siteNum = int(metadata_id[1])
     sceneID = unicode(metadata_id[2])
@@ -57,7 +57,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieGenres.addGenre(label.text_content())
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     # Use div class="right" because the actors are actually listed twice on the page
     actors = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//div[contains(@class, "right")]//div[contains(@class, "actors_list")]//div[contains(@class, "actor")]//a')
     actorName = ''
@@ -73,7 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorName = actorLink.text_content()
             actorPhotoURL = actorLink.xpath('//img/@src')[0]
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     posterURL = 'https://freecdn.belamionline.com/Data/Contents/Content_%s/Thumbnail8.jpg' % (sceneID)

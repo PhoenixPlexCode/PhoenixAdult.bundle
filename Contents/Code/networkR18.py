@@ -31,7 +31,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -85,10 +85,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = dataElements['maker']['name']
 
     # Director
-    director = metadata.directors.new()
-    directorName = dataElements['director']
-    if directorName != '----':
-        director.name = directorName
+    movieCastCrew.clearDirectors()
+    directorLink = dataElements['director']
+    if directorLink != '----':
+        directorName = directorLink
+
+        movieCastCrew.addDirectors(directorLink, '')
 
     # Release Date
     date = dataElements['release_date']
@@ -97,7 +99,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     if dataElements['actresses'] is not None:
         for actorLink in dataElements['actresses']:
             fullActorName = actorLink['name']
@@ -112,7 +114,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 else:
                     actorName = fullActorName
 
-                movieActors.addActor(actorName, actorPhotoURL)
+                movieCastCrew.addActor(actorName, actorPhotoURL)
 
     else:
         alternateSceneUrl = 'https://www.javlibrary.com/en/vl_searchbyid.php?keyword=' + scene_id
@@ -123,7 +125,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
                 actorName = actress.text_content().strip()
 
-                movieActors.addActor(actorName, '')
+                movieCastCrew.addActor(actorName, '')
         else:
             if javID.startswith('3DSVR'):
                 javID = javID.replace('3DSVR', 'DSVR')
@@ -138,7 +140,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 for actress in alternateDetailsPageElements.xpath('.//span[@class="cast"]/span/a'):
                     actorName = actress.text_content().strip()
 
-                    movieActors.addActor(actorName, '')
+                    movieCastCrew.addActor(actorName, '')
 
     # Genres
     movieGenres.clearGenres()

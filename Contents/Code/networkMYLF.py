@@ -62,7 +62,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneName = metadata_id[0]
     sceneDate = metadata_id[2]
@@ -95,7 +95,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements['models']
     for actorLink in actors:
         actorID = actorLink['modelId']
@@ -106,7 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         if actorData:
             actorPhotoURL = actorData['modelsContent'][actorID]['img']
 
-        movieActors.addActor(actorName, actorPhotoURL)
+        movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Genres
     movieGenres.clearGenres()

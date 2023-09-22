@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -58,7 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actors
-    movieActors.clearActors()
+    movieCastCrew.clearActors()
     actors = detailsPageElements.xpath('//ul[contains(text(), "Models:")]/li/a')
     if len(actors) > 0:
         if 'porn-movie' not in sceneURL and len(actors) == 3:
@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPage = HTML.ElementFromString(req.text)
             actorPhotoURL = actorPage.xpath('//div[@class="model-box"]/img/@src')[0]
 
-            movieActors.addActor(actorName, actorPhotoURL)
+            movieCastCrew.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

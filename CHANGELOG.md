@@ -141,7 +141,7 @@
 - 2019-02-08 8:00AM CST - Added other JulesJordan sites
 - 2019-02-07 10:45AM CST - Updates to Kink.com network to fix searching, clean up the Title and Summary, fix Actors, add Shoot ID search functionality
 - 2019-02-06 11:00AM CST - Added Kink.com network of sites
-- 2019-02-06 8:00AM CST - Bugfix for Joymii photo set results, added several aliases for Joymii to PAactors
+- 2019-02-06 8:00AM CST - Bugfix for Joymii photo set results, added several aliases for Joymii to PAcastCrew
 - 2019-02-05 8:00AM CST - Added subsite to Bang Bros search results
 - 2019-02-04 2:30PM CST - Joymii bugfixes to update() function after allowing photo sets in the search results
 - 2019-02-04 11:30AM CST - Moved posterAlreadyExists() function into PAsearchSites, deleted all other copies of that function throughout the code and pointed all references to it to PAsearchSites.posterAlreadyExists()
@@ -149,14 +149,14 @@
 - 2019-02-04 8:00AM CST - Changed Joymii search to include photo results, as most (all?) photo sets on that site also have an accompanying video, and some releases were only listed in the search results as photo sets
 - 2019-02-03 3:45PM CST - Merged Greg Lansky sites (Blacked/Tushy/Vixen/*Raw) into networkStrike3.py
 - 2019-02-01 8:30AM CST - LegalPorno bugfix, they added forum links amid their Actor lists
-- 2019-01-31 11:00AM CST - Joymii bugfixes, set delposibl's actorDBfinder() function to automatically search any actor passed into PAactors that doesn't have a photo, and to search AFTER being processed by PAactors name replacements
+- 2019-01-31 11:00AM CST - Joymii bugfixes, set delposibl's actorDBfinder() function to automatically search any actor passed into PAcastCrew that doesn't have a photo, and to search AFTER being processed by PAcastCrew name replacements
 - 2019-01-30 11:00AM CST - Added Release Date scoring anywhere I could easily (I'll get the rest as I continue to convert all the search results to common format), removed the useless variable lowerResultTitle and searchAll across the board
 - 2019-01-29 10:00AM CST - Uniformity of the releaseDate variable name across all files, removed individual PornPros files now that they're converged, cleanup of formatting on siteJoymii and networkPornPros, fix for RealityKings release date to pass it from the search function to the update function in the curID, standardized the use of siteNum instead of searchSiteID across all files that address multiple sites, adjusted a few search result formats for uniformity
-- 2019-01-27 5:15PM CST - Merged delposibl's code for additional VR sites, Joymii, another addition to PAactors, consolidation of the PornPros sites, and a function to find actor photos when the site doesn't have them
+- 2019-01-27 5:15PM CST - Merged delposibl's code for additional VR sites, Joymii, another addition to PAcastCrew, consolidation of the PornPros sites, and a function to find actor photos when the site doesn't have them
 - 2019-01-25 2:45PM CST - Spizoo bugfixes and Gamma Ent release date fix
 - 2019-01-25 8:15AM CST - Twistys search result consistency, bugfixes, and additional posters
 - 2019-01-24 1:15PM CST - Gamma Ent bugfix for sites that don't list DVDs (which is most of them)
-- 2019-01-23 7:30AM CST - Merged delposibl's code for 2 new NaughtyAmerica sites, and several new VR sites, additional PAactors
+- 2019-01-23 7:30AM CST - Merged delposibl's code for 2 new NaughtyAmerica sites, and several new VR sites, additional PAcastCrew
 - 2019-01-22 8:15AM CST - Consolidated PornFidelity sites to one file, updated search to return in standard format
 - 2019-01-21 9:00AM CST - Cleaned up the search section of init, a few other bugfixes
 - 2019-01-20 5:15PM CST - Merged blackibanez's code for JulesJordan, Dogfart Network, DDF Network, and the Perfect Gonzo network. Added 21Sextreme network to the existing GammaEnt file.
@@ -178,7 +178,7 @@
 - 2018-12-28 4:30PM CST - Updated Brazzers to add a Collection for the Series if a file is part of a series, along with some minor tweaks to Blacked and BlackedRaw Studio/Tagline
 - 2018-12-28 11:15AM CST - Fixed Blacked and BlackedRaw search results
 - 2018-12-27 2:00PM CST - Updated Brazzers and RealityKings search results to include subsite and release date, added support for SexyHub sites
-- 2018-12-26 1:30PM CST - Added PAactors.py to help clean and match Actors
+- 2018-12-26 1:30PM CST - Added PAcastCrew.py to help clean and match Actors
 - 2018-12-22 8:45PM CST - Updated Girlsway to match the rest of the XEmpire code
 - 2018-12-22 8:30PM CST - Added SweetSinner
 - 2018-12-22 8:15PM CST - Added Nuru Massage
