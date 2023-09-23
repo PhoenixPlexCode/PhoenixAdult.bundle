@@ -57,7 +57,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
     req = PAutils.HTTPRequest(sceneURL)
@@ -103,7 +103,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath(siteXPath['actor']):
         actorName = actorLink.text_content().strip()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')
@@ -114,7 +114,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         if maybeActorPhoto:
             actorPhotoURL = maybeActorPhoto[0].get('src').split('?')[0]
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     for poster in detailsPageElements.xpath(siteXPath['images']):

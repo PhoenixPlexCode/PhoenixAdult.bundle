@@ -45,7 +45,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -86,29 +86,29 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]//img'):
         actorName = actorLink.get('title')
         actorPhotoURL = actorLink.get('data-bgsrc')
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     if 'filthykings' and '796896' in sceneURL:
-        movieCastCrew.addActor('Alice Visby', '')
+        movieActors.addActor('Alice Visby', '')
 
     if 'spankmonster' and '845218' in sceneURL:
-        movieCastCrew.addActor('Cecilia Taylor', '')
+        movieActors.addActor('Cecilia Taylor', '')
 
     if 'spankmonster' and '893455' in sceneURL:
-        movieCastCrew.addActor('Rhea Radford', '')
+        movieActors.addActor('Rhea Radford', '')
 
     # Director
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
     if directorElement:
         directorName = directorElement[0].strip()
 
-        movieCastCrew.addDirector(directorName, '')
+        movieActors.addDirector(directorName, '')
 
     # Posters
     for poster in detailsPageElements.xpath('//div[@id="dv_frames"]//img/@src'):

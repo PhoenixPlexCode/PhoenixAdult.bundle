@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -88,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Amateur')
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="backgroundcolor_info"]//span[@class="update_models"]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
@@ -102,7 +102,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             if not actorPhotoURL.startswith('http'):
                 actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Manually Add Actors
     actors = [
@@ -145,7 +145,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     ]
     for actorName in actors:
         if actorName in metadata.title or actorName in metadata.summary:
-            movieCastCrew.addActor(actorName, '')
+            movieActors.addActor(actorName, '')
 
     # Posters
     try:

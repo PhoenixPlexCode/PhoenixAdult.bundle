@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -54,7 +54,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[contains(@class, "info")]/h2/a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
@@ -63,7 +63,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoInterchange = actorPage.xpath('//img[@class="info-img"]/@data-interchange')[0]
         actorPhotoURL = actorPhotoInterchange.replace("[", "").replace("]", "").replace(", (small)", "").replace(", (medium)", "").replace(", (large)", "").split(",")[2].strip()
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Genre
     movieGenres.clearGenres()

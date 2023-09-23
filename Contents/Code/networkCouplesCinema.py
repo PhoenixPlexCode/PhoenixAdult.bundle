@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -61,10 +61,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.summary = detailsPageElements.xpath('//span[contains(@class, "description")]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[0].strip()
+    metadata.studio = 'Couples Cinema'
 
     # Tagline and Collection(s)
-    tagline = 'CouplesCinema'
+    tagline = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -82,12 +82,12 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.clearGenres()
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "cast")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

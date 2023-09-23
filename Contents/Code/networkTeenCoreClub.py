@@ -36,7 +36,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -58,13 +58,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.collections.add(tagline)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = []
     for actorData in data['video']['actors']:
         actorName = actorData['name']
         actors.append(actorName)
 
-        movieCastCrew.addActor(actorName, '')
+        movieActors.addActor(actorName, '')
 
     if actors and metadata.title.lower().startswith('bic_'):
         if len(actors) == 1:

@@ -90,7 +90,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = int(metadata_id[0])
     sceneType = metadata_id[2]
@@ -163,7 +163,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                     movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     female = []
     male = []
     for actorLink in detailsPageElements['actors']:
@@ -183,7 +183,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     combined = female + male
     for actor in combined:
-        movieCastCrew.addActor(actor[0], actor[1])
+        movieActors.addActor(actor[0], actor[1])
 
     # Posters
     if not PAsearchSites.getSearchBaseURL(siteNum).endswith(('girlsway.com', 'puretaboo.com')):

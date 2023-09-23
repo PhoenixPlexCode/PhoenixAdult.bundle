@@ -57,7 +57,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneID = metadata_id[0]
     detailsPageElements = fetchPageContent(siteNum, sceneID)
@@ -85,9 +85,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('British')
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actor in extractActors(detailsPageElements):
-        movieCastCrew.addActor(actor, '')
+        movieActors.addActor(actor, '')
 
     # Posters
     extractImages(detailsPageElements, art)

@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -56,7 +56,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="scene-cast-list"]/a | //div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
@@ -70,16 +70,16 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             if 'http' not in actorPhotoURL:
                 actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//div[@class="director"]/a')
         for directorLink in directors:
             directorName = directorLink.text_content().strip()
 
-            movieCastCrew.addDirector(directorName, '')
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

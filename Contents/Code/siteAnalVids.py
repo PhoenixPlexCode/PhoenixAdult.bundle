@@ -50,7 +50,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -89,7 +89,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = detailsPageElements.xpath('//a[contains(@href, "/model/") and not(contains(@href, "forum"))]')
     for actorLink in actors:
         actorName = actorLink.text_content()
@@ -98,20 +98,20 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorPage = HTML.ElementFromString(req.text)
         actorPhotoURL = actorPage.xpath('//div[contains(@class,"model")]//img//@src')[0]
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
         directorName = 'Giorgio Grandi'
 
-        movieCastCrew.addDirector(directorName, '')
+        movieActors.addDirector(directorName, '')
     try:
         directors = detailsPageElements.xpath('//p[@class="director"]/a')
         for directorLink in directors:
             directorName = directorLink.text_content().strip()
 
-            movieCastCrew.addDirector(directorName, '')
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

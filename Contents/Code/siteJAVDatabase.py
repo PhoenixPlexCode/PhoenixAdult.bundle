@@ -46,7 +46,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(sceneURL)
@@ -106,7 +106,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
@@ -116,24 +116,24 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             actorPhotoURL = ''
 
         if javID not in (actorsCorrectionDB.keys()):
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
         else:
             if actorName.lower() in map(str.lower, PAutils.getDictValuesFromKey(actorsCorrectionDB, javID)):
-                movieCastCrew.addActor(actorName, actorPhotoURL)
+                movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
     if directorLink:
         directorName = directorLink[0].text_content().strip()
 
-        movieCastCrew.addDirector(directorName, '')
+        movieActors.addDirector(directorName, '')
 
     # Manually Add Actors By JAV ID
     actors = PAutils.getDictKeyFromValues(sceneActorsDB, javID)
 
     for actor in actors:
-        movieCastCrew.addActor(actor, '')
+        movieActors.addActor(actor, '')
 
     # Posters
     xpaths = [

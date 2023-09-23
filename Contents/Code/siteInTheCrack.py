@@ -45,7 +45,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -80,7 +80,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actorstr = detailsPageElements.xpath('//title')[0].text_content().split('#')[1]
     actorstr = (''.join(i for i in list(actorstr) if not i.isdigit())).strip()
     actorstr = actorstr.replace(',', '&')
@@ -90,7 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorName = actorLink.strip()
         actorPhotoURL = ''
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     scenepic = PAsearchSites.getSearchBaseURL(siteNum).strip() + detailsPageElements.xpath('//style')[0].text_content().split('\'')[1].strip()

@@ -58,7 +58,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -105,15 +105,15 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div/span[@class="value"]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     if siteNum == 1344:
-        movieCastCrew.addActor('Christy Marks', '')
+        movieActors.addActor('Christy Marks', '')
 
     # Genres
     movieGenres.clearGenres()

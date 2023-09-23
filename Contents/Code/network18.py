@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     videoId = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements['talent']:
         actorPhoto = []
         actorName = actorLink['talent']['name']
@@ -83,7 +83,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         actorPhoto.append('/members/models/%s/profile-sm.jpg' % actorLink['talent']['talentId'])
         actorPhotoURL = getGraphQL(assetQuery, 'paths', actorPhoto, siteNum)['asset']['batch']['result'][0]['serve']['uri']
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     images = []

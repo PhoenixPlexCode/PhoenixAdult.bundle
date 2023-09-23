@@ -33,7 +33,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
 
     actors = detailsPageElements.xpath('//div[contains(@class, "block_girls_videos")]/a[@class="girl_item"]')
     if actors:
@@ -83,12 +83,12 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             actorName = actorLink.xpath('.//span[@class="name"]')[0].text_content().strip()
             actorPhotoURL = actorLink.xpath('.//img/@src')[0]
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
     else:
         actorName = detailsPageElements.xpath('//div[@id="breadcrumb"]/span[@class="crumb"]')[0].text_content().split('-')[0].strip()
         actorPhotoURL = ''
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     for posterLink in detailsPageElements.xpath('//video[@class="player_video"]/@poster'):

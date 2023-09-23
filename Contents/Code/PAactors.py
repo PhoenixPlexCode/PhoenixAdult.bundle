@@ -1,9 +1,9 @@
 import PAutils
-import PAdatabaseCastCrew
+import PAdatabaseActors
 import PAsearchSites
 
 
-class PhoenixCastCrew:
+class PhoenixActors:
     actorsTable = []
     directorsTable = []
     producersTable = []
@@ -66,14 +66,14 @@ class PhoenixCastCrew:
 
             if not skip:
                 searchStudioIndex = None
-                for studioIndex, studioList in PAdatabaseCastCrew.CastCrewStudioIndexes.items():
+                for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
                     if not siteNum == 684 and metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
                         searchStudioIndex = studioIndex
                         break
 
                 searchActorName = actorName.lower()
-                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseCastCrew.CastCrewReplaceStudios:
-                    for newActorName, aliases in PAdatabaseCastCrew.CastCrewReplaceStudios[searchStudioIndex].items():
+                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
+                    for newActorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
                         if searchActorName == newActorName.lower() or searchActorName in map(str.lower, aliases):
                             actorName = newActorName
 
@@ -82,7 +82,7 @@ class PhoenixCastCrew:
 
                             break
 
-                for newActorName, aliases in PAdatabaseCastCrew.CastCrewReplace.items():
+                for newActorName, aliases in PAdatabaseActors.ActorsReplace.items():
                     if searchActorName == newActorName.lower() or searchActorName in map(str.lower, aliases):
                         actorName = newActorName
                         break
@@ -147,14 +147,14 @@ class PhoenixCastCrew:
 
             if not skip:
                 searchStudioIndex = None
-                for studioIndex, studioList in PAdatabaseCastCrew.CastCrewStudioIndexes.items():
+                for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
                     if not siteNum == 684 and metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
                         searchStudioIndex = studioIndex
                         break
 
                 searchDirectorName = directorName.lower()
-                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseCastCrew.CastCrewReplaceStudios:
-                    for newDirectorName, aliases in PAdatabaseCastCrew.CastCrewReplaceStudios[searchStudioIndex].items():
+                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
+                    for newDirectorName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
                         if searchDirectorName == newDirectorName.lower() or searchDirectorName in map(str.lower, aliases):
                             directorName = newDirectorName
 
@@ -163,7 +163,7 @@ class PhoenixCastCrew:
 
                             break
 
-                for newDirectorName, aliases in PAdatabaseCastCrew.CastCrewReplace.items():
+                for newDirectorName, aliases in PAdatabaseActors.ActorsReplace.items():
                     if searchDirectorName == newDirectorName.lower() or searchDirectorName in map(str.lower, aliases):
                         directorName = newDirectorName
                         break
@@ -215,14 +215,14 @@ class PhoenixCastCrew:
 
             if not skip:
                 searchStudioIndex = None
-                for studioIndex, studioList in PAdatabaseCastCrew.CastCrewStudioIndexes.items():
+                for studioIndex, studioList in PAdatabaseActors.ActorsStudioIndexes.items():
                     if not siteNum == 684 and metadata.studio.lower() in map(str.lower, studioList) or PAsearchSites.getSearchSiteName(siteNum).lower() in map(str.lower, studioList):
                         searchStudioIndex = studioIndex
                         break
 
                 searchProducerName = producerName.lower()
-                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseCastCrew.CastCrewReplaceStudios:
-                    for newProducerName, aliases in PAdatabaseCastCrew.CastCrewReplaceStudios[searchStudioIndex].items():
+                if searchStudioIndex is not None and searchStudioIndex in PAdatabaseActors.ActorsReplaceStudios:
+                    for newProducerName, aliases in PAdatabaseActors.ActorsReplaceStudios[searchStudioIndex].items():
                         if searchProducerName == newProducerName.lower() or searchProducerName in map(str.lower, aliases):
                             producerName = newProducerName
 
@@ -231,7 +231,7 @@ class PhoenixCastCrew:
 
                             break
 
-                for newProducerName, aliases in PAdatabaseCastCrew.CastCrewReplace.items():
+                for newProducerName, aliases in PAdatabaseActors.ActorsReplace.items():
                     if searchProducerName == newProducerName.lower() or searchProducerName in map(str.lower, aliases):
                         producerName = newProducerName
                         break
@@ -515,7 +515,7 @@ def getFromJavBus(actorName, actorEncoded, metadata):
     actorPhotoURL = ''
     actorID = ''
 
-    for id, names in PAdatabaseCastCrew.CastCrewReplaceJavBusSearch.items():
+    for id, names in PAdatabaseActors.ActorsReplaceJavBusSearch.items():
         if actorName.lower() in map(str.lower, names):
             actorID = id
             break

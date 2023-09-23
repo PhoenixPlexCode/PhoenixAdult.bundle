@@ -1,4 +1,4 @@
-CastCrewReplace = {
+ActorsReplace = {
     'Abbey Rain': ['Abby Rains', 'Julie Snow'],
     'Abby Lee Brazil': ['Abby Lee'],
     'Abella Danger': ['Bella Danger'],
@@ -329,7 +329,7 @@ CastCrewReplace = {
     'Zoe Bloom': ['Zoey Bloom'],
 }
 
-CastCrewReplaceStudios = {
+ActorsReplaceStudios = {
     0: {  # 21 Sextury, 21Sextury, Footsie Babes
         'Camilla Moon': ['Ambica'],
         'Eva Smolina': ['Una'],
@@ -6038,7 +6038,7 @@ CastCrewReplaceStudios = {
     },
 }
 
-CastCrewStudioIndexes = {
+ActorsStudioIndexes = {
     0: ['21 Sextury', '21Sextury', 'Footsie Babes'],
     1: ['Babes'],
     2: ['Bang Bros'],
@@ -6111,7 +6111,7 @@ CastCrewStudioIndexes = {
 }
 
 
-CastCrewReplaceJavBusSearch = {
+ActorsReplaceJavBusSearch = {
     'm2c': ['Abeno Miku'],
     'mxo': ['Aihara Sarii'],
     '9qk': ['Aiki Yuu'],

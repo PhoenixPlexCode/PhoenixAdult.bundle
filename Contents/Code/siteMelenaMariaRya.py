@@ -26,7 +26,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
 
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -67,13 +67,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('European')
 
     # Actor(s)
-    movieCastCrew.clearActors()
-    movieCastCrew.addActor('Melena Maria Rya', '')
+    movieActors.clearActors()
+    movieActors.addActor('Melena Maria Rya', '')
 
     # with..?
     m = re.search(r' with ([A-Z][a-z]+ [A-Z][a-z]+)$', metadata.title, re.IGNORECASE)
     if m:
-        movieCastCrew.addActor(m.group(1), '')
+        movieActors.addActor(m.group(1), '')
 
     # Posters/Background
     xpaths = []

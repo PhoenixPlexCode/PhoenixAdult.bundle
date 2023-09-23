@@ -60,7 +60,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -98,7 +98,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     img = ''
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//strong[contains(., "Actr")]//following-sibling::a'):
         actorName = actorLink.text_content().strip()
 
@@ -115,7 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                     art.append(img)
                     break
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):

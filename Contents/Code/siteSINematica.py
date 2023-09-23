@@ -26,7 +26,7 @@ def fix_xml(text):
     return text.replace('&nbsp;', '')
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(PAsearchSites.getSearchBaseURL(siteNum) + sceneURL)
@@ -58,10 +58,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
-        movieCastCrew.addActor(actorName, '')
+        movieActors.addActor(actorName, '')
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="release-date"]')[0].text_content().replace('Released:', '').strip()

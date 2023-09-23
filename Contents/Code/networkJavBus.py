@@ -58,7 +58,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
 
@@ -110,7 +110,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@class="avatar-box"]'):
         fullActorName = actorLink.xpath('./div/img/@title')[0]
         actorPhotoURL = detailsPageElements.xpath('//a[@class="avatar-box"]/div[@class="photo-frame"]/img[contains(@title, "%s")]/@src' % (fullActorName))[0]
@@ -120,15 +120,15 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         if actorPhotoURL.rsplit('/', 1)[1] == 'nowprinting.gif':
             actorPhotoURL = ''
 
-        movieCastCrew.addActor(fullActorName, actorPhotoURL)
+        movieActors.addActor(fullActorName, actorPhotoURL)
 
     # Director
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     directorLink = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
     if directorLink:
         directorName = directorLink[0].text_content().strip()
 
-        movieCastCrew.addDirector(directorName, '')
+        movieActors.addDirector(directorName, '')
 
     # Posters
     xpaths = [

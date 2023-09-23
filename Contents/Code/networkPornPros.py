@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -79,7 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.collections.add(siteName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     if 'pornplus' in sceneURL:
         actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-4")]//a[contains(@href, "/models/")]')
     else:
@@ -99,9 +99,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             if '&' in actorName:
                 actorNames = actorName.split('&')
                 for name in actorNames:
-                    movieCastCrew.addActor(name.strip(), actorPhotoURL)
+                    movieActors.addActor(name.strip(), actorPhotoURL)
             else:
-                movieCastCrew.addActor(actorName, actorPhotoURL)
+                movieActors.addActor(actorName, actorPhotoURL)
 
             if not actorDate:
                 actorURL = actorLink.get('href')
@@ -133,7 +133,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     # Manually Add Actors
     # Add Actor Based on Title
     for actor in PAutils.getDictValuesFromKey(actorsDB, metadata.title):
-        movieCastCrew.addActor(actor, '')
+        movieActors.addActor(actor, '')
 
     # Release Date
     if actorDate:

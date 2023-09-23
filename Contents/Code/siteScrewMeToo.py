@@ -29,7 +29,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -37,7 +37,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     movieGenres.clearGenres()
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
 
     # Title
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
@@ -76,7 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 if 'http' not in actorPhotoURL:
                     actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     fullTitle = re.search(r"(?<=content\/).*(?=\/)", sceneURL).group(0)
 

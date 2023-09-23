@@ -202,7 +202,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
@@ -215,7 +215,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
 
     if len(metadata_id) > 3:
         Log('Switching to Data18Scenes')
-        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieCastCrew, art)
+        siteData18Scenes.update(metadata, lang, siteNum, movieGenres, movieActors, art)
         return metadata
 
     # Title
@@ -271,7 +271,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//a[contains(@href, "/pornstars/")]//img')
     actors.extend(detailsPageElements.xpath('//b[contains(., "Cast")]//following::div//img[contains(@data-original, "user")]'))
     actors.extend(detailsPageElements.xpath('//h3[contains(., "Cast")]//following::div[@style]//img'))
@@ -283,17 +283,17 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             break
 
         actorPhotoURL = ''
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     director = detailsPageElements.xpath('//p[./b[contains(., "Director")]]')
     if director:
         directorLink = director[0].text_content().split(':')[-1].split('-')[0].strip()
         if not directorLink == 'Unknown':
             directorName = directorLink
 
-            movieCastCrew.addDirector(directorName, '')
+            movieActors.addDirector(directorName, '')
 
     # Posters
     photos = []

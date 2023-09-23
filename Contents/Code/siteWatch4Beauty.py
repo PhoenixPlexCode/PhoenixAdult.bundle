@@ -61,7 +61,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
 
     modelString = metadata_id[0]
@@ -85,9 +85,9 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.studio = 'Watch4Beauty'
 
     # Director
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     directorName = 'Mark'
-    movieCastCrew.addDirector(directorName, '')
+    movieActors.addDirector(directorName, '')
 
     # Tagline and Collection(s)
     tagline = PAsearchSites.getSearchSiteName(siteNum)
@@ -107,7 +107,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             movieGenres.addGenre(genreName.strip())
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
 
     # Posters
     artPrefix = w4bArtUrl() + dateObj.strftime('%Y%m%d')
@@ -122,7 +122,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             modelName = model.get('model_nickname')
             modelString = model.get('model_simple_nickname')
             modelPhotoURL = artPrefix + 'model-%s-320.jpg' % modelString
-            movieCastCrew.addActor(modelName, modelPhotoURL)
+            movieActors.addActor(modelName, modelPhotoURL)
 
             art.append(w4bArtUrl() + 'model-%s-wide-2560.jpg' % modelString)
             art.append(w4bArtUrl() + 'model-%s-1280.jpg' % modelString)

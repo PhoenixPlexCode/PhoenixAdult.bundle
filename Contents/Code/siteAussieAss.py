@@ -81,7 +81,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     try:
@@ -114,7 +114,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     metadata.collections.add(metadata.studio)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     if 'webmasters' in sceneURL:
         actors = detailsPageElements.xpath('//spam[@class="key-words"]//a')
     else:
@@ -141,7 +141,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 if 'http' not in actorPhotoURL:
                     actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPhotoURL
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Date
     date = ""

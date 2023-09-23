@@ -17,7 +17,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     scenePoster = PAutils.Decode(metadata_id[2])
@@ -48,7 +48,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="videoContent"]/ul/li[position()=last()]/a'):
         genreName = genreLink.text_content().strip()
@@ -69,7 +69,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         except:
             pass
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     art.append(scenePoster)

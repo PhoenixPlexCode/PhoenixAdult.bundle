@@ -21,7 +21,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -59,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="updateModelsList"]/a')
     if actors:
         if len(actors) == 3:
@@ -82,7 +82,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
                 if not actorPhotoURL.startswith('http'):
                     actorPhotoURL = PAsearchSites.getSearchBaseURL(sceneURL) + actorPhotoURL
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
     xpaths = [

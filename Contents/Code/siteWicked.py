@@ -50,7 +50,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.starstswith('http'):
@@ -59,7 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     movieGenres.clearGenres()
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
 
     # Title
     metadata.title = detailsPageElements.xpath('//h1//span')[0].text_content().strip().title().replace('Xxx', 'XXX')
@@ -96,7 +96,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             except:
                 pass
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
         script_text = detailsPageElements.xpath('//script')[7].text_content()
 
@@ -123,13 +123,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             pass
 
         # Director
-        movieCastCrew.clearDirectors()
+        movieActors.clearDirectors()
         try:
             directors = dvdPageElements.xpath('//ul[@class="directedBy"]')
             for directorLink in directors:
                 directorName = directorLink.text_content().strip()
 
-                movieCastCrew.addDirector(directorName, '')
+                movieActors.addDirector(directorName, '')
         except:
             pass
 
@@ -169,7 +169,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             except:
                 pass
 
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
         # Tagline/collections
         tagline = 'Wicked Pictures'
@@ -183,13 +183,13 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             pass
 
         # Director
-        movieCastCrew.clearDirectors()
+        movieActors.clearDirectors()
         try:
             directors = detailsPageElements.xpath('//ul[@class="directedBy"]')
             for directorLink in directors:
                 directorName = directorLink.text_content().strip()
 
-                movieCastCrew.addDirector(directorName, '')
+                movieActors.addDirector(directorName, '')
         except:
             pass
 

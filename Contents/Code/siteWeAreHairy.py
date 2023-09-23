@@ -20,7 +20,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     if not sceneURL.startswith('http'):
@@ -60,21 +60,21 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
     movieGenres.addGenre('Hairy Pussy')
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="meet"]/a/img'):
         actorName = actorLink.get('alt').replace('WeAreHairy.com', '').strip()
         actorPhotoURL = ''
 
-        movieCastCrew.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//div[@class="desc"]/div[2]/p')
         for directorLink in directors:
             directorName = directorLink.text_content().strip()
 
-            movieCastCrew.addDirector(directorName, '')
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

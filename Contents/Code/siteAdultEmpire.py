@@ -203,7 +203,7 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     splitScene = False
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -271,7 +271,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieCastCrew.clearActors()
+    movieActors.clearActors()
     actors = []
     if splitScene:
         scenes = detailsPageElements.xpath('//div[@class="row"][.//h3]')[sceneIndex]
@@ -291,10 +291,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
             actorPhotoURL = ''
 
         if actorName:
-            movieCastCrew.addActor(actorName, actorPhotoURL)
+            movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieCastCrew.clearDirectors()
+    movieActors.clearDirectors()
     directors = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
     for directorLink in directors:
         directorName = directorLink.strip()
@@ -304,10 +304,10 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         except:
             directorPhotoURL = ''
 
-        movieCastCrew.addDirector(directorName, directorPhotoURL)
+        movieActors.addDirector(directorName, directorPhotoURL)
 
     # Producer(s)
-    movieCastCrew.clearProducers()
+    movieActors.clearProducers()
     producers = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
     for producerLink in producers:
         producerName = producerLink.strip()
@@ -317,7 +317,7 @@ def update(metadata, lang, siteNum, movieGenres, movieCastCrew, art):
         except:
             producerPhotoURL = ''
 
-        movieCastCrew.addProducer(producerName, producerPhotoURL)
+        movieActors.addProducer(producerName, producerPhotoURL)
 
     # Posters
     xpaths = [
