@@ -73,7 +73,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Radical Cash'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = '%s: %s' % (PAsearchSites.getSearchSiteName(siteNum), detailsPageElements.xpath('//p[@class="series"]')[0].text_content().strip())
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -86,14 +85,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(','):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[@class="model-wrap"]//li')
     if actors:
         if len(actors) == 3:

@@ -37,8 +37,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Elegant Angel'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -50,14 +49,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="categories"]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="scene-cast-list"]/a | //div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
@@ -73,12 +70,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Director
-    director = metadata.directors.new()
+    # Director(s)
     try:
         directors = detailsPageElements.xpath('//div[@class="director"]/a')
-        for dirname in directors:
-            director.name = dirname.text_content().strip()
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

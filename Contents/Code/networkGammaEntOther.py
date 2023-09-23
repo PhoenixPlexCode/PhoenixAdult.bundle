@@ -134,7 +134,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.studio = detailsPageElements['network_name']
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'filthykings' in PAsearchSites.getSearchBaseURL(siteNum):
         metadata.tagline = detailsPageElements['serie_name']
     for collectionName in ['studio_name', 'serie_name']:
@@ -150,7 +149,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['categories']:
         genreName = genreLink['name']
         if genreName:
@@ -163,8 +161,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 if genreName:
                     movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     female = []
     male = []
     for actorLink in detailsPageElements['actors']:

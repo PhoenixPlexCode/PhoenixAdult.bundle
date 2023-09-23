@@ -77,7 +77,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.studio = studioClean
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//tr[./td[contains(., "Label")]]//td[@class="tablevalue"]')
     if tagline and tagline[0].text_content().strip():
         taglineClean = tagline[0].text_content().strip()
@@ -92,12 +91,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         metadata.collections.add('Japan Adult Video')
 
-    # Director
-    director = metadata.directors.new()
-    directorName = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
-    if directorName:
-        director.name = directorName[0].text_content().strip()
-
     # Release Date
     date = detailsPageElements.xpath('//tr[./td[contains(., "Release Date")]]//td[@class="tablevalue"]')
     if date:
@@ -106,14 +99,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//tr[./td[contains(., "Genre")]]//td[@class="tablevalue"]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
@@ -127,6 +118,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         else:
             if actorName.lower() in map(str.lower, PAutils.getDictValuesFromKey(actorsCorrectionDB, javID)):
                 movieActors.addActor(actorName, actorPhotoURL)
+
+    # Director
+    directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
+    if directorLink:
+        directorName = directorLink[0].text_content().strip()
+
+        movieActors.addDirector(directorName, '')
 
     # Manually Add Actors By JAV ID
     actors = PAutils.getDictKeyFromValues(sceneActorsDB, javID)

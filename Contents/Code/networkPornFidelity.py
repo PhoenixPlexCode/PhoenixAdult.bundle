@@ -40,7 +40,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'PornFidelity'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'Teenfidelity' in metadata.title:
         tagline = 'TeenFidelity'
     elif 'Kelly Madison' in metadata.title:
@@ -57,12 +56,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Hardcore')
     movieGenres.addGenre('Heterosexual')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//a[@class="is-underlined"]')
     if actors:
         if len(actors) == 3:

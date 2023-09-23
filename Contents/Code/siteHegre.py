@@ -55,7 +55,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Hegre'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -67,14 +66,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//a[@class="tag"]'):
         genreName = genreLink.text_content().strip().lower()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//a[@class="record-model"]')
     if actors:
         if len(actors) == 3:
@@ -91,9 +88,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    director = metadata.directors.new()
-    director.name = 'Petter Hegre'
-    director.photo = 'https://img.discogs.com/TafxhnwJE2nhLodoB6UktY6m0xM=/fit-in/180x264/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-2236724-1305622884.jpeg.jpg'
+    directorName = 'Petter Hegre'
+    directorPhoto = 'https://img.discogs.com/TafxhnwJE2nhLodoB6UktY6m0xM=/fit-in/180x264/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-2236724-1305622884.jpeg.jpg'
+    movieActors.addDirector(directorName, directorPhoto)
 
     # Posters
     art.append(detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0].replace('board-image', 'poster-image').replace('1600x', '640x'))

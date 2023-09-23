@@ -36,9 +36,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = detailsPageElements.xpath('//h1')[0].text_content()
 
@@ -49,12 +46,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
-    # Actors
+    # Actor(s)
     actors = detailsPageElements.xpath('//a[contains(@title, "Model Bio")]')
     if actors:
         if len(actors) == 2:

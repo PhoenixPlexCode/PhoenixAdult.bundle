@@ -38,8 +38,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'VRAllure'
 
-    # Tagline and Collection
-    metadata.collections.clear()
+    # Tagline and Collection(s)
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -52,15 +51,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//a[contains(@class, "label label-tag")]')
     for genreLink in genres:
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//p[@class="model-name"]//a[contains(@href, "/models/")]'):
         actorName = actorLink.text_content().strip()
 

@@ -47,8 +47,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Girls Rimming'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -59,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     actors = []
 
     genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(',')
@@ -72,8 +70,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     movieGenres.addGenre('Rim Job')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in actors:
         actorLink = actorLink.split(' Id ')
         actorName = actorLink[0].strip()

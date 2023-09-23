@@ -59,8 +59,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'ManyVids'
 
-    # Collections / Tagline
-    metadata.collections.clear()
+    # Tagline and Collection(s)
     tagline = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -72,14 +71,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in videoPageElements['tags']:
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actorName = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content()
     actorPhotoURL = ''
 

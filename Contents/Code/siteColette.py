@@ -43,9 +43,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'Colette'
 
-    # Tagline and Collection
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    # Tagline and Collection(s)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -54,8 +53,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.originally_available_at = date
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[contains(@class, "info")]/h2/a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
@@ -67,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genre
-    movieGenres.clearGenres()
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')

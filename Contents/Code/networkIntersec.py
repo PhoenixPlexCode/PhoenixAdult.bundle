@@ -38,7 +38,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Intersec Interactive'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     taglineText = detailsPageElements.xpath('//div[contains(@class, "has-text-white-ter")][1]//a[contains(@class, "is-dark")][last()]/text()')[0]
     if 'sexuallybroken' in taglineText:
         tagline = 'Sexually Broken'
@@ -71,11 +70,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('BDSM')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[contains(@class, "has-text-white-ter")][1]//a[contains(@class, "is-dark")][position() < last()]/text()')
     if actors:
         if len(actors) == 3:

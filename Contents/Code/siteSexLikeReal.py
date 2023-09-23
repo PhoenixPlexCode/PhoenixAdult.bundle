@@ -45,10 +45,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if maybeSummary and len(maybeSummary) == 1:
         metadata.summary = maybeSummary[0].text_content().strip()
 
-    # Studio/Tagline/Collection
-    metadata.collections.clear()
+    # Studio
     metadata.studio = detailsPageElements.xpath('//div[contains(@class, "u-inline-block u-align-y--m u-relative u-fw--bold")]')[0].text_content().strip()
-    metadata.tagline = metadata.studio
+
+    # Tagline and Collection(s)
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -58,12 +58,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreName in detailsPageElements.xpath('//meta[@property="video:tag"]/@content'):
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//meta[@property="video:actor"]/@content')
     for actorName in actors:
         actorLink = '/pornstars/' + actorName.replace(' ', '-').lower()

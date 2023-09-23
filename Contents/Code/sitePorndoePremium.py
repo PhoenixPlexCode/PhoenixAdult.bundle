@@ -40,13 +40,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="-mvd-description"]')[0].text_content().strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//div[@class="-mvd-grid-actors"]/span/a')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//span[@class="-mvd-list-item"]/a'):
         genreName = genreLink.text_content().strip()
 
@@ -60,8 +58,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="-mvd-grid-actors"]/span/a[@title]'):
         actorName = ''
         actorPhotoURL = ''

@@ -46,7 +46,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'FuelVirtual'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = siteName
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -58,7 +57,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//td[@class="plaintext"]/a[@class="model_category_link"]'):
         genreName = genreLink.text_content().strip()
 
@@ -66,8 +64,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if siteName != 'NewGirlPOV':
         movieGenres.addGenre('18-Year-Old')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[@id="description"]//td[@align="left"]/a')
     if actors:
         if len(actors) == 3:

@@ -81,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Abby Winters'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.tagline = PAutils.parseTitle(detailsPageElements.xpath('//div[@id="shoot-featured-image"]//h4')[0].text_content().strip(), siteNum)
     metadata.collections.add(metadata.tagline)
 
@@ -92,14 +91,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//aside/div[contains(@class, "description")]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//tr[contains(., "Scene")]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

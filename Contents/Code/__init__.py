@@ -130,8 +130,19 @@ class PhoenixAdultAgent(Agent.Movies):
         valid_images = list()
 
         HTTP.ClearCache()
+        metadata.collections.clear()
+
         metadata.genres.clear()
+        movieGenres.clearGenres()
+
         metadata.roles.clear()
+        movieActors.clearActors()
+
+        metadata.directors.clear()
+        movieActors.clearDirectors()
+
+        metadata.producers.clear()
+        movieActors.clearProducers()
 
         Log('******UPDATE CALLED*******')
 
@@ -157,6 +168,14 @@ class PhoenixAdultAgent(Agent.Movies):
         # Cleanup Actors and Add
         Log('Actors')
         movieActors.processActors(metadata, siteNum)
+
+        # Cleanup Directors and Add
+        Log('Directors')
+        movieActors.processDirectors(metadata, siteNum)
+
+        # Cleanup Producers and Add
+        Log('Producers')
+        movieActors.processProducers(metadata, siteNum)
 
         # Add Content Rating
         metadata.content_rating = 'XXX'

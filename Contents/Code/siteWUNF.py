@@ -26,19 +26,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Studio
-    metadata.studio = 'WakeUpNFuck'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Title
     metadata.title = detailsPageElements.xpath('//div[@class="block"]//h2')[0].text_content().strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="tags"]//a'):
         genreName = genreLink.text_content().strip()
 
@@ -50,8 +46,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
 
     actors = detailsPageElements.xpath('//div[@class="starring"]//a[@class="item"]')
     for actorLink in actors:

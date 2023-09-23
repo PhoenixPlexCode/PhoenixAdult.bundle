@@ -37,8 +37,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Bel Ami Online'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -50,14 +49,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     labels = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//span[contains(@id, "ContentPlaceHolder1_LabelTags")]//a')
     if labels:
         for label in labels:
             movieGenres.addGenre(label.text_content())
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     # Use div class="right" because the actors are actually listed twice on the page
     actors = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//div[contains(@class, "right")]//div[contains(@class, "actors_list")]//div[contains(@class, "actor")]//a')
     actorName = ''

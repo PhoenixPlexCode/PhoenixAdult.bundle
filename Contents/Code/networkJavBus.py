@@ -78,14 +78,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = javStudio
 
-    # Director
-    director = metadata.directors.new()
-    directorName = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
-    if directorName:
-        director.name = directorName[0].text_content().strip()
-
     #  Tagline and Collection(s)
-    metadata.collections.clear()
     data = {}
 
     label = detailsPageElements.xpath('//p/a[contains(@href, "/label/")]')
@@ -111,13 +104,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//span[@class="genre"]//a[contains(@href, "/genre/")]'):
         genreName = genreLink.text_content().lower().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//a[@class="avatar-box"]'):
         fullActorName = actorLink.xpath('./div/img/@title')[0]
         actorPhotoURL = detailsPageElements.xpath('//a[@class="avatar-box"]/div[@class="photo-frame"]/img[contains(@title, "%s")]/@src' % (fullActorName))[0]
@@ -128,6 +119,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = ''
 
         movieActors.addActor(fullActorName, actorPhotoURL)
+
+    # Director
+    directorLink = detailsPageElements.xpath('//p/a[contains(@href, "/director/")]')
+    if directorLink:
+        directorName = directorLink[0].text_content().strip()
+
+        movieActors.addDirector(directorName, '')
 
     # Posters
     xpaths = [

@@ -58,13 +58,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Jacquie Et Michel TV'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="content-detail__row"]//li[@class="content-detail__tag"]'):
         genreName = genreLink.text_content().replace(',', '').strip()
         if genreName == 'Sodomy':
@@ -80,8 +78,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in getJMTVActors(sceneURL):
         actorName = actorLink
         actorPhotoURL = ''
@@ -115,7 +112,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 
 def getJMTVActors(url):
-    # actors for scenes must be manually specified using a URL fragment:
+    # Actor(s) for scenes must be manually specified using a URL fragment:
     scenes = {
         '4554/ibiza-1-crumb-in-the-mouth': [
             'Alexis Crystal',

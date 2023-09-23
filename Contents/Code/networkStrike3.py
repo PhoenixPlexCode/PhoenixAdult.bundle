@@ -69,16 +69,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Summary
     metadata.summary = video['description']
 
-    # Director
-    if video['directors']:
-        director = metadata.directors.new()
-        director.name = video['directors'][0]['name']
-
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum).title()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -87,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     if metadata.studio == 'Tushy' or metadata.studio == 'TushyRaw':
         movieGenres.addGenre('Anal')
 
@@ -97,8 +90,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = video['models']
     for actor in actors:
         actorName = actor['name']
@@ -107,6 +99,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = actor['images']['listing'][0]['highdpi']['double']
 
         movieActors.addActor(actorName, actorPhotoURL)
+
+    # Director
+    if video['directors']:
+        directorName = video['directors'][0]['name']
+
+        movieActors.addDirector(directorName, '')
 
     # Posters
     for name in ['movie', 'poster']:

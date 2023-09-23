@@ -77,8 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = siteName
 
-    # Tagline and Collection
-    metadata.collections.clear()
+    # Tagline and Collection(s)
     tagline = detailsPageElements.xpath('//title')[0].text_content().strip()
     if '|' in tagline:
         tagline = tagline.split('|')[1].strip()
@@ -97,14 +96,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath(siteXPath['tags']):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath(siteXPath['actor']):
         actorName = actorLink.text_content().strip()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')

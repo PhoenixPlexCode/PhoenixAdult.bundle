@@ -42,8 +42,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actorList = []
     actors = detailsPageElements.xpath('//p[@class="grey-performers"]//a')
 
@@ -74,7 +73,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Naughty America'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Tonight\'s Girlfriend'
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -98,7 +96,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     genres = ['Girlfriend Experience', 'Pornstar', 'Hotel', 'Pornstar Experience']
     if (len(actors) + len(maleActors)) == 3:
         genres.append('Threesome')

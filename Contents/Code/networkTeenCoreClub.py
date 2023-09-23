@@ -53,13 +53,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Teen Core Club'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = data['video']['labels'][0]['name'].replace('.com', '').strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = []
     for actorData in data['video']['actors']:
         actorName = actorData['name']
@@ -83,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreData in data['video']['genres']:
         if genreData['title']['en']:
             genreName = genreData['title']['en']

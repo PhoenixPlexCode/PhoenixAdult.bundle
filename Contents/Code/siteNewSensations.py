@@ -48,10 +48,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         sceneType = 'Scene'
 
-    metadata.collections.clear()
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Studio
     metadata.studio = 'New Sensations'
 
@@ -75,7 +71,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-        # Actors
+        # Actor(s)
         actors = detailsPageElements.xpath('//div[@class="sceneTextLink"]//span[@class="tour_update_models"]/a')
         if actors:
             if len(actors) == 3:
@@ -121,7 +117,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             metadata.originally_available_at = date_object
             metadata.year = metadata.originally_available_at.year
 
-        # Actors
+        # Actor(s)
         actors = detailsPageElements.xpath('//span[@class="tour_update_models"]/a')
 
         # Posters

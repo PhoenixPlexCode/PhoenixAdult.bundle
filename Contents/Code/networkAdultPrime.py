@@ -83,7 +83,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Adult Prime'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//p[@class="update-info-line regular"][./b[contains(., "Studio")]]//a')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -100,14 +99,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//p[@class="update-info-line regular"][./b[contains(., "Niches")]]')[0].text_content().split(':')[-1].split(','):
         genreName = PAutils.parseTitle(genreLink.strip(), siteNum)
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//p[@class="update-info-line regular"][./b[contains(., "Performer")]]/a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()

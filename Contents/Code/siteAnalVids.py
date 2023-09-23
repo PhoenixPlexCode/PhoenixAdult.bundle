@@ -70,7 +70,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'AnalVids'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//div[contains(@class,"genres-list")]/a/text()')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -82,15 +81,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//div[contains(@class, "genres-list")]/a[contains(@href, "/genre/")]')
 
     for genreLink in genres:
         genreName = genreLink.text_content().title()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//a[contains(@href, "/model/") and not(contains(@href, "forum"))]')
     for actorLink in actors:
         actorName = actorLink.text_content()
@@ -101,14 +98,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Director
-    director = metadata.directors.new()
+    # Director(s)
     if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
-        director.name = 'Giorgio Grandi'
+        directorName = 'Giorgio Grandi'
+
+        movieActors.addDirector(directorName, '')
     try:
         directors = detailsPageElements.xpath('//p[@class="director"]/a')
-        for dirname in directors:
-            director.name = dirname.text_content().strip()
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

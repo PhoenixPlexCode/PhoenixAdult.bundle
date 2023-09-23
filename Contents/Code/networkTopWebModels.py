@@ -75,7 +75,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Top Web Models'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'sites' in detailsPageElements:
         tagline = re.sub(r"(\w)([A-Z])", r"\1 \2", json.loads(json.dumps(detailsPageElements['sites'][0]))['name'])
     else:
@@ -91,14 +90,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['tags']:
         genreName = genreLink['name']
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['name']
         actorPhotoURL = actorLink['thumb']

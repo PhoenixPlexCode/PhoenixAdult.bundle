@@ -58,13 +58,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Dirty Hard Drive'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actorLink = detailsPageElements.xpath('//div[@id="video-specs"]//span')
     if actorLink:
         actorName = actorLink[-1].text_content().strip()

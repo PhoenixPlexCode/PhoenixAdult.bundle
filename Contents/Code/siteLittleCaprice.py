@@ -45,7 +45,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="desc-text"]')[0].text_content().strip()
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="project-tags"]/div[@class="list"]/a') + galleryPageElements.xpath('//div[@class="project-tags"]/div[@class="list"]/a'):
         genreName = genreLink.text_content().lower()
 
@@ -53,8 +52,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Tagline and Collection(s)
     attributes = detailsPageElements.xpath('//div[@id="main-project-content"]/@class')[0].strip().split()
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     if 'category_buttmuse' in attributes:
         tagline = 'Buttmuse'
     elif 'category_caprice-divas' in attributes:
@@ -88,8 +86,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[@class="project-models"]//a')
     if actors:
         if len(actors) == 3:

@@ -61,10 +61,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneActors = metadata_id[4]
     scenePoster = PAutils.Decode(metadata_id[5])
 
-    metadata.collections.clear()
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = sceneTitle
 
@@ -75,9 +71,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'PureCFNM'
 
     # Tagline and Collection(s)
-    subSite = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = subSite
-    metadata.collections.add(subSite)
+    tagline = PAsearchSites.getSearchSiteName(tagline)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Genres
     if subSite.lower() == 'AmateurCFNM'.lower():
@@ -104,7 +100,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     actors = sceneActors.split(',')
     if actors:
         if len(actors) == 2:

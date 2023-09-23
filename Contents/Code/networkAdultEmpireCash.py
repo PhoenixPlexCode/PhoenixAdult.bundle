@@ -57,29 +57,21 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[@class="description"]/text()')[0].strip(), siteNum)
 
+    # Summary
+    summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
+    if summary:
+        metadata.summary = summary[0].strip()
+
+    # Studio
+    metadata.studio = 'Adult Empire Cash'
+
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'filthykings' in sceneURL:
         tagline = PAsearchSites.getSearchSiteName(siteNum)
     else:
         tagline = detailsPageElements.xpath('//div[@class="studio"]//span/text()')[1].strip()
     metadata.tagline = tagline
     metadata.collections.add(metadata.tagline)
-
-    # Studio
-    metadata.studio = 'Adult Empire Cash'
-
-    # Summary
-    summary = detailsPageElements.xpath('//div[@class="synopsis"]/p/text()')
-    if summary:
-        metadata.summary = summary[0].strip()
-
-    # Director
-    directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
-    if directorElement:
-        director = metadata.directors.new()
-        directorName = directorElement[0].strip()
-        director.name = directorName
 
     # Release Date
     date = detailsPageElements.xpath('//div[@class="release-date"]/text()')[0].strip()
@@ -88,8 +80,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Genres
+    for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
+        movieGenres.addGenre(genreName)
+
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]//img'):
         actorName = actorLink.get('title')
         actorPhotoURL = actorLink.get('data-bgsrc')
@@ -105,10 +100,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if 'spankmonster' and '893455' in sceneURL:
         movieActors.addActor('Rhea Radford', '')
 
-    # Genres
-    movieGenres.clearGenres()
-    for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
-        movieGenres.addGenre(genreName)
+    # Director
+    directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
+    if directorElement:
+        directorName = directorElement[0].strip()
+
+        movieActors.addDirector(directorName, '')
 
     # Posters
     for poster in detailsPageElements.xpath('//div[@id="dv_frames"]//img/@src'):

@@ -7,7 +7,6 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
 
-
     for searchResult in searchResults.xpath('//div[@class="tn-video tn-video--horizontal"]'):
         titleNoFormatting = searchResult.xpath('.//div/a[@class="tn-video-name"]')[0].text_content().strip()
         sceneURL = searchResult.xpath('.//a[@class="tn-video-media"]')[0].get('href')
@@ -26,7 +25,6 @@ def search(results, lang, siteNum, searchData):
     return results
 
 
-
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
@@ -43,13 +41,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = summary
 
     # Studio
-    metadata.studio = 'SinsVR'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
-    # Tagline and Collection
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    # Tagline and Collection(s)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//span//time')[0].text_content().strip()
@@ -59,13 +54,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for tag in detailsPageElements.xpath('//div[@class="tags-item"]'):
         genreName = tag.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div/strong[text()="Starring"]//following-sibling::span/a[@class="tiny-link"]'):
         actorName = actorLink.text_content().strip()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')

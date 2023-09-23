@@ -40,13 +40,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Summary not available
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[@class="tags"]/li/a'):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
@@ -56,8 +54,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[@class="info"]/p')[0].text_content().split('\n')[3].replace('Featuring:', '').split(',')
     for actorLink in actors:
         actorName = actorLink.strip()

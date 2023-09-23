@@ -44,7 +44,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Bang Bros'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//span[@class="fn"]')[0].text_content()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -61,15 +60,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//*[.//@class="fa fa-tag"]/text()')
     for genreLink in genres:
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//*[.//@class="fa fa-star"]/text()'):
         actorName = actorLink.strip()
         actorPhotoURL = ''

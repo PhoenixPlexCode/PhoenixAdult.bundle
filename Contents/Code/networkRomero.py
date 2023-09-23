@@ -60,18 +60,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     metadata.summary = summary.strip()
 
-    # Director
-    directorElement = detailsPageElements.xpath('//div[contains(@class, "director")]/a/text()')
-    if directorElement:
-        director = metadata.directors.new()
-        directorName = directorElement[0].strip()
-        director.name = directorName
+    # Studio
+    metadata.studio = 'Romero Multimedia'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    metadata.studio = 'Romero Multimedia'
-    metadata.tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.collections.add(metadata.tagline)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     date = detailsPageElements.xpath('//meta[@property="article:published_time"]/@content')[0].split('T')[0].strip()
@@ -84,19 +79,24 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="Cats"]//a/text()|//div[@class="zapdesc"]/div/div/div[contains(., "Including:")]/text()'):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "inner")]//div[contains(@class, "tagsmodels")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
+
+    # Director
+    directorLink = detailsPageElements.xpath('//div[contains(@class, "director")]//a/text()')
+    if directorLink:
+        directorName = directorLink[0].strip()
+
+        movieActors.addDirector(directorName, '')
 
     # Posters
     xpaths = [

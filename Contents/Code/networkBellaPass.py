@@ -70,7 +70,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description[0].text_content().strip()
 
     # Studio, Tagline and Collection(s)
-    metadata.collections.clear()
     if PAsearchSites.getSearchSiteName(siteNum) in ['Hussie Pass', 'Babe Archives', 'See Him Fuck']:
         tagline = PAsearchSites.getSearchSiteName(siteNum)
         metadata.studio = tagline
@@ -81,14 +80,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[contains(@class, "featuring")]//a[contains(@href, "/categories/")]'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[contains(@class, "featuring")]//a[contains(@href, "/models/")]')
     if actors:
         if len(actors) == 3:

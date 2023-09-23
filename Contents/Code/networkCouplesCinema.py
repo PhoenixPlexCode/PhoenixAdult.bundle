@@ -61,12 +61,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//span[contains(@class, "description")]')[0].text_content().strip()
 
     # Studio
-    metadata.studio = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[0].strip()
+    metadata.studio = 'Couples Cinema'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    metadata.collections.add('CouplesCinema')
-    metadata.collections.add(metadata.studio)
+    tagline = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[0].strip()
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     if searchDate:
@@ -78,11 +78,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         year = detailsPageElements.xpath('//span[contains(@class, "type")]')[0].text_content().split('|')[1].strip()
         metadata.year = int(year)
 
-    # Genres
-    movieGenres.clearGenres()
-
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "cast")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

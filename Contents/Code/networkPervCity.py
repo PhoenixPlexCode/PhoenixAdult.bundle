@@ -53,16 +53,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'PervCity'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.tagline = detailsPageElements.xpath('//div[@class="about"]//h3')[0].text_content().replace('About', '').strip()
     metadata.collections.add(metadata.tagline)
 
     # Genres
-    movieGenres.clearGenres()
 
-    # Actors
+    # Actor(s)
     date = ''
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//h3/span/a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()

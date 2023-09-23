@@ -54,6 +54,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'Bang Bros'
 
+    # Tagline and Collection(s)
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
+
     # Release Date
     if sceneDate:
         date_object = parse(sceneDate)
@@ -61,15 +66,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0]
     for genreLink in genres.split(','):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//p[@class="player__stats__cast"]/a'):
         actorName = actorLink.text_content().strip()
         actorPageSlug = actorLink.get('href')

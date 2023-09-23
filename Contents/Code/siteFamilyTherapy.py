@@ -103,13 +103,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Family Therapy'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = 'Family Therapy'
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//a[@rel="category tag"]/text()')
     for tag in genres:
         movieGenres.addGenre(tag.strip())
@@ -121,8 +119,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="entry-content"]/p[contains(text(),"starring") or contains(text(), "Starring")]/text()'):
         actorName = re.search(r'(?<=[Ss]tarring\s)\w*\s\w*(\s&\s\w*\s\w*)*', actorLink).group()
         actorPhotoURL = ''

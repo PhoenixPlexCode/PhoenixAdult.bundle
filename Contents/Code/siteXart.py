@@ -53,13 +53,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = summary.strip()
 
     # Studio
-    metadata.studio = 'X-Art'
+    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
+    metadata.collections.add(metadata.studio)
 
     # Release Date
     date = detailsPageElements.xpath('//h2')[2].text_content()[:-1]
@@ -69,12 +66,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Artistic')
     movieGenres.addGenre('Glamorous')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//h2//a')
     actorName = ''
     if actors:
@@ -335,15 +330,15 @@ manualMatch = {
         'curID': '/videos/black_&_white',
         'name': 'Black & White [X-Art]',
     },
-    'Fashion Models':{
+    'Fashion Models': {
         'curID': '/videos/fashion_models',
         'name': 'Fashion Models [X-Art]',
     },
-    'Francesca Angelic':{
+    'Francesca Angelic': {
         'curID': '/videos/angelic',
         'name': 'Francesca Angelic [X-Art]',
     },
-    'Green Eyes':{
+    'Green Eyes': {
         'curID': '/videos/green_eyes',
         'name': 'Green Eyes [X-Art]',
     },

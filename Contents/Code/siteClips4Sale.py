@@ -62,9 +62,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = getCleanTitle(detailsPageElements.xpath('//h3')[0].text_content())
 
@@ -78,7 +75,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Clips4Sale'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[1].split('|')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -90,7 +86,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors / Genres
+    # Actor(s) / Genres
     # Main Category
     cat = detailsPageElements.xpath('//div[contains(@class, "clip_details")]//div[contains(., "Category:")]//a')[0].text_content().strip().lower()
     movieGenres.addGenre(cat)

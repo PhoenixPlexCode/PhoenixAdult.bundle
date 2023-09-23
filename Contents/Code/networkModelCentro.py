@@ -78,7 +78,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -88,8 +87,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
-    movieActors.clearActors()
 
     if 'tags' in detailsPageElements:
         genres = detailsPageElements['tags']['collection']
@@ -105,7 +102,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     else:
                         movieGenres.addGenre(genre)
 
-    # Actors
+    # Actor(s)
     actors = getJSONfromAPI(apiurl + modelquery + sceneID)
 
     if not isinstance(actors, list):

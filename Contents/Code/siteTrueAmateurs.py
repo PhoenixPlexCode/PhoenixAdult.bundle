@@ -34,10 +34,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    metadata.collections.clear()
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = detailsPageElements.xpath('//h2[@class="wxt7nk-4 fSsARZ"]')[0].text_content().replace('SML-', '').replace('Trailer', '').strip()
 
@@ -45,7 +41,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'TrueAmateurs'
 
     # Tagline and Collection(s)
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.tagline)
 
     # Genres
@@ -62,7 +57,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
+    # Actor(s)
     try:
         actors = detailsPageElements.xpath('//a[@class="wxt7nk-6 czvZQW"]')
         if actors:

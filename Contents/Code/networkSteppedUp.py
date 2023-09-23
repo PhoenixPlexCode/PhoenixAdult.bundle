@@ -58,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Stepped Up Media'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements['site']
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -70,14 +69,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['tags']:
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements['models_thumbs']:
         actorName = actorLink['name'].strip()
         actorPhotoURL = actorLink['thumb']

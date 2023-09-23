@@ -65,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'PlumperPass'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     if 'bbwd/' in req.url:
         tagline = 'BBW Dreams'
         metadata.tagline = tagline
@@ -95,7 +94,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     if detailsPageElements.xpath('//p[@class="tags clearfix"]/a/text()'):
         genres = detailsPageElements.xpath('//p[@class="tags clearfix"]/a/text()')
     else:
@@ -105,8 +103,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//h3[@class="releases"]/a')
     if actors:
         if len(actors) == 3:

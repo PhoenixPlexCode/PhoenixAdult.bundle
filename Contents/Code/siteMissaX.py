@@ -57,7 +57,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = metadata.studio
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -73,8 +72,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//div[@class="update_block"]//span[@class="tour_update_models"]//a | //p[@class="dvd-scenes__data"][1]//a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()
@@ -95,7 +93,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//span[contains(@class, "update_tags")]//a | //p[@class="dvd-scenes__data"][2]//a')
     for genreLink in genres:
         genreName = genreLink.text_content()

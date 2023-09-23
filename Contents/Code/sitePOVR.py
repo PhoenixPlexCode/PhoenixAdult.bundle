@@ -38,14 +38,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = metadata_id[2]
 
+    # Tagline and Collection(s)
+    metadata.collections.add(metadata.studio)
+
     # Release Date
     date = scene_data['uploadDate']
     date_object = parse(date)
     metadata.originally_available_at = date_object
     metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actor_link in scene_data['actor']:
         actor_name = actor_link['name']
         actor_page = actor_link['@id']
@@ -57,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actor_name, actor_photo_url)
 
     # Genres
-    movieGenres.clearGenres()
     for genre_link in detailsPageElements.xpath('//ul[@class="category-link mb-2"]/li/a'):
         genre_name = genre_link.text_content().strip()
         movieGenres.addGenre(genre_name)

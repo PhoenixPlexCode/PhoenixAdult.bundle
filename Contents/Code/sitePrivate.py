@@ -59,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Private'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//li[@class="tag-sites"]//a')[0].text_content()
     except:
@@ -68,7 +67,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//li[@class="tag-tags"]//a'):
         genreName = genreLink.text_content().lower()
 
@@ -87,8 +85,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorPage in detailsPageElements.xpath('//li[@class="tag-models"]//a'):
         actorName = actorPage.text_content()
 

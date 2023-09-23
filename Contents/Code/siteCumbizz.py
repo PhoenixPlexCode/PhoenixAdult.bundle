@@ -36,20 +36,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Cumbizz'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//span[@class="label label-primary"]/a'):
         genreName = genreLink.text_content().strip().lower()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="breadcrumbs"]/a'):
         actorName = str(actorLink.text_content().strip())
         actorPhotoURL = ''

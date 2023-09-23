@@ -62,13 +62,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.summary = description.replace('\n', '').strip()
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="vidwrap"]/p/a'):
         genreName = genreLink.text_content().replace('#', '').strip()
 
@@ -81,8 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     description = description.encode('ascii', 'replace')
     actorName = re.split(r'[\'?]', description)[1].strip()
     actorPhotoURL = ''

@@ -71,7 +71,6 @@ import siteReidMyLips
 import sitePlayboyPlus
 import siteMeanaWolf
 import siteAmourAngels
-import networkR18
 import networkBang
 import siteVivid
 import networkAdultEmpireCash
@@ -104,7 +103,6 @@ import siteHucows
 import networkVNA
 import siteQueenSnake
 import siteScrewMeToo
-import siteBoxTruckSex
 import siteAussieAss
 import network5Kporn
 import networkTeenCoreClub
@@ -122,7 +120,6 @@ import siteTwoTGirls
 import siteSicflics
 import networkModelCentro
 import siteAlettaOceanLive
-import siteCulioneros
 import networkPornWorld
 import siteMormonGirlz
 import sitePurgatoryX
@@ -964,7 +961,7 @@ searchSites = {
     767: ('AllAnal', 'https://tour.allanal.com', '/_next/data/'),
     768: ('TurningTwistys', 'https://www.twistys.com', 'https://site-api.project1service.com'),
     769: ('GirlCum', 'https://www.girlcum.com', '/video/'),
-    770: ('ZeroTolerance', 'http://www.ztod.com', '/videos?query='),
+    770: ('Zero Tolerance', 'http://www.ztod.com', '/videos?query='),
     771: ('ClubFilly', 'http://www.clubfilly.com', '/scenefocus.php?vnum=V'),
     772: ('Insex', 'https://www.insexondemand.com', '/iod/home.php?s='),
     773: ('Sexuallybroken', 'https://www.insexondemand.com', '/iod/home.php?d=sexuallybroken.com&s='),
@@ -1006,7 +1003,7 @@ searchSites = {
     809: ('True Amateurs', 'https://www.trueamateurs.com', 'https://site-api.project1service.com'),
     810: ('Hustler', 'https://hustler.com', '/api'),
     811: ('AmourAngels', 'http://www.amourangels.com', '/z_cover_'),
-    812: ('JAV', 'https://www.r18.com', '/common/search/searchword='),
+    812: (),
     813: ('Bang', 'https://www.bang.com', '/videos?term='),
     814: ('Vivid', 'https://www.vivid.com', '/'),
     815: ('JAYs POV', 'https://jayspov.net', '/MemberSceneSearch?q='),
@@ -1133,7 +1130,7 @@ searchSites = {
     936: ('FetishNetwork', 'http://www.kink.com', '/search?channelIds=fetishnetwork&q='),
     937: ('FetishNetwork Male', 'http://www.kink.com', '/search?channelIds=fetishnetworkmale&q='),
     938: ('ScrewMeToo', 'https://screwmetoo.com', '/?amp=1&s='),
-    939: ('Box Truck Sex', 'https://www.boxtrucksex.com', '/tour/search.php?query='),
+    939: (),
     940: ('Aussie Ass', 'https://www.aussieass.com', '/models/'),
     941: ('5Kporn', 'https://www.5kporn.com', '/episodes/search?search='),
     942: ('5Kteens', 'https://www.5kporn.com', '/episodes/search?search='),
@@ -1234,17 +1231,17 @@ searchSites = {
     1037: ('GinaGerson', 'https://www.ginagerson.xxx', '/sapi/'),
     1038: (),
     1039: ('VinaSkyXXX', 'https://www.vinaskyxxx.com', '/sapi/'),
-    1040: ('Culioneros', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1041: ('Sexo en Public', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1042: ('Mi Primer Porno', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1043: ('Por el Chiquito', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1044: ('Chicas de Porno', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1045: ('Tetangas Espanolas', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1046: ('Costenas Locas', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1047: ('Nalgas Grandes', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1048: ('Tetonas Locas', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1049: ('Chiva Culiona', 'http://www.pornditos.com', '/t1/videos/0_'),
-    1050: ('Cuchi Mami', 'http://www.pornditos.com', '/t1/videos/0_'),
+    1040: (),
+    1041: (),
+    1042: (),
+    1043: (),
+    1044: (),
+    1045: (),
+    1046: (),
+    1047: (),
+    1048: (),
+    1049: (),
+    1050: (),
     1051: ('Bruce and Morgan', 'https://www.bruceandmorgan.net', '/sapi/'),
     1052: ('Busted', 'https://www.cherrypimps.com', '/search.php?query='),
     1053: ('Cheese.XXX', 'https://www.cherrypimps.com', '/search.php?query='),
@@ -1903,7 +1900,6 @@ abbreviations = (
     ('^btiu ', 'BigTitsinUniform '),
     ('^btlbd ', 'BigTitsLikeBigDicks '),
     ('^btra ', 'BigTitsRoundAsses '),
-    ('^bts ', 'BoxTruckSex '),
     ('^burna ', 'BurningAngel '),
     ('^bwb ', 'BigWetButts '),
     ('^byngr ', 'Bang '),
@@ -2068,7 +2064,6 @@ abbreviations = (
     ('^plib ', 'PornstarsLikeitBig '),
     ('^pml ', 'PornMegaLoad '),
     ('^pop ', 'PervsOnPatrol '),
-    ('^pornditos', 'Culioneros '),
     ('^ppu ', 'PublicPickups '),
     ('^prdi ', 'PrettyDirty '),
     ('^ps ', 'PropertySex '),
@@ -2682,10 +2677,6 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 811:
             provider = siteAmourAngels
 
-        # JAV
-        elif siteNum == 812:
-            provider = networkR18
-
         # Bang
         elif siteNum == 813 or siteNum == 1365:
             provider = networkBang
@@ -2870,10 +2861,6 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 938:
             provider = siteScrewMeToo
 
-        # Box Truck Sex
-        elif siteNum == 939:
-            provider = siteBoxTruckSex
-
         # Aussie Ass
         elif siteNum == 940:
             provider = siteAussieAss
@@ -2941,10 +2928,6 @@ def getProviderFromSiteNum(siteNum):
         # ModelCentro network
         elif (1025 <= siteNum <= 1039) or siteNum == 1051 or siteNum == 1058 or siteNum == 1075 or siteNum == 1191 or siteNum == 1245:
             provider = networkModelCentro
-
-        # Culioneros
-        elif (1040 <= siteNum <= 1050):
-            provider = siteCulioneros
 
         # PornWorld
         elif siteNum == 332 or (433 <= siteNum <= 439) or siteNum == 1057:

@@ -58,13 +58,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Marc Dorcel'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
+    # Release Date
+    if 'porn-movie' not in sceneURL:
+        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
+    else:
+        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
+    date_object = parse(date)
+    metadata.originally_available_at = date_object
+    metadata.year = metadata.originally_available_at.year
+
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('French porn')
 
     movieName = detailsPageElements.xpath('//span[@class="movie"]/a')
@@ -72,8 +79,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.collections.add(movieName[0].text_content().strip())
     movieGenres.addGenre('Blockbuster Movie')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     if 'porn-movie' not in sceneURL:
         actors = detailsPageElements.xpath('//div[@class="actress"]/a')
     else:
@@ -94,23 +100,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             movieActors.addActor(actorName, actorPhotoURL)
 
-    # Release Date
-    if 'porn-movie' not in sceneURL:
-        date = detailsPageElements.xpath('//span[@class="publish_date"]')[0].text_content().strip()
-    else:
-        date = detailsPageElements.xpath('//span[@class="out_date"]')[0].text_content().replace('Year :', '').strip()
-    date_object = parse(date)
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year
-
     # Director
-    director = metadata.directors.new()
-    try:
-        movieDirector = detailsPageElements.xpath('//span[@class="director"]')[0].text_content().replace(
-            'Director :', '').strip()
-        director.name = movieDirector
-    except:
-        pass
+    directorLink = detailsPageElements.xpath('//span[@class="director"]')
+    if directorLink:
+        directorName = directorLink[0].text_content().replace('Director :', '').strip()
+
+        movieActors.addDirector(directorName, '')
 
     # Poster
     xpaths = [

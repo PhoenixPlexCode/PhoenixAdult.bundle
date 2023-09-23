@@ -83,7 +83,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Czech Authentic Videos'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -95,14 +94,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[@class="tags"]/li'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     if siteNum == 1583:
         actorName = '%s %s' % (title, detailsPageElements.xpath('//span[@class="age"]')[0].text_content().strip())
         movieActors.addActor(actorName, detailsPageElements.xpath('//div[contains(@class, "gallery")]//@href')[0])

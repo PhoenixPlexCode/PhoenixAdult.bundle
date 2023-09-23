@@ -50,8 +50,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'Radical Cash'
 
-    # Collections / Tagline
-    metadata.collections.clear()
+    # Tagline and Collection(s)
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -69,8 +68,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
 
     actors = detailsPageElements.xpath('//dd[1]')
     for actorLink in actors:
@@ -87,9 +85,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             pass
 
     # Director
-    metadata.directors.clear()
-    director = metadata.directors.new()
-    director.name = 'Charles Dera'
+    directorName = 'Charles Dera'
+    movieActors.addDirector(directorName, '')
 
     # Posters
     req = PAutils.HTTPRequest(detailsPageElements.xpath('//dd[1]//a/@href')[0])

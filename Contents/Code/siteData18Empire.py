@@ -215,7 +215,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.studio = studio
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//p[contains(text(), "A scene from")]/a/text()')[0].strip()
         if ', the' in tagline.lower():
@@ -247,13 +246,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="categories"]/a'):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
 
     actors = []
     if splitScene:
@@ -276,14 +273,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    metadata.directors.clear()
-    director = metadata.directors.new()
-    try:
-        directorName = detailsPageElements.xpath('//div[@class="director"]/a/text()')[0].text_content().split(':')[2].strip()
-        if not directorName == 'Unknown':
-            director.name = directorName
-    except:
-        pass
+    director = detailsPageElements.xpath('//div[@class="director"]/a/text()')
+    if director:
+        directorLink = director[0].text_content().split(':')[2].strip()
+        if not directorLink == 'Unknown':
+            directorName = directorLink
+
+            movieActors.addDirector(directorName, '')
 
     # Posters
     xpaths = [

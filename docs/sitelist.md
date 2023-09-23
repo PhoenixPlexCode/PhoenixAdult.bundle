@@ -296,7 +296,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Hot Guys Fuck
   - Sugar Daddy Porn
 + #### Bound Honeys | ✓ - **Title only, Date Add**
-+ #### Box Truck Sex | ✅
 + #### Brazzers Network
   ##### Matching type (main): ✓ - **Title only**
   ##### Matching type (alternate): ❌ - **SceneID**
@@ -369,17 +368,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - The Lifestyle
   - Thousand Faces Films
   - Verso Cinema
-+ #### Culioneros | ❌ - **SceneID**
-  - Chicas de Porno
-  - Chiva Culiona
-  - Costenas Locas
-  - Cuchi Mami
-  - Mi Primer Porno
-  - Nalgas Grandes
-  - Por El Chiquito
-  - Sexo en Publico
-  - Tetangas Espanolas
-  - Tetonas Locas
 + #### CumBizz | ❌ - **Direct URL**
 + #### CumLouder | ❌ - **Direct URL**
 + #### CzechAV Network | ✓ - **Title only, Date Add**

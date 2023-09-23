@@ -48,19 +48,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    metadata.tagline = metadata.studio
     metadata.collections.add(metadata.studio)
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//center//div//a[contains(@class, "btn-outline-secondary")]')
     for genre in genres:
         genreName = genre.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//center//div//a[contains(@class, "btn-secondary")]')
     for actor in actors:
         actorName = actor.text_content().strip()

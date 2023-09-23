@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.summary = detailsPageElements.xpath('//div[@class="description"]/span')[0].text_content().strip().replace('\n', ' ')
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     channel = detailsPageElements.xpath('//div[contains(@class, "shoot-logo")]/a/img/@src')[0].strip()
     if 'boundgangbangs' in channel:
         tagline = 'Bound Gangbangs'
@@ -156,15 +155,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//p[@class="tag-list category-tag-list"]//a')
     for genreLink in genres:
         genreName = genreLink.text_content().replace(',', '').strip().title()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//p[@class="starring"]//a')
     if actors:
         if len(actors) == 3:
@@ -183,12 +180,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             movieActors.addActor(actorName, actorPhotoURL)
 
-    # Director
-    director = metadata.directors.new()
+    # Director(s)
     try:
         directors = detailsPageElements.xpath('//span[@class="director-name"]/a')
-        for dirname in directors:
-            director.name = dirname.text_content().strip()
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

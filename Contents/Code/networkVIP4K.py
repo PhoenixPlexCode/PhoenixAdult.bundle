@@ -93,7 +93,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'VIP4K'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//a[@class="player-additional__site ph_register"]')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -109,8 +108,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//a[@class="player-description__model model ph_register"]'):
         actorName = actorLink.xpath('.//div[@class="model__name"]')[0].text_content().strip()
         actorPhotoURL = ''
@@ -118,7 +116,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     genres = PAutils.getDictValuesFromKey(genresDB, tagline)
     for genreLink in detailsPageElements.xpath('//div[@class="tags"]/a'):
         genreName = genreLink.text_content().replace('#', '').strip()

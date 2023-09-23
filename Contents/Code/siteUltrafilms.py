@@ -62,10 +62,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
-    # Collections / Tagline
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.collections.add(tagline)
+    # Tagline and Collection(s)
+    metadata.collections.add(metadata.studio)
 
     # Genres
     for genreLink in detailsPageElements.xpath('//div[@class="tags-list"]/a//i[@class="fa fa-folder-open"]/..'):
@@ -84,8 +82,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
 
     actors = detailsPageElements.xpath('//div[@id="video-actors"]//a')
     if actors:

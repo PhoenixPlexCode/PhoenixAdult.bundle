@@ -47,7 +47,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Vivid Entertainment'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -59,14 +58,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//h5[contains(text(), "Categories:")]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//h4[contains(text(), "Starring:")]/a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

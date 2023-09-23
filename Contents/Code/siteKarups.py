@@ -54,7 +54,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Karups'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements.xpath('//h1//span[@class="sup-title"]//span')[0].text_content().strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -66,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     if tagline == 'KarupsHA':
         genres = ['Amateur']
     if tagline == 'KarupsPC':
@@ -79,8 +77,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//span[@class="models"]//a'):
         actorName = actorLink.text_content().strip()
 

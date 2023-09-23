@@ -76,14 +76,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'FAKings'
 
-    # Collections / Tagline
-    metadata.collections.clear()
+    # Tagline and Collection(s)
     tagline = PAutils.parseTitle(detailsPageElements.xpath('//strong[contains(., "Serie")]//following-sibling::a')[0].text_content().strip(), siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//strong[contains(., "Categori")]//following-sibling::a'):
         genreName = genreLink.text_content().strip()
 
@@ -98,8 +96,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Posters
     img = ''
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//strong[contains(., "Actr")]//following-sibling::a'):
         actorName = actorLink.text_content().strip()
 

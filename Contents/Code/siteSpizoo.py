@@ -50,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Spizoo'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     try:
         tagline = detailsPageElements.xpath('//i[@id="site"]/@value')[0].strip()
     except:
@@ -70,7 +69,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//div[@class="categories-holder"]/a|//div[./h3[contains(., "Categories")]]/a')
     if genres:
         for genreLink in genres:
@@ -78,8 +76,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     if siteNum == 1374:
         xPath = '//div[./h3[contains(., "Girls")]]/a'
     elif siteNum == 577:

@@ -36,7 +36,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = '5Kporn'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.collections.add(metadata.tagline)
 
@@ -49,10 +48,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = detailsPageElements.xpath('//h5[contains(., "Starring")]/a')
     for actorLink in actors:
         actorName = actorLink.text_content().strip()

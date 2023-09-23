@@ -38,8 +38,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'We Are Hairy'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    tagline = PAsearchSites.getSearchSiteName(siteNum).strip()
+    tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -51,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="tagline"]/p/a'):
         genreName = genreLink.text_content().strip()
 
@@ -60,20 +58,20 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Hairy Girls')
     movieGenres.addGenre('Hairy Pussy')
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//div[@class="meet"]/a/img'):
         actorName = actorLink.get('alt').replace('WeAreHairy.com', '').strip()
         actorPhotoURL = ''
 
         movieActors.addActor(actorName, actorPhotoURL)
 
-    # Director
-    director = metadata.directors.new()
+    # Director(s)
     try:
         directors = detailsPageElements.xpath('//div[@class="desc"]/div[2]/p')
-        for dirname in directors:
-            director.name = dirname.text_content().strip()
+        for directorLink in directors:
+            directorName = directorLink.text_content().strip()
+
+            movieActors.addDirector(directorName, '')
     except:
         pass
 

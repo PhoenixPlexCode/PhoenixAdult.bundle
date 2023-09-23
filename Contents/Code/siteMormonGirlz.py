@@ -41,7 +41,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'MormonGirlz'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -54,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     xpaths = [
         '//h1[contains(text(), "more of") and not(contains(text(), "Mormon Girls"))]'
     ]
@@ -64,8 +62,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
 
     # Posters
     xpaths = [

@@ -56,6 +56,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
+    # Tagline and Collection(s)
+    metadata.collections.add(metadata.studio)
+
     # Summary
     try:
         metadata.summary = detailsPageElements.xpath('//div[@class="content-desc content-new-scene"]//p')[0].text_content().strip()
@@ -63,7 +66,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[contains(@class, "scene-tags")]/li'):
         genreName = genreLink.xpath('.//a')[0].text_content().lower()
 
@@ -80,8 +82,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorPage in detailsPageElements.xpath('//ul[@id="featured_pornstars"]//div[@class="model"]'):
         actorName = actorPage.xpath('.//h3')[0].text_content().strip()
         actorPhotoURL = actorPage.xpath('.//img/@src')[0]

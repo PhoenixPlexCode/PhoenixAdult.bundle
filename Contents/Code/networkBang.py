@@ -85,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = re.sub(r'bang(?=(\s|$))(?!\!)', 'Bang!', PAutils.parseTitle(videoPageElements['productionCompany']['name'].strip(), siteNum), flags=re.IGNORECASE)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = ""
     dvdTitle = ""
     try:
@@ -118,8 +117,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     if siteNum == 1365:
         actorXPATH = '//div[contains(@class, "clear-both")]//a[contains(@href, "pornstar")]'
     else:
@@ -144,7 +142,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="actions"]/a | //a[@class="genres"]'):
         genreName = genreLink.text_content()
 

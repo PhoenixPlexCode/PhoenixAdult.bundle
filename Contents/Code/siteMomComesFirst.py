@@ -51,7 +51,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     metadata.collections.add(metadata.studio)
 
     # Release Date
@@ -62,7 +61,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     actors = []
     for genreLink in detailsPageElements.xpath('//a[contains(@rel, "tag")]'):
         genreName = PAutils.parseTitle(genreLink.text_content().strip(), siteNum)
@@ -74,8 +72,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         else:
             movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     try:
         actorSubtitle = detailsPageElements.xpath('//div[@class="entry-content"]/p')[-1]
         if 'starring' in actorSubtitle.text_content().lower():

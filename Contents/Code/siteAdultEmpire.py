@@ -232,20 +232,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         summary = ''
     metadata.summary = summary
 
-    # Director(s)
-    directorElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
-    for directorName in directorElement:
-        director = metadata.directors.new()
-        name = directorName.strip()
-        director.name = name
-
-    # Producer(s)
-    producerElement = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
-    for producerName in producerElement:
-        producer = metadata.producers.new()
-        name = producerName.strip()
-        producer.name = name
-
     # Studio
     try:
         studio = detailsPageElements.xpath('//li[contains(., "Studio:")]/a/text()')[0].strip()
@@ -255,8 +241,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = studio
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
-    metadata.collections.add(studio)
+    metadata.collections.add(metadata.studio)
     try:
         tagline = re.sub(r'\(.*\)', '', detailsPageElements.xpath('//h2/a[@label="Series"]/text()')[0].strip().split('"')[1]).strip()
         tagline = PAutils.parseTitle(tagline, siteNum)
@@ -280,13 +265,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//li//a[@label="Category"]'):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     actors = []
     if splitScene:
         scenes = detailsPageElements.xpath('//div[@class="row"][.//h3]')[sceneIndex]
@@ -294,9 +277,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         # Fallback
         if not actors:
-            actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
+            actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a[contains(@href, "pornstars")]')
     else:
-        actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a')
+        actors = detailsPageElements.xpath('//div[contains(., "Starring")][1]/a[contains(@href, "pornstars")]')
 
     for actorLink in actors:
         actorName = actorLink.text_content().split('(')[0].strip()
@@ -307,6 +290,30 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
         if actorName:
             movieActors.addActor(actorName, actorPhotoURL)
+
+    # Director(s)
+    directors = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
+    for directorLink in directors:
+        directorName = directorLink.strip()
+
+        try:
+            directorPhotoURL = detailsPageElements.xpath('//div[contains(., "Starring")]//img[contains(@title, "%s")]/@src' % directorName)[0]
+        except:
+            directorPhotoURL = ''
+
+        movieActors.addDirector(directorName, directorPhotoURL)
+
+    # Producer(s)
+    producers = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
+    for producerLink in producers:
+        producerName = producerLink.strip()
+
+        try:
+            producerPhotoURL = detailsPageElements.xpath('//div[contains(., "Starring")]//img[contains(@title, "%s")]/@src' % producerName)[0]
+        except:
+            producerPhotoURL = ''
+
+        movieActors.addProducer(producerName, producerPhotoURL)
 
     # Posters
     xpaths = [

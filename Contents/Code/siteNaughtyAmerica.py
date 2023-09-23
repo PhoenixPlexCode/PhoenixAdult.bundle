@@ -112,7 +112,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Naughty America'
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = detailsPageElements['site']
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -127,14 +126,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['fantasies']:
         genreName = genreLink
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements['performers']:
         actorName = actorLink
         actorPhotoURL = ''

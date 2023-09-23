@@ -49,7 +49,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
 
     # Tagline and Collection(s)
-    metadata.collections.clear()
     tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
@@ -70,7 +69,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Genres
-    movieGenres.clearGenres()
 
     # Default Genres
     genres = ['BDSM', 'S&M']
@@ -82,8 +80,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     siteActors = [
         'abby', 'briana', 'david', 'diamond', 'greta', 'hellia',
         'hilda', 'holly', 'jade', 'jeby', 'jessica', 'keya', 'lilith',

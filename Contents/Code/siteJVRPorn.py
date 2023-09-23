@@ -56,6 +56,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Studio
     metadata.studio = 'JVR Porn'
 
+    # Tagline and Collection(s)
+    metadata.collections.add(metadata.studio)
+
     # Release Date
     if searchDate:
         date_object = parse(searchDate)
@@ -63,14 +66,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//td[contains(@class, "tags")]//span'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
-    # Actors
-    movieActors.clearActors()
+    # Actor(s)
     for actorLink in detailsPageElements.xpath('//a[@class="actress"]//span'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

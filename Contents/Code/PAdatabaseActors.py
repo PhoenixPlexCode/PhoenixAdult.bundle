@@ -6111,7 +6111,7 @@ ActorsStudioIndexes = {
 }
 
 
-actorsReplaceJavBusSearch = {
+ActorsReplaceJavBusSearch = {
     'm2c': ['Abeno Miku'],
     'mxo': ['Aihara Sarii'],
     '9qk': ['Aiki Yuu'],
