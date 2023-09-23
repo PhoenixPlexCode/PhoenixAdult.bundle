@@ -87,8 +87,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
-    movieActors.clearActors()
 
     if 'tags' in detailsPageElements:
         genres = detailsPageElements['tags']['collection']

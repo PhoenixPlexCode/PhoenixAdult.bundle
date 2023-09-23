@@ -54,13 +54,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for tag in detailsPageElements.xpath('//div[@class="tags-item"]'):
         genreName = tag.text_content().strip()
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div/strong[text()="Starring"]//following-sibling::span/a[@class="tiny-link"]'):
         actorName = actorLink.text_content().strip()
         actorPageURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink.get('href')

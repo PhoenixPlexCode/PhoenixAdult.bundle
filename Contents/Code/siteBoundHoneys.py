@@ -52,14 +52,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="updateCategoriesList"]/a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="updateModelsList"]/a')
     if actors:
         if len(actors) == 3:

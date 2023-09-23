@@ -50,14 +50,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="media-body"]/ul[3]/li/a'):
         genreName = genreLink.text_content()
 
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//ul[contains(text(), "Models:")]/li/a')
     if len(actors) > 0:
         if 'porn-movie' not in sceneURL and len(actors) == 3:

@@ -265,13 +265,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//li//a[@label="Category"]'):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = []
     if splitScene:
         scenes = detailsPageElements.xpath('//div[@class="row"][.//h3]')[sceneIndex]
@@ -294,7 +292,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieActors.clearDirectors()
     directors = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Director")]]/a/text()')
     for directorLink in directors:
         directorName = directorLink.strip()
@@ -307,7 +304,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addDirector(directorName, directorPhotoURL)
 
     # Producer(s)
-    movieActors.clearProducers()
     producers = detailsPageElements.xpath('//div[./a[@name="cast"]]//li[./*[contains(., "Producer")]]/text()')
     for producerLink in producers:
         producerName = producerLink.strip()

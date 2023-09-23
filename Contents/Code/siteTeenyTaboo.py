@@ -76,14 +76,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//h4[@class="customhcolor"]')[0].text_content().split(','):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = re.split(r',|\sand\s', detailsPageElements.xpath('//h3')[0].text_content())
     for actorLink in actors:
         actorName = re.sub(r'\d', '', actorLink).strip().replace('&nbsp', '')

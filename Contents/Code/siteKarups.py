@@ -65,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     if tagline == 'KarupsHA':
         genres = ['Amateur']
     if tagline == 'KarupsPC':
@@ -79,7 +78,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//span[@class="models"]//a'):
         actorName = actorLink.text_content().strip()
 

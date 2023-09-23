@@ -131,10 +131,18 @@ class PhoenixAdultAgent(Agent.Movies):
 
         HTTP.ClearCache()
         metadata.collections.clear()
+
         metadata.genres.clear()
+        movieGenres.clearGenres()
+
         metadata.roles.clear()
+        movieActors.clearActors()
+
         metadata.directors.clear()
+        movieActors.clearDirectors()
+
         metadata.producers.clear()
+        movieActors.clearProducers()
 
         Log('******UPDATE CALLED*******')
 

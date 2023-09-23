@@ -67,7 +67,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     if subSite.lower() == 'Family Lust'.lower():
         for genreName in ['Family Roleplay']:
             movieGenres.addGenre(genreName)
@@ -87,7 +86,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actors
-    movieActors.clearActors()
 
     # Posters
     art.append(scenePoster)

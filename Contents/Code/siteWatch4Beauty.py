@@ -85,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Watch4Beauty'
 
     # Director
-    movieActors.clearDirectors()
     directorName = 'Mark'
     movieActors.addDirector(directorName, '')
 
@@ -100,14 +99,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genreText = scene.get('issue_tags')
     if genreText:
         for genreName in genreText.split(', '):
             movieGenres.addGenre(genreName.strip())
 
     # Actor(s)
-    movieActors.clearActors()
 
     # Posters
     artPrefix = w4bArtUrl() + dateObj.strftime('%Y%m%d')

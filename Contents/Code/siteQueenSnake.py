@@ -69,7 +69,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Genres
-    movieGenres.clearGenres()
 
     # Default Genres
     genres = ['BDSM', 'S&M']
@@ -82,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     siteActors = [
         'abby', 'briana', 'david', 'diamond', 'greta', 'hellia',
         'hilda', 'holly', 'jade', 'jeby', 'jessica', 'keya', 'lilith',

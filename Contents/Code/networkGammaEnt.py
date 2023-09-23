@@ -254,8 +254,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieActors.clearDirectors()
-
     if siteNum == 278 or (siteNum >= 285 and siteNum <= 287) or siteNum == 843:
         metadata.studio = 'XEmpire'
         movieActors.addDirector('Mason', '')
@@ -332,7 +330,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 dvdTitle = 'This is some damn nonsense that should never match the scene title'
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//div[@class="sceneCol sceneColCategories"]//a | //div[@class="sceneCategories"]//a | //p[@class="dvdCol"]/a')
     for genreLink in genres:
         genreName = genreLink.text_content().strip('\n').lower()
@@ -368,7 +365,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="sceneCol sceneColActors"]//a | //div[@class="sceneCol sceneActors"]//a | //div[@class="pornstarNameBox"]/a[@class="pornstarName"] | //div[@id="slick_DVDInfoActorCarousel"]//a | //div[@id="slick_sceneInfoPlayerActorCarousel"]//a')
     if metadata.title == 'Kennedy Leigh' and metadata.tagline == 'Only Teen Blowjobs':
         movieActors.addActor('Kennedy Leigh', 'https://imgs1cdn.adultempire.com/actors/649607h.jpg')
@@ -466,7 +462,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = title
 
     # Posters
-
     # Video trailer background image
     try:
         twitterBG = detailsPageElements.xpath('//meta[@name="twitter:image"]/@content')[0]

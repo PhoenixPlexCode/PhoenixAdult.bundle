@@ -57,14 +57,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//h5[@class="video_categories"]//a'):
         genreName = genreLink.text_content().strip().lower()
         if 'cumshots' not in genreName:
             movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video_details mb mt0"]/h5[1]/a'):
         actorName = actorLink.text_content().strip()
 

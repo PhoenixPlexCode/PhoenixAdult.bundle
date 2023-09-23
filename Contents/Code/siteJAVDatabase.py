@@ -99,14 +99,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//tr[./td[contains(., "Genre")]]//td[@class="tablevalue"]//a'):
         genreName = genreLink.text_content().strip()
 
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
@@ -122,7 +120,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieActors.clearDirectors()
     directorLink = detailsPageElements.xpath('//tr[./td[contains(., "Director")]]//td[@class="tablevalue"]')
     if directorLink:
         directorName = directorLink[0].text_content().strip()

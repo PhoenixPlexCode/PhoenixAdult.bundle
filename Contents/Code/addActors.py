@@ -71,14 +71,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in sceneGenres.split(','):
         genreName = genreLink.strip()
 
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in sceneActors.split(','):
         actorName = actorLink.strip()
         actorPhotoURL = ''

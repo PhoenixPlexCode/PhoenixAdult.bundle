@@ -69,7 +69,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
 
     actors = detailsPageElements.xpath('//dd[1]')
     for actorLink in actors:
@@ -86,7 +85,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             pass
 
     # Director
-    movieActors.clearDirectors()
     directorName = 'Charles Dera'
     movieActors.addDirector(directorName, '')
 

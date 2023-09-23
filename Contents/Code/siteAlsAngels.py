@@ -69,11 +69,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre(subject)
 
     # Actor(s)
-    movieActors.clearActors()
     actorPhotoURL = detailsPageElements.xpath('.//div[@id="modelbioheadshot"]/img/@src')[0].replace('..', searchBaseUrl)
     movieActors.addActor(model, actorPhotoURL)
 

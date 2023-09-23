@@ -63,11 +63,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('European')
 
     # Actor(s)
-    movieActors.clearActors()
     movieActors.addActor('Melena Maria Rya', '')
 
     # with..?

@@ -53,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Strap-On')
     movieGenres.addGenre('Lesbian')
     for genreLink in detailsPageElements.xpath('//div[contains(@class, "tag-cloud")]//a'):
@@ -61,7 +60,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="card"]//span[contains(text(), "Featuring:")]/following-sibling::a')
     if actors:
         if len(actors) == 3:

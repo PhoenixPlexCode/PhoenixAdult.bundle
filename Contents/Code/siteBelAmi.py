@@ -49,14 +49,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     labels = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//span[contains(@id, "ContentPlaceHolder1_LabelTags")]//a')
     if labels:
         for label in labels:
             movieGenres.addGenre(label.text_content())
 
     # Actor(s)
-    movieActors.clearActors()
     # Use div class="right" because the actors are actually listed twice on the page
     actors = detailsPageElements.xpath('//div[contains(@class, "video_detail")]//div[contains(@class, "right")]//div[contains(@class, "actors_list")]//div[contains(@class, "actor")]//a')
     actorName = ''

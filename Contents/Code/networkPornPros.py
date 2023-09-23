@@ -79,7 +79,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(siteName)
 
     # Actor(s)
-    movieActors.clearActors()
     if 'pornplus' in sceneURL:
         actors = detailsPageElements.xpath('//div[contains(@class, "space-y-4 p-4")]//a[contains(@href, "/models/")]')
     else:
@@ -146,7 +145,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = PAutils.getDictValuesFromKey(genresDB, siteName)
     for genreLink in genres:
         genreName = genreLink.strip()

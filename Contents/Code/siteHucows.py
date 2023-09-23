@@ -65,7 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Genres
-    movieGenres.clearGenres()
 
     # Default Genres
     genres = ['HuCows', 'Breasts', 'Nipples', 'Nipple Torture', 'Breast Torture', 'Fetish', 'BDSM']
@@ -79,7 +78,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//a[@rel="tag"]'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

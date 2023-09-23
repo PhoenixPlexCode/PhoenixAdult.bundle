@@ -50,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="tagcloud"]/a'):
         genreName = genreLink.text_content().strip()
         movieGenres.addGenre(genreName)
@@ -61,7 +60,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     actorName = PAutils.Decode(metadata_id[5])
     actorPhotoURL = ''
 

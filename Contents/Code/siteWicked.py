@@ -58,9 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Title
     metadata.title = detailsPageElements.xpath('//h1//span')[0].text_content().strip().title().replace('Xxx', 'XXX')
 

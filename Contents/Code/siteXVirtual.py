@@ -30,7 +30,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     sceneDate = metadata_id[2]
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
-    movieActors.clearActors()
 
     # Title
     metadata.title = detailsPageElements.xpath('//div[contains(@class, "title")]/h2')[0].text_content().strip()
@@ -45,7 +44,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(metadata.studio)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[contains(@class, "tags")]//a'):
         genreName = genreLink.text_content().strip()
 

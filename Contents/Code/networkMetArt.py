@@ -53,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['tags']:
         genreName = genreLink.title()
 
@@ -61,7 +60,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Glamorous')
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements['models']:
         actorName = actorLink['name']
         actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorLink['headshotImagePath']
@@ -69,7 +67,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieActors.clearDirectors()
     for directorLink in detailsPageElements['photographers']:
         directorName = directorLink['name']
 

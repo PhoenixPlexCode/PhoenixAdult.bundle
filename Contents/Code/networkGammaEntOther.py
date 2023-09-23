@@ -149,7 +149,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['categories']:
         genreName = genreLink['name']
         if genreName:
@@ -163,7 +162,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                     movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     female = []
     male = []
     for actorLink in detailsPageElements['actors']:

@@ -58,11 +58,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('MILF')
 
     # Actor(s)
-    movieActors.clearActors()
 
     # Posters
     xpaths = [

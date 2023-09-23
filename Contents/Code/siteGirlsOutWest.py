@@ -59,12 +59,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Amateur')
     movieGenres.addGenre('Australian')
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="trailer topSpace"]/div[2]/p/a')
     if actors:
         if len(actors) == 3:

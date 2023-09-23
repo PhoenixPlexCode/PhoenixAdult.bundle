@@ -51,14 +51,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(metadata.studio)
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//center//div//a[contains(@class, "btn-outline-secondary")]')
     for genre in genres:
         genreName = genre.text_content().strip()
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//center//div//a[contains(@class, "btn-secondary")]')
     for actor in actors:
         actorName = actor.text_content().strip()

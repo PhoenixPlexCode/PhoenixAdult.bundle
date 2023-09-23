@@ -48,9 +48,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         sceneType = 'Scene'
 
-    movieGenres.clearGenres()
-    movieActors.clearActors()
-
     # Studio
     metadata.studio = 'New Sensations'
 

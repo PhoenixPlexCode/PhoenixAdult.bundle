@@ -84,7 +84,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
 
     actorName = sceneActor
     actorPhotoURL = ''
@@ -92,7 +91,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Girlfriend Experience')
     # If scenePage is valid, try to load it to scrape genres
     try:

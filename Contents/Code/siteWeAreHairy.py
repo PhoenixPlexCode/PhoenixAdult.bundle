@@ -50,7 +50,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="tagline"]/p/a'):
         genreName = genreLink.text_content().strip()
 
@@ -60,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Hairy Pussy')
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="meet"]/a/img'):
         actorName = actorLink.get('alt').replace('WeAreHairy.com', '').strip()
         actorPhotoURL = ''
@@ -68,7 +66,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieActors.clearDirectors()
     try:
         directors = detailsPageElements.xpath('//div[@class="desc"]/div[2]/p')
         for directorLink in directors:

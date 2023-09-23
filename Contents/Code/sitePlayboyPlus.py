@@ -50,11 +50,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Glamour')
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//p[@class="contributorName"]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''

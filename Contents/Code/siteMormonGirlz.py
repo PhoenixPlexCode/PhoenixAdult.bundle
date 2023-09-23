@@ -53,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     xpaths = [
         '//h1[contains(text(), "more of") and not(contains(text(), "Mormon Girls"))]'
     ]
@@ -64,7 +63,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
 
     # Posters
     xpaths = [

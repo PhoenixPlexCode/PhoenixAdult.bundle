@@ -43,7 +43,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Actor(s)
-    movieActors.clearActors()
     actorList = []
     actors = detailsPageElements.xpath('//p[@class="grey-performers"]//a')
 
@@ -97,7 +96,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     genres = ['Girlfriend Experience', 'Pornstar', 'Hotel', 'Pornstar Experience']
     if (len(actors) + len(maleActors)) == 3:
         genres.append('Threesome')

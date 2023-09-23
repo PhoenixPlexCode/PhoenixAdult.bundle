@@ -58,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     actors = []
 
     genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].split(',')
@@ -72,7 +71,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Rim Job')
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in actors:
         actorLink = actorLink.split(' Id ')
         actorName = actorLink[0].strip()

@@ -47,7 +47,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//meta[@name="keywords"]/@content')[0].replace('.', '').split(',')
     for genreLink in genres:
         genreName = genreLink.strip()
@@ -59,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     actorstr = metadata.title.replace('BTS', '')
     actorstr = (''.join(i for i in list(actorstr) if not i.isdigit())).strip()
     actors = actorstr.split(' X ')

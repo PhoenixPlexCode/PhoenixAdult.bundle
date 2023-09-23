@@ -72,7 +72,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('French porn')
 
     movieName = detailsPageElements.xpath('//span[@class="movie"]/a')
@@ -81,7 +80,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Blockbuster Movie')
 
     # Actor(s)
-    movieActors.clearActors()
     if 'porn-movie' not in sceneURL:
         actors = detailsPageElements.xpath('//div[@class="actress"]/a')
     else:
@@ -103,7 +101,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieActors.clearDirectors()
     directorLink = detailsPageElements.xpath('//span[@class="director"]')
     if directorLink:
         directorName = directorLink[0].text_content().replace('Director :', '').strip()

@@ -81,12 +81,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreName in detailsPageElements.xpath('//div[@class="tags"]//a/text()'):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]//img'):
         actorName = actorLink.get('title')
         actorPhotoURL = actorLink.get('data-bgsrc')
@@ -103,7 +101,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor('Rhea Radford', '')
 
     # Director
-    movieActors.clearDirectors()
     directorElement = detailsPageElements.xpath('//div[@class="director"]/text()')
     if directorElement:
         directorName = directorElement[0].strip()

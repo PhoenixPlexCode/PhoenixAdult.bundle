@@ -79,13 +79,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements['tags']:
         genreName = genreLink['title']
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements['performers']:
         actorName = '%s %s' % (actorLink['name'], actorLink['last_name'])
         if actorLink['poster_image'] is not None:
@@ -95,7 +93,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieActors.clearDirectors()
     directorLink = detailsPageElements['director']
     directorName = '%s %s' % (directorLink['name'], directorLink['last_name'])
     movieActors.addDirector(directorName, '')

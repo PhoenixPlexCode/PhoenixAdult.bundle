@@ -46,7 +46,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "actors")]//a[@class="model"]'):
         actorName = actorLink.xpath('.//span')[0].text_content().strip()
         actorPhotoURL = actorLink.xpath('.//img/@src')[0]
@@ -54,7 +53,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//a[@class="cat"] | //p[@style]/a'):
         genreName = genreLink.text_content().strip()
 

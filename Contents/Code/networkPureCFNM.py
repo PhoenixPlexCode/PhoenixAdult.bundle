@@ -76,7 +76,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     if subSite.lower() == 'AmateurCFNM'.lower():
         for genreName in ['CFNM']:
             movieGenres.addGenre(genreName)
@@ -102,7 +101,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     actors = sceneActors.split(',')
     if actors:
         if len(actors) == 2:

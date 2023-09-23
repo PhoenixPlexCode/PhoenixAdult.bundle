@@ -114,7 +114,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(metadata.studio)
 
     # Actor(s)
-    movieActors.clearActors()
     if 'webmasters' in sceneURL:
         actors = detailsPageElements.xpath('//spam[@class="key-words"]//a')
     else:
@@ -176,7 +175,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in genres.split(','):
         genreName = genreLink.strip()
 

@@ -50,10 +50,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//p[contains(text(), "Starring")]/span')[0].text_content().split(';')
     if actors:
         if len(actors) == 3:

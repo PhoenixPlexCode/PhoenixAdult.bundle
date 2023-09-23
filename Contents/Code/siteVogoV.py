@@ -58,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//div[@class="info-video-models"]//a')
     for actorLink in actors:
         actorName = actorLink.text_content()
@@ -71,7 +70,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieActors.clearDirectors()
     directorName = 'Markus Dupree'
     movieActors.addDirector(directorName, '')
 

@@ -48,7 +48,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('Softcore')
     movieGenres.addGenre('European Girls')
 
@@ -60,7 +59,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//td[@class="modinfo"]//a'):
         actorName = actorLink.text_content().title().strip()
         actorPhotoURL = ''

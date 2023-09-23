@@ -63,7 +63,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="content-detail__row"]//li[@class="content-detail__tag"]'):
         genreName = genreLink.text_content().replace(',', '').strip()
         if genreName == 'Sodomy':
@@ -80,7 +79,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in getJMTVActors(sceneURL):
         actorName = actorLink
         actorPhotoURL = ''

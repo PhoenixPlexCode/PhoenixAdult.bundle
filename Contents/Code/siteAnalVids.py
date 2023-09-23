@@ -81,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     genres = detailsPageElements.xpath('//div[contains(@class, "genres-list")]/a[contains(@href, "/genre/")]')
 
     for genreLink in genres:
@@ -89,7 +88,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = detailsPageElements.xpath('//a[contains(@href, "/model/") and not(contains(@href, "forum"))]')
     for actorLink in actors:
         actorName = actorLink.text_content()
@@ -101,7 +99,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    movieActors.clearDirectors()
     if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
         directorName = 'Giorgio Grandi'
 

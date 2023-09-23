@@ -52,13 +52,11 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(studio)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//div[@class="tags"]/a'):
         genreName = genreLink.text_content().strip().lower()
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[@class="video-performer"]/a'):
         actorName = actorLink.text_content().strip()
         movieActors.addActor(actorName, '')

@@ -88,7 +88,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Femdom')
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//div[contains(@class, "featuring")][1]/ul/li'):
         actorName = actorLink.text_content().strip().replace('Featuring:', '')
         actorPhotoURL = ''

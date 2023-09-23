@@ -66,7 +66,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         pass
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//ul[contains(@class, "scene-tags")]/li'):
         genreName = genreLink.xpath('.//a')[0].text_content().lower()
 
@@ -84,7 +83,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     for actorPage in detailsPageElements.xpath('//ul[@id="featured_pornstars"]//div[@class="model"]'):
         actorName = actorPage.xpath('.//h3')[0].text_content().strip()
         actorPhotoURL = actorPage.xpath('.//img/@src')[0]

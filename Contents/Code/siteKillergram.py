@@ -81,11 +81,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     movieGenres.addGenre('British')
 
     # Actor(s)
-    movieActors.clearActors()
     for actor in extractActors(detailsPageElements):
         movieActors.addActor(actor, '')
 

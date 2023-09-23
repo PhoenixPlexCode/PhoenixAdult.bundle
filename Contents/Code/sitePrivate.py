@@ -67,7 +67,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//li[@class="tag-tags"]//a'):
         genreName = genreLink.text_content().lower()
 
@@ -87,7 +86,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s)
-    movieActors.clearActors()
     for actorPage in detailsPageElements.xpath('//li[@class="tag-models"]//a'):
         actorName = actorPage.text_content()
 

@@ -82,7 +82,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    movieGenres.clearGenres()
     for genreLink in detailsPageElements.xpath('//strong[contains(., "Categori")]//following-sibling::a'):
         genreName = genreLink.text_content().strip()
 
@@ -98,7 +97,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     img = ''
 
     # Actor(s)
-    movieActors.clearActors()
     for actorLink in detailsPageElements.xpath('//strong[contains(., "Actr")]//following-sibling::a'):
         actorName = actorLink.text_content().strip()
 

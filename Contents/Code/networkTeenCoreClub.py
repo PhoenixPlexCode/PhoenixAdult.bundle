@@ -58,7 +58,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = []
     for actorData in data['video']['actors']:
         actorName = actorData['name']
@@ -82,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     for genreData in data['video']['genres']:
         if genreData['title']['en']:
             genreName = genreData['title']['en']

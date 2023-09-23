@@ -81,7 +81,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
     if metadata.studio == 'Tushy' or metadata.studio == 'TushyRaw':
         movieGenres.addGenre('Anal')
 
@@ -92,7 +91,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
     actors = video['models']
     for actor in actors:
         actorName = actor['name']
@@ -103,7 +101,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director
-    movieActors.clearDirectors()
     if video['directors']:
         directorName = video['directors'][0]['name']
 
