@@ -9,11 +9,12 @@ def search(results, lang, siteNum, searchData):
     except:
         sceneTitle = ''
 
-    req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + sceneID)
+    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + sceneID
+    req = PAutils.HTTPRequest(sceneURL)
     searchResult = HTML.ElementFromString(req.text)
 
     titleNoFormatting = searchResult.xpath('//h1[contains(@class, "title")]')[0].text_content()
-    curID = searchData.title.lower().replace(' ', '-')
+    curID = PAutils.Encode(sceneURL)
     subSite = searchResult.xpath('//a[@aria-label="model-profile"]')[0].text_content().strip()
     releaseDate = searchData.dateFormat() if searchData.date else ''
 
@@ -30,10 +31,10 @@ def search(results, lang, siteNum, searchData):
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneDate = metadata_id[2]
-    sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + metadata_id[0]
+    sceneURL = PAutils.Decode(metadata_id[0])
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
-    videoURL = 'https://video-player-bff.estore.kiwi.manyvids.com/videos/%s' % metadata_id[0].split('-')[0]
+    videoURL = 'https://video-player-bff.estore.kiwi.manyvids.com/videos/%s' % sceneURL.rsplit('/')[-1]
     videoPageElements = PAutils.HTTPRequest(videoURL).json()
 
     # Title
@@ -60,7 +61,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'ManyVids'
 
     # Tagline and Collection(s)
-    tagline = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content().strip()
+    tagline = videoPageElements['model']['displayName']
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -77,23 +78,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    actorName = detailsPageElements.xpath('//a[contains(@class, "username ")]')[0].text_content()
-    actorPhotoURL = ''
-
-    try:
-        actorPhotoURL = detailsPageElements.xpath('//div[@class="pr-2"]/a/img')[0].get('src')
-    except:
-        pass
+    actor = videoPageElements['model']
+    actorName = actor['displayName']
+    actorPhotoURL = actor['avatar']
 
     movieActors.addActor(actorName, actorPhotoURL)
 
     # Posters
-    xpaths = [
-        '//div[@id="rmpPlayer"]/@data-video-screenshot'
-    ]
-    for xpath in xpaths:
-        for poster in detailsPageElements.xpath(xpath):
-            art.append(poster)
+    art.append(videoPageElements['thumbnail'])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
