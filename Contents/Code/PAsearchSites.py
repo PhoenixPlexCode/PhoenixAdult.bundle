@@ -91,7 +91,6 @@ def getSearchSettings(mediaTitle):
             searchTitle = ' '.join(searchTitle.split())
 
             searchTitle = re.sub(r'\sS\b', '\'s', searchTitle, flags=re.IGNORECASE)
-            searchTitle = PAutils.parseTitle(searchTitle, siteNum)
 
             Log('Search Title (before date processing): %s' % searchTitle)
 
