@@ -7,7 +7,7 @@ def search(results, lang, siteNum, searchData):
     parts = searchData.title.split()
     if unicode(parts[0], 'UTF-8').isdigit():
         sceneID = parts[0]
-        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip().replace('\'', '')
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + "/webmasters/" + re.sub(r'^0+', '', sceneID)
