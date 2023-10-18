@@ -1297,6 +1297,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - IntimateLesbians
   - JessicaJaymesXXX
   - MrLuckyPOV
+  - MrLuckyRAW
   - PornGoesPro
   - PornstarTease
   - RawAttack
