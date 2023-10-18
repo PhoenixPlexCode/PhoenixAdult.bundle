@@ -23,7 +23,8 @@ def search(results, lang, siteNum, searchData):
             try:
                 searchResult = HTML.ElementFromString(req.text)
 
-                titleNoFormatting = searchResult.xpath('(//div[@class="indScene"]/h1 | //div[@class="indSceneDVD"]/h1) | (//div[@class="indScene"]/h2 | //div[@class="indSceneDVD"]/h2)')[0].text_content().strip()
+                title = searchResult.xpath('(//div[@class="indScene"]/h1 | //div[@class="indSceneDVD"]/h1) | (//div[@class="indScene"]/h2 | //div[@class="indSceneDVD"]/h2)')[0].text_content().strip()
+                titleNoFormatting = PAutils.parseTitle(title, siteNum)
                 curID = PAutils.Encode(sceneURL)
 
                 score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
@@ -55,7 +56,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     if sceneType == 'Scene':
         # Title
-        metadata.title = detailsPageElements.xpath('//div[@class="indScene"]/h1 | //div[@class="indScene"]/h2')[0].text_content().strip()
+        title = detailsPageElements.xpath('//div[@class="indScene"]/h1 | //div[@class="indScene"]/h2')[0].text_content().strip()
+        metadata.title = PAutils.parseTitle(title, siteNum)
 
         # Summary
         metadata.summary = detailsPageElements.xpath('//div[@class="description"]/h2/text() | //div[@class="description"]//span/following-sibling::text()')[0].replace('Description:', '').strip()
@@ -90,7 +92,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         # Title
         title = detailsPageElements.xpath('//div[@class="indSceneDVD"]/h1')[0].text_content().strip()
-        metadata.title = title
+        metadata.title = PAutils.parseTitle(title, siteNum)
 
         # Summary
         metadata.summary = detailsPageElements.xpath('//div[@class="description"]/h2')[0].text_content().replace('Description:', '').strip()
