@@ -95,5 +95,5 @@ actorsDB = {
     'cory chase', 'abby somers', 'bailey base', 'kiki klout', 'victoria june', 'kendra heart', 'archie stone', 'jaime vine',
     'casca akashova', 'katie monroe', 'eve rebel', 'dakota burns', 'nikita reznikova', 'taylor blake', 'tricia oaks', 'artemisia love',
     'kyla keys', 'brianna rose', 'jordan max', 'jadan snow', 'kaylynn keys', 'lucy sunflower', 'jackie hoff', 'kenzie foxx',
-    'mirabella amore', 'heather vahn', 'natasha nice'
+    'mirabella amore', 'heather vahn', 'natasha nice', 'kat marie', 'miss brat', 'macy meadows', 'sydney paige', 'vanessa cage',
 }

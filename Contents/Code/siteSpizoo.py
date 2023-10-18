@@ -53,10 +53,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     try:
         tagline = detailsPageElements.xpath('//i[@id="site"]/@value')[0].strip()
     except:
-        if 'rawattack' in sceneURL:
-            tagline = 'Raw Attack'
-        else:
-            tagline = 'Spizoo'
+        if 'Spizoo' not in PAsearchSites.getSearchSiteName(siteNum):
+            tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
@@ -104,7 +102,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Posters
     xpaths = [
-        '//section[@id="photos-tour"]//img[contains(@class, "update_thumb thumbs")]/@src'
+        '//section[@id="photos-tour"]//img[contains(@class, "update_thumb thumbs")]/@src',
+        '//div[@class="content-block-video"]//img/@alt'
     ]
 
     for xpath in xpaths:
@@ -141,5 +140,5 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
 xPathDB = {
     ('293', '571', '572', '573', '574', '575', '576', '1374'): ['.//div[./h4[contains(., "date")]]/text()'],
-    '577': ['.//div[./h4[contains(., "date")]]/p/text()']
+    ('577', '1757'): ['.//div[./h4[contains(., "date")]]/p/text()']
 }

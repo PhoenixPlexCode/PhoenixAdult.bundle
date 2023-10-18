@@ -491,6 +491,7 @@ def getSceneInfo(searchTitle):
         'Rebecca Vanguard': 'sai003',
         'Reese Robbins': 'ree012',
         'Reina Heart': 'rei001',
+        'Renee Rose': 'ren057',
         'Renee Roulette': 'ren055',
         'Rhaya Shyne': 'rha001',
         'Rikki Rumor': 'rik006',

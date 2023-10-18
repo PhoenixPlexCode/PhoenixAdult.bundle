@@ -1848,6 +1848,7 @@ searchSites = {
     1754: ('MilfAF', 'https://www.milfaf.com', '/models/'),
     1755: ('Shady Spa', 'https://www.shadyspa.com', '/models/'),
     1756: ('Breed Me', 'https://www.breedme.com', '/models/'),
+    1757: ('MrLuckyRAW', 'https://www.mrluckyraw.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -2318,7 +2319,7 @@ def getProviderFromSiteNum(siteNum):
             provider = network1service
 
         # Spizoo
-        elif siteNum == 293 or (571 <= siteNum <= 577) or (1374 <= siteNum <= 1375):
+        elif siteNum == 293 or (571 <= siteNum <= 577) or (1374 <= siteNum <= 1375) or siteNum == 1757:
             provider = siteSpizoo
 
         # Private

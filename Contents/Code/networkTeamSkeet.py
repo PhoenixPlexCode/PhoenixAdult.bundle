@@ -115,7 +115,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
             genres.append(genreName)
 
-    genres.extend(PAutils.getDictValuesFromKey(genresDB, subSite))
+    genres.extend(PAutils.getDictValuesFromKey(genresDB, tagline))
 
     for genreLink in genres:
         genreName = genreLink
