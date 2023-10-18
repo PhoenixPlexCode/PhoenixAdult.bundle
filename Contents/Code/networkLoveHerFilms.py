@@ -15,7 +15,7 @@ def search(results, lang, siteNum, searchData):
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Love Her Feet] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
 
     return results
 
