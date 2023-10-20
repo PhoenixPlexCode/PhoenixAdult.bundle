@@ -67,16 +67,16 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.collections.add(tagline)
 
     # Genres
-    if subSite.lower() == 'Family Lust'.lower():
+    if tagline.lower() == 'Family Lust'.lower():
         for genreName in ['Family Roleplay']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Over 40 Handjobs'.lower():
+    elif tagline.lower() == 'Over 40 Handjobs'.lower():
         for genreName in ['MILF', 'Handjob']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Ebony Tugs'.lower():
+    elif tagline.lower() == 'Ebony Tugs'.lower():
         for genreName in ['Ebony', 'Handjob']:
             movieGenres.addGenre(genreName)
-    elif subSite.lower() == 'Teen Tugs'.lower():
+    elif tagline.lower() == 'Teen Tugs'.lower():
         for genreName in ['Teen', 'Handjob']:
             movieGenres.addGenre(genreName)
 
