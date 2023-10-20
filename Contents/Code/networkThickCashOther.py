@@ -16,16 +16,19 @@ def search(results, lang, siteNum, searchData):
             searchResults.append(sceneURL)
 
     for sceneURL in searchResults:
-        req = PAutils.HTTPRequest(sceneURL)
-        scenePageElements = HTML.ElementFromString(req.text)
-        titleNoFormatting = scenePageElements.xpath('//h3[@class="top-title"]')[0].text_content().strip()
-        curID = PAutils.Encode(sceneURL)
+        try:
+            req = PAutils.HTTPRequest(sceneURL)
+            scenePageElements = HTML.ElementFromString(req.text)
+            titleNoFormatting = scenePageElements.xpath('//h3[@class="top-title"]')[0].text_content().strip()
+            curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thick Cash/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thick Cash/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        except:
+            pass
 
     url = '%s%s.html' % (PAsearchSites.getSearchSearchURL(siteNum), modelID)
     req = PAutils.HTTPRequest(url)
