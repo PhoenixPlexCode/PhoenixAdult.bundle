@@ -20,9 +20,7 @@ def search(results, lang, siteNum, searchData):
             releaseDate = ''
             Log('Scene found: %s | %s | %s' % (curID, titleNoFormatting, releaseDate))
             score = 100
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate),
-                                                name='%s [AnalVids] %s' % (titleNoFormatting, releaseDate), score=score,
-                                                lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [AnalVids] %s' % (titleNoFormatting, releaseDate), score=score, lang=lang))
         except:
             pass
 

@@ -3,25 +3,48 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    directURL = '%s/videos/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), slugify(searchData.title))
+    searchResults = [directURL]
     try:
         modelID = '-'.join(searchData.title.split(' ', 2)[:2])
     except:
         modelID = searchData.title.split(' ', 1)[0]
 
+    googleResults = PAutils.getFromGoogleSearch(searchData.title, siteNum)
+    for sceneURL in googleResults:
+        if '/videos/' in sceneURL and sceneURL not in searchResults:
+            searchResults.append(sceneURL)
+
+    for sceneURL in searchResults:
+        try:
+            req = PAutils.HTTPRequest(sceneURL)
+            scenePageElements = HTML.ElementFromString(req.text)
+            titleNoFormatting = scenePageElements.xpath('//h3[@class="top-title"]')[0].text_content().strip()
+            curID = PAutils.Encode(sceneURL)
+
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thick Cash/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+        except:
+            pass
+
     url = '%s%s.html' % (PAsearchSites.getSearchSearchURL(siteNum), modelID)
     req = PAutils.HTTPRequest(url)
-    searchResults = HTML.ElementFromString(req.text)
+    modelPageElements = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[@class="model-grid"]//a'):
-        titleNoFormatting = searchResult.xpath('.//h5')[0].text_content().strip()
+    for searchResult in modelPageElements.xpath('//div[@class="model-grid"]//a'):
         sceneURL = searchResult.xpath('./@href')[0]
-        curID = PAutils.Encode(sceneURL)
+        if sceneURL not in searchResults:
+            titleNoFormatting = searchResult.xpath('.//h5')[0].text_content().strip()
+            curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thick Cash/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Thick Cash/%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
 
     return results
 

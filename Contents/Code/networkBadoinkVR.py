@@ -94,6 +94,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         '//img[@class="video-image"]/@src'
     ]
 
+    sceneBaseURL = detailsPageElements.xpath('//div[contains(@class, "gallery-item")]/@data-big-image')[0].rsplit('_', 1)[0].split('.jpg')[0]
+    photoNum = int(detailsPageElements.xpath('//span[@class="gallery-zip-info"]/text()')[0].split('photos')[0].strip()) + 2
+    for idx in range(1, photoNum):
+        img = '%s_%d.jpg' % (sceneBaseURL, idx)
+
+        art.append(img)
+
     for xpath in xpaths:
         for img in detailsPageElements.xpath(xpath):
             img = img.split('?')[0]
@@ -110,12 +117,29 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 resized_image = Image.open(im)
                 width, height = resized_image.size
                 # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    images.append((image, posterUrl))
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+        elif PAsearchSites.posterOnlyAlreadyExists(posterUrl, metadata):
+            posterExists = True
+
+    if not posterExists:
+        for idx, (image, posterUrl) in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
                 if width > 1:
                     # Item is a poster
                     metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
-                if idx > 1 and width > 100:
-                    # Item is an art item
-                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
             except:
                 pass
 
