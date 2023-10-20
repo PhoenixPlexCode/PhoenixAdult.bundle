@@ -18,7 +18,7 @@ def search(results, lang, siteNum, searchData):
         curID = PAutils.Encode(searchResult.xpath('.//a/@href')[0])
 
         try:
-            titleNoFormatting = searchResult.xpath('./a/img/@alt')[0].strip()
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a/img/@alt')[0].strip(), siteNum)
         except:
             Log("Error fetching title")
 
@@ -42,7 +42,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="movie_title"]')[0].text_content().strip()
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="movie_title"]')[0].text_content().strip(), siteNum)
 
     # Summary
     metadata.summary = detailsPageElements.xpath('//div[@class="player-scene-description"]/span[contains(text(), "Description:")]/..')[0].text_content().replace('Description: ', '').strip()
@@ -51,12 +51,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Jules Jordan'
 
     # Tagline and Collection(s)
-    tagline = PAsearchSites.getSearchSiteName(siteNum)
-    metadata.tagline = tagline
-    metadata.collections.add(tagline)
-
+    metadata.collections.add(metadata.studio)
     try:
         dvdName = detailsPageElements.xpath('//div[@class="player-scene-description"]//span[contains(text(), "Movie:")]/..')[0].text_content().replace('Movie:', '').replace('Feature: ', '').strip()
+        metadata.tagline = dvdName
         metadata.collections.add(dvdName)
     except:
         pass
