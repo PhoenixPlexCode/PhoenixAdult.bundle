@@ -189,6 +189,7 @@ import networkAuntJudys
 import siteColette
 import siteSINematica
 import networkThickCashOther
+import siteSexSelector
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1849,6 +1850,7 @@ searchSites = {
     1755: ('Shady Spa', 'https://www.shadyspa.com', '/models/'),
     1756: ('Breed Me', 'https://www.breedme.com', '/models/'),
     1757: ('MrLuckyRAW', 'https://www.mrluckyraw.com', '/search.php?query='),
+    1758: ('Sex Selector', 'https://www.sexselector.com', '/'),
 }
 
 abbreviations = (
@@ -3200,5 +3202,9 @@ def getProviderFromSiteNum(siteNum):
         # Thick Cash Other
         elif (1754 <= siteNum <= 1756):
             provider = networkThickCashOther
+
+        # Sex Selector
+        elif siteNum == 1758:
+            provider = siteSexSelector
 
     return provider

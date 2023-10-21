@@ -252,6 +252,8 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Street Ranger
   - Tugjobs
   - Working Latinas
++ #### BangBros Other Sites | ✅ - **Direct URL**
+  - Sex Selector
 + #### BangBros Other Sites | ✓ - **Title only**
   - Black Patrol
   - Blacks On Moms
