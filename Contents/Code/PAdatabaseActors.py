@@ -747,7 +747,7 @@ ActorsReplaceStudios = {
         'Heather Harmon': ['Imheatherharmon'],
         'Janessa Brazil': ['JanessaBrazil'],
         'Kayla Kayden': ['KaylaKayden'],
-        'Leana Lovings': ['naughtynightlover],
+        'Leana Lovings': ['naughtynightlover'],
         'Lexi Anne Garza': ['Lexi_Aaane'],
         'London Keyes': ['LondonKeyes'],
         'Mariana Martinez': ['Marianamartix'],
