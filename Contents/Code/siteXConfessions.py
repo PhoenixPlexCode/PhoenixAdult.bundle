@@ -48,6 +48,16 @@ def search(results, lang, siteNum, searchData):
 
                 results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s' % (titleNoFormatting), score=score, lang=lang))
 
+        # Also try to get a direct match from the title slug
+        slug = searchData.title.replace(' ', '-').lower()
+        directMatch = getDatafromAPI(PAsearchSites.getSearchBaseURL(siteNum), slug, token, False)
+        if directMatch:
+            curID = directMatch['slug']
+            titleNoFormatting = directMatch['title']
+            # This is a perfect match, so give it a perfect score
+            score = 100
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s' % (titleNoFormatting), score=score, lang=lang))
+
     return results
 
 
