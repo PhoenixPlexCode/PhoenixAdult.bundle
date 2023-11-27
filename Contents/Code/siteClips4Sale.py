@@ -2,6 +2,18 @@ import PAsearchSites
 import PAutils
 
 
+def getJSONfromPage(url):
+    req = PAutils.HTTPRequest(url)
+    detailsPageElements = HTML.ElementFromString(req.text)
+
+    if req:
+        scriptData = detailsPageElements.xpath('//script[contains(., "window.__remixContext")]')[0].text_content()
+        jsonData = re.search(r'window\.__remixContext = (.*);', scriptData)
+        if jsonData:
+            return json.loads(jsonData.group(1))['state']['loaderData']['routes/($lang).studio.$id_.$clipId.$clipSlug']['clip']
+    return None
+
+
 def search(results, lang, siteNum, searchData):
     parts = searchData.title.split(' ', 1)
 
@@ -23,13 +35,12 @@ def search(results, lang, siteNum, searchData):
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + '%s/%s/' % (userID, sceneID)
-        req = PAutils.HTTPRequest(sceneURL)
-        if req.ok:
-            detailsPageElements = HTML.ElementFromString(req.text)
+        detailsPageElements = getJSONfromPage(sceneURL)
 
+        if detailsPageElements:
             curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = getCleanTitle(detailsPageElements.xpath('//title')[0].text_content().split('-')[0])
-            subSite = detailsPageElements.xpath('//title')[0].text_content().split('-')[-1].split('|')[0].strip()
+            titleNoFormatting = getCleanTitle(detailsPageElements['title'])
+            subSite = detailsPageElements['studioTitle']
 
             score = 100
 
@@ -59,21 +70,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     userID = sceneURL.split('/')[-3]
     sceneID = sceneURL.split('/')[-2]
-    req = PAutils.HTTPRequest(sceneURL)
-    detailsPageElements = HTML.ElementFromString(req.text)
+    detailsPageElements = getJSONfromPage(sceneURL)
 
     # Title
-    metadata.title = getCleanTitle(detailsPageElements.xpath('//title')[0].text_content().split('-')[0])
+    metadata.title = getCleanTitle(detailsPageElements['title'])
 
     # Summary
-    try:
-        if len(detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')) > 1:
-            summary = ' '.join(detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')[1:]).replace('\xc2\xa0', ' ').strip()
-        else:
-            summary = detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')[0].replace('\xc2\xa0', ' ').strip()
-        summary = re.sub(r'(Read\sMore)$', '', summary).strip()
-    except:
-        summary = ''
+    summary = PAutils.strip_tags(detailsPageElements['description'])
     summary = summary.split('--SCREEN SIZE')[0].split('--SREEN SIZE')[0].strip()  # K Klixen
     summary = summary.split('window.NREUM')[0].replace('**TOP 50 CLIP**', '').replace('1920x1080 (HD1080)', '').strip()  # MHBHJ
     metadata.summary = summary
@@ -82,21 +85,26 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Clips4Sale'
 
     # Tagline and Collection(s)
-    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[-1].split('|')[0].strip()
+    tagline = detailsPageElements['studioTitle']
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[contains(., "Added:")]//span')
+    date = detailsPageElements['dateDisplay']
     if date:
-        date_object = datetime.strptime(date[0].text_content().split()[0].strip(), '%m/%d/%y')
+        date_object = datetime.strptime(date.split()[0].strip(), '%m/%d/%y')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s) / Genres
-    genreList = []
-    for genreLink in detailsPageElements.xpath('//div[span[contains(., "Category") or contains(., "Categories") or contains(., "Keywords")]]//a/text()'):
-        genreName = genreLink.replace(',', '').strip().lower()
+    genreList = [detailsPageElements['category_name']]
+    for genreLink in detailsPageElements['related_category_links']:
+        genreName = genreLink['category'].strip().lower()
+
+        genreList.append(genreName)
+
+    for genreLink in detailsPageElements['keyword_links']:
+        genreName = genreLink['keyword'].strip().lower()
 
         genreList.append(genreName)
 
@@ -108,9 +116,9 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     #  Klixen
     elif '7373' in userID:
-        actors = detailsPageElements.xpath('//span[contains(., "Keywords:")]/following-sibling::span//a')
+        actors = detailsPageElements['keyword_links']
         for actorLink in actors:
-            actorName = actorLink.text_content().strip()
+            actorName = actorLink['keyword'].strip().lower()
             actorPhotoURL = ''
 
             genreList.remove(actorName)
