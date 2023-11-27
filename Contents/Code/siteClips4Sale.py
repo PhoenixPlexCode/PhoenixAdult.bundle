@@ -2,15 +2,17 @@ import PAsearchSites
 import PAutils
 
 
-def getJSONfromPage(url):
+def getJSONfromPage(url, query):
     req = PAutils.HTTPRequest(url)
     detailsPageElements = HTML.ElementFromString(req.text)
 
     if req:
         scriptData = detailsPageElements.xpath('//script[contains(., "window.__remixContext")]')[0].text_content()
         jsonData = re.search(r'window\.__remixContext = (.*);', scriptData)
-        if jsonData:
+        if jsonData and query == 'clip':
             return json.loads(jsonData.group(1))['state']['loaderData']['routes/($lang).studio.$id_.$clipId.$clipSlug']['clip']
+        elif jsonData and query == 'search':
+            return json.loads(jsonData.group(1))['state']['loaderData']['routes/($lang).studio.$id_.$studioSlug.$']
     return None
 
 
@@ -35,7 +37,7 @@ def search(results, lang, siteNum, searchData):
 
     if sceneID:
         sceneURL = PAsearchSites.getSearchSearchURL(siteNum) + '%s/%s/' % (userID, sceneID)
-        detailsPageElements = getJSONfromPage(sceneURL)
+        detailsPageElements = getJSONfromPage(sceneURL, 'clip')
 
         if detailsPageElements:
             curID = PAutils.Encode(sceneURL)
@@ -46,15 +48,15 @@ def search(results, lang, siteNum, searchData):
 
             results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Clips4Sale/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
 
-    url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
-    req = PAutils.HTTPRequest(url)
-    searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//figcaption'):
-        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a[contains(@class, "title")]/@href')[0]
+    url = PAsearchSites.getSearchSearchURL(siteNum) + userID
+    slug = getJSONfromPage(url, 'search')['studioSlug']
+    searchURL = '%s%s/%s/Cat0-AllCategories/Page1/C4SSort-display_order_desc/Limit50/search/%s' % (PAsearchSites.getSearchSearchURL(siteNum), userID, slug, searchData.encoded)
+    for searchResult in getJSONfromPage(searchURL, 'search')['clips']:
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult['link']
         curID = PAutils.Encode(sceneURL)
 
-        titleNoFormatting = getCleanTitle(searchResult.xpath('.//a[contains(@class, "title")]')[0].text_content())
-        subSite = searchResult.xpath('//title')[0].text_content().split('|')[0].strip()
+        titleNoFormatting = searchResult['title']
+        subSite = searchResult['studioTitle']
 
         score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
 
@@ -70,7 +72,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
     userID = sceneURL.split('/')[-3]
     sceneID = sceneURL.split('/')[-2]
-    detailsPageElements = getJSONfromPage(sceneURL)
+    detailsPageElements = getJSONfromPage(sceneURL, 'clip')
 
     # Title
     metadata.title = getCleanTitle(detailsPageElements['title'])
