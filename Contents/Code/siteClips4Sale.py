@@ -16,7 +16,7 @@ def search(results, lang, siteNum, searchData):
 
     parts = sceneTitle.split(' ', 1)
     sceneID = None
-    if len(parts) == 1 and unicode(parts[0]).isdigit():
+    if unicode(parts[0], 'UTF-8').isdigit() and int(parts[0]) > 10000000:
         sceneID = parts[0]
 
     searchData.encoded = urllib.quote(sceneTitle)
@@ -28,8 +28,8 @@ def search(results, lang, siteNum, searchData):
             detailsPageElements = HTML.ElementFromString(req.text)
 
             curID = PAutils.Encode(sceneURL)
-            titleNoFormatting = getCleanTitle(detailsPageElements.xpath('//h3')[0].text_content())
-            subSite = detailsPageElements.xpath('//title')[0].text_content().split('-')[0].strip()
+            titleNoFormatting = getCleanTitle(detailsPageElements.xpath('//title')[0].text_content().split('-')[0])
+            subSite = detailsPageElements.xpath('//title')[0].text_content().split('-')[-1].split('|')[0].strip()
 
             score = 100
 
@@ -63,10 +63,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = getCleanTitle(detailsPageElements.xpath('//h3')[0].text_content())
+    metadata.title = getCleanTitle(detailsPageElements.xpath('//title')[0].text_content().split('-')[0])
 
     # Summary
-    summary = detailsPageElements.xpath('//div[@class="individualClipDescription"]')[0].text_content().strip()
+    try:
+        if len(detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')) > 1:
+            summary = ' '.join(detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')[1:]).replace('\xc2\xa0', ' ').strip()
+        else:
+            summary = detailsPageElements.xpath('//div[contains(., "Description")]//descendant::div[contains(@class, "read-more")]//text()')[0].replace('\xc2\xa0', ' ').strip()
+        summary = re.sub(r'(Read\sMore)$', '', summary).strip()
+    except:
+        summary = ''
     summary = summary.split('--SCREEN SIZE')[0].split('--SREEN SIZE')[0].strip()  # K Klixen
     summary = summary.split('window.NREUM')[0].replace('**TOP 50 CLIP**', '').replace('1920x1080 (HD1080)', '').strip()  # MHBHJ
     metadata.summary = summary
@@ -75,29 +82,25 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Clips4Sale'
 
     # Tagline and Collection(s)
-    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[1].split('|')[0].strip()
+    tagline = detailsPageElements.xpath('//title')[0].text_content().split('-')[-1].split('|')[0].strip()
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    date = detailsPageElements.xpath('//span[contains(., "Added:")]//span')[0].text_content().split()[0].strip()
+    date = detailsPageElements.xpath('//span[contains(., "Added:")]//span')
     if date:
-        date_object = datetime.strptime(date, '%m/%d/%y')
+        date_object = datetime.strptime(date[0].text_content().split()[0].strip(), '%m/%d/%y')
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
 
     # Actor(s) / Genres
-    # Main Category
-    cat = detailsPageElements.xpath('//div[contains(@class, "clip_details")]//div[contains(., "Category:")]//a')[0].text_content().strip().lower()
-    movieGenres.addGenre(cat)
-    # Related Categories / Keywords
     genreList = []
-    for genreLink in detailsPageElements.xpath('//span[@class="relatedCatLinks"]//a'):
-        genreName = genreLink.text_content().strip().lower()
+    for genreLink in detailsPageElements.xpath('//div[span[contains(., "Category") or contains(., "Categories") or contains(., "Keywords")]]//a/text()'):
+        genreName = genreLink.replace(',', '').strip().lower()
 
         genreList.append(genreName)
-    # Add Actors
 
+    # Add Actors
     #  CherryCrush
     if '57445' in userID:
         genreList.remove('cherry')
@@ -2989,7 +2992,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     else:
         actorName = tagline
         actorPhotoURL = ''
+        if actorName.lower() in genreList:
+            genreList.remove(actorName.lower())
         movieActors.addActor(actorName, actorPhotoURL)
+
     # Add Genres
     for genre in genreList:
         movieGenres.addGenre(genre)
