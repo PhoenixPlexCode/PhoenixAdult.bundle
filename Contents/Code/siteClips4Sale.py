@@ -100,15 +100,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actor(s) / Genres
     genreList = [detailsPageElements['category_name']]
-    for genreLink in detailsPageElements['related_category_links']:
-        genreName = genreLink['category'].strip().lower()
+    if detailsPageElements['related_category_links']:
+        for genreLink in detailsPageElements['related_category_links']:
+            genreName = genreLink['category'].strip().lower()
 
-        genreList.append(genreName)
+            genreList.append(genreName)
 
-    for genreLink in detailsPageElements['keyword_links']:
-        genreName = genreLink['keyword'].strip().lower()
+    if detailsPageElements['keyword_links']:
+        for genreLink in detailsPageElements['keyword_links']:
+            genreName = genreLink['keyword'].strip().lower()
 
-        genreList.append(genreName)
+            genreList.append(genreName)
 
     # Add Actors
     #  CherryCrush
