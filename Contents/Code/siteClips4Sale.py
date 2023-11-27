@@ -75,7 +75,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = getJSONfromPage(sceneURL, 'clip')
 
     # Title
-    metadata.title = getCleanTitle(detailsPageElements['title'])
+    metadata.title = PAutils.parseTitle(getCleanTitle(detailsPageElements['title']), siteNum)
 
     # Summary
     summary = PAutils.strip_tags(detailsPageElements['description'])
