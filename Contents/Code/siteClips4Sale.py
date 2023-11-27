@@ -38,12 +38,12 @@ def search(results, lang, siteNum, searchData):
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID + '/*/Cat0-AllCategories/Page1/SortBy-bestmatch/Limit50/search/' + searchData.encoded
     req = PAutils.HTTPRequest(url)
     searchResults = HTML.ElementFromString(req.text)
-    for searchResult in searchResults.xpath('//div[contains(@class, "clipWrapper")]//section[@id]'):
-        sceneURL = searchResult.xpath('.//h3//a/@href')[0]
+    for searchResult in searchResults.xpath('//figcaption'):
+        sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + searchResult.xpath('.//a[contains(@class, "title")]/@href')[0]
         curID = PAutils.Encode(sceneURL)
 
-        titleNoFormatting = getCleanTitle(searchResult.xpath('.//h3')[0].text_content())
-        subSite = searchResult.xpath('//title')[0].text_content().strip()
+        titleNoFormatting = getCleanTitle(searchResult.xpath('.//a[contains(@class, "title")]')[0].text_content())
+        subSite = searchResult.xpath('//title')[0].text_content().split('|')[0].strip()
 
         score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
 
