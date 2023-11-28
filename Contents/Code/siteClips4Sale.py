@@ -43,10 +43,15 @@ def search(results, lang, siteNum, searchData):
             curID = PAutils.Encode(sceneURL)
             titleNoFormatting = getCleanTitle(detailsPageElements['title'])
             subSite = detailsPageElements['studioTitle']
+            date = detailsPageElements['dateDisplay']
+            if date:
+                releaseDate = datetime.strptime(date.split()[0].strip(), '%m/%d/%y').strftime('%Y-%m-%d')
+            else:
+                releaseDate = searchData.dateFormat() if searchData.date else ''
 
             score = 100
 
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Clips4Sale/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     url = PAsearchSites.getSearchSearchURL(siteNum) + userID
     slug = getJSONfromPage(url, 'search')['studioSlug']
@@ -57,10 +62,18 @@ def search(results, lang, siteNum, searchData):
 
         titleNoFormatting = searchResult['title']
         subSite = searchResult['studioTitle']
+        date = searchResult['dateDisplay']
+        if date:
+            releaseDate = datetime.strptime(date.split()[0].strip(), '%m/%d/%y').strftime('%Y-%m-%d')
+        else:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
 
-        score = 100 - Util.LevenshteinDistance(sceneTitle.lower(), titleNoFormatting.lower())
+        if searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [Clips4Sale/%s]' % (titleNoFormatting, subSite), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, subSite, releaseDate), score=score, lang=lang))
 
     return results
 
@@ -100,15 +113,17 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
 
     # Actor(s) / Genres
     genreList = [detailsPageElements['category_name']]
-    for genreLink in detailsPageElements['related_category_links']:
-        genreName = genreLink['category'].strip().lower()
+    if detailsPageElements['related_category_links']:
+        for genreLink in detailsPageElements['related_category_links']:
+            genreName = genreLink['category'].strip().lower()
 
-        genreList.append(genreName)
+            genreList.append(genreName)
 
-    for genreLink in detailsPageElements['keyword_links']:
-        genreName = genreLink['keyword'].strip().lower()
+    if detailsPageElements['keyword_links']:
+        for genreLink in detailsPageElements['keyword_links']:
+            genreName = genreLink['keyword'].strip().lower()
 
-        genreList.append(genreName)
+            genreList.append(genreName)
 
     # Add Actors
     #  CherryCrush
