@@ -190,6 +190,7 @@ import siteColette
 import siteSINematica
 import networkThickCashOther
 import siteSexSelector
+import siteXevUnleashed
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1851,6 +1852,7 @@ searchSites = {
     1756: ('Breed Me', 'https://www.breedme.com', '/models/'),
     1757: ('MrLuckyRAW', 'https://www.mrluckyraw.com', '/search.php?query='),
     1758: ('Sex Selector', 'https://www.sexselector.com', '/'),
+    1759: ('Xev Unleashed', 'https://xevunleashed.com', '/search.php?query='),
 }
 
 abbreviations = (
@@ -2129,6 +2131,7 @@ abbreviations = (
     ('^wunf', 'WakeUpNFuck'),
     ('^wy ', 'WebYoung '),
     ('^ylp ', '18OnlyGirls '),
+    ('^xevbellringer ', 'XevUnleashed '),
     ('^xlg ', 'XLGirls '),
     ('^YoungLegalPorn ', '18OnlyGirls '),
     ('^ztod ', 'ZeroTolerance '),
@@ -3206,5 +3209,9 @@ def getProviderFromSiteNum(siteNum):
         # Sex Selector
         elif siteNum == 1758:
             provider = siteSexSelector
+
+        # Xev Unleashed
+        elif siteNum == 1759:
+            provider = siteXevUnleashed
 
     return provider
