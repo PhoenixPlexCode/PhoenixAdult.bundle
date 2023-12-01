@@ -65,7 +65,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         modelURL = '%s/tour/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorLink.xpath('.//@href')[0])
         req = PAutils.HTTPRequest(modelURL)
         actorPageElements = HTML.ElementFromString(req.text)
-        actorPhotoURL = PAsearchSites.getSearchBaseURL(siteNum) + actorPageElements.xpath('//img/@src')[0]
+        actorPhotoURL = actorPageElements.xpath('//img/@src')[0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
