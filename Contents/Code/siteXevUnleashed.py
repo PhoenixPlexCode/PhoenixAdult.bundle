@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    directURL = '%s/updates/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), slugify(searchData.title))
+    directURL = '%s/updates/%s.html' % (PAsearchSites.getSearchBaseURL(siteNum), slugify(searchData.title.replace('\'', '')))
     req = PAutils.HTTPRequest(directURL)
 
     if req.ok:
