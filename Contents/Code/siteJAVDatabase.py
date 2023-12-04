@@ -20,10 +20,10 @@ def search(results, lang, siteNum, searchData):
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchPageElements = HTML.ElementFromString(req.text)
-    for searchResult in searchPageElements.xpath('//div[@class="card h-100"]'):
+    for searchResult in searchPageElements.xpath('//div[contains(@class, "card h-100")]'):
         titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//div[@class="mt-auto"]/a')[0].text_content().strip(), siteNum)
-        JAVID = searchResult.xpath('.//h2')[0].text_content().strip()
-        sceneURL = searchResult.xpath('.//h2//@href')[0].strip()
+        JAVID = searchResult.xpath('.//p[@class="display-6"]/a')[0].text_content().strip()
+        sceneURL = searchResult.xpath('.//p[@class="display-6"]/a/@href')[0].strip()
         curID = PAutils.Encode(sceneURL)
 
         date = searchResult.xpath('.//div[@class="mt-auto"]/text()')
@@ -105,7 +105,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Featured Idols")]]//div[@class="idol-thumb"]'):
+    for actor in detailsPageElements.xpath('//div/div[./h2[contains(., "Idols")]]//div[@class="idol-thumb"]'):
         actorName = actor.xpath('.//@alt')[0].strip().split('(')[0].replace(')', '')
         actorPhotoURL = actor.xpath('.//img/@src')[0].replace('melody-marks', 'melody-hina-marks')
 
