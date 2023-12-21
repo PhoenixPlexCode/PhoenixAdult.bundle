@@ -3221,7 +3221,7 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 1759:
             provider = siteXevUnleashed
 
-        # PKJ Media 
+        # PKJ Media
         elif 1760 <= siteNum <= 1764:
             provider = networkPKJMedia
 

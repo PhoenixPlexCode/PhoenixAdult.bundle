@@ -1,6 +1,7 @@
 import PAsearchSites
 import PAutils
 
+
 def search(results, lang, siteNum, searchData):
     searchResults = []
     searchData.encoded = searchData.title.replace(' ', '+')
@@ -72,6 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
                 pass
 
     return metadata
+
 
 genresDB = {
     'MyPOVFam': ['Pov', 'Family'],
