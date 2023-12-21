@@ -48,7 +48,6 @@ def flareSolverrRequest(url, method, **kwargs):
     if req.ok:
         data = req.json()['solution']
         headers = {'User-Agent': data['userAgent']}
-        headers['User-Agent'] = data['userAgent']
         cookies = {cookie['name']: cookie['value'] for cookie in data['cookies']}
 
         return FakeResponse(req, url, data['status'], data['response'], headers, cookies)
