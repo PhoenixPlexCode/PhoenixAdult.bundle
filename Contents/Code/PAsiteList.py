@@ -191,6 +191,7 @@ import siteSINematica
 import networkThickCashOther
 import siteSexSelector
 import siteXevUnleashed
+import networkPKJMedia
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1853,6 +1854,11 @@ searchSites = {
     1757: ('MrLuckyRAW', 'https://www.mrluckyraw.com', '/search.php?query='),
     1758: ('Sex Selector', 'https://www.sexselector.com', '/'),
     1759: ('Xev Unleashed', 'https://xevunleashed.com', '/search.php?query='),
+    1760: ('MyPOVFam', 'https://www.mypovfam.com', '/?s='),
+    1761: ('PervertedPOV', 'https://www.pervertedpov.com', '/?s='),
+    1762: ('PetersKingdom', 'https://peterskingdom.com', '/?s='),
+    1763: ('RawWhiteMeat', 'https://rawwhitemeat.com', '/?s='),
+    1764: ('SlutsAroundTown', 'https://slutsaroundtown.com', '/?s='),
 }
 
 abbreviations = (
@@ -2078,6 +2084,7 @@ abbreviations = (
     ('^reg ', 'RealExGirlfriends '),
     ('^rkp ', 'RKPrime '),
     ('^rws ', 'RealWifeStories '),
+    ('^rwm ', 'RawWhiteMeat '),
     ('^saf ', 'ShesAFreak '),
     ('^sart ', 'SexArt '),
     ('^sas ', 'SexandSubmission '),
@@ -3213,5 +3220,9 @@ def getProviderFromSiteNum(siteNum):
         # Xev Unleashed
         elif siteNum == 1759:
             provider = siteXevUnleashed
+
+        # PKJ Media
+        elif 1760 <= siteNum <= 1764:
+            provider = networkPKJMedia
 
     return provider
