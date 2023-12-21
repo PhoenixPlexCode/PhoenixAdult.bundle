@@ -1007,6 +1007,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Oral Overdose
   - Up Her Asshole
 + #### PJGirls | ✅
++ #### PKJ Media | ✓ - **Title only**
+  - MyPOVFam
+  - PervertedPOV
+  - PetersKingdom
+  - RawWhiteMeat
+  - SlutsAroundTown
 + #### Playboy Plus | ✅
 + #### PlumperPass | ✅
 + #### PornCZ | ✓ - **Title or Actor**
