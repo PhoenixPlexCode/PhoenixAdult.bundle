@@ -47,11 +47,10 @@ def flareSolverrRequest(url, method, **kwargs):
     req = HTTPRequest('%s/v1' % Prefs['flaresolverr_endpoint'], headers={'Content-Type': 'application/json'}, params=json.dumps(req_params), timeout=60, bypass=False)
     if req.ok:
         data = req.json()['solution']
-        headers = data['headers']
-        headers['User-Agent'] = data['userAgent']
+        headers = {'User-Agent': data['userAgent']}
         cookies = {cookie['name']: cookie['value'] for cookie in data['cookies']}
 
-        return FakeResponse(req, url, int(data['headers']['status']), data['response'], headers, cookies)
+        return FakeResponse(req, url, data['status'], data['response'], headers, cookies)
 
     return None
 
