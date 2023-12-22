@@ -3,20 +3,17 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    searchResults = []
-    searchData.encoded = searchData.title.replace(' ', '+')
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
-    searchPageElements = HTML.ElementFromString(req.text)
+    searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchPageElements.xpath('//div[contains(@class, "video-section")]/div/div'):
-        titleNoFormatting = searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/text()')[0]
-        titleNoFormatting = PAutils.parseTitle(titleNoFormatting, siteNum)
-        sceneURL = searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/@href')[0]
-        curID = PAutils.Encode(sceneURL)
+    for searchResult in searchResults.xpath('//div[contains(@class, "video-section")]/div/div'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/text()')[0], siteNum)
+        curID = PAutils.Encode(searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/@href')[0])
+        score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        if sceneURL not in searchResults:
-            searchResults.append(sceneURL)
-            results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=80, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
+
+    return results
 
 
 def update(metadata, lang, siteNum, movieGenres, movieActors, art):
@@ -27,23 +24,23 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[contains(@class, "video-details")]/div/h1/text()')[0]
+    metadata.title = detailsPageElements.xpath('//div[contains(@class, "video-details")]/div/h1/text()')[0].strip()
 
     # Summary
     try:
-        summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/text()')[0]
+        summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/text()')
     except:
-        try:
-            summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/span/text()')[0]
-        except:
-            summary = ''
-    metadata.summary = summary
+        summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/span/text()')
+
+    if summary:
+        metadata.summary = summary[0].strip()
 
     # Studio
-    metadata.studio = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.studio = 'PKJ Media'
 
     # Tagline and Collection(s)
-    metadata.collections.add(metadata.studio)
+    metadata.tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.collections.add(metadata.tagline)
 
     # Genres
     genres = PAutils.getDictValuesFromKey(genresDB, PAsearchSites.getSearchSiteName(siteNum))
@@ -51,11 +48,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    movieActors.clearActors()
-    actorName = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/div/span[2]/a/text()')[0]
-    actorPhotoURL = ''
+    for actorLink in detailsPageElements.xpath('//div[contains(@class, "post-entry")]/div/span[2]/a'):
+        actorName = actorLink.text_content().strip()
 
-    movieActors.addActor(actorName, actorPhotoURL)
+        movieActors.addActor(actorName, '')
 
     # Posters
     art.append(detailsPageElements.xpath('//video/@poster')[0])
