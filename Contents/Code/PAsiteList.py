@@ -66,7 +66,6 @@ import siteZTOD
 import siteClubFilly
 import networkIntersec
 import networkCherryPimps
-import siteElegantAngel
 import siteReidMyLips
 import sitePlayboyPlus
 import siteMeanaWolf
@@ -88,7 +87,6 @@ import networkTeamSkeet
 import networkGammaEntOther
 import siteRealityLovers
 import siteHoloGirlsVR
-import siteLethalHardcoreVR
 import networkRomero
 import siteXVirtual
 import siteLustReality
@@ -187,7 +185,6 @@ import siteTeenyTaboo
 import networkWowNetwork
 import networkAuntJudys
 import siteColette
-import siteSINematica
 import networkThickCashOther
 import siteSexSelector
 import siteXevUnleashed
@@ -995,7 +992,7 @@ searchSites = {
     798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
     800: ('ClubSweethearts', 'https://adultprime.com', '/studios/search?type='),
-    801: ('Elegant Angel', 'https://www.elegantangel.com', '/Search?q='),
+    801: (),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
     803: ('ReidMyLips', 'https://www.reidmylips.com', '/updates/'),
     804: ('Playboy Plus', 'https://www.playboyplus.com', '/search'),
@@ -1086,9 +1083,9 @@ searchSites = {
     889: ('Kink Evolved Fights', 'http://www.kink.com', '/search?channelIds=evolvedfights&q='),
     890: ('WetVR', 'https://www.wetvr.com', '/video/'),
     891: ('HoloGirlsVR', 'https://www.hologirlsvr.com', '/Scenes?back=1&search='),
-    892: ('LethalHardcoreVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
+    892: (),
     893: ('Gender X', 'https://www.genderxfilms.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    894: ('WhoreCraftVR', 'https://www.lethalhardcorevr.com', '/lethal-hardcore-vr-scenes.html?fq='),
+    894: (),
     895: ('Defeated XXX', 'http://xxx.defeated.xxx', '/?s='),
     896: ('Defeated Sex Fight', 'https://defeatedsexfight.com', '/?s='),
     897: ('XVirtual', 'https://xvirtual.com', '/tour/search/?q='),
@@ -1836,7 +1833,7 @@ searchSites = {
     1739: ('Black TGirls Hardcore', 'https://www.blacktgirlshardcore.com', '/tour/trailers/'),
     1740: ('Mommy 4K', 'https://vip4k.com', '/en/search/'),
     1741: ('Colette', 'https://www.colette.com', '/videos/'),
-    1742: ('SINematica', 'https://sinematica.com', '/Scene/MemberSearch?q='),
+    1742: (),
     1743: ('Work Me Harder', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     1744: ('ScoreVideos', 'https://www.scorevideos.com', '/porn-videos/'),
     1745: ('Bush', 'https://www.cherrypimps.com', '/search.php?query='),
@@ -1854,11 +1851,43 @@ searchSites = {
     1757: ('MrLuckyRAW', 'https://www.mrluckyraw.com', '/search.php?query='),
     1758: ('Sex Selector', 'https://www.sexselector.com', '/'),
     1759: ('Xev Unleashed', 'https://xevunleashed.com', '/search.php?query='),
-    1760: ('MyPOVFam', 'https://www.mypovfam.com', '/?s='),
-    1761: ('PervertedPOV', 'https://www.pervertedpov.com', '/?s='),
-    1762: ('PetersKingdom', 'https://peterskingdom.com', '/?s='),
-    1763: ('RawWhiteMeat', 'https://rawwhitemeat.com', '/?s='),
-    1764: ('SlutsAroundTown', 'https://slutsaroundtown.com', '/?s='),
+    1760: ('My POV Fam', 'https://www.mypovfam.com', '/?s='),
+    1761: ('Perverted POV', 'https://www.pervertedpov.com', '/?s='),
+    1762: ('Peter\'s Kingdom', 'https://peterskingdom.com', '/?s='),
+    1763: ('Raw White Meat', 'https://rawwhitemeat.com', '/?s='),
+    1764: ('Sluts Around Town', 'https://slutsaroundtown.com', '/?s='),
+    1765: ('18 Lust', 'https://18lust.com', '/MemberSceneSearch?q='),
+    1766: ('Bizarre Entertainment', 'https://www.bizarrevideo.com', '/MemberSceneSearch?q='),
+    1767: ('Black Massive Cocks', 'https://blackmassivecocks.com', '/MemberSceneSearch?q='),
+    1768: ('Brutha\'s Inc', 'https://bruthasinc.com', '/MemberSceneSearch?q='),
+    1769: ('Concoxxxion', 'https://concoxxxion.com', '/MemberSceneSearch?q='),
+    1770: ('Darkside Entertainment', 'https://darksideentertainment.com', '/MemberSceneSearch?q='),
+    1771: ('Digital Video Vision', 'https://digitalvideovision.com', '/MemberSceneSearch?q='),
+    1772: ('Elegant Angel', 'https://elegantangel.com', '/MemberSceneSearch?q='),
+    1773: ('Evasive Angles', 'https://evasiveangles.com', '/MemberSceneSearch?q='),
+    1774: ('Forbidden Fruits Films', 'https://forbiddenfruitsfilms.com', '/MemberSceneSearch?q='),
+    1775: ('Horny Household', 'https://hornyhousehold.com', '/MemberSceneSearch?q='),
+    1776: ('Hot Wife Fun', 'https://hotwifefun.com', '/MemberSceneSearch?q='),
+    1777: ('Joanna Angel', 'https://joannaangel.com', '/MemberSceneSearch?q='),
+    1778: ('Jodi West', 'https://jodiwest.com', '/MemberSceneSearch?q='),
+    1779: ('Jonathan Jordan XXX', 'https://jonathanjordanxxx.com', '/MemberSceneSearch?q='),
+    1780: ('Kaiia Eve', 'https://kaiiaeve.com', '/MemberSceneSearch?q='),
+    1781: ('Kings of Fetish', 'https://kingsoffetish.com', '/MemberSceneSearch?q='),
+    1782: ('Lethal Hardcore', 'https://lethalhardcore.com', '/MemberSceneSearch?q='),
+    1783: ('Lethal Hardcore VR', 'https://lethalhardcorevr.com', '/MemberSceneSearch?q='),
+    1784: ('Only 3x', 'https://only3x.com', '/MemberSceneSearch?q='),
+    1785: ('LeWood', 'https://lewood.com', '/MemberSceneSearch?q='),
+    1786: ('Pornstar Stroker', 'https://pornstarstroker.com', '/MemberSceneSearch?q='),
+    1787: ('Reagan Foxx', 'https://www.reaganfoxx.com', '/MemberSceneSearch?q='),
+    1788: ('Real Girls Fuck', 'https://realgirlsfuck.com', '/MemberSceneSearch?q='),
+    1789: ('Severe Sex Films', 'https://severesexfilms.com', '/MemberSceneSearch?q='),
+    1790: ('SINematica', 'https://sinematica.com', '/MemberSceneSearch?q='),
+    1791: ('Smut Factor', 'https://smutfactor.com', '/MemberSceneSearch?q='),
+    1792: ('Star Strokers', 'https://starstroker.com', '/MemberSceneSearch?q='),
+    1793: ('Step House XXX', 'https://stephousexxx.com', '/MemberSceneSearch?q='),
+    1794: ('Vouyer Media', 'https://vouyermedia.com', '/MemberSceneSearch?q='),
+    1795: ('West Coast Productions', 'https://westcoastproductions.com', '/MemberSceneSearch?q='),
+    1796: ('Whorecraft VR', 'https://whorecraftvr.com', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -2650,10 +2679,6 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 800 or (1601 <= siteNum <= 1672) or siteNum == 1749:
             provider = networkAdultPrime
 
-        # Elegant Angel
-        elif siteNum == 801:
-            provider = siteElegantAngel
-
         # Family Sinners
         elif siteNum == 802:
             provider = network1service
@@ -2699,7 +2724,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1337 or siteNum == 1574:
+        elif siteNum == 815 or siteNum == 1337 or siteNum == 1574 or (1765 <= siteNum <= 1796):
             provider = networkAdultEmpireCash
 
         # My Pervy Family
@@ -2782,17 +2807,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 891:
             provider = siteHoloGirlsVR
 
-        # LethalHardcoreVR
-        elif siteNum == 892:
-            provider = siteLethalHardcoreVR
-
         # Gender X
         elif siteNum == 893:
             provider = networkGammaEntOther
-
-        # WhoreCraftVR
-        elif siteNum == 894:
-            provider = siteLethalHardcoreVR
 
         # Romero Multimedia
         elif (895 <= siteNum <= 896) or (1594 <= siteNum <= 1596):
@@ -3204,10 +3221,6 @@ def getProviderFromSiteNum(siteNum):
         # Colette
         elif siteNum == 1741:
             provider = siteColette
-
-        # SINematica
-        elif siteNum == 1742:
-            provider = siteSINematica
 
         # Thick Cash Other
         elif (1754 <= siteNum <= 1756):

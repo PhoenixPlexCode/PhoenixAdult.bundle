@@ -49,10 +49,42 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Video Masturbation
   - Video Of Myself at Home
 + #### Adult Empire | ✅
-+ #### Adult Empire Cash | ✅
++ #### Adult Empire Cash | ✅ - **DVDs not supported**
+  - 18 Lust
+  - Bizarre Entertainment
+  - Black Massive Cocks
+  - Brutha's Inc
+  - Concoxxxion
   - Conor Coxxx
+  - Darkside Entertainment
+  - Digital Video Vision
+  - Elegant Angel
+  - Evasive Angles
+  - Forbidden Fruits Films
+  - Horny Household
+  - Hot Wife Fun
   - JaysPOV
+  - Joanna Angel
+  - Jodi West
+  - Jonathan Jordan XXX
+  - Kaiia Eve
+  - Kings of Fetish
+  - Lethal Hardcore
+  - Lethal Hardcore VR
+  - LeWood
+  - Only 3x
+  - Pornstar Stroker
+  - Reagan Foxx
+  - Real Girls Fuck
+  - Severe Sex Films
+  - SINematica
+  - Smut Factor
   - SpankMonster
+  - Star Strokers
+  - Step House XXX
+  - Vouyer Media
+  - West Coast Productions
+  - Whorecraft VR
 + #### Adult Prime Studios | ✅
   - 4K CFNM
   - Adult Prime
@@ -492,7 +524,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - ZebraGirls
 + #### Dorcel Club | ✅
 + #### Dorcel Vision | ✓ - **Title only**
-+ #### Elegant Angel | ✓ - **Only DVDs supported**
 + #### Erito | ✅
 + #### EvilAngel | ✅
 + #### Evolved Fights Network | ✅
@@ -1293,7 +1324,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - MomXXX
 + #### She Will Cheat | ✓
 + #### Sicflics | ✅
-+ #### SINematica | ✅
 + #### SinsLife | ✓
 + #### SinX | ✓
   - Fully Clothed Pissing
