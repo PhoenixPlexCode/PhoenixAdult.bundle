@@ -6,9 +6,9 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
 
-    for searchResult in searchResults.xpath('//div[contains(@class, "video-section")]/div/div'):
-        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/text()')[0], siteNum)
-        curID = PAutils.Encode(searchResult.xpath('//div[contains(@class, "post-header")]/h3/a/@href')[0])
+    for searchResult in searchResults.xpath('//div[@class="video-section"]/div/div'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('//div[@class="post-header"]/h3/a/text()')[0], siteNum)
+        curID = PAutils.Encode(searchResult.xpath('//div[@class="post-header"]/h3/a/@href')[0])
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='%s [%s]' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum)), score=score, lang=lang))
@@ -24,13 +24,13 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = detailsPageElements.xpath('//div[contains(@class, "video-details")]/div/h1/text()')[0].strip()
+    metadata.title = detailsPageElements.xpath('//div[@class="video-details"]/div/h1/text()')[0].strip()
 
     # Summary
     try:
-        summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/text()')
+        summary = detailsPageElements.xpath('//div[@class="post-entry"]/p/text()')
     except:
-        summary = detailsPageElements.xpath('//div[contains(@class, "post-entry")]/p/span/text()')
+        summary = detailsPageElements.xpath('//div[@class="post-entry"]/p/span/text()')
 
     if summary:
         metadata.summary = summary[0].strip()
@@ -48,7 +48,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    for actorLink in detailsPageElements.xpath('//div[contains(@class, "post-entry")]/div/span[2]/a'):
+    for actorLink in detailsPageElements.xpath('//div[@class="post-entry"]/div/span[2]/a'):
         actorName = actorLink.text_content().strip()
 
         movieActors.addActor(actorName, '')
