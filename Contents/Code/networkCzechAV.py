@@ -43,7 +43,7 @@ def search(results, lang, siteNum, searchData):
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [CzechAV/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
     else:
         for searchResult in searchResults.xpath('//div[@class="episode__title"]'):
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a/h2')[0].text_content().strip(), siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a/h1|./a/h2')[0].text_content().strip(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('./a/@href')[0])
             subSite = searchResult.xpath('//head/title')[0].text_content().strip()
             releaseDate = searchData.dateFormat() if searchData.date else ''
@@ -68,7 +68,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     if siteNum == 1583:
         title = detailsPageElements.xpath('//span[@class="name"]')[0].text_content().strip()
     else:
-        title = detailsPageElements.xpath('//h2[@class="nice-title"]')[0].text_content().strip()
+        title = detailsPageElements.xpath('//h1[@class="nice-title"]|//h2[@class="nice-title"]')[0].text_content().split(':')[-1].strip()
     metadata.title = PAutils.parseTitle(title, siteNum)
 
     # Summary
