@@ -39,6 +39,7 @@
         "id": "metadataapi_token",
         "label": "MetadataAPI Token",
         "type": "text",
+        "option": "hidden",
         "default": ""
     },
     {
@@ -131,6 +132,7 @@
         "id": "proxy_password",
         "label": "Proxy Password",
         "type": "text",
+        "option": "hidden",
         "default": ""
     },
     {
@@ -160,6 +162,7 @@
         "id": "captcha_key",
         "label": "API Key",
         "type": "text",
+        "option": "hidden",
         "default": ""
     }
 ]
