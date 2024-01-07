@@ -223,7 +223,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     ]
     for xpath in xpaths:
         for poster in detailsPageElements.xpath(xpath):
-            art.append(poster)
+            art.append(poster.split('?')[0])
 
     Log('Artwork found: %d' % len(art))
     for idx, posterUrl in enumerate(art, 1):
