@@ -54,6 +54,10 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
+    # Add \n to <br> entries to fix summary
+    for br in detailsPageElements.xpath('*//br'):
+        br.tail = '\n' + br.tail if br.tail else '\n'
+
     # Title
     metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//h1[contains(@class, "fs-0")]')[0].text_content().strip(), siteNum)
 
