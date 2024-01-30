@@ -6068,6 +6068,9 @@ ActorsReplaceStudios = {
     68: {  # Mofos
         'Krystal Banks': ['Krystal'],
     },
+    69: {  # Adult Empire
+        'Ice La Fox': ['Ice LaFox'],
+    },
 }
 
 ActorsStudioIndexes = {
@@ -6140,6 +6143,7 @@ ActorsStudioIndexes = {
     66: ['SexMex'],
     67: ['Data18'],
     68: ['Mofos'],
+    69: ['Adult Empire'],
 }
 
 

@@ -15,8 +15,8 @@ def search(results, lang, siteNum, searchData):
         req = PAutils.HTTPRequest(sceneURL, headers={'Cookie': 'viewing-preferences=straight%2Cgay'})
         detailsPageElements = HTML.ElementFromString(req.text)
 
-        titleNoFormatting = detailsPageElements.xpath('//h1[@class="shoot-title"]')[0].text_content().strip()[:-1]
-        releaseDate = parse(detailsPageElements.xpath('//span[@class="shoot-date"]')[0].text_content().strip()).strftime('%Y-%m-%d')
+        titleNoFormatting = PAutils.parseTitle(detailsPageElements.xpath('//h1[contains(@class, "fs-0")]')[0].text_content().strip(), siteNum)
+        releaseDate = parse(detailsPageElements.xpath('//div[contains(@class, "shoot-detail-legend")]//span[@class="text-muted ms-2"]')[0].text_content()).strftime('%Y-%m-%d')
         curID = PAutils.Encode(sceneURL)
 
         results.Append(MetadataSearchResult(id='%s|%d' % (curID, siteNum), name='[%s] %s [%s] %s' % (shootID, titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=100, lang=lang))

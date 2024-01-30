@@ -48,11 +48,14 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     detailsPageElements = HTML.ElementFromString(req.text)
 
     # Title
-    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//meta[@itemprop="name"]/@content|//h1/text()')[0].split('|')[0].strip(), siteNum)
+    metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//meta[@itemprop="name"]/@content|//h1/text()')[0].split('|')[0].split('- Free Video')[0].strip(), siteNum)
 
     # Summary
     summary = ''
-    paragraphs = detailsPageElements.xpath('//div[@class="cont"]/p|//div[@class="cont"]//div[@id="fullstory"]/p|//div[@class="zapdesc"]//div[not(contains(., "Including"))][.//br]')
+    if (1797 <= siteNum <= 1798):
+        paragraphs = detailsPageElements.xpath('//div[@id="fullstory"]/p')
+    else:
+        paragraphs = detailsPageElements.xpath('//div[@class="cont"]/p|//div[@class="cont"]//div[@id="fullstory"]/p|//div[@class="zapdesc"]//div[not(contains(., "Including"))][.//br]')
     for paragraph in paragraphs:
         text = paragraph.text_content().strip()
         if text and not text == '\xc2\xa0':
@@ -85,7 +88,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieGenres.addGenre(genreName)
 
     # Actor(s)
-    for actorLink in detailsPageElements.xpath('//div[contains(@class, "inner")]//div[contains(@class, "tagsmodels")]/a'):
+    for actorLink in detailsPageElements.xpath('//div[contains(@class, "tagsmodels")][./img[@alt="model icon"]]//a'):
         actorName = actorLink.text_content().strip()
         actorPhotoURL = ''
 

@@ -1304,9 +1304,11 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
 + #### Romero Multimedia Network | ✓
   - Deafeated XXX
   - Defeated Sex Fight
+  - Freeze
   - Futanari XXX
   - Hentaied
   - Parasited
+  - Plants vs Cunts
 + #### SapphiX Network | Matching type: ✅
   - Fist Flush
   - Give Me Pink
