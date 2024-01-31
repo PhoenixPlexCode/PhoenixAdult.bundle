@@ -35,10 +35,7 @@ def search(results, lang, siteNum, searchData):
             releaseDate = searchData.dateFormat() if searchData.date else ''
         displayDate = releaseDate if date else ''
 
-        if searchData.date:
-            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
-        else:
-            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        score = 100
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Bellesa/%s] %s' % (titleNoFormatting, subSite, displayDate), score=score, lang=lang))
     else:
