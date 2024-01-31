@@ -315,6 +315,9 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - MonroeLee
   - See Him Fuck
   - TaliaShepard
++ #### Bellesa | ✅ - **Flaresolverr Required**
+  - Bellesa Films
+  - Bellesa House
 + #### Black PayBack | ✓
 + #### Black Valley Girls | ❌ - **SceneID**
 + #### Blowpass | ✅
@@ -792,8 +795,6 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - SweetheartVideo
   - SweetSinner
 + #### MileHighNetwork Other Sites | ✅
-  - BellesaFilms
-  - BellesaHouse
   - Dilfed
   - FamilySinners
   - Gilfed
