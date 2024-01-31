@@ -32,30 +32,15 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = metadata.id.split('|')
     sceneDate = metadata_id[2]
     sceneURL = PAutils.Decode(metadata_id[0])
-    req = PAutils.HTTPRequest(sceneURL)
-    detailsPageElements = HTML.ElementFromString(req.text)
-    videoURL = 'https://video-player-bff.estore.kiwi.manyvids.com/videos/%s' % sceneURL.rsplit('/')[-1]
-    videoPageElements = PAutils.HTTPRequest(videoURL).json()
+
+    videoURL = 'https://www.manyvids.com/bff/store/video/%s' % sceneURL.rsplit('/')[-1].split('-')[0]
+    videoPageElements = PAutils.HTTPRequest(videoURL).json()['data']
 
     # Title
     metadata.title = PAutils.parseTitle(videoPageElements['title'].strip(), siteNum)
 
     # Summary
-    try:
-        paragraphs = videoPageElements['description']
-        summary = paragraphs[0].text_content().strip()
-        if len(paragraphs) > 1:
-            for paragraph in paragraphs:
-                if summary == '':
-                    summary = paragraph.text_content()
-                else:
-                    summary = summary + '\n\n' + paragraph.text_content()
-        if not re.search(r'.$(?<=(!|\.|\?))', summary.strip()):
-            summary = summary.strip() + '.'
-    except:
-        summary = ''
-
-    metadata.summary = summary.strip()
+    metadata.summary = videoPageElements['description'].strip()
 
     # Studio
     metadata.studio = 'ManyVids'
@@ -72,8 +57,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         metadata.year = metadata.originally_available_at.year
 
     # Genres
-    for genreLink in videoPageElements['tags']:
-        genreName = genreLink.strip()
+    for genreLink in videoPageElements['tagList']:
+        genreName = genreLink['label'].strip()
 
         movieGenres.addGenre(genreName)
 
