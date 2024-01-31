@@ -189,6 +189,7 @@ import networkThickCashOther
 import siteSexSelector
 import siteXevUnleashed
 import networkPKJMedia
+import networkBellesa
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -990,7 +991,7 @@ searchSites = {
     796: ('Moms On Moms', 'https://www.girlsway.com', '/en/video/1/1/'),
     797: ('We Like Girls', 'https://www.girlsway.com', '/en/video/1/1/'),
     798: ('Lil Humpers', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
-    799: ('Bellesa Films', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
+    799: ('Bellesa Films', 'https://bellesaplus.co', 'https://bellesaplus.co/api/rest/v1'),
     800: ('ClubSweethearts', 'https://adultprime.com', '/studios/search?type='),
     801: (),
     802: ('Family Sinners', 'https://www.familysinners.com', 'https://site-api.project1service.com'),
@@ -1067,7 +1068,7 @@ searchSites = {
     873: ('SubmissiveX', 'http://www.kink.com', '/search?channelIds=submissivex&q='),
     874: ('Filthy Femdom', 'http://www.kink.com', '/search?channelIds=filthyfemdom&q='),
     875: ('Anal Mom', 'https://analmom.com', '/movies/'),
-    876: ('Bellesa House', 'https://www.bellesafilms.com', 'https://site-api.project1service.com'),
+    876: ('Bellesa House', 'https://bellesaplus.co', 'https://bellesaplus.co/api/rest/v1'),
     877: ('Reality Lovers', 'https://realitylovers.com', '/videos/search'),
     878: ('Adult Time', 'https://adulttime.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     879: ('RealJamVR', 'https://realjamvr.com', '/scene/'),
@@ -2673,9 +2674,9 @@ def getProviderFromSiteNum(siteNum):
         elif siteNum == 798:
             provider = network1service
 
-        # Bellesa Films
+        # Bellesa
         elif siteNum == 799 or siteNum == 876:
-            provider = network1service
+            provider = networkBellesa
 
         # Adult Prime
         elif siteNum == 800 or (1601 <= siteNum <= 1672) or siteNum == 1749:
