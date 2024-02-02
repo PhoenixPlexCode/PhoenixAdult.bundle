@@ -37,9 +37,9 @@ def search(results, lang, siteNum, searchData):
 
         results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
-    for searchResult in searchPageElements.xpath('//div[contains(@class, "video_container")]'):
-        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="relative video_inner_container group"]/span')[0].text_content().strip(), siteNum)
-        sceneURL = searchResult.xpath('.//a[@class="relative video_inner_container group"]/@href')[0]
+    for searchResult in searchPageElements.xpath('//div[contains(@class, "movie-preview")]'):
+        titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a/div')[0].text_content().strip(), siteNum)
+        sceneURL = searchResult.xpath('./a[@class="group"]/@href')[0]
         if 'http' not in sceneURL:
             sceneURL = PAsearchSites.getSearchBaseURL(siteNum) + sceneURL
         curID = PAutils.Encode(sceneURL)
@@ -73,7 +73,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     req = PAutils.HTTPRequest(sceneURL)
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/ld+json"]')[-1].text_content().replace('\n', '').strip())
+    videoPageElements = json.loads(detailsPageElements.xpath('//script[@type="application/ld+json"][contains(., "thumbnail")]')[-1].text_content().replace('\n', '').strip())
 
     # Title
     metadata.title = PAutils.parseTitle(PAutils.cleanHTML(videoPageElements['name']), siteNum)
@@ -132,7 +132,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             req = PAutils.HTTPRequest(modelURL)
             modelPage = HTML.ElementFromString(req.text)
 
-            modelPageElements = json.loads(modelPage.xpath('//script[@type="application/ld+json"]')[0].text_content().strip())
+            modelPageElements = json.loads(modelPage.xpath('//script[@type="application/ld+json"][contains(., "Person")]')[0].text_content().strip())
 
             actorPhotoURL = modelPageElements['image'].split('?')[0].strip()
         else:
