@@ -721,6 +721,7 @@ ActorsReplaceStudios = {
         'Melanie Jagger': ['Melanie'],
         'Meriesa Arroyo': ['Meriesa'],
         'Michelle Avanti': ['Michele Avanti'],
+        'Mira David': ['Miradavid', 'MiraDavid'],
         'Nadine Sage': ['Naidyne'],
         'Natalia Wood': ['Danielle'],
         'Phoenix Ray': ['Phoenix'],
