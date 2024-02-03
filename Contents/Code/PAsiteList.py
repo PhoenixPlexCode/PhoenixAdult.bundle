@@ -11,7 +11,7 @@ import networkSteppedUp
 import networkGammaEnt
 import siteJulesJordan
 import networkPerfectGonzo
-import networkPornFidelity
+import networkKellyMadison
 import networkBadoinkVR
 import siteVRBangers
 import networkHighTechVR
@@ -376,9 +376,9 @@ searchSites = {
     181: ('We Live Together', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     182: ('Wives in Pantyhose', 'https://www.realitykings.com', 'https://site-api.project1service.com'),
     183: ('21Naturals', 'https://www.21naturals.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
-    184: ('PornFidelity', 'https://www.pornfidelity.com', '/episodes/search/?site=2&page=1&search='),
-    185: ('TeenFidelity', 'https://www.pornfidelity.com', '/episodes/search/?site=3&page=1&search='),
-    186: ('Kelly Madison', 'https://www.pornfidelity.com', '/episodes/search/?site=1&page=1&search='),
+    184: ('PornFidelity', 'https://www.pornfidelity.com', '/episodes/search/??site=2&page=1&search='),
+    185: ('TeenFidelity', 'https://www.pornfidelity.com', '/episodes/search/??site=3&page=1&search='),
+    186: ('Kelly Madison', 'https://www.pornfidelity.com', '/episodes/search/??site=1&page=1&search='),
     187: ('TeamSkeet', 'https://www.teamskeet.com', '/movies/'),
     188: ('Exxxtra Small', 'https://www.teamskeet.com', '/movies/'),
     189: ('Teen Pies', 'https://www.teamskeet.com', '/movies/'),
@@ -2314,17 +2314,9 @@ def getProviderFromSiteNum(siteNum):
         elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593 or siteNum == 1737 or siteNum == 1743:
             provider = network1service
 
-        # PornFidelity
-        elif siteNum == 184:
-            provider = networkPornFidelity
-
-        # TeenFidelity
-        elif siteNum == 185:
-            provider = networkPornFidelity
-
-        # Kelly Madison
-        elif siteNum == 186:
-            provider = networkPornFidelity
+        # Kelly Madison Productions
+        elif (184 <= siteNum <= 186):
+            provider = networkKellyMadison
 
         # TeamSkeet
         elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736:

@@ -24,9 +24,9 @@ def search(results, lang, siteNum, searchData):
         result = PAutils.Encode(HTML.StringFromElement(searchResult))
 
         date = searchResult.xpath('.//span[.//i[@class="far fa-calendar-alt"]]')
-        if date:
+        try:
             releaseDate = datetime.strptime(date[0].text_content().strip(), '%b %d, %Y').strftime('%Y-%m-%d')
-        else:
+        except:
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
         displayDate = releaseDate if date else ''
@@ -65,16 +65,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         # Studio
         metadata.studio = 'Kelly Madison Productions'
 
-        # Tagline and Collection(s)
-        if 'Teenfidelity' in metadata.title:
-            tagline = 'TeenFidelity'
-        elif 'Kelly Madison' in metadata.title:
-            tagline = 'Kelly Madison'
-        else:
-            tagline = 'PornFidelity'
-        metadata.tagline = tagline
-        metadata.collections.add(tagline)
-
         # Actors
         actors = detailsPageElements.xpath('//a[@class="is-underlined"]')
     except:
@@ -84,13 +74,18 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         # Studio
         metadata.studio = 'Kelly Madison Productions'
 
-        # Tagline and Collection(s)
-        tagline = PAsearchSites.getSearchSiteName(siteNum)
-        metadata.tagline = tagline
-        metadata.collections.add(tagline)
-
         # Actors
         actors = searchResult.xpath('.//a[contains(@href, "/models/")]')
+
+    # Tagline and Collection(s)
+    if 'teenfidelity' in metadata.title.lower():
+        tagline = 'TeenFidelity'
+    elif 'kelly madison' in metadata.title.lower():
+        tagline = 'Kelly Madison'
+    else:
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
 
     # Release Date
     date = detailsPageElements.xpath('//li[.//i[@class="fas fa-calendar"]]')
