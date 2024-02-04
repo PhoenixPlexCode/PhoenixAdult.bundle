@@ -3,22 +3,44 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
+    sceneID = None
+    parts = searchData.title.split()
+    if unicode(re.sub(r'^e(?=\d+$)', '', parts[0], flags=re.IGNORECASE), 'UTF-8').isdigit():
+        sceneID = re.sub(r'^e(?=\d+$)', '', parts[0], flags=re.IGNORECASE)
+        searchData.title = searchData.title.replace(parts[0], '', 1).strip()
+
+    searchData.encoded = urllib.quote(searchData.title)
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
     searchResults = HTML.ElementFromString(req.json()['html'])
     for searchResult in searchResults.xpath('//div[@class="card episode"]'):
         titleNoFormatting = searchResult.xpath('.//a[@class="text-km"] | .//a[@class="text-pf"] | .//a[@class="text-tf"]')[0].text_content().strip()
 
         sceneURL = searchResult.xpath('.//a[@class="text-km"] | .//a[@class="text-pf"] | .//a[@class="text-tf"]')[0].get('href')
+        episodeID = searchResult.xpath('.//span[@class="card-footer-item"]')[-1].text_content().split('#')[-1].strip()
+        searchID = sceneURL.split('/')[-1]
         curID = PAutils.Encode(sceneURL)
 
-        releaseDate = searchData.dateFormat() if searchData.date else ''
+        title = PAutils.Encode(titleNoFormatting)
+        result = PAutils.Encode(HTML.StringFromElement(searchResult))
 
-        if searchData.date:
+        date = searchResult.xpath('.//span[.//i[@class="far fa-calendar-alt"]]')
+        try:
+            releaseDate = datetime.strptime(date[0].text_content().strip(), '%b %d, %Y').strftime('%Y-%m-%d')
+        except:
+            releaseDate = searchData.dateFormat() if searchData.date else ''
+
+        displayDate = releaseDate if date else ''
+
+        if sceneID and int(sceneID) == int(episodeID):
+            score = 100
+        elif sceneID and int(sceneID) == int(searchID):
+            score = 100
+        elif searchData.date:
             score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
         else:
             score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
 
-        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), releaseDate), score=score, lang=lang))
+        results.Append(MetadataSearchResult(id='%s|%d|%s|%s|%s' % (curID, siteNum, releaseDate, title, result), name='%s [%s] %s' % (titleNoFormatting, PAsearchSites.getSearchSiteName(siteNum), displayDate), score=score, lang=lang))
 
     return results
 
@@ -27,30 +49,51 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata_id = str(metadata.id).split('|')
     sceneURL = PAutils.Decode(metadata_id[0])
     sceneDate = metadata_id[2]
+    if len(metadata_id) > 3:
+        title = PAutils.Decode(metadata_id[3])
+        searchResult = HTML.ElementFromString(PAutils.Decode(metadata_id[4]))
     req = PAutils.HTTPRequest(sceneURL, cookies={'nats': 'MC4wLjMuNTguMC4wLjAuMC4w'})
     detailsPageElements = HTML.ElementFromString(req.text)
 
-    # Title
-    metadata.title = detailsPageElements.xpath('//div[@class="level-left"]')[0].text_content().strip()
+    try:
+        # Title
+        metadata.title = PAutils.parseTitle(detailsPageElements.xpath('//div[@class="level-left"]')[0].text_content().strip(), siteNum)
 
-    # Summary
-    metadata.summary = detailsPageElements.xpath('//div[@class="column is-three-fifths"]')[0].text_content().replace('Episode Summary', '').strip()
+        # Summary
+        metadata.summary = detailsPageElements.xpath('//div[@class="column is-three-fifths"]')[0].text_content().replace('Episode Summary', '').strip()
 
-    # Studio
-    metadata.studio = 'PornFidelity'
+        # Studio
+        metadata.studio = 'Kelly Madison Productions'
+
+        # Actors
+        actors = detailsPageElements.xpath('//a[@class="is-underlined"]')
+    except:
+        # Title
+        metadata.title = PAutils.parseTitle(title, siteNum)
+
+        # Studio
+        metadata.studio = 'Kelly Madison Productions'
+
+        # Actors
+        actors = searchResult.xpath('.//a[contains(@href, "/models/")]')
 
     # Tagline and Collection(s)
-    if 'Teenfidelity' in metadata.title:
+    if 'teenfidelity' in metadata.title.lower():
         tagline = 'TeenFidelity'
-    elif 'Kelly Madison' in metadata.title:
+    elif 'kelly madison' in metadata.title.lower():
         tagline = 'Kelly Madison'
     else:
-        tagline = 'PornFidelity'
+        tagline = PAsearchSites.getSearchSiteName(siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
     # Release Date
-    if sceneDate:
+    date = detailsPageElements.xpath('//li[.//i[@class="fas fa-calendar"]]')
+    if date:
+        date_object = datetime.strptime(date[0].text_content().split(':')[-1].strip(), '%Y-%m-%d')
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
+    elif sceneDate:
         date_object = parse(sceneDate)
         metadata.originally_available_at = date_object
         metadata.year = metadata.originally_available_at.year
@@ -60,7 +103,6 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     movieGenres.addGenre('Heterosexual')
 
     # Actor(s)
-    actors = detailsPageElements.xpath('//a[@class="is-underlined"]')
     if actors:
         if len(actors) == 3:
             movieGenres.addGenre('Threesome')
