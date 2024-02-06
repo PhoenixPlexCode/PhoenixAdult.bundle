@@ -190,6 +190,7 @@ import siteSexSelector
 import siteXevUnleashed
 import networkPKJMedia
 import networkBellesa
+import siteBrandNewAmateurs
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1891,6 +1892,8 @@ searchSites = {
     1796: ('Whorecraft VR', 'https://whorecraftvr.com', '/MemberSceneSearch?q='),
     1797: ('Freeze', 'https://freeze.xxx', '/?s='),
     1798: ('Plants vs Cunts', 'https://plantsvscunts.com', '/?s='),
+    1799: ('Brand New Amateurs', 'https://brandnewamateurs.com', '/models'),
+    1800: ('Hot Wives Cheating', 'https://hotwivescheating.com/', '/MemberSceneSearch?q='),
 }
 
 abbreviations = (
@@ -2719,7 +2722,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteVivid
 
         # AdultEmpireCash Network
-        elif siteNum == 815 or siteNum == 1337 or siteNum == 1574 or (1765 <= siteNum <= 1796):
+        elif siteNum == 815 or siteNum == 1337 or siteNum == 1574 or (1765 <= siteNum <= 1796) or siteNum == 1800:
             provider = networkAdultEmpireCash
 
         # My Pervy Family
@@ -3232,5 +3235,9 @@ def getProviderFromSiteNum(siteNum):
         # PKJ Media
         elif 1760 <= siteNum <= 1764:
             provider = networkPKJMedia
+
+        # Brand New Amateurs
+        elif siteNum == 1799:
+            provider = siteBrandNewAmateurs
 
     return provider

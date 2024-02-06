@@ -333,6 +333,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Hot Guys Fuck
   - Sugar Daddy Porn
 + #### Bound Honeys | ✓ - **Title only, Date Add**
++ #### Brand New Amateurs | ✓ - **Actor Name**
 + #### Brazzers Network
   ##### Matching type (main): ✓ - **Title only**
   ##### Matching type (alternate): ❌ - **SceneID**
