@@ -6,7 +6,7 @@ def search(results, lang, siteNum, searchData):
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.encoded)
     searchResults = HTML.ElementFromString(req.text)
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
-        if siteNum == 815 or siteNum == 1337 or siteNum == 1776:
+        if siteNum == 815 or siteNum == 1337 or siteNum == 1776 or siteNum == 1800:
             # Modification for JAYs POV, SpankMonster, Hot Wife Fun
             titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0].strip(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
