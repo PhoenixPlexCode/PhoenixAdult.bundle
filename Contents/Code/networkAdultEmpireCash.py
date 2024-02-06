@@ -8,14 +8,14 @@ def search(results, lang, siteNum, searchData):
     for searchResult in searchResults.xpath('//div[contains(@class, "item-grid")]/div[@class="grid-item"]'):
         if siteNum == 815 or siteNum == 1337 or siteNum == 1776:
             # Modification for JAYs POV, SpankMonster, Hot Wife Fun
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0], siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//img[contains(@class, "img-full-fluid")]/@title')[0].strip(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//article[contains(@class, "scene-update")]/a/@href')[0])
         elif siteNum == 1766 or siteNum == 1779 or siteNum == 1790 or siteNum == 1792:
             # Modification for Bizarre Entertainment, Jonathan Jordan XXX, Smut Factor, Step House XXX
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="scene-title"]/p/text()')[0].split(' | ', 1)[0], siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="scene-title"]/p/text()')[0].split(' | ', 1)[0].strip(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="scene-title"]/@href')[0])
         else:
-            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="scene-title"]/h6/text()')[0], siteNum)
+            titleNoFormatting = PAutils.parseTitle(searchResult.xpath('.//a[@class="scene-title"]/h6/text()')[0].strip(), siteNum)
             curID = PAutils.Encode(searchResult.xpath('.//a[@class="scene-title"]/@href')[0])
 
         score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
