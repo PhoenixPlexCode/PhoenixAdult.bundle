@@ -32,30 +32,37 @@ def search(results, lang, siteNum, searchData):
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Pornbox] %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
 
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title)
-    searchResults = req.json()
+    searchResults = req.json()['content']['contents']
 
     for searchResult in searchResults:
-        if searchResult['type'] == 'scene':
-            titleNoFormatting = PAutils.parseTitle(searchResult['name'], siteNum)
-            match = re.search(r'\w+\d$', titleNoFormatting)
-            if match:
-                sceneID = match.group(0)
-                titleNoFormatting = re.sub(r'\w+\d$', '', titleNoFormatting).strip()
-                titleNoFormatting = '[%s] %s' % (sceneID, titleNoFormatting)
+        titleNoFormatting = PAutils.parseTitle(searchResult['scene_name'], siteNum)
+        match = re.search(r'\w+\d$', titleNoFormatting)
+        if match:
+            sceneID = match.group(0)
+            titleNoFormatting = re.sub(r'\w+\d$', '', titleNoFormatting).strip()
+            titleNoFormatting = '[%s] %s' % (sceneID, titleNoFormatting)
 
-            sceneURL = '%s/contents/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult['source_id'])
-            curID = PAutils.Encode(sceneURL)
+        sceneURL = '%s/contents/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult['content_id'])
+        curID = PAutils.Encode(sceneURL)
 
+        date = searchResult['publish_date']
+        if date:
+            releaseDate = parse(date).strftime('%Y-%m-%d')
+        else:
             releaseDate = searchData.dateFormat() if searchData.date else ''
 
-            if sceneID and sceneID.lower() == searchData.title.lower():
-                score = 100
-            elif sourceID and int(sourceID) == searchResult['source_id']:
-                score = 100
-            else:
-                score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+        displayDate = releaseDate if date else ''
 
-            results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Pornbox]' % (titleNoFormatting), score=score, lang=lang))
+        if sceneID and sceneID.lower() == searchData.title.lower():
+            score = 100
+        elif sourceID and int(sourceID) == searchResult['source_id']:
+            score = 100
+        elif searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Pornbox]' % (titleNoFormatting), score=score, lang=lang))
 
     return results
 
