@@ -1895,7 +1895,7 @@ searchSites = {
     1798: ('Plants vs Cunts', 'https://plantsvscunts.com', '/?s='),
     1799: ('Brand New Amateurs', 'https://brandnewamateurs.com', '/models'),
     1800: ('Hot Wives Cheating', 'https://hotwivescheating.com/', '/MemberSceneSearch?q='),
-    1801: ('Pornbox', 'https://www.pornbox.com', '/autocomplete/'),
+    1801: ('Pornbox', 'https://www.pornbox.com', '/store/search?q='),
 }
 
 abbreviations = (
