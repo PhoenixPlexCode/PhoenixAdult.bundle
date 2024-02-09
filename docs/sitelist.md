@@ -63,6 +63,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Forbidden Fruits Films
   - Horny Household
   - Hot Wife Fun
+  - Hot Wives Cheating
   - JaysPOV
   - Joanna Angel
   - Jodi West
@@ -1048,6 +1049,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - SlutsAroundTown
 + #### Playboy Plus | ✅
 + #### PlumperPass | ✅
++ #### Pornbox | ✅
 + #### PornCZ | ✓ - **Title or Actor**
   - Amateri Premium
   - Amateur From Bohemia

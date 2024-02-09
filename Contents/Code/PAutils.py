@@ -436,6 +436,29 @@ def preParseTitle(input):
     return output
 
 
+def cleanSummary(summary):
+    replace = [(r'“', '\"'), (r'”', '\"'), (r'’', '\''), (r'W/', 'w/'), (r'A\.\sJ\.', 'A.J.'), (r'T\.\sJ\.', 'T.J.'), (r'(?<!\S)AJ(?!\S)', 'A.J.'), ('\xc2\xa0', ' ')]
+
+    # Initialize to first word only being capitalized
+    summary = summary.lower().capitalize()
+    # Replace common issues
+    for value in replace:
+        summary = re.sub(value[0], value[1], summary, flags=re.IGNORECASE)
+    # Add space after a punctuation if missing
+    summary = re.sub(r'(?=[\!|\:|\?|\.](?=(\w{1,}))\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', summary, flags=re.IGNORECASE)
+    # Remove space between word and punctuation
+    summary = re.sub(r'\s+(?=[.,!:\'\)])', '', summary)
+    # Remove space between punctuation and word
+    summary = re.sub(r'(?<=[#\(])\s+', '', summary)
+    # Override lowercase if word follows a punctuation
+    summary = re.sub(ur'(?<!vs\.)(?<=!|:|\?|\.)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), summary)
+    # Add period to end of summary if no other punctuation present
+    if re.search(r'.$(?<=(!|\.|\?))', summary) is None:
+        summary = summary + '.'
+
+    return summary
+
+
 def manualWordFix(word):
     exceptions = (
         'im', 'theyll', 'cant', 'ive', 'shes', 'theyre', 'tshirt', 'dont', 'wasnt', 'youre', 'ill', 'whats', 'didnt',
