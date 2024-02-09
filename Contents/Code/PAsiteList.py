@@ -191,6 +191,7 @@ import siteXevUnleashed
 import networkPKJMedia
 import networkBellesa
 import siteBrandNewAmateurs
+import sitePornbox
 
 searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
@@ -1894,6 +1895,7 @@ searchSites = {
     1798: ('Plants vs Cunts', 'https://plantsvscunts.com', '/?s='),
     1799: ('Brand New Amateurs', 'https://brandnewamateurs.com', '/models'),
     1800: ('Hot Wives Cheating', 'https://hotwivescheating.com/', '/MemberSceneSearch?q='),
+    1801: ('Pornbox', 'https://www.pornbox.com', '/autocomplete/'),
 }
 
 abbreviations = (
@@ -2087,6 +2089,7 @@ abbreviations = (
     ('^no ', 'NaughtyOffice '),
     ('^np ', 'NubilesPorn '),
     ('^nrg ', 'NaughtyRichGirls '),
+    ('^nrx ', 'Pornbox '),
     ('^nubc ', 'NubilesCasting '),
     ('^nubet ', 'NubilesET '),
     ('^nubilef ', 'NubileFilms '),
@@ -3239,5 +3242,9 @@ def getProviderFromSiteNum(siteNum):
         # Brand New Amateurs
         elif siteNum == 1799:
             provider = siteBrandNewAmateurs
+
+        # Pornbox
+        elif siteNum == 1801:
+            provider = sitePornbox
 
     return provider
