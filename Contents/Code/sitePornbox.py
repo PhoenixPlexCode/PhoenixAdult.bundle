@@ -128,7 +128,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         movieActors.addActor(actorName, actorPhotoURL)
 
     # Director(s)
-    if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
+    if tagline == 'Giorgio Grandi' or 'Giorgio\'s Lab' in tagline:
         directorName = 'Giorgio Grandi'
 
         movieActors.addDirector(directorName, '')

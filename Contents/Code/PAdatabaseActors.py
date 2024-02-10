@@ -6085,7 +6085,7 @@ ActorsStudioIndexes = {
     6: ['Evilangel'],
     7: ['FuelVirtual'],
     8: ['Holed'],
-    9: ['AnalVids'],
+    9: ['AnalVids', 'Pornbox'],
     10: ['Joymii'],
     11: ['Jules Jordan'],
     12: ['Kink'],
