@@ -3,7 +3,7 @@ import PAutils
 
 
 def search(results, lang, siteNum, searchData):
-    sceneID = None
+    matchID = None
     sourceID = None
     parts = searchData.title.split()
     if unicode(parts[0], 'UTF-8').isdigit():
@@ -31,6 +31,9 @@ def search(results, lang, siteNum, searchData):
 
             results.Append(MetadataSearchResult(id='%s|%d|%s' % (curID, siteNum, releaseDate), name='%s [Pornbox] %s' % (titleNoFormatting, displayDate), score=score, lang=lang))
 
+    parts = searchData.title.split()
+    sceneID = parts[0]
+
     req = PAutils.HTTPRequest(PAsearchSites.getSearchSearchURL(siteNum) + searchData.title)
     searchResults = req.json()['content']['contents']
 
@@ -38,9 +41,9 @@ def search(results, lang, siteNum, searchData):
         titleNoFormatting = PAutils.parseTitle(searchResult['scene_name'], siteNum)
         match = re.search(r'\w+\d$', titleNoFormatting)
         if match:
-            sceneID = match.group(0)
+            matchID = match.group(0)
             titleNoFormatting = re.sub(r'\w+\d$', '', titleNoFormatting).strip()
-            titleNoFormatting = '[%s] %s' % (sceneID, titleNoFormatting)
+            titleNoFormatting = '[%s] %s' % (matchID, titleNoFormatting)
 
         sceneURL = '%s/contents/%s' % (PAsearchSites.getSearchBaseURL(siteNum), searchResult['content_id'])
         curID = PAutils.Encode(sceneURL)
@@ -53,7 +56,8 @@ def search(results, lang, siteNum, searchData):
 
         displayDate = releaseDate if date else ''
 
-        if sceneID and sceneID.lower() == searchData.title.lower():
+        if matchID and sceneID.lower() == matchID.lower():
+            matchID = None
             score = 100
         elif sourceID and int(sourceID) == searchResult['source_id']:
             score = 100
@@ -122,6 +126,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
             actorPhotoURL = actorPageElements['headshot']
 
         movieActors.addActor(actorName, actorPhotoURL)
+
+    # Director(s)
+    if tagline == 'Giorgio Grandi' or tagline == 'Giorgio\'s Lab':
+        directorName = 'Giorgio Grandi'
+
+        movieActors.addDirector(directorName, '')
 
     # Posters/Background
     art.append(detailsPageElements['player_poster'])
