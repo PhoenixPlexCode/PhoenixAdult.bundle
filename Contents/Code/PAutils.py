@@ -351,7 +351,7 @@ def any(s):
 
 def parseTitleSymbol(word, siteNum, symbol):
     lower_exceptions = ['vs']
-    contraction_exceptions = ['re', 't', 's', 'd', 'll', 've', 'm']
+    contraction_exceptions = ['re', 't', 's', 'd', 'll', 've', 'm', 'am', 'ed']
     word_list = re.split(symbol, word)
     symbols = ['-', '/', r'\.', r'\+']
     pattern = re.compile(r'\W')
