@@ -1031,9 +1031,9 @@ searchSites = {
     834: ('LadyVoyeurs', 'https://www.ladyvoyeurs.com', '/models/'),
     835: ('BAMVisions', 'https://tour.bamvisions.com', '/search.php?st=advanced&qall='),
     836: ('ATKGirlfriends', 'https://www.atkgirlfriends.com', '/tour/model/'),
-    837: ('Wank It Now', 'https://www.wankitnow.com', '/?s='),
-    838: ('Bopping Babes', 'https://www.boppingbabes.com', '/v2/?s='),
-    839: ('Upskirt Jerk', 'https://www.upskirtjerk.com', '/?s='),
+    837: ('Wank It Now', 'https://www.wankitnow.com', '/search'),
+    838: ('Bopping Babes', 'https://www.boppingbabes.com', '/search'),
+    839: ('Upskirt Jerk', 'https://www.upskirtjerk.com', '/search'),
     840: ('Interracial Pass', 'https://www.interracialpass.com', '/t1/search.php?query='),
     841: ('LookAtHerNow', 'https://www.lookathernow.com', 'https://site-api.project1service.com'),
     842: ('Mylfwood', 'https://www.mylf.com', '/movies/'),
@@ -1896,6 +1896,9 @@ searchSites = {
     1799: ('Brand New Amateurs', 'https://brandnewamateurs.com', '/models'),
     1800: ('Hot Wives Cheating', 'https://hotwivescheating.com/', '/MemberSceneSearch?q='),
     1801: ('Pornbox', 'https://www.pornbox.com', '/store/search?q='),
+    1802: ('Downblouse Jerk', 'https://www.downblousejerk.com', '/search'),
+    1803: ('Real Bikini Girls', 'https://www.realbikinigirls.com', '/search'),
+    1804: ('Lingerie Tales', 'https://www.lingerietales.com', '/search'),
 }
 
 abbreviations = (
@@ -2753,7 +2756,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteATKGirlfriends
 
         # TwoWebMedia
-        elif (837 <= siteNum <= 839):
+        elif (837 <= siteNum <= 839) or (1802 <= siteNum <= 1804):
             provider = networkTwoWebMedia
 
         # Interracial Pass / ExploitedX / I Kiss Girls

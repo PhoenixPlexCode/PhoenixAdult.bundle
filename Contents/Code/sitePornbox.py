@@ -92,7 +92,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.studio = 'Pornbox'
 
     # Tagline and Collection(s)
-    tagline = detailsPageElements['studio']
+    tagline = PAutils.parseTitle(detailsPageElements['studio'], siteNum)
     metadata.tagline = tagline
     metadata.collections.add(tagline)
 
