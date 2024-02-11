@@ -1896,6 +1896,9 @@ searchSites = {
     1799: ('Brand New Amateurs', 'https://brandnewamateurs.com', '/models'),
     1800: ('Hot Wives Cheating', 'https://hotwivescheating.com/', '/MemberSceneSearch?q='),
     1801: ('Pornbox', 'https://www.pornbox.com', '/store/search?q='),
+    1802: ('Downblouse Jerk', 'https://www.downblousejerk.com', '/search'),
+    1803: ('Real Bikini Girls', 'https://www.realbikinigirls.com', '/search'),
+    1804: ('Lingerie Tales', 'https://www.lingerietales.com', '/search'),
 }
 
 abbreviations = (
@@ -2753,7 +2756,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteATKGirlfriends
 
         # TwoWebMedia
-        elif (837 <= siteNum <= 839):
+        elif (837 <= siteNum <= 839) or (1802 <= siteNum <= 1804):
             provider = networkTwoWebMedia
 
         # Interracial Pass / ExploitedX / I Kiss Girls

@@ -81,7 +81,7 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     # Actor(s)
     for actorLink in models:
         actorName = actorLink['name']
-        actorPhotoURL =  actorLink['thumbnails'][0]
+        actorPhotoURL = actorLink['thumbnails'][0]
 
         movieActors.addActor(actorName, actorPhotoURL)
 
