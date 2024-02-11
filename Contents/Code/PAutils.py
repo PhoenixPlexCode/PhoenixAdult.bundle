@@ -393,13 +393,15 @@ def postParseTitle(output):
     output = re.sub(r'(?=[\!|\:|\?|\.](?=(\w{2,}))\b)\S(?!(co\b|net\b|com\b|org\b|porn\b|E\d|xxx\b))', lambda m: m.group(0) + ' ', output, flags=re.IGNORECASE)
     # Remove single period at end of title
     output = re.sub(r'(?<=[^\.].)(?<=\w)(?:\.)$', '', output)
-    # Remove space between word and punctuation
+    # Remove space between word and certain punctuation
     output = re.sub(r'\s+(?=[.,!:\'\)])', '', output)
+    # Add space between word and opening quote
+    output = re.sub(r'(?<=\S)([\"]\S+)', lambda m: ' ' + m.group(1), output)
     # Remove space between punctuation and word
-    output = re.sub(r'(?<=[#\(])\s+', '', output)
+    output = re.sub(r'(?<=[#\(\"])\s+', '', output)
     # Override lowercase if word follows a punctuation
     output = re.sub(ur'(?<!vs\.)(?<=!|:|\?|\.|-|\u2013)(\s)(\S)', lambda m: m.group(1) + m.group(2).upper(), output)
-    # Override lowercase if word follows a parenthesis
+    # Override lowercase if word follows certain punctuation
     output = re.sub(r'(?<=[\(|\&|\"|\[|\*|\~])(\w)', lambda m: m.group(0).upper() + m.group(1)[1:] if m.group(1).lower() not in lower_exceptions else m.group(1), output)
     # Override lowercase if last word in section
     output = re.sub(r'\S+[\]\)\"\~\:]', lambda m: m.group(0)[0].capitalize() + m.group(0)[1:], output)
