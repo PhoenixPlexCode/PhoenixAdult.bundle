@@ -512,6 +512,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - CandyMonroe
   - CuckoldSessions
   - CumBang
+  - DFXtra
   - DogfarBehindTheScenes
   - GloryHole
   - Gloryhole-Initiations

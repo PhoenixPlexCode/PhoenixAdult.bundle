@@ -1899,6 +1899,7 @@ searchSites = {
     1802: ('Downblouse Jerk', 'https://www.downblousejerk.com', '/search'),
     1803: ('Real Bikini Girls', 'https://www.realbikinigirls.com', '/search'),
     1804: ('Lingerie Tales', 'https://www.lingerietales.com', '/search'),
+    1805: ('DFXtra', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
 }
 
 abbreviations = (
@@ -1979,6 +1980,7 @@ abbreviations = (
     ('^dbm ', 'DontBreakMe '),
     ('^dc ', 'DorcelVision '),
     ('^ddfb ', 'DDFBusty '),
+    ('^dfxtraoriginals ', 'DFXtra '),
     ('^dm ', 'DirtyMasseur '),
     ('^dnj ', 'DaneJones '),
     ('^dpg ', 'DigitalPlayground '),
@@ -2388,7 +2390,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkFullPornNetwork
 
         # DogfartNetwork
-        elif (408 <= siteNum <= 431):
+        elif (408 <= siteNum <= 431) or siteNum == 1805:
             provider = networkGammaEntOther
 
         # FakeHub
