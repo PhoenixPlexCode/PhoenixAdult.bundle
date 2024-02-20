@@ -1899,6 +1899,7 @@ searchSites = {
     1803: ('Real Bikini Girls', 'https://www.realbikinigirls.com', '/search'),
     1804: ('Lingerie Tales', 'https://www.lingerietales.com', '/search'),
     1805: ('DFXtra', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
+    1806: ('Milfy', 'https://www.milfy.com', '/graphql'),
 }
 
 abbreviations = (
@@ -2192,12 +2193,8 @@ def getProviderFromSiteNum(siteNum):
     provider = None
 
     if siteNum is not None:
-        # Blacked Raw
-        if siteNum == 0:
-            provider = networkStrike3
-
-        # Blacked
-        elif siteNum == 1:
+        # Strike3
+        if (0 <= siteNum <= 1) or siteNum == 52 or siteNum == 136 or (670 <= siteNum <= 671) or siteNum == 1357 or siteNum == 1806:
             provider = networkStrike3
 
         # Brazzers
@@ -2211,10 +2208,6 @@ def getProviderFromSiteNum(siteNum):
         # Naughty America
         elif (5 <= siteNum <= 51) or siteNum == 341 or (393 <= siteNum <= 396) or (467 <= siteNum <= 468) or siteNum == 581 or siteNum == 620 or siteNum == 625 or siteNum == 691 or siteNum == 749 or (1569 <= siteNum <= 1573):
             provider = siteNaughtyAmerica
-
-        # Vixen
-        elif siteNum == 52:
-            provider = networkStrike3
 
         # GirlsWay
         elif siteNum == 53 or (375 <= siteNum <= 379) or (795 <= siteNum <= 797):
@@ -2315,10 +2308,6 @@ def getProviderFromSiteNum(siteNum):
         # Bang Bros
         elif (83 <= siteNum <= 135):
             provider = network1service
-
-        # Tushy
-        elif siteNum == 136:
-            provider = networkStrike3
 
         # Reality Kings
         elif (137 <= siteNum <= 182) or (822 <= siteNum <= 828) or siteNum == 1593 or siteNum == 1737 or siteNum == 1743:
@@ -2515,14 +2504,6 @@ def getProviderFromSiteNum(siteNum):
         # DorcelClub
         elif siteNum == 669:
             provider = siteDorcelClub
-
-        # Tushy
-        elif siteNum == 670:
-            provider = networkStrike3
-
-        # Deeper
-        elif siteNum == 671:
-            provider = networkStrike3
 
         # MissaX / AllHerLuv / AmateurBoxxx / Exposed Whores / She Seduced Me / House of Fyre / Philavise / Lauren Phillips
         elif siteNum == 672 or siteNum == 673 or siteNum == 1252 or (1254 <= siteNum <= 1255) or (1264 <= siteNum <= 1265) or siteNum == 1327:
@@ -3142,10 +3123,6 @@ def getProviderFromSiteNum(siteNum):
         # HotwifeXXX
         elif siteNum == 1353:
             provider = siteHotwifeXXX
-
-        # Slayed
-        elif siteNum == 1357:
-            provider = networkStrike3
 
         # POVR
         elif siteNum == 1359:
