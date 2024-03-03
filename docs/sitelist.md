@@ -1452,6 +1452,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - TeamSkeet X Reislin
   - TeamSkeet X Riley Cyriis
   - TeamSkeet X Screampies
+  - TeamSkeet X Slut Inspection
   - TeamSkeet X SpankMonster
   - TeamSkeet X Sweetie Fox
   - TeamSkeet X ToughLoveX
