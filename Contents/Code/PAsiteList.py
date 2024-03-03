@@ -1901,6 +1901,7 @@ searchSites = {
     1805: ('DFXtra', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1806: ('Milfy', 'https://www.milfy.com', '/graphql'),
     1807: ('Use POV', 'https://www.usepov.com', '/movies/'),
+    1808: ('The Loft', 'https://www.teamskeet.com', '/movies/'),
 }
 
 abbreviations = (
@@ -2319,7 +2320,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKellyMadison
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736:
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736 or siteNum == 1808:
             provider = networkTeamSkeet
 
         # Porndoe Premium
