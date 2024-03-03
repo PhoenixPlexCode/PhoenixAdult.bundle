@@ -874,11 +874,12 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Mylf X Elegant Raw
   - Mylf X EvilAngel
   - Mylf X Fucking Awesome
-  - Mylf x Hussie Pass
+  - Mylf X Hussie Pass
   - Mylf X James Deen
-  - Mylf x Joybear
+  - Mylf X Joybear
   - Mylf X Karups Older Women
-  - Mylf x Lady Fyre
+  - Mylf X Lady Fyre
+  - Mylf X Little Puck
   - Mylf X Mandy Flores
   - Mylf X Marie McCray
   - Mylf X MariskaX
@@ -890,7 +891,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - Mylf X SinfulXXX
   - Mylf X SpankMonster
   - Mylf X Steve Holmes
-  - Mylf x Teamskeet
+  - Mylf X Teamskeet
   - Mylf X ToughLoveX
   - MylfBlows
   - MylfBoss
@@ -1452,6 +1453,7 @@ If you're having difficulty finding the SceneID, double-check [PAsiteList.py](..
   - TeamSkeet X Reislin
   - TeamSkeet X Riley Cyriis
   - TeamSkeet X Screampies
+  - TeamSkeet X Slut Inspection
   - TeamSkeet X SpankMonster
   - TeamSkeet X Sweetie Fox
   - TeamSkeet X ToughLoveX

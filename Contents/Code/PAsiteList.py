@@ -1046,12 +1046,12 @@ searchSites = {
     850: ('Thickumz', 'https://www.thickumz.com', '/movies/'),
     851: ('Teens Love Black Cocks', 'https://www.teensloveblackcocks.com', '/movies/'),
     852: ('Bi Empire', 'http://www.biempire.com', 'https://site-api.project1service.com'),
-    853: ('Mylf x Joybear', 'https://www.mylf.com', '/movies/'),
-    854: ('Mylf x Teamskeet', 'https://www.mylf.com', '/movies/'),
-    855: ('Mylf x Hussie Pass', 'https://www.mylf.com', '/movies/'),
+    853: ('Mylf X Joybear', 'https://www.mylf.com', '/movies/'),
+    854: ('Mylf X Teamskeet', 'https://www.mylf.com', '/movies/'),
+    855: ('Mylf X Hussie Pass', 'https://www.mylf.com', '/movies/'),
     856: ('Mylf Of The Month', 'https://www.mylf.com', '/movies/'),
     857: ('Mylfselects', 'https://www.mylf.com', '/movies/'),
-    858: ('Mylf x Lady Fyre', 'https://www.mylf.com', '/movies/'),
+    858: ('Mylf X Lady Fyre', 'https://www.mylf.com', '/movies/'),
     859: ('Deviant Hardcore', 'https://www.devianthardcore.com', 'https://site-api.project1service.com'),
     860: ('She Will Cheat', 'https://www.shewillcheat.com', 'https://site-api.project1service.com'),
     861: ('My XXX Pass', 'http://www.blowpass.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
@@ -1902,6 +1902,9 @@ searchSites = {
     1806: ('Milfy', 'https://www.milfy.com', '/graphql'),
     1807: ('Use POV', 'https://www.usepov.com', '/movies/'),
     1808: ('The Loft', 'https://www.teamskeet.com', '/movies/'),
+    1809: ('TeamSkeet X Slut Inspection', 'https://www.teamskeet.com', '/movies/'),
+    1810: ('Glowupz', 'https://www.teamskeet.com', '/movies/'),
+    1811: ('Mylf X Little Puck', 'https://www.teamskeet.com', '/movies/'),
 }
 
 abbreviations = (
@@ -2320,7 +2323,7 @@ def getProviderFromSiteNum(siteNum):
             provider = networkKellyMadison
 
         # TeamSkeet
-        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736 or siteNum == 1808:
+        elif (187 <= siteNum <= 215) or (566 <= siteNum <= 567) or siteNum == 626 or siteNum == 686 or siteNum == 748 or siteNum == 807 or (845 <= siteNum <= 851) or siteNum == 875 or (997 <= siteNum <= 1011) or (1249 <= siteNum <= 1251) or (1354 <= siteNum <= 1356) or (1362 <= siteNum <= 1363) or (1371 <= siteNum <= 1373) or siteNum == 1390 or (1399 <= siteNum <= 1425) or (1584 <= siteNum <= 1588) or siteNum == 1736 or (1808 <= siteNum <= 1810):
             provider = networkTeamSkeet
 
         # Porndoe Premium
@@ -2512,7 +2515,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589 or (1734 <= siteNum <= 1735) or siteNum == 1807:
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589 or (1734 <= siteNum <= 1735) or siteNum == 1807 or siteNum == 1811:
             provider = networkMYLF
 
         # Manually Add Actors
