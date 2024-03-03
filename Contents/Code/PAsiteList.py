@@ -1900,6 +1900,7 @@ searchSites = {
     1804: ('Lingerie Tales', 'https://www.lingerietales.com', '/search'),
     1805: ('DFXtra', 'https://www.dogfartnetwork.com', 'https://tsmkfa364q-dsn.algolia.net/1/indexes/*/queries'),
     1806: ('Milfy', 'https://www.milfy.com', '/graphql'),
+    1807: ('Use POV', 'https://www.usepov.com', '/movies/'),
 }
 
 abbreviations = (
@@ -2510,7 +2511,7 @@ def getProviderFromSiteNum(siteNum):
             provider = siteMissaX
 
         # Mylf
-        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589 or (1734 <= siteNum <= 1735):
+        elif (674 <= siteNum <= 683) or siteNum == 757 or siteNum == 842 or (siteNum >= 853 and siteNum <= 858) or (881 <= siteNum <= 887) or siteNum == 1329 or (1426 <= siteNum <= 1445) or siteNum == 1589 or (1734 <= siteNum <= 1735) or siteNum == 1807:
             provider = networkMYLF
 
         # Manually Add Actors
