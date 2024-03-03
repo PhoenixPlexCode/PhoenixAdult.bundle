@@ -1904,7 +1904,7 @@ searchSites = {
     1808: ('The Loft', 'https://www.teamskeet.com', '/movies/'),
     1809: ('TeamSkeet X Slut Inspection', 'https://www.teamskeet.com', '/movies/'),
     1810: ('Glowupz', 'https://www.teamskeet.com', '/movies/'),
-    1811: ('Mylf X Little Puck', 'https://www.teamskeet.com', '/movies/'),
+    1811: ('Mylf X Little Puck', 'https://www.mylf.com', '/movies/'),
 }
 
 abbreviations = (
