@@ -100,9 +100,12 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
         actorName = actorLink['modelName']
         actorPhotoURL = ''
 
-        actorData = getJSONfromPage('%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorID))
-        if actorData:
-            actorPhotoURL = actorData['modelsContent'][actorID]['img']
+        try:
+            actorData = getJSONfromPage('%s/models/%s' % (PAsearchSites.getSearchBaseURL(siteNum), actorID))
+            if actorData:
+                actorPhotoURL = actorData['modelsContent'][actorID]['img']
+        except:
+            pass
 
         movieActors.addActor(actorName, actorPhotoURL)
 
