@@ -1,372 +1,194 @@
-import re
-import random
-import urllib
-import urllib2 as urllib
-import urlparse
+import base64
+import codecs
 import json
-from datetime import datetime
-from PIL import Image
+import mimetypes
+import os
+import random
+import re
+import requests
+import shutil
+import time
+import urllib
+import urlparse
 from cStringIO import StringIO
-from SSLEXTRA import sslOptions
+from datetime import datetime
+from dateutil.parser import parse
+from PIL import Image
+from slugify import slugify
+from traceback import format_exc
+import PAactors
 import PAgenres
 import PAsearchSites
+import PAsiteList
+import PAutils
+import PAsearchData
 
-VERSION_NO = '2.2018.09.22.1'
-
-def any(s):
-    for v in s:
-        if v:
-            return True
-    return False
 
 def Start():
     HTTP.ClearCache()
-    HTTP.CacheTime = CACHE_1MINUTE*20
-    HTTP.Headers['User-agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    HTTP.CacheTime = CACHE_1MINUTE * 20
+    HTTP.Headers['User-Agent'] = PAutils.getUserAgent(True)
     HTTP.Headers['Accept-Encoding'] = 'gzip'
 
-def capitalize(line):
-    return ' '.join([s[0].upper() + s[1:] for s in line.split(' ')])
+    requests.packages.urllib3.disable_warnings()
+
+    dateNowObj = datetime.now()
+    debug_dir = os.path.realpath('debug_data')
+    if os.path.exists(debug_dir):
+        for directoryName in os.listdir(debug_dir):
+            debugDateObj = parse(directoryName)
+            if abs((dateNowObj - debugDateObj).days) > 3:
+                debugLogs = os.path.join(debug_dir, directoryName)
+                shutil.rmtree(debugLogs)
+                Log('Deleted debug data: %s' % directoryName)
+
+
+def ValidatePrefs():
+    Log('ValidatePrefs function call')
 
 
 class PhoenixAdultAgent(Agent.Movies):
     name = 'PhoenixAdult'
-    languages = [Locale.Language.English]
-    accepts_from = ['com.plexapp.agents.localmedia']
+    languages = [Locale.Language.NoLanguage, Locale.Language.English, Locale.Language.German, Locale.Language.French, Locale.Language.Spanish, Locale.Language.Italian, Locale.Language.Dutch]
+    accepts_from = ['com.plexapp.agents.localmedia', 'com.plexapp.agents.lambda']
+    contributes_to = ['com.plexapp.agents.none', 'com.plexapp.agents.stashplexagent', 'com.plexapp.agents.themoviedb', 'com.plexapp.agents.imdb']
     primary_provider = True
 
-    def search(self, results, media, lang):
-        title = media.name
-        if media.primary_metadata is not None:
-            title = media.primary_metadata.title
-        title = title.replace('"','').replace("'","").replace(":","").replace("!","").replace("(","").replace(")","").replace("&","")
-        Log('*******MEDIA TITLE****** ' + str(title))
+    def search(self, results, media, lang, manual):
+        if not manual and Prefs['manual_override']:
+            Log('Skipping Search for Manual Override')
+            return
 
-        # Search for year
-        year = media.year
-        if media.primary_metadata is not None:
-            year = media.primary_metadata.year
+        if not media.name and media.primary_metadata.title:
+            media.name = media.primary_metadata.title
 
-        Log("Getting Search Settings for: " + title)
-        searchDate = None
-        searchSiteID = None
+        title = PAutils.getSearchTitleStrip(media.name)
+        title = PAutils.getCleanSearchTitle(title)
+
+        Log('***MEDIA TITLE [from media.name]*** %s' % title)
         searchSettings = PAsearchSites.getSearchSettings(title)
-        if searchSettings[0] == 9999:
-            searchAll = True
-        else:
-            searchAll = False
-            searchSiteID = searchSettings[0]
-            if searchSiteID == 3:
-                searchSiteID = 0
-            if searchSiteID == 4:
-                searchSiteID = 1
-        searchTitle = searchSettings[2]
-        Log("Site ID: " + str(searchSettings[0]))
-        Log("Search Title: " + searchSettings[2])
-        if searchSettings[1]:
-            searchByDateActor = True
-            searchDate = searchSettings[3]
-            Log("Search Date: " + searchSettings[3])
-        else:
-            searchByDateActor = False
+        Log(searchSettings)
 
-        encodedTitle = urllib.quote(searchTitle)
-        Log(encodedTitle)
-        siteNum = 0
-        for searchSite in PAsearchSites.searchSites:
-            ###############
-            ## Blacked and Blacked Raw Search
-            ###############
-            if siteNum == 0 or siteNum == 1:
-                if searchAll or searchSiteID == 0 or searchSiteID == 1:
-                    results = PAsearchSites.siteBlacked.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+        filepath = None
+        filename = None
+        if media.filename:
+            filepath = urllib.unquote(media.filename)
+            filename = str(os.path.splitext(os.path.basename(filepath))[0])
+            filename = PAutils.getSearchTitleStrip(filename)
 
-            ###############
-            ## Brazzers
-            ###############
-            if siteNum == 2:
-                if searchAll or searchSiteID == 2 or (searchSiteID >= 54 and searchSiteID <= 81):
-                    results = PAsearchSites.siteBrazzers.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-            ###############
-            ## Naughty America
-            ###############
-            if siteNum == 5:
-                if searchAll or (searchSiteID >= 5 and searchSiteID <= 51): 
-                    results = PAsearchSites.siteNaughtyAmerica.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+        if searchSettings['siteNum'] is None and filepath:
+            directory = str(os.path.split(os.path.dirname(filepath))[1])
+            directory = PAutils.getSearchTitleStrip(directory)
 
-            ###############
-            ## Vixen
-            ###############
-            if siteNum == 52:
-                if searchAll or searchSiteID == 52:
-                    results = PAsearchSites.siteVixen.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-                
-            ###############
-            ## Girlsway
-            ###############
-            if siteNum == 53:
-                if searchAll or searchSiteID == 53:
-                    results = PAsearchSites.siteGirlsway.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+            newTitle = PAutils.getCleanSearchTitle(directory)
+            Log('***MEDIA TITLE [from directory]*** %s' % newTitle)
+            searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
-                
-            ###############
-            ## X-Art
-            ###############
-            if siteNum == 82:
-                if searchAll or searchSiteID == 82:
-                    results = PAsearchSites.siteXart.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-            
-            ###############
-            ## Bang Bros
-            ###############
-            if siteNum == 83:
-                if searchAll or (searchSiteID >= 83 and searchSiteID <= 135):
-                    results = PAsearchSites.siteBangBros.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-                    
-            ###############
-            ## Tushy
-            ###############
-            if siteNum == 136:
-                if searchAll or searchSiteID == 136:
-                    results = PAsearchSites.siteTushy.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+            if searchSettings['siteNum'] is None:
+                if title == newTitle and title != filename:
+                    title = filename
 
+                newTitle = '%s %s' % (newTitle, title)
+                Log('***MEDIA TITLE [from directory + media.name]*** %s' % newTitle)
+                searchSettings = PAsearchSites.getSearchSettings(newTitle)
 
-            ###############
-            ## Reality Kings
-            ###############
-            if siteNum == 137:
-                if searchAll or (searchSiteID >= 137 and searchSiteID <= 182):
-                    results = PAsearchSites.siteRealityKings.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-                            
-            
-            ###############
-            ## 21Naturals
-            ###############
-            if siteNum == 183:
-                if searchAll or searchSiteID == 183:
-                    results = PAsearchSites.site21Naturals.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-                            
+        providerName = None
+        siteNum = searchSettings['siteNum']
+        searchTitle = searchSettings['searchTitle']
+        if not searchTitle:
+            searchTitle = title
+        searchDate = searchSettings['searchDate']
+        search = PAsearchData.SearchData(media, searchTitle, searchDate, filepath)
 
-            ###############
-            ## PornFidelity
-            ###############
-            if siteNum == 184:
-                
-                if searchAll or searchSiteID == 184:
-                    results = PAsearchSites.sitePornFidelity.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-            
-            ###############
-            ## TeenFidelity
-            ###############
-            if siteNum == 185:
-                
-                if searchAll or searchSiteID == 185:
-                    results = PAsearchSites.siteTeenFidelity.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+        if siteNum is not None:
+            provider = PAsiteList.getProviderFromSiteNum(siteNum)
+            if provider is not None:
+                providerName = getattr(provider, '__name__')
+                Log('Provider: %s' % providerName)
+                try:
+                    provider.search(results, lang, siteNum, search)
+                except Exception as e:
+                    Log.Error(format_exc())
 
-            ###############
-            ## Kelly Madison
-            ###############
-            if siteNum == 186:
-                if searchAll or searchSiteID == 186:
-                    results = PAsearchSites.siteKellyMadison.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
+        if Prefs['metadataapi_enable'] and providerName != 'networkMetadataAPI' and (siteNum is None or not results or 100 != max([result.score for result in results])):
+            siteNum = PAsearchSites.getSiteNumByFilter('MetadataAPI')
+            if siteNum is not None:
+                provider = PAsiteList.getProviderFromSiteNum(siteNum)
+                if provider is not None:
+                    providerName = getattr(provider, '__name__')
+                    Log('Provider: %s' % providerName)
+                    try:
+                        provider.search(results, lang, siteNum, search)
+                    except Exception as e:
+                        Log.Error(format_exc())
 
-        
-            ###############
-            ## Team Skeet
-            ###############
-            if siteNum == 187:
-                if searchAll or (searchSiteID >= 187 and searchSiteID <= 215):
-                    results = PAsearchSites.siteTeamSkeet.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-
-            ###############
-            ## Porndoe Premium
-            ###############
-            if siteNum == 216:
-                if searchAll or (searchSiteID >= 216 and searchSiteID <= 259):
-                    results = PAsearchSites.sitePorndoePremium.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-
-            ###############
-            ## Legal Porno
-            ###############
-            if siteNum == 260:
-                if searchAll or searchSiteID == 260:
-                    results = PAsearchSites.siteLegalPorno.search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate, searchAll, searchSiteID)
-
-            siteNum += 1 
-        
         results.Sort('score', descending=True)
 
     def update(self, metadata, media, lang):
         movieGenres = PAgenres.PhoenixGenres()
-        
+        movieActors = PAactors.PhoenixActors()
+        valid_images = list()
+
         HTTP.ClearCache()
+        metadata.collections.clear()
+
+        metadata.genres.clear()
+        movieGenres.clearGenres()
+
+        metadata.roles.clear()
+        movieActors.clearActors()
+
+        metadata.directors.clear()
+        movieActors.clearDirectors()
+
+        metadata.producers.clear()
+        movieActors.clearProducers()
 
         Log('******UPDATE CALLED*******')
-        
-        siteID = int(str(metadata.id).split("|")[1])
-        Log(str(siteID))
-        ##############################################################
-        ##                                                          ##
-        ##   Blacked                                                ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 1:
-            metadata = PAsearchSites.siteBlacked.update(metadata,siteID,movieGenres)
-            
-        ##############################################################
-        ##                                                          ##
-        ##   Blacked Raw                                            ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 0:
-            metadata = PAsearchSites.siteBlacked.updateRaw(metadata,siteID,movieGenres)
-        
-        ##############################################################
-        ##                                                          ##
-        ##   Brazzers                                               ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 2 or (siteID >= 54 and siteID <= 81):
-            metadata = PAsearchSites.siteBrazzers.update(metadata,siteID,movieGenres)
-                
-        ##############################################################
-        ##                                                          ##
-        ##   Naughty America                                        ##
-        ##                                                          ##
-        ##############################################################        
-        if siteID >= 5 and siteID <= 51:
-            metadata = PAsearchSites.siteNaughtyAmerica.update(metadata,siteID,movieGenres)
 
-        ##############################################################
-        ##                                                          ##
-        ##   Vixen                                                  ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 52:
-            metadata = PAsearchSites.siteVixen.update(metadata,siteID,movieGenres)
+        metadata_id = str(metadata.id).split('|')
+        siteNum = int(metadata_id[1])
+        Log('SiteNum: %d' % siteNum)
 
-        ##############################################################
-        ##                                                          ##
-        ##   Girlsway                                               ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 53:
-            metadata = PAsearchSites.siteGirlsway.update(metadata,siteID,movieGenres)
+        if Prefs['remove_images']:
+            metadata.posters.validate_keys(valid_images)
+            metadata.art.validate_keys(valid_images)
 
+        provider = PAsiteList.getProviderFromSiteNum(siteNum)
+        if provider is not None:
+            providerName = getattr(provider, '__name__')
+            Log('Provider: %s' % providerName)
+            provider.update(metadata, lang, siteNum, movieGenres, movieActors, valid_images)
 
-        ##############################################################
-        ##                                                          ##
-        ##   X-Art                                                  ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 82:
-            metadata = PAsearchSites.siteXart.update(metadata,siteID,movieGenres)
+        # Cleanup Genres and Add
+        Log('Genres')
+        movieGenres.processGenres(metadata, siteNum)
+        metadata.genres = sorted(metadata.genres)
 
-        ##############################################################
-        ##                                                          ##
-        ##   Bang Bros                                              ##
-        ##                                                          ##
-        ##############################################################
-        if siteID >= 83 and siteID <= 135:
-            metadata = PAsearchSites.siteBangBros.update(metadata,siteID,movieGenres)
+        # Cleanup Actors and Add
+        Log('Actors')
+        movieActors.processActors(metadata, siteNum)
 
-        ##############################################################
-        ##                                                          ##
-        ##   Tushy                                                  ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 136:
-            metadata = PAsearchSites.siteTushy.update(metadata,siteID,movieGenres)
+        # Cleanup Directors and Add
+        Log('Directors')
+        movieActors.processDirectors(metadata, siteNum)
 
+        # Cleanup Producers and Add
+        Log('Producers')
+        movieActors.processProducers(metadata, siteNum)
 
-        ##############################################################
-        ##                                                          ##
-        ##   Reality Kings                                          ##
-        ##                                                          ##
-        ##############################################################
-        if siteID >= 137 and siteID <= 182:
-            metadata = PAsearchSites.siteRealityKings.update(metadata,siteID,movieGenres)
+        # Add Content Rating
+        metadata.content_rating = 'XXX'
 
+        if Prefs['custom_title_enable']:
+            data = {
+                'title': metadata.title,
+                'actors': ', '.join([actor.name.encode('ascii', 'ignore') for actor in metadata.roles]),
+                'studio': metadata.studio,
+                'series': ', '.join(set([collection.encode('ascii', 'ignore') for collection in metadata.collections if collection not in metadata.studio])),
+            }
+            metadata.title = Prefs['custom_title'].format(**data)
 
-        ##############################################################
-        ##                                                          ##
-        ##   21Naturals                                             ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 183:
-            metadata = PAsearchSites.site21Naturals.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   PornFidelity                                           ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 184:
-            metadata = PAsearchSites.sitePornFidelity.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   TeenFidelity                                           ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 185:
-            metadata = PAsearchSites.siteTeenFidelity.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   Kelly Madison                                          ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 186:
-            metadata = PAsearchSites.siteKellyMadison.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   TeamSkeet                                              ##
-        ##                                                          ##
-        ##############################################################
-        if siteID >= 187 and siteID <= 215:
-            metadata = PAsearchSites.siteTeamSkeet.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   Porndoe Premium                                        ##
-        ##                                                          ##
-        ##############################################################
-        if siteID >= 216 and siteID <= 259:
-            metadata = PAsearchSites.sitePorndoePremium.update(metadata,siteID,movieGenres)
-
-        ##############################################################
-        ##                                                          ##
-        ##   LegalPorno                                             ##
-        ##                                                          ##
-        ##############################################################
-        if siteID == 260:
-            metadata = PAsearchSites.siteLegalPorno.update(metadata,siteID,movieGenres)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        ##############################################################
-        ## Cleanup Genres and Add
-        metadata.genres.clear()
-        Log("Genres")
-        movieGenres.processGenres(metadata)
-       
+        if Prefs['validate_image_keys']:
+            metadata.posters.validate_keys(valid_images)
+            metadata.art.validate_keys(valid_images)

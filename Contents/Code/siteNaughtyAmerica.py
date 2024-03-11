@@ -1,84 +1,202 @@
 import PAsearchSites
-import PAgenres
-def search(results,encodedTitle,title,searchTitle,siteNum,lang,searchByDateActor,searchDate,searchAll,searchSiteID):
-    searchString = encodedTitle.replace(" ","+")
-    if not searchAll:
-        searchString = searchString + "+in+" + PAsearchSites.getSearchSiteName(searchSiteID).replace(" ","+")
-    searchResults = HTML.ElementFromURL(PAsearchSites.getSearchSearchURL(siteNum) + searchString)
-    for searchResult in searchResults.xpath('//div[@class="scene-item"]'):
-        titleNoFormatting = searchResult.xpath('.//a')[0].get("title")
-        Log("Result Title: " + titleNoFormatting)
-        curID = searchResult.xpath('.//a')[0].get('href')
-        curID = curID[31:-26]
-        curID = curID.replace('/','_')
-        Log("ID: " + curID)
-        releasedDate = searchResult.xpath('.//p[@class="entry-date"]')[0].text_content()
+import PAutils
 
-        Log("CurID" + str(curID))
-        lowerResultTitle = str(titleNoFormatting).lower()
-        searchString = searchString.replace("+"," ")
-        if searchByDateActor != True:
-            score = 102 - Util.LevenshteinDistance(searchString.lower(), titleNoFormatting.lower())
-        else:
-            searchDateCompare = datetime.strptime(searchDate, '%Y-%m-%d').strftime('%b %d, %y')
-            score = 102 - Util.LevenshteinDistance(searchDateCompare.lower(), releasedDate.lower())
-        titleNoFormatting = titleNoFormatting + " [NA, " + releasedDate +"]"
-        results.Append(MetadataSearchResult(id = curID + "|" + str(siteNum), name = titleNoFormatting, score = score, lang = lang))
+
+def getNaughtyAmerica(sceneID):
+    re_image = re.compile(r'images\d+', re.IGNORECASE)
+
+    req = PAutils.HTTPRequest('https://www.naughtyamerica.com/scene/0' + sceneID)
+    scenePageElements = HTML.ElementFromString(req.text)
+
+    photoElements = scenePageElements.xpath('//div[contains(@class, "contain-scene-images") and contains(@class, "desktop-only")]/a/@href')
+
+    photos = []
+    for photo in photoElements:
+        img = 'https:' + re_image.sub('images1', photo, 1)
+        photos.append(img)
+
+    results = {
+        'id': int(sceneID),
+        'title': scenePageElements.xpath('//div[contains(@class, "scene-info")]//h1/text()')[0],
+        'site': scenePageElements.xpath('//a[@class="site-title grey-text link"]/text()')[0],
+        'published_at': parse(scenePageElements.xpath('//div[contains(@class, "date-tags")]//span/text()')[0]),
+        'fantasies': scenePageElements.xpath('//div[contains(@class, "categories") and contains(@class, "grey-text")]/a/text()'),
+        'performers': scenePageElements.xpath('//div[contains(@class, "performer-list")]/a/text()'),
+        'synopsis': scenePageElements.xpath('//div[contains(@class, "synopsis") and contains(@class, "grey-text")]//h2')[0].tail.strip(),
+        'photos': photos,
+    }
+
     return results
-def update(metadata,siteID,movieGenres):
-    temp = str(metadata.id).split("|")[0].replace('_','/')
 
-    url = PAsearchSites.getSearchBaseURL(siteID) + temp
-    detailsPageElements = HTML.ElementFromURL(url)
+
+def search(results, lang, siteNum, searchData):
+    sceneID = searchData.title.split(' ', 1)[0]
+    if unicode(sceneID, 'UTF-8').isdigit():
+        searchData.title = searchData.title.replace(sceneID, '', 1).strip()
+    else:
+        sceneID = None
+
+    searchURL = PAsearchSites.getSearchSearchURL(siteNum) + slugify(searchData.title, separator='+')
+    if sceneID:
+        scenePageElements = getNaughtyAmerica(sceneID)
+        titleNoFormatting = PAutils.parseTitle(scenePageElements['title'], siteNum)
+        curID = scenePageElements['id']
+        releaseDate = scenePageElements['published_at'].strftime('%Y-%m-%d')
+        siteName = scenePageElements['site']
+
+        if sceneID:
+            score = 100 - Util.LevenshteinDistance(sceneID, curID)
+        elif searchData.date:
+            score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+        else:
+            score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+        results.Append(MetadataSearchResult(id='%d|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, siteName, releaseDate), score=score, lang=lang))
+    else:
+        req = PAutils.HTTPRequest(searchURL)
+        searchResults = HTML.ElementFromString(req.text)
+
+        try:
+            lastPage = searchResults.xpath('//li/a[./i[contains(@class, "double")]]/@href')[0]
+
+            match = re.search(r'\d+(?=#)', lastPage)
+            if match:
+                pagination = int(match.group(0)) + 2
+        except:
+            pagination = 3
+
+        if 'pornstar' in req.url:
+            searchxPath = '//div[@class="scene-item"]'
+        else:
+            searchxPath = '//div[@class="scene-grid-item"]'
+
+        for idx in range(2, pagination):
+            for searchResult in searchResults.xpath(searchxPath):
+                titleNoFormatting = PAutils.parseTitle(searchResult.xpath('./a//@title')[0].strip(), siteNum)
+                curID = int(searchResult.xpath('./a/@data-scene-id')[0])
+                releaseDate = parse(searchResult.xpath('./p[@class="entry-date"]/text()')[0]).strftime('%Y-%m-%d')
+                siteName = searchResult.xpath('./a[@class="site-title"]')[0].text_content()
+
+                if searchData.date:
+                    score = 100 - Util.LevenshteinDistance(searchData.date, releaseDate)
+                else:
+                    score = 100 - Util.LevenshteinDistance(searchData.title.lower(), titleNoFormatting.lower())
+
+                results.Append(MetadataSearchResult(id='%d|%d' % (curID, siteNum), name='%s [%s] %s' % (titleNoFormatting, siteName, releaseDate), score=score, lang=lang))
+
+            if pagination > 1 and not pagination == idx + 1:
+                if 'pornstar' in req.url:
+                    searchURL = '%s/pornstar/%s?related_page=%d' % (PAsearchSites.getSearchBaseURL(siteNum), slugify(searchData.title), idx)
+                else:
+                    searchURL = '%s%s&page=%d' % (PAsearchSites.getSearchSearchURL(siteNum), slugify(searchData.title, separator='+'), idx)
+
+                req = PAutils.HTTPRequest(searchURL)
+                searchResults = HTML.ElementFromString(req.text)
+
+    return results
+
+
+def update(metadata, lang, siteNum, movieGenres, movieActors, art):
+    metadata_id = str(metadata.id).split('|')
+    sceneID = metadata_id[0]
+
+    detailsPageElements = getNaughtyAmerica(sceneID)
+
+    # Title
+    metadata.title = PAutils.parseTitle(detailsPageElements['title'], siteNum)
 
     # Summary
-    metadata.studio = "Naughty America"
-    #paragraph = detailsPageElements.xpath('//span[@class="moreless js-readmore"]')[0].text_content()
-    #paragraph = paragraph.replace('&13;', '').strip(' \t\n\r"').replace('\n','').replace('  ','') + "\n\n"
-    metadata.summary = detailsPageElements.xpath('//p[@class="synopsis_txt"]')[0].text_content()
-    site = detailsPageElements.xpath('//a[@class="site-title grey-text"]')[0].text_content()
-    metadata.title = " in " + site
-    date = detailsPageElements.xpath('//p[@class="scenedate"]//span')[0].text_content()
-    date_object = datetime.strptime(date, '%b %d, %Y')
-    metadata.originally_available_at = date_object
-    metadata.year = metadata.originally_available_at.year    
-        
-    # Actors
-    metadata.roles.clear()
-    titleActors = ""
-    actors = detailsPageElements.xpath('//a[@class="scene-title grey-text"]')
-    if len(actors) > 0:
-        for actorLink in actors:
-            role = metadata.roles.new()
-            actorName = actorLink.text_content()
-            role.name = actorName
-            titleActors = titleActors + actorName + " & "
-            actorPageURL = actorLink.get("href")
-            actorPage = HTML.ElementFromURL(actorPageURL)
-            actorPhotoURL = "http:" + actorPage.xpath('//img[@class="performer-pic"]')[0].get("src")
-            role.photo = actorPhotoURL
-        titleActors = titleActors[:-3]
-        metadata.title = titleActors + metadata.title
+    metadata.summary = detailsPageElements['synopsis']
+
+    # Studio
+    metadata.studio = 'Naughty America'
+
+    # Tagline and Collection(s)
+    tagline = detailsPageElements['site']
+    metadata.tagline = tagline
+    metadata.collections.add(tagline)
+
+    # Release Date
+    date_object = detailsPageElements['published_at']
+    if isinstance(date_object, int):
+        date_object = datetime.fromtimestamp(date_object)
+
+    if date_object:
+        metadata.originally_available_at = date_object
+        metadata.year = metadata.originally_available_at.year
 
     # Genres
-    movieGenres.clearGenres()
-    genres = detailsPageElements.xpath('//a[@class="cat-tag"]')
-    if len(genres) > 0:
-        for genre in genres:
-            movieGenres.addGenre(genre.text_content())
+    for genreLink in detailsPageElements['fantasies']:
+        genreName = genreLink
 
+        movieGenres.addGenre(genreName)
 
-    # Posters/Background
-    valid_names = list()
-    metadata.posters.validate_keys(valid_names)
-    metadata.art.validate_keys(valid_names)
-    posters = detailsPageElements.xpath('//a[contains(@class,"scene-image")]')
-    background = "http:" + detailsPageElements.xpath('//video')[0].get("poster")
-    metadata.art[background] = Proxy.Preview(HTTP.Request(background, headers={'Referer': 'http://www.google.com'}).content, sort_order = 1)
+    # Actor(s)
+    for actorLink in detailsPageElements['performers']:
+        actorName = actorLink
+        actorPhotoURL = ''
 
-    posterNum = 1
-    for posterCur in posters:
-        posterURL = "http:" + posterCur.get("href")
-        metadata.posters[posterURL] = Proxy.Preview(HTTP.Request(posterURL, headers={'Referer': 'http://www.google.com'}).content, sort_order = posterNum)
-        posterNum = posterNum + 1
+        actorsPageURL = 'https://www.naughtyamerica.com/pornstar/' + actorName.lower().replace(' ', '-').replace("'", '')
+        req = PAutils.HTTPRequest(actorsPageURL)
+        actorsPageElements = HTML.ElementFromString(req.text)
+        img = actorsPageElements.xpath('//img[@class="performer-pic"]/@src')
+        if img:
+            actorPhotoURL = 'https:' + img[0]
+
+        movieActors.addActor(actorName, actorPhotoURL)
+
+    # Posters
+    for img in detailsPageElements['photos']:
+        art.append(img)
+
+    images = []
+    posterExists = False
+    Log('Artwork found: %d' % len(art))
+    for idx, posterUrl in enumerate(art, 1):
+        if not PAsearchSites.posterAlreadyExists(posterUrl, metadata):
+            # Download image file for analysis
+            try:
+                image = PAutils.HTTPRequest(posterUrl)
+                im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+                    posterExists = True
+                if width > height:
+                    # Item is an art item
+                    metadata.art[posterUrl] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                images.append(image)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if height > width:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
+    if not posterExists:
+        for idx, image in enumerate(images, 1):
+            try:
+                im = StringIO(image.content)
+                resized_image = Image.open(im)
+                width, height = resized_image.size
+                # Add the image proxy items to the collection
+                if width > 1:
+                    # Item is a poster
+                    metadata.posters[art[idx - 1]] = Proxy.Media(image.content, sort_order=idx)
+            except:
+                pass
+
     return metadata

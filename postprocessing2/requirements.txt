@@ -1,0 +1,7 @@
+EasySettings
+google
+lxml
+pyenchant
+regex
+requests
+watchdog
