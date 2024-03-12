@@ -43,7 +43,8 @@ def update(metadata, lang, siteNum, movieGenres, movieActors, art):
     metadata.title = PAutils.parseTitle(videoPageElements['title'].strip(), siteNum)
 
     # Summary
-    metadata.summary = videoPageElements['description'].strip()
+    if 'description' in videoPageElements:
+        metadata.summary = videoPageElements['description'].strip()
 
     # Studio
     metadata.studio = 'ManyVids'
