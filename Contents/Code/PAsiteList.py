@@ -196,7 +196,7 @@ searchSites = {
     0: ('BlackedRaw', 'https://www.blackedraw.com', '/graphql'),
     1: ('Blacked', 'https://www.blacked.com', '/graphql'),
     2: ('Brazzers', 'http://www.brazzers.com', 'https://site-api.project1service.com'),
-    3: ('MetadataAPI', 'https://metadataapi.net', 'https://api.metadataapi.net'),
+    3: ('MetadataAPI', 'https://theporndb.net', 'https://api.theporndb.net'),
     4: (),
     5: ('My Friends Hot Mom', 'https://naughtyamerica.com', '/search?term='),
     6: ('My First Sex Teacher', 'https://naughtyamerica.com', '/search?term='),
